@@ -1,15 +1,10 @@
 // Google Analytics 4 Integration
 // Replace 'G-XXXXXXXXXX' with your actual Measurement ID after deployment
 
-const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX'; // TODO: Replace with real ID
+const GA_MEASUREMENT_ID = 'G-GMLMMLZB3Y'; // Doodles Analytics
 
 // Initialize Google Analytics
 (function() {
-    if (GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') {
-        console.log('⚠️ Google Analytics not configured yet. Add your Measurement ID to shared/analytics.js');
-        return;
-    }
-
     // Load gtag.js
     const script = document.createElement('script');
     script.async = true;
