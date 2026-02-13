@@ -53,8 +53,10 @@ function create() {
     // Draw ladder on LEFT side
     drawLadder(this);
 
-    // Create player on ladder (left side)
-    player = this.add.circle(200, 520, 20, 0xFF6B6B);
+    // Create player character on ladder (left side)
+    player = this.add.text(200, 520, '🧒', {
+        fontSize: '40px'
+    }).setOrigin(0.5);
     player.setDepth(10); // Player on top of ladder
 
     // UI Elements - TOP
@@ -271,17 +273,24 @@ function checkAnswer(scene, inputText) {
         feedbackText.setText('✓ Correct! Climbing up!');
         feedbackText.setColor('#00AA00');
 
-        // Animate player up
+        // Happy character
+        player.setText('😊');
+
+        // Animate player up with celebration
         scene.tweens.add({
             targets: player,
             y: player.y - 40,
             duration: 500,
-            ease: 'Power2'
+            ease: 'Power2',
+            onComplete: () => {
+                player.setText('🧒'); // Back to normal
+            }
         });
 
         // Check if won
         if (currentRung >= maxRungs) {
             gameActive = false;
+            player.setText('🎉');
             feedbackText.setText('🎉 YOU WON! You reached the top!');
             feedbackText.setColor('#FFD700');
             if (timerEvent) timerEvent.remove();
@@ -299,13 +308,24 @@ function checkAnswer(scene, inputText) {
         feedbackText.setText('✗ Wrong! Falling down...');
         feedbackText.setColor('#AA0000');
 
+        // Sad/falling character
+        player.setText('😰');
+
         if (currentRung > 0) {
             currentRung--;
             scene.tweens.add({
                 targets: player,
                 y: player.y + 40,
                 duration: 500,
-                ease: 'Bounce.easeOut'
+                ease: 'Bounce.easeOut',
+                onComplete: () => {
+                    player.setText('🧒'); // Back to normal
+                }
+            });
+        } else {
+            // Already at bottom
+            scene.time.delayedCall(500, () => {
+                player.setText('🧒');
             });
         }
 
@@ -332,13 +352,24 @@ function startTimer(scene) {
                     feedbackText.setText('⏰ Time\'s up! Falling down...');
                     feedbackText.setColor('#AA0000');
 
+                    // Shocked character
+                    player.setText('😱');
+
                     if (currentRung > 0) {
                         currentRung--;
                         scene.tweens.add({
                             targets: player,
                             y: player.y + 40,
                             duration: 500,
-                            ease: 'Bounce.easeOut'
+                            ease: 'Bounce.easeOut',
+                            onComplete: () => {
+                                player.setText('🧒'); // Back to normal
+                            }
+                        });
+                    } else {
+                        // Already at bottom
+                        scene.time.delayedCall(500, () => {
+                            player.setText('🧒');
                         });
                     }
 
