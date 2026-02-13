@@ -119,8 +119,11 @@ function update() {
     // Check if numbers fell off screen
     numbers.forEach((numberObj, index) => {
         if (numberObj.sprite.y > 650) {
-            // Number fell off screen
-            loseLife(this);
+            // Only lose life if it was the number we needed!
+            if (numberObj.value === nextNumber) {
+                loseLife(this);
+            }
+            // Remove the number regardless
             numberObj.sprite.destroy();
             numberObj.text.destroy();
             numbers.splice(index, 1);
@@ -152,19 +155,23 @@ function startGame(scene) {
 function spawnNumber(scene) {
     if (!gameActive) return;
 
-    // FIXED: Ensure the next number needed has high chance to spawn
+    // FIXED: Ensure the next number needed spawns frequently
     let numValue;
-    const randomChance = Math.random();
 
-    if (randomChance < 0.6) {
-        // 60% chance: spawn the exact number we need
+    // Check if next number is already on screen
+    const nextNumberExists = numbers.some(n => n.value === nextNumber);
+
+    if (!nextNumberExists) {
+        // Always spawn the next number if it's not on screen
         numValue = nextNumber;
-    } else if (randomChance < 0.8) {
-        // 20% chance: spawn the next 1-3 numbers we'll need
-        numValue = nextNumber + Phaser.Math.Between(1, 3);
     } else {
-        // 20% chance: spawn a random future number (distraction)
-        numValue = Phaser.Math.Between(nextNumber, Math.min(maxNumbers, nextNumber + 8));
+        // Next number exists, so spawn distractions
+        const randomChance = Math.random();
+        if (randomChance < 0.5) {
+            numValue = nextNumber + Phaser.Math.Between(1, 4);
+        } else {
+            numValue = Phaser.Math.Between(nextNumber + 1, Math.min(maxNumbers, nextNumber + 8));
+        }
     }
 
     const x = Phaser.Math.Between(100, 700);
