@@ -141,15 +141,17 @@ function createLevelCard(scene, x, y, level, isLocked) {
 
     // Name
     scene.add.text(x + 20, y - 30, level.name, {
-        fontSize: '20px',
+        fontSize: '18px',
         fill: isLocked ? '#aaa' : '#fff',
-        fontStyle: 'bold'
+        fontStyle: 'bold',
+        wordWrap: { width: 180 }
     }).setOrigin(0, 0.5);
 
     // Description
     scene.add.text(x + 20, y + 10, level.desc, {
-        fontSize: '14px',
-        fill: isLocked ? '#888' : '#ddd'
+        fontSize: '13px',
+        fill: isLocked ? '#888' : '#ddd',
+        wordWrap: { width: 180 }
     }).setOrigin(0, 0.5);
 
     if (isLocked) {
@@ -241,21 +243,24 @@ function tutorialMultiplyBy11(scene) {
         }).setOrigin(0.5);
 
         // Explanation text
-        scene.add.text(400, 180, currentStep.text, {
-            fontSize: '22px',
+        scene.add.text(400, 200, currentStep.text, {
+            fontSize: '20px',
             fill: '#fff',
             align: 'center',
-            lineSpacing: 10
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
         }).setOrigin(0.5);
 
         // Example
         if (currentStep.example) {
-            scene.add.text(400, 350, currentStep.example, {
-                fontSize: '48px',
+            scene.add.text(400, 340, currentStep.example, {
+                fontSize: '40px',
                 fill: '#00B894',
                 fontStyle: 'bold',
                 stroke: '#000',
-                strokeThickness: 3
+                strokeThickness: 3,
+                align: 'center',
+                wordWrap: { width: 700 }
             }).setOrigin(0.5);
         }
 
