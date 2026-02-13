@@ -5,19 +5,22 @@ const GA_MEASUREMENT_ID = 'G-GMLMMLZB3Y'; // Doodles Analytics
 
 // Initialize Google Analytics
 (function() {
+    // Initialize dataLayer first
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    window.gtag = gtag;
+
+    gtag('js', new Date());
+    gtag('config', GA_MEASUREMENT_ID);
+
     // Load gtag.js
     const script = document.createElement('script');
     script.async = true;
     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+    script.onload = function() {
+        console.log('✓ Google Analytics loaded successfully');
+    };
     document.head.appendChild(script);
-
-    // Initialize dataLayer
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', GA_MEASUREMENT_ID);
-
-    console.log('✓ Google Analytics initialized');
 })();
 
 // Custom event tracking helpers
