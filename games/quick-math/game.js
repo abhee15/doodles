@@ -669,16 +669,18 @@ function tutorialMultiplyBy11(scene) {
         const currentStep = steps[step];
 
         // Title
-        scene.add.text(400, 60, currentStep.title, {
+        scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#FDCB6E',
+            fill: '#5F6FFF',
+            fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
         // Explanation text
-        scene.add.text(400, 200, currentStep.text, {
+        scene.add.text(450, 200, currentStep.text, {
             fontSize: '20px',
-            fill: '#fff',
+            fill: '#2D3436',
+            fontFamily: 'Arial',
             align: 'center',
             lineSpacing: 8,
             wordWrap: { width: 700 }
@@ -686,46 +688,48 @@ function tutorialMultiplyBy11(scene) {
 
         // Example
         if (currentStep.example) {
-            scene.add.text(400, 340, currentStep.example, {
+            scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#00B894',
+                fill: '#00D68F',
+                fontFamily: 'Arial',
                 fontStyle: 'bold',
-                stroke: '#000',
-                strokeThickness: 3,
+                stroke: '#fff',
+                strokeThickness: 2,
                 align: 'center',
                 wordWrap: { width: 700 }
             }).setOrigin(0.5);
         }
 
         // Progress
-        scene.add.text(400, 480, `Step ${step + 1} of ${steps.length}`, {
-            fontSize: '18px',
-            fill: '#475569'
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '16px',
+            fill: '#636E72',
+            fontFamily: 'Arial'
         }).setOrigin(0.5);
 
         // Navigation buttons
         if (step > 0) {
-            createButton(scene, 200, 540, '← Previous', COLORS.buttonBg, () => {
+            createModernButton(scene, 220, 590, '← Previous', COLORS.textLight, () => {
                 step--;
                 showStep();
-            }, 150, 50);
+            }, 150, 50, true);
         }
 
         if (step < steps.length - 1) {
-            createButton(scene, 600, 540, 'Next →', COLORS.success, () => {
+            createModernButton(scene, 680, 590, 'Next →', COLORS.primary, () => {
                 step++;
                 showStep();
             }, 150, 50);
         } else {
-            createButton(scene, 600, 540, 'Practice!', COLORS.success, () => {
+            createModernButton(scene, 680, 590, 'Practice!', COLORS.success, () => {
                 showPractice(scene, 1);
             }, 150, 50);
         }
 
-        // Back to menu
-        createButton(scene, 100, 50, '← Back', COLORS.error, () => {
+        // Back to level select
+        createModernButton(scene, 120, 600, '← Back', COLORS.textLight, () => {
             showLevelSelect(scene);
-        }, 120, 40);
+        }, 140, 50, true);
     }
 
     showStep();
