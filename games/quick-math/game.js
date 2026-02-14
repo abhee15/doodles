@@ -342,39 +342,43 @@ function showPractice(scene, levelId) {
         if (feedbackText) feedbackText.destroy();
         if (inputText) inputText.destroy();
 
-        questionText = scene.add.text(400, 150, `${currentQuestion.num} × 11 = ?`, {
-            fontSize: '48px',
+        // Question
+        questionText = scene.add.text(400, 120, `${currentQuestion.num} × 11 = ?`, {
+            fontSize: '44px',
             fill: '#fff',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
-        // Input display
-        answerText = scene.add.rectangle(400, 250, 250, 70, 0x2d3436);
+        // Input box background
+        answerText = scene.add.rectangle(400, 200, 250, 70, 0x2d3436);
         answerText.setStrokeStyle(3, COLORS.buttonBg);
 
-        inputText = scene.add.text(400, 250, '', {
-            fontSize: '42px',
+        // Input text
+        inputText = scene.add.text(400, 200, '', {
+            fontSize: '40px',
+            fill: '#FDCB6E',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Feedback (below input)
+        feedbackText = scene.add.text(400, 270, '', {
+            fontSize: '24px',
             fill: '#fff',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
-        feedbackText = scene.add.text(400, 340, '', {
-            fontSize: '28px',
-            fill: '#fff'
-        }).setOrigin(0.5);
-
-        // Number pad
+        // Number pad (centered, lower on screen)
         createNumberPad(scene, inputText);
 
-        // Buttons
-        createButton(scene, 300, 520, 'Clear', COLORS.error, () => {
+        // Action buttons (bottom)
+        createButton(scene, 280, 560, 'Clear', COLORS.error, () => {
             userAnswer = '';
             inputText.setText('');
-        }, 120, 50);
+        }, 140, 50);
 
-        createButton(scene, 500, 520, 'Submit', COLORS.success, () => {
+        createButton(scene, 520, 560, 'Submit', COLORS.success, () => {
             checkAnswer();
-        }, 120, 50);
+        }, 140, 50);
     }
 
     function checkAnswer() {
@@ -448,20 +452,20 @@ function showResults(scene, score, total) {
 
 // ==================== NUMBER PAD ====================
 function createNumberPad(scene, inputText) {
-    const startX = 280;
-    const startY = 400;
-    const spacing = 70;
+    const startX = 265;
+    const startY = 350;
+    const spacing = 65;
 
     for (let i = 0; i <= 9; i++) {
         const x = startX + (i % 5) * spacing;
-        const y = startY + Math.floor(i / 5) * 60;
+        const y = startY + Math.floor(i / 5) * 70;
 
-        const btn = scene.add.rectangle(x, y, 55, 50, COLORS.buttonBg);
+        const btn = scene.add.rectangle(x, y, 55, 55, COLORS.buttonBg);
         btn.setInteractive({ useHandCursor: true });
         btn.setStrokeStyle(2, 0x000);
 
         const text = scene.add.text(x, y, i, {
-            fontSize: '28px',
+            fontSize: '26px',
             fill: '#000',
             fontStyle: 'bold'
         }).setOrigin(0.5);
