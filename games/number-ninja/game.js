@@ -1,18 +1,11 @@
 // Number Ninja Game - Phaser 3
 // Click falling numbers in the correct order!
+// MIGRATED TO TEMPLATE SYSTEM V2.0
 
-const config = {
-    type: Phaser.AUTO,
+const config = createGameConfig({
     width: 800,
     height: 600,
-    parent: 'game-container',
-    backgroundColor: '#1a1a2e',
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 800,
-        height: 600
-    },
+    backgroundColor: COLORS.neutral.darkBg.phaser,
     physics: {
         default: 'arcade',
         arcade: {
@@ -25,7 +18,7 @@ const config = {
         create: create,
         update: update
     }
-};
+});
 
 const game = new Phaser.Game(config);
 
@@ -47,70 +40,73 @@ function preload() {
 }
 
 function create() {
-    // Title
-    this.add.text(400, 30, '🥷 Number Ninja', {
+    const center = getCenterPosition(this);
+
+    // Title - using design system typography
+    this.add.text(center.x, 30, '🥷 Number Ninja', {
         fontSize: '36px',
-        fill: '#FFD700',
+        fill: COLORS.warning.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        stroke: '#000',
+        stroke: COLORS.neutral.darkBg.hex,
         strokeThickness: 4
     }).setOrigin(0.5);
 
     // Score
     scoreText = this.add.text(20, 70, 'Score: 0', {
         fontSize: '24px',
-        fill: '#fff',
+        fill: COLORS.neutral.lightText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: '#000',
+        backgroundColor: COLORS.neutral.darkBg.hex,
         padding: { x: 10, y: 5 }
     });
 
-    // Lives
-    livesText = this.add.text(700, 70, '❤️ ❤️ ❤️', {
+    // Lives - responsive positioning
+    const livesX = this.scale.width - 100;
+    livesText = this.add.text(livesX, 70, '❤️ ❤️ ❤️', {
         fontSize: '24px',
-        backgroundColor: '#000',
+        backgroundColor: COLORS.neutral.darkBg.hex,
         padding: { x: 10, y: 5 }
     });
 
     // Next number to click
-    nextNumberText = this.add.text(400, 120, 'Click: 1', {
+    nextNumberText = this.add.text(center.x, 120, 'Click: 1', {
         fontSize: '32px',
-        fill: '#00FF00',
+        fill: COLORS.success.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: '#000',
+        backgroundColor: COLORS.neutral.darkBg.hex,
         padding: { x: 15, y: 8 }
     }).setOrigin(0.5);
 
     // Instructions
-    const instructions = this.add.text(400, 300, 'Click numbers in order!\n1 → 2 → 3 → 4...', {
+    const instructions = this.add.text(center.x, center.y, 'Click numbers in order!\n1 → 2 → 3 → 4...', {
         fontSize: '28px',
-        fill: '#fff',
+        fill: COLORS.neutral.lightText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
         align: 'center',
-        stroke: '#000',
+        stroke: COLORS.neutral.darkBg.hex,
         strokeThickness: 3
     }).setOrigin(0.5);
 
-    // Start button
-    const startButton = this.add.rectangle(400, 400, 200, 60, 0x00FF00);
-    startButton.setInteractive({ useHandCursor: true });
-    startButton.setStrokeStyle(3, 0x000);
-
-    const startText = this.add.text(400, 400, 'START', {
-        fontSize: '28px',
-        fill: '#000',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
-
-    startButton.on('pointerdown', () => {
-        instructions.destroy();
-        startButton.destroy();
-        startText.destroy();
-        startGame(this);
-    });
-
-    startButton.on('pointerover', () => startButton.setFillStyle(0x00DD00));
-    startButton.on('pointerout', () => startButton.setFillStyle(0x00FF00));
+    // Start button - using NEW button component system
+    const startButton = createButton(
+        this,
+        center.x,
+        center.y + 100,
+        'START',
+        () => {
+            instructions.destroy();
+            startButton.destroy();
+            startGame(this);
+        },
+        {
+            variant: ButtonVariants.SUCCESS,
+            size: ButtonSizes.LARGE
+        }
+    );
 }
 
 function update() {
@@ -174,16 +170,17 @@ function spawnNumber(scene) {
         }
     }
 
-    const x = Phaser.Math.Between(100, 700);
+    const x = Phaser.Math.Between(100, scene.scale.width - 100);
     const y = -50;
 
-    // Create number bubble
-    const bubble = scene.add.circle(x, y, 40, 0x4ECDC4);
-    bubble.setStrokeStyle(4, 0x000);
+    // Create number bubble - using design system colors
+    const bubble = scene.add.circle(x, y, 40, COLORS.info.phaser);
+    bubble.setStrokeStyle(4, COLORS.neutral.darkBg.phaser);
 
     const text = scene.add.text(x, y, numValue, {
         fontSize: '36px',
-        fill: '#000',
+        fill: COLORS.neutral.darkText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
@@ -230,7 +227,8 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
         // Show success effect
         const success = scene.add.text(bubble.x, bubble.y, '✓ +10', {
             fontSize: '24px',
-            fill: '#00FF00',
+            fill: COLORS.success.hex,
+            fontFamily: 'Arial, sans-serif',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
@@ -264,11 +262,12 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
 
     } else {
         // Wrong number!
-        bubble.setFillStyle(0xFF0000);
+        bubble.setFillStyle(COLORS.error.phaser);
 
         const wrong = scene.add.text(bubble.x, bubble.y, '✗', {
             fontSize: '36px',
-            fill: '#FF0000',
+            fill: COLORS.error.hex,
+            fontFamily: 'Arial, sans-serif',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
@@ -280,7 +279,7 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
         });
 
         scene.time.delayedCall(300, () => {
-            bubble.setFillStyle(0x4ECDC4);
+            bubble.setFillStyle(COLORS.info.phaser);
         });
 
         loseLife(scene);
@@ -307,13 +306,13 @@ function updateUI() {
 
     nextNumberText.setText(`Click: ${nextNumber}`);
 
-    // Color code based on urgency
+    // Color code based on urgency - using design system
     if (lives === 1) {
-        nextNumberText.setColor('#FF0000');
+        nextNumberText.setColor(COLORS.error.hex);
     } else if (lives === 2) {
-        nextNumberText.setColor('#FFFF00');
+        nextNumberText.setColor(COLORS.warning.hex);
     } else {
-        nextNumberText.setColor('#00FF00');
+        nextNumberText.setColor(COLORS.success.hex);
     }
 }
 
@@ -328,39 +327,38 @@ function gameOver(scene) {
     });
     numbers = [];
 
-    // Game over screen
-    const bg = scene.add.rectangle(400, 300, 600, 300, 0x000000, 0.9);
-    bg.setStrokeStyle(4, 0xFF0000);
+    const center = getCenterPosition(scene);
 
-    scene.add.text(400, 240, '💀 Game Over!', {
+    // Game over screen - using design system colors
+    const bg = scene.add.rectangle(center.x, center.y, 600, 300, COLORS.neutral.darkBg.phaser, 0.95);
+    bg.setStrokeStyle(4, COLORS.error.phaser);
+
+    scene.add.text(center.x, center.y - 60, '💀 Game Over!', {
         fontSize: '48px',
-        fill: '#FF0000',
+        fill: COLORS.error.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    scene.add.text(400, 300, `Final Score: ${score}`, {
+    scene.add.text(center.x, center.y, `Final Score: ${score}`, {
         fontSize: '32px',
-        fill: '#fff',
+        fill: COLORS.neutral.lightText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    // Restart button
-    const restartBtn = scene.add.rectangle(400, 380, 200, 60, 0x00FF00);
-    restartBtn.setInteractive({ useHandCursor: true });
-    restartBtn.setStrokeStyle(3, 0x000);
-
-    const restartText = scene.add.text(400, 380, 'PLAY AGAIN', {
-        fontSize: '24px',
-        fill: '#000',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
-
-    restartBtn.on('pointerdown', () => {
-        scene.scene.restart();
-    });
-
-    restartBtn.on('pointerover', () => restartBtn.setFillStyle(0x00DD00));
-    restartBtn.on('pointerout', () => restartBtn.setFillStyle(0x00FF00));
+    // Restart button - using NEW button component
+    createButton(
+        scene,
+        center.x,
+        center.y + 80,
+        'PLAY AGAIN',
+        () => scene.scene.restart(),
+        {
+            variant: ButtonVariants.SUCCESS,
+            size: ButtonSizes.LARGE
+        }
+    );
 }
 
 function winGame(scene) {
@@ -374,37 +372,36 @@ function winGame(scene) {
     });
     numbers = [];
 
-    // Victory screen
-    const bg = scene.add.rectangle(400, 300, 600, 300, 0x000000, 0.9);
-    bg.setStrokeStyle(4, 0xFFD700);
+    const center = getCenterPosition(scene);
 
-    scene.add.text(400, 240, '🎉 You Win!', {
+    // Victory screen - using design system colors
+    const bg = scene.add.rectangle(center.x, center.y, 600, 300, COLORS.neutral.darkBg.phaser, 0.95);
+    bg.setStrokeStyle(4, COLORS.warning.phaser);
+
+    scene.add.text(center.x, center.y - 60, '🎉 You Win!', {
         fontSize: '48px',
-        fill: '#FFD700',
+        fill: COLORS.warning.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    scene.add.text(400, 300, `Perfect Score: ${score}`, {
+    scene.add.text(center.x, center.y, `Perfect Score: ${score}`, {
         fontSize: '32px',
-        fill: '#fff',
+        fill: COLORS.neutral.lightText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    // Restart button
-    const restartBtn = scene.add.rectangle(400, 380, 200, 60, 0x00FF00);
-    restartBtn.setInteractive({ useHandCursor: true });
-    restartBtn.setStrokeStyle(3, 0x000);
-
-    const restartText = scene.add.text(400, 380, 'PLAY AGAIN', {
-        fontSize: '24px',
-        fill: '#000',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
-
-    restartBtn.on('pointerdown', () => {
-        scene.scene.restart();
-    });
-
-    restartBtn.on('pointerover', () => restartBtn.setFillStyle(0x00DD00));
-    restartBtn.on('pointerout', () => restartBtn.setFillStyle(0x00FF00));
+    // Restart button - using NEW button component
+    createButton(
+        scene,
+        center.x,
+        center.y + 80,
+        'PLAY AGAIN',
+        () => scene.scene.restart(),
+        {
+            variant: ButtonVariants.SUCCESS,
+            size: ButtonSizes.LARGE
+        }
+    );
 }
