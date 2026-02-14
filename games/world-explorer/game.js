@@ -30,16 +30,16 @@ let score = 0;
 let countriesLearned = [];
 let unlockedDifficulties = 1;
 
-// Color Palette (Continent-themed)
+// Color Palette (Monokai-style: high-contrast text for kids)
 const COLORS = {
-    primary: 0x5F6FFF,
+    primary: 0x4F46E5,
     secondary: 0xFFB800,
     success: 0x00D68F,
     error: 0xFF6B6B,
     background: 0xF5F7FA,
     cardBg: 0xFFFFFF,
-    text: 0x2D3436,
-    textLight: 0x636E72,
+    text: 0x1E293B,
+    textLight: 0x475569,
     // Continent colors
     africa: 0xFF8C42,
     asia: 0xFF6B6B,
@@ -1290,13 +1290,13 @@ function showMainMenu(scene) {
 
     scene.add.text(450, 80, '🌍 World Explorer', {
         fontSize: '64px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
     scene.add.text(450, 145, 'Discover Amazing Countries!', {
         fontSize: '24px',
-        fill: '#636E72',
+        fill: '#475569',
         fontStyle: 'italic'
     }).setOrigin(0.5);
 
@@ -1308,7 +1308,7 @@ function showMainMenu(scene) {
     const learnedText = scene.add.text(0, 0,
         `Countries Learned: ${countriesLearned.length}/60`, {
         fontSize: '20px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
@@ -1334,8 +1334,8 @@ function showMainMenu(scene) {
 
     features.forEach((text, i) => {
         scene.add.text(450, 510 + (i * 30), text, {
-            fontSize: '16px',
-            fill: '#636E72'
+            fontSize: '18px',
+            fill: '#475569'
         }).setOrigin(0.5);
     });
 }
@@ -1346,7 +1346,7 @@ function showHowToPlay(scene) {
 
     scene.add.text(450, 50, 'How to Play', {
         fontSize: '42px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
@@ -1390,13 +1390,13 @@ function showHowToPlay(scene) {
 
         scene.add.text(220, y - 15, item.title, {
             fontSize: '20px',
-            fill: '#2D3436',
+            fill: '#1E293B',
             fontStyle: 'bold'
         }).setOrigin(0, 0.5);
 
         scene.add.text(220, y + 10, item.desc, {
-            fontSize: '14px',
-            fill: '#636E72',
+            fontSize: '18px',
+            fill: '#475569',
             wordWrap: { width: 500 }
         }).setOrigin(0, 0.5);
     });
@@ -1413,13 +1413,13 @@ function showDifficultySelect(scene) {
 
     scene.add.text(450, 60, 'Choose Your Journey', {
         fontSize: '42px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
     scene.add.text(450, 105, 'Start easy and unlock more!', {
         fontSize: '18px',
-        fill: '#636E72'
+        fill: '#475569'
     }).setOrigin(0.5);
 
     const difficulties = [
@@ -1497,7 +1497,7 @@ function createDifficultyCard(scene, x, y, level, isLocked) {
     }).setOrigin(0, 0.5);
 
     scene.add.text(x - 210, y + 12, level.desc, {
-        fontSize: '16px',
+        fontSize: '18px',
         fill: isLocked ? '#CED4DA' : '#636E72'
     }).setOrigin(0, 0.5);
 
@@ -1541,30 +1541,32 @@ function showCountrySelect(scene, difficulty) {
 
     scene.add.text(450, 40, 'Choose a Country to Learn', {
         fontSize: '38px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
     const availableCountries = getCountriesByDifficulty(difficulty);
 
     scene.add.text(450, 85, `${availableCountries.length} countries available`, {
-        fontSize: '16px',
-        fill: '#636E72'
+        fontSize: '18px',
+        fill: '#475569'
     }).setOrigin(0.5);
 
-    // Create scrollable grid of country cards
+    // Create scrollable grid of country cards (centered, consistent alignment)
     const startY = 130;
     const cols = 3;
     const cardWidth = 260;
     const cardHeight = 90;
-    const spacingX = 290;
+    const gapX = 30;
     const spacingY = 110;
+    const gridWidth = cols * cardWidth + (cols - 1) * gapX;
+    const startX = (config.width - gridWidth) / 2;
 
     availableCountries.forEach((countryKey, index) => {
         const country = COUNTRIES[countryKey];
         const col = index % cols;
         const row = Math.floor(index / cols);
-        const x = 155 + col * spacingX;
+        const x = startX + col * (cardWidth + gapX);
         const y = startY + row * spacingY;
 
         if (y < 550) { // Only show if on screen
@@ -1572,7 +1574,7 @@ function showCountrySelect(scene, difficulty) {
         }
     });
 
-    createModernButton(scene, 120, 600, '← Back', COLORS.textLight, () => {
+    createModernButton(scene, startX, 600, '← Back', COLORS.textLight, () => {
         showDifficultySelect(scene);
     }, 140, 50, true);
 }
@@ -1606,16 +1608,16 @@ function createCountryCard(scene, x, y, country, countryKey) {
 
     // Country name
     const name = scene.add.text(75, 25, country.name, {
-        fontSize: '16px',
-        fill: '#2D3436',
+        fontSize: '18px',
+        fill: '#1E293B',
         fontStyle: 'bold',
         wordWrap: { width: 170 }
     }).setOrigin(0, 0);
 
     // Continent
     const continent = scene.add.text(75, 50, country.continent, {
-        fontSize: '12px',
-        fill: '#636E72'
+        fontSize: '18px',
+        fill: '#475569'
     }).setOrigin(0, 0);
 
     // Learned indicator
@@ -1707,7 +1709,7 @@ function showCountryLearn(scene, countryKey) {
         // Title
         scene.add.text(450, 50, slide.title, {
             fontSize: '36px',
-            fill: '#2D3436',
+            fill: '#1E293B',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
@@ -1719,7 +1721,7 @@ function showCountryLearn(scene, countryKey) {
         // Content
         scene.add.text(450, 320, slide.content, {
             fontSize: '18px',
-            fill: '#2D3436',
+            fill: '#1E293B',
             align: 'center',
             lineSpacing: 10,
             wordWrap: { width: 750 }
@@ -1727,8 +1729,8 @@ function showCountryLearn(scene, countryKey) {
 
         // Progress indicator
         scene.add.text(450, 530, `${currentSlide + 1} / ${slides.length}`, {
-            fontSize: '16px',
-            fill: '#636E72'
+            fontSize: '18px',
+            fill: '#475569'
         }).setOrigin(0.5);
 
         // Progress dots
@@ -1795,20 +1797,20 @@ function showQuiz(scene, countryKey) {
         // Header
         scene.add.text(450, 40, `Quiz: ${country.name} ${country.flag}`, {
             fontSize: '32px',
-            fill: '#2D3436',
+            fill: '#1E293B',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
         // Score
         scene.add.text(450, 85, `Question ${currentQuestion + 1}/${totalQuestions} | Score: ${score}/${totalQuestions}`, {
             fontSize: '18px',
-            fill: '#636E72'
+            fill: '#475569'
         }).setOrigin(0.5);
 
         // Question
         scene.add.text(450, 160, q.question, {
             fontSize: '24px',
-            fill: '#2D3436',
+            fill: '#1E293B',
             fontStyle: 'bold',
             align: 'center',
             wordWrap: { width: 750 }
@@ -1823,7 +1825,7 @@ function showQuiz(scene, countryKey) {
 
             const text = scene.add.text(450, y, option, {
                 fontSize: '20px',
-                fill: '#2D3436',
+                fill: '#1E293B',
                 wordWrap: { width: 550 }
             }).setOrigin(0.5);
 
@@ -1963,12 +1965,12 @@ function showQuizResults(scene, score, total, countryKey) {
 
     scene.add.text(450, 180, `${country.name} ${country.flag}`, {
         fontSize: '32px',
-        fill: '#2D3436'
+        fill: '#1E293B'
     }).setOrigin(0.5);
 
     scene.add.text(450, 240, `Score: ${score}/${total}`, {
         fontSize: '42px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
@@ -1998,7 +2000,7 @@ function showQuizResults(scene, score, total, countryKey) {
     } else {
         scene.add.text(450, 360, 'Review the country info and try again!', {
             fontSize: '18px',
-            fill: '#636E72'
+            fill: '#475569'
         }).setOrigin(0.5);
     }
 

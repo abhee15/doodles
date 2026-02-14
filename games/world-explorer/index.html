@@ -24,51 +24,20 @@
 
     <link rel="canonical" href="https://abhee15.github.io/doodles/games/world-explorer/">
 
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.min.js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        #game-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            overflow: hidden;
-        }
-
-        .game-header {
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .game-header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .game-header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-        }
-    </style>
+    <link rel="stylesheet" href="../../shared/game-page.css">
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
 </head>
 <body>
+    <a href="../../index.html" class="back-link">← Back to Games</a>
     <div id="game-container"></div>
+
+    <!-- Analytics -->
+    <script src="../../shared/analytics.js"></script>
+    <!-- Ad placeholder for future -->
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+
+    <!-- Game -->
     <script src="game.js"></script>
 </body>
 </html>

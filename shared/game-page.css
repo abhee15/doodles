@@ -1,0 +1,67 @@
+/* Shared game page – Monokai theme, sharp text, kid-friendly */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--game-bg-start, #4F46E5) 0%, var(--game-bg-end, #7C3AED) 100%);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+}
+
+#game-container {
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100vh;
+}
+
+canvas {
+    display: block;
+    max-width: 100%;
+    max-height: 100vh;
+}
+
+.back-link {
+    position: absolute;
+    top: calc(20px + env(safe-area-inset-top, 0));
+    left: calc(20px + env(safe-area-inset-left, 0));
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 1.125rem;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.35);
+    padding: 10px 20px;
+    border-radius: 25px;
+    transition: background 0.3s;
+    z-index: 1000;
+}
+
+.back-link:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+    .back-link {
+        top: calc(10px + env(safe-area-inset-top, 0));
+        left: calc(10px + env(safe-area-inset-left, 0));
+        font-size: 1rem;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-link {
+        font-size: 1rem;
+        padding: 8px 14px;
+    }
+}

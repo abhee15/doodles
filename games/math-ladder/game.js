@@ -133,10 +133,11 @@ function create() {
 
     // Instructions
     const instructions = this.add.text(550, 300, 'Click numbers, then Submit!', {
-        fontSize: '16px',
-        fill: '#333',
-        backgroundColor: '#FFFF99',
-        padding: { x: 8, y: 4 }
+        fontSize: '18px',
+        fill: '#1E293B',
+        fontStyle: 'bold',
+        backgroundColor: '#FEF3C7',
+        padding: { x: 10, y: 6 }
     }).setOrigin(0.5);
     instructions.setDepth(100);
 

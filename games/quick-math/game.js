@@ -111,15 +111,15 @@ function getStarRating(score, total) {
 
 // Professional Color Palette (Kid-friendly but clean)
 const COLORS = {
-    primary: 0x5F6FFF,      // Vibrant blue
-    secondary: 0xFFB800,    // Golden yellow
-    success: 0x00D68F,      // Bright green
-    error: 0xFF6B6B,        // Soft red
-    background: 0xF5F7FA,   // Light gray-blue
-    cardBg: 0xFFFFFF,       // White
-    text: 0x2D3436,         // Dark gray (readable)
-    textLight: 0x636E72,    // Light gray
-    accent: 0xFF6348        // Coral accent
+    primary: 0x4F46E5,
+    secondary: 0xFFB800,
+    success: 0x00D68F,
+    error: 0xFF6B6B,
+    background: 0xF5F7FA,
+    cardBg: 0xFFFFFF,
+    text: 0x1E293B,
+    textLight: 0x475569,
+    accent: 0xFF6348
 };
 
 function preload() {
@@ -178,7 +178,7 @@ function showMainMenu(scene) {
     // Title
     scene.add.text(450, 120, '⚡ Quick Math', {
         fontSize: '64px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -186,7 +186,7 @@ function showMainMenu(scene) {
     // Subtitle
     scene.add.text(450, 180, 'Learn Vedic Math Tricks', {
         fontSize: '22px',
-        fill: '#636E72',
+        fill: '#475569',
         fontFamily: 'Arial'
     }).setOrigin(0.5);
 
@@ -208,7 +208,7 @@ function showMainMenu(scene) {
 
         scene.add.text(320, y, feature.text, {
             fontSize: '18px',
-            fill: '#2D3436',
+            fill: '#1E293B',
             fontFamily: 'Arial'
         }).setOrigin(0, 0.5);
     });
@@ -229,7 +229,7 @@ function showLevelSelect(scene) {
     // Title
     scene.add.text(450, 60, 'Choose Your Math Trick', {
         fontSize: '42px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -237,11 +237,16 @@ function showLevelSelect(scene) {
     // Subtitle
     scene.add.text(450, 105, 'Master one trick at a time', {
         fontSize: '18px',
-        fill: '#636E72',
+        fill: '#475569',
         fontFamily: 'Arial'
     }).setOrigin(0.5);
 
-    // Level cards - 2x2 grid with proper spacing
+    // Level cards - 2x2 grid centered with equal side margins
+    const cardWidth = 340;
+    const gap = 40;
+    const gridWidth = 2 * cardWidth + gap;
+    const startX = (config.width - gridWidth) / 2;
+
     const levels = [
         { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x5F6FFF },
         { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF6348, locked: true },
@@ -252,15 +257,15 @@ function showLevelSelect(scene) {
     levels.forEach((level, index) => {
         const col = index % 2;
         const row = Math.floor(index / 2);
-        const x = 170 + col * 380;
+        const x = startX + col * (cardWidth + gap);
         const y = 180 + row * 200;
         const isLocked = level.locked && level.id > unlockedLevels;
 
         createProfessionalCard(scene, x, y, level, isLocked);
     });
 
-    // Back button (redesigned)
-    createModernButton(scene, 120, 600, '← Back', COLORS.textLight, () => {
+    // Back button aligned with grid left edge
+    createModernButton(scene, startX, 600, '← Back', COLORS.textLight, () => {
         showMainMenu(scene);
     }, 140, 50, true);
 }
@@ -310,19 +315,19 @@ function createProfessionalCard(scene, x, y, level, isLocked) {
 
     // Description (below title)
     const descText = scene.add.text(titleX, titleY + 35, level.desc, {
-        fontSize: '14px',
+        fontSize: '18px',
         fill: isLocked ? '#CED4DA' : '#636E72',
         fontFamily: 'Arial',
         wordWrap: { width: cardWidth - 130 }
     }).setOrigin(0, 0);
 
-    // Action button (bottom right)
+    // Action button (bottom right for unlocked; centered "Locked" for locked)
     if (isLocked) {
-        const lockIcon = scene.add.text(x + cardWidth - padding - 80, y + cardHeight - 40, '🔒 Locked', {
-            fontSize: '14px',
+        const lockIcon = scene.add.text(x + cardWidth / 2, y + cardHeight - 40, '🔒 Locked', {
+            fontSize: '18px',
             fill: '#ADB5BD',
             fontFamily: 'Arial'
-        }).setOrigin(0.5);
+        }).setOrigin(0.5, 0.5);
     } else {
         const btnX = x + cardWidth - padding - 70;
         const btnY = y + cardHeight - 40;
@@ -331,7 +336,7 @@ function createProfessionalCard(scene, x, y, level, isLocked) {
         playBtn.setInteractive({ useHandCursor: true });
 
         const playText = scene.add.text(btnX, btnY, 'Start →', {
-            fontSize: '15px',
+            fontSize: '18px',
             fill: '#FFFFFF',
             fontFamily: 'Arial',
             fontStyle: 'bold'
@@ -360,6 +365,8 @@ function showTutorial(scene, levelId) {
 
     if (levelId === 1) {
         tutorialMultiplyBy11(scene);
+    } else if (levelId === 2) {
+        tutorialSquareEndingIn5(scene);
     }
     // Add more tutorials for other levels later
 }
@@ -440,7 +447,7 @@ function tutorialMultiplyBy11(scene) {
         // Progress
         scene.add.text(400, 480, `Step ${step + 1} of ${steps.length}`, {
             fontSize: '18px',
-            fill: '#aaa'
+            fill: '#475569'
         }).setOrigin(0.5);
 
         // Navigation buttons
@@ -466,6 +473,128 @@ function tutorialMultiplyBy11(scene) {
         createButton(scene, 100, 50, '← Back', COLORS.error, () => {
             showLevelSelect(scene);
         }, 120, 40);
+    }
+
+    showStep();
+}
+
+// ==================== TUTORIAL: SQUARE NUMBERS ENDING IN 5 ====================
+function tutorialSquareEndingIn5(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Square Numbers Ending in 5',
+            text: 'Learn the fastest way to square numbers like 25, 35, 45!',
+            example: ''
+        },
+        {
+            title: 'What is "Square"?',
+            text: 'Square means multiply a number by itself\n25² = 25 × 25',
+            example: '25 × 25 = ?'
+        },
+        {
+            title: 'Example: 25²',
+            text: 'The normal way:\n25 × 25 = 625\n(That takes time!)',
+            example: '625'
+        },
+        {
+            title: 'The Quick Trick! ✨',
+            text: 'Step 1: Take the first digit → 2',
+            example: '2__',
+            highlight: '2'
+        },
+        {
+            title: 'The Quick Trick! ✨',
+            text: 'Step 2: Multiply by NEXT number\n2 × 3 = 6',
+            example: '6__',
+            highlight: '6'
+        },
+        {
+            title: 'The Quick Trick! ✨',
+            text: 'Step 3: Add 25 at the end\nAlways 25!',
+            example: '625',
+            highlight: '25'
+        },
+        {
+            title: 'More Examples!',
+            text: '35² → 3 × 4 = 12, add 25 → 1225\n45² → 4 × 5 = 20, add 25 → 2025\n55² → 5 × 6 = 30, add 25 → 3025',
+            example: '✨ Magic! ✨'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'For any number ending in 5:\nN5² → N × (N+1), then add 25\n\nTry it yourself!',
+            example: '🎯 Ready!'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#FF6348',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#00D68F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', COLORS.accent, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', COLORS.success, () => {
+                showPractice(scene, 2);
+            }, 150, 50);
+        }
+
+        // Back to level select
+        createModernButton(scene, 120, 600, '← Back', COLORS.textLight, () => {
+            showLevelSelect(scene);
+        }, 140, 50, true);
     }
 
     showStep();
@@ -504,11 +633,29 @@ function showPractice(scene, levelId) {
         }
 
         userAnswer = '';
-        currentQuestion = {
-            num: Phaser.Math.Between(12, 99),
-            answer: null
-        };
-        currentQuestion.answer = currentQuestion.num * 11;
+
+        // Generate question based on level
+        if (levelId === 1) {
+            // Level 1: Multiply by 11
+            currentQuestion = {
+                num: Phaser.Math.Between(12, 99),
+                answer: null,
+                type: '×11'
+            };
+            currentQuestion.answer = currentQuestion.num * 11;
+        } else if (levelId === 2) {
+            // Level 2: Square numbers ending in 5
+            const tens = Phaser.Math.Between(1, 9); // 1-9 for 15-95
+            const num = tens * 10 + 5; // Makes 15, 25, 35...95
+            currentQuestion = {
+                num: num,
+                answer: null,
+                type: '²'
+            };
+            // Answer: N × (N+1) then add 25
+            const firstDigit = Math.floor(num / 10);
+            currentQuestion.answer = firstDigit * (firstDigit + 1) * 100 + 25;
+        }
 
         if (questionText) questionText.destroy();
         if (answerText) answerText.destroy();
@@ -635,7 +782,7 @@ function showResults(scene, score, total) {
     const ratingText = stars === 3 ? 'Perfect!' : stars === 2 ? 'Great!' : stars === 1 ? 'Good Try!' : 'Keep Going!';
     scene.add.text(450, starY + 60, ratingText, {
         fontSize: '22px',
-        fill: '#636E72',
+        fill: '#475569',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -643,14 +790,14 @@ function showResults(scene, score, total) {
     // Score display
     scene.add.text(450, cardY + 250, `Score: ${score}/${total}`, {
         fontSize: '32px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
     scene.add.text(450, cardY + 290, `${percentage}%`, {
         fontSize: '24px',
-        fill: '#636E72',
+        fill: '#475569',
         fontFamily: 'Arial'
     }).setOrigin(0.5);
 

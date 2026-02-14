@@ -25,15 +25,15 @@ const game = new Phaser.Game(config);
 
 // Color Palette
 const COLORS = {
-    primary: 0x6C5CE7,      // Purple (learning theme)
-    secondary: 0xFFB800,    // Gold (stars/rewards)
-    success: 0x00D68F,      // Green (correct answers)
-    error: 0xFF6B6B,        // Red (incorrect)
-    background: 0xF5F7FA,   // Light gray-blue
-    cardBg: 0xFFFFFF,       // White cards
-    text: 0x2D3436,         // Dark gray text
-    textLight: 0x636E72,    // Light gray text
-    accent: 0x74B9FF        // Light blue accents
+    primary: 0x4F46E5,
+    secondary: 0xFFB800,
+    success: 0x00D68F,
+    error: 0xFF6B6B,
+    background: 0xF5F7FA,
+    cardBg: 0xFFFFFF,
+    text: 0x1E293B,
+    textLight: 0x475569,
+    accent: 0x74B9FF
 };
 
 // ==================== WORD DATABASE ====================
@@ -304,7 +304,7 @@ function showMainMenu(scene) {
     // Title
     scene.add.text(450, 100, '📖 Word Explorer', {
         fontSize: '56px',
-        fill: '#6C5CE7',
+        fill: '#4F46E5',
         fontStyle: 'bold',
         fontFamily: 'Arial'
     }).setOrigin(0.5);
@@ -341,7 +341,7 @@ function showMainMenu(scene) {
     instructions.forEach((text, i) => {
         scene.add.text(450, 400 + (i * 45), text, {
             fontSize: '18px',
-            fill: '#2D3436',
+            fill: '#1E293B',
             fontFamily: 'Arial'
         }).setOrigin(0.5);
     });
@@ -355,7 +355,7 @@ function showWordMap(scene) {
     // Title
     scene.add.text(450, 40, 'Choose a Word to Learn', {
         fontSize: '36px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -400,7 +400,7 @@ function createWordCard(scene, x, y, wordData, width, height) {
     // Word text
     const wordText = scene.add.text(x, y - 15, wordData.word, {
         fontSize: '18px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold',
         wordWrap: { width: width - 20 }
@@ -408,8 +408,8 @@ function createWordCard(scene, x, y, wordData, width, height) {
 
     // Phonetic
     scene.add.text(x, y + 10, wordData.phonetic, {
-        fontSize: '12px',
-        fill: '#636E72',
+        fontSize: '18px',
+        fill: '#475569',
         fontFamily: 'Arial'
     }).setOrigin(0.5);
 
@@ -445,7 +445,7 @@ function showWordDetail(scene) {
     // Title
     scene.add.text(450, 60, currentWord.word, {
         fontSize: '48px',
-        fill: '#6C5CE7',
+        fill: '#4F46E5',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -464,7 +464,7 @@ function showWordDetail(scene) {
 
     scene.add.text(450, 200, currentWord.definition, {
         fontSize: '20px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         align: 'center',
         wordWrap: { width: 750 }
@@ -472,15 +472,15 @@ function showWordDetail(scene) {
 
     // Example sentence
     scene.add.text(450, 280, 'Example:', {
-        fontSize: '16px',
+        fontSize: '18px',
         fill: '#636E72',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
     scene.add.text(450, 310, currentWord.exampleSentence, {
-        fontSize: '16px',
-        fill: '#2D3436',
+        fontSize: '18px',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         align: 'center',
         fontStyle: 'italic',
@@ -499,7 +499,7 @@ function showWordDetail(scene) {
     // Mode selection
     scene.add.text(450, 420, 'Choose a Game Mode:', {
         fontSize: '20px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -582,7 +582,7 @@ function displayMeaningMatchQuestion(scene) {
     // Header
     scene.add.text(450, 40, '🎯 Meaning Match', {
         fontSize: '32px',
-        fill: '#6C5CE7',
+        fill: '#4F46E5',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -605,7 +605,7 @@ function displayMeaningMatchQuestion(scene) {
     // Word
     scene.add.text(450, 150, question.word, {
         fontSize: '42px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -619,7 +619,7 @@ function displayMeaningMatchQuestion(scene) {
 
     scene.add.text(450, 240, 'Which definition matches this word?', {
         fontSize: '20px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial'
     }).setOrigin(0.5);
 
@@ -641,8 +641,8 @@ function createDefinitionOption(scene, x, y, text, isCorrect, question) {
     optionBox.setInteractive({ useHandCursor: true });
 
     const optionText = scene.add.text(x, y, text, {
-        fontSize: '16px',
-        fill: '#2D3436',
+        fontSize: '18px',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         align: 'center',
         wordWrap: { width: 750 }
@@ -774,7 +774,7 @@ function displaySentenceBuilderQuestion(scene) {
     // Instructions
     scene.add.text(450, 140, 'Fill in the blank with the correct word:', {
         fontSize: '20px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -782,7 +782,7 @@ function displaySentenceBuilderQuestion(scene) {
     // Sentence with blank
     scene.add.text(450, 210, question.sentence, {
         fontSize: '20px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         align: 'center',
         fontStyle: 'italic',
@@ -791,7 +791,7 @@ function displaySentenceBuilderQuestion(scene) {
 
     // Hint
     scene.add.text(450, 280, `Hint: ${question.definition}`, {
-        fontSize: '16px',
+        fontSize: '18px',
         fill: '#636E72',
         fontFamily: 'Arial',
         align: 'center',
@@ -818,7 +818,7 @@ function createWordOption(scene, x, y, word, isCorrect, question) {
 
     const optionText = scene.add.text(x, y, word, {
         fontSize: '18px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -933,14 +933,14 @@ function displaySpellingQuestion(scene) {
     // Definition
     scene.add.text(450, 140, 'Spell the word that means:', {
         fontSize: '20px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
     scene.add.text(450, 180, question.definition, {
         fontSize: '18px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         align: 'center',
         wordWrap: { width: 750 }
@@ -948,7 +948,7 @@ function displaySpellingQuestion(scene) {
 
     // Phonetic hint
     scene.add.text(450, 230, `Pronunciation: ${question.phonetic}`, {
-        fontSize: '16px',
+        fontSize: '18px',
         fill: '#636E72',
         fontFamily: 'Arial',
         fontStyle: 'italic'
@@ -1117,7 +1117,7 @@ function showResults(scene) {
     // Score
     scene.add.text(450, 180, `Score: ${sessionScore}/${totalQuestions}`, {
         fontSize: '36px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -1137,7 +1137,7 @@ function showResults(scene) {
 
     scene.add.text(450, 350, `You earned ${stars} star${stars !== 1 ? 's' : ''}!`, {
         fontSize: '24px',
-        fill: '#2D3436',
+        fill: '#1E293B',
         fontFamily: 'Arial'
     }).setOrigin(0.5);
 
