@@ -29,6 +29,85 @@ let unlockedLevels = 1;
 let score = 0;
 let currentQuestion = null;
 let userAnswer = '';
+let soundEnabled = true;
+
+// Sound System (Web Audio API)
+let audioContext;
+
+function initAudio() {
+    if (!audioContext) {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+}
+
+function playSound(type) {
+    if (!soundEnabled || !audioContext) return;
+
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+
+    switch(type) {
+        case 'success':
+            // Happy ascending tones
+            oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+            oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+            oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+            break;
+
+        case 'error':
+            // Low descending tone
+            oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(200, audioContext.currentTime + 0.15);
+            oscillator.type = 'sawtooth';
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.2);
+            break;
+
+        case 'click':
+            // Subtle click
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.type = 'sine';
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.05);
+            break;
+
+        case 'celebrate':
+            // Victory fanfare
+            const frequencies = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+            frequencies.forEach((freq, i) => {
+                const osc = audioContext.createOscillator();
+                const gain = audioContext.createGain();
+                osc.connect(gain);
+                gain.connect(audioContext.destination);
+                osc.frequency.setValueAtTime(freq, audioContext.currentTime + i * 0.1);
+                gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.1);
+                gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.3);
+                osc.start(audioContext.currentTime + i * 0.1);
+                osc.stop(audioContext.currentTime + i * 0.1 + 0.3);
+            });
+            return; // Skip normal oscillator cleanup
+    }
+}
+
+// Calculate star rating based on score
+function getStarRating(score, total) {
+    const percentage = (score / total) * 100;
+    if (percentage === 100) return 3;
+    if (percentage >= 80) return 2;
+    if (percentage >= 60) return 1;
+    return 0;
+}
 
 // Professional Color Palette (Kid-friendly but clean)
 const COLORS = {
@@ -49,7 +128,38 @@ function preload() {
 
 function create() {
     this.scene = this;
+
+    // Add sound toggle button (top right, always visible)
+    createSoundToggle(this);
+
     showMainMenu(this);
+}
+
+// Sound Toggle Button
+function createSoundToggle(scene) {
+    const x = 850;
+    const y = 30;
+
+    const soundButton = scene.add.text(x, y, soundEnabled ? '🔊' : '🔇', {
+        fontSize: '32px'
+    }).setOrigin(0.5);
+
+    soundButton.setInteractive({ useHandCursor: true });
+
+    soundButton.on('pointerdown', () => {
+        soundEnabled = !soundEnabled;
+        soundButton.setText(soundEnabled ? '🔊' : '🔇');
+
+        // Play click sound if enabling
+        if (soundEnabled) {
+            initAudio();
+            playSound('click');
+        }
+    });
+
+    // Make it persist across scenes
+    soundButton.setDepth(1000);
+    soundButton.setScrollFactor(0);
 }
 
 function update() {
@@ -105,6 +215,8 @@ function showMainMenu(scene) {
 
     // Start button (large, prominent)
     createModernButton(scene, 450, 550, 'Start Learning →', COLORS.primary, () => {
+        initAudio(); // Initialize audio on first interaction
+        playSound('click');
         showLevelSelect(scene);
     }, 300, 70);
 }
@@ -448,10 +560,12 @@ function showPractice(scene, levelId) {
         if (answer === currentQuestion.answer) {
             score++;
             feedbackText.setText('✓ Correct! +1');
-            feedbackText.setColor('#00B894');
+            feedbackText.setColor('#00D68F');
+            playSound('success'); // Success sound
         } else {
             feedbackText.setText(`✗ Wrong. Answer: ${currentQuestion.answer}`);
-            feedbackText.setColor('#FF7675');
+            feedbackText.setColor('#FF6B6B');
+            playSound('error'); // Error sound
         }
 
         questionsAnswered++;
@@ -476,39 +590,91 @@ function showResults(scene, score, total) {
 
     const percentage = (score / total) * 100;
     const passed = percentage >= 60;
+    const stars = getStarRating(score, total);
 
-    scene.add.text(400, 100, passed ? '🎉 Great Job!' : '📚 Keep Practicing!', {
-        fontSize: '48px',
-        fill: passed ? '#00B894' : '#FF7675',
+    // Play celebration sound if passed
+    if (passed) {
+        playSound('celebrate');
+    }
+
+    // Result card background
+    const cardWidth = 500;
+    const cardHeight = 450;
+    const cardX = (900 - cardWidth) / 2;
+    const cardY = 100;
+
+    const cardShadow = scene.add.rectangle(cardX, cardY + 4, cardWidth, cardHeight, 0x000000, 0.1);
+    const cardBg = scene.add.rectangle(cardX, cardY, cardWidth, cardHeight, COLORS.cardBg);
+    cardBg.setOrigin(0, 0);
+
+    // Title
+    scene.add.text(450, cardY + 40, passed ? '🎉 Great Job!' : '📚 Keep Practicing!', {
+        fontSize: '38px',
+        fill: passed ? '#00D68F' : '#FF6B6B',
+        fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    scene.add.text(400, 200, `Score: ${score}/${total}`, {
-        fontSize: '42px',
-        fill: '#fff',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
+    // Star Rating Display
+    const starY = cardY + 120;
+    const starSize = 50;
+    const starSpacing = 70;
+    const startX = 450 - (2 * starSpacing / 2);
 
-    scene.add.text(400, 260, `${percentage}%`, {
-        fontSize: '36px',
-        fill: '#FDCB6E'
-    }).setOrigin(0.5);
+    for (let i = 0; i < 3; i++) {
+        const x = startX + i * starSpacing;
+        const filled = i < stars;
 
-    if (passed && unlockedLevels === currentLevel) {
-        unlockedLevels++;
-        scene.add.text(400, 330, '🔓 Next level unlocked!', {
-            fontSize: '24px',
-            fill: '#00B894'
+        scene.add.text(x, starY, filled ? '⭐' : '☆', {
+            fontSize: `${starSize}px`,
+            fill: filled ? '#FFB800' : '#DFE6E9'
         }).setOrigin(0.5);
     }
 
-    createButton(scene, 300, 450, 'Try Again', COLORS.buttonBg, () => {
-        showPractice(scene, currentLevel);
-    });
+    // Star rating text
+    const ratingText = stars === 3 ? 'Perfect!' : stars === 2 ? 'Great!' : stars === 1 ? 'Good Try!' : 'Keep Going!';
+    scene.add.text(450, starY + 60, ratingText, {
+        fontSize: '22px',
+        fill: '#636E72',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+    }).setOrigin(0.5);
 
-    createButton(scene, 500, 450, 'Level Select', COLORS.success, () => {
+    // Score display
+    scene.add.text(450, cardY + 250, `Score: ${score}/${total}`, {
+        fontSize: '32px',
+        fill: '#2D3436',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+    }).setOrigin(0.5);
+
+    scene.add.text(450, cardY + 290, `${percentage}%`, {
+        fontSize: '24px',
+        fill: '#636E72',
+        fontFamily: 'Arial'
+    }).setOrigin(0.5);
+
+    // Unlock message
+    if (passed && unlockedLevels === currentLevel) {
+        unlockedLevels++;
+        scene.add.text(450, cardY + 340, '🔓 Next level unlocked!', {
+            fontSize: '18px',
+            fill: '#00D68F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+    }
+
+    // Buttons
+    createModernButton(scene, 300, 580, 'Try Again', COLORS.primary, () => {
+        playSound('click');
+        showPractice(scene, currentLevel);
+    }, 180, 50);
+
+    createModernButton(scene, 600, 580, 'Level Select', COLORS.success, () => {
+        playSound('click');
         showLevelSelect(scene);
-    });
+    }, 180, 50);
 }
 
 // ==================== NUMBER PAD ====================
@@ -562,7 +728,10 @@ function createModernButton(scene, x, y, label, color, callback, width = 200, he
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    button.on('pointerdown', callback);
+    button.on('pointerdown', () => {
+        playSound('click');
+        callback();
+    });
     button.on('pointerover', () => {
         button.setAlpha(0.9);
         button.setScale(1.02);

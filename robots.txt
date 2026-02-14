@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://abhee15.github.io/doodles/sitemap.xml
+
+# Disallow analytics and config files
+Disallow: /shared/analytics.js
+Disallow: /shared/ads.js
