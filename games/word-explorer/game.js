@@ -9,7 +9,7 @@ const config = {
     parent: 'game-container',
     backgroundColor: '#F5F7FA',
     scale: {
-        mode: Phaser.Scale.FIT,
+        mode: Phaser.Scale.ENVELOP,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         width: 900,
         height: 650
@@ -33,7 +33,26 @@ const COLORS = {
     cardBg: 0xFFFFFF,
     text: 0x1E293B,
     textLight: 0x475569,
-    accent: 0x74B9FF
+    accent: 0x74B9FF,
+    // Difficulty colors
+    difficulty1: 0x00D68F,  // Green - Easy
+    difficulty2: 0xFFB800,  // Yellow - Medium
+    difficulty3: 0xFF6B6B,  // Red - Hard
+    // Category colors
+    emotion: 0xFF6B9D,      // Pink
+    size: 0x6C5CE7,         // Purple
+    time: 0xFF9F43,         // Orange
+    action: 0x00D68F,       // Green
+    concept: 0x0984E3       // Blue
+};
+
+// Category icons and labels
+const CATEGORY_INFO = {
+    emotion: { icon: '💭', label: 'Emotion', color: COLORS.emotion },
+    size: { icon: '📏', label: 'Size', color: COLORS.size },
+    time: { icon: '⏰', label: 'Time', color: COLORS.time },
+    action: { icon: '⚡', label: 'Action', color: COLORS.action },
+    concept: { icon: '💡', label: 'Concept', color: COLORS.concept }
 };
 
 // ==================== WORD DATABASE ====================
@@ -353,23 +372,63 @@ function showWordMap(scene) {
     currentScene = 'word-map';
 
     // Title
-    scene.add.text(450, 40, 'Choose a Word to Learn', {
+    scene.add.text(450, 30, 'Choose a Word to Learn', {
         fontSize: '36px',
         fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    // Word grid (4x5 = 20 words)
+    // Progress counter
     const words = WORD_DATABASE.easy;
+    const learnedCount = Object.keys(wordProgress).filter(id => wordProgress[id].stars > 0).length;
+    const totalWords = words.length;
+
+    const progressBg = scene.add.rectangle(450, 70, 350, 40, 0xFFFFFF);
+    progressBg.setStrokeStyle(2, 0xE9ECEF);
+
+    scene.add.text(450, 70, `Words Mastered: ${learnedCount}/${totalWords} 📚`, {
+        fontSize: '18px',
+        fill: '#1E293B',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+    }).setOrigin(0.5);
+
+    // Legend - Category colors
+    const legendY = 70;
+    const categories = ['emotion', 'action', 'size', 'time', 'concept'];
+
+    scene.add.text(700, legendY - 20, 'Categories:', {
+        fontSize: '14px',
+        fill: '#475569',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+    });
+
+    categories.slice(0, 3).forEach((cat, i) => {
+        const info = CATEGORY_INFO[cat];
+        const x = 700 + i * 65;
+
+        scene.add.text(x, legendY, `${info.icon}`, {
+            fontSize: '16px'
+        });
+
+        scene.add.text(x + 20, legendY, info.label, {
+            fontSize: '11px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        });
+    });
+
+    // Word grid (4x5 = 20 words)
     const cols = 5;
     const rows = 4;
-    const cardWidth = 160;
-    const cardHeight = 110;
-    const startX = 50;
-    const startY = 100;
-    const spacingX = 170;
-    const spacingY = 125;
+    const cardWidth = 165;
+    const cardHeight = 120;
+    const startX = 85;
+    const startY = 110;
+    const spacingX = 175;
+    const spacingY = 130;
 
     words.forEach((wordData, index) => {
         const col = index % cols;
@@ -381,24 +440,36 @@ function showWordMap(scene) {
     });
 
     // Back button
-    createButton(scene, 100, 600, '← Menu', COLORS.textLight, () => {
+    createButton(scene, 100, 605, '← Menu', COLORS.textLight, () => {
         showMainMenu(scene);
     }, 140, 50);
 }
 
 function createWordCard(scene, x, y, wordData, width, height) {
     const progress = wordProgress[wordData.id] || { stars: 0, attempts: 0 };
+    const categoryInfo = CATEGORY_INFO[wordData.category];
+    const difficultyColor = wordData.difficulty === 1 ? COLORS.difficulty1 :
+                           wordData.difficulty === 2 ? COLORS.difficulty2 : COLORS.difficulty3;
 
     // Card shadow
     const shadow = scene.add.rectangle(x, y + 3, width, height, 0x000000, 0.1);
 
     // Card background
     const card = scene.add.rectangle(x, y, width, height, COLORS.cardBg);
-    card.setStrokeStyle(2, progress.stars > 0 ? COLORS.success : 0xE9ECEF);
+    card.setStrokeStyle(3, progress.stars > 0 ? COLORS.success : categoryInfo.color);
     card.setInteractive({ useHandCursor: true });
 
+    // Difficulty indicator (left accent bar) - make it wider and properly positioned
+    const accentBar = scene.add.rectangle(x - width/2 + 4, y, 8, height - 2, difficultyColor);
+    accentBar.setOrigin(0.5);
+
+    // Category icon (top right)
+    const categoryIcon = scene.add.text(x + width/2 - 20, y - height/2 + 15, categoryInfo.icon, {
+        fontSize: '20px'
+    }).setOrigin(0.5);
+
     // Word text
-    const wordText = scene.add.text(x, y - 15, wordData.word, {
+    const wordText = scene.add.text(x, y - 25, wordData.word, {
         fontSize: '18px',
         fill: '#1E293B',
         fontFamily: 'Arial',
@@ -408,8 +479,8 @@ function createWordCard(scene, x, y, wordData, width, height) {
     }).setOrigin(0.5);
 
     // Phonetic
-    scene.add.text(x, y + 10, wordData.phonetic, {
-        fontSize: '18px',
+    const phoneticText = scene.add.text(x, y, wordData.phonetic, {
+        fontSize: '14px',
         fill: '#475569',
         fontFamily: 'Arial',
         align: 'center'
@@ -417,23 +488,85 @@ function createWordCard(scene, x, y, wordData, width, height) {
 
     // Stars
     const starsText = getStarDisplay(progress.stars);
-    scene.add.text(x, y + 35, starsText, {
-        fontSize: '20px',
+    const stars = scene.add.text(x, y + 30, starsText, {
+        fontSize: '18px',
         fill: '#FFB800'
     }).setOrigin(0.5);
 
-    // Click handler
-    card.on('pointerdown', () => {
-        currentWord = wordData;
-        showWordDetail(scene);
-    });
+    // Mastered badge
+    if (progress.stars === 3) {
+        scene.add.text(x + width/2 - 15, y + height/2 - 15, '✓', {
+            fontSize: '20px',
+            fill: '#00D68F',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+    }
+
+    // Hover tooltip variables
+    let tooltip = null;
+    let tooltipBg = null;
+    let categoryLabel = null;
 
     card.on('pointerover', () => {
         card.setScale(1.05);
+        shadow.setScale(1.05);
+        accentBar.setScale(1.05);
+
+        // Create tooltip
+        const tooltipWidth = 200;
+        const tooltipHeight = 80;
+        const tooltipX = x > 450 ? x - tooltipWidth/2 - 100 : x + tooltipWidth/2 + 100;
+        const tooltipY = y;
+
+        tooltipBg = scene.add.rectangle(tooltipX, tooltipY, tooltipWidth, tooltipHeight, 0x1E293B, 0.95);
+        tooltipBg.setStrokeStyle(2, categoryInfo.color);
+        tooltipBg.setDepth(100);
+
+        tooltip = scene.add.text(tooltipX, tooltipY + 10, wordData.definition, {
+            fontSize: '13px',
+            fill: '#FFFFFF',
+            fontFamily: 'Arial',
+            align: 'center',
+            wordWrap: { width: tooltipWidth - 20 },
+            lineSpacing: 4
+        }).setOrigin(0.5).setDepth(101);
+
+        // Category label
+        categoryLabel = scene.add.text(tooltipX, tooltipY - tooltipHeight/2 + 15,
+            `${categoryInfo.icon} ${categoryInfo.label}`, {
+            fontSize: '11px',
+            fill: '#FFFFFF',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5).setDepth(101);
     });
 
     card.on('pointerout', () => {
         card.setScale(1);
+        shadow.setScale(1);
+        accentBar.setScale(1);
+
+        // Remove tooltip
+        if (tooltip) {
+            tooltip.destroy();
+            tooltipBg.destroy();
+            categoryLabel.destroy();
+            tooltip = null;
+            tooltipBg = null;
+            categoryLabel = null;
+        }
+    });
+
+    // Click handler
+    card.on('pointerdown', () => {
+        // Clean up tooltip before transitioning
+        if (tooltip) {
+            tooltip.destroy();
+            tooltipBg.destroy();
+            categoryLabel.destroy();
+        }
+        currentWord = wordData;
+        showWordDetail(scene);
     });
 }
 
