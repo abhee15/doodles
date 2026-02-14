@@ -403,6 +403,7 @@ function createWordCard(scene, x, y, wordData, width, height) {
         fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold',
+        align: 'center',
         wordWrap: { width: width - 20 }
     }).setOrigin(0.5);
 
@@ -410,7 +411,8 @@ function createWordCard(scene, x, y, wordData, width, height) {
     scene.add.text(x, y + 10, wordData.phonetic, {
         fontSize: '18px',
         fill: '#475569',
-        fontFamily: 'Arial'
+        fontFamily: 'Arial',
+        align: 'center'
     }).setOrigin(0.5);
 
     // Stars
@@ -968,7 +970,7 @@ function displaySpellingQuestion(scene) {
     // Feedback text
     const feedbackText = scene.add.text(450, 340, '', {
         fontSize: '20px',
-        fill: '#fff',
+        fill: '#2D3436',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
