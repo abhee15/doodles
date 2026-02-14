@@ -1,0 +1,480 @@
+/**
+ * Doodles Games - UI Components Library
+ *
+ * Reusable, consistent UI components for Phaser 3 games
+ * Ensures professional, uniform appearance across all games
+ *
+ * Design Pattern: Material Design 3 + Gaming aesthetics
+ * - Rounded corners for friendliness
+ * - Clear visual hierarchy
+ * - Consistent spacing and sizing
+ * - Interactive feedback (hover, press states)
+ * - Accessible colors and sizing
+ */
+
+/**
+ * Button Variants (Design System)
+ */
+const ButtonVariants = {
+    PRIMARY: 'primary',      // Main actions (Start, Play, Continue)
+    SECONDARY: 'secondary',  // Secondary actions (Settings, Info)
+    SUCCESS: 'success',      // Positive actions (Submit, Confirm)
+    DANGER: 'danger',        // Destructive actions (Delete, Reset)
+    GHOST: 'ghost'           // Minimal style (Back, Cancel)
+};
+
+/**
+ * Button Sizes
+ */
+const ButtonSizes = {
+    SMALL: 'small',      // 120x40
+    MEDIUM: 'medium',    // 180x55
+    LARGE: 'large'       // 240x70
+};
+
+/**
+ * Get button styling based on variant
+ * @private
+ */
+function getButtonStyle(variant) {
+    const styles = {
+        primary: {
+            bgColor: 0x4F46E5,           // Indigo
+            bgColorHover: 0x4338CA,      // Darker indigo
+            bgColorPressed: 0x3730A3,    // Even darker
+            textColor: '#FFFFFF',
+            shadowColor: 0x000000,
+            shadowAlpha: 0.3
+        },
+        secondary: {
+            bgColor: 0x64748B,           // Slate
+            bgColorHover: 0x475569,
+            bgColorPressed: 0x334155,
+            textColor: '#FFFFFF',
+            shadowColor: 0x000000,
+            shadowAlpha: 0.25
+        },
+        success: {
+            bgColor: 0x10B981,           // Green
+            bgColorHover: 0x059669,
+            bgColorPressed: 0x047857,
+            textColor: '#FFFFFF',
+            shadowColor: 0x000000,
+            shadowAlpha: 0.3
+        },
+        danger: {
+            bgColor: 0xEF4444,           // Red
+            bgColorHover: 0xDC2626,
+            bgColorPressed: 0xB91C1C,
+            textColor: '#FFFFFF',
+            shadowColor: 0x000000,
+            shadowAlpha: 0.3
+        },
+        ghost: {
+            bgColor: 0x000000,           // Transparent look
+            bgColorHover: 0x1F2937,
+            bgColorPressed: 0x111827,
+            textColor: '#FFFFFF',
+            shadowColor: 0x000000,
+            shadowAlpha: 0.4,
+            alpha: 0.6,
+            alphaHover: 0.8,
+            alphaPressed: 1.0
+        }
+    };
+
+    return styles[variant] || styles.primary;
+}
+
+/**
+ * Get button dimensions based on size
+ * @private
+ */
+function getButtonSize(size) {
+    const sizes = {
+        small: { width: 140, height: 45, fontSize: '16px', padding: 8 },
+        medium: { width: 200, height: 60, fontSize: '18px', padding: 12 },
+        large: { width: 260, height: 75, fontSize: '22px', padding: 16 }
+    };
+
+    return sizes[size] || sizes.medium;
+}
+
+/**
+ * Creates a professional, interactive button
+ *
+ * @param {Phaser.Scene} scene - The game scene
+ * @param {number} x - X position (center)
+ * @param {number} y - Y position (center)
+ * @param {string} label - Button text
+ * @param {Function} callback - Click handler
+ * @param {Object} options - Optional configuration
+ * @param {string} options.variant - Button variant (PRIMARY, SECONDARY, etc.)
+ * @param {string} options.size - Button size (SMALL, MEDIUM, LARGE)
+ * @param {string} options.icon - Optional emoji icon
+ * @returns {Object} Button object with {container, bg, text, destroy()}
+ */
+function createButton(scene, x, y, label, callback, options = {}) {
+    const {
+        variant = ButtonVariants.PRIMARY,
+        size = ButtonSizes.MEDIUM,
+        icon = null
+    } = options;
+
+    const style = getButtonStyle(variant);
+    const dimensions = getButtonSize(size);
+
+    // Container for all button elements
+    const container = scene.add.container(x, y);
+
+    // Shadow (for depth)
+    const shadow = scene.add.rectangle(
+        0, 4,
+        dimensions.width, dimensions.height,
+        style.shadowColor, style.shadowAlpha
+    );
+    shadow.setOrigin(0.5);
+    const shadowRadius = Math.min(dimensions.height / 2, 25);
+    // Note: Phaser doesn't support border-radius, but we'll use rounded rectangles
+
+    // Background
+    const bg = scene.add.rectangle(
+        0, 0,
+        dimensions.width, dimensions.height,
+        style.bgColor
+    );
+    bg.setOrigin(0.5);
+    bg.setInteractive({ useHandCursor: true });
+    if (style.alpha) bg.setAlpha(style.alpha);
+
+    // Text (with optional icon)
+    const displayText = icon ? `${icon} ${label}` : label;
+    const text = scene.add.text(0, 0, displayText, {
+        fontSize: dimensions.fontSize,
+        fill: style.textColor,
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        align: 'center'
+    });
+    text.setOrigin(0.5);
+
+    // Add to container
+    container.add([shadow, bg, text]);
+
+    // Interaction states
+    let isPressed = false;
+
+    // Hover effect
+    bg.on('pointerover', () => {
+        if (!isPressed) {
+            bg.setFillStyle(style.bgColorHover);
+            if (style.alphaHover) bg.setAlpha(style.alphaHover);
+            container.setScale(1.03);
+            shadow.y = 5;
+        }
+    });
+
+    bg.on('pointerout', () => {
+        if (!isPressed) {
+            bg.setFillStyle(style.bgColor);
+            if (style.alpha) bg.setAlpha(style.alpha);
+            container.setScale(1);
+            shadow.y = 4;
+        }
+    });
+
+    // Press effect
+    bg.on('pointerdown', () => {
+        isPressed = true;
+        bg.setFillStyle(style.bgColorPressed);
+        if (style.alphaPressed) bg.setAlpha(style.alphaPressed);
+        container.setScale(0.97);
+        shadow.y = 2;
+        shadow.setAlpha(style.shadowAlpha * 0.5);
+    });
+
+    bg.on('pointerup', () => {
+        isPressed = false;
+        bg.setFillStyle(style.bgColorHover);
+        if (style.alphaHover) bg.setAlpha(style.alphaHover);
+        container.setScale(1.03);
+        shadow.y = 5;
+        shadow.setAlpha(style.shadowAlpha);
+
+        // Execute callback
+        if (callback && typeof callback === 'function') {
+            callback();
+        }
+    });
+
+    // Return button object with helper methods
+    return {
+        container: container,
+        background: bg,
+        text: text,
+        setPosition: (newX, newY) => container.setPosition(newX, newY),
+        setVisible: (visible) => container.setVisible(visible),
+        setText: (newText) => {
+            const displayText = icon ? `${icon} ${newText}` : newText;
+            text.setText(displayText);
+        },
+        setEnabled: (enabled) => {
+            if (enabled) {
+                bg.setInteractive({ useHandCursor: true });
+                bg.setAlpha(style.alpha || 1);
+            } else {
+                bg.disableInteractive();
+                bg.setAlpha(0.5);
+            }
+        },
+        destroy: () => container.destroy()
+    };
+}
+
+/**
+ * Creates a rounded card/panel for content
+ *
+ * @param {Phaser.Scene} scene - The game scene
+ * @param {number} x - X position (center)
+ * @param {number} y - Y position (center)
+ * @param {number} width - Card width
+ * @param {number} height - Card height
+ * @param {Object} options - Optional configuration
+ * @returns {Object} Card object with {container, bg, destroy()}
+ */
+function createCard(scene, x, y, width, height, options = {}) {
+    const {
+        bgColor = 0xFFFFFF,
+        borderColor = 0xE5E7EB,
+        borderWidth = 2,
+        shadowDepth = 3
+    } = options;
+
+    const container = scene.add.container(x, y);
+
+    // Shadow
+    const shadow = scene.add.rectangle(0, shadowDepth, width, height, 0x000000, 0.1);
+    shadow.setOrigin(0.5);
+
+    // Background
+    const bg = scene.add.rectangle(0, 0, width, height, bgColor);
+    bg.setOrigin(0.5);
+    bg.setStrokeStyle(borderWidth, borderColor);
+
+    container.add([shadow, bg]);
+
+    return {
+        container: container,
+        background: bg,
+        addChild: (child) => container.add(child),
+        setPosition: (newX, newY) => container.setPosition(newX, newY),
+        destroy: () => container.destroy()
+    };
+}
+
+/**
+ * Creates a progress bar
+ *
+ * @param {Phaser.Scene} scene - The game scene
+ * @param {number} x - X position (left edge)
+ * @param {number} y - Y position (top edge)
+ * @param {number} width - Bar width
+ * @param {number} height - Bar height
+ * @param {Object} options - Optional configuration
+ * @returns {Object} Progress bar object with {container, update(), destroy()}
+ */
+function createProgressBar(scene, x, y, width, height, options = {}) {
+    const {
+        bgColor = 0xE5E7EB,
+        fillColor = 0x10B981,
+        borderColor = 0x9CA3AF,
+        borderWidth = 2,
+        initialProgress = 0
+    } = options;
+
+    const container = scene.add.container(x, y);
+
+    // Background
+    const bg = scene.add.rectangle(0, 0, width, height, bgColor);
+    bg.setOrigin(0, 0);
+    bg.setStrokeStyle(borderWidth, borderColor);
+
+    // Fill (progress indicator)
+    const fill = scene.add.rectangle(
+        borderWidth, borderWidth,
+        (width - borderWidth * 2) * initialProgress,
+        height - borderWidth * 2,
+        fillColor
+    );
+    fill.setOrigin(0, 0);
+
+    container.add([bg, fill]);
+
+    return {
+        container: container,
+        update: (progress) => {
+            // Clamp progress between 0 and 1
+            const clampedProgress = Math.max(0, Math.min(1, progress));
+            fill.width = (width - borderWidth * 2) * clampedProgress;
+        },
+        setPosition: (newX, newY) => container.setPosition(newX, newY),
+        destroy: () => container.destroy()
+    };
+}
+
+/**
+ * Creates a score display (large, prominent number)
+ *
+ * @param {Phaser.Scene} scene - The game scene
+ * @param {number} x - X position
+ * @param {number} y - Y position
+ * @param {string} label - Label text (e.g., "Score")
+ * @param {number} initialValue - Initial score value
+ * @returns {Object} Score display object with {container, updateValue(), destroy()}
+ */
+function createScoreDisplay(scene, x, y, label, initialValue = 0) {
+    const container = scene.add.container(x, y);
+
+    // Label
+    const labelText = scene.add.text(0, 0, label, {
+        fontSize: '16px',
+        fill: '#6B7280',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        align: 'center'
+    });
+    labelText.setOrigin(0.5);
+
+    // Value (large, prominent)
+    const valueText = scene.add.text(0, 30, initialValue.toString(), {
+        fontSize: '36px',
+        fill: '#1F2937',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        align: 'center'
+    });
+    valueText.setOrigin(0.5);
+
+    container.add([labelText, valueText]);
+
+    return {
+        container: container,
+        updateValue: (newValue) => valueText.setText(newValue.toString()),
+        setPosition: (newX, newY) => container.setPosition(newX, newY),
+        destroy: () => container.destroy()
+    };
+}
+
+/**
+ * Creates a modal/dialog overlay
+ *
+ * @param {Phaser.Scene} scene - The game scene
+ * @param {string} title - Dialog title
+ * @param {string} message - Dialog message
+ * @param {Array} buttons - Array of {label, callback, variant}
+ * @returns {Object} Modal object with {container, destroy()}
+ */
+function createModal(scene, title, message, buttons = []) {
+    const container = scene.add.container(0, 0);
+    container.setDepth(1000); // Ensure it's on top
+
+    // Overlay (darkens background)
+    const overlay = scene.add.rectangle(
+        scene.scale.width / 2,
+        scene.scale.height / 2,
+        scene.scale.width,
+        scene.scale.height,
+        0x000000,
+        0.7
+    );
+    overlay.setInteractive(); // Blocks clicks to game behind
+
+    // Dialog box
+    const dialogWidth = Math.min(500, scene.scale.width * 0.9);
+    const dialogHeight = Math.min(350, scene.scale.height * 0.7);
+
+    const dialog = scene.add.rectangle(
+        scene.scale.width / 2,
+        scene.scale.height / 2,
+        dialogWidth,
+        dialogHeight,
+        0xFFFFFF
+    );
+    dialog.setStrokeStyle(2, 0xE5E7EB);
+
+    // Title
+    const titleText = scene.add.text(
+        scene.scale.width / 2,
+        scene.scale.height / 2 - dialogHeight / 3,
+        title,
+        {
+            fontSize: '28px',
+            fill: '#1F2937',
+            fontFamily: 'Arial, sans-serif',
+            fontStyle: 'bold',
+            align: 'center',
+            wordWrap: { width: dialogWidth - 40 }
+        }
+    );
+    titleText.setOrigin(0.5);
+
+    // Message
+    const messageText = scene.add.text(
+        scene.scale.width / 2,
+        scene.scale.height / 2 - dialogHeight / 6,
+        message,
+        {
+            fontSize: '18px',
+            fill: '#4B5563',
+            fontFamily: 'Arial, sans-serif',
+            align: 'center',
+            wordWrap: { width: dialogWidth - 60 }
+        }
+    );
+    messageText.setOrigin(0.5);
+
+    container.add([overlay, dialog, titleText, messageText]);
+
+    // Add buttons
+    const buttonSpacing = 20;
+    const totalButtonWidth = buttons.length * 180 + (buttons.length - 1) * buttonSpacing;
+    const startX = scene.scale.width / 2 - totalButtonWidth / 2 + 90;
+    const buttonY = scene.scale.height / 2 + dialogHeight / 3;
+
+    buttons.forEach((btn, index) => {
+        const buttonX = startX + index * (180 + buttonSpacing);
+        const button = createButton(
+            scene,
+            buttonX,
+            buttonY,
+            btn.label,
+            () => {
+                if (btn.callback) btn.callback();
+                container.destroy();
+            },
+            {
+                variant: btn.variant || ButtonVariants.PRIMARY,
+                size: ButtonSizes.MEDIUM
+            }
+        );
+        container.add(button.container);
+    });
+
+    return {
+        container: container,
+        destroy: () => container.destroy()
+    };
+}
+
+// Export for use in games
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = {
+        ButtonVariants,
+        ButtonSizes,
+        createButton,
+        createCard,
+        createProgressBar,
+        createScoreDisplay,
+        createModal
+    };
+}

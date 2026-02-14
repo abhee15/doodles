@@ -1,0 +1,211 @@
+/**
+ * Professional Game Page Template - Version 2.0
+ *  * Responsive design for all devices with proper scaling
+ * Sharp text rendering with anti-aliasing optimization
+ * Consistent user experience across all games
+ *
+ * Based on best practices for HTML5 canvas games
+ */
+
+/* ==================== RESET & BASE ==================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    /* Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+
+    /* Prevent iOS text size adjustment */
+    -webkit-text-size-adjust: 100%;
+
+    /* Ensure proper height calculation */
+    height: 100%;
+}
+
+body {
+    /* Full viewport layout */
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+
+    /* Flexbox centering for game */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    /* Modern gradient background */
+    background: linear-gradient(
+        135deg,
+        var(--game-bg-start, #4F46E5) 0%,
+        var(--game-bg-end, #7C3AED) 100%
+    );
+
+    /* Typography */
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+
+    /* Prevent accidental text selection in game */
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+}
+
+/* ==================== GAME CONTAINER ==================== */
+#game-container {
+    /* Responsive sizing - fills most of viewport */
+    width: min(95vw, 1200px);
+    height: min(95vh, 900px);
+
+    /* Visual polish */
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+
+    /* Container for canvas */
+    position: relative;
+    background: #000;
+}
+
+/* ==================== CANVAS OPTIMIZATION ==================== */
+canvas {
+    display: block;
+
+    /* Let Phaser handle sizing - don't override */
+    width: 100%;
+    height: 100%;
+
+    /* Improve rendering quality */
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+
+    /* Ensure sharp rendering on all devices */
+    -ms-interpolation-mode: nearest-neighbor;
+}
+
+/* ==================== NAVIGATION ==================== */
+.back-link {
+    /* Position absolutely over game */
+    position: absolute;
+    top: clamp(10px, 2vh, 20px);
+    left: clamp(10px, 2vw, 20px);
+    z-index: 1000;
+
+    /* Styling */
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: clamp(0.9rem, 2vw, 1.125rem);
+    font-weight: 600;
+
+    /* Glassmorphism effect */
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* Layout */
+    padding: clamp(8px, 1.5vh, 12px) clamp(14px, 3vw, 20px);
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+
+    /* Animation */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Accessibility */
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.back-link:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.back-link:active {
+    transform: translateY(0);
+}
+
+/* ==================== MOBILE OPTIMIZATIONS ==================== */
+@media (max-width: 768px) {
+    body {
+        /* Use dynamic viewport height for mobile browsers */
+        height: 100dvh;
+    }
+
+    #game-container {
+        /* Fill more of mobile screen */
+        width: 100vw;
+        height: 100dvh;
+
+        /* Remove rounded corners on mobile for immersive experience */
+        border-radius: 0;
+
+        /* Adjust shadow for mobile */
+        box-shadow: none;
+    }
+
+    .back-link {
+        /* Adjust for mobile safe areas */
+        top: max(env(safe-area-inset-top, 0px), 8px);
+        left: max(env(safe-area-inset-left, 0px), 8px);
+
+        /* Smaller on mobile */
+        font-size: 0.875rem;
+        padding: 6px 12px;
+    }
+}
+
+/* ==================== TABLET OPTIMIZATIONS ==================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    #game-container {
+        width: 92vw;
+        height: 92vh;
+    }
+}
+
+/* ==================== LANDSCAPE MOBILE ==================== */
+@media (max-width: 768px) and (orientation: landscape) {
+    #game-container {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .back-link {
+        /* Adjust for landscape mobile */
+        top: 6px;
+        left: 6px;
+        padding: 4px 10px;
+        font-size: 0.8rem;
+    }
+}
+
+/* ==================== HIGH-DPI DISPLAYS ==================== */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    canvas {
+        /* Optimize for Retina displays */
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: optimize-contrast;
+    }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==================== PRINT (hide game) ==================== */
+@media print {
+    body {
+        display: none;
+    }
+}
