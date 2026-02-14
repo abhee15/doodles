@@ -31,6 +31,157 @@ let currentQuestion = null;
 let userAnswer = '';
 let soundEnabled = true;
 
+// Progress & Achievement System
+let playerProgress = {
+    unlockedLevels: 1,
+    levelStars: {}, // { levelId: stars }
+    achievements: [],
+    totalScore: 0,
+    gamesPlayed: 0,
+    totalStars: 0
+};
+
+// Achievement Definitions
+const ACHIEVEMENTS = {
+    first_star: {
+        id: 'first_star',
+        name: 'First Star',
+        icon: '🌟',
+        description: 'Get your first star',
+        check: () => playerProgress.totalStars >= 1
+    },
+    triple_star: {
+        id: 'triple_star',
+        name: 'Perfect!',
+        icon: '⭐',
+        description: 'Get 3 stars on any level',
+        check: () => Object.values(playerProgress.levelStars).some(s => s === 3)
+    },
+    perfectionist: {
+        id: 'perfectionist',
+        name: 'Perfectionist',
+        icon: '🎯',
+        description: 'Get 3 stars on all levels',
+        check: () => {
+            const levels = Object.keys(playerProgress.levelStars).length;
+            const perfectLevels = Object.values(playerProgress.levelStars).filter(s => s === 3).length;
+            return levels > 0 && levels === perfectLevels;
+        }
+    },
+    five_games: {
+        id: 'five_games',
+        name: 'Dedicated',
+        icon: '🔥',
+        description: 'Complete 5 practice sessions',
+        check: () => playerProgress.gamesPlayed >= 5
+    },
+    math_genius: {
+        id: 'math_genius',
+        name: 'Math Genius',
+        icon: '🧠',
+        description: 'Unlock all levels',
+        check: () => playerProgress.unlockedLevels >= 4
+    },
+    score_master: {
+        id: 'score_master',
+        name: 'Score Master',
+        icon: '💯',
+        description: 'Earn 100+ total points',
+        check: () => playerProgress.totalScore >= 100
+    }
+};
+
+// Save/Load Functions
+function saveProgress() {
+    try {
+        localStorage.setItem('quickMathProgress', JSON.stringify(playerProgress));
+    } catch (e) {
+        console.log('Could not save progress:', e);
+    }
+}
+
+function loadProgress() {
+    try {
+        const saved = localStorage.getItem('quickMathProgress');
+        if (saved) {
+            playerProgress = JSON.parse(saved);
+            unlockedLevels = playerProgress.unlockedLevels || 1;
+            return true;
+        }
+    } catch (e) {
+        console.log('Could not load progress:', e);
+    }
+    return false;
+}
+
+function checkAndUnlockAchievements(scene) {
+    let newAchievements = [];
+
+    Object.values(ACHIEVEMENTS).forEach(achievement => {
+        if (!playerProgress.achievements.includes(achievement.id) && achievement.check()) {
+            playerProgress.achievements.push(achievement.id);
+            newAchievements.push(achievement);
+        }
+    });
+
+    if (newAchievements.length > 0) {
+        saveProgress();
+        // Show achievement notification
+        newAchievements.forEach((ach, i) => {
+            setTimeout(() => showAchievementNotification(scene, ach), i * 2000);
+        });
+    }
+}
+
+function showAchievementNotification(scene, achievement) {
+    playSound('celebrate');
+
+    const notification = scene.add.container(450, -100);
+
+    const bg = scene.add.rectangle(0, 0, 350, 100, 0x00D68F);
+    bg.setStrokeStyle(3, 0xFFFFFF);
+
+    const icon = scene.add.text(-140, 0, achievement.icon, {
+        fontSize: '48px'
+    }).setOrigin(0.5);
+
+    const title = scene.add.text(-40, -15, 'Achievement Unlocked!', {
+        fontSize: '14px',
+        fill: '#FFFFFF',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+    }).setOrigin(0, 0.5);
+
+    const name = scene.add.text(-40, 15, achievement.name, {
+        fontSize: '20px',
+        fill: '#FFFFFF',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+    }).setOrigin(0, 0.5);
+
+    notification.add([bg, icon, title, name]);
+    notification.setDepth(2000);
+
+    // Animate in
+    scene.tweens.add({
+        targets: notification,
+        y: 80,
+        duration: 500,
+        ease: 'Back.easeOut'
+    });
+
+    // Animate out after 3 seconds
+    scene.time.delayedCall(3000, () => {
+        scene.tweens.add({
+            targets: notification,
+            y: -100,
+            alpha: 0,
+            duration: 300,
+            onComplete: () => notification.destroy()
+        });
+    });
+}
+
 // Sound System (Web Audio API)
 let audioContext;
 
@@ -129,6 +280,9 @@ function preload() {
 function create() {
     this.scene = this;
 
+    // Load saved progress
+    loadProgress();
+
     // Add sound toggle button (top right, always visible)
     createSoundToggle(this);
 
@@ -164,6 +318,99 @@ function createSoundToggle(scene) {
 
 function update() {
     // Game loop
+}
+
+// ==================== PROGRESS & ACHIEVEMENTS SCREEN ====================
+function showProgressScreen(scene) {
+    scene.children.removeAll();
+    currentScene = 'progress';
+
+    // Title
+    scene.add.text(450, 50, '🏆 Your Progress', {
+        fontSize: '42px',
+        fill: '#2D3436',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+    }).setOrigin(0.5);
+
+    // Stats Cards
+    const stats = [
+        { label: 'Total Stars', value: playerProgress.totalStars, icon: '⭐' },
+        { label: 'Games Played', value: playerProgress.gamesPlayed, icon: '🎮' },
+        { label: 'Total Score', value: playerProgress.totalScore, icon: '💯' },
+        { label: 'Levels Unlocked', value: playerProgress.unlockedLevels, icon: '🔓' }
+    ];
+
+    stats.forEach((stat, i) => {
+        const x = 150 + (i % 2) * 400;
+        const y = 130 + Math.floor(i / 2) * 100;
+
+        const card = scene.add.rectangle(x, y, 350, 80, COLORS.cardBg);
+        card.setOrigin(0, 0);
+        card.setStrokeStyle(2, 0xE9ECEF);
+
+        scene.add.text(x + 25, y + 25, stat.icon, {
+            fontSize: '32px'
+        }).setOrigin(0, 0);
+
+        scene.add.text(x + 80, y + 20, stat.label, {
+            fontSize: '16px',
+            fill: '#636E72',
+            fontFamily: 'Arial'
+        }).setOrigin(0, 0);
+
+        scene.add.text(x + 80, y + 45, stat.value.toString(), {
+            fontSize: '24px',
+            fill: '#2D3436',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0, 0);
+    });
+
+    // Achievements Section
+    scene.add.text(450, 350, 'Achievements', {
+        fontSize: '28px',
+        fill: '#2D3436',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+    }).setOrigin(0.5);
+
+    // Achievement grid
+    const achievementList = Object.values(ACHIEVEMENTS);
+    achievementList.forEach((ach, i) => {
+        const col = i % 3;
+        const row = Math.floor(i / 3);
+        const x = 180 + col * 240;
+        const y = 400 + row * 100;
+        const unlocked = playerProgress.achievements.includes(ach.id);
+
+        const card = scene.add.rectangle(x, y, 220, 85, unlocked ? COLORS.cardBg : 0xF5F7FA);
+        card.setOrigin(0, 0);
+        card.setStrokeStyle(2, unlocked ? COLORS.success : 0xDFE6E9);
+
+        scene.add.text(x + 20, y + 20, unlocked ? ach.icon : '🔒', {
+            fontSize: '28px'
+        }).setOrigin(0, 0);
+
+        scene.add.text(x + 70, y + 15, ach.name, {
+            fontSize: '15px',
+            fill: unlocked ? '#2D3436' : '#ADB5BD',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0, 0);
+
+        scene.add.text(x + 70, y + 38, ach.description, {
+            fontSize: '11px',
+            fill: unlocked ? '#636E72' : '#CED4DA',
+            fontFamily: 'Arial',
+            wordWrap: { width: 130 }
+        }).setOrigin(0, 0);
+    });
+
+    // Back button
+    createModernButton(scene, 450, 600, '← Back to Menu', COLORS.textLight, () => {
+        showMainMenu(scene);
+    }, 200, 50, true);
 }
 
 // ==================== MAIN MENU ====================
@@ -214,11 +461,17 @@ function showMainMenu(scene) {
     });
 
     // Start button (large, prominent)
-    createModernButton(scene, 450, 550, 'Start Learning →', COLORS.primary, () => {
+    createModernButton(scene, 450, 530, 'Start Learning →', COLORS.primary, () => {
         initAudio(); // Initialize audio on first interaction
         playSound('click');
         showLevelSelect(scene);
     }, 300, 70);
+
+    // Achievements button
+    createModernButton(scene, 450, 615, '🏆 View Progress', COLORS.secondary, () => {
+        playSound('click');
+        showProgressScreen(scene);
+    }, 250, 50);
 }
 
 // ==================== LEVEL SELECT ====================
@@ -809,9 +1062,23 @@ function showResults(scene, score, total) {
         fontFamily: 'Arial'
     }).setOrigin(0.5);
 
-    // Unlock message
+    // Save progress
+    playerProgress.gamesPlayed++;
+    playerProgress.totalScore += score;
+
+    // Save star rating (only if better than before)
+    const currentBestStars = playerProgress.levelStars[currentLevel] || 0;
+    if (stars > currentBestStars) {
+        playerProgress.levelStars[currentLevel] = stars;
+    }
+
+    // Recalculate total stars
+    playerProgress.totalStars = Object.values(playerProgress.levelStars).reduce((a, b) => a + b, 0);
+
+    // Unlock next level
     if (passed && unlockedLevels === currentLevel) {
         unlockedLevels++;
+        playerProgress.unlockedLevels = unlockedLevels;
         scene.add.text(450, cardY + 340, '🔓 Next level unlocked!', {
             fontSize: '18px',
             fill: '#00D68F',
@@ -819,6 +1086,10 @@ function showResults(scene, score, total) {
             fontStyle: 'bold'
         }).setOrigin(0.5);
     }
+
+    // Save and check achievements
+    saveProgress();
+    checkAndUnlockAchievements(scene);
 
     // Buttons
     createModernButton(scene, 300, 580, 'Try Again', COLORS.primary, () => {
