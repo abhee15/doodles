@@ -132,35 +132,36 @@ function createLevelCard(scene, x, y, level, isLocked) {
     const cardBg = scene.add.rectangle(x, y, 300, 140, isLocked ? 0x636e72 : COLORS.buttonBg);
     cardBg.setStrokeStyle(3, isLocked ? 0x000 : COLORS.primary);
 
-    // Icon
-    scene.add.text(x - 100, y, level.icon, {
-        fontSize: '48px',
+    // Icon (left side)
+    scene.add.text(x - 110, y - 10, level.icon, {
+        fontSize: '44px',
         fill: isLocked ? '#aaa' : '#fff',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    // Name
-    scene.add.text(x + 20, y - 30, level.name, {
-        fontSize: '18px',
-        fill: isLocked ? '#aaa' : '#fff',
+    // Name (right side, centered vertically)
+    scene.add.text(x - 40, y - 25, level.name, {
+        fontSize: '17px',
+        fill: isLocked ? '#ccc' : '#000',
         fontStyle: 'bold',
-        wordWrap: { width: 180 }
+        wordWrap: { width: 200 }
     }).setOrigin(0, 0.5);
 
-    // Description
-    scene.add.text(x + 20, y + 10, level.desc, {
-        fontSize: '13px',
-        fill: isLocked ? '#888' : '#ddd',
-        wordWrap: { width: 180 }
+    // Description (right side, below name)
+    scene.add.text(x - 40, y + 5, level.desc, {
+        fontSize: '12px',
+        fill: isLocked ? '#999' : '#333',
+        wordWrap: { width: 200 }
     }).setOrigin(0, 0.5);
 
+    // Button or locked status (bottom)
     if (isLocked) {
         scene.add.text(x, y + 50, '🔒 Locked', {
-            fontSize: '16px',
-            fill: '#aaa'
+            fontSize: '15px',
+            fill: '#999'
         }).setOrigin(0.5);
     } else {
-        const playBtn = scene.add.rectangle(x, y + 50, 120, 35, COLORS.success);
+        const playBtn = scene.add.rectangle(x, y + 50, 130, 35, COLORS.success);
         playBtn.setInteractive({ useHandCursor: true });
         playBtn.setStrokeStyle(2, 0x000);
 
