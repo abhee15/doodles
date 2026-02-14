@@ -662,10 +662,18 @@ function showPractice(scene, levelId) {
         if (feedbackText) feedbackText.destroy();
         if (inputText) inputText.destroy();
 
-        // Question
-        questionText = scene.add.text(400, 120, `${currentQuestion.num} × 11 = ?`, {
+        // Question (format based on type)
+        let questionStr = '';
+        if (currentQuestion.type === '×11') {
+            questionStr = `${currentQuestion.num} × 11 = ?`;
+        } else if (currentQuestion.type === '²') {
+            questionStr = `${currentQuestion.num}² = ?`;
+        }
+
+        questionText = scene.add.text(450, 120, questionStr, {
             fontSize: '44px',
-            fill: '#fff',
+            fill: '#2D3436',
+            fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
