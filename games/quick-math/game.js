@@ -1,17 +1,17 @@
 // Quick Math - Learn Vedic Math Tricks!
-// Phaser 3 Game
+// Professional Educational Game Design
 
 const config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    width: 900,
+    height: 650,
     parent: 'game-container',
-    backgroundColor: '#2d3436',
+    backgroundColor: '#F5F7FA',
     scale: {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 800,
-        height: 600
+        width: 900,
+        height: 650
     },
     scene: {
         preload: preload,
@@ -23,22 +23,24 @@ const config = {
 const game = new Phaser.Game(config);
 
 // Game state
-let currentScene = 'menu'; // menu, level-select, tutorial, practice, challenge
+let currentScene = 'menu';
 let currentLevel = 1;
 let unlockedLevels = 1;
 let score = 0;
 let currentQuestion = null;
 let userAnswer = '';
 
-// Placeholder colors (will replace with Monakki theme)
+// Professional Color Palette (Kid-friendly but clean)
 const COLORS = {
-    primary: 0x6C5CE7,      // Purple
-    secondary: 0xFDCB6E,    // Yellow/Gold
-    success: 0x00B894,      // Green
-    error: 0xFF7675,        // Red
-    background: 0x2d3436,   // Dark gray
-    text: 0xFFFFFF,         // White
-    buttonBg: 0x74B9FF      // Light blue
+    primary: 0x5F6FFF,      // Vibrant blue
+    secondary: 0xFFB800,    // Golden yellow
+    success: 0x00D68F,      // Bright green
+    error: 0xFF6B6B,        // Soft red
+    background: 0xF5F7FA,   // Light gray-blue
+    cardBg: 0xFFFFFF,       // White
+    text: 0x2D3436,         // Dark gray (readable)
+    textLight: 0x636E72,    // Light gray
+    accent: 0xFF6348        // Coral accent
 };
 
 function preload() {
@@ -59,39 +61,52 @@ function showMainMenu(scene) {
     scene.children.removeAll();
     currentScene = 'menu';
 
+    // Background decoration
+    const topCircle = scene.add.circle(750, -50, 150, COLORS.primary, 0.08);
+    const bottomCircle = scene.add.circle(100, 700, 180, COLORS.secondary, 0.08);
+
     // Title
-    scene.add.text(400, 80, '⚡ Quick Math', {
-        fontSize: '56px',
-        fill: '#FDCB6E',
-        fontStyle: 'bold',
-        stroke: '#000',
-        strokeThickness: 6
+    scene.add.text(450, 120, '⚡ Quick Math', {
+        fontSize: '64px',
+        fill: '#2D3436',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    scene.add.text(400, 140, 'Learn Math Tricks!', {
-        fontSize: '24px',
-        fill: '#fff',
-        fontStyle: 'italic'
+    // Subtitle
+    scene.add.text(450, 180, 'Learn Vedic Math Tricks', {
+        fontSize: '22px',
+        fill: '#636E72',
+        fontFamily: 'Arial'
     }).setOrigin(0.5);
 
-    // Start button
-    createButton(scene, 400, 250, 'Start Learning', COLORS.primary, () => {
-        showLevelSelect(scene);
-    });
-
-    // Instructions
-    const instructions = [
-        '🎯 Learn fast math tricks',
-        '📚 One trick at a time',
-        '⚡ Become a math superstar!'
+    // Feature cards (mini)
+    const features = [
+        { icon: '🎯', text: 'Learn fast math tricks' },
+        { icon: '📚', text: 'One trick at a time' },
+        { icon: '⚡', text: 'Become a math master' }
     ];
 
-    instructions.forEach((text, i) => {
-        scene.add.text(400, 350 + (i * 40), text, {
-            fontSize: '20px',
-            fill: '#fff'
+    features.forEach((feature, i) => {
+        const y = 280 + i * 70;
+        const card = scene.add.rectangle(450, y, 400, 55, COLORS.cardBg);
+        card.setStrokeStyle(2, 0xE9ECEF);
+
+        scene.add.text(280, y, feature.icon, {
+            fontSize: '28px'
         }).setOrigin(0.5);
+
+        scene.add.text(320, y, feature.text, {
+            fontSize: '18px',
+            fill: '#2D3436',
+            fontFamily: 'Arial'
+        }).setOrigin(0, 0.5);
     });
+
+    // Start button (large, prominent)
+    createModernButton(scene, 450, 550, 'Start Learning →', COLORS.primary, () => {
+        showLevelSelect(scene);
+    }, 300, 70);
 }
 
 // ==================== LEVEL SELECT ====================
@@ -100,74 +115,113 @@ function showLevelSelect(scene) {
     currentScene = 'level-select';
 
     // Title
-    scene.add.text(400, 50, 'Choose Your Trick', {
-        fontSize: '40px',
-        fill: '#FDCB6E',
+    scene.add.text(450, 60, 'Choose Your Math Trick', {
+        fontSize: '42px',
+        fill: '#2D3436',
+        fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    // Level cards
+    // Subtitle
+    scene.add.text(450, 105, 'Master one trick at a time', {
+        fontSize: '18px',
+        fill: '#636E72',
+        fontFamily: 'Arial'
+    }).setOrigin(0.5);
+
+    // Level cards - 2x2 grid with proper spacing
     const levels = [
-        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'The pattern trick!' },
-        { id: 2, name: 'Square Numbers (×5)', icon: '²', desc: 'Numbers ending in 5', locked: true },
-        { id: 3, name: 'Doubling & Halving', icon: '×÷', desc: 'Smart shortcuts', locked: true },
-        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', locked: true }
+        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x5F6FFF },
+        { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF6348, locked: true },
+        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x00D68F, locked: true },
+        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFB800, locked: true }
     ];
 
     levels.forEach((level, index) => {
-        const x = 200 + (index % 2) * 350;
-        const y = 150 + Math.floor(index / 2) * 180;
+        const col = index % 2;
+        const row = Math.floor(index / 2);
+        const x = 170 + col * 380;
+        const y = 180 + row * 200;
         const isLocked = level.locked && level.id > unlockedLevels;
 
-        createLevelCard(scene, x, y, level, isLocked);
+        createProfessionalCard(scene, x, y, level, isLocked);
     });
 
-    // Back button
-    createButton(scene, 100, 550, '← Back', COLORS.error, () => {
+    // Back button (redesigned)
+    createModernButton(scene, 120, 600, '← Back', COLORS.textLight, () => {
         showMainMenu(scene);
-    }, 150, 50);
+    }, 140, 50, true);
 }
 
-function createLevelCard(scene, x, y, level, isLocked) {
-    const cardBg = scene.add.rectangle(x, y, 300, 140, isLocked ? 0x636e72 : COLORS.buttonBg);
-    cardBg.setStrokeStyle(3, isLocked ? 0x000 : COLORS.primary);
+// Professional Card Design with Proper Padding
+function createProfessionalCard(scene, x, y, level, isLocked) {
+    const cardWidth = 340;
+    const cardHeight = 160;
+    const padding = 25;
 
-    // Icon (left side)
-    scene.add.text(x - 110, y - 10, level.icon, {
-        fontSize: '44px',
-        fill: isLocked ? '#aaa' : '#fff',
+    // Card shadow (depth effect)
+    const shadow = scene.add.rectangle(x, y + 4, cardWidth, cardHeight, 0x000000, 0.08);
+    shadow.setOrigin(0, 0);
+
+    // Card background (white)
+    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xE9ECEF : COLORS.cardBg);
+    cardBg.setOrigin(0, 0);
+    cardBg.setStrokeStyle(2, isLocked ? 0xDEE2E6 : 0xE9ECEF);
+
+    // Colored accent bar (left side)
+    if (!isLocked) {
+        const accentBar = scene.add.rectangle(x, y, 6, cardHeight, level.color);
+        accentBar.setOrigin(0, 0);
+    }
+
+    // Icon circle (professional design)
+    const iconCircle = scene.add.circle(x + padding + 35, y + 50, 35, isLocked ? 0xCED4DA : level.color, 0.15);
+
+    const iconText = scene.add.text(x + padding + 35, y + 50, level.icon, {
+        fontSize: '36px',
+        fill: isLocked ? '#ADB5BD' : '#2D3436',
+        fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    // Name (right side, centered vertically)
-    scene.add.text(x - 40, y - 25, level.name, {
-        fontSize: '17px',
-        fill: isLocked ? '#ccc' : '#000',
+    // Title (with proper padding and bounds)
+    const titleX = x + padding + 90;
+    const titleY = y + padding + 10;
+
+    const titleText = scene.add.text(titleX, titleY, level.name, {
+        fontSize: '20px',
+        fill: isLocked ? '#ADB5BD' : '#2D3436',
+        fontFamily: 'Arial',
         fontStyle: 'bold',
-        wordWrap: { width: 200 }
-    }).setOrigin(0, 0.5);
+        wordWrap: { width: cardWidth - 130 }
+    }).setOrigin(0, 0);
 
-    // Description (right side, below name)
-    scene.add.text(x - 40, y + 5, level.desc, {
-        fontSize: '12px',
-        fill: isLocked ? '#999' : '#333',
-        wordWrap: { width: 200 }
-    }).setOrigin(0, 0.5);
+    // Description (below title)
+    const descText = scene.add.text(titleX, titleY + 35, level.desc, {
+        fontSize: '14px',
+        fill: isLocked ? '#CED4DA' : '#636E72',
+        fontFamily: 'Arial',
+        wordWrap: { width: cardWidth - 130 }
+    }).setOrigin(0, 0);
 
-    // Button or locked status (bottom)
+    // Action button (bottom right)
     if (isLocked) {
-        scene.add.text(x, y + 50, '🔒 Locked', {
-            fontSize: '15px',
-            fill: '#999'
+        const lockIcon = scene.add.text(x + cardWidth - padding - 80, y + cardHeight - 40, '🔒 Locked', {
+            fontSize: '14px',
+            fill: '#ADB5BD',
+            fontFamily: 'Arial'
         }).setOrigin(0.5);
     } else {
-        const playBtn = scene.add.rectangle(x, y + 50, 130, 35, COLORS.success);
-        playBtn.setInteractive({ useHandCursor: true });
-        playBtn.setStrokeStyle(2, 0x000);
+        const btnX = x + cardWidth - padding - 70;
+        const btnY = y + cardHeight - 40;
 
-        const playText = scene.add.text(x, y + 50, 'Learn →', {
-            fontSize: '16px',
-            fill: '#fff',
+        const playBtn = scene.add.rectangle(btnX, btnY, 120, 40, level.color);
+        playBtn.setInteractive({ useHandCursor: true });
+
+        const playText = scene.add.text(btnX, btnY, 'Start →', {
+            fontSize: '15px',
+            fill: '#FFFFFF',
+            fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
 
@@ -176,8 +230,14 @@ function createLevelCard(scene, x, y, level, isLocked) {
             showTutorial(scene, level.id);
         });
 
-        playBtn.on('pointerover', () => playBtn.setAlpha(0.8));
-        playBtn.on('pointerout', () => playBtn.setAlpha(1));
+        playBtn.on('pointerover', () => {
+            playBtn.setAlpha(0.85);
+            playBtn.setScale(1.02);
+        });
+        playBtn.on('pointerout', () => {
+            playBtn.setAlpha(1);
+            playBtn.setScale(1);
+        });
     }
 }
 
@@ -483,21 +543,39 @@ function createNumberPad(scene, inputText) {
     }
 }
 
-// ==================== HELPER: CREATE BUTTON ====================
-function createButton(scene, x, y, label, color, callback, width = 200, height = 60) {
-    const button = scene.add.rectangle(x, y, width, height, color);
+// ==================== MODERN BUTTON (Professional Design) ====================
+function createModernButton(scene, x, y, label, color, callback, width = 200, height = 60, outline = false) {
+    // Shadow for depth
+    const shadow = scene.add.rectangle(x, y + 3, width, height, 0x000000, 0.1);
+
+    const button = scene.add.rectangle(x, y, width, height, outline ? COLORS.cardBg : color);
     button.setInteractive({ useHandCursor: true });
-    button.setStrokeStyle(3, 0x000);
+
+    if (outline) {
+        button.setStrokeStyle(2, color);
+    }
 
     const text = scene.add.text(x, y, label, {
-        fontSize: '22px',
-        fill: '#fff',
+        fontSize: '18px',
+        fill: outline ? '#636E72' : '#FFFFFF',
+        fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
     button.on('pointerdown', callback);
-    button.on('pointerover', () => button.setAlpha(0.8));
-    button.on('pointerout', () => button.setAlpha(1));
+    button.on('pointerover', () => {
+        button.setAlpha(0.9);
+        button.setScale(1.02);
+    });
+    button.on('pointerout', () => {
+        button.setAlpha(1);
+        button.setScale(1);
+    });
 
-    return { button, text };
+    return { button, text, shadow };
+}
+
+// Legacy button support
+function createButton(scene, x, y, label, color, callback, width = 200, height = 60) {
+    return createModernButton(scene, x, y, label, color, callback, width, height);
 }
