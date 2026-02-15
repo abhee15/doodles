@@ -22,6 +22,16 @@ const config = createGameConfig({
 
 const game = new Phaser.Game(config);
 
+// Game states
+const GameState = {
+    MENU: 'menu',
+    PLAYING: 'playing',
+    PAUSED: 'paused',
+    GAME_OVER: 'gameOver',
+    VICTORY: 'victory'
+};
+
+let currentState = GameState.MENU;
 let numbers = [];
 let nextNumber = 1;
 let score = 0;
@@ -51,6 +61,21 @@ function create() {
         stroke: COLORS.neutral.darkBg.hex,
         strokeThickness: 4
     }).setOrigin(0.5);
+
+    // Pause button (hidden initially, shown when game starts)
+    const pauseBtn = createButton(
+        this,
+        this.scale.width / 2,
+        30,
+        '⏸️',
+        () => showPauseMenu(this),
+        {
+            variant: ButtonVariants.GHOST,
+            size: ButtonSizes.SMALL
+        }
+    );
+    pauseBtn.container.setVisible(false);
+    pauseBtn.container.setName('pauseBtn');
 
     // Score
     scoreText = this.add.text(20, 70, 'Score: 0', {
@@ -128,12 +153,17 @@ function update() {
 }
 
 function startGame(scene) {
+    currentState = GameState.PLAYING;
     gameActive = true;
     score = 0;
     lives = 3;
     nextNumber = 1;
     fallSpeed = 80;
     spawnDelay = 2000;
+
+    // Show pause button
+    const pauseBtn = scene.children.getByName('pauseBtn');
+    if (pauseBtn) pauseBtn.setVisible(true);
 
     updateUI();
 
@@ -316,7 +346,45 @@ function updateUI() {
     }
 }
 
+// ==================== PAUSE MENU ====================
+function showPauseMenu(scene) {
+    currentState = GameState.PAUSED;
+    gameActive = false;
+    if (spawnTimer) spawnTimer.paused = true;
+
+    createModal(
+        scene,
+        '⏸️ Paused',
+        'Take a break!',
+        [
+            {
+                label: 'RESUME',
+                callback: () => resumeGame(scene),
+                variant: ButtonVariants.SUCCESS
+            },
+            {
+                label: 'RESTART',
+                callback: () => scene.scene.restart(),
+                variant: ButtonVariants.SECONDARY
+            },
+            {
+                label: 'EXIT',
+                callback: () => window.location.href = '../../index.html',
+                variant: ButtonVariants.GHOST
+            }
+        ]
+    );
+}
+
+function resumeGame(scene) {
+    currentState = GameState.PLAYING;
+    gameActive = true;
+    if (spawnTimer) spawnTimer.paused = false;
+}
+
+// ==================== END SCREENS ====================
 function gameOver(scene) {
+    currentState = GameState.GAME_OVER;
     gameActive = false;
     if (spawnTimer) spawnTimer.remove();
 
@@ -327,41 +395,28 @@ function gameOver(scene) {
     });
     numbers = [];
 
-    const center = getCenterPosition(scene);
-
-    // Game over screen - using design system colors
-    const bg = scene.add.rectangle(center.x, center.y, 600, 300, COLORS.neutral.darkBg.phaser, 0.95);
-    bg.setStrokeStyle(4, COLORS.error.phaser);
-
-    scene.add.text(center.x, center.y - 60, '💀 Game Over!', {
-        fontSize: '48px',
-        fill: COLORS.error.hex,
-        fontFamily: 'Arial, sans-serif',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
-
-    scene.add.text(center.x, center.y, `Final Score: ${score}`, {
-        fontSize: '32px',
-        fill: COLORS.neutral.lightText.hex,
-        fontFamily: 'Arial, sans-serif',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
-
-    // Restart button - using NEW button component
-    createButton(
+    // Use professional modal
+    createModal(
         scene,
-        center.x,
-        center.y + 80,
-        'PLAY AGAIN',
-        () => scene.scene.restart(),
-        {
-            variant: ButtonVariants.SUCCESS,
-            size: ButtonSizes.LARGE
-        }
+        '💀 Game Over!',
+        `Final Score: ${score}\nYou ran out of lives!`,
+        [
+            {
+                label: 'PLAY AGAIN',
+                callback: () => scene.scene.restart(),
+                variant: ButtonVariants.SUCCESS
+            },
+            {
+                label: 'EXIT',
+                callback: () => window.location.href = '../../index.html',
+                variant: ButtonVariants.GHOST
+            }
+        ]
     );
 }
 
 function winGame(scene) {
+    currentState = GameState.VICTORY;
     gameActive = false;
     if (spawnTimer) spawnTimer.remove();
 
@@ -372,36 +427,22 @@ function winGame(scene) {
     });
     numbers = [];
 
-    const center = getCenterPosition(scene);
-
-    // Victory screen - using design system colors
-    const bg = scene.add.rectangle(center.x, center.y, 600, 300, COLORS.neutral.darkBg.phaser, 0.95);
-    bg.setStrokeStyle(4, COLORS.warning.phaser);
-
-    scene.add.text(center.x, center.y - 60, '🎉 You Win!', {
-        fontSize: '48px',
-        fill: COLORS.warning.hex,
-        fontFamily: 'Arial, sans-serif',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
-
-    scene.add.text(center.x, center.y, `Perfect Score: ${score}`, {
-        fontSize: '32px',
-        fill: COLORS.neutral.lightText.hex,
-        fontFamily: 'Arial, sans-serif',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
-
-    // Restart button - using NEW button component
-    createButton(
+    // Use professional modal
+    createModal(
         scene,
-        center.x,
-        center.y + 80,
-        'PLAY AGAIN',
-        () => scene.scene.restart(),
-        {
-            variant: ButtonVariants.SUCCESS,
-            size: ButtonSizes.LARGE
-        }
+        '🎉 You Win!',
+        `Perfect! You clicked all ${maxNumbers} numbers!\nFinal Score: ${score}`,
+        [
+            {
+                label: 'PLAY AGAIN',
+                callback: () => scene.scene.restart(),
+                variant: ButtonVariants.SUCCESS
+            },
+            {
+                label: 'EXIT',
+                callback: () => window.location.href = '../../index.html',
+                variant: ButtonVariants.GHOST
+            }
+        ]
     );
 }
