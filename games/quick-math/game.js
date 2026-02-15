@@ -718,11 +718,6 @@ function tutorialMultiplyBy11(scene) {
                 showPractice(scene, 1);
             }, 150, 50);
         }
-
-        // Back to level select
-        createModernButton(scene, 120, 600, '← Back', QM_COLORS.textLight, () => {
-            showLevelSelect(scene);
-        }, 140, 50, true);
     }
 
     showStep();
@@ -840,11 +835,6 @@ function tutorialSquareEndingIn5(scene) {
                 showPractice(scene, 2);
             }, 150, 50);
         }
-
-        // Back to level select
-        createModernButton(scene, 120, 600, '← Back', QM_COLORS.textLight, () => {
-            showLevelSelect(scene);
-        }, 140, 50, true);
     }
 
     showStep();
@@ -980,11 +970,6 @@ function showPractice(scene, levelId) {
             generateQuestion();
         });
     }
-
-    // Back button
-    createButton(scene, 100, 40, '← Back', QM_COLORS.error, () => {
-        showLevelSelect(scene);
-    }, 120, 40);
 
     generateQuestion();
 }
