@@ -8,9 +8,9 @@ const WORD_COLORS = {
     success: COLORS.success.phaser,
     error: COLORS.error.phaser,
     background: COLORS.neutral.lightBgAlt.phaser,
-    cardBg: COLORS.neutral.white.phaser,
+    cardBg: COLORS.neutral.lightBg.phaser,
     text: COLORS.neutral.darkText.phaser,
-    textLight: COLORS.neutral.mediumText.phaser,
+    textLight: COLORS.neutral.darkTextSecondary.phaser,
     accent: COLORS.info.phaser,
     // Difficulty colors
     difficulty1: COLORS.success.phaser,  // Green - Easy
