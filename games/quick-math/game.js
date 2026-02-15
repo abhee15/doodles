@@ -2,10 +2,23 @@
 // Professional Educational Game Design
 // MIGRATED TO TEMPLATE SYSTEM V2.0
 
+// Quick Math local colors - mapped to design system
+const QM_COLORS = {
+    primary: COLORS.primary.phaser,
+    secondary: COLORS.warning.phaser,
+    success: COLORS.success.phaser,
+    error: COLORS.error.phaser,
+    background: COLORS.neutral.lightBgAlt.phaser,
+    cardBg: COLORS.neutral.lightBg.phaser,
+    text: COLORS.neutral.darkText.phaser,
+    textLight: COLORS.neutral.darkTextSecondary.phaser,
+    accent: COLORS.error.phaser
+};
+
 const config = createGameConfig({
     width: 900,
     height: 650,
-    backgroundColor: QM_COLORS.neutral.lightBgAlt.phaser,
+    backgroundColor: QM_COLORS.background,
     scene: {
         preload: preload,
         create: create,
@@ -252,19 +265,6 @@ function getStarRating(score, total) {
     if (percentage >= 60) return 1;
     return 0;
 }
-
-// Quick Math local colors - mapped to design system (renamed to avoid conflict)
-const QM_COLORS = {
-    primary: QM_COLORS.primary.phaser,
-    secondary: QM_COLORS.warning.phaser,
-    success: QM_COLORS.success.phaser,
-    error: QM_COLORS.error.phaser,
-    background: QM_COLORS.neutral.lightBgAlt.phaser,
-    cardBg: QM_COLORS.neutral.lightBg.phaser,
-    text: QM_COLORS.neutral.darkText.phaser,
-    textLight: QM_COLORS.neutral.darkTextSecondary.phaser,
-    accent: QM_COLORS.error.phaser
-};
 
 function preload() {
     // No external assets needed

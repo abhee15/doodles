@@ -2,10 +2,28 @@
 // Educational Game for Kids
 // MIGRATED TO TEMPLATE SYSTEM V2.0
 
+// World Explorer local colors - mapped to design system
+const WE_COLORS = {
+    primary: COLORS.primary.phaser,
+    secondary: COLORS.warning.phaser,
+    success: COLORS.success.phaser,
+    error: COLORS.error.phaser,
+    background: COLORS.neutral.lightBgAlt.phaser,
+    cardBg: COLORS.neutral.lightBg.phaser,
+    text: COLORS.neutral.darkText.phaser,
+    textLight: COLORS.neutral.darkTextSecondary.phaser,
+    // Continent colors (keep unique for educational value)
+    africa: 0xFF8C42,
+    asia: 0xFF6B6B,
+    americas: 0x51CF66,
+    europe: 0x5F6FFF,
+    oceania: 0x20C997
+};
+
 const config = createGameConfig({
     width: 900,
     height: 650,
-    backgroundColor: WE_COLORS.neutral.lightBgAlt.phaser,
+    backgroundColor: WE_COLORS.background,
     scene: {
         preload: preload,
         create: create,
@@ -22,24 +40,6 @@ let currentCountry = null;
 let score = 0;
 let countriesLearned = [];
 let unlockedDifficulties = 1;
-
-// World Explorer local colors - mapped to design system
-const WE_COLORS = {
-    primary: WE_COLORS.primary.phaser,
-    secondary: WE_COLORS.warning.phaser,
-    success: WE_COLORS.success.phaser,
-    error: WE_COLORS.error.phaser,
-    background: WE_COLORS.neutral.lightBgAlt.phaser,
-    cardBg: WE_COLORS.neutral.lightBg.phaser,
-    text: WE_COLORS.neutral.darkText.phaser,
-    textLight: WE_COLORS.neutral.darkTextSecondary.phaser,
-    // Continent colors (keep unique for educational value)
-    africa: 0xFF8C42,
-    asia: 0xFF6B6B,
-    americas: 0x51CF66,
-    europe: 0x5F6FFF,
-    oceania: 0x20C997
-};
 
 // Comprehensive Country Database
 const COUNTRIES = {

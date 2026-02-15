@@ -1,20 +1,6 @@
 // Word Explorer - Vocabulary Learning Game
 // Educational game for 4th graders to improve vocabulary, pronunciation, and comprehension
 
-// ==================== CONFIGURATION ====================
-const config = createGameConfig({
-    width: 900,
-    height: 650,
-    backgroundColor: COLORS.neutral.lightBgAlt.phaser,
-    scene: {
-        preload: preload,
-        create: create,
-        update: update
-    }
-});
-
-const game = new Phaser.Game(config);
-
 // Color Palette - Map to design system
 const WORD_COLORS = {
     primary: COLORS.primary.phaser,
@@ -37,6 +23,20 @@ const WORD_COLORS = {
     action: COLORS.success.phaser,       // Green
     concept: 0x0984E3       // Blue - custom
 };
+
+// ==================== CONFIGURATION ====================
+const config = createGameConfig({
+    width: 900,
+    height: 650,
+    backgroundColor: WORD_COLORS.background,
+    scene: {
+        preload: preload,
+        create: create,
+        update: update
+    }
+});
+
+const game = new Phaser.Game(config);
 
 // Category icons and labels
 const CATEGORY_INFO = {
