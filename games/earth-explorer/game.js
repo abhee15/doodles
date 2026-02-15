@@ -28,7 +28,6 @@ let gameData = { currentDifficulty: 'mixed' };
 function preload() {}
 
 function create() {
-    this.scene = this;
     showMainMenu(this);
     if (window.gameAnalytics) {
         window.gameAnalytics.trackGameStart('earth-explorer');
@@ -42,7 +41,9 @@ function showMainMenu(scene) {
     scene.children.removeAll();
     currentScene = 'menu';
 
-    scene.add.rectangle(450, 325, 900, 650, 0x87CEEB);
+    // Ensure we have a visible background
+    const bg = scene.add.rectangle(450, 325, 900, 650, 0x87CEEB);
+    bg.setDepth(-1000); // Make sure it's behind everything else
 
     scene.add.text(450, 100, '🌍 Earth Explorer', {
         fontSize: '56px',
@@ -60,15 +61,15 @@ function showMainMenu(scene) {
     scene.add.text(250, 130, '🗺️', { fontSize: '40px' });
     scene.add.text(630, 130, '🌊', { fontSize: '40px' });
 
-    createButton(scene, 450, 280, '🌍 Continents Only', EARTH_COLORS.northAmerica, () => {
+    createButton(scene, 450, 280, '🌍 Continents Only', 0xA8E6CF, () => {
         startGame(scene, 'continents');
     }, 300, 70);
 
-    createButton(scene, 450, 370, '🌊 Oceans Only', EARTH_COLORS.ocean, () => {
+    createButton(scene, 450, 370, '🌊 Oceans Only', 0x4A90E2, () => {
         startGame(scene, 'oceans');
     }, 300, 70);
 
-    createButton(scene, 450, 460, '🌏 Both (Challenge!)', EARTH_COLORS.asia, () => {
+    createButton(scene, 450, 460, '🌏 Both (Challenge!)', 0xFF6B9D, () => {
         startGame(scene, 'mixed');
     }, 300, 70);
 
@@ -267,7 +268,7 @@ function handleClick(scene, id) {
 // ==================== FUN FACT ====================
 function showFunFact(scene, fact, onClose) {
     const overlay = scene.add.rectangle(450, 325, 900, 650, 0x000000, 0.7).setDepth(2000).setInteractive();
-    const modalBg = scene.add.rectangle(450, 325, 600, 300, 0xFFFFFF).setDepth(2001).setStrokeStyle(4, COLORS.success.phaser);
+    const modalBg = scene.add.rectangle(450, 325, 600, 300, 0xFFFFFF).setDepth(2001).setStrokeStyle(4, 0x10B981);
     const check = scene.add.text(450, 230, '✓', {
         fontSize: '60px',
         fill: '#00D68F',
@@ -282,7 +283,7 @@ function showFunFact(scene, fact, onClose) {
         wordWrap: { width: 550 }
     }).setOrigin(0.5).setDepth(2002);
 
-    const btn = scene.add.rectangle(450, 410, 200, 50, COLORS.success.phaser).setDepth(2002).setInteractive({ useHandCursor: true });
+    const btn = scene.add.rectangle(450, 410, 200, 50, 0x10B981).setDepth(2002).setInteractive({ useHandCursor: true });
     const btnText = scene.add.text(450, 410, 'Continue', {
         fontSize: '22px',
         fill: '#FFFFFF',
@@ -333,8 +334,8 @@ function showResults(scene) {
         fontSize: '56px'
     }).setOrigin(0.5);
 
-    createButton(scene, 300, 420, '🔄 Play Again', COLORS.success.phaser, () => showMainMenu(scene), 220, 60);
-    createButton(scene, 600, 420, '← Main Menu', COLORS.primary.phaser, () => showMainMenu(scene), 220, 60);
+    createButton(scene, 300, 420, '🔄 Play Again', 0x10B981, () => showMainMenu(scene), 220, 60);
+    createButton(scene, 600, 420, '← Main Menu', 0x4F46E5, () => showMainMenu(scene), 220, 60);
 
     if (window.gameAnalytics) {
         window.gameAnalytics.trackLevelComplete('earth-explorer', gameData.currentDifficulty, stars);
