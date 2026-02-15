@@ -1,24 +1,17 @@
 // World Explorer - Learn About Countries!
 // Educational Game for Kids
+// MIGRATED TO TEMPLATE SYSTEM V2.0
 
-const config = {
-    type: Phaser.AUTO,
+const config = createGameConfig({
     width: 900,
     height: 650,
-    parent: 'game-container',
-    backgroundColor: '#F5F7FA',
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 900,
-        height: 650
-    },
+    backgroundColor: WE_COLORS.neutral.lightBgAlt.phaser,
     scene: {
         preload: preload,
         create: create,
         update: update
     }
-};
+});
 
 const game = new Phaser.Game(config);
 
@@ -30,17 +23,17 @@ let score = 0;
 let countriesLearned = [];
 let unlockedDifficulties = 1;
 
-// Color Palette (Monokai-style: high-contrast text for kids)
-const COLORS = {
-    primary: 0x4F46E5,
-    secondary: 0xFFB800,
-    success: 0x00D68F,
-    error: 0xFF6B6B,
-    background: 0xF5F7FA,
-    cardBg: 0xFFFFFF,
-    text: 0x1E293B,
-    textLight: 0x475569,
-    // Continent colors
+// World Explorer local colors - mapped to design system
+const WE_COLORS = {
+    primary: WE_COLORS.primary.phaser,
+    secondary: WE_COLORS.warning.phaser,
+    success: WE_COLORS.success.phaser,
+    error: WE_COLORS.error.phaser,
+    background: WE_COLORS.neutral.lightBgAlt.phaser,
+    cardBg: WE_COLORS.neutral.lightBg.phaser,
+    text: WE_COLORS.neutral.darkText.phaser,
+    textLight: WE_COLORS.neutral.darkTextSecondary.phaser,
+    // Continent colors (keep unique for educational value)
     africa: 0xFF8C42,
     asia: 0xFF6B6B,
     americas: 0x51CF66,
@@ -55,7 +48,7 @@ const COUNTRIES = {
         name: "United States",
         flag: "🇺🇸",
         continent: "North America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Washington D.C.",
         majorCities: ["New York", "Los Angeles", "Chicago"],
         language: ["English"],
@@ -78,7 +71,7 @@ const COUNTRIES = {
         name: "United Kingdom",
         flag: "🇬🇧",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "London",
         majorCities: ["London", "Edinburgh", "Manchester"],
         language: ["English"],
@@ -101,7 +94,7 @@ const COUNTRIES = {
         name: "France",
         flag: "🇫🇷",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Paris",
         majorCities: ["Paris", "Lyon", "Marseille"],
         language: ["French"],
@@ -124,7 +117,7 @@ const COUNTRIES = {
         name: "Japan",
         flag: "🇯🇵",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Tokyo",
         majorCities: ["Tokyo", "Osaka", "Kyoto"],
         language: ["Japanese"],
@@ -147,7 +140,7 @@ const COUNTRIES = {
         name: "Australia",
         flag: "🇦🇺",
         continent: "Oceania",
-        continentColor: COLORS.oceania,
+        continentColor: WE_COLORS.oceania,
         capital: "Canberra",
         majorCities: ["Sydney", "Melbourne", "Brisbane"],
         language: ["English"],
@@ -170,7 +163,7 @@ const COUNTRIES = {
         name: "India",
         flag: "🇮🇳",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "New Delhi",
         majorCities: ["Mumbai", "Delhi", "Bangalore"],
         language: ["Hindi", "English", "22+ others"],
@@ -193,7 +186,7 @@ const COUNTRIES = {
         name: "China",
         flag: "🇨🇳",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Beijing",
         majorCities: ["Beijing", "Shanghai", "Hong Kong"],
         language: ["Mandarin Chinese"],
@@ -216,7 +209,7 @@ const COUNTRIES = {
         name: "Brazil",
         flag: "🇧🇷",
         continent: "South America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Brasília",
         majorCities: ["São Paulo", "Rio de Janeiro", "Salvador"],
         language: ["Portuguese"],
@@ -239,7 +232,7 @@ const COUNTRIES = {
         name: "Egypt",
         flag: "🇪🇬",
         continent: "Africa",
-        continentColor: COLORS.africa,
+        continentColor: WE_COLORS.africa,
         capital: "Cairo",
         majorCities: ["Cairo", "Alexandria", "Giza"],
         language: ["Arabic"],
@@ -262,7 +255,7 @@ const COUNTRIES = {
         name: "Canada",
         flag: "🇨🇦",
         continent: "North America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Ottawa",
         majorCities: ["Toronto", "Vancouver", "Montreal"],
         language: ["English", "French"],
@@ -286,7 +279,7 @@ const COUNTRIES = {
         name: "Germany",
         flag: "🇩🇪",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Berlin",
         majorCities: ["Berlin", "Munich", "Hamburg"],
         language: ["German"],
@@ -309,7 +302,7 @@ const COUNTRIES = {
         name: "Italy",
         flag: "🇮🇹",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Rome",
         majorCities: ["Rome", "Venice", "Florence"],
         language: ["Italian"],
@@ -332,7 +325,7 @@ const COUNTRIES = {
         name: "Spain",
         flag: "🇪🇸",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Madrid",
         majorCities: ["Madrid", "Barcelona", "Valencia"],
         language: ["Spanish"],
@@ -355,7 +348,7 @@ const COUNTRIES = {
         name: "Mexico",
         flag: "🇲🇽",
         continent: "North America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Mexico City",
         majorCities: ["Mexico City", "Guadalajara", "Cancún"],
         language: ["Spanish"],
@@ -378,7 +371,7 @@ const COUNTRIES = {
         name: "Russia",
         flag: "🇷🇺",
         continent: "Europe/Asia",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Moscow",
         majorCities: ["Moscow", "St. Petersburg", "Sochi"],
         language: ["Russian"],
@@ -401,7 +394,7 @@ const COUNTRIES = {
         name: "South Africa",
         flag: "🇿🇦",
         continent: "Africa",
-        continentColor: COLORS.africa,
+        continentColor: WE_COLORS.africa,
         capital: "Pretoria/Cape Town/Bloemfontein",
         majorCities: ["Johannesburg", "Cape Town", "Durban"],
         language: ["11 official languages!"],
@@ -424,7 +417,7 @@ const COUNTRIES = {
         name: "Greece",
         flag: "🇬🇷",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Athens",
         majorCities: ["Athens", "Thessaloniki", "Santorini"],
         language: ["Greek"],
@@ -447,7 +440,7 @@ const COUNTRIES = {
         name: "Thailand",
         flag: "🇹🇭",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Bangkok",
         majorCities: ["Bangkok", "Chiang Mai", "Phuket"],
         language: ["Thai"],
@@ -470,7 +463,7 @@ const COUNTRIES = {
         name: "Argentina",
         flag: "🇦🇷",
         continent: "South America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Buenos Aires",
         majorCities: ["Buenos Aires", "Córdoba", "Mendoza"],
         language: ["Spanish"],
@@ -493,7 +486,7 @@ const COUNTRIES = {
         name: "New Zealand",
         flag: "🇳🇿",
         continent: "Oceania",
-        continentColor: COLORS.oceania,
+        continentColor: WE_COLORS.oceania,
         capital: "Wellington",
         majorCities: ["Auckland", "Wellington", "Christchurch"],
         language: ["English", "Māori"],
@@ -517,7 +510,7 @@ const COUNTRIES = {
         name: "Norway",
         flag: "🇳🇴",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Oslo",
         majorCities: ["Oslo", "Bergen", "Trondheim"],
         language: ["Norwegian"],
@@ -540,7 +533,7 @@ const COUNTRIES = {
         name: "Peru",
         flag: "🇵🇪",
         continent: "South America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Lima",
         majorCities: ["Lima", "Cusco", "Arequipa"],
         language: ["Spanish", "Quechua"],
@@ -563,7 +556,7 @@ const COUNTRIES = {
         name: "Turkey",
         flag: "🇹🇷",
         continent: "Europe/Asia",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Ankara",
         majorCities: ["Istanbul", "Ankara", "Izmir"],
         language: ["Turkish"],
@@ -586,7 +579,7 @@ const COUNTRIES = {
         name: "Kenya",
         flag: "🇰🇪",
         continent: "Africa",
-        continentColor: COLORS.africa,
+        continentColor: WE_COLORS.africa,
         capital: "Nairobi",
         majorCities: ["Nairobi", "Mombasa", "Kisumu"],
         language: ["Swahili", "English"],
@@ -609,7 +602,7 @@ const COUNTRIES = {
         name: "Morocco",
         flag: "🇲🇦",
         continent: "Africa",
-        continentColor: COLORS.africa,
+        continentColor: WE_COLORS.africa,
         capital: "Rabat",
         majorCities: ["Casablanca", "Marrakech", "Fes"],
         language: ["Arabic", "French"],
@@ -633,7 +626,7 @@ const COUNTRIES = {
         name: "South Korea",
         flag: "🇰🇷",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Seoul",
         majorCities: ["Seoul", "Busan", "Incheon"],
         language: ["Korean"],
@@ -656,7 +649,7 @@ const COUNTRIES = {
         name: "Netherlands",
         flag: "🇳🇱",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Amsterdam",
         majorCities: ["Amsterdam", "Rotterdam", "The Hague"],
         language: ["Dutch"],
@@ -679,7 +672,7 @@ const COUNTRIES = {
         name: "Switzerland",
         flag: "🇨🇭",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Bern",
         majorCities: ["Zurich", "Geneva", "Basel"],
         language: ["German", "French", "Italian"],
@@ -702,7 +695,7 @@ const COUNTRIES = {
         name: "Sweden",
         flag: "🇸🇪",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Stockholm",
         majorCities: ["Stockholm", "Gothenburg", "Malmö"],
         language: ["Swedish"],
@@ -725,7 +718,7 @@ const COUNTRIES = {
         name: "Portugal",
         flag: "🇵🇹",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Lisbon",
         majorCities: ["Lisbon", "Porto", "Faro"],
         language: ["Portuguese"],
@@ -749,7 +742,7 @@ const COUNTRIES = {
         name: "Vietnam",
         flag: "🇻🇳",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Hanoi",
         majorCities: ["Ho Chi Minh City", "Hanoi", "Da Nang"],
         language: ["Vietnamese"],
@@ -772,7 +765,7 @@ const COUNTRIES = {
         name: "Indonesia",
         flag: "🇮🇩",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Jakarta",
         majorCities: ["Jakarta", "Surabaya", "Bali"],
         language: ["Indonesian"],
@@ -795,7 +788,7 @@ const COUNTRIES = {
         name: "United Arab Emirates",
         flag: "🇦🇪",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Abu Dhabi",
         majorCities: ["Dubai", "Abu Dhabi", "Sharjah"],
         language: ["Arabic"],
@@ -818,7 +811,7 @@ const COUNTRIES = {
         name: "Poland",
         flag: "🇵🇱",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Warsaw",
         majorCities: ["Warsaw", "Krakow", "Gdansk"],
         language: ["Polish"],
@@ -841,7 +834,7 @@ const COUNTRIES = {
         name: "Ireland",
         flag: "🇮🇪",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Dublin",
         majorCities: ["Dublin", "Cork", "Galway"],
         language: ["English", "Irish"],
@@ -864,7 +857,7 @@ const COUNTRIES = {
         name: "Chile",
         flag: "🇨🇱",
         continent: "South America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Santiago",
         majorCities: ["Santiago", "Valparaíso", "Concepción"],
         language: ["Spanish"],
@@ -887,7 +880,7 @@ const COUNTRIES = {
         name: "Colombia",
         flag: "🇨🇴",
         continent: "South America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Bogotá",
         majorCities: ["Bogotá", "Medellín", "Cartagena"],
         language: ["Spanish"],
@@ -911,7 +904,7 @@ const COUNTRIES = {
         name: "Iceland",
         flag: "🇮🇸",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Reykjavik",
         majorCities: ["Reykjavik", "Akureyri", "Keflavik"],
         language: ["Icelandic"],
@@ -934,7 +927,7 @@ const COUNTRIES = {
         name: "Austria",
         flag: "🇦🇹",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Vienna",
         majorCities: ["Vienna", "Salzburg", "Innsbruck"],
         language: ["German"],
@@ -957,7 +950,7 @@ const COUNTRIES = {
         name: "Czech Republic",
         flag: "🇨🇿",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Prague",
         majorCities: ["Prague", "Brno", "Ostrava"],
         language: ["Czech"],
@@ -980,7 +973,7 @@ const COUNTRIES = {
         name: "Philippines",
         flag: "🇵🇭",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Manila",
         majorCities: ["Manila", "Quezon City", "Davao"],
         language: ["Filipino", "English"],
@@ -1003,7 +996,7 @@ const COUNTRIES = {
         name: "Singapore",
         flag: "🇸🇬",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Singapore",
         majorCities: ["Singapore"],
         language: ["English", "Malay", "Chinese", "Tamil"],
@@ -1026,7 +1019,7 @@ const COUNTRIES = {
         name: "Malaysia",
         flag: "🇲🇾",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Kuala Lumpur",
         majorCities: ["Kuala Lumpur", "George Town", "Johor Bahru"],
         language: ["Malay"],
@@ -1049,7 +1042,7 @@ const COUNTRIES = {
         name: "Nigeria",
         flag: "🇳🇬",
         continent: "Africa",
-        continentColor: COLORS.africa,
+        continentColor: WE_COLORS.africa,
         capital: "Abuja",
         majorCities: ["Lagos", "Abuja", "Kano"],
         language: ["English", "Hausa", "Yoruba", "Igbo"],
@@ -1072,7 +1065,7 @@ const COUNTRIES = {
         name: "Ghana",
         flag: "🇬🇭",
         continent: "Africa",
-        continentColor: COLORS.africa,
+        continentColor: WE_COLORS.africa,
         capital: "Accra",
         majorCities: ["Accra", "Kumasi", "Tamale"],
         language: ["English"],
@@ -1095,7 +1088,7 @@ const COUNTRIES = {
         name: "Tanzania",
         flag: "🇹🇿",
         continent: "Africa",
-        continentColor: COLORS.africa,
+        continentColor: WE_COLORS.africa,
         capital: "Dodoma",
         majorCities: ["Dar es Salaam", "Dodoma", "Arusha"],
         language: ["Swahili", "English"],
@@ -1118,7 +1111,7 @@ const COUNTRIES = {
         name: "Cuba",
         flag: "🇨🇺",
         continent: "North America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Havana",
         majorCities: ["Havana", "Santiago de Cuba", "Camagüey"],
         language: ["Spanish"],
@@ -1141,7 +1134,7 @@ const COUNTRIES = {
         name: "Jamaica",
         flag: "🇯🇲",
         continent: "North America",
-        continentColor: COLORS.americas,
+        continentColor: WE_COLORS.americas,
         capital: "Kingston",
         majorCities: ["Kingston", "Montego Bay", "Ocho Rios"],
         language: ["English"],
@@ -1164,7 +1157,7 @@ const COUNTRIES = {
         name: "Denmark",
         flag: "🇩🇰",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Copenhagen",
         majorCities: ["Copenhagen", "Aarhus", "Odense"],
         language: ["Danish"],
@@ -1187,7 +1180,7 @@ const COUNTRIES = {
         name: "Finland",
         flag: "🇫🇮",
         continent: "Europe",
-        continentColor: COLORS.europe,
+        continentColor: WE_COLORS.europe,
         capital: "Helsinki",
         majorCities: ["Helsinki", "Espoo", "Tampere"],
         language: ["Finnish", "Swedish"],
@@ -1210,7 +1203,7 @@ const COUNTRIES = {
         name: "Israel",
         flag: "🇮🇱",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Jerusalem",
         majorCities: ["Jerusalem", "Tel Aviv", "Haifa"],
         language: ["Hebrew", "Arabic"],
@@ -1233,7 +1226,7 @@ const COUNTRIES = {
         name: "Saudi Arabia",
         flag: "🇸🇦",
         continent: "Asia",
-        continentColor: COLORS.asia,
+        continentColor: WE_COLORS.asia,
         capital: "Riyadh",
         majorCities: ["Riyadh", "Jeddah", "Mecca"],
         language: ["Arabic"],
@@ -1279,7 +1272,7 @@ function showMainMenu(scene) {
     currentScene = 'menu';
 
     // Background gradient effect
-    const bg = scene.add.rectangle(450, 325, 900, 650, COLORS.background);
+    const bg = scene.add.rectangle(450, 325, 900, 650, WE_COLORS.background);
 
     // Title with shadow
     scene.add.text(452, 82, '🌍 World Explorer', {
@@ -1315,12 +1308,12 @@ function showMainMenu(scene) {
     stats.add([statBg, learnedText]);
 
     // Start button
-    createModernButton(scene, 450, 320, 'Start Learning! →', COLORS.primary, () => {
+    createModernButton(scene, 450, 320, 'Start Learning! →', WE_COLORS.primary, () => {
         showDifficultySelect(scene);
     }, 300, 70);
 
     // How to Play button
-    createModernButton(scene, 450, 410, 'How to Play', COLORS.secondary, () => {
+    createModernButton(scene, 450, 410, 'How to Play', WE_COLORS.secondary, () => {
         showHowToPlay(scene);
     }, 300, 70);
 
@@ -1401,7 +1394,7 @@ function showHowToPlay(scene) {
         }).setOrigin(0, 0.5);
     });
 
-    createModernButton(scene, 450, 600, '← Back to Menu', COLORS.textLight, () => {
+    createModernButton(scene, 450, 600, '← Back to Menu', WE_COLORS.textLight, () => {
         showMainMenu(scene);
     }, 200);
 }
@@ -1428,7 +1421,7 @@ function showDifficultySelect(scene) {
             name: 'Explorer',
             icon: '🌟',
             desc: '10 popular countries',
-            color: COLORS.success,
+            color: WE_COLORS.success,
             countries: 10
         },
         {
@@ -1436,7 +1429,7 @@ function showDifficultySelect(scene) {
             name: 'Traveler',
             icon: '✈️',
             desc: '20 well-known countries',
-            color: COLORS.primary,
+            color: WE_COLORS.primary,
             countries: 20,
             locked: true
         },
@@ -1454,7 +1447,7 @@ function showDifficultySelect(scene) {
             name: 'World Expert',
             icon: '🏆',
             desc: 'All 60 countries!',
-            color: COLORS.secondary,
+            color: WE_COLORS.secondary,
             countries: 60,
             locked: true
         }
@@ -1467,7 +1460,7 @@ function showDifficultySelect(scene) {
         createDifficultyCard(scene, 450, y, level, isLocked);
     });
 
-    createModernButton(scene, 120, 600, '← Back', COLORS.textLight, () => {
+    createModernButton(scene, 120, 600, '← Back', WE_COLORS.textLight, () => {
         showMainMenu(scene);
     }, 140, 50, true);
 }
@@ -1480,7 +1473,7 @@ function createDifficultyCard(scene, x, y, level, isLocked) {
     const shadow = scene.add.rectangle(x, y + 3, cardWidth, cardHeight, 0x000000, 0.08);
 
     // Card background
-    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xE9ECEF : COLORS.cardBg);
+    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xE9ECEF : WE_COLORS.cardBg);
     cardBg.setStrokeStyle(3, isLocked ? 0xDEE2E6 : level.color);
 
     // Icon circle
@@ -1574,7 +1567,7 @@ function showCountrySelect(scene, difficulty) {
         }
     });
 
-    createModernButton(scene, startX, 600, '← Back', COLORS.textLight, () => {
+    createModernButton(scene, startX, 600, '← Back', WE_COLORS.textLight, () => {
         showDifficultySelect(scene);
     }, 140, 50, true);
 }
@@ -1741,19 +1734,19 @@ function showCountryLearn(scene, countryKey) {
 
         // Navigation
         if (currentSlide > 0) {
-            createModernButton(scene, 200, 590, '← Previous', COLORS.textLight, () => {
+            createModernButton(scene, 200, 590, '← Previous', WE_COLORS.textLight, () => {
                 currentSlide--;
                 showSlide();
             }, 150, 50);
         }
 
         if (currentSlide < slides.length - 1) {
-            createModernButton(scene, 700, 590, 'Next →', COLORS.success, () => {
+            createModernButton(scene, 700, 590, 'Next →', WE_COLORS.success, () => {
                 currentSlide++;
                 showSlide();
             }, 150, 50);
         } else {
-            createModernButton(scene, 700, 590, 'Take Quiz! 🎯', COLORS.success, () => {
+            createModernButton(scene, 700, 590, 'Take Quiz! 🎯', WE_COLORS.success, () => {
                 // Mark as learned if not already
                 if (!countriesLearned.includes(countryKey)) {
                     countriesLearned.push(countryKey);
@@ -1763,7 +1756,7 @@ function showCountryLearn(scene, countryKey) {
         }
 
         // Back button
-        createModernButton(scene, 120, 40, '← Back', COLORS.error, () => {
+        createModernButton(scene, 120, 40, '← Back', WE_COLORS.error, () => {
             showCountrySelect(scene, currentDifficulty);
         }, 120, 40);
     }
@@ -1842,7 +1835,7 @@ function showQuiz(scene, countryKey) {
         });
 
         // Back button
-        createModernButton(scene, 120, 600, '← Back', COLORS.error, () => {
+        createModernButton(scene, 120, 600, '← Back', WE_COLORS.error, () => {
             showCountrySelect(scene, currentDifficulty);
         }, 120, 40);
     }
@@ -1852,10 +1845,10 @@ function showQuiz(scene, countryKey) {
 
         if (isCorrect) {
             score++;
-            btn.setFillStyle(COLORS.success);
+            btn.setFillStyle(WE_COLORS.success);
             text.setColor('#FFFFFF');
         } else {
-            btn.setFillStyle(COLORS.error);
+            btn.setFillStyle(WE_COLORS.error);
             text.setColor('#FFFFFF');
         }
 
@@ -2004,15 +1997,15 @@ function showQuizResults(scene, score, total, countryKey) {
         }).setOrigin(0.5);
     }
 
-    createModernButton(scene, 300, 500, 'Learn Again', COLORS.primary, () => {
+    createModernButton(scene, 300, 500, 'Learn Again', WE_COLORS.primary, () => {
         showCountryLearn(scene, countryKey);
     }, 200, 60);
 
-    createModernButton(scene, 600, 500, 'Choose Country', COLORS.success, () => {
+    createModernButton(scene, 600, 500, 'Choose Country', WE_COLORS.success, () => {
         showCountrySelect(scene, currentDifficulty);
     }, 200, 60);
 
-    createModernButton(scene, 450, 580, 'Main Menu', COLORS.textLight, () => {
+    createModernButton(scene, 450, 580, 'Main Menu', WE_COLORS.textLight, () => {
         showMainMenu(scene);
     }, 200, 50);
 }
