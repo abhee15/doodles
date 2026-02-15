@@ -2,57 +2,49 @@
 // Educational game for 4th graders to improve vocabulary, pronunciation, and comprehension
 
 // ==================== CONFIGURATION ====================
-const config = {
-    type: Phaser.AUTO,
+const config = createGameConfig({
     width: 900,
     height: 650,
-    parent: 'game-container',
-    backgroundColor: '#F5F7FA',
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 900,
-        height: 650
-    },
+    backgroundColor: COLORS.neutral.lightBgAlt.phaser,
     scene: {
         preload: preload,
         create: create,
         update: update
     }
-};
+});
 
 const game = new Phaser.Game(config);
 
-// Color Palette
-const COLORS = {
-    primary: 0x4F46E5,
-    secondary: 0xFFB800,
-    success: 0x00D68F,
-    error: 0xFF6B6B,
-    background: 0xF5F7FA,
-    cardBg: 0xFFFFFF,
-    text: 0x1E293B,
-    textLight: 0x475569,
-    accent: 0x74B9FF,
+// Color Palette - Map to design system
+const WORD_COLORS = {
+    primary: COLORS.primary.phaser,
+    secondary: COLORS.warning.phaser,
+    success: COLORS.success.phaser,
+    error: COLORS.error.phaser,
+    background: COLORS.neutral.lightBgAlt.phaser,
+    cardBg: COLORS.neutral.white.phaser,
+    text: COLORS.neutral.darkText.phaser,
+    textLight: COLORS.neutral.mediumText.phaser,
+    accent: COLORS.info.phaser,
     // Difficulty colors
-    difficulty1: 0x00D68F,  // Green - Easy
-    difficulty2: 0xFFB800,  // Yellow - Medium
-    difficulty3: 0xFF6B6B,  // Red - Hard
+    difficulty1: COLORS.success.phaser,  // Green - Easy
+    difficulty2: COLORS.warning.phaser,  // Yellow - Medium
+    difficulty3: COLORS.error.phaser,    // Red - Hard
     // Category colors
-    emotion: 0xFF6B9D,      // Pink
-    size: 0x6C5CE7,         // Purple
-    time: 0xFF9F43,         // Orange
-    action: 0x00D68F,       // Green
-    concept: 0x0984E3       // Blue
+    emotion: 0xFF6B9D,      // Pink - custom
+    size: 0x6C5CE7,         // Purple - custom
+    time: 0xFF9F43,         // Orange - custom
+    action: COLORS.success.phaser,       // Green
+    concept: 0x0984E3       // Blue - custom
 };
 
 // Category icons and labels
 const CATEGORY_INFO = {
-    emotion: { icon: '💭', label: 'Emotion', color: COLORS.emotion },
-    size: { icon: '📏', label: 'Size', color: COLORS.size },
-    time: { icon: '⏰', label: 'Time', color: COLORS.time },
-    action: { icon: '⚡', label: 'Action', color: COLORS.action },
-    concept: { icon: '💡', label: 'Concept', color: COLORS.concept }
+    emotion: { icon: '💭', label: 'Emotion', color: WORD_COLORS.emotion },
+    size: { icon: '📏', label: 'Size', color: WORD_COLORS.size },
+    time: { icon: '⏰', label: 'Time', color: WORD_COLORS.time },
+    action: { icon: '⚡', label: 'Action', color: WORD_COLORS.action },
+    concept: { icon: '💡', label: 'Concept', color: WORD_COLORS.concept }
 };
 
 // ==================== WORD DATABASE ====================
@@ -346,7 +338,7 @@ function showMainMenu(scene) {
     }).setOrigin(0.5);
 
     // Start button
-    createButton(scene, 450, 300, 'Start Learning', COLORS.primary, () => {
+    createButton(scene, 450, 300, 'Start Learning', WORD_COLORS.primary, () => {
         showWordMap(scene);
     }, 280, 70);
 
@@ -440,7 +432,7 @@ function showWordMap(scene) {
     });
 
     // Back button
-    createButton(scene, 100, 605, '← Menu', COLORS.textLight, () => {
+    createButton(scene, 100, 605, '← Menu', WORD_COLORS.textLight, () => {
         showMainMenu(scene);
     }, 140, 50);
 }
@@ -448,15 +440,15 @@ function showWordMap(scene) {
 function createWordCard(scene, x, y, wordData, width, height) {
     const progress = wordProgress[wordData.id] || { stars: 0, attempts: 0 };
     const categoryInfo = CATEGORY_INFO[wordData.category];
-    const difficultyColor = wordData.difficulty === 1 ? COLORS.difficulty1 :
-                           wordData.difficulty === 2 ? COLORS.difficulty2 : COLORS.difficulty3;
+    const difficultyColor = wordData.difficulty === 1 ? WORD_COLORS.difficulty1 :
+                           wordData.difficulty === 2 ? WORD_COLORS.difficulty2 : WORD_COLORS.difficulty3;
 
     // Card shadow
     const shadow = scene.add.rectangle(x, y + 3, width, height, 0x000000, 0.1);
 
     // Card background
-    const card = scene.add.rectangle(x, y, width, height, COLORS.cardBg);
-    card.setStrokeStyle(3, progress.stars > 0 ? COLORS.success : categoryInfo.color);
+    const card = scene.add.rectangle(x, y, width, height, WORD_COLORS.cardBg);
+    card.setStrokeStyle(3, progress.stars > 0 ? WORD_COLORS.success : categoryInfo.color);
     card.setInteractive({ useHandCursor: true });
 
     // Difficulty indicator (left accent bar) - make it wider and properly positioned
@@ -640,23 +632,23 @@ function showWordDetail(scene) {
     }).setOrigin(0.5);
 
     // Mode buttons
-    createButton(scene, 200, 500, '🎯 Meaning Match', COLORS.primary, () => {
+    createButton(scene, 200, 500, '🎯 Meaning Match', WORD_COLORS.primary, () => {
         currentMode = 'meaning-match';
         showMeaningMatch(scene);
     }, 220, 60);
 
-    createButton(scene, 450, 500, '📝 Sentence Builder', COLORS.accent, () => {
+    createButton(scene, 450, 500, '📝 Sentence Builder', WORD_COLORS.accent, () => {
         currentMode = 'sentence-builder';
         showSentenceBuilder(scene);
     }, 220, 60);
 
-    createButton(scene, 700, 500, '✏️ Spelling Quest', COLORS.success, () => {
+    createButton(scene, 700, 500, '✏️ Spelling Quest', WORD_COLORS.success, () => {
         currentMode = 'spelling-quest';
         showSpellingQuest(scene);
     }, 220, 60);
 
     // Back button
-    createButton(scene, 100, 600, '← Back', COLORS.textLight, () => {
+    createButton(scene, 100, 600, '← Back', WORD_COLORS.textLight, () => {
         showWordMap(scene);
     }, 140, 50);
 }
@@ -765,13 +757,13 @@ function displayMeaningMatchQuestion(scene) {
     });
 
     // Back button
-    createButton(scene, 100, 600, '← Back', COLORS.textLight, () => {
+    createButton(scene, 100, 600, '← Back', WORD_COLORS.textLight, () => {
         showWordDetail(scene);
     }, 140, 50);
 }
 
 function createDefinitionOption(scene, x, y, text, isCorrect, question) {
-    const optionBox = scene.add.rectangle(x, y, 800, 60, COLORS.cardBg);
+    const optionBox = scene.add.rectangle(x, y, 800, 60, WORD_COLORS.cardBg);
     optionBox.setStrokeStyle(2, 0xE9ECEF);
     optionBox.setInteractive({ useHandCursor: true });
 
@@ -790,8 +782,8 @@ function createDefinitionOption(scene, x, y, text, isCorrect, question) {
         });
 
         if (isCorrect) {
-            optionBox.setFillStyle(COLORS.success, 0.3);
-            optionBox.setStrokeStyle(3, COLORS.success);
+            optionBox.setFillStyle(WORD_COLORS.success, 0.3);
+            optionBox.setStrokeStyle(3, WORD_COLORS.success);
             sessionScore++;
 
             // Show checkmark
@@ -801,8 +793,8 @@ function createDefinitionOption(scene, x, y, text, isCorrect, question) {
                 fontStyle: 'bold'
             }).setOrigin(0.5);
         } else {
-            optionBox.setFillStyle(COLORS.error, 0.3);
-            optionBox.setStrokeStyle(3, COLORS.error);
+            optionBox.setFillStyle(WORD_COLORS.error, 0.3);
+            optionBox.setStrokeStyle(3, WORD_COLORS.error);
 
             // Show X
             scene.add.text(x + 360, y, '✗', {
@@ -820,11 +812,11 @@ function createDefinitionOption(scene, x, y, text, isCorrect, question) {
     });
 
     optionBox.on('pointerover', () => {
-        optionBox.setFillStyle(COLORS.accent, 0.1);
+        optionBox.setFillStyle(WORD_COLORS.accent, 0.1);
     });
 
     optionBox.on('pointerout', () => {
-        optionBox.setFillStyle(COLORS.cardBg);
+        optionBox.setFillStyle(WORD_COLORS.cardBg);
     });
 }
 
@@ -941,13 +933,13 @@ function displaySentenceBuilderQuestion(scene) {
     });
 
     // Back button
-    createButton(scene, 100, 600, '← Back', COLORS.textLight, () => {
+    createButton(scene, 100, 600, '← Back', WORD_COLORS.textLight, () => {
         showWordDetail(scene);
     }, 140, 50);
 }
 
 function createWordOption(scene, x, y, word, isCorrect, question) {
-    const optionBox = scene.add.rectangle(x, y, 400, 45, COLORS.cardBg);
+    const optionBox = scene.add.rectangle(x, y, 400, 45, WORD_COLORS.cardBg);
     optionBox.setStrokeStyle(2, 0xE9ECEF);
     optionBox.setInteractive({ useHandCursor: true });
 
@@ -965,8 +957,8 @@ function createWordOption(scene, x, y, word, isCorrect, question) {
         });
 
         if (isCorrect) {
-            optionBox.setFillStyle(COLORS.success, 0.3);
-            optionBox.setStrokeStyle(3, COLORS.success);
+            optionBox.setFillStyle(WORD_COLORS.success, 0.3);
+            optionBox.setStrokeStyle(3, WORD_COLORS.success);
             sessionScore++;
 
             scene.add.text(x + 180, y, '✓', {
@@ -975,8 +967,8 @@ function createWordOption(scene, x, y, word, isCorrect, question) {
                 fontStyle: 'bold'
             }).setOrigin(0.5);
         } else {
-            optionBox.setFillStyle(COLORS.error, 0.3);
-            optionBox.setStrokeStyle(3, COLORS.error);
+            optionBox.setFillStyle(WORD_COLORS.error, 0.3);
+            optionBox.setStrokeStyle(3, WORD_COLORS.error);
 
             scene.add.text(x + 180, y, '✗', {
                 fontSize: '28px',
@@ -992,11 +984,11 @@ function createWordOption(scene, x, y, word, isCorrect, question) {
     });
 
     optionBox.on('pointerover', () => {
-        optionBox.setFillStyle(COLORS.accent, 0.1);
+        optionBox.setFillStyle(WORD_COLORS.accent, 0.1);
     });
 
     optionBox.on('pointerout', () => {
-        optionBox.setFillStyle(COLORS.cardBg);
+        optionBox.setFillStyle(WORD_COLORS.cardBg);
     });
 }
 
@@ -1091,7 +1083,7 @@ function displaySpellingQuestion(scene) {
 
     // Answer area
     const answerBox = scene.add.rectangle(450, 290, 600, 60, 0x2D3436);
-    answerBox.setStrokeStyle(3, COLORS.accent);
+    answerBox.setStrokeStyle(3, WORD_COLORS.accent);
 
     const answerText = scene.add.text(450, 290, '', {
         fontSize: '32px',
@@ -1112,19 +1104,19 @@ function displaySpellingQuestion(scene) {
     createLetterBank(scene, answerText, question);
 
     // Action buttons
-    createButton(scene, 300, 580, 'Clear', COLORS.error, () => {
+    createButton(scene, 300, 580, 'Clear', WORD_COLORS.error, () => {
         selectedLetters = [];
         userAnswer = '';
         answerText.setText('');
         feedbackText.setText('');
     }, 140, 50);
 
-    createButton(scene, 600, 580, 'Submit', COLORS.success, () => {
+    createButton(scene, 600, 580, 'Submit', WORD_COLORS.success, () => {
         checkSpelling(scene, question, feedbackText, answerText);
     }, 140, 50);
 
     // Back button
-    createButton(scene, 100, 600, '← Back', COLORS.textLight, () => {
+    createButton(scene, 100, 600, '← Back', WORD_COLORS.textLight, () => {
         showWordDetail(scene);
     }, 140, 50);
 }
@@ -1143,7 +1135,7 @@ function createLetterBank(scene, answerText, question) {
         const x = startX + col * spacing;
         const y = startY + row * spacing;
 
-        const btn = scene.add.rectangle(x, y, buttonSize, buttonSize, COLORS.primary);
+        const btn = scene.add.rectangle(x, y, buttonSize, buttonSize, WORD_COLORS.primary);
         btn.setInteractive({ useHandCursor: true });
         btn.setStrokeStyle(2, 0xFFFFFF);
 
@@ -1297,15 +1289,15 @@ function showResults(scene) {
     }).setOrigin(0.5);
 
     // Buttons
-    createButton(scene, 300, 500, 'Word Detail', COLORS.accent, () => {
+    createButton(scene, 300, 500, 'Word Detail', WORD_COLORS.accent, () => {
         showWordDetail(scene);
     }, 180, 60);
 
-    createButton(scene, 600, 500, 'Word Map', COLORS.primary, () => {
+    createButton(scene, 600, 500, 'Word Map', WORD_COLORS.primary, () => {
         showWordMap(scene);
     }, 180, 60);
 
-    createButton(scene, 450, 590, '← Main Menu', COLORS.textLight, () => {
+    createButton(scene, 450, 590, '← Main Menu', WORD_COLORS.textLight, () => {
         showMainMenu(scene);
     }, 180, 50);
 }
