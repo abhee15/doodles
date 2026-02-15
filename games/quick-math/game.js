@@ -1,24 +1,17 @@
 // Quick Math - Learn Vedic Math Tricks!
 // Professional Educational Game Design
+// MIGRATED TO TEMPLATE SYSTEM V2.0
 
-const config = {
-    type: Phaser.AUTO,
+const config = createGameConfig({
     width: 900,
     height: 650,
-    parent: 'game-container',
-    backgroundColor: '#F5F7FA',
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 900,
-        height: 650
-    },
+    backgroundColor: QM_COLORS.neutral.lightBgAlt.phaser,
     scene: {
         preload: preload,
         create: create,
         update: update
     }
-};
+});
 
 const game = new Phaser.Game(config);
 
@@ -260,17 +253,17 @@ function getStarRating(score, total) {
     return 0;
 }
 
-// Professional Color Palette (Kid-friendly but clean)
-const COLORS = {
-    primary: 0x4F46E5,
-    secondary: 0xFFB800,
-    success: 0x00D68F,
-    error: 0xFF6B6B,
-    background: 0xF5F7FA,
-    cardBg: 0xFFFFFF,
-    text: 0x1E293B,
-    textLight: 0x475569,
-    accent: 0xFF6348
+// Quick Math local colors - mapped to design system (renamed to avoid conflict)
+const QM_COLORS = {
+    primary: QM_COLORS.primary.phaser,
+    secondary: QM_COLORS.warning.phaser,
+    success: QM_COLORS.success.phaser,
+    error: QM_COLORS.error.phaser,
+    background: QM_COLORS.neutral.lightBgAlt.phaser,
+    cardBg: QM_COLORS.neutral.lightBg.phaser,
+    text: QM_COLORS.neutral.darkText.phaser,
+    textLight: QM_COLORS.neutral.darkTextSecondary.phaser,
+    accent: QM_COLORS.error.phaser
 };
 
 function preload() {
@@ -345,7 +338,7 @@ function showProgressScreen(scene) {
         const x = 150 + (i % 2) * 400;
         const y = 130 + Math.floor(i / 2) * 100;
 
-        const card = scene.add.rectangle(x, y, 350, 80, COLORS.cardBg);
+        const card = scene.add.rectangle(x, y, 350, 80, QM_COLORS.cardBg);
         card.setOrigin(0, 0);
         card.setStrokeStyle(2, 0xE9ECEF);
 
@@ -384,9 +377,9 @@ function showProgressScreen(scene) {
         const y = 400 + row * 100;
         const unlocked = playerProgress.achievements.includes(ach.id);
 
-        const card = scene.add.rectangle(x, y, 220, 85, unlocked ? COLORS.cardBg : 0xF5F7FA);
+        const card = scene.add.rectangle(x, y, 220, 85, unlocked ? QM_COLORS.cardBg : 0xF5F7FA);
         card.setOrigin(0, 0);
-        card.setStrokeStyle(2, unlocked ? COLORS.success : 0xDFE6E9);
+        card.setStrokeStyle(2, unlocked ? QM_COLORS.success : 0xDFE6E9);
 
         scene.add.text(x + 20, y + 20, unlocked ? ach.icon : '🔒', {
             fontSize: '28px'
@@ -408,7 +401,7 @@ function showProgressScreen(scene) {
     });
 
     // Back button
-    createModernButton(scene, 450, 600, '← Back to Menu', COLORS.textLight, () => {
+    createModernButton(scene, 450, 600, '← Back to Menu', QM_COLORS.textLight, () => {
         showMainMenu(scene);
     }, 200, 50, true);
 }
@@ -419,8 +412,8 @@ function showMainMenu(scene) {
     currentScene = 'menu';
 
     // Background decoration
-    const topCircle = scene.add.circle(750, -50, 150, COLORS.primary, 0.08);
-    const bottomCircle = scene.add.circle(100, 700, 180, COLORS.secondary, 0.08);
+    const topCircle = scene.add.circle(750, -50, 150, QM_COLORS.primary, 0.08);
+    const bottomCircle = scene.add.circle(100, 700, 180, QM_COLORS.secondary, 0.08);
 
     // Title
     scene.add.text(450, 120, '⚡ Quick Math', {
@@ -446,7 +439,7 @@ function showMainMenu(scene) {
 
     features.forEach((feature, i) => {
         const y = 280 + i * 70;
-        const card = scene.add.rectangle(450, y, 400, 55, COLORS.cardBg);
+        const card = scene.add.rectangle(450, y, 400, 55, QM_COLORS.cardBg);
         card.setStrokeStyle(2, 0xE9ECEF);
 
         scene.add.text(280, y, feature.icon, {
@@ -461,14 +454,14 @@ function showMainMenu(scene) {
     });
 
     // Start button (large, prominent)
-    createModernButton(scene, 450, 530, 'Start Learning →', COLORS.primary, () => {
+    createModernButton(scene, 450, 530, 'Start Learning →', QM_COLORS.primary, () => {
         initAudio(); // Initialize audio on first interaction
         playSound('click');
         showLevelSelect(scene);
     }, 300, 70);
 
     // Achievements button
-    createModernButton(scene, 450, 615, '🏆 View Progress', COLORS.secondary, () => {
+    createModernButton(scene, 450, 615, '🏆 View Progress', QM_COLORS.secondary, () => {
         playSound('click');
         showProgressScreen(scene);
     }, 250, 50);
@@ -518,7 +511,7 @@ function showLevelSelect(scene) {
     });
 
     // Back button aligned with grid left edge
-    createModernButton(scene, startX, 600, '← Back', COLORS.textLight, () => {
+    createModernButton(scene, startX, 600, '← Back', QM_COLORS.textLight, () => {
         showMainMenu(scene);
     }, 140, 50, true);
 }
@@ -534,7 +527,7 @@ function createProfessionalCard(scene, x, y, level, isLocked) {
     shadow.setOrigin(0, 0);
 
     // Card background (white)
-    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xE9ECEF : COLORS.cardBg);
+    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xE9ECEF : QM_COLORS.cardBg);
     cardBg.setOrigin(0, 0);
     cardBg.setStrokeStyle(2, isLocked ? 0xDEE2E6 : 0xE9ECEF);
 
@@ -709,25 +702,25 @@ function tutorialMultiplyBy11(scene) {
 
         // Navigation buttons
         if (step > 0) {
-            createModernButton(scene, 220, 590, '← Previous', COLORS.textLight, () => {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
                 step--;
                 showStep();
             }, 150, 50, true);
         }
 
         if (step < steps.length - 1) {
-            createModernButton(scene, 680, 590, 'Next →', COLORS.primary, () => {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
                 step++;
                 showStep();
             }, 150, 50);
         } else {
-            createModernButton(scene, 680, 590, 'Practice!', COLORS.success, () => {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
                 showPractice(scene, 1);
             }, 150, 50);
         }
 
         // Back to level select
-        createModernButton(scene, 120, 600, '← Back', COLORS.textLight, () => {
+        createModernButton(scene, 120, 600, '← Back', QM_COLORS.textLight, () => {
             showLevelSelect(scene);
         }, 140, 50, true);
     }
@@ -831,25 +824,25 @@ function tutorialSquareEndingIn5(scene) {
 
         // Navigation buttons
         if (step > 0) {
-            createModernButton(scene, 220, 590, '← Previous', COLORS.textLight, () => {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
                 step--;
                 showStep();
             }, 150, 50, true);
         }
 
         if (step < steps.length - 1) {
-            createModernButton(scene, 680, 590, 'Next →', COLORS.accent, () => {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.accent, () => {
                 step++;
                 showStep();
             }, 150, 50);
         } else {
-            createModernButton(scene, 680, 590, 'Practice!', COLORS.success, () => {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
                 showPractice(scene, 2);
             }, 150, 50);
         }
 
         // Back to level select
-        createModernButton(scene, 120, 600, '← Back', COLORS.textLight, () => {
+        createModernButton(scene, 120, 600, '← Back', QM_COLORS.textLight, () => {
             showLevelSelect(scene);
         }, 140, 50, true);
     }
@@ -936,7 +929,7 @@ function showPractice(scene, levelId) {
 
         // Input box background
         answerText = scene.add.rectangle(400, 200, 250, 70, 0x2d3436);
-        answerText.setStrokeStyle(3, COLORS.buttonBg);
+        answerText.setStrokeStyle(3, QM_COLORS.buttonBg);
 
         // Input text
         inputText = scene.add.text(400, 200, '', {
@@ -956,12 +949,12 @@ function showPractice(scene, levelId) {
         createNumberPad(scene, inputText);
 
         // Action buttons (bottom)
-        createButton(scene, 280, 560, 'Clear', COLORS.error, () => {
+        createButton(scene, 280, 560, 'Clear', QM_COLORS.error, () => {
             userAnswer = '';
             inputText.setText('');
         }, 140, 50);
 
-        createButton(scene, 520, 560, 'Submit', COLORS.success, () => {
+        createButton(scene, 520, 560, 'Submit', QM_COLORS.success, () => {
             checkAnswer();
         }, 140, 50);
     }
@@ -989,7 +982,7 @@ function showPractice(scene, levelId) {
     }
 
     // Back button
-    createButton(scene, 100, 40, '← Back', COLORS.error, () => {
+    createButton(scene, 100, 40, '← Back', QM_COLORS.error, () => {
         showLevelSelect(scene);
     }, 120, 40);
 
@@ -1016,7 +1009,7 @@ function showResults(scene, score, total) {
     const cardY = 100;
 
     const cardShadow = scene.add.rectangle(cardX, cardY + 4, cardWidth, cardHeight, 0x000000, 0.1);
-    const cardBg = scene.add.rectangle(cardX, cardY, cardWidth, cardHeight, COLORS.cardBg);
+    const cardBg = scene.add.rectangle(cardX, cardY, cardWidth, cardHeight, QM_COLORS.cardBg);
     cardBg.setOrigin(0, 0);
 
     // Title
@@ -1096,12 +1089,12 @@ function showResults(scene, score, total) {
     checkAndUnlockAchievements(scene);
 
     // Buttons
-    createModernButton(scene, 300, 580, 'Try Again', COLORS.primary, () => {
+    createModernButton(scene, 300, 580, 'Try Again', QM_COLORS.primary, () => {
         playSound('click');
         showPractice(scene, currentLevel);
     }, 180, 50);
 
-    createModernButton(scene, 600, 580, 'Level Select', COLORS.success, () => {
+    createModernButton(scene, 600, 580, 'Level Select', QM_COLORS.success, () => {
         playSound('click');
         showLevelSelect(scene);
     }, 180, 50);
@@ -1117,7 +1110,7 @@ function createNumberPad(scene, inputText) {
         const x = startX + (i % 5) * spacing;
         const y = startY + Math.floor(i / 5) * 70;
 
-        const btn = scene.add.rectangle(x, y, 55, 55, COLORS.buttonBg);
+        const btn = scene.add.rectangle(x, y, 55, 55, QM_COLORS.buttonBg);
         btn.setInteractive({ useHandCursor: true });
         btn.setStrokeStyle(2, 0x000);
 
@@ -1144,7 +1137,7 @@ function createModernButton(scene, x, y, label, color, callback, width = 200, he
     // Shadow for depth
     const shadow = scene.add.rectangle(x, y + 3, width, height, 0x000000, 0.1);
 
-    const button = scene.add.rectangle(x, y, width, height, outline ? COLORS.cardBg : color);
+    const button = scene.add.rectangle(x, y, width, height, outline ? QM_COLORS.cardBg : color);
     button.setInteractive({ useHandCursor: true });
 
     if (outline) {
