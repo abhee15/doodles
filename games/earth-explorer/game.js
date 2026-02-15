@@ -373,7 +373,7 @@ function drawWorldMap(scene) {
             fontStyle: 'bold',
             stroke: '#000000',
             strokeThickness: 3
-        }).setOrigin(0.5);
+        }).setOrigin(0.5).setVisible(false); // Hidden until answered
 
         mapObjects['pacific'] = {
             polygons: [pacificLeft, pacificRight],
@@ -410,7 +410,7 @@ function drawWorldMap(scene) {
             fontStyle: 'bold',
             stroke: '#000000',
             strokeThickness: 3
-        }).setOrigin(0.5);
+        }).setOrigin(0.5).setVisible(false); // Hidden until answered
 
         mapObjects['atlantic'] = {
             polygons: [atlantic],
@@ -441,7 +441,7 @@ function drawWorldMap(scene) {
             fontStyle: 'bold',
             stroke: '#000000',
             strokeThickness: 3
-        }).setOrigin(0.5);
+        }).setOrigin(0.5).setVisible(false);
 
         mapObjects['indian'] = {
             polygons: [indian],
@@ -471,7 +471,7 @@ function drawWorldMap(scene) {
             fontStyle: 'bold',
             stroke: '#000000',
             strokeThickness: 3
-        }).setOrigin(0.5);
+        }).setOrigin(0.5).setVisible(false);
 
         mapObjects['arctic'] = {
             polygons: [arctic],
@@ -501,7 +501,7 @@ function drawWorldMap(scene) {
             fontStyle: 'bold',
             stroke: '#000000',
             strokeThickness: 3
-        }).setOrigin(0.5);
+        }).setOrigin(0.5).setVisible(false);
 
         mapObjects['southern'] = {
             polygons: [southern],
@@ -626,22 +626,24 @@ function handleCorrectAnswer(scene, id) {
     const data = CONTINENTS[id] || OCEANS[id];
     const obj = mapObjects[id];
 
-    // Add label and keep region visible
-    const bounds = obj.polygons[0].getBounds();
-    const labelText = scene.add.text(bounds.centerX, bounds.centerY, data.name, {
-        fontSize: '16px',
-        fill: '#000000',
-        fontFamily: 'Arial',
-        fontStyle: 'bold',
-        backgroundColor: '#FFFFFF',
-        padding: { x: 8, y: 4 }
-    }).setOrigin(0.5);
-    labelText.setDepth(1500); // Higher depth to stay on top
-    obj.text = labelText;
-
-    // Hide ocean label if it exists
+    // Show label when answered
     if (obj.label) {
-        obj.label.setVisible(false);
+        // Ocean - show existing label
+        obj.label.setVisible(true);
+        obj.label.setDepth(1500);
+    } else {
+        // Continent - create new label
+        const bounds = obj.polygons[0].getBounds();
+        const labelText = scene.add.text(bounds.centerX, bounds.centerY, data.name, {
+            fontSize: '16px',
+            fill: '#000000',
+            fontFamily: 'Arial',
+            fontStyle: 'bold',
+            backgroundColor: '#FFFFFF',
+            padding: { x: 8, y: 4 }
+        }).setOrigin(0.5);
+        labelText.setDepth(1500);
+        obj.text = labelText;
     }
 
     // Make non-interactive
