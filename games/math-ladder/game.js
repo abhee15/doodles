@@ -1,18 +1,11 @@
 // Math Ladder Game - Phaser 3
 // A kid climbs a ladder by solving math problems correctly
+// MIGRATED TO TEMPLATE SYSTEM V2.0
 
-const config = {
-    type: Phaser.AUTO,
+const config = createGameConfig({
     width: 800,
     height: 600,
-    parent: 'game-container',
-    backgroundColor: '#87CEEB',
-    scale: {
-        mode: Phaser.Scale.FIT,
-        autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 800,
-        height: 600
-    },
+    backgroundColor: 0x87CEEB, // Sky blue
     physics: {
         default: 'arcade',
         arcade: {
@@ -25,7 +18,7 @@ const config = {
         create: create,
         update: update
     }
-};
+});
 
 const game = new Phaser.Game(config);
 
@@ -59,33 +52,36 @@ function create() {
     }).setOrigin(0.5);
     player.setDepth(10); // Player on top of ladder
 
-    // UI Elements - TOP
+    // UI Elements - TOP (with responsive positioning)
     scoreText = this.add.text(420, 20, 'Score: 0', {
         fontSize: '24px',
-        fill: '#000',
+        fill: COLORS.neutral.darkText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: COLORS.neutral.lightBg.hex,
         padding: { x: 10, y: 5 }
     });
     scoreText.setDepth(100);
 
-    timerText = this.add.text(650, 20, 'Time: 15', {
+    timerText = this.add.text(this.scale.width - 150, 20, 'Time: 15', {
         fontSize: '24px',
-        fill: '#000',
+        fill: COLORS.neutral.darkText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: '#FFFFFF',
+        backgroundColor: COLORS.neutral.lightBg.hex,
         padding: { x: 10, y: 5 }
     });
     timerText.setDepth(100);
 
     // Question area - RIGHT SIDE
-    const questionBg = this.add.rectangle(550, 150, 450, 100, 0xFFFFFF, 0.95);
-    questionBg.setStrokeStyle(3, 0x000000);
+    const questionBg = this.add.rectangle(550, 150, 450, 100, COLORS.neutral.lightBg.phaser, 0.95);
+    questionBg.setStrokeStyle(3, COLORS.neutral.darkText.phaser);
     questionBg.setDepth(100);
 
     answerText = this.add.text(550, 135, '', {
         fontSize: '28px',
-        fill: '#000',
+        fill: COLORS.neutral.darkText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
         wordWrap: { width: 400 }
     }).setOrigin(0.5);
@@ -93,18 +89,20 @@ function create() {
 
     feedbackText = this.add.text(550, 180, '', {
         fontSize: '20px',
-        fill: '#000'
+        fill: COLORS.neutral.darkText.hex,
+        fontFamily: 'Arial, sans-serif'
     }).setOrigin(0.5);
     feedbackText.setDepth(101);
 
     // Answer input area - RIGHT SIDE
-    const inputBg = this.add.rectangle(550, 250, 250, 60, 0xEEEEEE);
-    inputBg.setStrokeStyle(2, 0x000000);
+    const inputBg = this.add.rectangle(550, 250, 250, 60, COLORS.neutral.lightBgAlt.phaser);
+    inputBg.setStrokeStyle(2, COLORS.neutral.darkText.phaser);
     inputBg.setDepth(100);
 
     const inputText = this.add.text(550, 250, '', {
         fontSize: '36px',
-        fill: '#000',
+        fill: COLORS.neutral.darkText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold'
     }).setOrigin(0.5);
     inputText.setDepth(101);
@@ -120,26 +118,47 @@ function create() {
         createNumberButton(this, x, y, i, inputText);
     }
 
-    // Clear button
-    createButton(this, 550, 480, 'Clear', 0xFFAAAA, () => {
-        userAnswer = '';
-        inputText.setText('');
-    });
-
-    // Submit button
-    createButton(this, 550, 550, 'Submit', 0xAAFFAA, () => {
-        checkAnswer(this, inputText);
-    });
-
     // Instructions
     const instructions = this.add.text(550, 300, 'Click numbers, then Submit!', {
         fontSize: '18px',
-        fill: '#1E293B',
+        fill: COLORS.neutral.darkText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: '#FEF3C7',
+        backgroundColor: COLORS.warning.hex,
         padding: { x: 10, y: 6 }
     }).setOrigin(0.5);
     instructions.setDepth(100);
+
+    // Clear button - using NEW button component
+    const clearBtn = createButton(
+        this,
+        480,
+        480,
+        'Clear',
+        () => {
+            userAnswer = '';
+            inputText.setText('');
+        },
+        {
+            variant: ButtonVariants.SECONDARY,
+            size: ButtonSizes.SMALL
+        }
+    );
+    clearBtn.container.setDepth(100);
+
+    // Submit button - using NEW button component
+    const submitBtn = createButton(
+        this,
+        620,
+        480,
+        'Submit',
+        () => checkAnswer(this, inputText),
+        {
+            variant: ButtonVariants.SUCCESS,
+            size: ButtonSizes.SMALL
+        }
+    );
+    submitBtn.container.setDepth(100);
 
     // Start first question
     generateQuestion(this);
@@ -155,24 +174,26 @@ function drawLadder(scene) {
     const ladderBottom = 550;
     const rungHeight = 40;
 
-    // Draw ladder rails
-    const leftRail = scene.add.rectangle(ladderX - 30, 300, 10, 600, 0x8B4513);
-    const rightRail = scene.add.rectangle(ladderX + 30, 300, 10, 600, 0x8B4513);
+    // Draw ladder rails - using design system
+    const ladderColor = 0x8B4513; // Keep brown for ladder
+    const leftRail = scene.add.rectangle(ladderX - 30, 300, 10, 600, ladderColor);
+    const rightRail = scene.add.rectangle(ladderX + 30, 300, 10, 600, ladderColor);
     leftRail.setDepth(1);
     rightRail.setDepth(1);
 
     // Draw rungs
     for (let i = 0; i < maxRungs; i++) {
         const y = ladderBottom - (i * rungHeight);
-        const rung = scene.add.rectangle(ladderX, y, 70, 8, 0x8B4513);
+        const rung = scene.add.rectangle(ladderX, y, 70, 8, ladderColor);
         rung.setDepth(1);
 
         // Rung numbers
         scene.add.text(ladderX + 50, y - 5, i + 1, {
             fontSize: '18px',
-            fill: '#000',
+            fill: COLORS.neutral.darkText.hex,
+            fontFamily: 'Arial, sans-serif',
             fontStyle: 'bold',
-            backgroundColor: '#FFFFFF',
+            backgroundColor: COLORS.neutral.lightBg.hex,
             padding: { x: 4, y: 2 }
         }).setDepth(5);
     }
@@ -180,8 +201,9 @@ function drawLadder(scene) {
     // Goal at top
     scene.add.text(ladderX, 40, '🎯 GOAL!', {
         fontSize: '32px',
-        fill: '#FFD700',
-        stroke: '#000',
+        fill: COLORS.warning.hex,
+        fontFamily: 'Arial, sans-serif',
+        stroke: COLORS.neutral.darkBg.hex,
         strokeThickness: 2
     }).setOrigin(0.5).setDepth(5);
 }
@@ -220,14 +242,16 @@ function generateQuestion(scene) {
 }
 
 function createNumberButton(scene, x, y, number, inputText) {
-    const button = scene.add.rectangle(x, y, 55, 55, 0x4ECDC4);
-    button.setStrokeStyle(2, 0x000000);
+    // Using design system colors
+    const button = scene.add.rectangle(x, y, 55, 55, COLORS.info.phaser);
+    button.setStrokeStyle(2, COLORS.neutral.darkBg.phaser);
     button.setInteractive({ useHandCursor: true });
     button.setDepth(100);
 
     const text = scene.add.text(x, y, number, {
         fontSize: '28px',
-        fill: '#000',
+        fill: COLORS.neutral.lightText.hex,
+        fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold'
     }).setOrigin(0.5);
     text.setDepth(101);
@@ -239,26 +263,8 @@ function createNumberButton(scene, x, y, number, inputText) {
         }
     });
 
-    button.on('pointerover', () => button.setFillStyle(0x3EBDB4));
-    button.on('pointerout', () => button.setFillStyle(0x4ECDC4));
-}
-
-function createButton(scene, x, y, label, color, callback) {
-    const button = scene.add.rectangle(x, y, 140, 50, color);
-    button.setStrokeStyle(2, 0x000000);
-    button.setInteractive({ useHandCursor: true });
-    button.setDepth(100);
-
-    const text = scene.add.text(x, y, label, {
-        fontSize: '20px',
-        fill: '#000',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
-    text.setDepth(101);
-
-    button.on('pointerdown', callback);
-    button.on('pointerover', () => button.setAlpha(0.8));
-    button.on('pointerout', () => button.setAlpha(1));
+    button.on('pointerover', () => button.setFillStyle(COLORS.primary.phaser));
+    button.on('pointerout', () => button.setFillStyle(COLORS.info.phaser));
 }
 
 function checkAnswer(scene, inputText) {
@@ -272,7 +278,7 @@ function checkAnswer(scene, inputText) {
         currentRung++;
         scoreText.setText(`Score: ${score}`);
         feedbackText.setText('✓ Correct! Climbing up!');
-        feedbackText.setColor('#00AA00');
+        feedbackText.setColor(COLORS.success.hex);
 
         // Happy character
         player.setText('😊');
@@ -293,7 +299,7 @@ function checkAnswer(scene, inputText) {
             gameActive = false;
             player.setText('🎉');
             feedbackText.setText('🎉 YOU WON! You reached the top!');
-            feedbackText.setColor('#FFD700');
+            feedbackText.setColor(COLORS.warning.hex);
             if (timerEvent) timerEvent.remove();
             return;
         }
@@ -307,7 +313,7 @@ function checkAnswer(scene, inputText) {
     } else {
         // Wrong answer - fall down
         feedbackText.setText('✗ Wrong! Falling down...');
-        feedbackText.setColor('#AA0000');
+        feedbackText.setColor(COLORS.error.hex);
 
         // Sad/falling character
         player.setText('😰');
@@ -351,7 +357,7 @@ function startTimer(scene) {
                 if (timeLeft <= 0) {
                     // Time's up - fall down
                     feedbackText.setText('⏰ Time\'s up! Falling down...');
-                    feedbackText.setColor('#AA0000');
+                    feedbackText.setColor(COLORS.error.hex);
 
                     // Shocked character
                     player.setText('😱');
