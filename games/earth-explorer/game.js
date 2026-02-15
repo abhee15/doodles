@@ -1,25 +1,10 @@
 // Earth Explorer - Interactive Geography Learning Game
-// BUILT ON REUSABLE MAP ENGINE - Template for all future geography games!
-
-// Game state
-let currentScene = 'menu';
-let currentLevel = 1;
-let questionsAsked = [];
-let currentQuestion = null;
-let score = 0;
-let totalQuestions = 0;
-let mapController = null;
-let scoreText = null;
-let questionText = null;
-let gameData = {
-    answered: {},
-    currentDifficulty: 'mixed'
-};
+// Using inline map rendering (simpler, guaranteed to work!)
 
 const config = createGameConfig({
     width: 900,
     height: 650,
-    backgroundColor: 0x87CEEB, // Sky blue
+    backgroundColor: 0x87CEEB,
     scene: {
         preload: preload,
         create: create,
@@ -29,28 +14,33 @@ const config = createGameConfig({
 
 const game = new Phaser.Game(config);
 
-function preload() {
-    // No external assets needed
-}
+// Game state
+let currentScene = 'menu';
+let questionsAsked = [];
+let currentQuestion = null;
+let score = 0;
+let totalQuestions = 0;
+let scoreText = null;
+let questionText = null;
+let mapObjects = {};
+let gameData = { currentDifficulty: 'mixed' };
+
+function preload() {}
 
 function create() {
     this.scene = this;
     showMainMenu(this);
-
     if (window.gameAnalytics) {
         window.gameAnalytics.trackGameStart('earth-explorer');
     }
 }
 
-function update() {
-    // Game loop
-}
+function update() {}
 
 // ==================== MAIN MENU ====================
 function showMainMenu(scene) {
     scene.children.removeAll();
     currentScene = 'menu';
-    mapController = null;
 
     scene.add.rectangle(450, 325, 900, 650, 0x87CEEB);
 
@@ -70,18 +60,15 @@ function showMainMenu(scene) {
     scene.add.text(250, 130, '🗺️', { fontSize: '40px' });
     scene.add.text(630, 130, '🌊', { fontSize: '40px' });
 
-    const buttonY = 280;
-    const spacing = 90;
-
-    createButton(scene, 450, buttonY, '🌍 Continents Only', EARTH_COLORS.northAmerica, () => {
+    createButton(scene, 450, 280, '🌍 Continents Only', EARTH_COLORS.northAmerica, () => {
         startGame(scene, 'continents');
     }, 300, 70);
 
-    createButton(scene, 450, buttonY + spacing, '🌊 Oceans Only', EARTH_COLORS.ocean, () => {
+    createButton(scene, 450, 370, '🌊 Oceans Only', EARTH_COLORS.ocean, () => {
         startGame(scene, 'oceans');
     }, 300, 70);
 
-    createButton(scene, 450, buttonY + spacing * 2, '🌏 Both (Challenge!)', EARTH_COLORS.asia, () => {
+    createButton(scene, 450, 460, '🌏 Both (Challenge!)', EARTH_COLORS.asia, () => {
         startGame(scene, 'mixed');
     }, 300, 70);
 
@@ -105,13 +92,9 @@ function startGame(scene, difficulty) {
     scene.children.removeAll();
     currentScene = 'playing';
     gameData.currentDifficulty = difficulty;
-    gameData.answered = {};
     score = 0;
     questionsAsked = [];
-    scoreText = null;
-    questionText = null;
 
-    // Determine which regions to use
     let regions = {};
     if (difficulty === 'continents') {
         regions = CONTINENTS;
@@ -123,17 +106,10 @@ function startGame(scene, difficulty) {
 
     totalQuestions = Object.keys(regions).length;
 
-    // CREATE THE INTERACTIVE MAP USING THE MAP ENGINE!
-    // This is the reusable foundation for all geography games
-    mapController = createInteractiveMap(scene, regions, {
-        backgroundColor: 0x87CEEB,
-        oceanColor: 0x4A90E2,
-        highlightColor: 0xFFFF00,
-        onRegionClick: (regionId, regionData) => handleMapClick(scene, regionId, regionData),
-        showLabelsOnAnswer: true
-    });
+    // Draw map
+    drawMap(scene, regions);
 
-    // Score display
+    // Score
     scoreText = scene.add.text(800, 30, `Score: ${score}/${totalQuestions}`, {
         fontSize: '22px',
         fill: '#FFFFFF',
@@ -141,28 +117,90 @@ function startGame(scene, difficulty) {
         fontStyle: 'bold',
         backgroundColor: '#000000',
         padding: { x: 10, y: 5 }
-    }).setOrigin(0.5);
-    scoreText.setDepth(1000);
+    }).setOrigin(0.5).setDepth(1000);
 
-    // Start first question
+    // Start questions
     nextQuestion(scene, Object.keys(regions));
 }
 
-// ==================== NEXT QUESTION ====================
-function nextQuestion(scene, questionPool) {
-    const remainingQuestions = questionPool.filter(q => !questionsAsked.includes(q));
+// ==================== DRAW MAP ====================
+function drawMap(scene, regions) {
+    mapObjects = {};
 
-    if (remainingQuestions.length === 0) {
+    // Ocean background
+    scene.add.rectangle(450, 325, 900, 650, 0x4A90E2, 0.3);
+
+    // Draw continents
+    Object.entries(regions).forEach(([id, region]) => {
+        if (region.isOcean) {
+            // Ocean - simple rectangles
+            if (region.areas) {
+                const rects = [];
+                region.areas.forEach(area => {
+                    const rect = scene.add.rectangle(area.x, area.y, area.width, area.height, EARTH_COLORS.ocean, 0);
+                    rect.setStrokeStyle(3, 0xFFFFFF, 0.5);
+                    rect.setInteractive({ useHandCursor: true });
+
+                    // Hover
+                    rect.on('pointerover', () => {
+                        if (!mapObjects[id].answered) rect.setFillStyle(0xFFFF00, 0.3);
+                    });
+                    rect.on('pointerout', () => {
+                        if (!mapObjects[id].answered) rect.setFillStyle(EARTH_COLORS.ocean, 0);
+                    });
+                    rect.on('pointerdown', () => handleClick(scene, id));
+
+                    rects.push(rect);
+                });
+
+                const firstArea = region.areas[0];
+                const label = scene.add.text(firstArea.labelX || firstArea.x, firstArea.labelY || firstArea.y, region.name, {
+                    fontSize: '16px',
+                    fill: '#FFFFFF',
+                    fontFamily: 'Arial',
+                    fontStyle: 'bold',
+                    stroke: '#000000',
+                    strokeThickness: 3
+                }).setOrigin(0.5).setVisible(false);
+
+                mapObjects[id] = { polygons: rects, label: label, data: region, answered: false };
+            }
+        } else {
+            // Continent - polygon
+            const polygon = scene.add.polygon(0, 0, region.points, region.color, 1);
+            polygon.setOrigin(0);
+            polygon.setStrokeStyle(2, 0x000000, 0.4);
+            polygon.setInteractive(
+                new Phaser.Geom.Polygon(region.points),
+                Phaser.Geom.Polygon.Contains
+            );
+
+            // Hover
+            polygon.on('pointerover', () => {
+                if (!mapObjects[id].answered) polygon.setFillStyle(0xFFFF00, 0.8);
+            });
+            polygon.on('pointerout', () => {
+                if (!mapObjects[id].answered) polygon.setFillStyle(region.color, 1);
+            });
+            polygon.on('pointerdown', () => handleClick(scene, id));
+
+            mapObjects[id] = { polygons: [polygon], label: null, data: region, answered: false };
+        }
+    });
+}
+
+// ==================== NEXT QUESTION ====================
+function nextQuestion(scene, pool) {
+    const remaining = pool.filter(q => !questionsAsked.includes(q));
+    if (remaining.length === 0) {
         showResults(scene);
         return;
     }
 
-    const randomIndex = Phaser.Math.Between(0, remainingQuestions.length - 1);
-    currentQuestion = remainingQuestions[randomIndex];
+    currentQuestion = remaining[Phaser.Math.Between(0, remaining.length - 1)];
     questionsAsked.push(currentQuestion);
 
-    const data = CONTINENTS[currentQuestion] || OCEANS[currentQuestion];
-
+    const data = mapObjects[currentQuestion].data;
     if (questionText) questionText.destroy();
     questionText = scene.add.text(450, 30, `Click on: ${data.name}`, {
         fontSize: '32px',
@@ -171,71 +209,70 @@ function nextQuestion(scene, questionPool) {
         fontStyle: 'bold',
         backgroundColor: '#2C5F7F',
         padding: { x: 20, y: 10 }
-    }).setOrigin(0.5);
-    questionText.setDepth(1000);
+    }).setOrigin(0.5).setDepth(1000);
 }
 
-// ==================== HANDLE MAP CLICK ====================
-function handleMapClick(scene, clickedId, clickedData) {
-    // Check if already answered
-    if (mapController.isAnswered(clickedId)) {
-        return;
-    }
+// ==================== HANDLE CLICK ====================
+function handleClick(scene, id) {
+    if (mapObjects[id].answered) return;
 
-    // Check if correct
-    if (clickedId === currentQuestion) {
-        handleCorrectAnswer(scene, clickedId, clickedData);
+    if (id === currentQuestion) {
+        // Correct!
+        score++;
+        mapObjects[id].answered = true;
+
+        // Show label
+        if (mapObjects[id].label) {
+            mapObjects[id].label.setVisible(true).setDepth(1500);
+        } else {
+            const bounds = mapObjects[id].polygons[0].getBounds();
+            const label = scene.add.text(bounds.centerX, bounds.centerY, mapObjects[id].data.name, {
+                fontSize: '16px',
+                fill: '#000000',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                backgroundColor: '#FFFFFF',
+                padding: { x: 8, y: 4 }
+            }).setOrigin(0.5).setDepth(1500);
+            mapObjects[id].label = label;
+        }
+
+        // Make non-interactive
+        mapObjects[id].polygons.forEach(p => p.disableInteractive());
+
+        // Update score
+        if (scoreText) scoreText.setText(`Score: ${score}/${totalQuestions}`);
+
+        // Show fun fact
+        showFunFact(scene, mapObjects[id].data.funFact, () => {
+            nextQuestion(scene, Object.keys(mapObjects));
+        });
     } else {
-        // Wrong answer - shake the region
-        mapController.shakeRegion(clickedId);
+        // Wrong!
+        mapObjects[id].polygons.forEach(p => {
+            scene.tweens.add({ targets: p, x: p.x + 5, duration: 50, yoyo: true, repeat: 3 });
+        });
 
-        const feedbackText = scene.add.text(450, 90, '❌ Try again!', {
+        const feedback = scene.add.text(450, 90, '❌ Try again!', {
             fontSize: '28px',
             fill: '#FF6B6B',
             fontFamily: 'Arial',
             fontStyle: 'bold'
-        }).setOrigin(0.5);
-        feedbackText.setDepth(1000);
+        }).setOrigin(0.5).setDepth(1000);
 
-        scene.time.delayedCall(1000, () => feedbackText.destroy());
+        scene.time.delayedCall(1000, () => feedback.destroy());
     }
 }
 
-// ==================== HANDLE CORRECT ANSWER ====================
-function handleCorrectAnswer(scene, regionId, regionData) {
-    score++;
-
-    // Use map engine to mark as answered (auto-labels and highlights)
-    mapController.answerRegion(regionId);
-
-    // Update score
-    if (scoreText) {
-        scoreText.setText(`Score: ${score}/${totalQuestions}`);
-    }
-
-    // Show fun fact
-    showFunFact(scene, regionData.funFact, () => {
-        const questionPool = mapController.getAllRegionIds();
-        nextQuestion(scene, questionPool);
-    });
-}
-
-// ==================== SHOW FUN FACT ====================
+// ==================== FUN FACT ====================
 function showFunFact(scene, fact, onClose) {
-    const overlay = scene.add.rectangle(450, 325, 900, 650, 0x000000, 0.7);
-    overlay.setDepth(2000);
-    overlay.setInteractive();
-
-    const modalBg = scene.add.rectangle(450, 325, 600, 300, 0xFFFFFF);
-    modalBg.setDepth(2001);
-    modalBg.setStrokeStyle(4, COLORS.success.phaser);
-
+    const overlay = scene.add.rectangle(450, 325, 900, 650, 0x000000, 0.7).setDepth(2000).setInteractive();
+    const modalBg = scene.add.rectangle(450, 325, 600, 300, 0xFFFFFF).setDepth(2001).setStrokeStyle(4, COLORS.success.phaser);
     const check = scene.add.text(450, 230, '✓', {
         fontSize: '60px',
         fill: '#00D68F',
         fontFamily: 'Arial'
-    }).setOrigin(0.5);
-    check.setDepth(2002);
+    }).setOrigin(0.5).setDepth(2002);
 
     const factText = scene.add.text(450, 320, fact, {
         fontSize: '18px',
@@ -243,40 +280,33 @@ function showFunFact(scene, fact, onClose) {
         fontFamily: 'Arial',
         align: 'center',
         wordWrap: { width: 550 }
-    }).setOrigin(0.5);
-    factText.setDepth(2002);
+    }).setOrigin(0.5).setDepth(2002);
 
-    const continueBtn = scene.add.rectangle(450, 410, 200, 50, COLORS.success.phaser);
-    continueBtn.setDepth(2002);
-    continueBtn.setInteractive({ useHandCursor: true });
-
-    const continueText = scene.add.text(450, 410, 'Continue', {
+    const btn = scene.add.rectangle(450, 410, 200, 50, COLORS.success.phaser).setDepth(2002).setInteractive({ useHandCursor: true });
+    const btnText = scene.add.text(450, 410, 'Continue', {
         fontSize: '22px',
         fill: '#FFFFFF',
         fontFamily: 'Arial',
         fontStyle: 'bold'
-    }).setOrigin(0.5);
-    continueText.setDepth(2003);
+    }).setOrigin(0.5).setDepth(2003);
 
-    continueBtn.on('pointerdown', () => {
+    btn.on('pointerdown', () => {
         overlay.destroy();
         modalBg.destroy();
         check.destroy();
         factText.destroy();
-        continueBtn.destroy();
-        continueText.destroy();
+        btn.destroy();
+        btnText.destroy();
         onClose();
     });
 
-    continueBtn.on('pointerover', () => continueBtn.setAlpha(0.8));
-    continueBtn.on('pointerout', () => continueBtn.setAlpha(1));
+    btn.on('pointerover', () => btn.setAlpha(0.8));
+    btn.on('pointerout', () => btn.setAlpha(1));
 }
 
-// ==================== RESULTS SCREEN ====================
+// ==================== RESULTS ====================
 function showResults(scene) {
     scene.children.removeAll();
-    currentScene = 'results';
-
     const percentage = (score / totalQuestions) * 100;
     const stars = percentage === 100 ? 3 : percentage >= 75 ? 2 : percentage >= 50 ? 1 : 0;
 
@@ -299,42 +329,21 @@ function showResults(scene) {
         fontFamily: 'Arial'
     }).setOrigin(0.5);
 
-    const starDisplay = '⭐'.repeat(stars) + '☆'.repeat(3 - stars);
-    scene.add.text(450, 240, starDisplay, {
+    scene.add.text(450, 240, '⭐'.repeat(stars) + '☆'.repeat(3 - stars), {
         fontSize: '56px'
     }).setOrigin(0.5);
 
-    let message = '';
-    if (percentage === 100) message = 'You know Earth perfectly! 🌍';
-    else if (percentage >= 75) message = 'You\'re becoming a geography expert!';
-    else if (percentage >= 50) message = 'Keep exploring to learn more!';
-    else message = 'Practice makes perfect! Try again!';
-
-    scene.add.text(450, 320, message, {
-        fontSize: '22px',
-        fill: '#4A4A4A',
-        fontFamily: 'Arial',
-        align: 'center'
-    }).setOrigin(0.5);
-
-    createButton(scene, 300, 420, '🔄 Play Again', COLORS.success.phaser, () => {
-        showMainMenu(scene);
-    }, 220, 60);
-
-    createButton(scene, 600, 420, '← Main Menu', COLORS.primary.phaser, () => {
-        showMainMenu(scene);
-    }, 220, 60);
+    createButton(scene, 300, 420, '🔄 Play Again', COLORS.success.phaser, () => showMainMenu(scene), 220, 60);
+    createButton(scene, 600, 420, '← Main Menu', COLORS.primary.phaser, () => showMainMenu(scene), 220, 60);
 
     if (window.gameAnalytics) {
         window.gameAnalytics.trackLevelComplete('earth-explorer', gameData.currentDifficulty, stars);
     }
 }
 
-// ==================== HELPER: CREATE BUTTON ====================
+// ==================== BUTTON ====================
 function createButton(scene, x, y, label, color, callback, width = 200, height = 60) {
-    const button = scene.add.rectangle(x, y, width, height, color);
-    button.setInteractive({ useHandCursor: true });
-
+    const button = scene.add.rectangle(x, y, width, height, color).setInteractive({ useHandCursor: true });
     const text = scene.add.text(x, y, label, {
         fontSize: '20px',
         fill: '#FFFFFF',
@@ -343,16 +352,8 @@ function createButton(scene, x, y, label, color, callback, width = 200, height =
     }).setOrigin(0.5);
 
     button.on('pointerdown', callback);
-
-    button.on('pointerover', () => {
-        button.setAlpha(0.85);
-        button.setScale(1.02);
-    });
-
-    button.on('pointerout', () => {
-        button.setAlpha(1);
-        button.setScale(1);
-    });
+    button.on('pointerover', () => { button.setAlpha(0.85); button.setScale(1.02); });
+    button.on('pointerout', () => { button.setAlpha(1); button.setScale(1); });
 
     return { button, text };
 }
