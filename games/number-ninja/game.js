@@ -5,7 +5,7 @@
 const config = createGameConfig({
     width: 800,
     height: 600,
-    backgroundColor: COLORS.neutral.darkBg.phaser,
+    backgroundColor: 0xF6F4D2, // Cream
     physics: {
         default: 'arcade',
         arcade: {
@@ -55,10 +55,10 @@ function create() {
     // Title - using design system typography
     this.add.text(center.x, 30, '🥷 Number Ninja', {
         fontSize: '36px',
-        fill: COLORS.warning.hex,
+        fill: '#F19C79',
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        stroke: COLORS.neutral.darkBg.hex,
+        stroke: '#3D1C16',
         strokeThickness: 4
     }).setOrigin(0.5);
 
@@ -80,10 +80,10 @@ function create() {
     // Score
     scoreText = this.add.text(20, 70, 'Score: 0', {
         fontSize: '24px',
-        fill: COLORS.neutral.lightText.hex,
+        fill: '#3D1C16',
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: COLORS.neutral.darkBg.hex,
+        backgroundColor: '#3D1C16',
         padding: { x: 10, y: 5 }
     });
 
@@ -91,28 +91,28 @@ function create() {
     const livesX = this.scale.width - 100;
     livesText = this.add.text(livesX, 70, '❤️ ❤️ ❤️', {
         fontSize: '24px',
-        backgroundColor: COLORS.neutral.darkBg.hex,
+        backgroundColor: '#3D1C16',
         padding: { x: 10, y: 5 }
     });
 
     // Next number to click
     nextNumberText = this.add.text(center.x, 120, 'Click: 1', {
         fontSize: '32px',
-        fill: COLORS.success.hex,
+        fill: '#A44A3F',
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: COLORS.neutral.darkBg.hex,
+        backgroundColor: '#3D1C16',
         padding: { x: 15, y: 8 }
     }).setOrigin(0.5);
 
     // Instructions
     const instructions = this.add.text(center.x, center.y, 'Click numbers in order!\n1 → 2 → 3 → 4...', {
         fontSize: '28px',
-        fill: COLORS.neutral.lightText.hex,
+        fill: '#3D1C16',
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
         align: 'center',
-        stroke: COLORS.neutral.darkBg.hex,
+        stroke: '#3D1C16',
         strokeThickness: 3
     }).setOrigin(0.5);
 
@@ -204,8 +204,8 @@ function spawnNumber(scene) {
     const y = -50;
 
     // Create number bubble - using design system colors
-    const bubble = scene.add.circle(x, y, 40, COLORS.info.phaser);
-    bubble.setStrokeStyle(4, COLORS.neutral.darkBg.phaser);
+    const bubble = scene.add.circle(x, y, 40, 0xA44A3F);
+    bubble.setStrokeStyle(4, 0x3D1C16);
 
     const text = scene.add.text(x, y, numValue, {
         fontSize: '36px',
@@ -257,7 +257,7 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
         // Show success effect
         const success = scene.add.text(bubble.x, bubble.y, '✓ +10', {
             fontSize: '24px',
-            fill: COLORS.success.hex,
+            fill: '#A44A3F',
             fontFamily: 'Arial, sans-serif',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -292,11 +292,11 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
 
     } else {
         // Wrong number!
-        bubble.setFillStyle(COLORS.error.phaser);
+        bubble.setFillStyle(0xA44A3F);
 
         const wrong = scene.add.text(bubble.x, bubble.y, '✗', {
             fontSize: '36px',
-            fill: COLORS.error.hex,
+            fill: '#A44A3F',
             fontFamily: 'Arial, sans-serif',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -309,7 +309,7 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
         });
 
         scene.time.delayedCall(300, () => {
-            bubble.setFillStyle(COLORS.info.phaser);
+            bubble.setFillStyle(0xA44A3F);
         });
 
         loseLife(scene);
@@ -338,11 +338,11 @@ function updateUI() {
 
     // Color code based on urgency - using design system
     if (lives === 1) {
-        nextNumberText.setColor(COLORS.error.hex);
+        nextNumberText.setColor('#A44A3F');
     } else if (lives === 2) {
-        nextNumberText.setColor(COLORS.warning.hex);
+        nextNumberText.setColor('#F19C79');
     } else {
-        nextNumberText.setColor(COLORS.success.hex);
+        nextNumberText.setColor('#A44A3F');
     }
 }
 

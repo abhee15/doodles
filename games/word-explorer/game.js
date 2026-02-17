@@ -1,27 +1,27 @@
 // Word Explorer - Vocabulary Learning Game
 // Educational game for 4th graders to improve vocabulary, pronunciation, and comprehension
 
-// Color Palette - Map to design system
+// Color Palette - Coolors palette #D4E09B / #F6F4D2 / #CBDFBD / #F19C79 / #A44A3F
 const WORD_COLORS = {
-    primary: COLORS.primary.phaser,
-    secondary: COLORS.warning.phaser,
-    success: COLORS.success.phaser,
-    error: COLORS.error.phaser,
-    background: COLORS.neutral.lightBgAlt.phaser,
-    cardBg: COLORS.neutral.lightBg.phaser,
+    primary: 0xA44A3F,        // Brick red
+    secondary: 0xF19C79,      // Peach
+    success: 0xA44A3F,        // Brick red
+    error: 0xA44A3F,          // Brick red
+    background: 0xF6F4D2,     // Cream
+    cardBg: 0xFFFFFF,         // White cards
     text: COLORS.neutral.darkText.phaser,
-    textLight: COLORS.neutral.darkTextSecondary.phaser,
-    accent: COLORS.info.phaser,
+    textLight: 0x8B6456,      // Muted brick
+    accent: 0xF19C79,         // Peach
     // Difficulty colors
-    difficulty1: COLORS.success.phaser,  // Green - Easy
-    difficulty2: COLORS.warning.phaser,  // Yellow - Medium
-    difficulty3: COLORS.error.phaser,    // Red - Hard
-    // Category colors
-    emotion: 0xFF6B9D,      // Pink - custom
-    size: 0x6C5CE7,         // Purple - custom
-    time: 0xFF9F43,         // Orange - custom
-    action: COLORS.success.phaser,       // Green
-    concept: 0x0984E3       // Blue - custom
+    difficulty1: 0xCBDFBD,    // Soft green - Easy
+    difficulty2: 0xD4E09B,    // Yellow-green - Medium
+    difficulty3: 0xA44A3F,    // Brick red - Hard
+    // Category colors (one palette color each)
+    emotion: 0xF19C79,        // Peach
+    size: 0xA44A3F,           // Brick red
+    time: 0xD4E09B,           // Yellow-green
+    action: 0xCBDFBD,         // Soft green
+    concept: 0xF19C79         // Peach
 };
 
 // ==================== CONFIGURATION ====================
@@ -310,12 +310,12 @@ function showMainMenu(scene) {
     currentScene = 'menu';
 
     // Background gradient effect
-    const bg = scene.add.rectangle(450, 325, 900, 650, 0xF5F7FA);
+    const bg = scene.add.rectangle(450, 325, 900, 650, 0xF6F4D2);
 
     // Title
     scene.add.text(450, 100, '📖 Word Explorer', {
         fontSize: '56px',
-        fill: '#4F46E5',
+        fill: '#A44A3F',
         fontStyle: 'bold',
         fontFamily: 'Arial'
     }).setOrigin(0.5);
@@ -332,7 +332,7 @@ function showMainMenu(scene) {
 
     scene.add.text(450, 220, `${masteredWords}/${totalWords} words mastered`, {
         fontSize: '20px',
-        fill: '#00D68F',
+        fill: '#A44A3F',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -482,14 +482,14 @@ function createWordCard(scene, x, y, wordData, width, height) {
     const starsText = getStarDisplay(progress.stars);
     const stars = scene.add.text(x, y + 30, starsText, {
         fontSize: '18px',
-        fill: '#FFB800'
+        fill: '#F19C79'
     }).setOrigin(0.5);
 
     // Mastered badge
     if (progress.stars === 3) {
         scene.add.text(x + width/2 - 15, y + height/2 - 15, '✓', {
             fontSize: '20px',
-            fill: '#00D68F',
+            fill: '#A44A3F',
             fontStyle: 'bold'
         }).setOrigin(0.5);
     }
@@ -572,7 +572,7 @@ function showWordDetail(scene) {
     // Title
     scene.add.text(450, 60, currentWord.word, {
         fontSize: '48px',
-        fill: '#4F46E5',
+        fill: '#A44A3F',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -618,7 +618,7 @@ function showWordDetail(scene) {
     const starsText = getStarDisplay(progress.stars);
     scene.add.text(450, 370, `Your Progress: ${starsText}`, {
         fontSize: '24px',
-        fill: '#FFB800',
+        fill: '#F19C79',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -709,7 +709,7 @@ function displayMeaningMatchQuestion(scene) {
     // Header
     scene.add.text(450, 40, '🎯 Meaning Match', {
         fontSize: '32px',
-        fill: '#4F46E5',
+        fill: '#A44A3F',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -724,7 +724,7 @@ function displayMeaningMatchQuestion(scene) {
     // Score
     scene.add.text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
         fontSize: '20px',
-        fill: '#00D68F',
+        fill: '#A44A3F',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -789,7 +789,7 @@ function createDefinitionOption(scene, x, y, text, isCorrect, question) {
             // Show checkmark
             scene.add.text(x + 360, y, '✓', {
                 fontSize: '32px',
-                fill: '#00D68F',
+                fill: '#A44A3F',
                 fontStyle: 'bold'
             }).setOrigin(0.5);
         } else {
@@ -893,7 +893,7 @@ function displaySentenceBuilderQuestion(scene) {
     // Score
     scene.add.text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
         fontSize: '20px',
-        fill: '#00D68F',
+        fill: '#A44A3F',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -963,7 +963,7 @@ function createWordOption(scene, x, y, word, isCorrect, question) {
 
             scene.add.text(x + 180, y, '✓', {
                 fontSize: '28px',
-                fill: '#00D68F',
+                fill: '#A44A3F',
                 fontStyle: 'bold'
             }).setOrigin(0.5);
         } else {
@@ -1037,7 +1037,7 @@ function displaySpellingQuestion(scene) {
     // Header
     scene.add.text(450, 40, '✏️ Spelling Quest', {
         fontSize: '32px',
-        fill: '#00D68F',
+        fill: '#A44A3F',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -1052,7 +1052,7 @@ function displaySpellingQuestion(scene) {
     // Score
     scene.add.text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
         fontSize: '20px',
-        fill: '#00D68F',
+        fill: '#A44A3F',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -1087,7 +1087,7 @@ function displaySpellingQuestion(scene) {
 
     const answerText = scene.add.text(450, 290, '', {
         fontSize: '32px',
-        fill: '#FFB800',
+        fill: '#F19C79',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -1168,8 +1168,8 @@ function checkSpelling(scene, question, feedbackText, answerText) {
     if (isCorrect) {
         sessionScore++;
         feedbackText.setText('✓ Perfect spelling!');
-        feedbackText.setColor('#00D68F');
-        answerText.setColor('#00D68F');
+        feedbackText.setColor('#A44A3F');
+        answerText.setColor('#A44A3F');
     } else {
         feedbackText.setText(`✗ Correct spelling: ${question.word}`);
         feedbackText.setColor('#FF6B6B');
@@ -1219,13 +1219,13 @@ function showResults(scene) {
 
     // Celebration title
     let title = '🎉 Excellent!';
-    let titleColor = '#00D68F';
+    let titleColor = '#A44A3F';
     if (stars === 3) {
         title = '⭐ Perfect! Amazing!';
-        titleColor = '#FFB800';
+        titleColor = '#F19C79';
     } else if (stars === 2) {
         title = '🎉 Great Job!';
-        titleColor = '#00D68F';
+        titleColor = '#A44A3F';
     } else if (stars === 1) {
         title = '👍 Good Try!';
         titleColor = '#74B9FF';
@@ -1259,7 +1259,7 @@ function showResults(scene) {
     const starsDisplay = getStarDisplay(stars);
     scene.add.text(450, 290, starsDisplay, {
         fontSize: '56px',
-        fill: '#FFB800'
+        fill: '#F19C79'
     }).setOrigin(0.5);
 
     scene.add.text(450, 350, `You earned ${stars} star${stars !== 1 ? 's' : ''}!`, {

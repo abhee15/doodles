@@ -47,7 +47,7 @@ function showMainMenu(scene) {
 
     scene.add.text(450, 100, '🌍 Earth Explorer', {
         fontSize: '56px',
-        fill: '#2C5F7F',
+        fill: '#A44A3F',
         fontStyle: 'bold',
         fontFamily: 'Arial'
     }).setOrigin(0.5);
@@ -61,15 +61,15 @@ function showMainMenu(scene) {
     scene.add.text(250, 130, '🗺️', { fontSize: '40px' });
     scene.add.text(630, 130, '🌊', { fontSize: '40px' });
 
-    createButton(scene, 450, 280, '🌍 Continents Only', 0xA8E6CF, () => {
+    createButton(scene, 450, 280, '🌍 Continents Only', 0xCBDFBD, () => {
         startGame(scene, 'continents');
     }, 300, 70);
 
-    createButton(scene, 450, 370, '🌊 Oceans Only', 0x4A90E2, () => {
+    createButton(scene, 450, 370, '🌊 Oceans Only', 0xA44A3F, () => {
         startGame(scene, 'oceans');
     }, 300, 70);
 
-    createButton(scene, 450, 460, '🌏 Both (Challenge!)', 0xFF6B9D, () => {
+    createButton(scene, 450, 460, '🌏 Both (Challenge!)', 0xF19C79, () => {
         startGame(scene, 'mixed');
     }, 300, 70);
 
@@ -268,10 +268,10 @@ function handleClick(scene, id) {
 // ==================== FUN FACT ====================
 function showFunFact(scene, fact, onClose) {
     const overlay = scene.add.rectangle(450, 325, 900, 650, 0x000000, 0.7).setDepth(2000).setInteractive();
-    const modalBg = scene.add.rectangle(450, 325, 600, 300, 0xFFFFFF).setDepth(2001).setStrokeStyle(4, 0x10B981);
+    const modalBg = scene.add.rectangle(450, 325, 600, 300, 0xFFFFFF).setDepth(2001).setStrokeStyle(4, 0xA44A3F);
     const check = scene.add.text(450, 230, '✓', {
         fontSize: '60px',
-        fill: '#00D68F',
+        fill: '#A44A3F',
         fontFamily: 'Arial'
     }).setOrigin(0.5).setDepth(2002);
 

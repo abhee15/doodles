@@ -2,17 +2,17 @@
 // Professional Educational Game Design
 // MIGRATED TO TEMPLATE SYSTEM V2.0
 
-// Quick Math local colors - mapped to design system
+// Quick Math local colors - Coolors palette #D4E09B / #F6F4D2 / #CBDFBD / #F19C79 / #A44A3F
 const QM_COLORS = {
-    primary: COLORS.primary.phaser,
-    secondary: COLORS.warning.phaser,
-    success: COLORS.success.phaser,
-    error: COLORS.error.phaser,
-    background: COLORS.neutral.lightBgAlt.phaser,
-    cardBg: COLORS.neutral.lightBg.phaser,
+    primary: 0xA44A3F,        // Brick red
+    secondary: 0xF19C79,      // Peach
+    success: 0xA44A3F,        // Brick red
+    error: 0xA44A3F,          // Brick red
+    background: 0xF6F4D2,     // Cream
+    cardBg: 0xFFFFFF,         // White cards
     text: COLORS.neutral.darkText.phaser,
-    textLight: COLORS.neutral.darkTextSecondary.phaser,
-    accent: COLORS.error.phaser
+    textLight: 0x8B6456,      // Muted brick
+    accent: 0xF19C79          // Peach
 };
 
 const config = createGameConfig({
@@ -144,7 +144,7 @@ function showAchievementNotification(scene, achievement) {
 
     const notification = scene.add.container(450, -100);
 
-    const bg = scene.add.rectangle(0, 0, 350, 100, 0x00D68F);
+    const bg = scene.add.rectangle(0, 0, 350, 100, 0xA44A3F);
     bg.setStrokeStyle(3, 0xFFFFFF);
 
     const icon = scene.add.text(-140, 0, achievement.icon, {
@@ -340,7 +340,7 @@ function showProgressScreen(scene) {
 
         const card = scene.add.rectangle(x, y, 350, 80, QM_COLORS.cardBg);
         card.setOrigin(0, 0);
-        card.setStrokeStyle(2, 0xE9ECEF);
+        card.setStrokeStyle(2, 0xCBDFBD);
 
         scene.add.text(x + 25, y + 25, stat.icon, {
             fontSize: '32px'
@@ -377,9 +377,9 @@ function showProgressScreen(scene) {
         const y = 400 + row * 100;
         const unlocked = playerProgress.achievements.includes(ach.id);
 
-        const card = scene.add.rectangle(x, y, 220, 85, unlocked ? QM_COLORS.cardBg : 0xF5F7FA);
+        const card = scene.add.rectangle(x, y, 220, 85, unlocked ? QM_COLORS.cardBg : 0xF6F4D2);
         card.setOrigin(0, 0);
-        card.setStrokeStyle(2, unlocked ? QM_COLORS.success : 0xDFE6E9);
+        card.setStrokeStyle(2, unlocked ? QM_COLORS.success : 0xD4E09B);
 
         scene.add.text(x + 20, y + 20, unlocked ? ach.icon : '🔒', {
             fontSize: '28px'
@@ -440,7 +440,7 @@ function showMainMenu(scene) {
     features.forEach((feature, i) => {
         const y = 280 + i * 70;
         const card = scene.add.rectangle(450, y, 400, 55, QM_COLORS.cardBg);
-        card.setStrokeStyle(2, 0xE9ECEF);
+        card.setStrokeStyle(2, 0xCBDFBD);
 
         scene.add.text(280, y, feature.icon, {
             fontSize: '28px'
@@ -496,7 +496,7 @@ function showLevelSelect(scene) {
     const levels = [
         { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x5F6FFF },
         { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF6348, locked: true },
-        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x00D68F, locked: true },
+        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0xA44A3F, locked: true },
         { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFB800, locked: true }
     ];
 
@@ -527,9 +527,9 @@ function createProfessionalCard(scene, x, y, level, isLocked) {
     shadow.setOrigin(0, 0);
 
     // Card background (white)
-    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xE9ECEF : QM_COLORS.cardBg);
+    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xCBDFBD : QM_COLORS.cardBg);
     cardBg.setOrigin(0, 0);
-    cardBg.setStrokeStyle(2, isLocked ? 0xDEE2E6 : 0xE9ECEF);
+    cardBg.setStrokeStyle(2, isLocked ? 0xDEE2E6 : 0xCBDFBD);
 
     // Colored accent bar (left side)
     if (!isLocked) {
@@ -683,7 +683,7 @@ function tutorialMultiplyBy11(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#00D68F',
+                fill: '#A44A3F',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -800,7 +800,7 @@ function tutorialSquareEndingIn5(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#00D68F',
+                fill: '#A44A3F',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -955,7 +955,7 @@ function showPractice(scene, levelId) {
         if (answer === currentQuestion.answer) {
             score++;
             feedbackText.setText('✓ Correct! +1');
-            feedbackText.setColor('#00D68F');
+            feedbackText.setColor('#A44A3F');
             playSound('success'); // Success sound
         } else {
             feedbackText.setText(`✗ Wrong. Answer: ${currentQuestion.answer}`);
@@ -1000,7 +1000,7 @@ function showResults(scene, score, total) {
     // Title
     scene.add.text(450, cardY + 40, passed ? '🎉 Great Job!' : '📚 Keep Practicing!', {
         fontSize: '38px',
-        fill: passed ? '#00D68F' : '#FF6B6B',
+        fill: passed ? '#A44A3F' : '#FF6B6B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -1017,7 +1017,7 @@ function showResults(scene, score, total) {
 
         scene.add.text(x, starY, filled ? '⭐' : '☆', {
             fontSize: `${starSize}px`,
-            fill: filled ? '#FFB800' : '#DFE6E9'
+            fill: filled ? '#F19C79' : '#DFE6E9'
         }).setOrigin(0.5);
     }
 
@@ -1063,7 +1063,7 @@ function showResults(scene, score, total) {
         playerProgress.unlockedLevels = unlockedLevels;
         scene.add.text(450, cardY + 340, '🔓 Next level unlocked!', {
             fontSize: '18px',
-            fill: '#00D68F',
+            fill: '#A44A3F',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);

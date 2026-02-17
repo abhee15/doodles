@@ -154,7 +154,7 @@ let sceneRef        = null;
 const config = createGameConfig({
     width: 900,
     height: 650,
-    backgroundColor: 0xF0F4FF,
+    backgroundColor: 0xF6F4D2,
     scene: { preload, create, update }
 });
 
@@ -222,7 +222,7 @@ function showMenu() {
 
     // Soft blue-white background
     const bg = track(s.add.graphics());
-    bg.fillStyle(0xF0F4FF, 1);
+    bg.fillStyle(0xF6F4D2, 1);
     bg.fillRect(0, 0, W, H);
 
     // Decorative unit pills along the top
@@ -251,25 +251,25 @@ function showMenu() {
 
     // Thin divider
     const div = track(s.add.graphics());
-    div.lineStyle(1, 0xDDD6FE, 1);
+    div.lineStyle(1, 0xD4E09B, 1);
     div.lineBetween(180, 182, 720, 182);
 
     // Three mode cards
     const modes = [
         {
-            x: 200, color: 0x5F27CD,
+            x: 200, color: 0xA44A3F,
             emoji: '🔍', title: 'Explore Units',
             sub: 'See each unit with\nreal-world examples',
             action: () => { currentUnitIndex = 0; showExplore(); }
         },
         {
-            x: 450, color: 0x0984E3,
+            x: 450, color: 0xF19C79,
             emoji: '📊', title: 'Sort Challenge',
             sub: 'Order units from\nsmallest to largest',
             action: () => showSort()
         },
         {
-            x: 700, color: 0x00B894,
+            x: 700, color: 0xA44A3F,
             emoji: '❓', title: 'Quiz Time!',
             sub: 'Test which unit fits\neach measurement',
             action: () => startQuiz()
@@ -464,12 +464,12 @@ function showExplore() {
         makeBtn(W/2 - 175, navY, 200, 46, 0x636E72, '◀  Previous', '17px',
             () => { currentUnitIndex--; showExplore(); });
     }
-    makeBtn(W/2, navY, 200, 46, 0x0984E3, '❓  Quiz!', '17px', () => startQuiz());
+    makeBtn(W/2, navY, 200, 46, 0xA44A3F, '❓  Quiz!', '17px', () => startQuiz());
     if (!isLast) {
         makeBtn(W/2 + 175, navY, 200, 46, unit.color, 'Next  ▶', '17px',
             () => { currentUnitIndex++; showExplore(); });
     } else {
-        makeBtn(W/2 + 175, navY, 200, 46, 0x00B894, '✅  All Done!', '17px', () => startQuiz());
+        makeBtn(W/2 + 175, navY, 200, 46, 0xA44A3F, '✅  All Done!', '17px', () => startQuiz());
     }
 }
 
@@ -506,7 +506,7 @@ function drawSort() {
     const W = 900, H = 650;
 
     const bg = track(s.add.graphics());
-    bg.fillStyle(0xF0F4FF, 1);
+    bg.fillStyle(0xF6F4D2, 1);
     bg.fillRect(0, 0, W, H);
 
     // Header
@@ -643,7 +643,7 @@ function drawSort() {
     // ── Check / Reset buttons ─────────────────────────────────
     const allPlaced = sortState.slots.every(slot => slot !== null);
     if (allPlaced) {
-        makeBtn(W/2 - 120, 435, 200, 52, 0x00B894, '✅  Check Order!', '19px', checkSort);
+        makeBtn(W/2 - 120, 435, 200, 52, 0xA44A3F, '✅  Check Order!', '19px', checkSort);
     }
     makeBtn(W/2 + 130, 435, 190, 52, 0xE74C3C, '🔄  Reset', '19px', () => showSort());
     makeBtn(W/2 - 340, 435, 150, 52, 0x636E72, '← Menu', '17px', () => showMenu());
@@ -711,8 +711,8 @@ function checkSort() {
         fontSize: '13px', fontFamily: 'Arial', color: '#B2BEC3', fontStyle: 'italic'
     }).setOrigin(0.5));
 
-    makeBtn(W/2 - 155, 500, 210, 54, 0x5F27CD, '🔄  Try Again', '19px', () => showSort());
-    makeBtn(W/2 + 155, 500, 210, 54, 0x00B894, '❓  Take Quiz', '19px', () => startQuiz());
+    makeBtn(W/2 - 155, 500, 210, 54, 0xA44A3F, '🔄  Try Again', '19px', () => showSort());
+    makeBtn(W/2 + 155, 500, 210, 54, 0xA44A3F, '❓  Take Quiz', '19px', () => startQuiz());
     makeBtn(W/2, 570, 180, 44, 0x636E72, '🏠  Menu', '17px', () => showMenu());
 }
 
@@ -750,7 +750,7 @@ function showQuestion() {
     const pct = quizIndex / quizQuestions.length;
     if (pct > 0) {
         const barFill = track(s.add.graphics());
-        barFill.fillStyle(0x5F27CD, 1);
+        barFill.fillStyle(0xA44A3F, 1);
         barFill.fillRoundedRect(50, 18, (W - 100) * pct, 10, 5);
     }
 
@@ -920,10 +920,10 @@ function showQuizResult() {
     barBg.fillStyle(0xE0E0E0, 1);
     barBg.fillRoundedRect(200, 298, 500, 18, 9);
     const barFill = track(s.add.graphics());
-    barFill.fillStyle(0x5F27CD, 1);
+    barFill.fillStyle(0xA44A3F, 1);
     barFill.fillRoundedRect(200, 298, 500 * (quizScore / total), 18, 9);
 
-    makeBtn(W/2 - 175, 400, 210, 58, 0x5F27CD, '🔄  Try Again',    '19px', () => startQuiz());
-    makeBtn(W/2 + 175, 400, 210, 58, 0x0984E3, '🔍  Explore Units','19px', () => { currentUnitIndex = 0; showExplore(); });
+    makeBtn(W/2 - 175, 400, 210, 58, 0xA44A3F, '🔄  Try Again',    '19px', () => startQuiz());
+    makeBtn(W/2 + 175, 400, 210, 58, 0xA44A3F, '🔍  Explore Units','19px', () => { currentUnitIndex = 0; showExplore(); });
     makeBtn(W/2,       490, 210, 52, 0x636E72, '🏠  Main Menu',    '18px', () => showMenu());
 }

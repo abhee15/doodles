@@ -5,7 +5,7 @@
 const config = createGameConfig({
     width: 800,
     height: 600,
-    backgroundColor: 0x87CEEB, // Sky blue
+    backgroundColor: 0xF6F4D2, // Cream
     physics: {
         default: 'arcade',
         arcade: {
@@ -73,14 +73,14 @@ function showStartScreen(scene) {
     player.setDepth(10);
 
     // Overlay for start screen
-    const overlay = scene.add.rectangle(center.x, center.y, scene.scale.width, scene.scale.height, 0x87CEEB, 0.85);
+    const overlay = scene.add.rectangle(center.x, center.y, scene.scale.width, scene.scale.height, 0xF6F4D2, 0.85);
     overlay.setDepth(50);
     gameplayElements.push(overlay);
 
     // Title
     const title = scene.add.text(center.x, 100, '🪜 Math Ladder', {
         ...TYPOGRAPHY.phaserStyles.heading,
-        fill: COLORS.primary.hex
+        fill: '#A44A3F'
     }).setOrigin(0.5);
     title.setDepth(100);
     gameplayElements.push(title);
@@ -234,7 +234,7 @@ function setupGameplayUI(scene) {
         fill: COLORS.neutral.darkText.hex,
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: COLORS.warning.hex,
+        backgroundColor: '#F19C79',
         padding: { x: 10, y: 6 }
     }).setOrigin(0.5);
     instructions.setDepth(100);
@@ -398,7 +398,7 @@ function drawLadder(scene) {
     // Goal at top
     scene.add.text(ladderX, 40, '🎯 GOAL!', {
         fontSize: '32px',
-        fill: COLORS.warning.hex,
+        fill: '#F19C79',
         fontFamily: 'Arial, sans-serif',
         stroke: COLORS.neutral.darkBg.hex,
         strokeThickness: 2
@@ -440,7 +440,7 @@ function generateQuestion(scene) {
 
 function createNumberButton(scene, x, y, number, inputText) {
     // Using design system colors
-    const button = scene.add.rectangle(x, y, 55, 55, COLORS.info.phaser);
+    const button = scene.add.rectangle(x, y, 55, 55, 0xA44A3F);
     button.setStrokeStyle(2, COLORS.neutral.darkBg.phaser);
     button.setInteractive({ useHandCursor: true });
     button.setDepth(100);
@@ -460,8 +460,8 @@ function createNumberButton(scene, x, y, number, inputText) {
         }
     });
 
-    button.on('pointerover', () => button.setFillStyle(COLORS.primary.phaser));
-    button.on('pointerout', () => button.setFillStyle(COLORS.info.phaser));
+    button.on('pointerover', () => button.setFillStyle(0xA44A3F));
+    button.on('pointerout', () => button.setFillStyle(0xA44A3F));
 }
 
 function checkAnswer(scene, inputText) {
@@ -475,7 +475,7 @@ function checkAnswer(scene, inputText) {
         currentRung++;
         scoreText.setText(`Score: ${score}`);
         feedbackText.setText('✓ Correct! Climbing up!');
-        feedbackText.setColor(COLORS.success.hex);
+        feedbackText.setColor('#A44A3F');
 
         // Happy character
         player.setText('😊');
@@ -509,7 +509,7 @@ function checkAnswer(scene, inputText) {
     } else {
         // Wrong answer - fall down
         feedbackText.setText('✗ Wrong! Falling down...');
-        feedbackText.setColor(COLORS.error.hex);
+        feedbackText.setColor('#A44A3F');
 
         // Sad/falling character
         player.setText('😰');
@@ -558,7 +558,7 @@ function startTimer(scene) {
                 if (timeLeft <= 0) {
                     // Time's up - fall down
                     feedbackText.setText('⏰ Time\'s up! Falling down...');
-                    feedbackText.setColor(COLORS.error.hex);
+                    feedbackText.setColor('#A44A3F');
 
                     // Shocked character
                     player.setText('😱');
