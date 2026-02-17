@@ -38,8 +38,8 @@ let currentScene = 'menu';
 let currentDifficulty = 1;
 let currentCountry = null;
 let score = 0;
-let countriesLearned = [];
-let unlockedDifficulties = 1;
+let countriesLearned = JSON.parse(localStorage.getItem('we_countriesLearned') || '[]');
+let unlockedDifficulties = parseInt(localStorage.getItem('we_unlockedDifficulties') || '1', 10);
 
 // Comprehensive Country Database
 const COUNTRIES = {
@@ -2309,6 +2309,7 @@ function showCountryLearn(scene, countryKey) {
                 // Mark as learned if not already
                 if (!countriesLearned.includes(countryKey)) {
                     countriesLearned.push(countryKey);
+                    localStorage.setItem('we_countriesLearned', JSON.stringify(countriesLearned));
                 }
                 showQuiz(scene, countryKey);
             }, 180, 50);
@@ -2561,6 +2562,7 @@ function showQuizResults(scene, score, total, countryKey) {
     const learnedInThisLevel = levelCountries.filter(k => countriesLearned.includes(k));
     if (learnedInThisLevel.length >= 1 && unlockedDifficulties === currentDifficulty) {
         unlockedDifficulties++;
+        localStorage.setItem('we_unlockedDifficulties', unlockedDifficulties.toString());
         scene.add.text(450, 410, '🔓 Next level unlocked! Keep exploring!', {
             fontSize: '20px',
             fill: '#F19C79',
