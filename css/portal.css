@@ -1,12 +1,12 @@
-/* Monokai-inspired theme: one accent, high-contrast text, kid-friendly sizes */
+/* Coolors palette: #D4E09B / #F6F4D2 / #CBDFBD / #F19C79 / #A44A3F */
 :root {
-    --color-primary: #4F46E5;
-    --color-primary-dark: #4338CA;
-    --color-text: #1E293B;
-    --color-text-muted: #475569;
+    --color-primary: #A44A3F;
+    --color-primary-dark: #8B3A30;
+    --color-text: #3D1C16;
+    --color-text-muted: #8B6456;
     --color-surface: #FFFFFF;
-    --color-bg-start: #4F46E5;
-    --color-bg-end: #7C3AED;
+    --color-bg-start: #F19C79;
+    --color-bg-end: #A44A3F;
     --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     --font-size-base: 1.125rem;   /* 18px - kid-friendly body */
     --font-size-lg: 1.25rem;      /* 20px */
@@ -132,7 +132,7 @@ header p {
 
 .play-btn:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.4);
+    box-shadow: 0 6px 20px rgba(164, 74, 63, 0.4);
 }
 
 footer {
