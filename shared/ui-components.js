@@ -39,47 +39,47 @@ const ButtonSizes = {
 function getButtonStyle(variant) {
     const styles = {
         primary: {
-            bgColor: 0x4F46E5,           // Indigo
-            bgColorHover: 0x4338CA,      // Darker indigo
-            bgColorPressed: 0x3730A3,    // Even darker
+            bgColor: 0xA44A3F,           // Brick red
+            bgColorHover: 0x8B3A30,
+            bgColorPressed: 0x6B2A22,
             textColor: '#FFFFFF',
-            shadowColor: 0x000000,
-            shadowAlpha: 0.3
-        },
-        secondary: {
-            bgColor: 0x64748B,           // Slate
-            bgColorHover: 0x475569,
-            bgColorPressed: 0x334155,
-            textColor: '#FFFFFF',
-            shadowColor: 0x000000,
+            shadowColor: 0x3E1F1A,
             shadowAlpha: 0.25
         },
-        success: {
-            bgColor: 0x10B981,           // Green
-            bgColorHover: 0x059669,
-            bgColorPressed: 0x047857,
+        secondary: {
+            bgColor: 0x8B6456,           // Muted brick
+            bgColorHover: 0x7A5548,
+            bgColorPressed: 0x6A4538,
             textColor: '#FFFFFF',
-            shadowColor: 0x000000,
-            shadowAlpha: 0.3
+            shadowColor: 0x3E1F1A,
+            shadowAlpha: 0.2
+        },
+        success: {
+            bgColor: 0xA44A3F,           // Brick red (only palette color dark enough for white text)
+            bgColorHover: 0x8B3A30,
+            bgColorPressed: 0x6B2A22,
+            textColor: '#FFFFFF',
+            shadowColor: 0x3E1F1A,
+            shadowAlpha: 0.25
         },
         danger: {
-            bgColor: 0xEF4444,           // Red
-            bgColorHover: 0xDC2626,
-            bgColorPressed: 0xB91C1C,
+            bgColor: 0xA44A3F,           // Brick red
+            bgColorHover: 0x6B2A22,
+            bgColorPressed: 0x4F1A14,
             textColor: '#FFFFFF',
-            shadowColor: 0x000000,
+            shadowColor: 0x3E1F1A,
             shadowAlpha: 0.3
         },
         ghost: {
-            bgColor: 0x000000,           // Transparent look
-            bgColorHover: 0x1F2937,
-            bgColorPressed: 0x111827,
+            bgColor: 0x8B6456,           // Muted brick, semi-transparent
+            bgColorHover: 0x7A5548,
+            bgColorPressed: 0x6A4538,
             textColor: '#FFFFFF',
-            shadowColor: 0x000000,
-            shadowAlpha: 0.4,
-            alpha: 0.6,
-            alphaHover: 0.8,
-            alphaPressed: 1.0
+            shadowColor: 0x3E1F1A,
+            shadowAlpha: 0.15,
+            alpha: 0.55,
+            alphaHover: 0.75,
+            alphaPressed: 0.9
         }
     };
 
