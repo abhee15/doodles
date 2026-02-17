@@ -2309,11 +2309,6 @@ function showCountryLearn(scene, countryKey) {
             }, 150, 50);
         } else {
             createModernButton(scene, 700, 590, 'Take Quiz! 🎯', WE_COLORS.success, () => {
-                // Mark as learned if not already
-                if (!countriesLearned.includes(countryKey)) {
-                    countriesLearned.push(countryKey);
-                    localStorage.setItem('we_countriesLearned', JSON.stringify(countriesLearned));
-                }
                 showQuiz(scene, countryKey);
             }, 180, 50);
         }
@@ -2551,27 +2546,33 @@ function showQuizResults(scene, score, total, countryKey) {
     }).setOrigin(0.5);
 
     if (passed) {
-        scene.add.text(450, 360, '✓ Great knowledge about this country!', {
+        // Mark country as learned on pass and persist
+        if (!countriesLearned.includes(countryKey)) {
+            countriesLearned.push(countryKey);
+            localStorage.setItem('we_countriesLearned', JSON.stringify(countriesLearned));
+        }
+
+        // Unlock next difficulty if at least 1 country passed at the current level
+        const levelCountries = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === currentDifficulty);
+        const learnedInThisLevel = levelCountries.filter(k => countriesLearned.includes(k));
+        if (learnedInThisLevel.length >= 1 && unlockedDifficulties === currentDifficulty) {
+            unlockedDifficulties++;
+            localStorage.setItem('we_unlockedDifficulties', unlockedDifficulties.toString());
+            scene.add.text(450, 390, '🔓 Next level unlocked! Keep exploring!', {
+                fontSize: '20px',
+                fill: '#F19C79',
+                fontStyle: 'bold'
+            }).setOrigin(0.5);
+        }
+
+        scene.add.text(450, 430, '✓ Great knowledge about this country!', {
             fontSize: '20px',
             fill: '#CBDFBD'
         }).setOrigin(0.5);
     } else {
-        scene.add.text(450, 360, 'Review the country info and try again!', {
+        scene.add.text(450, 390, 'Review the country info and try again!', {
             fontSize: '18px',
             fill: '#475569'
-        }).setOrigin(0.5);
-    }
-
-    // Unlock next difficulty after completing at least 1 country at the current level
-    const levelCountries = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === currentDifficulty);
-    const learnedInThisLevel = levelCountries.filter(k => countriesLearned.includes(k));
-    if (learnedInThisLevel.length >= 1 && unlockedDifficulties === currentDifficulty) {
-        unlockedDifficulties++;
-        localStorage.setItem('we_unlockedDifficulties', unlockedDifficulties.toString());
-        scene.add.text(450, 410, '🔓 Next level unlocked! Keep exploring!', {
-            fontSize: '20px',
-            fill: '#F19C79',
-            fontStyle: 'bold'
         }).setOrigin(0.5);
     }
 
