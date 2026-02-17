@@ -223,7 +223,7 @@ function drawDinoTexture(scene, dino) {
     if (scene.textures.exists(key)) return key;
 
     const W = 120, H = 80;
-    const g = scene.add.graphics();
+    const g = scene.make.graphics({ x: 0, y: 0, add: false });
 
     const body  = dino.bodyColor;
     const dark  = dino.darkColor;
