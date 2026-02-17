@@ -32,13 +32,23 @@
     <link rel="stylesheet" href="css/portal.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🎮 Doodles Learning Games</h1>
-            <p>Fun educational games for kids!</p>
-        </header>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-inner">
+                <div class="brand">
+                    <span class="brand-icon">✏️</span>
+                    <span class="brand-name">Doodles</span>
+                </div>
+            </div>
+        </nav>
+        <div class="hero">
+            <h1>Learn Through Play</h1>
+            <p>Free educational games crafted for curious kids — no download needed!</p>
+        </div>
+    </header>
 
-        <main class="games-grid">
+    <main class="page-content">
+        <div class="games-grid">
             <div class="game-card">
                 <div class="game-icon">🪜</div>
                 <h2>Math Ladder</h2>
@@ -87,12 +97,40 @@
                 <p>Learn inches, feet, meters and more with real-world examples!</p>
                 <a href="games/measure-master/index.html" class="play-btn">Play Now</a>
             </div>
-        </main>
+        </div>
+    </main>
 
-        <footer>
-            <p>Built with ❤️ for learning</p>
-        </footer>
-    </div>
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <div class="brand">
+                    <span class="brand-icon">✏️</span>
+                    <span class="brand-name">Doodles</span>
+                </div>
+                <p>Free educational games for curious kids, right in your browser.</p>
+            </div>
+            <div class="footer-links">
+                <h3>Math Games</h3>
+                <ul>
+                    <li><a href="games/math-ladder/index.html">Math Ladder</a></li>
+                    <li><a href="games/number-ninja/index.html">Number Ninja</a></li>
+                    <li><a href="games/quick-math/index.html">Quick Math</a></li>
+                    <li><a href="games/measure-master/index.html">Measure Master</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Explorer Games</h3>
+                <ul>
+                    <li><a href="games/word-explorer/index.html">Word Explorer</a></li>
+                    <li><a href="games/world-explorer/index.html">World Explorer</a></li>
+                    <li><a href="games/earth-explorer/index.html">Earth Explorer</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Doodles · Built with ❤️ for learning</p>
+        </div>
+    </footer>
 
     <!-- Analytics -->
     <script src="shared/analytics.js"></script>
