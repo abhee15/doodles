@@ -43,8 +43,8 @@ body {
     /* Modern gradient background */
     background: linear-gradient(
         135deg,
-        var(--game-bg-start, #CDEEED) 0%,
-        var(--game-bg-end, #2A9D8F) 100%
+        var(--game-bg-start, #A8DADA) 0%,
+        var(--game-bg-end, #3D9E9E) 100%
     );
 
     /* Typography */
