@@ -1804,7 +1804,7 @@ const COUNTRIES = {
 // Get countries by difficulty
 function getCountriesByDifficulty(difficulty) {
     return Object.keys(COUNTRIES).filter(key =>
-        COUNTRIES[key].difficulty <= difficulty
+        COUNTRIES[key].difficulty === difficulty
     );
 }
 
@@ -1971,9 +1971,9 @@ function showDifficultySelect(scene) {
     }).setOrigin(0.5);
 
     const d1Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === 1).length;
-    const d2Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty <= 2).length;
-    const d3Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty <= 3).length;
-    const d4Count = Object.keys(COUNTRIES).length;
+    const d2Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === 2).length;
+    const d3Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === 3).length;
+    const d4Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === 4).length;
     const difficulties = [
         {
             id: 1,
@@ -2005,7 +2005,7 @@ function showDifficultySelect(scene) {
             id: 4,
             name: 'World Expert',
             icon: '🏆',
-            desc: `All ${d4Count} countries!`,
+            desc: `${d4Count} challenging countries!`,
             color: WE_COLORS.secondary,
             countries: d4Count,
             locked: true
