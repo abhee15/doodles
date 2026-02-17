@@ -1,12 +1,12 @@
-/* Coolors palette: #D4E09B / #F6F4D2 / #CBDFBD / #F19C79 / #A44A3F */
+/* Tea green theme */
 :root {
     --color-primary: #A44A3F;
     --color-primary-dark: #8B3A30;
-    --color-text: #3D1C16;
-    --color-text-muted: #8B6456;
-    --color-surface: #FFFFFF;
-    --color-bg-start: #F19C79;
-    --color-bg-end: #A44A3F;
+    --color-text: #1E3A1E;
+    --color-text-muted: #4A6E4A;
+    --color-surface: #F4FBF0;
+    --color-bg-start: #D4EDBC;
+    --color-bg-end: #8DB87A;
     --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     --font-size-base: 1.125rem;   /* 18px - kid-friendly body */
     --font-size-lg: 1.25rem;      /* 20px */
