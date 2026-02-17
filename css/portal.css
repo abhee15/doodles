@@ -1,12 +1,12 @@
-/* Tea green theme */
+/* Warm Sunrise theme - amber gradient harmonises with in-game warm palette */
 :root {
     --color-primary: #A44A3F;
     --color-primary-dark: #8B3A30;
-    --color-text: #1E3A1E;
-    --color-text-muted: #4A6E4A;
-    --color-surface: #F4FBF0;
-    --color-bg-start: #D4EDBC;
-    --color-bg-end: #8DB87A;
+    --color-text: #3E1F1A;
+    --color-text-muted: #7A4E47;
+    --color-surface: #FFFDF7;
+    --color-bg-start: #FFF3E0;
+    --color-bg-end: #FFCC80;
     --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     --font-size-base: 1.125rem;   /* 18px - kid-friendly body */
     --font-size-lg: 1.25rem;      /* 20px */
