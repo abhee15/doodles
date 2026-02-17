@@ -390,8 +390,8 @@ function showExplore() {
     }).setOrigin(0.5));
 
     // ── 4 item cards ────────────────────────────────────────
-    const iW = 182, iH = 148;
-    const gap = 10;
+    const iW = 196, iH = 168;
+    const gap = 8;
     const totalItemW = 4 * iW + 3 * gap;
     const iStartX = (W - totalItemW) / 2;
     const iY = 292;  // starts 18px below info card bottom (y=274)
@@ -402,18 +402,18 @@ function showExplore() {
         const ic = track(s.add.graphics());
         ic.fillStyle(unit.color, 0.10);
         ic.fillRoundedRect(cx - iW/2, iY, iW, iH, 12);
-        ic.lineStyle(2, unit.color, 0.25);
+        ic.lineStyle(2, unit.color, 0.30);
         ic.strokeRoundedRect(cx - iW/2, iY, iW, iH, 12);
 
-        track(s.add.text(cx, iY + 34, item.emoji, { fontSize: '34px' }).setOrigin(0.5));
+        track(s.add.text(cx, iY + 40, item.emoji, { fontSize: '44px' }).setOrigin(0.5));
 
-        track(s.add.text(cx, iY + 78, item.name, {
-            fontSize: '14px', fontFamily: 'Arial', fontStyle: 'bold',
-            color: '#2D3436', align: 'center', wordWrap: { width: iW - 14 }
+        track(s.add.text(cx, iY + 94, item.name, {
+            fontSize: '17px', fontFamily: 'Arial', fontStyle: 'bold',
+            color: '#2D3436', align: 'center', wordWrap: { width: iW - 16 }
         }).setOrigin(0.5));
 
-        track(s.add.text(cx, iY + 112, item.detail, {
-            fontSize: '12px', fontFamily: 'Arial',
+        track(s.add.text(cx, iY + 136, item.detail, {
+            fontSize: '15px', fontFamily: 'Arial', fontStyle: 'bold',
             color: toCss(unit.color), align: 'center'
         }).setOrigin(0.5));
     });
@@ -424,18 +424,18 @@ function showExplore() {
     };
 
     if (currentUnitIndex > 0) {
-        track(s.add.text(28, 366, '◀', arrowStyle)
+        track(s.add.text(28, 376, '◀', arrowStyle)
             .setOrigin(0.5).setInteractive({ cursor: 'pointer' })
             .on('pointerdown', () => { currentUnitIndex--; showExplore(); }));
     }
     if (currentUnitIndex < UNITS.length - 1) {
-        track(s.add.text(W - 28, 366, '▶', arrowStyle)
+        track(s.add.text(W - 28, 376, '▶', arrowStyle)
             .setOrigin(0.5).setInteractive({ cursor: 'pointer' })
             .on('pointerdown', () => { currentUnitIndex++; showExplore(); }));
     }
 
     // ── Progress dots ────────────────────────────────────────
-    const dotY = 456;  // below item cards which end at y=440 (292+148)
+    const dotY = 476;  // below item cards which end at y=460 (292+168)
     UNITS.forEach((u, i) => {
         const dotX = W/2 - (UNITS.length * 22) / 2 + i * 22 + 11;
         const isActive = i === currentUnitIndex;
