@@ -2,22 +2,22 @@
 // Educational Game for Kids
 // MIGRATED TO TEMPLATE SYSTEM V2.0
 
-// World Explorer local colors - mapped to design system
+// World Explorer local colors - Coolors palette #D4E09B / #F6F4D2 / #CBDFBD / #F19C79 / #A44A3F
 const WE_COLORS = {
-    primary: COLORS.primary.phaser,
-    secondary: COLORS.warning.phaser,
-    success: COLORS.success.phaser,
-    error: COLORS.error.phaser,
-    background: COLORS.neutral.lightBgAlt.phaser,
-    cardBg: COLORS.neutral.lightBg.phaser,
+    primary: 0xA44A3F,        // Brick red - main buttons & CTAs
+    secondary: 0xF19C79,      // Peach - secondary buttons
+    success: 0xA44A3F,        // Brick red (only dark enough for white button text)
+    error: 0xA44A3F,          // Brick red
+    background: 0xF6F4D2,     // Cream background
+    cardBg: 0xFFFFFF,         // White cards for contrast
     text: COLORS.neutral.darkText.phaser,
-    textLight: COLORS.neutral.darkTextSecondary.phaser,
-    // Continent colors (keep unique for educational value)
-    africa: 0xFF8C42,
-    asia: 0xFF6B6B,
-    americas: 0x51CF66,
-    europe: 0x5F6FFF,
-    oceania: 0x20C997
+    textLight: 0x8B6456,      // Muted brick for back/minor buttons
+    // Continent colors - one palette color each
+    africa: 0xF19C79,         // Peach
+    asia: 0xA44A3F,           // Brick red
+    americas: 0xCBDFBD,       // Soft green
+    europe: 0xD4E09B,         // Yellow-green
+    oceania: 0xCBDFBD         // Soft green
 };
 
 const config = createGameConfig({
@@ -1243,6 +1243,561 @@ const COUNTRIES = {
         ],
         culture: "Famous for Islam, oil, and deserts. Very traditional with rich Bedouin heritage!",
         difficulty: 4
+    },
+
+    // DIFFICULTY 2 - Additional well-known countries
+    belgium: {
+        name: "Belgium",
+        flag: "🇧🇪",
+        continent: "Europe",
+        continentColor: WE_COLORS.europe,
+        capital: "Brussels",
+        majorCities: ["Brussels", "Antwerp", "Ghent"],
+        language: ["Dutch", "French", "German"],
+        famousPlaces: [
+            "Atomium - Futuristic spheres building",
+            "Grand Place - Beautiful city square",
+            "Bruges - Medieval canal city",
+            "Manneken Pis - Famous small statue"
+        ],
+        funFacts: [
+            "Invented French fries (not France!)",
+            "Makes the best chocolate and waffles",
+            "Home of the EU headquarters"
+        ],
+        culture: "Famous for chocolate, waffles, and beer. Three different languages spoken here!",
+        difficulty: 2
+    },
+
+    hungary: {
+        name: "Hungary",
+        flag: "🇭🇺",
+        continent: "Europe",
+        continentColor: WE_COLORS.europe,
+        capital: "Budapest",
+        majorCities: ["Budapest", "Debrecen", "Miskolc"],
+        language: ["Hungarian"],
+        famousPlaces: [
+            "Buda Castle - Hilltop royal palace",
+            "Thermal Baths - Natural hot spring baths",
+            "Chain Bridge - Iconic suspension bridge",
+            "Hungarian Parliament - Grand riverside building"
+        ],
+        funFacts: [
+            "Invented the Rubik's cube",
+            "Has many natural thermal springs",
+            "Budapest has the oldest metro in Europe"
+        ],
+        culture: "Famous for goulash, paprika, and thermal baths. Very proud of their unique language!",
+        difficulty: 2
+    },
+
+    pakistan: {
+        name: "Pakistan",
+        flag: "🇵🇰",
+        continent: "Asia",
+        continentColor: WE_COLORS.asia,
+        capital: "Islamabad",
+        majorCities: ["Karachi", "Lahore", "Islamabad"],
+        language: ["Urdu", "English"],
+        famousPlaces: [
+            "Badshahi Mosque - Massive Mughal mosque",
+            "Lahore Fort - Ancient Mughal fortress",
+            "K2 Mountain - Second tallest mountain",
+            "Mohenjo-daro - Ancient Indus civilization"
+        ],
+        funFacts: [
+            "Second largest salt mine in world",
+            "K2 is harder to climb than Everest",
+            "Ancient Indus Valley civilization was here"
+        ],
+        culture: "Famous for biryani, cricket, and hospitality. Very rich Mughal history!",
+        difficulty: 2
+    },
+
+    // DIFFICULTY 3 - Additional interesting countries
+    ukraine: {
+        name: "Ukraine",
+        flag: "🇺🇦",
+        continent: "Europe",
+        continentColor: WE_COLORS.europe,
+        capital: "Kyiv",
+        majorCities: ["Kyiv", "Kharkiv", "Odessa"],
+        language: ["Ukrainian"],
+        famousPlaces: [
+            "Kyiv Pechersk Lavra - Ancient monastery",
+            "Chernobyl - Famous nuclear site",
+            "Saint Sophia Cathedral - Thousand year old church",
+            "Tunnel of Love - Beautiful tree-lined railway"
+        ],
+        funFacts: [
+            "Largest country entirely in Europe",
+            "Sunflowers are their national flower",
+            "Invented the helicopter (Igor Sikorsky)"
+        ],
+        culture: "Famous for borscht, embroidery, and folk traditions. Very artistic and resilient people!",
+        difficulty: 3
+    },
+
+    ethiopia: {
+        name: "Ethiopia",
+        flag: "🇪🇹",
+        continent: "Africa",
+        continentColor: WE_COLORS.africa,
+        capital: "Addis Ababa",
+        majorCities: ["Addis Ababa", "Dire Dawa", "Gondar"],
+        language: ["Amharic"],
+        famousPlaces: [
+            "Lalibela - Rock-hewn churches",
+            "Simien Mountains - Dramatic highlands",
+            "Danakil Depression - Hottest place on Earth",
+            "Omo Valley - Ancient tribal cultures"
+        ],
+        funFacts: [
+            "Birthplace of coffee (Ethiopia!)",
+            "One of oldest civilizations on Earth",
+            "Never colonized by Europeans"
+        ],
+        culture: "Famous for injera bread, coffee, and ancient history. Called the 'Cradle of Humanity'!",
+        difficulty: 3
+    },
+
+    nepal: {
+        name: "Nepal",
+        flag: "🇳🇵",
+        continent: "Asia",
+        continentColor: WE_COLORS.asia,
+        capital: "Kathmandu",
+        majorCities: ["Kathmandu", "Pokhara", "Lalitpur"],
+        language: ["Nepali"],
+        famousPlaces: [
+            "Mount Everest - World's highest mountain",
+            "Pashupatinath Temple - Sacred Hindu temple",
+            "Boudhanath Stupa - Giant Buddhist stupa",
+            "Pokhara - Beautiful lakeside city"
+        ],
+        funFacts: [
+            "Home of Mount Everest!",
+            "Only flag in world that isn't rectangular",
+            "Birthplace of Buddha"
+        ],
+        culture: "Famous for Everest, monks, and trekking. Very spiritual with mountains everywhere!",
+        difficulty: 3
+    },
+
+    cambodia: {
+        name: "Cambodia",
+        flag: "🇰🇭",
+        continent: "Asia",
+        continentColor: WE_COLORS.asia,
+        capital: "Phnom Penh",
+        majorCities: ["Phnom Penh", "Siem Reap", "Battambang"],
+        language: ["Khmer"],
+        famousPlaces: [
+            "Angkor Wat - Largest religious monument",
+            "Angkor Thom - Ancient city ruins",
+            "Mekong River - Mighty river",
+            "Killing Fields - Sobering history site"
+        ],
+        funFacts: [
+            "Angkor Wat is on their flag",
+            "Home to the giant Mekong giant catfish",
+            "Had one of the largest medieval cities"
+        ],
+        culture: "Famous for Angkor temples, rice, and resilience. Ancient Khmer Empire was here!",
+        difficulty: 3
+    },
+
+    jordan: {
+        name: "Jordan",
+        flag: "🇯🇴",
+        continent: "Asia",
+        continentColor: WE_COLORS.asia,
+        capital: "Amman",
+        majorCities: ["Amman", "Aqaba", "Irbid"],
+        language: ["Arabic"],
+        famousPlaces: [
+            "Petra - Rose-red city carved in rock",
+            "Wadi Rum - Mars-like red desert",
+            "Dead Sea - Saltiest lake on Earth",
+            "Jerash - Best preserved Roman city"
+        ],
+        funFacts: [
+            "Petra is one of the New 7 Wonders",
+            "Dead Sea is the lowest point on Earth",
+            "Romans built amazing cities here"
+        ],
+        culture: "Famous for Petra, mansaf dish, and ancient history. Very welcoming to visitors!",
+        difficulty: 3
+    },
+
+    bolivia: {
+        name: "Bolivia",
+        flag: "🇧🇴",
+        continent: "South America",
+        continentColor: WE_COLORS.americas,
+        capital: "Sucre",
+        majorCities: ["La Paz", "Santa Cruz", "Sucre"],
+        language: ["Spanish", "Quechua", "Aymara"],
+        famousPlaces: [
+            "Salar de Uyuni - World's largest salt flat",
+            "Lake Titicaca - Highest navigable lake",
+            "Amazon Rainforest - Jungle region",
+            "Death Road - Famous dangerous road"
+        ],
+        funFacts: [
+            "Has two capital cities",
+            "Salt flat is so large it's seen from space",
+            "Has the highest capital city in world"
+        ],
+        culture: "Famous for colorful festivals, indigenous traditions, and salt flats. Very high altitude living!",
+        difficulty: 3
+    },
+
+    ecuador: {
+        name: "Ecuador",
+        flag: "🇪🇨",
+        continent: "South America",
+        continentColor: WE_COLORS.americas,
+        capital: "Quito",
+        majorCities: ["Quito", "Guayaquil", "Cuenca"],
+        language: ["Spanish"],
+        famousPlaces: [
+            "Galápagos Islands - Charles Darwin's inspiration",
+            "Quito Old Town - UNESCO World Heritage",
+            "Amazon Jungle - Pristine rainforest",
+            "Avenue of the Volcanoes - 10+ volcanoes"
+        ],
+        funFacts: [
+            "Named after the Equator (it runs through)",
+            "Galápagos has unique animals found nowhere else",
+            "Highest active volcano in world"
+        ],
+        culture: "Famous for the Galápagos, roses, and biodiversity. Grows the most roses in the world!",
+        difficulty: 3
+    },
+
+    // DIFFICULTY 4 - Additional lesser-known countries
+    croatia: {
+        name: "Croatia",
+        flag: "🇭🇷",
+        continent: "Europe",
+        continentColor: WE_COLORS.europe,
+        capital: "Zagreb",
+        majorCities: ["Zagreb", "Split", "Dubrovnik"],
+        language: ["Croatian"],
+        famousPlaces: [
+            "Dubrovnik - Medieval walled city",
+            "Plitvice Lakes - Waterfall national park",
+            "Diocletian's Palace - Roman emperor's palace",
+            "Hvar Island - Beautiful Adriatic island"
+        ],
+        funFacts: [
+            "Game of Thrones was filmed in Dubrovnik",
+            "Invented the necktie (cravat)",
+            "Has over 1,000 islands"
+        ],
+        culture: "Famous for seafood, ancient cities, and beaches. Very rich history and stunning nature!",
+        difficulty: 4
+    },
+
+    romania: {
+        name: "Romania",
+        flag: "🇷🇴",
+        continent: "Europe",
+        continentColor: WE_COLORS.europe,
+        capital: "Bucharest",
+        majorCities: ["Bucharest", "Cluj-Napoca", "Timișoara"],
+        language: ["Romanian"],
+        famousPlaces: [
+            "Bran Castle - Dracula's famous castle",
+            "Peles Castle - Fairytale mountain castle",
+            "Transfagarasan Road - Scenic mountain road",
+            "Danube Delta - River delta wildlife"
+        ],
+        funFacts: [
+            "Home of Dracula legends",
+            "Has the 2nd largest parliament building",
+            "Famous gymnast Nadia Comaneci is Romanian"
+        ],
+        culture: "Famous for Dracula stories, painted monasteries, and folklore. Very artistic culture!",
+        difficulty: 4
+    },
+
+    bulgaria: {
+        name: "Bulgaria",
+        flag: "🇧🇬",
+        continent: "Europe",
+        continentColor: WE_COLORS.europe,
+        capital: "Sofia",
+        majorCities: ["Sofia", "Plovdiv", "Varna"],
+        language: ["Bulgarian"],
+        famousPlaces: [
+            "Rila Monastery - Stunning mountain monastery",
+            "Old Plovdiv - Ancient Roman city",
+            "Varna Black Sea - Beautiful coast",
+            "Thracian Tomb - Ancient burial mound"
+        ],
+        funFacts: [
+            "Invented the Cyrillic alphabet",
+            "World's largest rose oil producer",
+            "Has yogurt made its national symbol"
+        ],
+        culture: "Famous for roses, yogurt, and ancient Thracian history. Very proud of their alphabet!",
+        difficulty: 4
+    },
+
+    costarica: {
+        name: "Costa Rica",
+        flag: "🇨🇷",
+        continent: "North America",
+        continentColor: WE_COLORS.americas,
+        capital: "San José",
+        majorCities: ["San José", "Liberia", "Jacó"],
+        language: ["Spanish"],
+        famousPlaces: [
+            "Arenal Volcano - Active volcano",
+            "Manuel Antonio - Beautiful national park",
+            "Monteverde - Cloud forest reserve",
+            "Tortuguero - Sea turtle nesting beach"
+        ],
+        funFacts: [
+            "No army since 1948",
+            "Has 5% of world's total biodiversity",
+            "Say 'Pura Vida' (pure life) for everything"
+        ],
+        culture: "Famous for rainforests, wildlife, and 'Pura Vida' attitude. Very eco-friendly!",
+        difficulty: 4
+    },
+
+    senegal: {
+        name: "Senegal",
+        flag: "🇸🇳",
+        continent: "Africa",
+        continentColor: WE_COLORS.africa,
+        capital: "Dakar",
+        majorCities: ["Dakar", "Saint-Louis", "Touba"],
+        language: ["French", "Wolof"],
+        famousPlaces: [
+            "African Renaissance Monument - Giant statue",
+            "Goree Island - Historic slave trade island",
+            "Pink Lake - Natural pink colored lake",
+            "Dakar Rally - Famous off-road race"
+        ],
+        funFacts: [
+            "Pink Lake gets color from special algae",
+            "Longest serving democracy in Africa",
+            "Famous for wrestling sport"
+        ],
+        culture: "Famous for teranga (hospitality), music, and colorful boubou clothing. Very welcoming!",
+        difficulty: 4
+    },
+
+    kazakhstan: {
+        name: "Kazakhstan",
+        flag: "🇰🇿",
+        continent: "Asia",
+        continentColor: WE_COLORS.asia,
+        capital: "Astana",
+        majorCities: ["Almaty", "Astana", "Shymkent"],
+        language: ["Kazakh", "Russian"],
+        famousPlaces: [
+            "Bayterek Tower - Futuristic capital tower",
+            "Charyn Canyon - Grand Canyon of Kazakhstan",
+            "Steppe - Vast grassy plains",
+            "Baikonur Cosmodrome - Where astronauts launch"
+        ],
+        funFacts: [
+            "Largest landlocked country in world",
+            "World's first astronauts launched from here",
+            "Has wild horses and snow leopards"
+        ],
+        culture: "Famous for nomadic traditions, horseback riding, and the vast steppe. Very open and free!",
+        difficulty: 4
+    },
+
+    zimbabwe: {
+        name: "Zimbabwe",
+        flag: "🇿🇼",
+        continent: "Africa",
+        continentColor: WE_COLORS.africa,
+        capital: "Harare",
+        majorCities: ["Harare", "Bulawayo", "Mutare"],
+        language: ["English", "Shona", "Ndebele"],
+        famousPlaces: [
+            "Victoria Falls - One of Seven Natural Wonders",
+            "Great Zimbabwe Ruins - Ancient stone city",
+            "Hwange National Park - Huge elephant herds",
+            "Matobo Hills - Ancient rock paintings"
+        ],
+        funFacts: [
+            "Victoria Falls is the world's largest waterfall",
+            "Has a 100 trillion dollar note (from inflation)",
+            "Great Zimbabwe is a UNESCO World Heritage site"
+        ],
+        culture: "Famous for Victoria Falls, stone ruins, and wildlife. Very artistic with stone sculpture!",
+        difficulty: 4
+    },
+
+    estonia: {
+        name: "Estonia",
+        flag: "🇪🇪",
+        continent: "Europe",
+        continentColor: WE_COLORS.europe,
+        capital: "Tallinn",
+        majorCities: ["Tallinn", "Tartu", "Narva"],
+        language: ["Estonian"],
+        famousPlaces: [
+            "Tallinn Old Town - Best medieval city in Europe",
+            "Lahemaa National Park - Beautiful nature",
+            "Song Festival Grounds - Huge singing arena",
+            "Kadriorg Palace - Peter the Great's palace"
+        ],
+        funFacts: [
+            "One of the most digital countries - e-government",
+            "Invented Skype",
+            "Has the cleanest air in Europe"
+        ],
+        culture: "Famous for singing festivals, digital innovation, and medieval architecture. Very tech-savvy!",
+        difficulty: 4
+    },
+
+    slovenia: {
+        name: "Slovenia",
+        flag: "🇸🇮",
+        continent: "Europe",
+        continentColor: WE_COLORS.europe,
+        capital: "Ljubljana",
+        majorCities: ["Ljubljana", "Maribor", "Celje"],
+        language: ["Slovenian"],
+        famousPlaces: [
+            "Lake Bled - Island church in mountain lake",
+            "Postojna Cave - Huge underground cave system",
+            "Triglav National Park - Alpine paradise",
+            "Ljubljana Dragon Bridge - Famous dragon statues"
+        ],
+        funFacts: [
+            "Smallest country with access to Alps and sea",
+            "Lake Bled is one of most photographed places",
+            "90% of the country is green/forested"
+        ],
+        culture: "Famous for alpine scenery, fairy-tale landscapes, and outdoor sports. Very nature-loving!",
+        difficulty: 4
+    },
+
+    panama: {
+        name: "Panama",
+        flag: "🇵🇦",
+        continent: "North America",
+        continentColor: WE_COLORS.americas,
+        capital: "Panama City",
+        majorCities: ["Panama City", "Colón", "David"],
+        language: ["Spanish"],
+        famousPlaces: [
+            "Panama Canal - Famous engineering marvel",
+            "Casco Viejo - Colonial old quarter",
+            "San Blas Islands - Beautiful indigenous islands",
+            "Biomuseo - Colorful Frank Gehry museum"
+        ],
+        funFacts: [
+            "Connects North and South America",
+            "Panama Canal saves ships 8,000 miles",
+            "Panama hats are actually from Ecuador!"
+        ],
+        culture: "Famous for the canal, diverse wildlife, and mixing cultures. Hub connecting continents!",
+        difficulty: 4
+    },
+
+    bangladesh: {
+        name: "Bangladesh",
+        flag: "🇧🇩",
+        continent: "Asia",
+        continentColor: WE_COLORS.asia,
+        capital: "Dhaka",
+        majorCities: ["Dhaka", "Chittagong", "Sylhet"],
+        language: ["Bengali"],
+        famousPlaces: [
+            "Sundarbans - World's largest mangrove forest",
+            "Cox's Bazar - World's longest natural beach",
+            "Shaheed Minar - Language martyrs monument",
+            "Sixty Dome Mosque - Ancient mosque"
+        ],
+        funFacts: [
+            "Cox's Bazar is world's longest beach (120km)",
+            "Home to Bengal tigers in Sundarbans",
+            "Celebrates International Mother Language Day"
+        ],
+        culture: "Famous for muslin cloth, hilsha fish, and river culture. Fought for their language!",
+        difficulty: 4
+    },
+
+    uganda: {
+        name: "Uganda",
+        flag: "🇺🇬",
+        continent: "Africa",
+        continentColor: WE_COLORS.africa,
+        capital: "Kampala",
+        majorCities: ["Kampala", "Gulu", "Lira"],
+        language: ["English", "Swahili"],
+        famousPlaces: [
+            "Bwindi Forest - Mountain gorilla trekking",
+            "Source of the Nile - Where Nile River starts",
+            "Lake Victoria - Largest lake in Africa",
+            "Murchison Falls - Water through narrow gorge"
+        ],
+        funFacts: [
+            "Half of world's mountain gorillas live here",
+            "Source of the mighty Nile River",
+            "Has Africa's second largest lake"
+        ],
+        culture: "Famous for gorilla trekking, the Nile, and warmth. Called 'Pearl of Africa' by Churchill!",
+        difficulty: 4
+    },
+
+    madagascar: {
+        name: "Madagascar",
+        flag: "🇲🇬",
+        continent: "Africa",
+        continentColor: WE_COLORS.africa,
+        capital: "Antananarivo",
+        majorCities: ["Antananarivo", "Toamasina", "Antsirabe"],
+        language: ["Malagasy", "French"],
+        famousPlaces: [
+            "Avenue of the Baobabs - Giant tree avenue",
+            "Tsingy de Bemaraha - Sharp limestone towers",
+            "Ranomafana - Rainforest national park",
+            "Nosy Be - Beautiful tropical island"
+        ],
+        funFacts: [
+            "90% of wildlife found nowhere else on Earth",
+            "Home to over 100 lemur species",
+            "4th largest island in the world"
+        ],
+        culture: "Famous for lemurs, baobab trees, and unique wildlife. Like visiting another planet!",
+        difficulty: 4
+    },
+
+    newcaledonia: {
+        name: "New Caledonia",
+        flag: "🇳🇨",
+        continent: "Oceania",
+        continentColor: WE_COLORS.oceania,
+        capital: "Nouméa",
+        majorCities: ["Nouméa", "Mont-Dore", "Dumbéa"],
+        language: ["French"],
+        famousPlaces: [
+            "Lagoon - Largest lagoon in world (UNESCO)",
+            "Heart of Voh - Heart shape seen from sky",
+            "Loyalty Islands - Remote beautiful islands",
+            "Nouméa - French Polynesian city"
+        ],
+        funFacts: [
+            "Has world's largest lagoon",
+            "Only place with nautilus shells still found",
+            "French territory in South Pacific"
+        ],
+        culture: "Famous for turquoise lagoon, Kanak culture, and French influence. Unique island paradise!",
+        difficulty: 4
     }
 };
 
@@ -1296,7 +1851,7 @@ function showMainMenu(scene) {
     // Stats
     const stats = scene.add.container(450, 220);
     const statBg = scene.add.rectangle(0, 0, 400, 80, 0xFFFFFF);
-    statBg.setStrokeStyle(2, 0xE9ECEF);
+    statBg.setStrokeStyle(2, 0xCBDFBD);
 
     const learnedText = scene.add.text(0, 0,
         `Countries Learned: ${countriesLearned.length}/60`, {
@@ -1375,7 +1930,7 @@ function showHowToPlay(scene) {
         const y = 140 + i * 95;
 
         const card = scene.add.rectangle(450, y, 750, 80, 0xFFFFFF);
-        card.setStrokeStyle(2, 0xE9ECEF);
+        card.setStrokeStyle(2, 0xCBDFBD);
 
         scene.add.text(150, y, item.icon, {
             fontSize: '36px'
@@ -1415,40 +1970,44 @@ function showDifficultySelect(scene) {
         fill: '#475569'
     }).setOrigin(0.5);
 
+    const d1Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === 1).length;
+    const d2Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty <= 2).length;
+    const d3Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty <= 3).length;
+    const d4Count = Object.keys(COUNTRIES).length;
     const difficulties = [
         {
             id: 1,
             name: 'Explorer',
             icon: '🌟',
-            desc: '10 popular countries',
+            desc: `${d1Count} popular countries`,
             color: WE_COLORS.success,
-            countries: 10
+            countries: d1Count
         },
         {
             id: 2,
             name: 'Traveler',
             icon: '✈️',
-            desc: '20 well-known countries',
+            desc: `${d2Count} well-known countries`,
             color: WE_COLORS.primary,
-            countries: 20,
+            countries: d2Count,
             locked: true
         },
         {
             id: 3,
             name: 'Navigator',
             icon: '🧭',
-            desc: '35 diverse countries',
-            color: 0xFF6348,
-            countries: 35,
+            desc: `${d3Count} diverse countries`,
+            color: 0xA44A3F,
+            countries: d3Count,
             locked: true
         },
         {
             id: 4,
             name: 'World Expert',
             icon: '🏆',
-            desc: 'All 60 countries!',
+            desc: `All ${d4Count} countries!`,
             color: WE_COLORS.secondary,
-            countries: 60,
+            countries: d4Count,
             locked: true
         }
     ];
@@ -1473,8 +2032,8 @@ function createDifficultyCard(scene, x, y, level, isLocked) {
     const shadow = scene.add.rectangle(x, y + 3, cardWidth, cardHeight, 0x000000, 0.08);
 
     // Card background
-    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xE9ECEF : WE_COLORS.cardBg);
-    cardBg.setStrokeStyle(3, isLocked ? 0xDEE2E6 : level.color);
+    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xCBDFBD : WE_COLORS.cardBg);
+    cardBg.setStrokeStyle(3, isLocked ? 0xD4E09B : level.color);
 
     // Icon circle
     const iconCircle = scene.add.circle(x - 270, y, 35, isLocked ? 0xCED4DA : level.color, 0.2);
@@ -1617,7 +2176,7 @@ function createCountryCard(scene, x, y, country, countryKey) {
     if (isLearned) {
         const check = scene.add.text(cardWidth - 15, 15, '✓', {
             fontSize: '20px',
-            fill: '#00D68F',
+            fill: '#A44A3F',
             fontStyle: 'bold'
         }).setOrigin(0.5);
         card.add(check);
@@ -1729,7 +2288,7 @@ function showCountryLearn(scene, countryKey) {
         // Progress dots
         for (let i = 0; i < slides.length; i++) {
             const dot = scene.add.circle(350 + i * 25, 560, 6,
-                i === currentSlide ? country.continentColor : 0xDEE2E6);
+                i === currentSlide ? country.continentColor : 0xD4E09B);
         }
 
         // Navigation
@@ -1813,7 +2372,7 @@ function showQuiz(scene, countryKey) {
         q.options.forEach((option, index) => {
             const y = 250 + index * 80;
             const btn = scene.add.rectangle(450, y, 600, 60, 0xFFFFFF);
-            btn.setStrokeStyle(3, 0xE9ECEF);
+            btn.setStrokeStyle(3, 0xCBDFBD);
             btn.setInteractive({ useHandCursor: true });
 
             const text = scene.add.text(450, y, option, {
@@ -1830,7 +2389,7 @@ function showQuiz(scene, countryKey) {
                 btn.setStrokeStyle(3, country.continentColor);
             });
             btn.on('pointerout', () => {
-                btn.setStrokeStyle(3, 0xE9ECEF);
+                btn.setStrokeStyle(3, 0xCBDFBD);
             });
         });
 
@@ -1905,16 +2464,19 @@ function generateQuestions(country, countryKey) {
             ].filter((v, i, a) => a.indexOf(v) === i)),
             correct: country.famousPlaces[0].split(' - ')[0]
         },
-        {
-            question: `Which city is NOT in ${country.name}?`,
-            options: shuffleArray([
-                country.majorCities[0],
-                country.majorCities[1] || country.capital,
-                getRandomCity(countryKey),
-                getRandomCity(countryKey)
-            ]),
-            correct: getRandomCity(countryKey)
-        }
+        (() => {
+            const cityNotInCountry = getRandomCity(countryKey);
+            return {
+                question: `Which city is NOT in ${country.name}?`,
+                options: shuffleArray([
+                    country.majorCities[0],
+                    country.majorCities[1] || country.capital,
+                    country.majorCities[2] || country.capital,
+                    cityNotInCountry
+                ]),
+                correct: cityNotInCountry
+            };
+        })()
     ];
 
     return shuffleArray(questions).slice(0, 5);
@@ -1927,9 +2489,19 @@ function getRandomCapital(excludeKey) {
 }
 
 function getRandomCity(excludeKey) {
-    const cities = ['Tokyo', 'Paris', 'London', 'Berlin', 'Rome', 'Madrid', 'Moscow', 'Sydney'];
-    const countryCities = COUNTRIES[excludeKey].majorCities;
-    const availableCities = cities.filter(c => !countryCities.includes(c));
+    const cities = [
+        'Tokyo', 'Paris', 'London', 'Berlin', 'Rome', 'Madrid', 'Moscow', 'Sydney',
+        'Toronto', 'Seoul', 'Bangkok', 'Dubai', 'Cairo', 'Lagos', 'Nairobi',
+        'Buenos Aires', 'Lima', 'Bogotá', 'Santiago', 'Lisbon', 'Athens',
+        'Warsaw', 'Vienna', 'Prague', 'Amsterdam', 'Stockholm', 'Oslo',
+        'Copenhagen', 'Helsinki', 'Zurich', 'Brussels', 'Budapest', 'Bucharest',
+        'Istanbul', 'Tehran', 'Karachi', 'Dhaka', 'Colombo', 'Kathmandu',
+        'Hanoi', 'Manila', 'Kuala Lumpur', 'Singapore', 'Jakarta', 'Taipei',
+        'Accra', 'Dakar', 'Addis Ababa', 'Kinshasa', 'Dar es Salaam', 'Casablanca'
+    ];
+    const country = COUNTRIES[excludeKey];
+    const excludeCities = [...country.majorCities, country.capital];
+    const availableCities = cities.filter(c => !excludeCities.includes(c));
     return availableCities[Math.floor(Math.random() * availableCities.length)];
 }
 
@@ -1952,7 +2524,7 @@ function showQuizResults(scene, score, total, countryKey) {
 
     scene.add.text(450, 100, passed ? '🎉 Excellent!' : '📚 Good Try!', {
         fontSize: '48px',
-        fill: passed ? '#00D68F' : '#FFB800',
+        fill: passed ? '#A44A3F' : '#F19C79',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
@@ -1975,25 +2547,24 @@ function showQuizResults(scene, score, total, countryKey) {
     if (passed) {
         scene.add.text(450, 360, '✓ Great knowledge about this country!', {
             fontSize: '20px',
-            fill: '#00D68F'
+            fill: '#CBDFBD'
         }).setOrigin(0.5);
-
-        // Unlock next difficulty if this was last country in level
-        const availableCountries = getCountriesByDifficulty(currentDifficulty);
-        const learnedInLevel = availableCountries.filter(k => countriesLearned.includes(k));
-
-        if (learnedInLevel.length >= availableCountries.length - 2 && unlockedDifficulties === currentDifficulty) {
-            unlockedDifficulties++;
-            scene.add.text(450, 410, '🔓 Next difficulty level unlocked!', {
-                fontSize: '20px',
-                fill: '#FFB800',
-                fontStyle: 'bold'
-            }).setOrigin(0.5);
-        }
     } else {
         scene.add.text(450, 360, 'Review the country info and try again!', {
             fontSize: '18px',
             fill: '#475569'
+        }).setOrigin(0.5);
+    }
+
+    // Unlock next difficulty after completing at least 1 country at the current level
+    const levelCountries = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === currentDifficulty);
+    const learnedInThisLevel = levelCountries.filter(k => countriesLearned.includes(k));
+    if (learnedInThisLevel.length >= 1 && unlockedDifficulties === currentDifficulty) {
+        unlockedDifficulties++;
+        scene.add.text(450, 410, '🔓 Next level unlocked! Keep exploring!', {
+            fontSize: '20px',
+            fill: '#F19C79',
+            fontStyle: 'bold'
         }).setOrigin(0.5);
     }
 
