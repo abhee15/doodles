@@ -528,16 +528,6 @@ function drawParasaurolophus(g, body, dark) {
     g.fillRect(72,68,12,14);
 }
 
-// ── Game config ───────────────────────────────────────────
-const config = createGameConfig({
-    width: 900,
-    height: 620,
-    backgroundColor: DH.sky,
-    scene: [TitleScene, SelectScene, GameScene],
-});
-
-const game = new Phaser.Game(config);
-
 // ╔══════════════════════════════════════════════════════╗
 // ║  SCENE 1 – TITLE                                     ║
 // ╚══════════════════════════════════════════════════════╝
@@ -1119,3 +1109,13 @@ function drawBackground(scene, W, H) {
         cg.fillEllipse(cx+30, cy+6, 60, 28);
     });
 }
+
+// ── Game config & boot (must come after all class definitions) ──
+const config = createGameConfig({
+    width: 900,
+    height: 620,
+    backgroundColor: DH.sky,
+    scene: [TitleScene, SelectScene, GameScene],
+});
+
+const game = new Phaser.Game(config);
