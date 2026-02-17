@@ -338,130 +338,138 @@ function showExplore() {
     bg.fillStyle(0xF8F9FF, 1);
     bg.fillRect(0, 0, W, H);
 
-    // Coloured top bar
+    // ── Coloured top bar ─────────────────────────────────────
     const bar = track(s.add.graphics());
     bar.fillStyle(unit.color, 1);
-    bar.fillRect(0, 0, W, 82);
+    bar.fillRect(0, 0, W, 76);
 
-    // Back button
-    track(s.add.text(28, 41, '← Menu', {
+    track(s.add.text(24, 38, '← Menu', {
         fontSize: '17px', fontFamily: 'Arial', fontStyle: 'bold', color: '#FFFFFF'
     }).setOrigin(0, 0.5).setInteractive({ cursor: 'pointer' })
      .on('pointerdown', () => showMenu()));
 
-    // "N / 8" counter
-    track(s.add.text(W - 24, 41, `${currentUnitIndex + 1} / ${UNITS.length}`, {
+    track(s.add.text(W - 20, 38, `${currentUnitIndex + 1} / ${UNITS.length}`, {
         fontSize: '15px', fontFamily: 'Arial', color: 'rgba(255,255,255,0.8)'
     }).setOrigin(1, 0.5));
 
-    // Unit name in bar
-    track(s.add.text(W/2, 41, `${unit.emoji}  ${unit.name}  (${unit.abbr})`, {
-        fontSize: '26px', fontFamily: 'Arial, sans-serif',
+    track(s.add.text(W/2, 38, `${unit.emoji}  ${unit.name}  (${unit.abbr})`, {
+        fontSize: '28px', fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold', color: '#FFFFFF'
     }).setOrigin(0.5));
 
-    // ── Main info card ──────────────────────────────────────
+    // ── Info card (slimmed to h=120) ─────────────────────────
+    // card: y=84, ends y=204
     const card = track(s.add.graphics());
     card.fillStyle(0xFFFFFF, 1);
-    card.fillRoundedRect(55, 96, W - 110, 178, 14);
+    card.fillRoundedRect(50, 84, W - 100, 120, 12);
     card.lineStyle(2, unit.color, 0.25);
-    card.strokeRoundedRect(55, 96, W - 110, 178, 14);
+    card.strokeRoundedRect(50, 84, W - 100, 120, 12);
 
-    // Big abbreviation on left
-    track(s.add.text(170, 185, unit.abbr, {
-        fontSize: '76px', fontFamily: 'Arial, sans-serif',
+    // Big abbr on the left
+    track(s.add.text(148, 144, unit.abbr, {
+        fontSize: '58px', fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold', color: toCss(unit.color)
     }).setOrigin(0.5));
 
-    // Tagline + conversion note on right
-    track(s.add.text(520, 140, unit.tagline, {
-        fontSize: '21px', fontFamily: 'Arial, sans-serif',
+    // Vertical divider
+    const divG = track(s.add.graphics());
+    divG.lineStyle(1, unit.color, 0.2);
+    divG.lineBetween(220, 96, 220, 192);
+
+    // Tagline + conversion hint on the right
+    track(s.add.text(560, 118, unit.tagline, {
+        fontSize: '22px', fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold', color: '#2D3436'
     }).setOrigin(0.5));
 
-    track(s.add.text(520, 178, SIZE_CONTEXT[unit.id], {
+    track(s.add.text(560, 162, SIZE_CONTEXT[unit.id], {
         fontSize: '14px', fontFamily: 'Arial', color: '#636E72',
-        align: 'center', wordWrap: { width: 600 }
+        align: 'center', wordWrap: { width: 580 }
     }).setOrigin(0.5));
 
-    // "Used to measure:" label
-    track(s.add.text(W/2, 237, '🧭  Used to measure:', {
-        fontSize: '14px', fontFamily: 'Arial', color: '#636E72', fontStyle: 'italic'
+    // ── Section label ─────────────────────────────────────────
+    track(s.add.text(W/2, 220, '🧭  Real-world examples:', {
+        fontSize: '16px', fontFamily: 'Arial', fontStyle: 'bold italic',
+        color: '#636E72'
     }).setOrigin(0.5));
 
-    // ── 4 item cards ────────────────────────────────────────
-    const iW = 196, iH = 168;
-    const gap = 8;
-    const totalItemW = 4 * iW + 3 * gap;
-    const iStartX = (W - totalItemW) / 2;
-    const iY = 292;  // starts 18px below info card bottom (y=274)
+    // ── 2×2 item grid ─────────────────────────────────────────
+    // Each card ~426px wide — much easier to read
+    const iW = 424, iH = 158;
+    const gapX = 18, gapY = 12;
+    const marginX = (W - 2 * iW - gapX) / 2;   // = 19px each side
+    const gridStartY = 236;
 
     unit.items.forEach((item, i) => {
-        const cx = iStartX + i * (iW + gap) + iW / 2;
+        const col = i % 2;
+        const row = Math.floor(i / 2);
+        const cx = marginX + col * (iW + gapX) + iW / 2;
+        const cy = gridStartY + row * (iH + gapY);
 
+        // Card background
         const ic = track(s.add.graphics());
         ic.fillStyle(unit.color, 0.10);
-        ic.fillRoundedRect(cx - iW/2, iY, iW, iH, 12);
-        ic.lineStyle(2, unit.color, 0.30);
-        ic.strokeRoundedRect(cx - iW/2, iY, iW, iH, 12);
+        ic.fillRoundedRect(cx - iW/2, cy, iW, iH, 14);
+        ic.lineStyle(2, unit.color, 0.35);
+        ic.strokeRoundedRect(cx - iW/2, cy, iW, iH, 14);
 
-        track(s.add.text(cx, iY + 40, item.emoji, { fontSize: '44px' }).setOrigin(0.5));
-
-        track(s.add.text(cx, iY + 94, item.name, {
-            fontSize: '17px', fontFamily: 'Arial', fontStyle: 'bold',
-            color: '#2D3436', align: 'center', wordWrap: { width: iW - 16 }
+        // Emoji (left side of card)
+        track(s.add.text(cx - iW/2 + 68, cy + iH/2, item.emoji, {
+            fontSize: '62px'
         }).setOrigin(0.5));
 
-        track(s.add.text(cx, iY + 136, item.detail, {
-            fontSize: '15px', fontFamily: 'Arial', fontStyle: 'bold',
-            color: toCss(unit.color), align: 'center'
+        // Vertical divider inside card
+        const vd = track(s.add.graphics());
+        vd.lineStyle(1, unit.color, 0.2);
+        vd.lineBetween(cx - iW/2 + 126, cy + 16, cx - iW/2 + 126, cy + iH - 16);
+
+        // Name + detail (right side of card)
+        track(s.add.text(cx + 40, cy + 52, item.name, {
+            fontSize: '22px', fontFamily: 'Arial, sans-serif',
+            fontStyle: 'bold', color: '#2D3436',
+            wordWrap: { width: iW - 148 }
+        }).setOrigin(0.5));
+
+        track(s.add.text(cx + 40, cy + 106, item.detail, {
+            fontSize: '20px', fontFamily: 'Arial, sans-serif',
+            fontStyle: 'bold', color: toCss(unit.color),
+            wordWrap: { width: iW - 148 }
         }).setOrigin(0.5));
     });
 
-    // ── Navigation arrows ────────────────────────────────────
-    const arrowStyle = {
-        fontSize: '28px', color: toCss(unit.color)
-    };
+    // ── Navigation (arrows on sides + bottom row) ─────────────
+    // Item grid spans gridStartY to gridStartY + 2*(iH+gapY) - gapY
+    const gridMidY = gridStartY + iH + gapY / 2;   // midpoint between rows ≈ 405
+
+    const arrowStyle = { fontSize: '32px', color: toCss(unit.color) };
 
     if (currentUnitIndex > 0) {
-        track(s.add.text(28, 376, '◀', arrowStyle)
+        track(s.add.text(16, gridMidY, '◀', arrowStyle)
             .setOrigin(0.5).setInteractive({ cursor: 'pointer' })
             .on('pointerdown', () => { currentUnitIndex--; showExplore(); }));
     }
     if (currentUnitIndex < UNITS.length - 1) {
-        track(s.add.text(W - 28, 376, '▶', arrowStyle)
+        track(s.add.text(W - 16, gridMidY, '▶', arrowStyle)
             .setOrigin(0.5).setInteractive({ cursor: 'pointer' })
             .on('pointerdown', () => { currentUnitIndex++; showExplore(); }));
     }
 
-    // ── Progress dots ────────────────────────────────────────
-    const dotY = 476;  // below item cards which end at y=460 (292+168)
-    UNITS.forEach((u, i) => {
-        const dotX = W/2 - (UNITS.length * 22) / 2 + i * 22 + 11;
-        const isActive = i === currentUnitIndex;
-        const dot = track(s.add.graphics());
-        dot.fillStyle(isActive ? unit.color : 0xCCCCCC, 1);
-        dot.fillCircle(dotX, dotY, isActive ? 8 : 5);
-        const dz = track(s.add.zone(dotX, dotY, 20, 20).setInteractive({ cursor: 'pointer' }));
-        dz.on('pointerdown', () => { currentUnitIndex = i; showExplore(); });
-    });
-
-    // ── Bottom nav buttons ────────────────────────────────────
+    // ── Bottom nav row ────────────────────────────────────────
+    // Grid ends at: gridStartY + 2*iH + gapY = 236 + 316 + 12 = 564
+    const navY = 614;
     const isFirst = currentUnitIndex === 0;
     const isLast  = currentUnitIndex === UNITS.length - 1;
 
     if (!isFirst) {
-        makeBtn(W/2 - 165, 510, 190, 46, 0x636E72, '◀  Previous', '17px',
+        makeBtn(W/2 - 175, navY, 200, 46, 0x636E72, '◀  Previous', '17px',
             () => { currentUnitIndex--; showExplore(); });
     }
-
-    makeBtn(W/2, 572, 200, 46, 0x0984E3, '❓  Take Quiz!', '17px', () => startQuiz());
-
+    makeBtn(W/2, navY, 200, 46, 0x0984E3, '❓  Quiz!', '17px', () => startQuiz());
     if (!isLast) {
-        makeBtn(W/2 + 165, 510, 190, 46, unit.color, 'Next  ▶', '17px',
+        makeBtn(W/2 + 175, navY, 200, 46, unit.color, 'Next  ▶', '17px',
             () => { currentUnitIndex++; showExplore(); });
     } else {
-        makeBtn(W/2 + 165, 510, 190, 46, 0x00B894, '✅  All Done!', '17px', () => startQuiz());
+        makeBtn(W/2 + 175, navY, 200, 46, 0x00B894, '✅  All Done!', '17px', () => startQuiz());
     }
 }
 
