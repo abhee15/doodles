@@ -394,7 +394,7 @@ function showExplore() {
     const gap = 10;
     const totalItemW = 4 * iW + 3 * gap;
     const iStartX = (W - totalItemW) / 2;
-    const iY = 256;
+    const iY = 292;  // starts 18px below info card bottom (y=274)
 
     unit.items.forEach((item, i) => {
         const cx = iStartX + i * (iW + gap) + iW / 2;
@@ -424,18 +424,18 @@ function showExplore() {
     };
 
     if (currentUnitIndex > 0) {
-        track(s.add.text(28, 330, '◀', arrowStyle)
+        track(s.add.text(28, 366, '◀', arrowStyle)
             .setOrigin(0.5).setInteractive({ cursor: 'pointer' })
             .on('pointerdown', () => { currentUnitIndex--; showExplore(); }));
     }
     if (currentUnitIndex < UNITS.length - 1) {
-        track(s.add.text(W - 28, 330, '▶', arrowStyle)
+        track(s.add.text(W - 28, 366, '▶', arrowStyle)
             .setOrigin(0.5).setInteractive({ cursor: 'pointer' })
             .on('pointerdown', () => { currentUnitIndex++; showExplore(); }));
     }
 
     // ── Progress dots ────────────────────────────────────────
-    const dotY = 428;
+    const dotY = 456;  // below item cards which end at y=440 (292+148)
     UNITS.forEach((u, i) => {
         const dotX = W/2 - (UNITS.length * 22) / 2 + i * 22 + 11;
         const isActive = i === currentUnitIndex;
@@ -451,17 +451,17 @@ function showExplore() {
     const isLast  = currentUnitIndex === UNITS.length - 1;
 
     if (!isFirst) {
-        makeBtn(W/2 - 165, 498, 190, 48, 0x636E72, '◀  Previous', '17px',
+        makeBtn(W/2 - 165, 510, 190, 46, 0x636E72, '◀  Previous', '17px',
             () => { currentUnitIndex--; showExplore(); });
     }
 
-    makeBtn(W/2, 560, 200, 46, 0x0984E3, '❓  Take Quiz!', '17px', () => startQuiz());
+    makeBtn(W/2, 572, 200, 46, 0x0984E3, '❓  Take Quiz!', '17px', () => startQuiz());
 
     if (!isLast) {
-        makeBtn(W/2 + 165, 498, 190, 48, unit.color, 'Next  ▶', '17px',
+        makeBtn(W/2 + 165, 510, 190, 46, unit.color, 'Next  ▶', '17px',
             () => { currentUnitIndex++; showExplore(); });
     } else {
-        makeBtn(W/2 + 165, 498, 190, 48, 0x00B894, '✅  All Done!', '17px', () => startQuiz());
+        makeBtn(W/2 + 165, 510, 190, 46, 0x00B894, '✅  All Done!', '17px', () => startQuiz());
     }
 }
 
