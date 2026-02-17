@@ -772,13 +772,13 @@ class GameScene extends Phaser.Scene {
         const startX = side < 0 ? -70 : W + 70;
         const startY = 80 + Math.random() * (H - 160);
         const speed  = 1.2 + Math.random() * 1.6;
-        const vx     = side * speed;
+        const vx     = -side * speed;   // negative side so dino moves INTO the screen
         const vy     = (Math.random() - 0.5) * 0.8;
 
         const key    = `dino_${dino.id}`;
         const sprite = this.add.image(startX, startY, key)
             .setScale(0.9 + Math.random() * 0.4)
-            .setFlipX(vx > 0)
+            .setFlipX(vx < 0)   // dinos face right by default; flip when moving left
             .setDepth(5);
 
         // Name label above dino
@@ -810,7 +810,7 @@ class GameScene extends Phaser.Scene {
 
             if (entry.sprite.x < 60 || entry.sprite.x > this.W - 60) {
                 entry.vx *= -1;
-                entry.sprite.setFlipX(entry.vx > 0);
+                entry.sprite.setFlipX(entry.vx < 0);
             }
             if (entry.sprite.y < 60 || entry.sprite.y > this.H - 60) {
                 entry.vy *= -1;
