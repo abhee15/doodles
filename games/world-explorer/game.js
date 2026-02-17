@@ -2155,7 +2155,8 @@ function createCountryCard(scene, x, y, country, countryKey) {
 
     // Flag
     const flag = scene.add.text(30, 45, country.flag, {
-        fontSize: '40px'
+        fontSize: '40px',
+        fontFamily: "'Noto Color Emoji', sans-serif"
     }).setOrigin(0.5);
 
     // Country name
@@ -2267,7 +2268,8 @@ function showCountryLearn(scene, countryKey) {
 
         // Icon
         scene.add.text(450, 140, slide.icon, {
-            fontSize: slide.size
+            fontSize: slide.size,
+            fontFamily: "'Noto Color Emoji', sans-serif"
         }).setOrigin(0.5);
 
         // Content
@@ -2276,7 +2278,8 @@ function showCountryLearn(scene, countryKey) {
             fill: '#1E293B',
             align: 'center',
             lineSpacing: 10,
-            wordWrap: { width: 750 }
+            wordWrap: { width: 750 },
+            fontFamily: "'Noto Color Emoji', sans-serif"
         }).setOrigin(0.5);
 
         // Progress indicator
@@ -2351,7 +2354,8 @@ function showQuiz(scene, countryKey) {
         scene.add.text(450, 40, `Quiz: ${country.name} ${country.flag}`, {
             fontSize: '32px',
             fill: '#1E293B',
-            fontStyle: 'bold'
+            fontStyle: 'bold',
+            fontFamily: "'Noto Color Emoji', sans-serif"
         }).setOrigin(0.5);
 
         // Score
@@ -2531,7 +2535,8 @@ function showQuizResults(scene, score, total, countryKey) {
 
     scene.add.text(450, 180, `${country.name} ${country.flag}`, {
         fontSize: '32px',
-        fill: '#1E293B'
+        fill: '#1E293B',
+        fontFamily: "'Noto Color Emoji', sans-serif"
     }).setOrigin(0.5);
 
     scene.add.text(450, 240, `Score: ${score}/${total}`, {
