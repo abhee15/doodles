@@ -145,109 +145,13 @@ function makeDinoText(scene, dino, fontSize) {
 }
 
 // ╔══════════════════════════════════════════════════════════╗
-// ║  SCENE 1 – TITLE                                         ║
-// ╚══════════════════════════════════════════════════════════╝
-class TitleScene extends Phaser.Scene {
-    constructor() { super('TitleScene'); }
-
-    create() {
-        const W = this.scale.width, H = this.scale.height;
-        drawBg(this, W, H);
-
-        this.add.text(W / 2, 115, '🦖 DINO HUNTER 🦕', {
-            fontFamily: 'Arial Black',
-            fontSize: '50px',
-            color: '#FFEE00',
-            stroke: '#7B2D00',
-            strokeThickness: 8,
-        }).setOrigin(0.5);
-
-        this.add.text(W / 2, 188, 'Pick your dinosaur — then shoot ONLY that one!', {
-            fontFamily: 'Arial',
-            fontSize: '20px',
-            color: '#FFF8E7',
-            stroke: '#2D1B69',
-            strokeThickness: 4,
-        }).setOrigin(0.5);
-
-        // Preview row
-        ['trex','triceratops','stegosaurus','pteranodon','velociraptor'].forEach((id, i) => {
-            const dino = DINOS.find(d => d.id === id);
-            const x = W * 0.10 + i * W * 0.20;
-            const t = makeDinoText(this, dino, 20);
-            t.setPosition(x, 340);
-            this.tweens.add({ targets: t, y: 322, duration: 900 + i * 120, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-        });
-
-        // Play button
-        const btn    = this.add.rectangle(W / 2, 480, 230, 62, 0xA44A3F).setInteractive({ cursor: 'pointer' });
-        const btnTxt = this.add.text(W / 2, 480, '🎯  PLAY', { fontFamily:'Arial Black', fontSize:'28px', color:'#FFF' }).setOrigin(0.5);
-
-        btn.on('pointerover',  () => btn.setFillStyle(0x8B3A30));
-        btn.on('pointerout',   () => btn.setFillStyle(0xA44A3F));
-        btn.on('pointerdown',  () => {
-            this.tweens.add({ targets:[btn,btnTxt], scaleX:0.93, scaleY:0.93, duration:80, yoyo:true,
-                onComplete: () => this.scene.start('SelectScene') });
-        });
-
-        this.add.text(W / 2, 565, 'Miss a dino? A fact card teaches you about it!', {
-            fontFamily:'Arial', fontSize:'14px', color:'#CCDDFF' }).setOrigin(0.5);
-    }
-}
-
-// ╔══════════════════════════════════════════════════════════╗
-// ║  SCENE 2 – SELECT YOUR TARGET                            ║
-// ╚══════════════════════════════════════════════════════════╝
-class SelectScene extends Phaser.Scene {
-    constructor() { super('SelectScene'); }
-
-    create() {
-        const W = this.scale.width, H = this.scale.height;
-        drawBg(this, W, H);
-
-        // Use a DOM overlay so clicks always register — no Phaser input quirks
-        const overlay = document.createElement('div');
-        overlay.id = 'dino-select-overlay';
-        overlay.style.cssText = 'position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;background:rgba(30,10,60,0.72)';
-
-        overlay.innerHTML =
-            '<div style="font:bold 24px Arial Black,Arial;color:#FFEE00;text-shadow:2px 2px 0 #7B2D00;margin-bottom:6px">🎯 Pick Your Target Dinosaur!</div>' +
-            '<div style="font:13px Arial;color:#FFF8E7;margin-bottom:16px">Shoot ONLY this dinosaur — hit others to learn about them!</div>';
-
-        const grid = document.createElement('div');
-        grid.style.cssText = 'display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:100%;max-width:820px';
-
-        DINOS.forEach(dino => {
-            const icon = dino.diet.includes('Carnivore') ? '🥩' : dino.diet.includes('Piscivore') ? '🐟' : '🌿';
-            const btn = document.createElement('button');
-            btn.style.cssText = 'background:' + dino.color + ';border:3px solid rgba(255,255,255,.35);border-radius:10px;color:#fff;font:bold 14px Arial Black,Arial;cursor:pointer;padding:14px 6px 10px;text-shadow:1px 1px 0 #000;transition:transform .12s;line-height:1.5';
-            btn.innerHTML = '<span style="font-size:26px">' + dino.emoji + '</span><br>' + dino.nick + '<br><span style="font-size:15px">' + icon + '</span>';
-            btn.onmouseover = () => { btn.style.transform = 'scale(1.07)'; btn.style.borderColor = '#FFD700'; };
-            btn.onmouseout  = () => { btn.style.transform = '';            btn.style.borderColor = 'rgba(255,255,255,.35)'; };
-            btn.onclick = () => {
-                document.getElementById('dino-select-overlay')?.remove();
-                this.scene.start('GameScene', { targetId: dino.id });
-            };
-            grid.appendChild(btn);
-        });
-
-        overlay.appendChild(grid);
-        document.getElementById('game-container').appendChild(overlay);
-    }
-
-    shutdown() {
-        document.getElementById('dino-select-overlay')?.remove();
-    }
-}
-
-// ╔══════════════════════════════════════════════════════════╗
 // ║  SCENE 3 – GAME                                          ║
 // ╚══════════════════════════════════════════════════════════╝
 class GameScene extends Phaser.Scene {
     constructor() { super('GameScene'); }
 
     init(data) {
-        this.targetId  = data.targetId || 'trex';
+        this.targetId  = (data && data.targetId) || window._dinoTargetId || 'trex';
         this.score     = 0;
         this.shots     = 0;
         this.hits      = 0;
@@ -287,9 +191,11 @@ class GameScene extends Phaser.Scene {
         // Shoot on click
         this.input.on('pointerdown', ptr => { if (!this.paused) this.shoot(ptr.x, ptr.y); });
 
-        // Back button
-        const back = this.add.text(10, H - 12, '← Menu', { fontFamily:'Arial', fontSize:'14px', color:'#AACCFF', backgroundColor:'#2D1B69', padding:{x:8,y:4} }).setOrigin(0,1).setDepth(11).setInteractive({ cursor:'pointer' });
-        back.on('pointerdown', () => this.scene.start('TitleScene'));
+        // Back button — re-shows the HTML selection screen
+        const back = this.add.text(10, H - 12, '← Pick Dino', { fontFamily:'Arial', fontSize:'14px', color:'#AACCFF', backgroundColor:'#2D1B69', padding:{x:8,y:4} }).setOrigin(0,1).setDepth(11).setInteractive({ cursor:'pointer' });
+        back.on('pointerdown', () => {
+            document.getElementById('select-screen').style.display = 'flex';
+        });
 
         this.statTxt = this.add.text(W - 10, H - 12, '', { fontFamily:'Arial', fontSize:'13px', color:'#CCDDFF' }).setOrigin(1,1).setDepth(11);
     }
@@ -522,11 +428,16 @@ function drawBg(scene, W, H) {
     });
 }
 
-// ── Boot (MUST be after all class definitions) ────────────
-const config = createGameConfig({
-    width: 900,
-    height: 620,
-    backgroundColor: DH.sky,
-    scene: [TitleScene, SelectScene, GameScene],
-});
-const game = new Phaser.Game(config);
+// ── Boot: called by index.html after dino selection ───────
+window.startDinoGame = function(dinoId) {
+    window._dinoTargetId = dinoId;
+    // Destroy any previous game instance
+    if (window._phaserGame) { window._phaserGame.destroy(true); }
+    const config = createGameConfig({
+        width: 900,
+        height: 620,
+        backgroundColor: DH.sky,
+        scene: [GameScene],
+    });
+    window._phaserGame = new Phaser.Game(config);
+};

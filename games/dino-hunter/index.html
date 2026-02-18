@@ -3,37 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-
     <title>Dino Hunter - Learn About Dinosaurs | Doodles Games</title>
-    <meta name="description" content="Pick your target dinosaur and shoot! Miss and discover amazing facts about other dinosaurs. Fun educational shooting game for kids.">
-    <meta name="keywords" content="dinosaur game, dino hunter, dinosaur facts, kids game, educational game, shooting game">
-
-    <meta property="og:type" content="game">
-    <meta property="og:title" content="Dino Hunter - Dinosaur Learning Game for Kids">
-    <meta property="og:description" content="Pick your target dino and shoot! Learn amazing facts about dinosaurs you hit by mistake.">
-
+    <meta name="description" content="Pick your target dinosaur and shoot! Miss and discover amazing facts about other dinosaurs.">
     <link rel="canonical" href="https://abhee15.github.io/doodles/games/dino-hunter/">
     <link rel="stylesheet" href="../../shared/game-page-v2.css">
-
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
-
     <style>
-        /* Hide default cursor over game canvas for custom crosshair */
         #game-container canvas { cursor: none; }
+
+        #select-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, #1a0a3e 0%, #2d1b69 55%, #0a1628 100%);
+            padding: 24px;
+            box-sizing: border-box;
+            font-family: 'Arial Black', Arial, sans-serif;
+        }
+        #select-screen h1 {
+            color: #FFEE00;
+            font-size: clamp(20px, 3.5vw, 34px);
+            text-shadow: 2px 2px 0 #7B2D00;
+            margin: 0 0 6px;
+            text-align: center;
+        }
+        #select-screen p {
+            color: #c8dcf8;
+            font: 14px Arial, sans-serif;
+            margin: 0 0 20px;
+            text-align: center;
+        }
+        .dino-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            width: 100%;
+            max-width: 800px;
+        }
+        .dino-btn {
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 10px;
+            color: #fff;
+            font: bold 13px 'Arial Black', Arial, sans-serif;
+            cursor: pointer;
+            padding: 12px 4px 8px;
+            text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
+            transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+            line-height: 1.6;
+        }
+        .dino-btn:hover {
+            transform: scale(1.08);
+            border-color: #FFD700;
+            box-shadow: 0 0 12px rgba(255,215,0,0.5);
+        }
+        .dino-btn:active { transform: scale(0.94); }
     </style>
 </head>
 <body>
     <a href="../../index.html" class="back-link">← Back</a>
+
+    <!-- Pure HTML selection screen — no Phaser involved -->
+    <div id="select-screen">
+        <h1>🦖 DINO HUNTER 🦕</h1>
+        <p>Pick your target dinosaur — shoot it to score! Hit others and learn amazing facts.</p>
+        <div class="dino-grid" id="dino-grid"></div>
+    </div>
+
     <div id="game-container"></div>
 
     <script src="../../shared/analytics.js"></script>
     <div id="ad-container"></div>
     <script src="../../shared/ads.js"></script>
-
     <script src="../../shared/game-config.js"></script>
     <script src="../../shared/design-system.js"></script>
     <script src="../../shared/ui-components.js"></script>
-
     <script src="game.js"></script>
+
+    <script>
+        // Build grid from DINOS array exported by game.js
+        const grid = document.getElementById('dino-grid');
+        DINOS.forEach(function(dino) {
+            var icon = dino.diet.includes('Carnivore') ? '🥩' : dino.diet.includes('Piscivore') ? '🐟' : '🌿';
+            var btn = document.createElement('button');
+            btn.className = 'dino-btn';
+            btn.style.background = dino.color;
+            btn.innerHTML = '<span style="font-size:22px">' + dino.emoji + '</span><br>' + dino.nick + '<br>' + icon;
+            btn.onclick = function() {
+                document.getElementById('select-screen').style.display = 'none';
+                window.startDinoGame(dino.id);
+            };
+            grid.appendChild(btn);
+        });
+    </script>
 </body>
 </html>
