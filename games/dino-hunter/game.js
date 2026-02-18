@@ -223,17 +223,20 @@ class SelectScene extends Phaser.Scene {
             const card = this.add.rectangle(cx, cy, cw - 10, ch - 10, 0xFFF8E7)
                 .setStrokeStyle(3, dino.phaser).setInteractive({ cursor:'pointer' });
 
-            // Dino text (emoji + name, colored bg)
+            // Dino text (emoji + name, colored bg) — also interactive so it catches clicks
             const dt = makeDinoText(this, dino, 18);
-            dt.setPosition(cx, cy - 16);
+            dt.setPosition(cx, cy - 16).setInteractive({ cursor: 'pointer' });
 
             // Diet tag
             const icon = dino.diet.includes('Carnivore') ? '🥩' : dino.diet.includes('Piscivore') ? '🐟' : '🌿';
             this.add.text(cx, cy + 38, icon, { fontSize:'18px' }).setOrigin(0.5);
 
+            const startGame = () => this.scene.start('GameScene', { targetId: dino.id });
+
             card.on('pointerover', () => { card.setFillStyle(0xFFF0C0); dt.setScale(1.06); });
             card.on('pointerout',  () => { card.setFillStyle(0xFFF8E7); dt.setScale(1); });
-            card.on('pointerdown', () => this.scene.start('GameScene', { targetId: dino.id }));
+            card.on('pointerdown', startGame);
+            dt.on('pointerdown',   startGame);
         });
     }
 }
