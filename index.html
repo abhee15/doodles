@@ -29,118 +29,307 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://abhee15.github.io/doodles/">
 
+    <!-- Nunito: rounded, friendly, professional — used by Duolingo, Khan Academy -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Phosphor Icons — single coherent icon library, SVG-based -->
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+
     <link rel="stylesheet" href="css/portal.css">
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <div class="navbar-inner">
-                <div class="brand">
-                    <span class="brand-icon">✏️</span>
-                    <span class="brand-name">Doodles</span>
+
+<header>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="index.html">
+                <div class="brand-mark">
+                    <i class="ph-bold ph-pencil-simple"></i>
                 </div>
-            </div>
-        </nav>
-        <div class="hero">
-            <h1>Learn Through Play</h1>
-            <p>Free educational games crafted for curious kids — no download needed!</p>
+                <span class="brand-name">Doodles</span>
+            </a>
+            <span class="nav-count">8 games · 4 subjects</span>
         </div>
-    </header>
+    </nav>
 
-    <main class="page-content">
-        <div class="games-grid">
-            <div class="game-card">
-                <div class="game-icon">🪜</div>
-                <h2>Math Ladder</h2>
-                <p>Climb the ladder by solving math problems!</p>
-                <a href="games/math-ladder/index.html" class="play-btn">Play Now</a>
-            </div>
+    <div class="hero">
+        <h1>Learn Through Play</h1>
+        <p>Free educational games for curious kids — no download needed!</p>
 
-            <div class="game-card">
-                <div class="game-icon">🥷</div>
-                <h2>Number Ninja</h2>
-                <p>Click falling numbers in order!</p>
-                <a href="games/number-ninja/index.html" class="play-btn">Play Now</a>
-            </div>
+        <div class="filter-bar">
+            <button class="pill active" data-cat="all" onclick="filter('all', this)">
+                <i class="ph-bold ph-squares-four"></i> All Games
+            </button>
+            <button class="pill" data-cat="math" onclick="filter('math', this)">
+                <i class="ph-bold ph-calculator"></i> Math
+            </button>
+            <button class="pill" data-cat="geo" onclick="filter('geo', this)">
+                <i class="ph-bold ph-globe-hemisphere-west"></i> Geography
+            </button>
+            <button class="pill" data-cat="words" onclick="filter('words', this)">
+                <i class="ph-bold ph-book-open"></i> Words
+            </button>
+            <button class="pill" data-cat="science" onclick="filter('science', this)">
+                <i class="ph-bold ph-leaf"></i> Science
+            </button>
+        </div>
+    </div>
+</header>
 
-            <div class="game-card">
-                <div class="game-icon">⚡</div>
-                <h2>Quick Math</h2>
-                <p>Learn fast math tricks!</p>
-                <a href="games/quick-math/index.html" class="play-btn">Play Now</a>
-            </div>
 
-            <div class="game-card">
-                <div class="game-icon">📖</div>
-                <h2>Word Explorer</h2>
-                <p>Build your vocabulary with fun games!</p>
-                <a href="games/word-explorer/index.html" class="play-btn">Play Now</a>
-            </div>
+<main class="page">
 
-            <div class="game-card">
-                <div class="game-icon">🌍</div>
-                <h2>World Explorer</h2>
-                <p>Discover amazing countries around the world!</p>
-                <a href="games/world-explorer/index.html" class="play-btn">Play Now</a>
-            </div>
-
-            <div class="game-card">
-                <div class="game-icon">🗺️</div>
-                <h2>Earth Explorer</h2>
-                <p>Click on the map to find continents and oceans!</p>
-                <a href="games/earth-explorer/index.html" class="play-btn">Play Now</a>
-            </div>
-
-            <div class="game-card">
-                <div class="game-icon">📏</div>
-                <h2>Measure Master</h2>
-                <p>Learn inches, feet, meters and more with real-world examples!</p>
-                <a href="games/measure-master/index.html" class="play-btn">Play Now</a>
-            </div>
-
-            <div class="game-card">
-                <div class="game-icon">🦖</div>
-                <h2>Dino Hunter</h2>
-                <p>Pick your target dinosaur and shoot! Hit a different one and learn amazing facts about it!</p>
-                <a href="games/dino-hunter/index.html" class="play-btn">Play Now</a>
+    <!-- Math & Numbers -->
+    <section class="cat-section" data-cat="math">
+        <div class="sec-header">
+            <div class="sec-title">
+                <div class="sec-bar math"></div>
+                <h2>Math &amp; Numbers</h2>
+                <span class="sec-count">4 games</span>
             </div>
         </div>
-    </main>
+        <div class="row-wrap">
+            <div class="cards-row">
 
-    <footer>
-        <div class="footer-inner">
-            <div class="footer-brand">
-                <div class="brand">
-                    <span class="brand-icon">✏️</span>
-                    <span class="brand-name">Doodles</span>
+                <a class="game-card" href="games/math-ladder/index.html">
+                    <div class="thumb math-ladder">
+                        <i class="ph-bold ph-steps"></i>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-title">Math Ladder</div>
+                        <div class="card-desc">Climb rung by rung by solving addition &amp; subtraction problems against the clock.</div>
+                        <span class="card-play">
+                            <i class="ph-bold ph-play"></i> Play
+                        </span>
+                    </div>
+                </a>
+
+                <a class="game-card" href="games/number-ninja/index.html">
+                    <div class="thumb ninja">
+                        <i class="ph-bold ph-target"></i>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-title">Number Ninja</div>
+                        <div class="card-desc">Tap falling numbers in the right sequence before they hit the ground!</div>
+                        <span class="card-play">
+                            <i class="ph-bold ph-play"></i> Play
+                        </span>
+                    </div>
+                </a>
+
+                <a class="game-card" href="games/quick-math/index.html">
+                    <div class="thumb quickmath">
+                        <i class="ph-bold ph-lightning"></i>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-title">Quick Math</div>
+                        <div class="card-desc">Master fast mental math tricks — add, subtract, and multiply at lightning speed.</div>
+                        <span class="card-play">
+                            <i class="ph-bold ph-play"></i> Play
+                        </span>
+                    </div>
+                </a>
+
+                <a class="game-card" href="games/measure-master/index.html">
+                    <div class="thumb measure">
+                        <span class="badge-new">New</span>
+                        <i class="ph-bold ph-ruler"></i>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-title">Measure Master</div>
+                        <div class="card-desc">Explore inches, feet, meters, km — with origin stories, conversions &amp; real-world puzzles.</div>
+                        <span class="card-play">
+                            <i class="ph-bold ph-play"></i> Play
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Geography -->
+    <section class="cat-section" data-cat="geo">
+        <div class="sec-header">
+            <div class="sec-title">
+                <div class="sec-bar geo"></div>
+                <h2>Geography</h2>
+                <span class="sec-count">2 games</span>
+            </div>
+        </div>
+        <div class="row-wrap">
+            <div class="cards-row">
+
+                <a class="game-card" href="games/world-explorer/index.html">
+                    <div class="thumb world">
+                        <i class="ph-bold ph-globe-hemisphere-west"></i>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-title">World Explorer</div>
+                        <div class="card-desc">Discover countries, capitals, flags, and amazing facts about every corner of Earth.</div>
+                        <span class="card-play">
+                            <i class="ph-bold ph-play"></i> Play
+                        </span>
+                    </div>
+                </a>
+
+                <a class="game-card" href="games/earth-explorer/index.html">
+                    <div class="thumb earth">
+                        <i class="ph-bold ph-map-trifold"></i>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-title">Earth Explorer</div>
+                        <div class="card-desc">Click on the world map to find and name every continent and ocean!</div>
+                        <span class="card-play">
+                            <i class="ph-bold ph-play"></i> Play
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Words & Language -->
+    <section class="cat-section" data-cat="words">
+        <div class="sec-header">
+            <div class="sec-title">
+                <div class="sec-bar words"></div>
+                <h2>Words &amp; Language</h2>
+                <span class="sec-count">1 game</span>
+            </div>
+        </div>
+        <div class="row-wrap">
+            <div class="cards-row">
+
+                <a class="game-card" href="games/word-explorer/index.html">
+                    <div class="thumb word">
+                        <i class="ph-bold ph-book-open-text"></i>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-title">Word Explorer</div>
+                        <div class="card-desc">Build a powerful vocabulary — learn new words with definitions, examples, and quizzes.</div>
+                        <span class="card-play">
+                            <i class="ph-bold ph-play"></i> Play
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Science & Nature -->
+    <section class="cat-section" data-cat="science">
+        <div class="sec-header">
+            <div class="sec-title">
+                <div class="sec-bar science"></div>
+                <h2>Science &amp; Nature</h2>
+                <span class="sec-count">1 game</span>
+            </div>
+        </div>
+        <div class="row-wrap">
+            <div class="cards-row">
+
+                <a class="game-card" href="games/dino-hunter/index.html">
+                    <div class="thumb dino">
+                        <span class="badge-new">New</span>
+                        <i class="ph-bold ph-skull"></i>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-title">Dino Hunter</div>
+                        <div class="card-desc">Hunt your target dino — miss and learn incredible facts about the one you hit!</div>
+                        <span class="card-play">
+                            <i class="ph-bold ph-play"></i> Play
+                        </span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="empty" id="empty">
+        <i class="ph-bold ph-smiley-wink"></i>
+        <p>More games coming soon in this category!</p>
+    </div>
+
+</main>
+
+
+<footer>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <div class="footer-brand-row">
+                <div class="brand-mark">
+                    <i class="ph-bold ph-pencil-simple"></i>
                 </div>
-                <p>Free educational games for curious kids, right in your browser.</p>
+                <span>Doodles</span>
             </div>
-            <div class="footer-links">
-                <h3>Math Games</h3>
-                <ul>
-                    <li><a href="games/math-ladder/index.html">Math Ladder</a></li>
-                    <li><a href="games/number-ninja/index.html">Number Ninja</a></li>
-                    <li><a href="games/quick-math/index.html">Quick Math</a></li>
-                    <li><a href="games/measure-master/index.html">Measure Master</a></li>
-                </ul>
-            </div>
-            <div class="footer-links">
-                <h3>Explorer Games</h3>
-                <ul>
-                    <li><a href="games/word-explorer/index.html">Word Explorer</a></li>
-                    <li><a href="games/world-explorer/index.html">World Explorer</a></li>
-                    <li><a href="games/earth-explorer/index.html">Earth Explorer</a></li>
-                    <li><a href="games/dino-hunter/index.html">Dino Hunter</a></li>
-                </ul>
-            </div>
+            <p>Free browser-based educational games for curious kids. No download, no login — just play and learn.</p>
         </div>
-        <div class="footer-bottom">
-            <p>© 2025 Doodles · Built with ❤️ for learning</p>
+        <div class="footer-col">
+            <h3>Math &amp; Numbers</h3>
+            <ul>
+                <li><a href="games/math-ladder/index.html">Math Ladder</a></li>
+                <li><a href="games/number-ninja/index.html">Number Ninja</a></li>
+                <li><a href="games/quick-math/index.html">Quick Math</a></li>
+                <li><a href="games/measure-master/index.html">Measure Master</a></li>
+            </ul>
         </div>
-    </footer>
+        <div class="footer-col">
+            <h3>Geography</h3>
+            <ul>
+                <li><a href="games/world-explorer/index.html">World Explorer</a></li>
+                <li><a href="games/earth-explorer/index.html">Earth Explorer</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h3>Words &amp; Science</h3>
+            <ul>
+                <li><a href="games/word-explorer/index.html">Word Explorer</a></li>
+                <li><a href="games/dino-hunter/index.html">Dino Hunter</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2025 Doodles · Built with ❤️ for learning</p>
+        <div class="cat-swatches">
+            <div class="swatch" style="background:var(--c-math)"></div>
+            <div class="swatch" style="background:var(--c-geo)"></div>
+            <div class="swatch" style="background:var(--c-words)"></div>
+            <div class="swatch" style="background:var(--c-science)"></div>
+        </div>
+    </div>
+</footer>
 
-    <!-- Analytics -->
-    <script src="shared/analytics.js"></script>
+
+<script>
+    const sections = document.querySelectorAll('.cat-section');
+    const empty    = document.getElementById('empty');
+
+    function filter(cat, btn) {
+        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (cat === 'all') {
+            sections.forEach(s => s.classList.remove('hidden'));
+            empty.style.display = 'none';
+            return;
+        }
+
+        let found = false;
+        sections.forEach(s => {
+            if (s.dataset.cat === cat) { s.classList.remove('hidden'); found = true; }
+            else                       { s.classList.add('hidden'); }
+        });
+        empty.style.display = found ? 'none' : 'block';
+    }
+</script>
+
+<!-- Analytics -->
+<script src="shared/analytics.js"></script>
 </body>
 </html>
