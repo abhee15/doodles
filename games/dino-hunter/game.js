@@ -205,58 +205,38 @@ class SelectScene extends Phaser.Scene {
         const W = this.scale.width, H = this.scale.height;
         drawBg(this, W, H);
 
-        this.add.text(W / 2, 32, '🎯  Pick Your Target Dinosaur!', {
-            fontFamily:'Arial Black', fontSize:'26px', color:'#FFEE00', stroke:'#7B2D00', strokeThickness:6 }).setOrigin(0.5);
+        // Use a DOM overlay so clicks always register — no Phaser input quirks
+        const overlay = document.createElement('div');
+        overlay.id = 'dino-select-overlay';
+        overlay.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;box-sizing:border-box';
 
-        this.add.text(W / 2, 66, 'Shoot ONLY this dinosaur in the game — hit others to learn about them!', {
-            fontFamily:'Arial', fontSize:'13px', color:'#FFF8E7' }).setOrigin(0.5);
+        overlay.innerHTML =
+            '<div style="font:bold 24px Arial Black,Arial;color:#FFEE00;text-shadow:2px 2px 0 #7B2D00;margin-bottom:6px">🎯 Pick Your Target Dinosaur!</div>' +
+            '<div style="font:13px Arial;color:#FFF8E7;margin-bottom:16px">Shoot ONLY this dinosaur — hit others to learn about them!</div>';
 
-        const cols = 5, cw = W / cols;
-        const rows = 2, ch = (H - 86) / rows;
+        const grid = document.createElement('div');
+        grid.style.cssText = 'display:grid;grid-template-columns:repeat(5,1fr);gap:10px;width:100%;max-width:820px';
 
-        // Build card data array for hit-testing in the global pointer listener
-        const cards = [];
-
-        DINOS.forEach((dino, i) => {
-            const col = i % cols, row = Math.floor(i / cols);
-            const cx = cw * col + cw / 2;
-            const cy = 86 + ch * row + ch / 2;
-            const hw = (cw - 10) / 2;
-            const hh = (ch - 10) / 2;
-
-            const card = this.add.rectangle(cx, cy, cw - 10, ch - 10, 0xFFF8E7)
-                .setStrokeStyle(3, dino.phaser);
-
-            const dt = makeDinoText(this, dino, 18);
-            dt.setPosition(cx, cy - 16);
-
+        DINOS.forEach(dino => {
             const icon = dino.diet.includes('Carnivore') ? '🥩' : dino.diet.includes('Piscivore') ? '🐟' : '🌿';
-            this.add.text(cx, cy + 38, icon, { fontSize:'18px' }).setOrigin(0.5);
-
-            cards.push({ dino, card, dt, cx, cy, hw, hh });
+            const btn = document.createElement('button');
+            btn.style.cssText = 'background:' + dino.color + ';border:3px solid rgba(255,255,255,.35);border-radius:10px;color:#fff;font:bold 14px Arial Black,Arial;cursor:pointer;padding:14px 6px 10px;text-shadow:1px 1px 0 #000;transition:transform .12s;line-height:1.5';
+            btn.innerHTML = '<span style="font-size:26px">' + dino.emoji + '</span><br>' + dino.nick + '<br><span style="font-size:15px">' + icon + '</span>';
+            btn.onmouseover = () => { btn.style.transform = 'scale(1.07)'; btn.style.borderColor = '#FFD700'; };
+            btn.onmouseout  = () => { btn.style.transform = '';            btn.style.borderColor = 'rgba(255,255,255,.35)'; };
+            btn.onclick = () => {
+                document.getElementById('dino-select-overlay')?.remove();
+                this.scene.start('GameScene', { targetId: dino.id });
+            };
+            grid.appendChild(btn);
         });
 
-        // Use the scene's global pointer events for reliable hit detection
-        this.input.on('pointermove', (ptr) => {
-            cards.forEach(c => {
-                const over = Math.abs(ptr.x - c.cx) < c.hw && Math.abs(ptr.y - c.cy) < c.hh;
-                c.card.setFillStyle(over ? 0xFFF0C0 : 0xFFF8E7);
-                c.dt.setScale(over ? 1.08 : 1.0);
-            });
-        });
+        overlay.appendChild(grid);
+        document.getElementById('game-container').appendChild(overlay);
+    }
 
-        this.input.on('pointerdown', (ptr) => {
-            for (const c of cards) {
-                if (Math.abs(ptr.x - c.cx) < c.hw && Math.abs(ptr.y - c.cy) < c.hh) {
-                    // Flash the chosen card, then switch scene
-                    c.card.setFillStyle(0xFFCC44);
-                    this.time.delayedCall(150, () => {
-                        this.scene.start('GameScene', { targetId: c.dino.id });
-                    });
-                    return;
-                }
-            }
-        });
+    shutdown() {
+        document.getElementById('dino-select-overlay')?.remove();
     }
 }
 
