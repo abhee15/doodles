@@ -219,24 +219,25 @@ class SelectScene extends Phaser.Scene {
             const cx = cw * col + cw / 2;
             const cy = 86 + ch * row + ch / 2;
 
-            // Card
+            // Card background (not interactive — hit area handles clicks)
             const card = this.add.rectangle(cx, cy, cw - 10, ch - 10, 0xFFF8E7)
-                .setStrokeStyle(3, dino.phaser).setInteractive({ cursor:'pointer' });
+                .setStrokeStyle(3, dino.phaser);
 
-            // Dino text (emoji + name, colored bg) — also interactive so it catches clicks
+            // Dino text
             const dt = makeDinoText(this, dino, 18);
-            dt.setPosition(cx, cy - 16).setInteractive({ cursor: 'pointer' });
+            dt.setPosition(cx, cy - 16);
 
             // Diet tag
             const icon = dino.diet.includes('Carnivore') ? '🥩' : dino.diet.includes('Piscivore') ? '🐟' : '🌿';
             this.add.text(cx, cy + 38, icon, { fontSize:'18px' }).setOrigin(0.5);
 
-            const startGame = () => this.scene.start('GameScene', { targetId: dino.id });
+            // Transparent hit area on top — catches all clicks for this card
+            const hit = this.add.rectangle(cx, cy, cw - 10, ch - 10, 0xffffff, 0)
+                .setInteractive({ cursor: 'pointer' });
 
-            card.on('pointerover', () => { card.setFillStyle(0xFFF0C0); dt.setScale(1.06); });
-            card.on('pointerout',  () => { card.setFillStyle(0xFFF8E7); dt.setScale(1); });
-            card.on('pointerdown', startGame);
-            dt.on('pointerdown',   startGame);
+            hit.on('pointerover',  () => { card.setFillStyle(0xFFF0C0); dt.setScale(1.08); });
+            hit.on('pointerout',   () => { card.setFillStyle(0xFFF8E7); dt.setScale(1.00); });
+            hit.on('pointerdown',  () => this.scene.start('GameScene', { targetId: dino.id }));
         });
     }
 }
