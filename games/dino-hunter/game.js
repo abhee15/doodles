@@ -208,7 +208,7 @@ class SelectScene extends Phaser.Scene {
         // Use a DOM overlay so clicks always register — no Phaser input quirks
         const overlay = document.createElement('div');
         overlay.id = 'dino-select-overlay';
-        overlay.style.cssText = 'position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;box-sizing:border-box';
+        overlay.style.cssText = 'position:absolute;inset:0;z-index:10;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;box-sizing:border-box;background:rgba(30,10,60,0.72)';
 
         overlay.innerHTML =
             '<div style="font:bold 24px Arial Black,Arial;color:#FFEE00;text-shadow:2px 2px 0 #7B2D00;margin-bottom:6px">🎯 Pick Your Target Dinosaur!</div>' +
