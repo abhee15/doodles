@@ -214,30 +214,48 @@ class SelectScene extends Phaser.Scene {
         const cols = 5, cw = W / cols;
         const rows = 2, ch = (H - 86) / rows;
 
+        // Build card data array for hit-testing in the global pointer listener
+        const cards = [];
+
         DINOS.forEach((dino, i) => {
             const col = i % cols, row = Math.floor(i / cols);
             const cx = cw * col + cw / 2;
             const cy = 86 + ch * row + ch / 2;
+            const hw = (cw - 10) / 2;
+            const hh = (ch - 10) / 2;
 
-            // Card background (not interactive — hit area handles clicks)
             const card = this.add.rectangle(cx, cy, cw - 10, ch - 10, 0xFFF8E7)
                 .setStrokeStyle(3, dino.phaser);
 
-            // Dino text
             const dt = makeDinoText(this, dino, 18);
             dt.setPosition(cx, cy - 16);
 
-            // Diet tag
             const icon = dino.diet.includes('Carnivore') ? '🥩' : dino.diet.includes('Piscivore') ? '🐟' : '🌿';
             this.add.text(cx, cy + 38, icon, { fontSize:'18px' }).setOrigin(0.5);
 
-            // Transparent hit area on top — catches all clicks for this card
-            const hit = this.add.rectangle(cx, cy, cw - 10, ch - 10, 0xffffff, 0)
-                .setInteractive({ cursor: 'pointer' });
+            cards.push({ dino, card, dt, cx, cy, hw, hh });
+        });
 
-            hit.on('pointerover',  () => { card.setFillStyle(0xFFF0C0); dt.setScale(1.08); });
-            hit.on('pointerout',   () => { card.setFillStyle(0xFFF8E7); dt.setScale(1.00); });
-            hit.on('pointerdown',  () => this.scene.start('GameScene', { targetId: dino.id }));
+        // Use the scene's global pointer events for reliable hit detection
+        this.input.on('pointermove', (ptr) => {
+            cards.forEach(c => {
+                const over = Math.abs(ptr.x - c.cx) < c.hw && Math.abs(ptr.y - c.cy) < c.hh;
+                c.card.setFillStyle(over ? 0xFFF0C0 : 0xFFF8E7);
+                c.dt.setScale(over ? 1.08 : 1.0);
+            });
+        });
+
+        this.input.on('pointerdown', (ptr) => {
+            for (const c of cards) {
+                if (Math.abs(ptr.x - c.cx) < c.hw && Math.abs(ptr.y - c.cy) < c.hh) {
+                    // Flash the chosen card, then switch scene
+                    c.card.setFillStyle(0xFFCC44);
+                    this.time.delayedCall(150, () => {
+                        this.scene.start('GameScene', { targetId: c.dino.id });
+                    });
+                    return;
+                }
+            }
         });
     }
 }
