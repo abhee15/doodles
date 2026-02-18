@@ -182,11 +182,11 @@ class GameScene extends Phaser.Scene {
         this.crosshair = this.add.graphics().setDepth(20);
         this.input.setDefaultCursor('none');
 
-        // Spawn wave
+        // Spawn 6 dinos quickly so the field is full right away
         for (let i = 0; i < 6; i++) {
-            this.time.delayedCall(i * 500, () => this.spawnDino());
+            this.time.delayedCall(i * 150, () => this.spawnDino());
         }
-        this.time.addEvent({ delay:2800, callback:this.spawnDino, callbackScope:this, loop:true });
+        this.time.addEvent({ delay:3000, callback:this.spawnDino, callbackScope:this, loop:true });
 
         // Shoot on click
         this.input.on('pointerdown', ptr => { if (!this.paused) this.shoot(ptr.x, ptr.y); });
@@ -203,18 +203,18 @@ class GameScene extends Phaser.Scene {
     spawnDino() {
         if (this.paused) return;
 
-        // 30 % chance to spawn the target dino
-        const dino = (Math.random() < 0.30)
+        // 35 % chance to spawn the target dino
+        const dino = (Math.random() < 0.35)
             ? DINOS.find(d => d.id === this.targetId)
             : DINOS[Math.floor(Math.random() * DINOS.length)];
 
-        const fromLeft = Math.random() < 0.5;
-        const startX   = fromLeft ? -80 : this.W + 80;
+        // Spawn within visible area so dinos appear immediately
+        const startX   = 80 + Math.random() * (this.W - 160);
         const startY   = 65 + Math.random() * (this.H - 150);
-        const speed    = 1.4 + Math.random() * 1.8;
-        const vx       = fromLeft ? speed : -speed;   // always move INTO screen
-        const vy       = (Math.random() - 0.5) * 0.9;
-        const fontSize = Math.round(16 + Math.random() * 10);
+        const speed    = 1.0 + Math.random() * 1.5;
+        const vx       = (Math.random() < 0.5 ? 1 : -1) * speed;
+        const vy       = (Math.random() - 0.5) * 0.8;
+        const fontSize = Math.round(18 + Math.random() * 8);
 
         const sprite = makeDinoText(this, dino, fontSize);
         sprite.setPosition(startX, startY).setDepth(5);
