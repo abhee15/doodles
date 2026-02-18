@@ -262,17 +262,13 @@ function setupGameplayUI(scene) {
         620,
         480,
         'Submit',
-        () => checkAnswer(this, inputText),
+        () => checkAnswer(scene, inputText),
         {
             variant: ButtonVariants.SUCCESS,
             size: ButtonSizes.SMALL
         }
     );
     submitBtn.container.setDepth(100);
-
-    // Start first question
-    generateQuestion(this);
-    startTimer(this);
 }
 
 function update() {
