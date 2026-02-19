@@ -20,9 +20,10 @@ let G = null; // game state
 
 // ── Entry point (called from index.html) ──────────────────
 window.startDinoGame = function(targetId) {
-    // Remove old canvas if re-starting
+    // Remove old canvas and dino divs if re-starting
     const old = document.getElementById('dh-canvas');
     if (old) old.remove();
+    document.querySelectorAll('.dh-dino').forEach(el => el.remove());
 
     const container = document.getElementById('game-container');
     const W = container.clientWidth  || 900;
@@ -91,13 +92,18 @@ function update(dt) {
     G.spawnTimer += dt;
     if (G.spawnTimer > 3000) { G.spawnTimer = 0; spawnDino(); }
 
-    // Move dinos
+    // Move dinos + update their HTML div positions
     G.dinos.forEach(d => {
         d.x += d.vx; d.y += d.vy;
         d.bob += 0.05;
         d.y += Math.sin(d.bob) * 0.25;
         if (d.x - 48 < 0 || d.x + 48 > W) d.vx *= -1;
         if (d.y - 30 < 48 || d.y + 30 > H - 38) d.vy *= -1;
+        // Sync the HTML element position (canvas coords → container pixels)
+        const scaleX = G.canvas.getBoundingClientRect().width  / W;
+        const scaleY = G.canvas.getBoundingClientRect().height / H;
+        d.el.style.left = (d.x * scaleX) + 'px';
+        d.el.style.top  = (d.y * scaleY) + 'px';
     });
 
     // Move bullets + hit detection
@@ -118,14 +124,27 @@ function update(dt) {
 }
 
 function spawnDino() {
+    if (G.dinos.length >= 9) return;
     const { W, H, targetId } = G;
     const dino = Math.random() < 0.35
         ? DINOS.find(d => d.id === targetId)
         : DINOS[Math.floor(Math.random() * DINOS.length)];
+
+    // HTML div — emoji renders perfectly in HTML on all platforms
+    const el = document.createElement('div');
+    el.className = 'dh-dino';
+    el.style.cssText = 'position:absolute;transform:translate(-50%,-50%);pointer-events:none;text-align:center;transition:opacity .2s,transform .2s;z-index:5';
+    el.innerHTML =
+        '<div style="background:' + dino.color + ';border:3px solid #111;border-radius:10px;padding:6px 10px;box-shadow:2px 3px 8px rgba(0,0,0,0.5);min-width:80px">' +
+        '<div style="font-size:30px;line-height:1.1">' + dino.emoji + '</div>' +
+        '<div style="font:bold 12px Arial,sans-serif;color:#fff;text-shadow:1px 1px 0 #000;margin-top:2px">' + dino.nick + '</div>' +
+        '</div>';
+    document.getElementById('game-container').appendChild(el);
+
     G.dinos.push({
-        dino,
+        dino, el,
         x: 80 + Math.random() * (W - 160),
-        y: 60 + Math.random() * (H - 130),
+        y: 70 + Math.random() * (H - 150),
         vx: (Math.random() < 0.5 ? 1 : -1) * (0.8 + Math.random() * 1.2),
         vy: (Math.random() - 0.5) * 0.6,
         bob: Math.random() * Math.PI * 2,
@@ -142,6 +161,11 @@ function shoot(tx, ty) {
 }
 
 function onHit(d, bx, by) {
+    // Animate the div out
+    d.el.style.opacity = '0';
+    d.el.style.transform = 'translate(-50%,-50%) scale(1.5)';
+    setTimeout(() => d.el.remove(), 220);
+
     const isTarget = d.dino.id === G.targetId;
     if (isTarget) {
         G.hits++; G.score += 100;
@@ -183,27 +207,7 @@ function draw() {
     // Ground
     ctx.fillStyle = '#8B7355'; ctx.fillRect(0, H - 36, W, 36);
 
-    // Dinos
-    G.dinos.forEach(d => {
-        const { x, y } = d;
-        // Colored box
-        ctx.fillStyle = d.dino.color;
-        ctx.strokeStyle = '#111'; ctx.lineWidth = 3;
-        roundRect(ctx, x - 48, y - 26, 96, 52, 10, true, true);
-        // Diet strip (plain rect, no rounded corners)
-        ctx.fillStyle = 'rgba(0,0,0,0.28)';
-        ctx.fillRect(x - 48, y - 26, 96, 18);
-        ctx.font = 'bold 10px Arial, sans-serif';
-        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillStyle = '#FFF';
-        ctx.fillText(d.dino.diet.toUpperCase(), x, y - 17);
-        // Dino name
-        ctx.font = 'bold 15px Arial, sans-serif';
-        ctx.strokeStyle = '#000'; ctx.lineWidth = 4;
-        ctx.strokeText(d.dino.nick, x, y + 8);
-        ctx.fillStyle = '#FFF';
-        ctx.fillText(d.dino.nick, x, y + 8);
-    });
+    // Dinos are rendered as HTML divs — nothing to draw on canvas here
 
     // Bullets
     G.bullets.forEach(b => {
