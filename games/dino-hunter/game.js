@@ -96,15 +96,15 @@ function update(dt) {
         d.x += d.vx; d.y += d.vy;
         d.bob += 0.05;
         d.y += Math.sin(d.bob) * 0.25;
-        if (d.x - 45 < 0 || d.x + 45 > W) d.vx *= -1;
-        if (d.y - 22 < 48 || d.y + 22 > H - 38) d.vy *= -1;
+        if (d.x - 48 < 0 || d.x + 48 > W) d.vx *= -1;
+        if (d.y - 30 < 48 || d.y + 30 > H - 38) d.vy *= -1;
     });
 
     // Move bullets + hit detection
     G.bullets = G.bullets.filter(b => {
         b.x += b.vx; b.y += b.vy;
         for (const d of G.dinos) {
-            if (Math.abs(b.x - d.x) < 47 && Math.abs(b.y - d.y) < 24) {
+            if (Math.abs(b.x - d.x) < 48 && Math.abs(b.y - d.y) < 30) {
                 onHit(d, b.x, b.y);
                 G.dinos.splice(G.dinos.indexOf(d), 1);
                 return false;
@@ -186,16 +186,20 @@ function draw() {
     // Dinos
     G.dinos.forEach(d => {
         const { x, y } = d;
+        // Colored box
         ctx.fillStyle = d.dino.color;
-        ctx.strokeStyle = '#000'; ctx.lineWidth = 2;
-        roundRect(ctx, x - 45, y - 22, 90, 44, 8, true, true);
-
-        ctx.font = 'bold 13px Arial, sans-serif';
-        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.strokeStyle = '#000'; ctx.lineWidth = 3;
-        ctx.strokeText(d.dino.nick, x, y);
+        roundRect(ctx, x - 48, y - 30, 96, 60, 10, true, true);
+        // Emoji
+        ctx.font = '28px serif';
+        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+        ctx.fillText(d.dino.emoji, x, y - 8);
+        // Name label
+        ctx.font = 'bold 12px Arial, sans-serif';
+        ctx.strokeStyle = '#000'; ctx.lineWidth = 3;
+        ctx.strokeText(d.dino.nick, x, y + 18);
         ctx.fillStyle = '#FFF';
-        ctx.fillText(d.dino.nick, x, y);
+        ctx.fillText(d.dino.nick, x, y + 18);
     });
 
     // Bullets
