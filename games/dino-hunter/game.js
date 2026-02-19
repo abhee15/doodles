@@ -183,27 +183,26 @@ function draw() {
     // Ground
     ctx.fillStyle = '#8B7355'; ctx.fillRect(0, H - 36, W, 36);
 
-    // Dinos — colored box with big bold name (no emoji; emoji renders as boxes on Windows canvas)
+    // Dinos
     G.dinos.forEach(d => {
         const { x, y } = d;
+        // Colored box
         ctx.fillStyle = d.dino.color;
         ctx.strokeStyle = '#111'; ctx.lineWidth = 3;
         roundRect(ctx, x - 48, y - 26, 96, 52, 10, true, true);
-
-        // Diet type top strip
-        ctx.fillStyle = 'rgba(0,0,0,0.25)';
-        roundRect(ctx, x - 48, y - 26, 96, 18, [10,10,0,0], true, false);
+        // Diet strip (plain rect, no rounded corners)
+        ctx.fillStyle = 'rgba(0,0,0,0.28)';
+        ctx.fillRect(x - 48, y - 26, 96, 18);
         ctx.font = 'bold 10px Arial, sans-serif';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         ctx.fillStyle = '#FFF';
         ctx.fillText(d.dino.diet.toUpperCase(), x, y - 17);
-
-        // Big dino name
-        ctx.font = 'bold 16px Arial Black, Arial, sans-serif';
+        // Dino name
+        ctx.font = 'bold 15px Arial, sans-serif';
         ctx.strokeStyle = '#000'; ctx.lineWidth = 4;
-        ctx.strokeText(d.dino.nick, x, y + 6);
+        ctx.strokeText(d.dino.nick, x, y + 8);
         ctx.fillStyle = '#FFF';
-        ctx.fillText(d.dino.nick, x, y + 6);
+        ctx.fillText(d.dino.nick, x, y + 8);
     });
 
     // Bullets
