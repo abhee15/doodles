@@ -129,19 +129,20 @@ const DINOS = [
     },
 ];
 
-// ── Simple dino sprite: just a Phaser Text with colored background ──
-function makeDinoText(scene, dino, fontSize) {
-    fontSize = fontSize || 22;
-    return scene.add.text(0, 0, dino.emoji + '\n' + dino.nick, {
-        fontFamily: 'Arial Black',
-        fontSize: fontSize + 'px',
+// ── Dino sprite: colored rectangle + label text (no backgroundColor needed) ──
+function makeDino(scene, dino, depth) {
+    depth = depth || 5;
+    const box = scene.add.rectangle(0, 0, 88, 44, dino.phaser)
+        .setStrokeStyle(3, 0x000000).setDepth(depth);
+    const lbl = scene.add.text(0, 0, dino.nick, {
+        fontFamily: 'Arial, sans-serif',
+        fontSize: '14px',
         color: '#FFFFFF',
         stroke: '#000000',
         strokeThickness: 3,
         align: 'center',
-        backgroundColor: dino.color,
-        padding: { x: 10, y: 6 },
-    }).setOrigin(0.5);
+    }).setOrigin(0.5).setDepth(depth + 1);
+    return { box, lbl };
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -173,8 +174,9 @@ class GameScene extends Phaser.Scene {
         this.add.text(12, 24, '🎯 TARGET:', { fontFamily:'Arial Black', fontSize:'14px', color:'#FFEE00', stroke:'#000', strokeThickness:3 }).setOrigin(0, 0.5).setDepth(11);
 
         // Small inline target badge
-        const badge = makeDinoText(this, tgt, 13);
-        badge.setPosition(W / 2, 24).setDepth(11);
+        const badge = makeDino(this, tgt, 11);
+        badge.box.setPosition(W / 2, 24).setSize(80, 30);
+        badge.lbl.setPosition(W / 2, 24);
 
         this.scoreTxt = this.add.text(W - 12, 24, '⭐ 0', { fontFamily:'Arial Black', fontSize:'18px', color:'#FFEE00', stroke:'#000', strokeThickness:3 }).setOrigin(1, 0.5).setDepth(11);
 
@@ -216,12 +218,15 @@ class GameScene extends Phaser.Scene {
         const vy       = (Math.random() - 0.5) * 0.8;
         const fontSize = Math.round(18 + Math.random() * 8);
 
-        const sprite = makeDinoText(this, dino, fontSize);
-        sprite.setPosition(startX, startY).setDepth(5);
+        const { box, lbl } = makeDino(this, dino, 5);
+        box.setPosition(startX, startY);
+        lbl.setPosition(startX, startY);
 
-        this.dinoGroup.push({ sprite, vx, vy, bob: Math.random() * Math.PI * 2, dino });
+        this.dinoGroup.push({ box, lbl, vx, vy, bob: Math.random() * Math.PI * 2, dino });
 
-        this.time.delayedCall(14000, () => { if (sprite.active) sprite.destroy(); });
+        this.time.delayedCall(14000, () => {
+            if (box.active) { box.destroy(); lbl.destroy(); }
+        });
     }
 
     update() {
@@ -230,18 +235,19 @@ class GameScene extends Phaser.Scene {
 
         // Move dinos
         this.dinoGroup = this.dinoGroup.filter(entry => {
-            if (!entry.sprite.active) return false;
+            if (!entry.box.active) return false;
 
-            entry.sprite.x += entry.vx;
-            entry.sprite.y += entry.vy;
+            entry.box.x += entry.vx;
+            entry.box.y += entry.vy;
             entry.bob += 0.06;
-            entry.sprite.y += Math.sin(entry.bob) * 0.3;
+            entry.box.y += Math.sin(entry.bob) * 0.3;
+            entry.lbl.setPosition(entry.box.x, entry.box.y);
 
-            const hw = entry.sprite.width  / 2 + 4;
-            const hh = entry.sprite.height / 2 + 4;
+            const hw = entry.box.width  / 2 + 4;
+            const hh = entry.box.height / 2 + 4;
 
-            if (entry.sprite.x < hw || entry.sprite.x > this.W - hw)  entry.vx *= -1;
-            if (entry.sprite.y < 55  || entry.sprite.y > this.H - 46) entry.vy *= -1;
+            if (entry.box.x < hw || entry.box.x > this.W - hw)  entry.vx *= -1;
+            if (entry.box.y < 55  || entry.box.y > this.H - 46) entry.vy *= -1;
 
             return true;
         });
@@ -256,10 +262,10 @@ class GameScene extends Phaser.Scene {
             let hit = false;
             for (const e of this.dinoGroup) {
                 if (!e.sprite.active) continue;
-                const dx = b.x - e.sprite.x;
-                const dy = b.y - e.sprite.y;
-                const hw = e.sprite.width  / 2 + 4;
-                const hh = e.sprite.height / 2 + 4;
+                const dx = b.x - e.box.x;
+                const dy = b.y - e.box.y;
+                const hw = e.box.width  / 2 + 4;
+                const hh = e.box.height / 2 + 4;
                 if (Math.abs(dx) < hw && Math.abs(dy) < hh) {
                     hit = true;
                     this.onHit(e, b.x, b.y);
@@ -300,11 +306,13 @@ class GameScene extends Phaser.Scene {
 
     onHit(entry, bx, by) {
         const isTarget = entry.dino.id === this.targetId;
-        this.spawnParticles(entry.sprite.x, entry.sprite.y, isTarget ? 0xFFDD00 : 0xFF4444);
+        this.spawnParticles(entry.box.x, entry.box.y, isTarget ? 0xFFDD00 : 0xFF4444);
 
         this.tweens.add({
-            targets: entry.sprite, alpha:0, scaleX:1.4, scaleY:1.4, duration:180,
-            onComplete: () => { if (entry.sprite.active) entry.sprite.destroy(); },
+            targets: [entry.box, entry.lbl], alpha:0, scaleX:1.4, scaleY:1.4, duration:180,
+            onComplete: () => {
+                if (entry.box.active) { entry.box.destroy(); entry.lbl.destroy(); }
+            },
         });
 
         if (isTarget) {
