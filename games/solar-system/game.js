@@ -71,8 +71,8 @@ let celebrationGroup = null;
 const W = 900;
 const H = 650;
 
-// Sun sits at left-center so planets stretch rightward
-const SUN_X = 100;
+// Sun position — shifted right for a more centred look
+const SUN_X = 160;
 const SUN_Y = H / 2;
 
 // ── Entry point (called from HTML) ─────────────────────────────
@@ -197,6 +197,8 @@ function updateScene() {
             if (moonObjects[key]) {
                 moonObjects[key].gfx.setPosition(mx, my);
                 if (moonObjects[key].label) moonObjects[key].label.setPosition(mx, my + 8);
+                // Keep hit area in sync with the visual so clicks register correctly
+                if (moonObjects[key].hit) moonObjects[key].hit.setPosition(mx, my);
             }
         }
     });
@@ -471,18 +473,22 @@ function drawMoon(scene, planet, moonIdx, px, py, depth) {
     const key = planet.id + '_moon0';
     moonObjects[key] = { gfx: mgfx, label: null };
 
-    // Moon hit area
-    const mHit = scene.add.circle(mx, my, 10, 0xFFFFFF, 0);
+    // Moon hit area — position kept in sync by updateScene
+    const mHit = scene.add.circle(mx, my, 12, 0xFFFFFF, 0);
     mHit.setDepth(depth + 4).setInteractive({ useHandCursor: true });
+    mHit.on('pointerover', () => { mgfx.setScale(1.5); });
+    mHit.on('pointerout',  () => { mgfx.setScale(1); });
     mHit.on('pointerup', () => {
         const moonData = planet.moonsList[moonIdx];
+        // Read current position from the hit area itself (kept up to date by updateScene)
         showFactCard(scene, {
             id: key,
-            name: moonData.name + ' (Moon of ' + planet.name + ')',
+            name: moonData.name,
+            subtitle: 'Moon of ' + planet.name,
             emoji: moonData.emoji,
-            facts: [moonData.fact],
-            funFact: moonData.fact,
-        }, mx, my);
+            facts: moonData.facts || [moonData.fact],
+            funFact: moonData.funFact || moonData.fact,
+        }, mHit.x, mHit.y);
     });
     moonObjects[key].hit = mHit;
 }
@@ -572,8 +578,8 @@ function showExploreHint(scene) {
 function showFactCard(scene, obj, targetX, targetY) {
     if (factCardGroup) { factCardGroup.destroy(true); factCardGroup = null; }
 
-    const cardW = 340;
-    const cardH = 260;
+    const cardW = 360;
+    const cardH = 270;
     const cx = Math.min(Math.max(targetX, cardW / 2 + 10), W - cardW / 2 - 10);
     const cy = Math.min(Math.max(targetY - 140, cardH / 2 + 50), H - cardH / 2 - 10);
 
@@ -589,14 +595,21 @@ function showFactCard(scene, obj, targetX, targetY) {
     factCardGroup.add(cardBg);
 
     // Title row
-    const emoji = scene.add.text(-cardW / 2 + 16, -cardH / 2 + 18, obj.emoji || '🌌', {
-        fontSize: '28px',
+    const emoji = scene.add.text(-cardW / 2 + 16, -cardH / 2 + 14, obj.emoji || '🌌', {
+        fontSize: '26px',
     }).setOrigin(0, 0);
-    const title = scene.add.text(-cardW / 2 + 56, -cardH / 2 + 22, obj.name, {
-        fontSize: '16px', fill: '#FFD740', fontFamily: 'Arial, sans-serif',
+    const title = scene.add.text(-cardW / 2 + 54, -cardH / 2 + 16, obj.name, {
+        fontSize: '15px', fill: '#FFD740', fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold', wordWrap: { width: cardW - 80 },
     }).setOrigin(0, 0);
     factCardGroup.add([emoji, title]);
+    // Optional subtitle (e.g. "Moon of Saturn")
+    if (obj.subtitle) {
+        const sub = scene.add.text(-cardW / 2 + 54, -cardH / 2 + 34, obj.subtitle, {
+            fontSize: '10px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif',
+        }).setOrigin(0, 0);
+        factCardGroup.add(sub);
+    }
 
     // Divider
     const div = scene.add.graphics();
@@ -604,25 +617,28 @@ function showFactCard(scene, obj, targetX, targetY) {
     div.lineBetween(-cardW / 2 + 12, -cardH / 2 + 54, cardW / 2 - 12, -cardH / 2 + 54);
     factCardGroup.add(div);
 
-    // Facts
+    // Facts — pick 2 at random so every visit shows something new
     const facts = obj.facts || [];
-    const displayFacts = facts.slice(0, 3);
+    const shuffled = facts.slice().sort(() => Math.random() - 0.5);
+    const displayFacts = shuffled.slice(0, 2);
     displayFacts.forEach((fact, i) => {
-        const ft = scene.add.text(-cardW / 2 + 14, -cardH / 2 + 64 + i * 42, fact, {
-            fontSize: '11.5px', fill: '#C5D8FF', fontFamily: 'Arial, sans-serif',
-            wordWrap: { width: cardW - 28 }, lineSpacing: 2,
+        const ft = scene.add.text(-cardW / 2 + 14, -cardH / 2 + 66 + i * 46, fact, {
+            fontSize: '13px', fill: '#C5D8FF', fontFamily: 'Arial, sans-serif',
+            wordWrap: { width: cardW - 28 }, lineSpacing: 3,
         }).setOrigin(0, 0);
         factCardGroup.add(ft);
     });
 
-    // Fun fact strip
-    if (obj.funFact) {
+    // Fun fact strip — pick a random funFact if it's an array
+    const funFacts = Array.isArray(obj.funFact) ? obj.funFact : (obj.funFact ? [obj.funFact] : []);
+    const funFact = funFacts.length > 0 ? funFacts[Math.floor(Math.random() * funFacts.length)] : null;
+    if (funFact) {
         const ffBg = scene.add.graphics();
         ffBg.fillStyle(0x1A3A6E, 0.8);
-        ffBg.fillRoundedRect(-cardW / 2 + 8, cardH / 2 - 56, cardW - 16, 40, 8);
+        ffBg.fillRoundedRect(-cardW / 2 + 8, cardH / 2 - 62, cardW - 16, 46, 8);
         factCardGroup.add(ffBg);
-        const ff = scene.add.text(0, cardH / 2 - 36, '💡 ' + obj.funFact, {
-            fontSize: '10px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif',
+        const ff = scene.add.text(0, cardH / 2 - 54, '💡 ' + funFact, {
+            fontSize: '12px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif',
             wordWrap: { width: cardW - 36 }, align: 'center',
         }).setOrigin(0.5, 0);
         factCardGroup.add(ff);
