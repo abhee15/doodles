@@ -3,16 +3,16 @@
 // ============================================================
 
 const DINOS = [
-    { id:'trex',           name:'Tyrannosaurus Rex', nick:'T-Rex',   diet:'Carnivore 🥩',  period:'Late Cretaceous (68–66 Ma)', length:'~12 m',      weight:'8–14 t',    found:'North America',    color:'#E07832', facts:['🦷 T-Rex had 60 banana-sized teeth!','💪 Its bite was the strongest of any land animal.','🍖 Could eat 230 kg of meat in one bite!'] },
-    { id:'triceratops',    name:'Triceratops',        nick:'Trike',   diet:'Herbivore 🌿',  period:'Late Cretaceous (68–66 Ma)', length:'~9 m',       weight:'6–12 t',    found:'North America',    color:'#4CAF50', facts:['🪙 Its frill may have been used for showing off!','🌿 Triceratops had up to 800 teeth.','🤼 It used its horns to fight T-Rex.'] },
-    { id:'brachiosaurus',  name:'Brachiosaurus',      nick:'Brachio', diet:'Herbivore 🌿',  period:'Late Jurassic (154–153 Ma)', length:'~26 m',      weight:'30–60 t',   found:'N. America, Africa',color:'#26A69A', facts:['🏗️ Taller than a 4-storey building!','🌿 Ate ~400 kg of plants every day.','❤️ Its heart weighed about 400 kg.'] },
-    { id:'velociraptor',   name:'Velociraptor',       nick:'Raptor',  diet:'Carnivore 🥩',  period:'Late Cretaceous (75–71 Ma)', length:'~2 m',       weight:'~15 kg',    found:'Mongolia, China',  color:'#9C27B0', facts:['🐦 Velociraptors had feathers like a bird!','🧠 Very smart — hunted in packs.','🦅 The real raptor was only turkey-sized.'] },
-    { id:'stegosaurus',    name:'Stegosaurus',        nick:'Stego',   diet:'Herbivore 🌿',  period:'Late Jurassic (155–150 Ma)', length:'~9 m',       weight:'~5 t',      found:'North America',    color:'#E53935', facts:['🔮 Its brain was the size of a walnut!','🏳️ Back plates may have changed colour.','⚔️ Spiked tail called a "thagomizer".'] },
-    { id:'pteranodon',     name:'Pteranodon',         nick:'Ptero',   diet:'Piscivore 🐟',  period:'Late Cretaceous (86–84 Ma)', length:'Wingspan ~7 m',weight:'~25 kg',   found:'North America',    color:'#1E88E5', facts:['✈️ Wingspan wider than a small airplane!','🐟 Scooped fish like a pelican.','🦴 Despite the name, NOT a dinosaur.'] },
-    { id:'ankylosaurus',   name:'Ankylosaurus',       nick:'Anky',    diet:'Herbivore 🌿',  period:'Late Cretaceous (68–66 Ma)', length:'~6–8 m',     weight:'~6 t',      found:'North America',    color:'#795548', facts:['🛡️ Its armour was tougher than bone!','🔨 Club tail could break a T-Rex\'s leg.','🐢 Basically a walking tank.'] },
-    { id:'spinosaurus',    name:'Spinosaurus',        nick:'Spino',   diet:'Carnivore 🥩',  period:'Cretaceous (112–97 Ma)',     length:'~14–18 m',   weight:'7–20 t',    found:'North Africa',     color:'#F9A825', facts:['🏆 Possibly the largest predatory dino!','🏊 It was a semi-aquatic swimmer.','⛵ Its sail may have stored fat like a camel.'] },
-    { id:'diplodocus',     name:'Diplodocus',         nick:'Diplo',   diet:'Herbivore 🌿',  period:'Late Jurassic (154–152 Ma)', length:'~27 m',      weight:'12–17 t',   found:'North America',    color:'#7CB342', facts:['📏 One of the longest dinos ever!','🌿 Ate low-lying ferns with its long neck.','🎵 Could crack its tail like a whip!'] },
-    { id:'parasaurolophus',name:'Parasaurolophus',    nick:'Para',    diet:'Herbivore 🌿',  period:'Late Cretaceous (76–73 Ma)', length:'~10 m',      weight:'~2.5 t',    found:'North America',    color:'#EC407A', facts:['🎺 Its crest worked like a trombone!','🌿 One of the most common duck-billed dinos.','🏃 Could run on two or four legs.'] },
+    { id:'trex',           name:'Tyrannosaurus Rex', nick:'T-Rex',   emoji:'🦖', diet:'Carnivore',  dietIcon:'🥩', period:'Late Cretaceous (68–66 Ma)', length:'~12 m',      weight:'8–14 t',    found:'North America',     color:'#E07832', facts:['T-Rex had 60 banana-sized teeth!','Its bite was the strongest of any land animal.','Could eat 230 kg of meat in one bite!'] },
+    { id:'triceratops',    name:'Triceratops',        nick:'Trike',   emoji:'🦕', diet:'Herbivore',  dietIcon:'🌿', period:'Late Cretaceous (68–66 Ma)', length:'~9 m',       weight:'6–12 t',    found:'North America',     color:'#4CAF50', facts:['Its frill may have been used for showing off!','Triceratops had up to 800 teeth.','It used its horns to fight T-Rex.'] },
+    { id:'brachiosaurus',  name:'Brachiosaurus',      nick:'Brachio', emoji:'🦕', diet:'Herbivore',  dietIcon:'🌿', period:'Late Jurassic (154–153 Ma)', length:'~26 m',      weight:'30–60 t',   found:'N. America, Africa', color:'#26A69A', facts:['Taller than a 4-storey building!','Ate around 400 kg of plants every day.','Its heart weighed about 400 kg.'] },
+    { id:'velociraptor',   name:'Velociraptor',       nick:'Raptor',  emoji:'🦖', diet:'Carnivore',  dietIcon:'🥩', period:'Late Cretaceous (75–71 Ma)', length:'~2 m',       weight:'~15 kg',    found:'Mongolia, China',   color:'#9C27B0', facts:['Velociraptors had feathers like a bird!','Very smart — hunted in packs.','The real raptor was only turkey-sized.'] },
+    { id:'stegosaurus',    name:'Stegosaurus',        nick:'Stego',   emoji:'🦕', diet:'Herbivore',  dietIcon:'🌿', period:'Late Jurassic (155–150 Ma)', length:'~9 m',       weight:'~5 t',      found:'North America',     color:'#E53935', facts:['Its brain was the size of a walnut!','Back plates may have changed colour.','Spiked tail was called a "thagomizer".'] },
+    { id:'pteranodon',     name:'Pteranodon',         nick:'Ptero',   emoji:'🦅', diet:'Piscivore',  dietIcon:'🐟', period:'Late Cretaceous (86–84 Ma)', length:'Wingspan ~7 m',weight:'~25 kg',   found:'North America',     color:'#1E88E5', facts:['Wingspan wider than a small airplane!','Scooped fish from the ocean like a pelican.','Despite the name, NOT a dinosaur.'] },
+    { id:'ankylosaurus',   name:'Ankylosaurus',       nick:'Anky',    emoji:'🦕', diet:'Herbivore',  dietIcon:'🌿', period:'Late Cretaceous (68–66 Ma)', length:'~6–8 m',     weight:'~6 t',      found:'North America',     color:'#795548', facts:['Its armour was tougher than bone!','Club tail could break a T-Rex\'s leg.','Basically a walking tank covered in spikes.'] },
+    { id:'spinosaurus',    name:'Spinosaurus',        nick:'Spino',   emoji:'🦖', diet:'Carnivore',  dietIcon:'🥩', period:'Cretaceous (112–97 Ma)',     length:'~14–18 m',   weight:'7–20 t',    found:'North Africa',      color:'#F9A825', facts:['Possibly the largest predatory dino ever!','It was a semi-aquatic swimmer.','Its sail may have stored fat like a camel.'] },
+    { id:'diplodocus',     name:'Diplodocus',         nick:'Diplo',   emoji:'🦕', diet:'Herbivore',  dietIcon:'🌿', period:'Late Jurassic (154–152 Ma)', length:'~27 m',      weight:'12–17 t',   found:'North America',     color:'#7CB342', facts:['One of the longest dinos ever discovered!','Used its long neck to reach low-lying ferns.','Could crack its tail like a whip — supersonic!'] },
+    { id:'parasaurolophus',name:'Parasaurolophus',    nick:'Para',    emoji:'🦕', diet:'Herbivore',  dietIcon:'🌿', period:'Late Cretaceous (76–73 Ma)', length:'~10 m',      weight:'~2.5 t',    found:'North America',     color:'#EC407A', facts:['Its crest worked like a trombone — it could HONK!','One of the most common duck-billed dinos.','Could run on two or four legs.'] },
 ];
 
 // ── State ─────────────────────────────────────────────────
@@ -183,23 +183,27 @@ function draw() {
     // Ground
     ctx.fillStyle = '#8B7355'; ctx.fillRect(0, H - 36, W, 36);
 
-    // Dinos
+    // Dinos — colored box with big bold name (no emoji; emoji renders as boxes on Windows canvas)
     G.dinos.forEach(d => {
         const { x, y } = d;
-        // Colored box
         ctx.fillStyle = d.dino.color;
-        ctx.strokeStyle = '#000'; ctx.lineWidth = 3;
-        roundRect(ctx, x - 48, y - 30, 96, 60, 10, true, true);
-        // Emoji
-        ctx.font = '28px serif';
+        ctx.strokeStyle = '#111'; ctx.lineWidth = 3;
+        roundRect(ctx, x - 48, y - 26, 96, 52, 10, true, true);
+
+        // Diet type top strip
+        ctx.fillStyle = 'rgba(0,0,0,0.25)';
+        roundRect(ctx, x - 48, y - 26, 96, 18, [10,10,0,0], true, false);
+        ctx.font = 'bold 10px Arial, sans-serif';
         ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        ctx.fillText(d.dino.emoji, x, y - 8);
-        // Name label
-        ctx.font = 'bold 12px Arial, sans-serif';
-        ctx.strokeStyle = '#000'; ctx.lineWidth = 3;
-        ctx.strokeText(d.dino.nick, x, y + 18);
         ctx.fillStyle = '#FFF';
-        ctx.fillText(d.dino.nick, x, y + 18);
+        ctx.fillText(d.dino.diet.toUpperCase(), x, y - 17);
+
+        // Big dino name
+        ctx.font = 'bold 16px Arial Black, Arial, sans-serif';
+        ctx.strokeStyle = '#000'; ctx.lineWidth = 4;
+        ctx.strokeText(d.dino.nick, x, y + 6);
+        ctx.fillStyle = '#FFF';
+        ctx.fillText(d.dino.nick, x, y + 6);
     });
 
     // Bullets
@@ -286,7 +290,7 @@ function showFactPanel(dino) {
             <div style="font:bold 18px Arial Black,Arial;color:#CC2200;margin-bottom:4px">Oops! That was a ${dino.nick}!</div>
             <div style="font:bold 22px Arial Black,Arial;color:${dino.color};margin-bottom:14px">${dino.name}</div>
             <table style="width:100%;border-collapse:collapse;margin-bottom:14px;font-size:13px">
-                <tr><td style="padding:3px 0;color:#555;font-weight:bold;width:80px">Diet</td><td>${dino.diet}</td></tr>
+                <tr><td style="padding:3px 0;color:#555;font-weight:bold;width:80px">Diet</td><td>${dino.diet} ${dino.dietIcon}</td></tr>
                 <tr><td style="padding:3px 0;color:#555;font-weight:bold">Period</td><td>${dino.period}</td></tr>
                 <tr><td style="padding:3px 0;color:#555;font-weight:bold">Length</td><td>${dino.length}</td></tr>
                 <tr><td style="padding:3px 0;color:#555;font-weight:bold">Weight</td><td>${dino.weight}</td></tr>

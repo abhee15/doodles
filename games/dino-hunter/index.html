@@ -79,11 +79,10 @@
     <script>
         var grid = document.getElementById('dino-grid');
         DINOS.forEach(function(dino) {
-            var icon = dino.diet.indexOf('Carnivore') >= 0 ? '🥩' : dino.diet.indexOf('Piscivore') >= 0 ? '🐟' : '🌿';
             var btn = document.createElement('button');
             btn.className = 'dino-btn';
             btn.style.background = dino.color;
-            btn.innerHTML = '<span style="font-size:22px">' + dino.emoji + '</span><br>' + dino.nick + '<br>' + icon;
+            btn.innerHTML = '<span style="font-size:22px">' + dino.emoji + '</span><br>' + dino.nick + '<br><span style="font-size:14px">' + dino.dietIcon + ' ' + dino.diet + '</span>';
             btn.onclick = function() {
                 document.getElementById('select-screen').style.display = 'none';
                 window.startDinoGame(dino.id);
