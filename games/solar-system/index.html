@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Planet Quest - Explore the Solar System | Doodles Games</title>
+    <meta name="description" content="Explore the solar system! Learn about planets, moons, and amazing space facts through interactive quizzes and a beautiful animated solar system.">
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/solar-system/">
+    <link rel="stylesheet" href="../../shared/game-page-v2.css">
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+
+    <style>
+        /* ── Mode-select overlay ───────────────────────── */
+        #mode-screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(ellipse at 50% 30%, #1a1060 0%, #0B0E2D 55%, #000510 100%);
+            padding: 20px;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Twinkling stars background */
+        #mode-screen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(1px 1px at 10% 15%, #fff 0%, transparent 100%),
+                radial-gradient(1px 1px at 25% 40%, #fff 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 40% 10%, #ffe 0%, transparent 100%),
+                radial-gradient(1px 1px at 55% 60%, #fff 0%, transparent 100%),
+                radial-gradient(1px 1px at 70% 20%, #fff 0%, transparent 100%),
+                radial-gradient(2px 2px at 80% 75%, #ffe 0%, transparent 100%),
+                radial-gradient(1px 1px at 90% 35%, #fff 0%, transparent 100%),
+                radial-gradient(1px 1px at 15% 80%, #fff 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 60% 85%, #fff 0%, transparent 100%),
+                radial-gradient(1px 1px at 45% 70%, #fff 0%, transparent 100%),
+                radial-gradient(1px 1px at 85% 50%, #fff 0%, transparent 100%),
+                radial-gradient(2px 2px at 30% 25%, #ffe 0%, transparent 100%),
+                radial-gradient(1px 1px at 5% 55%, #fff 0%, transparent 100%),
+                radial-gradient(1px 1px at 95% 90%, #fff 0%, transparent 100%),
+                radial-gradient(1.5px 1.5px at 50% 45%, #fff 0%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .mode-content {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 620px;
+        }
+
+        .mode-title {
+            font-size: clamp(26px, 5vw, 44px);
+            font-weight: 900;
+            color: #FDD835;
+            text-shadow: 0 0 20px rgba(253,216,53,0.5), 2px 2px 0 #7B5800;
+            margin: 0 0 4px;
+            text-align: center;
+            letter-spacing: -0.5px;
+        }
+
+        .mode-subtitle {
+            font-size: clamp(13px, 2.2vw, 17px);
+            color: #90CAF9;
+            margin: 0 0 28px;
+            text-align: center;
+            opacity: 0.9;
+        }
+
+        .planet-strip {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .planet-pip {
+            font-size: clamp(18px, 3vw, 26px);
+            animation: pipFloat 3s ease-in-out infinite;
+        }
+        .planet-pip:nth-child(2) { animation-delay: 0.3s; }
+        .planet-pip:nth-child(3) { animation-delay: 0.6s; }
+        .planet-pip:nth-child(4) { animation-delay: 0.9s; }
+        .planet-pip:nth-child(5) { animation-delay: 1.2s; }
+        .planet-pip:nth-child(6) { animation-delay: 1.5s; }
+        .planet-pip:nth-child(7) { animation-delay: 1.8s; }
+        .planet-pip:nth-child(8) { animation-delay: 2.1s; }
+
+        @keyframes pipFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+        }
+
+        .mode-cards {
+            display: flex;
+            gap: 16px;
+            width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .mode-card {
+            flex: 1;
+            min-width: 200px;
+            max-width: 260px;
+            border: 2px solid rgba(255,255,255,0.15);
+            border-radius: 16px;
+            padding: 22px 18px 20px;
+            cursor: pointer;
+            transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+            text-align: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mode-card.explore-card {
+            background: linear-gradient(145deg, #0D47A1 0%, #1565C0 60%, #0A3880 100%);
+        }
+        .mode-card.quiz-card {
+            background: linear-gradient(145deg, #4A148C 0%, #6A1B9A 60%, #38006b 100%);
+        }
+
+        .mode-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            border-color: rgba(255,255,255,0.45);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.5);
+        }
+        .mode-card:active { transform: scale(0.97); }
+
+        .mode-card-icon { font-size: 40px; margin-bottom: 10px; display: block; }
+        .mode-card-title {
+            font-size: clamp(16px, 2.8vw, 20px);
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .mode-card-desc {
+            font-size: clamp(11px, 1.8vw, 13px);
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+        }
+        .mode-card-badge {
+            display: inline-block;
+            margin-top: 12px;
+            background: rgba(255,255,255,0.18);
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .mnemonic {
+            margin-top: 22px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 10px;
+            padding: 10px 18px;
+            font-size: clamp(10px, 1.6vw, 13px);
+            color: rgba(255,255,255,0.65);
+            text-align: center;
+        }
+        .mnemonic strong { color: #FDD835; }
+    </style>
+</head>
+<body>
+    <a href="../../index.html" class="back-link">← Back</a>
+
+    <div id="game-container">
+        <!-- Mode selection overlays canvas -->
+        <div id="mode-screen">
+            <div class="mode-content">
+                <h1 class="mode-title">🪐 Planet Quest</h1>
+                <p class="mode-subtitle">Explore our Solar System &amp; become a Space Expert!</p>
+
+                <div class="planet-strip">
+                    <span class="planet-pip">☀️</span>
+                    <span class="planet-pip">🔵</span>
+                    <span class="planet-pip">🌕</span>
+                    <span class="planet-pip">🌍</span>
+                    <span class="planet-pip">🔴</span>
+                    <span class="planet-pip">🟠</span>
+                    <span class="planet-pip">🪐</span>
+                    <span class="planet-pip">🩵</span>
+                    <span class="planet-pip">💙</span>
+                </div>
+
+                <div class="mode-cards">
+                    <div class="mode-card explore-card" id="btn-explore">
+                        <span class="mode-card-icon">🔭</span>
+                        <div class="mode-card-title">Explore Mode</div>
+                        <div class="mode-card-desc">Click any planet or moon to discover amazing facts. No pressure — just explore!</div>
+                        <span class="mode-card-badge">Free Roam</span>
+                    </div>
+                    <div class="mode-card quiz-card" id="btn-quiz">
+                        <span class="mode-card-icon">❓</span>
+                        <div class="mode-card-title">Quiz Mode</div>
+                        <div class="mode-card-desc">Answer questions by clicking planets in the solar system. Earn stars &amp; unlock facts!</div>
+                        <span class="mode-card-badge">6 Levels</span>
+                    </div>
+                </div>
+
+                <div class="mnemonic">
+                    💡 <strong>Memory Trick:</strong> <em>"My Very Educated Mother Just Served Us Nachos"</em><br>
+                    Mercury · Venus · Earth · Mars · Jupiter · Saturn · Uranus · Neptune
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+    <script src="../../shared/game-config.js"></script>
+    <script src="../../shared/design-system.js"></script>
+    <script src="../../shared/ui-components.js"></script>
+    <script src="planet-data.js"></script>
+    <script src="game.js"></script>
+
+    <script>
+        document.getElementById('btn-explore').onclick = function () {
+            document.getElementById('mode-screen').style.display = 'none';
+            window.startPlanetQuest('explore');
+        };
+        document.getElementById('btn-quiz').onclick = function () {
+            document.getElementById('mode-screen').style.display = 'none';
+            window.startPlanetQuest('quiz');
+        };
+    </script>
+</body>
+</html>
