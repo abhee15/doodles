@@ -124,22 +124,18 @@ function createButton(scene, x, y, label, callback, options = {}) {
     const style = getButtonStyle(variant);
     const dimensions = getButtonSize(size);
 
-    // Container for all button elements
-    const container = scene.add.container(x, y);
-
-    // Background
-    const bg = scene.add.rectangle(
-        0, 0,
-        dimensions.width, dimensions.height,
-        style.bgColor
-    );
+    // Standalone background — NOT inside a Phaser Container.
+    // Phaser Container children do not correctly propagate setScrollFactor(0)
+    // to their hit-area when the camera is scrolled, causing touch misses.
+    // Standalone objects with setScrollFactor(0) work correctly.
+    const bg = scene.add.rectangle(x, y, dimensions.width, dimensions.height, style.bgColor);
     bg.setOrigin(0.5);
     bg.setInteractive({ useHandCursor: true });
     if (style.alpha) bg.setAlpha(style.alpha);
 
-    // Text (with optional icon)
+    // Standalone text (rendered just above bg)
     const displayText = icon ? `${icon} ${label}` : label;
-    const text = scene.add.text(0, 0, displayText, {
+    const text = scene.add.text(x, y, displayText, {
         fontSize: dimensions.fontSize,
         fill: style.textColor,
         fontFamily: 'Arial, sans-serif',
@@ -148,18 +144,17 @@ function createButton(scene, x, y, label, callback, options = {}) {
     });
     text.setOrigin(0.5);
 
-    // Add to container
-    container.add([bg, text]);
+    // Scale both objects together (replaces container.setScale)
+    const setScale = (s) => { bg.setScale(s); text.setScale(s); };
 
     // Interaction states
     let isPressed = false;
 
-    // Hover effect
     bg.on('pointerover', () => {
         if (!isPressed) {
             bg.setFillStyle(style.bgColorHover);
             if (style.alphaHover) bg.setAlpha(style.alphaHover);
-            container.setScale(1.03);
+            setScale(1.03);
         }
     });
 
@@ -167,40 +162,64 @@ function createButton(scene, x, y, label, callback, options = {}) {
         if (!isPressed) {
             bg.setFillStyle(style.bgColor);
             if (style.alpha) bg.setAlpha(style.alpha);
-            container.setScale(1);
+            setScale(1);
         }
     });
 
-    // Press effect
     bg.on('pointerdown', () => {
         isPressed = true;
         bg.setFillStyle(style.bgColorPressed);
         if (style.alphaPressed) bg.setAlpha(style.alphaPressed);
-        container.setScale(0.97);
+        setScale(0.97);
     });
 
     bg.on('pointerup', () => {
         isPressed = false;
         bg.setFillStyle(style.bgColorHover);
         if (style.alphaHover) bg.setAlpha(style.alphaHover);
-        container.setScale(1.03);
-
-        // Execute callback
+        setScale(1.03);
         if (callback && typeof callback === 'function') {
             callback();
         }
     });
 
-    // Return button object with helper methods
+    // Compatibility shim so existing callers can still do:
+    //   btn.container.setScrollFactor(0).setDepth(N)
+    const containerShim = {
+        setScrollFactor: (sfx, sfy) => {
+            const sy = (sfy !== undefined) ? sfy : sfx;
+            bg.setScrollFactor(sfx, sy);
+            text.setScrollFactor(sfx, sy);
+            return containerShim;
+        },
+        setDepth: (d) => {
+            bg.setDepth(d);
+            text.setDepth(d + 1); // text always one layer above bg
+            return containerShim;
+        },
+        setPosition: (nx, ny) => {
+            bg.setPosition(nx, ny);
+            text.setPosition(nx, ny);
+            return containerShim;
+        },
+        setVisible: (v) => {
+            bg.setVisible(v);
+            text.setVisible(v);
+            return containerShim;
+        },
+        setScale: (s) => { setScale(s); return containerShim; },
+        setAlpha: (a) => { bg.setAlpha(a); text.setAlpha(a); return containerShim; },
+        destroy: () => { bg.destroy(); text.destroy(); }
+    };
+
     return {
-        container: container,
+        container: containerShim,
         background: bg,
         text: text,
-        setPosition: (newX, newY) => container.setPosition(newX, newY),
-        setVisible: (visible) => container.setVisible(visible),
+        setPosition: (newX, newY) => { bg.setPosition(newX, newY); text.setPosition(newX, newY); },
+        setVisible: (visible) => { bg.setVisible(visible); text.setVisible(visible); },
         setText: (newText) => {
-            const displayText = icon ? `${icon} ${newText}` : newText;
-            text.setText(displayText);
+            text.setText(icon ? `${icon} ${newText}` : newText);
         },
         setEnabled: (enabled) => {
             if (enabled) {
@@ -211,7 +230,7 @@ function createButton(scene, x, y, label, callback, options = {}) {
                 bg.setAlpha(0.5);
             }
         },
-        destroy: () => container.destroy()
+        destroy: () => { bg.destroy(); text.destroy(); }
     };
 }
 
@@ -441,7 +460,7 @@ function createModal(scene, title, message, buttons = []) {
                 size: ButtonSizes.MEDIUM
             }
         );
-        container.add(button.container);
+        container.add([button.background, button.text]);
     });
 
     return {
