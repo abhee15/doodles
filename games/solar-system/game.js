@@ -72,7 +72,7 @@ const W = 900;
 const H = 650;
 
 // Sun position — offset left so Neptune's full right arc fills the canvas
-const SUN_X = 300;
+const SUN_X = 360;
 const SUN_Y = H / 2;
 
 // ── Entry point (called from HTML) ─────────────────────────────
