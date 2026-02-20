@@ -127,16 +127,6 @@ function createButton(scene, x, y, label, callback, options = {}) {
     // Container for all button elements
     const container = scene.add.container(x, y);
 
-    // Shadow (for depth)
-    const shadow = scene.add.rectangle(
-        0, 4,
-        dimensions.width, dimensions.height,
-        style.shadowColor, style.shadowAlpha
-    );
-    shadow.setOrigin(0.5);
-    const shadowRadius = Math.min(dimensions.height / 2, 25);
-    // Note: Phaser doesn't support border-radius, but we'll use rounded rectangles
-
     // Background
     const bg = scene.add.rectangle(
         0, 0,
@@ -159,7 +149,7 @@ function createButton(scene, x, y, label, callback, options = {}) {
     text.setOrigin(0.5);
 
     // Add to container
-    container.add([shadow, bg, text]);
+    container.add([bg, text]);
 
     // Interaction states
     let isPressed = false;
@@ -170,7 +160,6 @@ function createButton(scene, x, y, label, callback, options = {}) {
             bg.setFillStyle(style.bgColorHover);
             if (style.alphaHover) bg.setAlpha(style.alphaHover);
             container.setScale(1.03);
-            shadow.y = 5;
         }
     });
 
@@ -179,7 +168,6 @@ function createButton(scene, x, y, label, callback, options = {}) {
             bg.setFillStyle(style.bgColor);
             if (style.alpha) bg.setAlpha(style.alpha);
             container.setScale(1);
-            shadow.y = 4;
         }
     });
 
@@ -189,8 +177,6 @@ function createButton(scene, x, y, label, callback, options = {}) {
         bg.setFillStyle(style.bgColorPressed);
         if (style.alphaPressed) bg.setAlpha(style.alphaPressed);
         container.setScale(0.97);
-        shadow.y = 2;
-        shadow.setAlpha(style.shadowAlpha * 0.5);
     });
 
     bg.on('pointerup', () => {
@@ -198,8 +184,6 @@ function createButton(scene, x, y, label, callback, options = {}) {
         bg.setFillStyle(style.bgColorHover);
         if (style.alphaHover) bg.setAlpha(style.alphaHover);
         container.setScale(1.03);
-        shadow.y = 5;
-        shadow.setAlpha(style.shadowAlpha);
 
         // Execute callback
         if (callback && typeof callback === 'function') {

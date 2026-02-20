@@ -133,7 +133,6 @@ body {
 
 .pill.active {
     background: #fff; color: var(--text); border-color: #fff;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
 }
 
 .pill i { font-size: 15px; }
@@ -217,15 +216,14 @@ body {
     border-radius: 20px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.1), 0 8px 28px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.08);
     text-decoration: none;
     color: #fff;
-    transition: transform 0.22s, box-shadow 0.22s;
+    transition: transform 0.22s;
 }
 
 .game-card:hover {
     transform: translateY(-6px) scale(1.015);
-    box-shadow: 0 14px 44px rgba(0,0,0,0.22), 0 4px 14px rgba(0,0,0,0.1);
 }
 
 /* ── Thumbnail — fills the entire card ── */
