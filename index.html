@@ -349,11 +349,31 @@
     </div>
     <div class="footer-bottom">
         <p>© 2026 Doodles · Built with ❤️ for learning</p>
+        <button class="footer-contact-btn" onclick="openFeedbackModal()">📧 Contact Us</button>
         <div class="cat-swatches">
             <div class="swatch" style="background:var(--c-math)"></div>
             <div class="swatch" style="background:var(--c-geo)"></div>
             <div class="swatch" style="background:var(--c-words)"></div>
             <div class="swatch" style="background:var(--c-science)"></div>
+        </div>
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedbackModal" class="feedback-modal">
+        <div class="feedback-modal-content">
+            <div class="feedback-modal-header">
+                <h2>💡 Send Feedback</h2>
+                <button class="close-btn" onclick="closeFeedbackModal()">&times;</button>
+            </div>
+            <form action="https://formspree.io/f/mpqjjeed" method="POST" class="feedback-form">
+                <label>Email</label>
+                <input type="email" name="email" placeholder="your-email@example.com" required>
+
+                <label>Your Idea or Issue</label>
+                <textarea name="message" placeholder="Tell us what game you'd like to see or any issues you found..." required rows="6"></textarea>
+
+                <button type="submit" class="submit-btn">Send 🚀</button>
+            </form>
         </div>
     </div>
 </footer>
@@ -380,6 +400,25 @@
         });
         empty.style.display = found ? 'none' : 'block';
     }
+
+    // Feedback modal
+    function openFeedbackModal() {
+        document.getElementById('feedbackModal').style.display = 'flex';
+    }
+
+    function closeFeedbackModal() {
+        document.getElementById('feedbackModal').style.display = 'none';
+    }
+
+    // Close modal when clicking outside the content
+    document.getElementById('feedbackModal')?.addEventListener('click', (e) => {
+        if (e.target.id === 'feedbackModal') closeFeedbackModal();
+    });
+
+    // Reset form after submission
+    document.querySelector('.feedback-form')?.addEventListener('submit', () => {
+        setTimeout(() => closeFeedbackModal(), 500);
+    });
 </script>
 
 <!-- Analytics -->
