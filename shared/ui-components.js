@@ -209,6 +209,10 @@ function createButton(scene, x, y, label, callback, options = {}) {
         },
         setScale: (s) => { setScale(s); return containerShim; },
         setAlpha: (a) => { bg.setAlpha(a); text.setAlpha(a); return containerShim; },
+        setName: (n) => {
+            bg.setName(n);
+            return containerShim;
+        },
         destroy: () => { bg.destroy(); text.destroy(); }
     };
 
