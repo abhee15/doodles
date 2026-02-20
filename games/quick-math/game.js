@@ -86,7 +86,7 @@ const ACHIEVEMENTS = {
         name: 'Math Genius',
         icon: '🧠',
         description: 'Unlock all levels',
-        check: () => playerProgress.unlockedLevels >= 4
+        check: () => playerProgress.unlockedLevels >= 6
     },
     score_master: {
         id: 'score_master',
@@ -497,7 +497,9 @@ function showLevelSelect(scene) {
         { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x5F6FFF },
         { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF6348, locked: true },
         { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0xA44A3F, locked: true },
-        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFB800, locked: true }
+        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFB800, locked: true },
+        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0xEC4899, locked: true },
+        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x10B981, locked: true }
     ];
 
     levels.forEach((level, index) => {
@@ -617,6 +619,10 @@ function showTutorial(scene, levelId) {
         tutorialDoubleAndHalf(scene);
     } else if (levelId === 4) {
         tutorialBaseMethod(scene);
+    } else if (levelId === 5) {
+        tutorialMultiplyBy9(scene);
+    } else if (levelId === 6) {
+        tutorialMultiplyBy5(scene);
     }
     // Add more tutorials for other levels later
 }
@@ -1069,6 +1075,224 @@ function tutorialBaseMethod(scene) {
     showStep();
 }
 
+// ==================== TUTORIAL: MULTIPLY BY 9 ====================
+function tutorialMultiplyBy9(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Multiply by 9 - The Magic Trick!',
+            text: 'Learn the EASIEST way to do the 9× table using your FINGERS!',
+            example: ''
+        },
+        {
+            title: 'Your Hands Are Magic! ✨',
+            text: 'Hold up all 10 fingers.\nTo multiply 3 × 9:\nBend down your 3rd finger.',
+            example: '9 × 3 = ?'
+        },
+        {
+            title: 'Count the Fingers!',
+            text: 'On the LEFT of the bent finger: 2 fingers\nOn the RIGHT of the bent finger: 7 fingers\n\nAnswer: 27!',
+            example: '9 × 3 = 27 ✓'
+        },
+        {
+            title: 'Try Another: 9 × 4',
+            text: 'Bend your 4th finger.\nLeft side: 3 fingers\nRight side: 6 fingers\n\nAnswer?',
+            example: '9 × 4 = 36'
+        },
+        {
+            title: 'Try Another: 9 × 7',
+            text: 'Bend your 7th finger.\nLeft side: 6 fingers\nRight side: 3 fingers\n\nAnswer?',
+            example: '9 × 7 = 63'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Number being multiplied by 9 = TENS digit\nBend that finger\nLefthand fingers = TENS\nRighthand fingers = ONES\n\nIt always works!',
+            example: '✨ Your hands are a calculator! ✨'
+        },
+        {
+            title: 'Cool Pattern!',
+            text: 'Look at the 9× answers:\n9, 18, 27, 36, 45, 54, 63, 72, 81, 90\n\nNotice: tens + ones always = 9!\n2+7=9, 3+6=9, 4+5=9',
+            example: '🎯 The digit sum is always 9!'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#A44A3F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 5);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
+// ==================== TUTORIAL: MULTIPLY BY 5 ====================
+function tutorialMultiplyBy5(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Multiply by 5 - Simple & Fast!',
+            text: 'Learn the QUICKEST way to multiply any number by 5!',
+            example: ''
+        },
+        {
+            title: 'The Trick: Multiply by 10, then Divide by 2',
+            text: 'Multiplying by 5 is just HALF of multiplying by 10!\n\n24 × 5 = 24 × 10 ÷ 2',
+            example: '24 × 5 = ?'
+        },
+        {
+            title: 'Step 1: Multiply by 10',
+            text: 'To multiply by 10, just add a ZERO!\n\n24 × 10 = 240',
+            example: '240'
+        },
+        {
+            title: 'Step 2: Divide by 2 (Cut in Half)',
+            text: 'Now CUT that number in HALF:\n240 ÷ 2 = 120',
+            example: '120'
+        },
+        {
+            title: 'Final Answer!',
+            text: 'So 24 × 5 = 120\n\nCheck: 24 × 5 = 20 × 5 + 4 × 5\n= 100 + 20 = 120 ✓',
+            example: '24 × 5 = 120'
+        },
+        {
+            title: 'More Examples!',
+            text: '18 × 5 = 18 × 10 ÷ 2 = 180 ÷ 2 = 90\n16 × 5 = 16 × 10 ÷ 2 = 160 ÷ 2 = 80\n32 × 5 = 32 × 10 ÷ 2 = 320 ÷ 2 = 160',
+            example: '✨ So Fast! ✨'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Any number × 5 = That number × 10 ÷ 2\n\nOr: Multiply by 10 (add zero)\nthen halve the result!\n\nWorks for ANY number!',
+            example: '🎯 Ready to practice!'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#A44A3F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 6);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
 // ==================== PRACTICE MODE ====================
 function showPractice(scene, levelId) {
     scene.children.removeAll();
@@ -1147,6 +1371,24 @@ function showPractice(scene, levelId) {
                 type: 'base'
             };
             currentQuestion.answer = num1 * num2;
+        } else if (levelId === 5) {
+            // Level 5: Multiply by 9 (using finger trick concept)
+            const num = Phaser.Math.Between(1, 10);
+            currentQuestion = {
+                num: num,
+                answer: null,
+                type: '×9'
+            };
+            currentQuestion.answer = num * 9;
+        } else if (levelId === 6) {
+            // Level 6: Multiply by 5 (multiply by 10 then divide by 2)
+            const evenNum = Phaser.Math.Between(4, 24) * 2; // 8, 10, 12...48 (all even for easy halving)
+            currentQuestion = {
+                num: evenNum,
+                answer: null,
+                type: '×5'
+            };
+            currentQuestion.answer = evenNum * 5;
         }
 
         if (questionText) questionText.destroy();
@@ -1164,6 +1406,10 @@ function showPractice(scene, levelId) {
             questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
         } else if (currentQuestion.type === 'base') {
             questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
+        } else if (currentQuestion.type === '×9') {
+            questionStr = `${currentQuestion.num} × 9 = ?`;
+        } else if (currentQuestion.type === '×5') {
+            questionStr = `${currentQuestion.num} × 5 = ?`;
         }
 
         questionText = scene.add.text(450, 120, questionStr, {
