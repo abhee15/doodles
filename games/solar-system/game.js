@@ -71,8 +71,8 @@ let celebrationGroup = null;
 const W = 900;
 const H = 650;
 
-// Sun position — centred enough to show all orbits cleanly
-const SUN_X = 200;
+// Sun position — offset left so Neptune's full right arc fills the canvas
+const SUN_X = 300;
 const SUN_Y = H / 2;
 
 // ── Entry point (called from HTML) ─────────────────────────────
@@ -649,6 +649,36 @@ function showFactCard(scene, obj, targetX, targetY) {
             wordWrap: { width: cardW - 36 }, align: 'center',
         }).setOrigin(0.5, 0);
         factCardGroup.add(ff);
+    }
+
+    // Next button — explore mode only, cycles through Sun → all planets
+    if (gameMode === 'explore') {
+        const exploreSeq = [SUN, ...PLANETS];
+        const curIdx = exploreSeq.findIndex(o => o.id === obj.id);
+        if (curIdx !== -1) {
+            const nextIdx = (curIdx + 1) % exploreSeq.length;
+            const nextObj = exploreSeq[nextIdx];
+
+            const nextBg = scene.add.graphics();
+            nextBg.fillStyle(0x1A3A8A, 0.9);
+            nextBg.fillRoundedRect(-90, -14, 90, 28, 7);
+            nextBg.lineStyle(1, 0x5A90FF, 0.8);
+            nextBg.strokeRoundedRect(-90, -14, 90, 28, 7);
+            nextBg.setPosition(cardW / 2 - 10, cardH / 2 - 12);
+            factCardGroup.add(nextBg);
+
+            const nextBtn = scene.add.text(cardW / 2 - 16, cardH / 2 - 12, nextObj.emoji + ' ' + nextObj.name + ' →', {
+                fontSize: '11.5px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif', fontStyle: 'bold',
+            }).setOrigin(1, 0.5).setInteractive({ useHandCursor: true });
+            nextBtn.on('pointerover', () => { nextBtn.setStyle({ fill: '#FFD740' }); nextBg.clear(); nextBg.fillStyle(0x2A5ABE, 1); nextBg.fillRoundedRect(-90, -14, 90, 28, 7); nextBg.lineStyle(1, 0x80B8FF, 1); nextBg.strokeRoundedRect(-90, -14, 90, 28, 7); });
+            nextBtn.on('pointerout',  () => { nextBtn.setStyle({ fill: '#90CAF9' }); nextBg.clear(); nextBg.fillStyle(0x1A3A8A, 0.9); nextBg.fillRoundedRect(-90, -14, 90, 28, 7); nextBg.lineStyle(1, 0x5A90FF, 0.8); nextBg.strokeRoundedRect(-90, -14, 90, 28, 7); });
+            nextBtn.on('pointerup', () => {
+                const nx = nextObj.id === 'sun' ? SUN_X : (planetObjects[nextObj.id]?.x || W / 2);
+                const ny = nextObj.id === 'sun' ? SUN_Y : (planetObjects[nextObj.id]?.y || H / 2);
+                showFactCard(scene, nextObj, nx, ny);
+            });
+            factCardGroup.add(nextBtn);
+        }
     }
 
     // Close button
