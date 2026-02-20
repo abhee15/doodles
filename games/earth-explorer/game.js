@@ -61,15 +61,15 @@ function showMainMenu(scene) {
     scene.add.text(250, 130, '🗺️', { fontSize: '40px' });
     scene.add.text(630, 130, '🌊', { fontSize: '40px' });
 
-    createButton(scene, 450, 280, '🌍 Continents Only', 0xCBDFBD, () => {
+    createMapButton(scene, 450, 280, '🌍 Continents Only', 0xCBDFBD, () => {
         startGame(scene, 'continents');
     }, 300, 70);
 
-    createButton(scene, 450, 370, '🌊 Oceans Only', 0xA44A3F, () => {
+    createMapButton(scene, 450, 370, '🌊 Oceans Only', 0xA44A3F, () => {
         startGame(scene, 'oceans');
     }, 300, 70);
 
-    createButton(scene, 450, 460, '🌏 Both (Challenge!)', 0xF19C79, () => {
+    createMapButton(scene, 450, 460, '🌏 Both (Challenge!)', 0xF19C79, () => {
         startGame(scene, 'mixed');
     }, 300, 70);
 
@@ -334,8 +334,8 @@ function showResults(scene) {
         fontSize: '56px'
     }).setOrigin(0.5);
 
-    createButton(scene, 300, 420, '🔄 Play Again', 0x10B981, () => showMainMenu(scene), 220, 60);
-    createButton(scene, 600, 420, '← Main Menu', 0x4F46E5, () => showMainMenu(scene), 220, 60);
+    createMapButton(scene, 300, 420, '🔄 Play Again', 0x10B981, () => showMainMenu(scene), 220, 60);
+    createMapButton(scene, 600, 420, '← Main Menu', 0x4F46E5, () => showMainMenu(scene), 220, 60);
 
     if (window.gameAnalytics) {
         window.gameAnalytics.trackLevelComplete('earth-explorer', gameData.currentDifficulty, stars);
@@ -343,7 +343,7 @@ function showResults(scene) {
 }
 
 // ==================== BUTTON ====================
-function createButton(scene, x, y, label, color, callback, width = 200, height = 60) {
+function createMapButton(scene, x, y, label, color, callback, width = 200, height = 60) {
     const button = scene.add.rectangle(x, y, width, height, color).setInteractive({ useHandCursor: true });
     const text = scene.add.text(x, y, label, {
         fontSize: '20px',
