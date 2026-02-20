@@ -615,6 +615,8 @@ function showTutorial(scene, levelId) {
         tutorialSquareEndingIn5(scene);
     } else if (levelId === 3) {
         tutorialDoubleAndHalf(scene);
+    } else if (levelId === 4) {
+        tutorialBaseMethod(scene);
     }
     // Add more tutorials for other levels later
 }
@@ -948,6 +950,125 @@ function tutorialDoubleAndHalf(scene) {
     showStep();
 }
 
+// ==================== TUTORIAL: BASE METHOD ====================
+function tutorialBaseMethod(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Base Method',
+            text: 'Learn to multiply numbers CLOSE to 10, 100, 1000!',
+            example: ''
+        },
+        {
+            title: 'What is "Base"?',
+            text: 'Base means a NUMBER that\'s easy to work with.\n\nExamples: 10, 100, 1000',
+            example: 'We use 10 as our base!'
+        },
+        {
+            title: 'Example: 9 × 11',
+            text: 'Both numbers are CLOSE to 10:\n9 is 1 LESS than 10\n11 is 1 MORE than 10',
+            example: 'Let\'s use this!'
+        },
+        {
+            title: 'Step 1: Distance from Base',
+            text: '9 is 1 away from 10 → write -1\n11 is 1 away from 10 → write +1',
+            example: '-1  and  +1'
+        },
+        {
+            title: 'Step 2: Multiply the Distances',
+            text: 'Multiply the two distances:\n(-1) × (+1) = -1',
+            example: '-1'
+        },
+        {
+            title: 'Step 3: Subtract from Base',
+            text: 'Start with the base: 10\nSubtract the result: 10 - 1 = 9',
+            example: '9__'
+        },
+        {
+            title: 'Step 4: Add Last Digit',
+            text: 'The answer is: 99\n(We already know it ends in 9)',
+            example: '9 × 11 = 99'
+        },
+        {
+            title: 'More Examples!',
+            text: '8 × 12 → (-2)(+2) = -4 → 10 - 4 = 96\n7 × 13 → (-3)(+3) = -9 → 10 - 9 = 91\n12 × 8 → (+2)(-2) = -4 → 100 - 4 = 96\n\nWait, that last one uses 10!',
+            example: '✨ Magic! ✨'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Pick a BASE (10, 100, 1000...)\nFind distance from base for each number\nMultiply the distances\nSubtract from base!\n\n(Base + A) × (Base + B) = Base + A + B + A×B',
+            example: '🎯 Ready to practice!'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#FFB800',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 4);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
 // ==================== PRACTICE MODE ====================
 function showPractice(scene, levelId) {
     scene.children.removeAll();
@@ -1014,6 +1135,18 @@ function showPractice(scene, levelId) {
                 type: '×÷'
             };
             currentQuestion.answer = evenNum * multiplier;
+        } else if (levelId === 4) {
+            // Level 4: Base Method (numbers near 10)
+            // Generate two numbers close to 10: from 7 to 13
+            const num1 = Phaser.Math.Between(7, 13);
+            const num2 = Phaser.Math.Between(7, 13);
+            currentQuestion = {
+                num1: num1,
+                num2: num2,
+                answer: null,
+                type: 'base'
+            };
+            currentQuestion.answer = num1 * num2;
         }
 
         if (questionText) questionText.destroy();
@@ -1028,6 +1161,8 @@ function showPractice(scene, levelId) {
         } else if (currentQuestion.type === '²') {
             questionStr = `${currentQuestion.num}² = ?`;
         } else if (currentQuestion.type === '×÷') {
+            questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
+        } else if (currentQuestion.type === 'base') {
             questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
         }
 
