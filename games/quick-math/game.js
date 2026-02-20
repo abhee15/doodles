@@ -613,6 +613,8 @@ function showTutorial(scene, levelId) {
         tutorialMultiplyBy11(scene);
     } else if (levelId === 2) {
         tutorialSquareEndingIn5(scene);
+    } else if (levelId === 3) {
+        tutorialDoubleAndHalf(scene);
     }
     // Add more tutorials for other levels later
 }
@@ -840,6 +842,112 @@ function tutorialSquareEndingIn5(scene) {
     showStep();
 }
 
+// ==================== TUTORIAL: DOUBLE & HALF ====================
+function tutorialDoubleAndHalf(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Double & Half Trick',
+            text: 'Learn a smart shortcut to multiply tricky numbers!',
+            example: ''
+        },
+        {
+            title: 'Example: 32 × 25',
+            text: 'The normal way:\n32 × 25 = 800\n(That takes time!)',
+            example: '32 × 25 = ?'
+        },
+        {
+            title: 'The Magic Rule! ✨',
+            text: 'If one number gets SMALLER by half...\n...the other gets BIGGER by double!\n\n32 ÷ 2 = 16',
+            example: '16 × ?',
+            highlight: '÷2'
+        },
+        {
+            title: 'The Magic Rule! ✨',
+            text: 'Double the other number:\n25 × 2 = 50\n\nNow multiply:',
+            example: '16 × 50 = 800',
+            highlight: '×2'
+        },
+        {
+            title: 'More Examples!',
+            text: '24 × 50 → 12 × 100 = 1200\n18 × 50 → 9 × 100 = 900\n14 × 25 → 7 × 50 = 350',
+            example: '✨ Magic! ✨'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'For ANY multiplication:\nHalve one → Double the other\nThe answer stays the SAME!\n\nA × B = (A÷2) × (B×2)',
+            example: '🎯 Try it!'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#A44A3F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 3);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
 // ==================== PRACTICE MODE ====================
 function showPractice(scene, levelId) {
     scene.children.removeAll();
@@ -895,6 +1003,17 @@ function showPractice(scene, levelId) {
             // Answer: N × (N+1) then add 25
             const firstDigit = Math.floor(num / 10);
             currentQuestion.answer = firstDigit * (firstDigit + 1) * 100 + 25;
+        } else if (levelId === 3) {
+            // Level 3: Double & Half (even number × 25 or 50)
+            const evenNum = Phaser.Math.Between(6, 20) * 2; // 12, 14, 16...40
+            const multiplier = Phaser.Utils.Array.GetRandom([25, 50]); // 25 or 50
+            currentQuestion = {
+                num1: evenNum,
+                num2: multiplier,
+                answer: null,
+                type: '×÷'
+            };
+            currentQuestion.answer = evenNum * multiplier;
         }
 
         if (questionText) questionText.destroy();
@@ -908,6 +1027,8 @@ function showPractice(scene, levelId) {
             questionStr = `${currentQuestion.num} × 11 = ?`;
         } else if (currentQuestion.type === '²') {
             questionStr = `${currentQuestion.num}² = ?`;
+        } else if (currentQuestion.type === '×÷') {
+            questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
         }
 
         questionText = scene.add.text(450, 120, questionStr, {
