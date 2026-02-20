@@ -35,7 +35,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Tabler Icons — professional, consistent 2px stroke design system -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.min.css">
 
     <link rel="stylesheet" href="css/portal.css">
 </head>
@@ -348,8 +348,8 @@
         </div>
     </div>
     <div class="footer-bottom">
-        <p>© 2026 Doodles · Built with ❤️ for learning</p>
-        <button class="footer-contact-btn" onclick="openFeedbackModal()">📧 Contact Us</button>
+        <p>© 2026 Doodles · Built with care for learning</p>
+        <button class="footer-contact-btn" onclick="openFeedbackModal()"><i class="ti ti-mail"></i> Contact Us</button>
         <div class="cat-swatches">
             <div class="swatch" style="background:var(--c-math)"></div>
             <div class="swatch" style="background:var(--c-geo)"></div>
@@ -362,7 +362,7 @@
     <div id="feedbackModal" class="feedback-modal">
         <div class="feedback-modal-content">
             <div class="feedback-modal-header">
-                <h2>💡 Send Feedback</h2>
+                <h2><i class="ti ti-message-circle"></i> Send Feedback</h2>
                 <button class="close-btn" onclick="closeFeedbackModal()">&times;</button>
             </div>
             <form action="https://formspree.io/f/mpqjjeed" method="POST" class="feedback-form">
@@ -372,7 +372,7 @@
                 <label>Your Idea or Issue</label>
                 <textarea name="message" placeholder="Tell us what game you'd like to see or any issues you found..." required rows="6"></textarea>
 
-                <button type="submit" class="submit-btn">Send 🚀</button>
+                <button type="submit" class="submit-btn">Send</button>
             </form>
         </div>
     </div>

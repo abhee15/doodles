@@ -9,7 +9,7 @@ const GROUND_Y      = WORLD_H - 75;
 const LADDER_X      = 148;          // left-panel horizontal centre
 const BASE_TIME     = 15;           // seconds per question
 const SILLY_DUR     = 3;            // seconds of silly wobble before falling
-const SILLY_EMOJIS  = ['😵', '🤪', '🥴', '😅', '🙈', '😵‍💫', '🤣'];
+const SILLY_TEXTS   = ['Oh no!', 'Thinking...', 'Almost there...', 'Try again...', 'Focus!', 'Come on!', 'You got this!'];
 
 // ==================== GAME STATE ====================
 let sceneRef       = null;
@@ -328,7 +328,7 @@ function buildGameUI(scene) {
     submitBtn.container.setScrollFactor(0).setDepth(22);
 
     // Pause button
-    const pauseBtn = createButton(scene, CX + 2, 460, '⏸ Pause',
+    const pauseBtn = createButton(scene, CX + 2, 460, 'Pause',
         () => showPauseMenu(scene),
         { variant: ButtonVariants.GHOST, size: ButtonSizes.SMALL }
     );
@@ -439,13 +439,13 @@ function startSillyPhase(scene) {
         onComplete: () => { if (player) player.x = LADDER_X; }
     });
 
-    // Cycle through silly emojis
+    // Cycle through silly text messages
     let tick = 0;
     scene.time.addEvent({
         delay: 430, repeat: 6,
         callback: () => {
             tick++;
-            if (player) player.setText(SILLY_EMOJIS[tick % SILLY_EMOJIS.length]);
+            if (feedbackText) feedbackText.setText(SILLY_TEXTS[tick % SILLY_TEXTS.length]);
         }
     });
 
@@ -549,11 +549,11 @@ function checkAnswer(scene) {
         updateStatsUI();
 
         // Feedback message
-        let msg = streakBonus > 0 ? `✓ Correct! 🔥 Streak x${streak} (+${streakBonus}pts)` :
-                  timeBonus  > 5 ? `✓ Correct! ⚡ Speedy! (+${earned}pts)` :
+        let msg = streakBonus > 0 ? `✓ Correct! Streak ×${streak} (+${streakBonus}pts)` :
+                  timeBonus  > 5 ? `✓ Correct! Speedy! (+${earned}pts)` :
                                    `✓ Correct! (+${earned}pts)`;
         feedbackText.setText(msg).setColor('#10B981');
-        player.setText('😊');
+        player.setText('🧒');
 
         // Climb tween
         scene.tweens.add({
@@ -628,11 +628,11 @@ function showPauseMenu(scene) {
     const ov = scene.add.rectangle(400, 300, 800, 600, 0x000000, 0.78)
         .setScrollFactor(0).setDepth(500);
     els.push(ov);
-    els.push(scene.add.text(400, 190, '⏸  Paused', {
+    els.push(scene.add.text(400, 190, 'Paused', {
         fontSize: '46px', fill: '#FFD700', fontFamily: 'Arial', fontStyle: 'bold',
         stroke: '#000', strokeThickness: 4
     }).setOrigin(0.5).setScrollFactor(0).setDepth(501));
-    els.push(scene.add.text(400, 250, 'Take a deep breath! 🌬️', {
+    els.push(scene.add.text(400, 250, 'Take a break.', {
         fontSize: '20px', fill: '#FFFFFF', fontFamily: 'Arial'
     }).setOrigin(0.5).setScrollFactor(0).setDepth(501));
     els.push(scene.add.text(400, 285, `Current rung: ${currentRung}   Score: ${score}`, {

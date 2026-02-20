@@ -78,7 +78,7 @@ function create() {
         this,
         this.scale.width / 2,
         30,
-        '⏸️',
+        'Pause',
         () => showPauseMenu(this),
         { variant: ButtonVariants.GHOST, size: ButtonSizes.SMALL }
     );
@@ -96,7 +96,7 @@ function create() {
     });
 
     // Lives
-    livesText = this.add.text(this.scale.width - 16, 68, '❤️ ❤️ ❤️', {
+    livesText = this.add.text(this.scale.width - 16, 68, 'Lives: 3', {
         fontSize: '22px',
         backgroundColor: '#F19C79',
         padding: { x: 10, y: 5 }
@@ -331,11 +331,7 @@ function loseLife(scene) {
 // ==================== UI ====================
 function updateUI() {
     scoreText.setText(`Score: ${score}`);
-
-    let heartsText = '';
-    for (let i = 0; i < lives; i++) heartsText += '❤️ ';
-    livesText.setText(heartsText || '💔');
-
+    livesText.setText(`Lives: ${Math.max(0, lives)}`);
     nextNumberText.setText(`Click: ${nextNumber}`);
 }
 
@@ -345,7 +341,7 @@ function showPauseMenu(scene) {
     gameActive = false;
     if (spawnTimer) spawnTimer.paused = true;
 
-    createModal(scene, '⏸️ Paused', 'Take a break!', [
+    createModal(scene, 'Paused', 'Take a break!', [
         { label: 'RESUME',  callback: () => resumeGame(scene),                               variant: ButtonVariants.SUCCESS   },
         { label: 'RESTART', callback: () => scene.scene.restart(),                           variant: ButtonVariants.SECONDARY },
         { label: 'EXIT',    callback: () => window.location.href = '../../index.html',       variant: ButtonVariants.GHOST     }

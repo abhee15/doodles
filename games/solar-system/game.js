@@ -536,7 +536,7 @@ function drawHUD(scene) {
         }).setOrigin(1, 0).setDepth(51);
 
         // Lives
-        livesText = scene.add.text(W - 14, 30, '❤️❤️❤️', {
+        livesText = scene.add.text(W - 14, 30, 'Lives: 3', {
             fontSize: '12px', fill: '#FF8A80', fontFamily: 'Arial, sans-serif',
         }).setOrigin(1, 0).setDepth(51);
 
@@ -554,8 +554,8 @@ function drawHUD(scene) {
 }
 
 function updateHUD(scene) {
-    if (scoreText) scoreText.setText('⭐ ' + quizScore);
-    if (livesText) livesText.setText('❤️'.repeat(Math.max(0, quizLives)));
+    if (scoreText) scoreText.setText(quizScore + ' points');
+    if (livesText) livesText.setText('Lives: ' + Math.max(0, quizLives));
     if (levelText) levelText.setText(LEVEL_NAMES[quizLevel] || '');
     if (progressDots.length > 0) {
         progressDots.forEach((dot, i) => {

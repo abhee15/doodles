@@ -462,11 +462,17 @@ footer { background: var(--footer-bg); }
     color: rgba(255,255,255,0.85);
     cursor: pointer;
     transition: all 0.18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
 }
 .footer-contact-btn:hover {
     background: rgba(255,255,255,0.25);
     color: #fff;
     border-color: rgba(255,255,255,0.35);
+}
+.footer-contact-btn i {
+    font-size: 14px;
 }
 
 .cat-swatches { display: flex; gap: 6px; }
@@ -515,6 +521,13 @@ footer { background: var(--footer-bg); }
     font-weight: 900;
     color: var(--text);
     margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.feedback-modal-header h2 i {
+    font-size: 22px;
+    color: var(--brand);
 }
 
 .close-btn {
