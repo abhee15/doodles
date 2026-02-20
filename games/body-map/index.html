@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Body Map — US Presidents | Doodles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <style>
+    :root {
+      --navy:    #0D1B2A;
+      --navy2:   #152336;
+      --navy3:   #1E3350;
+      --gold:    #F5C518;
+      --gold2:   #C9A000;
+      --red:     #D32F2F;
+      --blue:    #1565C0;
+      --green:   #2E7D32;
+      --white:   #FFFFFF;
+      --text:    #E8EDF5;
+      --dim:     #7A93B0;
+      --card:    #1A2E47;
+      --border:  #2A4565;
+      --r:  #D32F2F;
+      --d:  #1565C0;
+      --w:  #6A1B9A;
+      --f:  #4E342E;
+      --dr: #37474F;
+      --np: #37474F;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    body {
+      font-family: 'Nunito', 'Segoe UI', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      display: flex; align-items: center; gap: 12px;
+      padding: 12px 20px;
+      background: rgba(0,0,0,0.3);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .nav a { color: var(--dim); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 4px; }
+    .nav a:hover { color: var(--text); }
+    .nav-title { font-weight: 800; font-size: 18px; color: var(--gold); margin-left: auto; margin-right: auto; }
+    .nav-progress { font-size: 13px; color: var(--dim); }
+
+    /* ── SCREENS ── */
+    .screen { display: none; flex: 1; }
+    .screen.active { display: flex; }
+
+    /* ══════════════════ START SCREEN ══════════════════ */
+    #screen-start {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      gap: 28px;
+    }
+    .start-hero { text-align: center; }
+    .start-hero h1 { font-size: clamp(32px,6vw,52px); font-weight: 900; color: var(--gold); letter-spacing: -1px; }
+    .start-hero p  { font-size: 16px; color: var(--dim); margin-top: 8px; max-width: 480px; margin-inline: auto; }
+
+    .technique-box {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 20px 24px; max-width: 520px; width: 100%;
+    }
+    .technique-box h3 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 10px; }
+    .technique-box p  { font-size: 14px; color: var(--dim); line-height: 1.65; }
+
+    .batch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; max-width: 600px; width: 100%; }
+    .batch-btn {
+      background: var(--card); border: 2px solid var(--border); border-radius: 14px;
+      padding: 18px 16px; cursor: pointer; text-align: center;
+      transition: border-color .2s, transform .15s, background .2s;
+      color: var(--text);
+    }
+    .batch-btn:hover { border-color: var(--gold); background: var(--navy3); transform: translateY(-2px); }
+    .batch-btn .bnum { font-size: 22px; font-weight: 900; color: var(--gold); }
+    .batch-btn .brange { font-size: 13px; color: var(--dim); margin-top: 4px; }
+    .batch-btn .bnames { font-size: 11px; color: #4A6A8A; margin-top: 6px; }
+
+    /* ══════════════════ LEARN SCREEN ══════════════════ */
+    #screen-learn {
+      flex-direction: column;
+    }
+    .progress-bar-wrap {
+      height: 5px; background: var(--navy3); flex-shrink: 0;
+    }
+    .progress-bar-fill {
+      height: 100%; background: var(--gold); transition: width .4s ease;
+    }
+
+    .learn-main {
+      flex: 1; display: flex; gap: 0; overflow: hidden;
+    }
+
+    /* LEFT: body panel */
+    .body-panel {
+      width: 260px; flex-shrink: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: var(--navy2);
+      padding: 16px 8px;
+      border-right: 1px solid var(--border);
+    }
+    .body-label {
+      font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 10px;
+    }
+
+    #body-svg { width: 180px; max-width: 100%; }
+
+    /* SVG body zones */
+    .body-zone { fill: #C4956A; stroke: #A07040; stroke-width: 1.5; transition: fill .35s, stroke .35s; }
+    .face-feature { transition: none; }
+    .arm-decor    { fill: #B88050; opacity: 0.7; }
+
+    .body-zone.visited { fill: #9DB88A; stroke: #7A9060; }
+    .body-zone.active  {
+      fill: #FFD700; stroke: #C89000; stroke-width: 2.5;
+      filter: drop-shadow(0 0 10px rgba(255,215,0,0.8));
+      animation: zone-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes zone-pulse {
+      0%,100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.8)); }
+      50%      { filter: drop-shadow(0 0 20px rgba(255,215,0,1)); }
+    }
+
+    /* RIGHT: info panel */
+    .info-panel {
+      flex: 1; overflow-y: auto; padding: 28px 32px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+
+    .zone-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(245,197,24,0.12); border: 1.5px solid var(--gold2);
+      border-radius: 8px; padding: 6px 14px;
+      font-size: 13px; font-weight: 800; color: var(--gold); letter-spacing: 1px;
+      text-transform: uppercase; align-self: flex-start;
+    }
+
+    .pres-num  { font-size: 14px; font-weight: 700; color: var(--dim); }
+    .pres-name { font-size: clamp(26px,4vw,40px); font-weight: 900; color: var(--white); line-height: 1.1; margin: 4px 0; }
+    .pres-term { font-size: 15px; color: var(--dim); }
+
+    .party-badge {
+      display: inline-block; padding: 3px 12px; border-radius: 20px;
+      font-size: 12px; font-weight: 800; letter-spacing: .5px;
+      margin-top: 8px;
+    }
+    .party-R  { background: rgba(211,47,47,.2);  color: #EF9A9A; border: 1px solid rgba(211,47,47,.4); }
+    .party-D  { background: rgba(21,101,192,.2); color: #90CAF9; border: 1px solid rgba(21,101,192,.4); }
+    .party-W  { background: rgba(106,27,154,.2); color: #CE93D8; border: 1px solid rgba(106,27,154,.4); }
+    .party-F  { background: rgba(78,52,46,.4);   color: #BCAAA4; border: 1px solid rgba(78,52,46,.6); }
+    .party-DR { background: rgba(55,71,79,.4);   color: #B0BEC5; border: 1px solid rgba(55,71,79,.6); }
+    .party-NP { background: rgba(55,71,79,.4);   color: #B0BEC5; border: 1px solid rgba(55,71,79,.6); }
+
+    .fact-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px;
+    }
+    .fact-card h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--dim); margin-bottom: 8px; }
+    .fact-card p  { font-size: 15px; color: var(--text); line-height: 1.65; }
+
+    .tip-card {
+      background: rgba(245,197,24,.07); border: 1.5px solid rgba(245,197,24,.3); border-radius: 14px; padding: 16px 20px;
+    }
+    .tip-card h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
+    .tip-card p  { font-size: 15px; color: var(--text); line-height: 1.65; }
+
+    /* ── BOTTOM CONTROLS ── */
+    .learn-footer {
+      padding: 16px 32px; background: var(--navy2); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+    }
+    .step-indicator { font-size: 14px; color: var(--dim); }
+    .step-dots { display: flex; gap: 6px; }
+    .step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .3s; }
+    .step-dot.done   { background: #9DB88A; }
+    .step-dot.active { background: var(--gold); transform: scale(1.3); }
+
+    .btn-next {
+      background: var(--gold); color: #1A1000; font-family: inherit;
+      font-size: 16px; font-weight: 900; padding: 12px 28px; border: none;
+      border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+      transition: background .2s, transform .15s;
+    }
+    .btn-next:hover { background: #FFE033; transform: translateY(-1px); }
+    .btn-next.quiz-mode { background: #4CAF50; color: #fff; }
+    .btn-next.quiz-mode:hover { background: #66BB6A; }
+
+    /* ══════════════════ QUIZ SCREEN ══════════════════ */
+    #screen-quiz { flex-direction: column; }
+
+    .quiz-main {
+      flex: 1; display: flex; gap: 0; overflow: hidden;
+    }
+
+    .quiz-q-panel {
+      flex: 1; padding: 32px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto;
+    }
+
+    .quiz-prompt {
+      font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--dim);
+    }
+    .quiz-question {
+      font-size: clamp(22px,4vw,34px); font-weight: 900; color: var(--white); line-height: 1.2;
+    }
+    .quiz-question span { color: var(--gold); }
+
+    .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+
+    .opt-btn {
+      background: var(--card); border: 2px solid var(--border); border-radius: 14px;
+      padding: 16px 18px; font-family: inherit; font-size: 15px; font-weight: 700;
+      color: var(--text); cursor: pointer; text-align: left;
+      transition: border-color .15s, background .15s, transform .1s;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .opt-btn:hover:not(:disabled) { border-color: var(--gold); background: var(--navy3); transform: translateY(-1px); }
+    .opt-btn:disabled { cursor: default; }
+    .opt-btn.correct  { border-color: #4CAF50 !important; background: rgba(76,175,80,.15) !important; color: #A5D6A7; }
+    .opt-btn.wrong    { border-color: var(--red) !important; background: rgba(211,47,47,.15) !important; color: #EF9A9A; }
+
+    .opt-letter {
+      width: 28px; height: 28px; border-radius: 8px; background: var(--navy3);
+      display: grid; place-items: center; font-size: 13px; font-weight: 900; flex-shrink: 0;
+      border: 1.5px solid var(--border);
+    }
+    .correct .opt-letter { background: rgba(76,175,80,.3); border-color: #4CAF50; }
+    .wrong   .opt-letter { background: rgba(211,47,47,.3);  border-color: var(--red); }
+
+    .quiz-footer {
+      padding: 14px 32px; background: var(--navy2); border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
+    }
+    .quiz-score-live { font-size: 14px; color: var(--dim); }
+    .quiz-score-live b { color: var(--gold); }
+
+    /* ══════════════════ SCORE SCREEN ══════════════════ */
+    #screen-score {
+      flex-direction: column; align-items: center; justify-content: center;
+      padding: 32px 20px; gap: 24px; text-align: center;
+    }
+    .score-emoji { font-size: 64px; }
+    .score-title { font-size: clamp(28px,5vw,44px); font-weight: 900; color: var(--gold); }
+    .score-sub   { font-size: 16px; color: var(--dim); max-width: 400px; }
+    .score-num   { font-size: clamp(52px,10vw,80px); font-weight: 900; color: var(--white); }
+    .score-out   { font-size: 20px; color: var(--dim); }
+    .score-btns  { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+
+    .btn-outline {
+      background: transparent; border: 2px solid var(--border); border-radius: 12px;
+      padding: 12px 22px; font-family: inherit; font-size: 15px; font-weight: 800;
+      color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 7px;
+      transition: border-color .2s, color .2s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .btn-gold {
+      background: var(--gold); border: 2px solid var(--gold); border-radius: 12px;
+      padding: 12px 22px; font-family: inherit; font-size: 15px; font-weight: 900;
+      color: #1A1000; cursor: pointer; display: flex; align-items: center; gap: 7px;
+      transition: background .2s, transform .15s;
+    }
+    .btn-gold:hover { background: #FFE033; transform: translateY(-1px); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .body-panel { width: 120px; padding: 10px 4px; }
+      #body-svg   { width: 110px; }
+      .info-panel { padding: 16px; }
+      .pres-name  { font-size: 22px; }
+      .learn-footer { flex-direction: column; gap: 12px; align-items: stretch; }
+      .options-grid { grid-template-columns: 1fr; }
+      .quiz-main  { flex-direction: column; }
+      .body-panel { width: 100%; height: 140px; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; padding: 8px 16px; justify-content: flex-start; gap: 16px; }
+      #body-svg   { width: 80px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <a href="../../index.html"><i class="ph-bold ph-arrow-left"></i> Home</a>
+  <span class="nav-title" id="nav-title">Body Map</span>
+  <span class="nav-progress" id="nav-progress"></span>
+</nav>
+
+<!-- ══════════════════════════════════════
+     START SCREEN
+══════════════════════════════════════ -->
+<div id="screen-start" class="screen active">
+  <div class="start-hero">
+    <h1>🧠 Body Map</h1>
+    <p>Learn all 47 US Presidents using your own body as a memory map!</p>
+  </div>
+
+  <div class="technique-box">
+    <h3>🔑 The Technique: Body Peg System</h3>
+    <p>
+      Your body has 10 stations — from <b>Toes</b> at the bottom to the <b>Top of your Head</b>.
+      Each president gets assigned to one station. To remember them, imagine a
+      <b>silly, vivid scene</b> with that president doing something funny on that body part.
+      The crazier the image, the better your brain remembers it!
+    </p>
+  </div>
+
+  <div class="batch-grid" id="batch-grid"></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     LEARN SCREEN
+══════════════════════════════════════ -->
+<div id="screen-learn" class="screen" style="flex-direction:column;">
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="learn-bar"></div></div>
+
+  <div class="learn-main">
+    <!-- Body -->
+    <div class="body-panel">
+      <div class="body-label" id="zone-label">Toes</div>
+      <svg id="body-svg" viewBox="0 0 200 540" xmlns="http://www.w3.org/2000/svg">
+        <!-- Arms (decorative, not zones) -->
+        <rect class="arm-decor" x="32" y="120" width="28" height="58" rx="12"/>
+        <rect class="arm-decor" x="140" y="120" width="28" height="58" rx="12"/>
+        <rect class="arm-decor" x="24"  y="175" width="22" height="55" rx="10"/>
+        <rect class="arm-decor" x="154" y="175" width="22" height="55" rx="10"/>
+        <ellipse class="arm-decor" cx="35"  cy="238" rx="17" ry="13"/>
+        <ellipse class="arm-decor" cx="165" cy="238" rx="17" ry="13"/>
+
+        <!-- Zone 10: HEAD -->
+        <g id="zone-head" class="body-zone" data-zone="head">
+          <ellipse cx="100" cy="48" rx="40" ry="44"/>
+        </g>
+        <!-- Face (always on top, no zone coloring) -->
+        <g id="face" pointer-events="none">
+          <circle cx="87"  cy="40" r="4"   fill="#3D2B1F"/>
+          <circle cx="113" cy="40" r="4"   fill="#3D2B1F"/>
+          <path d="M86 58 Q100 70 114 58" stroke="#3D2B1F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <path d="M83 32 Q88 28 93 32" stroke="#3D2B1F" stroke-width="1.8" fill="none"/>
+          <path d="M107 32 Q112 28 117 32" stroke="#3D2B1F" stroke-width="1.8" fill="none"/>
+        </g>
+
+        <!-- Zone 9: NECK -->
+        <g id="zone-neck" class="body-zone" data-zone="neck">
+          <rect x="82" y="91" width="36" height="30" rx="8"/>
+        </g>
+
+        <!-- Zone 8: SHOULDERS -->
+        <g id="zone-shoulders" class="body-zone" data-zone="shoulders">
+          <ellipse cx="56"  cy="120" rx="28" ry="20"/>
+          <ellipse cx="144" cy="120" rx="28" ry="20"/>
+        </g>
+
+        <!-- Zone 7: CHEST -->
+        <g id="zone-chest" class="body-zone" data-zone="chest">
+          <rect x="60" y="118" width="80" height="68" rx="14"/>
+        </g>
+
+        <!-- Zone 6: BELLY -->
+        <g id="zone-belly" class="body-zone" data-zone="belly">
+          <rect x="64" y="186" width="72" height="58" rx="10"/>
+        </g>
+
+        <!-- Zone 5: THIGHS -->
+        <g id="zone-thighs" class="body-zone" data-zone="thighs">
+          <rect x="64"  y="244" width="30" height="68" rx="12"/>
+          <rect x="106" y="244" width="30" height="68" rx="12"/>
+        </g>
+
+        <!-- Zone 4: KNEES -->
+        <g id="zone-knees" class="body-zone" data-zone="knees">
+          <ellipse cx="79"  cy="320" rx="22" ry="15"/>
+          <ellipse cx="121" cy="320" rx="22" ry="15"/>
+        </g>
+
+        <!-- Zone 3: SHINS -->
+        <g id="zone-shins" class="body-zone" data-zone="shins">
+          <rect x="62"  y="334" width="30" height="66" rx="10"/>
+          <rect x="108" y="334" width="30" height="66" rx="10"/>
+        </g>
+
+        <!-- Zone 2: FEET -->
+        <g id="zone-feet" class="body-zone" data-zone="feet">
+          <ellipse cx="77"  cy="410" rx="30" ry="14"/>
+          <ellipse cx="123" cy="410" rx="30" ry="14"/>
+        </g>
+
+        <!-- Zone 1: TOES -->
+        <g id="zone-toes" class="body-zone" data-zone="toes">
+          <circle cx="52"  cy="423" r="7"/>
+          <circle cx="64"  cy="427" r="7"/>
+          <circle cx="77"  cy="429" r="7"/>
+          <circle cx="89"  cy="427" r="7"/>
+          <circle cx="100" cy="423" r="6"/>
+          <circle cx="100" cy="423" r="6"/>
+          <circle cx="111" cy="427" r="7"/>
+          <circle cx="124" cy="429" r="7"/>
+          <circle cx="136" cy="427" r="7"/>
+          <circle cx="148" cy="423" r="6"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Info Card -->
+    <div class="info-panel" id="learn-info"></div>
+  </div>
+
+  <div class="learn-footer">
+    <div>
+      <div class="step-indicator" id="step-indicator">President 1 of 10</div>
+      <div class="step-dots" id="step-dots"></div>
+    </div>
+    <button class="btn-next" id="btn-next" onclick="nextStep()">
+      Next <i class="ph-bold ph-arrow-right"></i>
+    </button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     QUIZ SCREEN
+══════════════════════════════════════ -->
+<div id="screen-quiz" class="screen" style="flex-direction:column;">
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-bar"></div></div>
+
+  <div class="quiz-main">
+    <!-- Body (same SVG cloned via JS) -->
+    <div class="body-panel" id="quiz-body-panel">
+      <div class="body-label" id="quiz-zone-label">Toes</div>
+    </div>
+
+    <div class="quiz-q-panel">
+      <div class="quiz-prompt" id="quiz-prompt">Who is at the…</div>
+      <div class="quiz-question" id="quiz-question">TOES?</div>
+      <div class="options-grid" id="quiz-options"></div>
+    </div>
+  </div>
+
+  <div class="quiz-footer">
+    <div class="quiz-score-live">Score: <b id="quiz-score-live">0</b></div>
+    <div class="step-dots" id="quiz-dots"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SCORE SCREEN
+══════════════════════════════════════ -->
+<div id="screen-score" class="screen">
+  <div class="score-emoji" id="score-emoji">🌟</div>
+  <div class="score-title" id="score-title">Quiz Complete!</div>
+  <div class="score-num" id="score-num">8</div>
+  <div class="score-out" id="score-out">out of 10 correct</div>
+  <div class="score-sub" id="score-sub">Keep practicing the body map!</div>
+  <div class="score-btns">
+    <button class="btn-outline" onclick="replayBatch()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Try Again</button>
+    <button class="btn-outline" onclick="goStart()"><i class="ph-bold ph-list"></i> All Batches</button>
+    <button class="btn-gold"    id="btn-next-batch" onclick="nextBatch()"><i class="ph-bold ph-arrow-right"></i> Next Batch</button>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════ */
+const BODY_PARTS = [
+  { id:'toes',      label:'Toes'      },
+  { id:'feet',      label:'Feet'      },
+  { id:'shins',     label:'Shins'     },
+  { id:'knees',     label:'Knees'     },
+  { id:'thighs',    label:'Thighs'    },
+  { id:'belly',     label:'Belly'     },
+  { id:'chest',     label:'Chest'     },
+  { id:'shoulders', label:'Shoulders' },
+  { id:'neck',      label:'Neck'      },
+  { id:'head',      label:'Head'      },
+];
+
+const PARTY_LABELS = { R:'Republican', D:'Democratic', W:'Whig', F:'Federalist', DR:'Dem.-Republican', NP:'No Party' };
+
+const PRESIDENTS = [
+  // ─── BATCH 0: Presidents 1–10 (Toes → Head) ───
+  { n:1,  name:"George Washington",    term:"1789–1797", party:"NP",
+    fact:"First US president, led the Continental Army to independence. Refused to become king and voluntarily stepped down after two terms.",
+    tip:"👣 Picture Washington tiptoeing across a battlefield — his TOES wore out 200 pairs of boots on the march to freedom!" },
+  { n:2,  name:"John Adams",           term:"1797–1801", party:"F",
+    fact:"First vice president and second president. Moved into the still-unfinished White House and was the first president to live there.",
+    tip:"🦶 Adams had such big FEET he needed custom-made shoes — he stomped around the unfinished White House!" },
+  { n:3,  name:"Thomas Jefferson",     term:"1801–1809", party:"DR",
+    fact:"Wrote the Declaration of Independence. Doubled the size of the USA with the Louisiana Purchase for just $15 million.",
+    tip:"🦵 Jefferson banged his SHINS sprinting to write the Declaration of Independence — he was in such a hurry!" },
+  { n:4,  name:"James Madison",        term:"1809–1817", party:"DR",
+    fact:"Called the 'Father of the Constitution.' At 5'4\" and about 100 lbs, he was the shortest and lightest US president.",
+    tip:"🦿 Madison was so short he had to bend his KNEES just to see over his own desk — the tiniest president!" },
+  { n:5,  name:"James Monroe",         term:"1817–1825", party:"DR",
+    fact:"Bought Florida from Spain for $5 million. His era was called the 'Era of Good Feelings' — barely any political arguing!",
+    tip:"🦵 Monroe's THIGHS were so powerful from riding horses he could gallop from Florida all the way back to Washington!" },
+  { n:6,  name:"John Quincy Adams",    term:"1825–1829", party:"DR",
+    fact:"Son of President John Adams. He loved swimming and went skinny-dipping in the Potomac River every morning!",
+    tip:"🫃 Adams did a GIANT BELLY FLOP into the Potomac River every morning — the neighbours were not pleased!" },
+  { n:7,  name:"Andrew Jackson",       term:"1829–1837", party:"D",
+    fact:"Known as 'Old Hickory.' Survived two assassination attempts and carried a bullet near his heart from an old duel his whole life.",
+    tip:"💪 Jackson beat his CHEST like a warrior — he had a bullet lodged near his heart and didn't care one bit!" },
+  { n:8,  name:"Martin Van Buren",     term:"1837–1841", party:"D",
+    fact:"First president born as a US citizen (after independence). Was known for his fancy fashion and elaborate side-whiskers.",
+    tip:"🤷 Van Buren had the most stylish SHOULDER PADS in America — he was a genuine 1837 fashion icon!" },
+  { n:9,  name:"William Henry Harrison",term:"1841",     party:"W",
+    fact:"Gave the longest inaugural speech in history (2 hours) in freezing rain, then died of pneumonia just 31 days into office.",
+    tip:"🤒 Harrison talked so long in the cold that his NECK froze solid — he died after just 31 days as president!" },
+  { n:10, name:"John Tyler",           term:"1841–1845", party:"W",
+    fact:"Became president after Harrison died — the first 'accidental president.' Had 15 children — more than any other president!",
+    tip:"🧠 Tyler used his HEAD to grab power — he was called 'His Accidency' for sneaking into the presidency!" },
+
+  // ─── BATCH 1: Presidents 11–20 (Toes → Head) ───
+  { n:11, name:"James K. Polk",        term:"1845–1849", party:"D",
+    fact:"Kept every campaign promise, expanded the US massively (adding California, Texas, New Mexico), then retired and died 3 months later.",
+    tip:"👣 Polk tiptoed on his TOES across the whole continent — he secretly grabbed California before anyone noticed!" },
+  { n:12, name:"Zachary Taylor",       term:"1849–1850", party:"W",
+    fact:"Hero of the Mexican-American War. Died after 16 months in office, possibly from eating cherries and milk at a hot 4th of July party.",
+    tip:"🦶 Taylor's FEET stomped on battlefields across Mexico — a war hero who died from a suspicious bowl of cherries!" },
+  { n:13, name:"Millard Fillmore",     term:"1850–1853", party:"W",
+    fact:"Born in a log cabin and had almost no formal education. Installed the first bathtub and kitchen stove in the White House.",
+    tip:"🦵 Fillmore shinnied up from a log cabin on his SHINS alone — the original self-made man!" },
+  { n:14, name:"Franklin Pierce",      term:"1853–1857", party:"D",
+    fact:"His 11-year-old son Benny died in a train crash two months before his inauguration, devastating his presidency.",
+    tip:"🦿 Pierce got down on his KNEES in grief — tragedy followed him before he even reached the White House!" },
+  { n:15, name:"James Buchanan",       term:"1857–1861", party:"D",
+    fact:"Only president who never married. Watched the country fall apart as states started leaving, but refused to act to stop them.",
+    tip:"🦵 Buchanan sat on his THIGHS doing absolutely nothing while the country split apart — history's worst spectator!" },
+  { n:16, name:"Abraham Lincoln",      term:"1861–1865", party:"R",
+    fact:"Ended slavery with the Emancipation Proclamation. At 6'4\", the tallest president. Assassinated at Ford's Theatre in 1865.",
+    tip:"🫃 Lincoln's BELLY reached from floor to ceiling — at 6'4\" he was the tallest president who ever lived!" },
+  { n:17, name:"Andrew Johnson",       term:"1865–1869", party:"D",
+    fact:"First president to be impeached (but not removed). Struggled enormously with Reconstruction after Lincoln's assassination.",
+    tip:"💪 Johnson puffed out his CHEST — he was the FIRST president ever impeached, and he did NOT care who knew it!" },
+  { n:18, name:"Ulysses S. Grant",     term:"1869–1877", party:"R",
+    fact:"Greatest Union general of the Civil War. His face is on the $50 bill. His memoirs, finished days before he died, are a classic.",
+    tip:"🤷 Grant SHOULDERED the whole Civil War — he carried the weight of a nation on those massive general's shoulders!" },
+  { n:19, name:"Rutherford B. Hayes",  term:"1877–1881", party:"R",
+    fact:"His wife banned alcohol from the White House, earning her the nickname 'Lemonade Lucy.' Won the most disputed election ever.",
+    tip:"🤒 Hayes' wife grabbed him by the NECK and banned booze from the White House — no more parties, ever!" },
+  { n:20, name:"James A. Garfield",    term:"1881",      party:"R",
+    fact:"Shot by a disappointed job-seeker just four months into office. Could write Latin with one hand and Greek with the other simultaneously.",
+    tip:"🧠 Garfield was shot in the HEAD and lingered for 79 awful days — all because of a grudge over a government job!" },
+
+  // ─── BATCH 2: Presidents 21–30 (Toes → Head) ───
+  { n:21, name:"Chester A. Arthur",    term:"1881–1885", party:"R",
+    fact:"Changed his outfit up to five times a day and owned 80 pairs of trousers. Surprisingly reformed the corrupt government hiring system.",
+    tip:"👣 Arthur had so many shoes (80 pairs!) he had to count them on his TOES — the fashionista president!" },
+  { n:22, name:"Grover Cleveland",     term:"1885–1889", party:"D",
+    fact:"Only president to serve two non-consecutive terms (22nd and 24th). Once admitted to having a tooth secretly removed on a yacht.",
+    tip:"🦶 Cleveland put his FOOT down both times — the only president to serve two separate terms!" },
+  { n:23, name:"Benjamin Harrison",    term:"1889–1893", party:"R",
+    fact:"Grandson of President William Henry Harrison. First president to have electricity in the White House — and was terrified to touch the switches!",
+    tip:"🦵 Harrison's SHINS shook every time he turned on the lights — so scared of electricity he made servants do it!" },
+  { n:24, name:"Grover Cleveland",     term:"1893–1897", party:"D",
+    fact:"Cleveland again! He's counted twice in the list because he served two separate terms — making him president #22 AND #24.",
+    tip:"🦿 Cleveland got back on his KNEES and begged America for a second chance — and they said yes! The comeback king!" },
+  { n:25, name:"William McKinley",     term:"1897–1901", party:"R",
+    fact:"Loved carnations and wore one every day for good luck. It didn't work — he was assassinated at the Pan-American Exposition.",
+    tip:"🦵 McKinley wore lucky flowers on his THIGHS but the luck ran out — shot at a world's fair in 1901!" },
+  { n:26, name:"Theodore Roosevelt",   term:"1901–1909", party:"R",
+    fact:"Charged San Juan Hill. The 'Teddy bear' is named after him. Once gave a 90-minute speech with a bullet lodged in his chest.",
+    tip:"🫃 Roosevelt's big round BELLY charged up San Juan Hill — shot in the chest, he still gave a 90-minute speech!" },
+  { n:27, name:"William Howard Taft",  term:"1909–1913", party:"R",
+    fact:"The heaviest president at 340 lbs. Got stuck in the White House bathtub. Later became Chief Justice of the Supreme Court.",
+    tip:"💪 Taft's massive CHEST got stuck in the bathtub — they had to install a special oversized tub just for him!" },
+  { n:28, name:"Woodrow Wilson",       term:"1913–1921", party:"D",
+    fact:"Led the US through WWI. Proposed the League of Nations for world peace — but Congress refused to join. Suffered a stroke in office.",
+    tip:"🤷 Wilson's SHOULDERS carried the weight of world peace — 14 Points on one shoulder, a League of Nations on the other!" },
+  { n:29, name:"Warren G. Harding",    term:"1921–1923", party:"R",
+    fact:"His administration had one of the most corrupt cabinets in history (Teapot Dome scandal). Died suddenly in office in 1923.",
+    tip:"🤒 Harding's friends were a PAIN IN THE NECK — their scandals brought down the whole presidency!" },
+  { n:30, name:"Calvin Coolidge",      term:"1923–1929", party:"R",
+    fact:"'Silent Cal' — known for barely speaking. Once slept 11 hours a night plus a daily nap. His calm preceded the Great Depression.",
+    tip:"🧠 Cool Coolidge kept his HEAD completely still and said almost nothing — the quietest brain in the Oval Office!" },
+
+  // ─── BATCH 3: Presidents 31–40 (Toes → Head) ───
+  { n:31, name:"Herbert Hoover",       term:"1929–1933", party:"R",
+    fact:"The Great Depression began one year after he took office. Was actually a brilliant engineer and hugely successful before becoming president.",
+    tip:"👣 Hoover TIPTOED on his TOES hoping the Great Depression would just go away on its own — it didn't!" },
+  { n:32, name:"Franklin D. Roosevelt",term:"1933–1945", party:"D",
+    fact:"Served 12 years — the longest presidency ever (now constitutionally impossible). Led through both the Great Depression and WWII from a wheelchair.",
+    tip:"🦶 FDR couldn't stand on his FEET (polio) — but his mind stood taller than anyone for 12 historic years!" },
+  { n:33, name:"Harry S. Truman",      term:"1945–1953", party:"D",
+    fact:"Made the decision to drop atomic bombs on Japan to end WWII. Survived an assassination attempt. 'The buck stops here' was his motto.",
+    tip:"🦵 Truman's SHINS dodged two assassins' bullets — the most stubborn set of legs in presidential history!" },
+  { n:34, name:"Dwight D. Eisenhower", term:"1953–1961", party:"R",
+    fact:"Supreme Allied Commander in WWII. Built the Interstate Highway System. Warned America about the 'military-industrial complex.'",
+    tip:"🦿 Ike bent his KNEES to pray — he was actually baptised inside the White House right after his inauguration!" },
+  { n:35, name:"John F. Kennedy",      term:"1961–1963", party:"D",
+    fact:"Youngest elected president. Navigated the Cuban Missile Crisis. 'Ask not what your country can do for you.' Assassinated in Dallas.",
+    tip:"🦵 Kennedy was so handsome from THIGHS to hair that teenagers screamed — America's first rock-star president!" },
+  { n:36, name:"Lyndon B. Johnson",    term:"1963–1969", party:"D",
+    fact:"Passed the Civil Rights Act and Great Society programs, but the Vietnam War destroyed his reputation. Had an enormous personality.",
+    tip:"🫃 LBJ had a BELLY full of big ideas — Civil Rights Act, Medicare, Voting Rights Act — all tucked in there!" },
+  { n:37, name:"Richard Nixon",        term:"1969–1974", party:"R",
+    fact:"Opened relations with China. Only president to resign from office, over the Watergate break-in cover-up. 'I am not a crook!'",
+    tip:"💪 Nixon beat his CHEST and shouted 'I am not a crook!' — then resigned before anyone could fire him!" },
+  { n:38, name:"Gerald Ford",          term:"1974–1977", party:"R",
+    fact:"Only president never elected as VP or President (appointed after VP resigned). Pardoned Nixon. Famously tripped going down plane stairs.",
+    tip:"🤷 Ford SHOULDERED an impossible job — and tripped on his SHOULDERS down the Air Force One stairs on live TV!" },
+  { n:39, name:"Jimmy Carter",         term:"1977–1981", party:"D",
+    fact:"Brokered historic Camp David Peace Accords between Israel and Egypt. Won Nobel Peace Prize in 2002 for his post-presidential work.",
+    tip:"🤒 Carter stuck his NECK way out for peace — the Camp David deal was the biggest neck-on-the-line moment ever!" },
+  { n:40, name:"Ronald Reagan",        term:"1981–1989", party:"R",
+    fact:"Former Hollywood actor. 'Mr Gorbachev, tear down this wall!' Oldest president elected (69). Survived an assassination attempt.",
+    tip:"🧠 Reagan used his HEAD both in Hollywood and politics — the most charming brain to ever run America!" },
+
+  // ─── BATCH 4: Presidents 41–47 (Toes → Thighs, 7 parts) ───
+  { n:41, name:"George H.W. Bush",     term:"1989–1993", party:"R",
+    fact:"Led the Gulf War coalition and liberated Kuwait in 100 hours. Famously hated broccoli and banned it from Air Force One.",
+    tip:"👣 Bush tipped onto his TOES for 100 hours during Desert Storm — the fastest war ever fought!" },
+  { n:42, name:"Bill Clinton",         term:"1993–2001", party:"D",
+    fact:"Oversaw the longest peacetime economic expansion in US history. Played saxophone on The Arsenio Hall Show during his campaign.",
+    tip:"🦶 Clinton put his FOOT in his mouth regularly — but his other foot was tapping out saxophone rhythms!" },
+  { n:43, name:"George W. Bush",       term:"2001–2009", party:"R",
+    fact:"Led America's response to 9/11. Started wars in Afghanistan and Iraq. Once choked on a pretzel while watching football alone.",
+    tip:"🦵 Bush scraped his SHINS falling off a Segway on camera — the internet never, ever forgot!" },
+  { n:44, name:"Barack Obama",         term:"2009–2017", party:"D",
+    fact:"First African-American president. Won the Nobel Peace Prize. Once threw out a perfect first pitch — a lifelong Chicago White Sox fan.",
+    tip:"🦿 Obama bent to one KNEE before history — the first Black president, making the world hold its breath!" },
+  { n:45, name:"Donald Trump",         term:"2017–2021", party:"R",
+    fact:"First president with no prior political or military experience before taking office. Known for his Twitter posts and 'Make America Great Again.'",
+    tip:"🦵 Trump stood THIGH-deep in Twitter storms — every morning a new controversy, every tweet a headline!" },
+  { n:46, name:"Joe Biden",            term:"2021–2025", party:"D",
+    fact:"Oldest person to become US president at 78. Overcame a stutter as a child. Known for his aviator sunglasses and ice cream obsession.",
+    tip:"🫃 Biden's BELLY laugh was the most famous in Washington — and he always had an ice cream cone for company!" },
+  { n:47, name:"Donald Trump",         term:"2025–present", party:"R",
+    fact:"Became the 47th president, returning after a 4-year absence — only the second president ever to serve non-consecutive terms.",
+    tip:"💪 Trump chest-bumped his way BACK into the Oval Office — only the second person in history to pull off that trick!" },
+];
+
+const BATCHES = [
+  { label:"Presidents 1–10",   start:0,  count:10, names:"Washington → Tyler" },
+  { label:"Presidents 11–20",  start:10, count:10, names:"Polk → Garfield" },
+  { label:"Presidents 21–30",  start:20, count:10, names:"Arthur → Coolidge" },
+  { label:"Presidents 31–40",  start:30, count:10, names:"Hoover → Reagan" },
+  { label:"Presidents 41–47",  start:40, count:7,  names:"Bush Sr → Trump" },
+];
+
+/* ═══════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════ */
+let batch      = 0;
+let step       = 0;
+let quizStep   = 0;
+let score      = 0;
+let quizOrder  = [];
+
+/* ═══════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════ */
+function init() {
+  const grid = document.getElementById('batch-grid');
+  grid.innerHTML = '';
+  BATCHES.forEach((b, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'batch-btn';
+    btn.innerHTML = `
+      <div class="bnum">${b.label}</div>
+      <div class="brange">${b.count} presidents</div>
+      <div class="bnames">${b.names}</div>
+    `;
+    btn.onclick = () => startBatch(i);
+    grid.appendChild(btn);
+  });
+
+  // Clone body SVG into quiz panel
+  const learnSvg = document.getElementById('body-svg');
+  const quizPanel = document.getElementById('quiz-body-panel');
+  const svgClone = learnSvg.cloneNode(true);
+  svgClone.id = 'quiz-body-svg';
+  quizPanel.appendChild(svgClone);
+}
+
+/* ═══════════════════════════════════════════════════
+   SCREENS
+═══════════════════════════════════════════════════ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+
+/* ═══════════════════════════════════════════════════
+   LEARN PHASE
+═══════════════════════════════════════════════════ */
+function startBatch(b) {
+  batch = b;
+  step  = 0;
+  document.getElementById('nav-title').textContent = 'Body Map';
+  showScreen('screen-learn');
+  renderLearn();
+}
+
+function renderLearn() {
+  const B = BATCHES[batch];
+  const p = PRESIDENTS[B.start + step];
+  const part = BODY_PARTS[step];
+  const total = B.count;
+
+  // Nav
+  document.getElementById('nav-progress').textContent = `${B.label}`;
+
+  // Progress bar
+  document.getElementById('learn-bar').style.width = `${((step + 1) / total) * 100}%`;
+
+  // Zone highlight
+  document.getElementById('zone-label').textContent = part.label;
+  activateZone(part.id, 'body-svg');
+
+  // Dots
+  buildDots('step-dots', total, step);
+
+  // Step indicator
+  document.getElementById('step-indicator').textContent =
+    `President ${step + 1} of ${total}`;
+
+  // Next button
+  const btn = document.getElementById('btn-next');
+  if (step === total - 1) {
+    btn.innerHTML = `Start Quiz! <i class="ph-bold ph-lightning"></i>`;
+    btn.className = 'btn-next quiz-mode';
+  } else {
+    btn.innerHTML = `Next <i class="ph-bold ph-arrow-right"></i>`;
+    btn.className = 'btn-next';
+  }
+
+  // Info card
+  const partyLabel = PARTY_LABELS[p.party] || p.party;
+  document.getElementById('learn-info').innerHTML = `
+    <div>
+      <div class="zone-badge"><i class="ph-bold ph-map-pin"></i> ${part.label}</div>
+    </div>
+    <div>
+      <div class="pres-num">President #${p.n}</div>
+      <div class="pres-name">${p.name}</div>
+      <div class="pres-term">${p.term}</div>
+      <span class="party-badge party-${p.party}">${partyLabel}</span>
+    </div>
+    <div class="fact-card">
+      <h4><i class="ph-bold ph-info"></i> Did You Know?</h4>
+      <p>${p.fact}</p>
+    </div>
+    <div class="tip-card">
+      <h4><i class="ph-bold ph-lightbulb"></i> Memory Tip — The ${part.label} Connection</h4>
+      <p>${p.tip}</p>
+    </div>
+  `;
+}
+
+function nextStep() {
+  const B = BATCHES[batch];
+  if (step < B.count - 1) {
+    // Mark current zone as visited
+    markZoneVisited(BODY_PARTS[step].id, 'body-svg');
+    step++;
+    renderLearn();
+  } else {
+    startQuiz();
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   QUIZ PHASE
+═══════════════════════════════════════════════════ */
+function startQuiz() {
+  const B = BATCHES[batch];
+  quizStep = 0;
+  score    = 0;
+  quizOrder = shuffle(Array.from({length: B.count}, (_, i) => i));
+  showScreen('screen-quiz');
+  renderQuiz();
+}
+
+function renderQuiz() {
+  const B     = BATCHES[batch];
+  const total = B.count;
+  const qi    = quizOrder[quizStep];   // index into batch
+  const p     = PRESIDENTS[B.start + qi];
+  const part  = BODY_PARTS[qi];
+
+  // Progress bar
+  document.getElementById('quiz-bar').style.width = `${(quizStep / total) * 100}%`;
+
+  // Zone label + highlight
+  document.getElementById('quiz-zone-label').textContent = part.label;
+  // Reset quiz SVG zones
+  document.querySelectorAll('#quiz-body-svg .body-zone').forEach(z => {
+    z.classList.remove('active','visited');
+  });
+  const qz = document.querySelector(`#quiz-body-svg #zone-${part.id}`);
+  if (qz) qz.classList.add('active');
+
+  // Question
+  document.getElementById('quiz-prompt').textContent = 'Who is at the…';
+  document.getElementById('quiz-question').innerHTML = `<span>${part.label.toUpperCase()}</span>?`;
+
+  // Build 4 options: correct + 3 random from same batch
+  const wrong = shuffle(
+    Array.from({length: B.count}, (_, i) => i)
+      .filter(i => i !== qi)
+  ).slice(0, 3);
+  const opts = shuffle([qi, ...wrong]);
+
+  const letters = ['A','B','C','D'];
+  const grid = document.getElementById('quiz-options');
+  grid.innerHTML = '';
+  opts.forEach((idx, i) => {
+    const pOpt = PRESIDENTS[B.start + idx];
+    const btn  = document.createElement('button');
+    btn.className = 'opt-btn';
+    btn.innerHTML = `<span class="opt-letter">${letters[i]}</span>${pOpt.name}`;
+    btn.onclick = () => checkAnswer(idx, qi, btn);
+    grid.appendChild(btn);
+  });
+
+  // Dots
+  buildDots('quiz-dots', total, quizStep);
+  document.getElementById('quiz-score-live').textContent = score;
+}
+
+function checkAnswer(selected, correct, clickedBtn) {
+  // Disable all buttons
+  document.querySelectorAll('#quiz-options .opt-btn').forEach(b => {
+    b.disabled = true;
+    const idx = PRESIDENTS.indexOf(PRESIDENTS.find(pr => pr.name === b.textContent.replace(/^[ABCD]/,'')));
+  });
+  // Show correct/wrong
+  document.querySelectorAll('#quiz-options .opt-btn').forEach(b => {
+    const bName = b.textContent.slice(1).trim();
+    const B = BATCHES[batch];
+    const correctName = PRESIDENTS[B.start + correct].name;
+    if (bName === correctName) b.classList.add('correct');
+    else if (b === clickedBtn && selected !== correct) b.classList.add('wrong');
+  });
+
+  if (selected === correct) score++;
+  document.getElementById('quiz-score-live').textContent = score;
+
+  setTimeout(() => {
+    quizStep++;
+    if (quizStep < BATCHES[batch].count) renderQuiz();
+    else showScore();
+  }, 900);
+}
+
+/* ═══════════════════════════════════════════════════
+   SCORE
+═══════════════════════════════════════════════════ */
+function showScore() {
+  const total = BATCHES[batch].count;
+  const pct   = score / total;
+  const emoji  = pct === 1 ? '🏆' : pct >= 0.8 ? '🌟' : pct >= 0.6 ? '👍' : '💪';
+  const title  = pct === 1 ? 'Perfect Memory!' : pct >= 0.8 ? 'Great Job!' : pct >= 0.6 ? 'Good Effort!' : 'Keep Practicing!';
+  const sub    = pct === 1
+    ? 'You nailed every president on the body map. Extraordinary!'
+    : pct >= 0.8
+    ? 'Almost perfect! Review the ones you missed and try again.'
+    : 'Practice the memory tips — imagine those silly scenes vividly!';
+
+  document.getElementById('score-emoji').textContent = emoji;
+  document.getElementById('score-title').textContent = title;
+  document.getElementById('score-num').textContent   = score;
+  document.getElementById('score-out').textContent   = `out of ${total} correct`;
+  document.getElementById('score-sub').textContent   = sub;
+
+  const nextBtn = document.getElementById('btn-next-batch');
+  if (batch < BATCHES.length - 1) {
+    nextBtn.style.display = '';
+    nextBtn.innerHTML = `Next Batch <i class="ph-bold ph-arrow-right"></i>`;
+  } else {
+    nextBtn.style.display = 'none';
+  }
+
+  showScreen('screen-score');
+}
+
+function replayBatch()  { startBatch(batch); }
+function nextBatch()    { if (batch < BATCHES.length - 1) startBatch(batch + 1); }
+function goStart()      { showScreen('screen-start'); document.getElementById('nav-progress').textContent = ''; }
+
+/* ═══════════════════════════════════════════════════
+   SVG HELPERS
+═══════════════════════════════════════════════════ */
+function activateZone(zoneId, svgId) {
+  document.querySelectorAll(`#${svgId} .body-zone`).forEach(z => {
+    z.classList.remove('active');
+  });
+  const el = document.querySelector(`#${svgId} #zone-${zoneId}`);
+  if (el) el.classList.add('active');
+}
+
+function markZoneVisited(zoneId, svgId) {
+  const el = document.querySelector(`#${svgId} #zone-${zoneId}`);
+  if (el) { el.classList.remove('active'); el.classList.add('visited'); }
+}
+
+/* ═══════════════════════════════════════════════════
+   UI HELPERS
+═══════════════════════════════════════════════════ */
+function buildDots(containerId, total, activeIdx) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'step-dot' + (i < activeIdx ? ' done' : i === activeIdx ? ' active' : '');
+    c.appendChild(d);
+  }
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* ═══════════════════════════════════════════════════
+   BOOT
+═══════════════════════════════════════════════════ */
+init();
+</script>
+</body>
+</html>
