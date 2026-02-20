@@ -272,17 +272,76 @@
     }
     .btn-gold:hover { background: #FFE033; transform: translateY(-1px); }
 
+    /* ── PORTRAIT ── */
+    .pres-header {
+      display: flex; gap: 16px; align-items: flex-start;
+    }
+    .pres-portrait-wrap {
+      width: 96px; flex-shrink: 0; border-radius: 10px; overflow: hidden;
+      background: var(--navy3); border: 1.5px solid var(--border);
+      aspect-ratio: 4/5;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .pres-portrait-wrap img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
+    }
+    .portrait-num { font-size: 28px; font-weight: 900; color: var(--border); }
+    .pres-details  { flex: 1; min-width: 0; }
+
+    /* ── BACK BUTTON ── */
+    .btn-prev {
+      background: transparent; border: 2px solid var(--border); border-radius: 12px;
+      color: var(--dim); font-family: inherit; font-size: 15px; font-weight: 700;
+      padding: 10px 18px; cursor: pointer; display: flex; align-items: center; gap: 8px;
+      transition: border-color .2s, color .2s; white-space: nowrap;
+    }
+    .btn-prev:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
+    .btn-prev:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
+
+    /* ── FOOTER CENTRE ── */
+    .learn-footer-center { flex: 1; min-width: 0; text-align: center; }
+
     /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .body-panel { width: 120px; padding: 10px 4px; }
-      #body-svg   { width: 110px; }
-      .info-panel { padding: 16px; }
-      .pres-name  { font-size: 22px; }
-      .learn-footer { flex-direction: column; gap: 12px; align-items: stretch; }
-      .options-grid { grid-template-columns: 1fr; }
+    @media (max-width: 640px) {
+      /* Body panel → horizontal strip at top */
+      .body-panel {
+        width: 100% !important; height: auto !important; min-height: 64px;
+        border-right: none !important; border-bottom: 1px solid var(--border);
+        flex-direction: row; padding: 8px 14px;
+        justify-content: flex-start; gap: 12px; align-items: center;
+      }
+      .body-label { margin-bottom: 0; font-size: 12px; }
+      #body-svg, #quiz-body-svg { width: 52px !important; flex-shrink: 0; }
+
+      /* Info panel */
+      .info-panel { padding: 14px 14px 20px; gap: 12px; }
+      .pres-portrait-wrap { width: 72px; }
+      .portrait-num { font-size: 20px; }
+      .pres-name  { font-size: 20px !important; }
+
+      /* Footer: keep back | center | next in one row */
+      .learn-footer { padding: 10px 14px; gap: 8px; }
+      .learn-footer-center .step-indicator { font-size: 12px; }
+      .step-dots { display: none; }
+      .btn-prev, .btn-next { padding: 10px 12px; font-size: 13px; }
+
+      /* Quiz */
       .quiz-main  { flex-direction: column; }
-      .body-panel { width: 100%; height: 140px; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; padding: 8px 16px; justify-content: flex-start; gap: 16px; }
-      #body-svg   { width: 80px; }
+      .quiz-q-panel { padding: 14px; gap: 12px; }
+      .quiz-question { font-size: 22px !important; }
+      .options-grid { grid-template-columns: 1fr; gap: 8px; }
+      .opt-btn { padding: 12px 14px; font-size: 14px; }
+      .quiz-footer { padding: 10px 14px; }
+
+      /* Start screen */
+      #screen-start { padding: 24px 14px; gap: 18px; }
+      .batch-grid { grid-template-columns: 1fr 1fr; }
+      .batch-btn { padding: 14px 12px; }
+
+      /* Score screen */
+      #screen-score { padding: 24px 14px; gap: 16px; }
+      .score-btns { flex-direction: column; align-items: stretch; }
+      .score-btns button { justify-content: center; }
     }
   </style>
 </head>
@@ -290,7 +349,7 @@
 
 <!-- ══ NAV ══ -->
 <nav class="nav">
-  <a href="../../index.html"><i class="ph-bold ph-arrow-left"></i> Home</a>
+  <a href="../../index.html#body-map"><i class="ph-bold ph-arrow-left"></i> Home</a>
   <span class="nav-title" id="nav-title">Body Map</span>
   <span class="nav-progress" id="nav-progress"></span>
 </nav>
@@ -415,7 +474,10 @@
   </div>
 
   <div class="learn-footer">
-    <div>
+    <button class="btn-prev" id="btn-prev" onclick="prevStep()">
+      <i class="ph-bold ph-arrow-left"></i> Back
+    </button>
+    <div class="learn-footer-center">
       <div class="step-indicator" id="step-indicator">President 1 of 10</div>
       <div class="step-dots" id="step-dots"></div>
     </div>
@@ -615,7 +677,7 @@ const PRESIDENTS = [
     tip:"🧠 Reagan used his HEAD both in Hollywood and politics — the most charming brain to ever run America!" },
 
   // ─── BATCH 4: Presidents 41–47 (Toes → Thighs, 7 parts) ───
-  { n:41, name:"George H.W. Bush",     term:"1989–1993", party:"R",
+  { n:41, name:"George H.W. Bush",     term:"1989–1993", party:"R", wikiTitle:"George H. W. Bush",
     fact:"Led the Gulf War coalition and liberated Kuwait in 100 hours. Famously hated broccoli and banned it from Air Force One.",
     tip:"👣 Bush tipped onto his TOES for 100 hours during Desert Storm — the fastest war ever fought!" },
   { n:42, name:"Bill Clinton",         term:"1993–2001", party:"D",
@@ -723,6 +785,9 @@ function renderLearn() {
   document.getElementById('step-indicator').textContent =
     `President ${step + 1} of ${total}`;
 
+  // Back button state
+  document.getElementById('btn-prev').disabled = (step === 0);
+
   // Next button
   const btn = document.getElementById('btn-next');
   if (step === total - 1) {
@@ -735,15 +800,19 @@ function renderLearn() {
 
   // Info card
   const partyLabel = PARTY_LABELS[p.party] || p.party;
+  const pid = `portrait-${p.n}`;
   document.getElementById('learn-info').innerHTML = `
-    <div>
-      <div class="zone-badge"><i class="ph-bold ph-map-pin"></i> ${part.label}</div>
-    </div>
-    <div>
-      <div class="pres-num">President #${p.n}</div>
-      <div class="pres-name">${p.name}</div>
-      <div class="pres-term">${p.term}</div>
-      <span class="party-badge party-${p.party}">${partyLabel}</span>
+    <div class="pres-header">
+      <div class="pres-portrait-wrap" id="${pid}">
+        <div class="portrait-num">${p.n}</div>
+      </div>
+      <div class="pres-details">
+        <div class="zone-badge"><i class="ph-bold ph-map-pin"></i> ${part.label}</div>
+        <div class="pres-num">President #${p.n}</div>
+        <div class="pres-name">${p.name}</div>
+        <div class="pres-term">${p.term}</div>
+        <span class="party-badge party-${p.party}">${partyLabel}</span>
+      </div>
     </div>
     <div class="fact-card">
       <h4><i class="ph-bold ph-info"></i> Did You Know?</h4>
@@ -754,6 +823,7 @@ function renderLearn() {
       <p>${p.tip}</p>
     </div>
   `;
+  fetchAndShowPortrait(p, pid);
 }
 
 function nextStep() {
@@ -923,6 +993,45 @@ function shuffle(arr) {
     [a[i], a[j]] = [a[j], a[i]];
   }
   return a;
+}
+
+/* ═══════════════════════════════════════════════════
+   PREV STEP
+═══════════════════════════════════════════════════ */
+function prevStep() {
+  if (step > 0) {
+    step--;
+    renderLearn();
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   PORTRAIT — fetch from Wikipedia REST API
+═══════════════════════════════════════════════════ */
+async function fetchAndShowPortrait(pres, wrapperId) {
+  try {
+    const title = (pres.wikiTitle || pres.name).replace(/ /g, '_');
+    const res = await fetch(
+      `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(title)}`,
+      { headers: { 'Accept': 'application/json' } }
+    );
+    if (!res.ok) return;
+    const data = await res.json();
+    const src = data.thumbnail?.source;
+    if (!src) return;
+    const el = document.getElementById(wrapperId);
+    if (!el) return;                         // user already navigated away
+    const img = document.createElement('img');
+    img.src = src;
+    img.alt = pres.name;
+    img.loading = 'lazy';
+    img.onerror = () => {
+      const el2 = document.getElementById(wrapperId);
+      if (el2) el2.innerHTML = `<div class="portrait-num">${pres.n}</div>`;
+    };
+    el.innerHTML = '';
+    el.appendChild(img);
+  } catch (e) { /* keep number fallback */ }
 }
 
 /* ═══════════════════════════════════════════════════
