@@ -11,8 +11,8 @@ const PLANETS = [
         order: 1,
         type: 'Rocky',
         color: '#9E9E9E', phaser: 0x9E9E9E,
-        radius: 18,
-        orbitRadius: 95,
+        radius: 15,
+        orbitRadius: 82,
         orbitSpeed: 0.0048,
         moons: 0,
         sizeRank: 8,
@@ -42,8 +42,8 @@ const PLANETS = [
         order: 2,
         type: 'Rocky',
         color: '#F4C94E', phaser: 0xF4C94E,
-        radius: 26,
-        orbitRadius: 148,
+        radius: 22,
+        orbitRadius: 127,
         orbitSpeed: 0.0037,
         moons: 0,
         sizeRank: 6,
@@ -73,8 +73,8 @@ const PLANETS = [
         order: 3,
         type: 'Rocky',
         color: '#1E88E5', phaser: 0x1E88E5,
-        radius: 27,
-        orbitRadius: 204,
+        radius: 23,
+        orbitRadius: 175,
         orbitSpeed: 0.003,
         moons: 1,
         sizeRank: 5,
@@ -124,8 +124,8 @@ const PLANETS = [
         order: 4,
         type: 'Rocky',
         color: '#D84315', phaser: 0xD84315,
-        radius: 22,
-        orbitRadius: 268,
+        radius: 18,
+        orbitRadius: 230,
         orbitSpeed: 0.0024,
         moons: 2,
         sizeRank: 7,
@@ -189,8 +189,8 @@ const PLANETS = [
         order: 5,
         type: 'Gas Giant',
         color: '#C4813B', phaser: 0xC4813B,
-        radius: 56,
-        orbitRadius: 370,
+        radius: 48,
+        orbitRadius: 318,
         orbitSpeed: 0.0013,
         moons: 95,
         sizeRank: 1,
@@ -286,8 +286,8 @@ const PLANETS = [
         order: 6,
         type: 'Gas Giant',
         color: '#E8D5A3', phaser: 0xE8D5A3,
-        radius: 48,
-        orbitRadius: 475,
+        radius: 41,
+        orbitRadius: 408,
         orbitSpeed: 0.00097,
         moons: 146,
         sizeRank: 2,
@@ -384,8 +384,8 @@ const PLANETS = [
         order: 7,
         type: 'Ice Giant',
         color: '#7FFFD4', phaser: 0x7FFFD4,
-        radius: 36,
-        orbitRadius: 562,
+        radius: 31,
+        orbitRadius: 483,
         orbitSpeed: 0.00068,
         moons: 27,
         sizeRank: 3,
@@ -449,8 +449,8 @@ const PLANETS = [
         order: 8,
         type: 'Ice Giant',
         color: '#1565C0', phaser: 0x1565C0,
-        radius: 34,
-        orbitRadius: 640,
+        radius: 29,
+        orbitRadius: 550,
         orbitSpeed: 0.00054,
         moons: 16,
         sizeRank: 4,
@@ -516,7 +516,7 @@ const BONUS_OBJECTS = [
         name: 'Asteroid Belt',
         emoji: '🪨',
         color: '#A09080', phaser: 0xA09080,
-        orbitRadius: 320,
+        orbitRadius: 275,
         facts: [
             '🪨 The Asteroid Belt sits between Mars and Jupiter.',
             '🌌 It contains millions of rocky objects and at least one dwarf planet — Ceres.',
@@ -797,3 +797,177 @@ const LEVEL_NAMES = {
     5: '🌙 Moons & More',
     6: '🎉 Fun Facts',
 };
+
+// ── Dynamic question generator ──────────────────────────────────
+// Called each time a level starts — returns a fresh shuffled pool
+// of questions derived from planet data, so the quiz never repeats.
+function getDynamicQuestions(level) {
+    const ordinals = ['','1st','2nd','3rd','4th','5th','6th','7th','8th'];
+    const _sh = arr => {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    };
+    const qs = [];
+
+    // ── Level 1 · Order ─────────────────────────────────────────
+    if (level === 1) {
+        // "Click the Nth planet from the Sun"
+        PLANETS.forEach(p => qs.push({
+            id: 'dyn_ord_' + p.id, level: 1, category: 'Order',
+            text: 'Click the ' + ordinals[p.order] + ' planet from the Sun.',
+            type: 'click', answer: p.id,
+            successMsg: p.name + ' is planet #' + p.order + ' — well done!',
+        }));
+        // "Which planet is between X and Y?"
+        for (let i = 1; i < PLANETS.length - 1; i++) {
+            const p = PLANETS[i];
+            qs.push({
+                id: 'dyn_between_' + p.id, level: 1, category: 'Order',
+                text: 'Which planet is between ' + PLANETS[i-1].name + ' and ' + PLANETS[i+1].name + '?',
+                type: 'click', answer: p.id,
+                successMsg: PLANETS[i-1].name + ' → ' + p.name + ' → ' + PLANETS[i+1].name + '. Spot on!',
+            });
+        }
+        // "Which planet comes right after X?"
+        for (let i = 0; i < PLANETS.length - 1; i++) {
+            qs.push({
+                id: 'dyn_after_' + PLANETS[i].id, level: 1, category: 'Order',
+                text: 'Which planet comes right after ' + PLANETS[i].name + ', moving away from the Sun?',
+                type: 'click', answer: PLANETS[i + 1].id,
+                successMsg: PLANETS[i + 1].name + ' follows ' + PLANETS[i].name + '. Great memory!',
+            });
+        }
+    }
+
+    // ── Level 2 · Type ──────────────────────────────────────────
+    if (level === 2) {
+        const allTypes = ['Rocky', 'Gas Giant', 'Ice Giant'];
+        // "What type of planet is X?" for every planet
+        PLANETS.forEach(p => {
+            const choices = _sh([p.type, ...allTypes.filter(t => t !== p.type)]);
+            qs.push({
+                id: 'dyn_type_' + p.id, level: 2, category: 'Type',
+                text: 'What type of planet is ' + p.name + '?',
+                type: 'choice', choices, answer: p.type,
+                successMsg: p.name + ' is a ' + p.type + ' planet!',
+            });
+        });
+        // "Which of these is NOT a rocky planet?"
+        const nonRocky = _sh(PLANETS.filter(p => p.type !== 'Rocky'));
+        if (nonRocky.length > 0) {
+            const target = nonRocky[0];
+            const rocky3 = PLANETS.filter(p => p.type === 'Rocky').slice(0, 3);
+            qs.push({
+                id: 'dyn_notrocky', level: 2, category: 'Type',
+                text: 'Which of these is NOT a rocky planet?',
+                type: 'choice', choices: _sh([target.id, ...rocky3.map(p => p.id)]), answer: target.id,
+                successMsg: target.name + ' is a ' + target.type + ' — not rocky!',
+            });
+        }
+    }
+
+    // ── Level 3 · Size ──────────────────────────────────────────
+    if (level === 3) {
+        // "Which is bigger: X or Y?"
+        [[0,2],[1,3],[4,5],[6,7],[4,6],[5,7],[0,4],[1,5]].forEach(([a, b]) => {
+            const pA = PLANETS[a], pB = PLANETS[b];
+            if (!pA || !pB) return;
+            const bigger = pA.sizeRank < pB.sizeRank ? pA : pB;
+            qs.push({
+                id: 'dyn_bigger_' + pA.id + '_' + pB.id, level: 3, category: 'Size',
+                text: 'Which planet is bigger: ' + pA.name + ' or ' + pB.name + '?',
+                type: 'choice', choices: _sh([pA.name, pB.name]), answer: bigger.name,
+                successMsg: bigger.name + ' is the bigger planet!',
+            });
+        });
+        // "Click the Nth largest planet"
+        const labels = { 1:'largest', 2:'2nd largest', 3:'3rd largest', 4:'4th largest', 5:'5th largest' };
+        PLANETS.filter(p => p.sizeRank <= 5).forEach(p => qs.push({
+            id: 'dyn_sizelabel_' + p.id, level: 3, category: 'Size',
+            text: 'Click the ' + labels[p.sizeRank] + ' planet in the solar system.',
+            type: 'click', answer: p.id,
+            successMsg: p.name + ' is the ' + labels[p.sizeRank] + ' planet!',
+        }));
+    }
+
+    // ── Level 4 · Features ──────────────────────────────────────
+    if (level === 4) {
+        [
+            { pid:'mercury', text:'I orbit the Sun in only 88 Earth days — the fastest of all. Which planet am I?',
+              msg:'Mercury is the fastest-orbiting planet — up to 59 km per second!' },
+            { pid:'venus',   text:'I spin backwards and my day is longer than my year. Which planet am I?',
+              msg:'Venus rotates so slowly that a day on it outlasts its own year!' },
+            { pid:'earth',   text:'I have liquid oceans, plate tectonics, and a magnetic shield. Which planet?',
+              msg:'Earth\'s unique combination of features makes it perfect for life!' },
+            { pid:'mars',    text:'My sunsets are blue, and I host the tallest volcano in the solar system. Which planet?',
+              msg:'Iron-rich dust makes Mars\'s sky pink and its sunsets beautifully blue!' },
+            { pid:'jupiter', text:'My magnetic field is 20,000× stronger than Earth\'s. Which giant planet?',
+              msg:'Jupiter\'s colossal magnetic field is the strongest of any planet!' },
+            { pid:'saturn',  text:'I\'m less dense than water — I would float in a big enough ocean! Which planet?',
+              msg:'Saturn is so light it would float — it\'s mostly gas!' },
+            { pid:'uranus',  text:'One of my poles gets 42 continuous years of sunlight, then 42 years of darkness. Which planet?',
+              msg:'Uranus is tilted 98° — it rolls around the Sun like a bowling ball!' },
+            { pid:'neptune', text:'I was predicted by mathematics before anyone ever saw me. Which planet?',
+              msg:'Neptune was found in 1846 exactly where equations said it would be!' },
+        ].forEach(fq => qs.push({
+            id: 'dyn_feat_' + fq.pid, level: 4, category: 'Features',
+            text: fq.text, type: 'click', answer: fq.pid, successMsg: fq.msg, panelH: 120,
+        }));
+    }
+
+    // ── Level 5 · Moons ─────────────────────────────────────────
+    if (level === 5) {
+        const allCounts = PLANETS.map(p => p.moons);
+        // "How many moons does X have?"
+        PLANETS.forEach(p => {
+            const others = _sh(allCounts.filter(m => m !== p.moons)).slice(0, 3);
+            const choices = _sh([String(p.moons), ...others.map(String)]);
+            qs.push({
+                id: 'dyn_mooncount_' + p.id, level: 5, category: 'Moons',
+                text: 'How many known moons does ' + p.name + ' have?',
+                type: 'choice', choices, answer: String(p.moons),
+                successMsg: p.name + ' has ' + p.moons + ' known moon' + (p.moons !== 1 ? 's' : '') + '!',
+            });
+        });
+        // Named moon questions
+        [
+            { pid:'earth',   moon:'Moon',   others:['Titan','Europa','Triton'] },
+            { pid:'mars',    moon:'Phobos', others:['Charon','Io','Miranda'] },
+            { pid:'jupiter', moon:'Europa', others:['Titan','Deimos','Rhea'] },
+            { pid:'saturn',  moon:'Titan',  others:['Io','Callisto','Triton'] },
+            { pid:'neptune', moon:'Triton', others:['Europa','Rhea','Nereid'] },
+        ].forEach(mq => {
+            const planet = PLANETS.find(p => p.id === mq.pid);
+            qs.push({
+                id: 'dyn_moonname_' + mq.pid, level: 5, category: 'Moons',
+                text: 'What is ' + planet.name + '\'s most famous moon called?',
+                type: 'choice', choices: _sh([mq.moon, ...mq.others]), answer: mq.moon,
+                successMsg: mq.moon + ' is one of the most fascinating moons in the solar system!',
+            });
+        });
+    }
+
+    // ── Level 6 · Fun Facts ─────────────────────────────────────
+    if (level === 6) {
+        PLANETS.forEach(p => {
+            const funFacts = Array.isArray(p.funFact) ? p.funFact : (p.funFact ? [p.funFact] : []);
+            funFacts.forEach((ff, i) => {
+                if (ff && ff.length <= 110) {
+                    qs.push({
+                        id: 'dyn_fun_' + p.id + '_' + i, level: 6, category: 'Fun Facts',
+                        text: '"' + ff + '" — Which planet is this about?',
+                        type: 'click', answer: p.id,
+                        successMsg: 'Brilliant! ' + p.name + ' is full of amazing surprises!',
+                        panelH: 130,
+                    });
+                }
+            });
+        });
+    }
+
+    return _sh(qs);
+}

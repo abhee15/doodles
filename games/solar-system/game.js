@@ -71,8 +71,8 @@ let celebrationGroup = null;
 const W = 900;
 const H = 650;
 
-// Sun position — shifted right for a more centred look
-const SUN_X = 160;
+// Sun position — centred enough to show all orbits cleanly
+const SUN_X = 200;
 const SUN_Y = H / 2;
 
 // ── Entry point (called from HTML) ─────────────────────────────
@@ -110,13 +110,20 @@ window.startPlanetQuest = function (mode) {
 };
 
 function buildQuestionQueue() {
-    const pool = QUESTION_LEVELS[quizLevel] ? [...QUESTION_LEVELS[quizLevel]] : [];
-    // Shuffle
-    for (let i = pool.length - 1; i > 0; i--) {
+    // Combine static questions for this level with dynamically generated ones
+    const staticPool = QUESTION_LEVELS[quizLevel] ? [...QUESTION_LEVELS[quizLevel]] : [];
+    const dynPool = typeof getDynamicQuestions === 'function' ? getDynamicQuestions(quizLevel) : [];
+
+    // Merge, deduplicating by id (static questions take priority)
+    const seen = new Set(staticPool.map(q => q.id));
+    const combined = [...staticPool, ...dynPool.filter(q => !seen.has(q.id))];
+
+    // Shuffle combined pool
+    for (let i = combined.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [pool[i], pool[j]] = [pool[j], pool[i]];
+        [combined[i], combined[j]] = [combined[j], combined[i]];
     }
-    questionQueue = pool.slice(0, questionsPerLevel);
+    questionQueue = combined.slice(0, questionsPerLevel);
 }
 
 // ── Phaser lifecycle ────────────────────────────────────────────
@@ -714,7 +721,7 @@ function showQuestion(scene, q) {
     choiceButtons = [];
 
     const catColor = CATEGORY_COLORS[q.category] || { bg: 0x1A2456, text: '#90CAF9', label: q.category };
-    const panelH = q.type === 'choice' ? 140 : 100;
+    const panelH = q.panelH || (q.type === 'choice' ? 140 : 110);
     const panelY = 58 + panelH / 2;
 
     questionPanel = scene.add.container(W / 2, panelY);
