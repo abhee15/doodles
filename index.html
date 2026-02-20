@@ -34,8 +34,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Phosphor Icons — single coherent icon library, SVG-based -->
-    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+    <!-- Tabler Icons — professional, consistent 2px stroke design system -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler.min.css">
 
     <link rel="stylesheet" href="css/portal.css">
 </head>
@@ -46,7 +46,7 @@
         <div class="navbar-inner">
             <a class="brand" href="index.html">
                 <div class="brand-mark">
-                    <i class="ph-bold ph-pencil-simple"></i>
+                    <i class="ti ti-pencil"></i>
                 </div>
                 <span class="brand-name">Doodles</span>
             </a>
@@ -60,22 +60,22 @@
 
         <div class="filter-bar">
             <button class="pill active" data-cat="all" onclick="filter('all', this)">
-                <i class="ph-bold ph-squares-four"></i> All Games
+                <i class="ti ti-layout-grid"></i> All Games
             </button>
             <button class="pill" data-cat="math" onclick="filter('math', this)">
-                <i class="ph-bold ph-calculator"></i> Math
+                <i class="ti ti-calculator"></i> Math
             </button>
             <button class="pill" data-cat="geo" onclick="filter('geo', this)">
-                <i class="ph-bold ph-globe-hemisphere-west"></i> Geography
+                <i class="ti ti-world"></i> Geography
             </button>
             <button class="pill" data-cat="words" onclick="filter('words', this)">
-                <i class="ph-bold ph-book-open"></i> Words
+                <i class="ti ti-book"></i> Words
             </button>
             <button class="pill" data-cat="science" onclick="filter('science', this)">
-                <i class="ph-bold ph-leaf"></i> Science
+                <i class="ti ti-leaf"></i> Science
             </button>
             <button class="pill" data-cat="memory" onclick="filter('memory', this)">
-                <i class="ph-bold ph-brain"></i> Memory
+                <i class="ti ti-brain"></i> Memory
             </button>
         </div>
     </div>
@@ -98,39 +98,39 @@
 
                 <a class="game-card" href="games/math-ladder/index.html" id="math-ladder">
                     <div class="thumb math-ladder">
-                        <i class="ph-bold ph-steps"></i>
+                        <i class="ti ti-stairs"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">Math Ladder</div>
                         <div class="card-desc">Climb rung by rung by solving addition &amp; subtraction problems against the clock.</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
 
                 <a class="game-card" href="games/number-ninja/index.html" id="number-ninja">
                     <div class="thumb ninja">
-                        <i class="ph-bold ph-target"></i>
+                        <i class="ti ti-target"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">Number Ninja</div>
                         <div class="card-desc">Tap falling numbers in the right sequence before they hit the ground!</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
 
                 <a class="game-card" href="games/quick-math/index.html" id="quick-math">
                     <div class="thumb quickmath">
-                        <i class="ph-bold ph-lightning"></i>
+                        <i class="ti ti-bolt"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">Quick Math</div>
                         <div class="card-desc">Master fast mental math tricks — add, subtract, and multiply at lightning speed.</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
@@ -138,13 +138,13 @@
                 <a class="game-card" href="games/measure-master/index.html" id="measure-master">
                     <div class="thumb measure">
                         <span class="badge-new">New</span>
-                        <i class="ph-bold ph-ruler"></i>
+                        <i class="ti ti-ruler-2"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">Measure Master</div>
                         <div class="card-desc">Explore inches, feet, meters, km — with origin stories, conversions &amp; real-world puzzles.</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
@@ -168,13 +168,13 @@
                 <a class="game-card" href="games/body-map/index.html" id="body-map">
                     <div class="thumb" style="background:linear-gradient(135deg,#1E1060,#4A1090)">
                         <span class="badge-new">New</span>
-                        <i class="ph-bold ph-person" style="color:#F5C518;"></i>
+                        <i class="ti ti-user" style="color:#F5C518;"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">Body Map</div>
                         <div class="card-desc">Learn all 47 US Presidents using your body as a memory map — toes to head!</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
@@ -197,26 +197,26 @@
 
                 <a class="game-card" href="games/world-explorer/index.html" id="world-explorer">
                     <div class="thumb world">
-                        <i class="ph-bold ph-globe-hemisphere-west"></i>
+                        <i class="ti ti-world"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">World Explorer</div>
                         <div class="card-desc">Discover countries, capitals, flags, and amazing facts about every corner of Earth.</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
 
                 <a class="game-card" href="games/earth-explorer/index.html" id="earth-explorer">
                     <div class="thumb earth">
-                        <i class="ph-bold ph-map-trifold"></i>
+                        <i class="ti ti-map"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">Earth Explorer</div>
                         <div class="card-desc">Click on the world map to find and name every continent and ocean!</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
@@ -239,13 +239,13 @@
 
                 <a class="game-card" href="games/word-explorer/index.html" id="word-explorer">
                     <div class="thumb word">
-                        <i class="ph-bold ph-book-open-text"></i>
+                        <i class="ti ti-book-2"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">Word Explorer</div>
                         <div class="card-desc">Build a powerful vocabulary — learn new words with definitions, examples, and quizzes.</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
@@ -269,26 +269,26 @@
                 <a class="game-card" href="games/solar-system/index.html" id="solar-system">
                     <div class="thumb solar">
                         <span class="badge-new">New</span>
-                        <i class="ph-bold ph-sun" style="color: #FDD835;"></i>
+                        <i class="ti ti-sun" style="color: #FDD835;"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">Planet Quest</div>
                         <div class="card-desc">Explore the solar system — click planets to learn facts, then ace the quiz across 6 levels!</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
 
                 <a class="game-card" href="games/dino-hunter/index.html" id="dino-hunter">
                     <div class="thumb dino">
-                        <i class="ph-bold ph-skull"></i>
+                        <i class="ti ti-skull"></i>
                     </div>
                     <div class="card-overlay">
                         <div class="card-title">Dino Hunter</div>
                         <div class="card-desc">Hunt your target dino — miss and learn incredible facts about the one you hit!</div>
                         <span class="card-play">
-                            <i class="ph-bold ph-play"></i> Play
+                            <i class="ti ti-player-play"></i> Play
                         </span>
                     </div>
                 </a>
@@ -298,7 +298,7 @@
     </section>
 
     <div class="empty" id="empty">
-        <i class="ph-bold ph-smiley-wink"></i>
+        <i class="ti ti-mood-smile"></i>
         <p>More games coming soon in this category!</p>
     </div>
 
@@ -310,7 +310,7 @@
         <div class="footer-brand">
             <div class="footer-brand-row">
                 <div class="brand-mark">
-                    <i class="ph-bold ph-pencil-simple"></i>
+                    <i class="ti ti-pencil"></i>
                 </div>
                 <span>Doodles</span>
             </div>

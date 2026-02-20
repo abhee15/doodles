@@ -6,7 +6,7 @@
   <title>Body Map - Learn All US Presidents for Kids | Doodles Games</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler.min.css">
   <style>
     :root {
       --navy:    #0D1B2A;
@@ -349,7 +349,7 @@
 
 <!-- ══ NAV ══ -->
 <nav class="nav">
-  <a href="../../index.html#body-map"><i class="ph-bold ph-arrow-left"></i> Back</a>
+  <a href="../../index.html#body-map"><i class="ti ti-arrow-left"></i> Back</a>
   <span class="nav-title" id="nav-title">Body Map</span>
   <span class="nav-progress" id="nav-progress"></span>
 </nav>
@@ -475,14 +475,14 @@
 
   <div class="learn-footer">
     <button class="btn-prev" id="btn-prev" onclick="prevStep()">
-      <i class="ph-bold ph-arrow-left"></i> Back
+      <i class="ti ti-arrow-left"></i> Back
     </button>
     <div class="learn-footer-center">
       <div class="step-indicator" id="step-indicator">President 1 of 10</div>
       <div class="step-dots" id="step-dots"></div>
     </div>
     <button class="btn-next" id="btn-next" onclick="nextStep()">
-      Next <i class="ph-bold ph-arrow-right"></i>
+      Next <i class="ti ti-arrow-right"></i>
     </button>
   </div>
 </div>
@@ -522,9 +522,9 @@
   <div class="score-out" id="score-out">out of 10 correct</div>
   <div class="score-sub" id="score-sub">Keep practicing the body map!</div>
   <div class="score-btns">
-    <button class="btn-outline" onclick="replayBatch()"><i class="ph-bold ph-arrow-counter-clockwise"></i> Try Again</button>
-    <button class="btn-outline" onclick="goStart()"><i class="ph-bold ph-list"></i> All Batches</button>
-    <button class="btn-gold"    id="btn-next-batch" onclick="nextBatch()"><i class="ph-bold ph-arrow-right"></i> Next Batch</button>
+    <button class="btn-outline" onclick="replayBatch()"><i class="ti ti-arrow-back-up"></i> Try Again</button>
+    <button class="btn-outline" onclick="goStart()"><i class="ti ti-layout-list"></i> All Batches</button>
+    <button class="btn-gold"    id="btn-next-batch" onclick="nextBatch()"><i class="ti ti-arrow-right"></i> Next Batch</button>
   </div>
 </div>
 
