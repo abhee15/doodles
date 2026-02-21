@@ -27,6 +27,7 @@
     --grad-earth:        linear-gradient(140deg, #00ACC1 0%, #006064 100%);
     --grad-dino:         linear-gradient(145deg, #43A047 0%, #1B5E20 100%);
     --grad-solar:        linear-gradient(145deg, #0B0E2D 0%, #1a1060 55%, #0D2060 100%);
+    --grad-periodic:     linear-gradient(145deg, #7C3AED 0%, #5B21B6 100%);
     --grad-doodle-school: linear-gradient(145deg, #F472B6 0%, #818CF8 100%);
 
     /* Category dot colors (for section headers) */
@@ -249,6 +250,7 @@ body {
 .thumb.earth       { background: var(--grad-earth); }
 .thumb.dino        { background: var(--grad-dino); }
 .thumb.solar       { background: var(--grad-solar); }
+.thumb.periodic    { background: var(--grad-periodic); }
 .thumb.doodle-school { background: var(--grad-doodle-school); }
 
 /* ── Unique background patterns per game ── */
