@@ -162,7 +162,6 @@ class PeriodicTableGameEngine {
         <div class="panel-number">${idx + 1}</div>
         <div class="panel-symbol">${el.symbol}</div>
         <div class="panel-name">${el.name}</div>
-        <div class="panel-emoji">🧪</div>
       </div>
     `).join('');
   }

@@ -103,10 +103,17 @@ function nextChunk() {
 }
 
 /**
- * Go back to home
+ * Go back to picker hub
+ */
+function goBack() {
+  window.location.href = 'index.html';
+}
+
+/**
+ * Go home to portal
  */
 function goHome() {
-  window.location.href = 'index.html';
+  window.location.href = '../../index.html';
 }
 
 /**

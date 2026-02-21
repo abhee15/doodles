@@ -3,7 +3,7 @@
    ============================================ */
 
 .game-header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--color-primary, #1CB0F6) 0%, var(--color-primary-dark, #0B8FDE) 100%);
   color: white;
   padding: 20px 30px;
   display: flex;
@@ -27,6 +27,9 @@
   cursor: pointer;
   font-weight: 600;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 .btn-back:hover {
@@ -81,19 +84,32 @@
   display: block;
 }
 
+.game-ui h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: var(--color-primary, #1CB0F6);
+}
+
+.game-ui h2 i {
+  font-size: 32px;
+}
+
 /* ============================================
    STORY CHAIN STYLES
    ============================================ */
 
 .story-chain-ui h2 {
-  color: #667eea;
+  color: var(--color-primary, #1CB0F6);
   margin-bottom: 20px;
   font-size: 28px;
 }
 
 .story-narrative {
   background: white;
-  border-left: 4px solid #667eea;
+  border-left: 4px solid var(--color-primary, #1CB0F6);
   padding: 25px;
   margin: 25px 0;
   border-radius: 8px;
@@ -128,24 +144,19 @@
 
 .panel-number {
   font-size: 12px;
-  color: #999;
+  color: var(--color-text-muted, #6B7280);
   margin-bottom: 10px;
 }
 
 .panel-symbol {
   font-size: 24px;
   font-weight: bold;
-  color: #667eea;
+  color: var(--color-primary, #1CB0F6);
 }
 
 .panel-name {
   font-size: 14px;
-  color: #333;
-  margin-top: 10px;
-}
-
-.panel-emoji {
-  font-size: 24px;
+  color: var(--color-text-dark, #1A1A1A);
   margin-top: 10px;
 }
 

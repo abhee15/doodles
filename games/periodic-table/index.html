@@ -3,7 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Periodic Table Memory Master - Choose Your Path</title>
+  
+  <!-- Primary Meta Tags -->
+  <title>Periodic Table Memory Master - Choose Your Path | Doodles Games</title>
+  <meta name="title" content="Periodic Table Memory Master - Learn Chemistry with Memory Techniques">
+  <meta name="description" content="Master the periodic table using 5 proven memory techniques: Story Chain, Memory Palace, Body Map, Keyword Image, and Rhyme Pegs. Learn elements interactively!">
+  <meta name="keywords" content="periodic table, memory techniques, chemistry, learning, mnemonics, educational game">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+  
+  <!-- Design System -->
+  <link rel="stylesheet" href="../../shared/design-colors.css">
+  
   <link rel="stylesheet" href="css/periodic-table.css">
 </head>
 <body>
@@ -11,7 +23,8 @@
     
     <!-- Header -->
     <header class="app-header">
-      <h1>🧪 Periodic Table Memory Master</h1>
+      <div class="header-icon"><i class="ti ti-flask-2"></i></div>
+      <h1>Periodic Table Memory Master</h1>
       <p>Choose your learning path</p>
     </header>
 
@@ -22,42 +35,42 @@
       <div id="chunk-selector" class="screen active">
         <div class="screen-content">
           <h2>📚 Which elements would you like to learn?</h2>
-          <p class="subtitle">Each set builds on the last. Start with Chunk 1!</p>
+          <p class="subtitle">Each set builds on the last. Start with Set 1!</p>
           
           <div class="chunks-grid">
             <button class="chunk-card" onclick="selectChunk(1)" data-chunk="1">
               <div class="chunk-number">1</div>
               <div class="chunk-title">Elements 1-20</div>
               <div class="chunk-range">Hydrogen → Calcium</div>
-              <div class="chunk-description">The foundations</div>
+              <div class="chunk-description">🚀 Start here!</div>
             </button>
             
             <button class="chunk-card" onclick="selectChunk(2)" data-chunk="2">
               <div class="chunk-number">2</div>
               <div class="chunk-title">Elements 21-40</div>
               <div class="chunk-range">Scandium → Krypton</div>
-              <div class="chunk-description">Transition metals</div>
+              <div class="chunk-description">⭐ Level up!</div>
             </button>
             
             <button class="chunk-card" onclick="selectChunk(3)" data-chunk="3">
               <div class="chunk-number">3</div>
               <div class="chunk-title">Elements 41-60</div>
               <div class="chunk-range">Yttrium → Neodymium</div>
-              <div class="chunk-description">More transitions</div>
+              <div class="chunk-description">🔥 Getting harder!</div>
             </button>
             
             <button class="chunk-card" onclick="selectChunk(4)" data-chunk="4">
               <div class="chunk-number">4</div>
               <div class="chunk-title">Elements 61-80</div>
               <div class="chunk-range">Promethium → Mercury</div>
-              <div class="chunk-description">Lanthanides & more</div>
+              <div class="chunk-description">💪 Expert mode!</div>
             </button>
             
             <button class="chunk-card" onclick="selectChunk(5)" data-chunk="5">
               <div class="chunk-number">5</div>
               <div class="chunk-title">Elements 81-101</div>
               <div class="chunk-range">Thallium → Oganesson</div>
-              <div class="chunk-description">The heavyweights</div>
+              <div class="chunk-description">🏆 Champion!</div>
             </button>
           </div>
         </div>
@@ -94,31 +107,31 @@
             
             <div class="techniques-grid">
               <button class="technique-option" onclick="selectTechnique('story_chain')" data-technique="story_chain">
-                <div class="tech-icon">📚</div>
+                <div class="tech-icon"><i class="ti ti-book-2"></i></div>
                 <div class="tech-name">Story Chain</div>
                 <div class="tech-desc">Link elements as a narrative story</div>
               </button>
               
               <button class="technique-option" onclick="selectTechnique('memory_palace')" data-technique="memory_palace">
-                <div class="tech-icon">🏠</div>
+                <div class="tech-icon"><i class="ti ti-building-mansion"></i></div>
                 <div class="tech-name">Memory Palace</div>
                 <div class="tech-desc">Place elements in rooms or locations</div>
               </button>
               
               <button class="technique-option" onclick="selectTechnique('body_map')" data-technique="body_map">
-                <div class="tech-icon">🧍</div>
+                <div class="tech-icon"><i class="ti ti-body"></i></div>
                 <div class="tech-name">Body Map</div>
                 <div class="tech-desc">Anchor elements to your body</div>
               </button>
               
               <button class="technique-option" onclick="selectTechnique('keyword_image')" data-technique="keyword_image">
-                <div class="tech-icon">🎨</div>
+                <div class="tech-icon"><i class="ti ti-palette"></i></div>
                 <div class="tech-name">Keyword Image</div>
                 <div class="tech-desc">Sound-alike word associations</div>
               </button>
               
               <button class="technique-option" onclick="selectTechnique('rhyme_pegs')" data-technique="rhyme_pegs">
-                <div class="tech-icon">🎵</div>
+                <div class="tech-icon"><i class="ti ti-music"></i></div>
                 <div class="tech-name">Rhyme Pegs</div>
                 <div class="tech-desc">Link to rhyming numbers</div>
               </button>

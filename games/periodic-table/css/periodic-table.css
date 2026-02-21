@@ -36,15 +36,22 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+.app-header .header-icon {
+  font-size: 48px;
+  color: var(--color-primary, #1CB0F6);
+  margin-bottom: 10px;
+}
+
 .app-header h1 {
   font-size: 32px;
-  color: #667eea;
+  color: var(--color-primary, #1CB0F6);
   margin-bottom: 10px;
+  font-weight: 700;
 }
 
 .app-header p {
   font-size: 16px;
-  color: #666;
+  color: var(--color-text-muted, #6B7280);
 }
 
 .app-main {
@@ -256,31 +263,35 @@ body {
 }
 
 .technique-option:hover {
-  border-color: #667eea;
+  border-color: var(--color-primary, #1CB0F6);
   background: #f8f9ff;
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+  box-shadow: 0 4px 12px rgba(28, 176, 246, 0.15);
 }
 
 .technique-option.recommended {
-  border-color: #ffc107;
+  border-color: var(--color-accent-gold, #FFE66D);
   background: #fffacd;
 }
 
 .tech-icon {
-  font-size: 40px;
+  font-size: 36px;
+  color: var(--color-primary, #1CB0F6);
   margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .tech-name {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: var(--color-text-dark, #1A1A1A);
   margin-bottom: 8px;
 }
 
 .tech-desc {
   font-size: 13px;
-  color: #999;
+  color: var(--color-text-muted, #6B7280);
   line-height: 1.4;
 }
 

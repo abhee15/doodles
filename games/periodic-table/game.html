@@ -3,7 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Periodic Table Memory Master - Game</title>
+  
+  <!-- Primary Meta Tags -->
+  <title>Periodic Table Memory Master - Game | Doodles Games</title>
+  <meta name="title" content="Periodic Table Memory Master - Interactive Learning">
+  <meta name="description" content="Master the periodic table using proven memory techniques. Learn elements interactively with Story Chain, Memory Palace, and more!">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+  
+  <!-- Design System -->
+  <link rel="stylesheet" href="../../shared/design-colors.css">
+  
   <link rel="stylesheet" href="css/periodic-table.css">
   <link rel="stylesheet" href="css/game.css">
 </head>
@@ -13,7 +24,7 @@
     <!-- Header -->
     <header class="game-header">
       <div class="header-left">
-        <button class="btn-back" onclick="goHome()">← Home</button>
+        <button class="btn-back" onclick="goBack()">← Back</button>
         <div class="game-info">
           <h1 id="game-title">Story Chain - Elements 1-20</h1>
           <p id="game-subtitle">Learn the periodic table</p>
@@ -33,19 +44,19 @@
         <!-- Story Chain UI -->
         <div id="story-chain-ui" class="game-ui story-chain-ui" style="display:none;">
           <div class="story-phase" id="story-phase">
-            <h2>📖 The Periodic Story</h2>
+            <h2><i class="ti ti-book-2"></i> The Periodic Story</h2>
             <div class="story-narrative" id="story-text"></div>
             <div class="story-panels" id="story-panels"></div>
             <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
           </div>
           
           <div class="recall-phase" id="recall-phase" style="display:none;">
-            <h2>🧠 Can you remember?</h2>
+            <h2><i class="ti ti-brain"></i> Can you remember?</h2>
             <p>Tap or click on the missing elements:</p>
             <div class="recall-grid" id="recall-grid"></div>
             <div id="recall-results" style="display:none;">
               <div class="results-box">
-                <h3>Great job! 🎉</h3>
+                <h3>Great job! <i class="ti ti-confetti"></i></h3>
                 <p id="results-text"></p>
                 <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
               </div>
@@ -56,7 +67,7 @@
         <!-- Memory Palace UI -->
         <div id="memory-palace-ui" class="game-ui memory-palace-ui" style="display:none;">
           <div class="palace-container">
-            <h2>🏠 Your Memory Palace</h2>
+            <h2><i class="ti ti-building-mansion"></i> Your Memory Palace</h2>
             <div class="room-view" id="room-view"></div>
             <div class="element-list" id="element-list"></div>
           </div>
@@ -65,7 +76,7 @@
         <!-- Body Map UI -->
         <div id="body-map-ui" class="game-ui body-map-ui" style="display:none;">
           <div class="body-map-container">
-            <h2>🧍 Body Map Anchors</h2>
+            <h2><i class="ti ti-body"></i> Body Map Anchors</h2>
             <div class="body-illustration" id="body-illustration"></div>
             <div class="body-info" id="body-info"></div>
           </div>
@@ -74,7 +85,7 @@
         <!-- Keyword Image UI -->
         <div id="keyword-ui" class="game-ui keyword-ui" style="display:none;">
           <div class="keyword-container">
-            <h2>🎨 Keyword Associations</h2>
+            <h2><i class="ti ti-palette"></i> Keyword Associations</h2>
             <div class="keywords-grid" id="keywords-grid"></div>
           </div>
         </div>
@@ -82,7 +93,7 @@
         <!-- Rhyme Pegs UI -->
         <div id="rhyme-pegs-ui" class="game-ui rhyme-pegs-ui" style="display:none;">
           <div class="rhyme-container">
-            <h2>🎵 Rhyme Peg System</h2>
+            <h2><i class="ti ti-music"></i> Rhyme Peg System</h2>
             <div class="rhymes-grid" id="rhymes-grid"></div>
           </div>
         </div>

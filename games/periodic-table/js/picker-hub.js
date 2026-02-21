@@ -7,7 +7,7 @@ const CHUNKS = {
     fullTitle: "Hydrogen to Calcium",
     recommended: "story_chain",
     description: "The foundations - elements that appear most in everyday life",
-    why: "Elements 1-20 have a natural order and connect beautifully in a single story. You'll remember the whole sequence together! 📚"
+    why: "Elements 1-20 have a natural order and connect beautifully in a single story. You'll remember the whole sequence together!"
   },
   2: {
     id: 2,
@@ -16,7 +16,7 @@ const CHUNKS = {
     fullTitle: "Scandium to Krypton",
     recommended: "memory_palace",
     description: "Transition metals and the first heavier elements",
-    why: "Elements 21-40 benefit from spatial organization. Place them in rooms as you move through your memory palace! 🏠"
+    why: "Elements 21-40 benefit from spatial organization. Place them in rooms as you move through your memory palace!"
   },
   3: {
     id: 3,
@@ -25,7 +25,7 @@ const CHUNKS = {
     fullTitle: "Yttrium to Neodymium",
     recommended: "body_map",
     description: "More transition metals and rare earth beginnings",
-    why: "Use physical anchoring with extended body landmarks. This works great for medium-size element groups! 🧍"
+    why: "Use physical anchoring with extended body landmarks. This works great for medium-size element groups!"
   },
   4: {
     id: 4,
@@ -34,7 +34,7 @@ const CHUNKS = {
     fullTitle: "Promethium to Mercury",
     recommended: "rhyme_pegs",
     description: "Lanthanides and heavy elements",
-    why: "The rhyme peg system (One=Bun, Two=Shoe) works perfectly for numbered sequences like this! 🎵"
+    why: "The rhyme peg system (One=Bun, Two=Shoe) works perfectly for numbered sequences like this!"
   },
   5: {
     id: 5,
@@ -43,7 +43,7 @@ const CHUNKS = {
     fullTitle: "Thallium to Oganesson",
     recommended: "keyword_image",
     description: "The heavyweights and synthetic elements",
-    why: "Complex element names need creative sound-alike associations. Perfect for keyword image technique! 🎨"
+    why: "Complex element names need creative sound-alike associations. Perfect for keyword image technique!"
   }
 };
 
@@ -51,27 +51,22 @@ const CHUNKS = {
 const TECHNIQUES = {
   story_chain: {
     name: "Story Chain",
-    icon: "📚",
     description: "Link elements as a narrative story"
   },
   memory_palace: {
     name: "Memory Palace",
-    icon: "🏠",
     description: "Place elements in rooms or locations"
   },
   body_map: {
     name: "Body Map",
-    icon: "🧍",
     description: "Anchor elements to your body"
   },
   keyword_image: {
     name: "Keyword Image",
-    icon: "🎨",
     description: "Sound-alike word associations"
   },
   rhyme_pegs: {
     name: "Rhyme Pegs",
-    icon: "🎵",
     description: "Link to rhyming numbers"
   }
 };
