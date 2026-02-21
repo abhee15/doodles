@@ -135,7 +135,7 @@ function spawnDino() {
     el.className = 'dh-dino';
     el.style.cssText = 'position:absolute;transform:translate(-50%,-50%);pointer-events:none;text-align:center;transition:opacity .2s,transform .2s;z-index:5';
     el.innerHTML =
-        '<div style="background:' + dino.color + ';border:3px solid #111;border-radius:10px;padding:6px 10px;box-shadow:2px 3px 8px rgba(0,0,0,0.5);min-width:80px">' +
+        '<div style="background:' + dino.color + ';border:3px solid #111;border-radius:10px;padding:6px 10px;min-width:80px">' +
         '<div style="font-size:30px;line-height:1.1">' + dino.emoji + '</div>' +
         '<div style="font:bold 12px Arial,sans-serif;color:#fff;text-shadow:1px 1px 0 #000;margin-top:2px">' + dino.nick + '</div>' +
         '</div>';

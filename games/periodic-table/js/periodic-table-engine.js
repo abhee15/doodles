@@ -31,12 +31,24 @@ class PeriodicTableGameEngine {
   async loadElementData() {
     try {
       const response = await fetch('periodic-table-data.json');
-      this.elementData = await response.json();
-      console.log('Element data loaded:', this.elementData.metadata);
+      const data = await response.json();
+      
+      // Extract elements array from response
+      let elements = data.elements || data.items || [];
+      
+      // Add chunk ID to all elements (all current elements are chunk 1)
+      this.elementData = {
+        elements: elements.map(el => ({
+          ...el,
+          chunk: el.chunk || 1,
+          id: el.atomicNumber
+        }))
+      };
+      
+      console.log('Element data loaded:', this.elementData.elements.length, 'elements');
     } catch (error) {
       console.error('Error loading element data:', error);
-      // Fallback data
-      this.elementData = { elements: [], metadata: {} };
+      this.elementData = { elements: [] };
     }
   }
 
@@ -105,8 +117,24 @@ class PeriodicTableGameEngine {
    * GET MEMORY TIP FOR SPECIFIC TECHNIQUE
    */
   getMemoryTip(element) {
-    if (!element.memory_tips) return element.name;
-    return element.memory_tips[this.technique] || element.name;
+    if (!element) return '';
+    
+    // Try new structure first
+    if (element.memory_tips && element.memory_tips[this.technique]) {
+      return element.memory_tips[this.technique];
+    }
+    
+    // Fall back to old structure (direct fields)
+    const fieldMap = {
+      'story_chain': 'story',
+      'memory_palace': 'mnemonic',
+      'body_map': 'bodyPart',
+      'keyword_image': 'associationImage',
+      'rhyme_pegs': 'rhymePeg'
+    };
+    
+    const fieldName = fieldMap[this.technique] || 'memory_tip';
+    return element[fieldName] || element.memory_tip || element.name;
   }
 
   /**

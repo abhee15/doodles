@@ -3,7 +3,7 @@
   "title": "Periodic Table: First 20 Elements",
   "category": "Chemistry",
   "description": "Foundation elements kids should know — master these first before expanding",
-  "items": [
+  "elements": [
     {
       "order": 1,
       "atomicNumber": 1,
