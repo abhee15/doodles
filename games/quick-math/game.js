@@ -86,7 +86,7 @@ const ACHIEVEMENTS = {
         name: 'Math Genius',
         icon: '🧠',
         description: 'Unlock all levels',
-        check: () => playerProgress.unlockedLevels >= 6
+        check: () => playerProgress.unlockedLevels >= 9
     },
     score_master: {
         id: 'score_master',
@@ -499,7 +499,10 @@ function showLevelSelect(scene) {
         { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0xA44A3F, locked: true },
         { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFB800, locked: true },
         { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0xEC4899, locked: true },
-        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x10B981, locked: true }
+        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x10B981, locked: true },
+        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0x8B5CF6, locked: true },
+        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0xF59E0B, locked: true },
+        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0x06B6D4, locked: true }
     ];
 
     levels.forEach((level, index) => {
@@ -623,6 +626,12 @@ function showTutorial(scene, levelId) {
         tutorialMultiplyBy9(scene);
     } else if (levelId === 6) {
         tutorialMultiplyBy5(scene);
+    } else if (levelId === 7) {
+        tutorialMultiplyBy4(scene);
+    } else if (levelId === 8) {
+        tutorialMultiplyBy6(scene);
+    } else if (levelId === 9) {
+        tutorialMultiplyBy8(scene);
     }
     // Add more tutorials for other levels later
 }
@@ -1293,6 +1302,338 @@ function tutorialMultiplyBy5(scene) {
     showStep();
 }
 
+// ==================== TUTORIAL: MULTIPLY BY 4 ====================
+function tutorialMultiplyBy4(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Multiply by 4 - Double, Double!',
+            text: 'Learn the easiest way to multiply ANY number by 4!',
+            example: ''
+        },
+        {
+            title: 'The Secret: Double, Then Double Again!',
+            text: 'Multiplying by 4 is just doubling TWICE!\n\nExample: 4 × 3 = ?',
+            example: '4 × 3 = ?'
+        },
+        {
+            title: 'Step 1: First Double',
+            text: 'Start with the number: 3\nDouble it: 3 × 2 = 6',
+            example: '6'
+        },
+        {
+            title: 'Step 2: Double Again!',
+            text: 'Now double that result:\n6 × 2 = 12\n\nDone!',
+            example: '4 × 3 = 12 ✓'
+        },
+        {
+            title: 'Try Another: 4 × 5',
+            text: 'Double 5 = 10\nDouble 10 = 20\n\nAnswer:',
+            example: '4 × 5 = 20'
+        },
+        {
+            title: 'Try Another: 4 × 8',
+            text: 'Double 8 = 16\nDouble 16 = 32\n\nAnswer:',
+            example: '4 × 8 = 32'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Any number × 4:\nDouble it\nThen double the result\n\nIt works for ANY number!\n23 × 4 = 46 → 92',
+            example: '✨ Double, Double! ✨'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#A44A3F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 7);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
+// ==================== TUTORIAL: MULTIPLY BY 6 ====================
+function tutorialMultiplyBy6(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Multiply by 6 - The Pattern Trick!',
+            text: 'Learn a cool pattern for multiplying even numbers by 6!',
+            example: ''
+        },
+        {
+            title: 'Special Trick for Even Numbers',
+            text: 'When you multiply 6 by an EVEN number,\nthere\'s a MAGIC PATTERN!\n\nExample: 6 × 4 = ?',
+            example: '6 × 4 = ?'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'The answer ends with the SAME number you multiplied by!\n\n6 × 4 ends in: 4',
+            example: '_ 4'
+        },
+        {
+            title: 'The Tens Digit!',
+            text: 'The tens digit is HALF of the ones digit!\n\nHalf of 4 = 2\n\nSo the answer is:',
+            example: '24'
+        },
+        {
+            title: 'Try Another: 6 × 6',
+            text: 'Ends in 6\nTens digit = half of 6 = 3\n\nAnswer:',
+            example: '6 × 6 = 36'
+        },
+        {
+            title: 'Try Another: 6 × 8',
+            text: 'Ends in 8\nTens digit = half of 8 = 4\n\nAnswer:',
+            example: '6 × 8 = 48'
+        },
+        {
+            title: 'The Pattern For Even Numbers!',
+            text: 'When multiplying 6 by an even number:\nOnes digit = the even number\nTens digit = half of that number\n\n6 × 2 = 12\n6 × 4 = 24\n6 × 8 = 48',
+            example: '✨ Pattern Magic! ✨'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#A44A3F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 8);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
+// ==================== TUTORIAL: MULTIPLY BY 8 ====================
+function tutorialMultiplyBy8(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Multiply by 8 - Triple Double!',
+            text: 'Learn to multiply by 8 using three DOUBLINGS!',
+            example: ''
+        },
+        {
+            title: 'The Secret: Double THREE Times!',
+            text: 'Multiplying by 8 is just doubling 3 times!\n\nExample: 8 × 3 = ?',
+            example: '8 × 3 = ?'
+        },
+        {
+            title: 'Step 1: First Double',
+            text: 'Start with 3\nDouble it: 3 × 2 = 6',
+            example: '6'
+        },
+        {
+            title: 'Step 2: Second Double',
+            text: 'Double that result:\n6 × 2 = 12',
+            example: '12'
+        },
+        {
+            title: 'Step 3: Third Double!',
+            text: 'Double one more time:\n12 × 2 = 24\n\nDone!',
+            example: '8 × 3 = 24 ✓'
+        },
+        {
+            title: 'Try Another: 8 × 4',
+            text: 'Double 4 = 8\nDouble 8 = 16\nDouble 16 = 32\n\nAnswer:',
+            example: '8 × 4 = 32'
+        },
+        {
+            title: 'Try Another: 8 × 5',
+            text: 'Double 5 = 10\nDouble 10 = 20\nDouble 20 = 40\n\nAnswer:',
+            example: '8 × 5 = 40'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Any number × 8:\nDouble it\nDouble the result\nDouble one more time\n\n23 × 8 = 46 → 92 → 184',
+            example: '✨ Triple Double! ✨'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#A44A3F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 9);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
 // ==================== PRACTICE MODE ====================
 function showPractice(scene, levelId) {
     scene.children.removeAll();
@@ -1389,6 +1730,33 @@ function showPractice(scene, levelId) {
                 type: '×5'
             };
             currentQuestion.answer = evenNum * 5;
+        } else if (levelId === 7) {
+            // Level 7: Multiply by 4 (double-double)
+            const num = Phaser.Math.Between(1, 20);
+            currentQuestion = {
+                num: num,
+                answer: null,
+                type: '×4'
+            };
+            currentQuestion.answer = num * 4;
+        } else if (levelId === 8) {
+            // Level 8: Multiply by 6 (pattern with even numbers)
+            const evenNum = Phaser.Math.Between(1, 5) * 2; // 2, 4, 6, 8, 10
+            currentQuestion = {
+                num: evenNum,
+                answer: null,
+                type: '×6'
+            };
+            currentQuestion.answer = evenNum * 6;
+        } else if (levelId === 9) {
+            // Level 9: Multiply by 8 (triple-double)
+            const num = Phaser.Math.Between(1, 15);
+            currentQuestion = {
+                num: num,
+                answer: null,
+                type: '×8'
+            };
+            currentQuestion.answer = num * 8;
         }
 
         if (questionText) questionText.destroy();
@@ -1410,6 +1778,12 @@ function showPractice(scene, levelId) {
             questionStr = `${currentQuestion.num} × 9 = ?`;
         } else if (currentQuestion.type === '×5') {
             questionStr = `${currentQuestion.num} × 5 = ?`;
+        } else if (currentQuestion.type === '×4') {
+            questionStr = `${currentQuestion.num} × 4 = ?`;
+        } else if (currentQuestion.type === '×6') {
+            questionStr = `${currentQuestion.num} × 6 = ?`;
+        } else if (currentQuestion.type === '×8') {
+            questionStr = `${currentQuestion.num} × 8 = ?`;
         }
 
         questionText = scene.add.text(450, 120, questionStr, {
