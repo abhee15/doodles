@@ -39,43 +39,43 @@ const ButtonSizes = {
 function getButtonStyle(variant) {
     const styles = {
         primary: {
-            bgColor: 0xA44A3F,           // Brick red
-            bgColorHover: 0x8B3A30,
-            bgColorPressed: 0x6B2A22,
+            bgColor: 0x1CB0F6,           // Dodger Blue (from design-colors.css)
+            bgColorHover: 0x0B8FDE,
+            bgColorPressed: 0x0870B8,
             textColor: '#FFFFFF',
-            shadowColor: 0x3E1F1A,
+            shadowColor: 0x000000,
             shadowAlpha: 0.25
         },
         secondary: {
-            bgColor: 0x8B6456,           // Muted brick
-            bgColorHover: 0x7A5548,
-            bgColorPressed: 0x6A4538,
+            bgColor: 0xFF7D00,           // Bright Orange (from design-colors.css)
+            bgColorHover: 0xE67300,
+            bgColorPressed: 0xCC6900,
             textColor: '#FFFFFF',
-            shadowColor: 0x3E1F1A,
+            shadowColor: 0x000000,
             shadowAlpha: 0.2
         },
         success: {
-            bgColor: 0xA44A3F,           // Brick red (only palette color dark enough for white text)
-            bgColorHover: 0x8B3A30,
-            bgColorPressed: 0x6B2A22,
+            bgColor: 0x58CC02,           // Bright Green (from design-colors.css)
+            bgColorHover: 0x4BA502,
+            bgColorPressed: 0x3F8802,
             textColor: '#FFFFFF',
-            shadowColor: 0x3E1F1A,
+            shadowColor: 0x000000,
             shadowAlpha: 0.25
         },
         danger: {
-            bgColor: 0xA44A3F,           // Brick red
-            bgColorHover: 0x6B2A22,
-            bgColorPressed: 0x4F1A14,
+            bgColor: 0xFF4444,           // Bright Red (from design-colors.css)
+            bgColorHover: 0xCC2222,
+            bgColorPressed: 0x991111,
             textColor: '#FFFFFF',
-            shadowColor: 0x3E1F1A,
+            shadowColor: 0x000000,
             shadowAlpha: 0.3
         },
         ghost: {
-            bgColor: 0x8B6456,           // Muted brick, semi-transparent
-            bgColorHover: 0x7A5548,
-            bgColorPressed: 0x6A4538,
+            bgColor: 0x1CB0F6,           // Dodger Blue, semi-transparent
+            bgColorHover: 0x0B8FDE,
+            bgColorPressed: 0x0870B8,
             textColor: '#FFFFFF',
-            shadowColor: 0x3E1F1A,
+            shadowColor: 0x000000,
             shadowAlpha: 0.15,
             alpha: 0.55,
             alphaHover: 0.75,

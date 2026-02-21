@@ -13,6 +13,7 @@ const QM_COLORS = {
     cardBg: 0xFFFFFF,         // White cards
     text: 0x1A1A1A,           // Dark text
     textMuted: 0x6B7280,      // Muted text
+    textLight: 0x9CA3AF,      // Light gray text
     accent: 0xFFE66D          // Gold accent
 };
 

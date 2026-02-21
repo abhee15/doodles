@@ -121,11 +121,10 @@ function create() {
     // Pattern label (shown during play)
     patternLabel = this.add.text(center.x, 68, '', {
         fontSize: '18px',
-        fill: '#FFFFFF',
+        fill: NINJA_COLORS.text,
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
         backgroundColor: NINJA_COLORS.accent,
-        color: NINJA_COLORS.text,
         padding: { x: 10, y: 5 }
     }).setOrigin(0.5, 0);
 
