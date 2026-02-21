@@ -2,10 +2,23 @@
 // Click falling numbers in the correct pattern!
 // MIGRATED TO TEMPLATE SYSTEM V2.0
 
+// Number Ninja Colors - Coral & Turquoise (from design-colors.css)
+const NINJA_COLORS = {
+    primary: '#FF6B6B',       // Coral Red - vibrant, energetic
+    primaryHex: 0xFF6B6B,
+    secondary: '#4ECDC4',     // Turquoise - balance, cool accent
+    secondaryHex: 0x4ECDC4,
+    accent: '#FFE66D',        // Gold - highlights, warmth
+    accentHex: 0xFFE66D,
+    text: '#1A1A1A',          // Dark text
+    textHex: 0x1A1A1A,
+    background: 0xF8F9FA      // Soft gray-white background
+};
+
 const config = createGameConfig({
     width: 800,
     height: 600,
-    backgroundColor: 0xF6F4D2, // Cream
+    backgroundColor: NINJA_COLORS.background,
     physics: {
         default: 'arcade',
         arcade: {
@@ -66,7 +79,7 @@ function create() {
     // Title
     this.add.text(center.x, 30, '🥷 Number Ninja', {
         fontSize: '36px',
-        fill: '#A44A3F',
+        fill: NINJA_COLORS.primary,
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
         stroke: '#FFFFFF',
@@ -91,14 +104,17 @@ function create() {
         fill: '#FFFFFF',
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: '#A44A3F',
+        backgroundColor: NINJA_COLORS.primary,
         padding: { x: 10, y: 5 }
     });
 
     // Lives
     livesText = this.add.text(this.scale.width - 16, 68, 'Lives: 3', {
         fontSize: '22px',
-        backgroundColor: '#F19C79',
+        fill: '#FFFFFF',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        backgroundColor: NINJA_COLORS.secondary,
         padding: { x: 10, y: 5 }
     }).setOrigin(1, 0);
 
@@ -108,7 +124,8 @@ function create() {
         fill: '#FFFFFF',
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: '#8B6456',
+        backgroundColor: NINJA_COLORS.accent,
+        color: NINJA_COLORS.text,
         padding: { x: 10, y: 5 }
     }).setOrigin(0.5, 0);
 
@@ -118,7 +135,7 @@ function create() {
         fill: '#FFFFFF',
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
-        backgroundColor: '#A44A3F',
+        backgroundColor: NINJA_COLORS.primary,
         padding: { x: 14, y: 7 }
     }).setOrigin(0.5);
 
@@ -126,7 +143,7 @@ function create() {
     const instructions = this.add.text(center.x, center.y - 30,
         '🥷 Click numbers in the right order!\nA random pattern will be chosen.', {
         fontSize: '24px',
-        fill: '#3E1F1A',
+        fill: NINJA_COLORS.text,
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
         align: 'center'
@@ -229,8 +246,8 @@ function spawnNumber(scene) {
 
     const x = Phaser.Math.Between(80, scene.scale.width - 80);
 
-    const bubble = scene.add.circle(x, -50, 40, 0xA44A3F);
-    bubble.setStrokeStyle(4, 0x3E1F1A);
+    const bubble = scene.add.circle(x, -50, 40, NINJA_COLORS.primaryHex);
+    bubble.setStrokeStyle(4, NINJA_COLORS.textHex);
 
     const text = scene.add.text(x, -50, numValue, {
         fontSize: '28px',
@@ -271,7 +288,7 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
 
         const success = scene.add.text(bubble.x, bubble.y, '✓ +10', {
             fontSize: '24px',
-            fill: '#A44A3F',
+            fill: NINJA_COLORS.primary,
             fontFamily: 'Arial, sans-serif',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -302,11 +319,11 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
 
     } else {
         // Wrong!
-        bubble.setFillStyle(0xCBDFBD);
+        bubble.setFillStyle(NINJA_COLORS.secondaryHex);
 
         const wrong = scene.add.text(bubble.x, bubble.y, '✗', {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: NINJA_COLORS.primary,
             fontFamily: 'Arial, sans-serif',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -317,7 +334,7 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
             onComplete: () => wrong.destroy()
         });
 
-        scene.time.delayedCall(300, () => { bubble.setFillStyle(0xA44A3F); });
+        scene.time.delayedCall(300, () => { bubble.setFillStyle(NINJA_COLORS.primaryHex); });
         loseLife(scene);
     }
 }

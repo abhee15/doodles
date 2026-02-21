@@ -19,8 +19,8 @@
 
     /* One gradient per game */
     --grad-math-ladder:  linear-gradient(150deg, #FF7043 0%, #BF360C 100%);
-    --grad-ninja:        linear-gradient(135deg, #E53935 0%, #7B1FA2 100%);
-    --grad-quickmath:    linear-gradient(150deg, #FF8F00 0%, #E53935 100%);
+    --grad-ninja:        linear-gradient(135deg, #FF6B6B 0%, #D24545 100%);
+    --grad-quickmath:    linear-gradient(150deg, #1CB0F6 0%, #0891B2 100%);
     --grad-measure:      linear-gradient(140deg, #A44A3F 0%, #6D1F1F 100%);
     --grad-word:         linear-gradient(145deg, #AB47BC 0%, #4527A0 100%);
     --grad-world:        linear-gradient(145deg, #1E88E5 0%, #0D47A1 100%);

@@ -2,17 +2,18 @@
 // Professional Educational Game Design
 // MIGRATED TO TEMPLATE SYSTEM V2.0
 
-// Quick Math local colors - Coolors palette #D4E09B / #F6F4D2 / #CBDFBD / #F19C79 / #A44A3F
+// Quick Math local colors - Blue & Orange (from design-colors.css)
 const QM_COLORS = {
-    primary: 0xA44A3F,        // Brick red
-    secondary: 0xF19C79,      // Peach
-    success: 0xA44A3F,        // Brick red
-    error: 0xA44A3F,          // Brick red
-    background: 0xF6F4D2,     // Cream
+    primary: 0x1CB0F6,        // Dodger Blue - primary action
+    primaryDark: 0x0B8FDE,    // Dark blue for hover
+    secondary: 0xFF7D00,      // Bright Orange - secondary action
+    success: 0x58CC02,        // Bright Green - success feedback
+    error: 0xFF4444,          // Bright Red - error feedback
+    background: 0xF8F9FA,     // Soft gray-white
     cardBg: 0xFFFFFF,         // White cards
-    text: COLORS.neutral.darkText.phaser,
-    textLight: 0x8B6456,      // Muted brick
-    accent: 0xF19C79          // Peach
+    text: 0x1A1A1A,           // Dark text
+    textMuted: 0x6B7280,      // Muted text
+    accent: 0xFFE66D          // Gold accent
 };
 
 const config = createGameConfig({
@@ -144,7 +145,7 @@ function showAchievementNotification(scene, achievement) {
 
     const notification = scene.add.container(450, -100);
 
-    const bg = scene.add.rectangle(0, 0, 350, 100, 0xA44A3F);
+    const bg = scene.add.rectangle(0, 0, 350, 100, QM_COLORS.primary);
     bg.setStrokeStyle(3, 0xFFFFFF);
 
     const icon = scene.add.text(-140, 0, achievement.icon, {
@@ -494,18 +495,18 @@ function showLevelSelect(scene) {
     const startX = (config.width - gridWidth) / 2;
 
     const levels = [
-        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x5F6FFF },
-        { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF6348, locked: true },
-        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0xA44A3F, locked: true },
-        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFB800, locked: true },
-        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0xEC4899, locked: true },
-        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x10B981, locked: true },
-        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0x8B5CF6, locked: true },
-        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0xF59E0B, locked: true },
-        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0x06B6D4, locked: true },
-        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0x14B8A6, locked: true },
-        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0xEF553B, locked: true },
-        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x8B7E74, locked: true }
+        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x1CB0F6 },
+        { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF7D00, locked: true },
+        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x58CC02, locked: true },
+        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFE66D, locked: true },
+        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0xA855F7, locked: true },
+        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x4ECDC4, locked: true },
+        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0xFF6B6B, locked: true },
+        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0x0B8FDE, locked: true },
+        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0xFFA500, locked: true },
+        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0x10B981, locked: true },
+        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0xFF4444, locked: true },
+        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x6B7280, locked: true }
     ];
 
     levels.forEach((level, index) => {
@@ -711,7 +712,7 @@ function tutorialMultiplyBy11(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -828,7 +829,7 @@ function tutorialSquareEndingIn5(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -915,7 +916,7 @@ function tutorialDoubleAndHalf(scene) {
         // Title
         scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -934,7 +935,7 @@ function tutorialDoubleAndHalf(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -1053,7 +1054,7 @@ function tutorialBaseMethod(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -1143,7 +1144,7 @@ function tutorialMultiplyBy9(scene) {
         // Title
         scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -1162,7 +1163,7 @@ function tutorialMultiplyBy9(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -1252,7 +1253,7 @@ function tutorialMultiplyBy5(scene) {
         // Title
         scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -1271,7 +1272,7 @@ function tutorialMultiplyBy5(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -1361,7 +1362,7 @@ function tutorialMultiplyBy4(scene) {
         // Title
         scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -1380,7 +1381,7 @@ function tutorialMultiplyBy4(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -1470,7 +1471,7 @@ function tutorialMultiplyBy6(scene) {
         // Title
         scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -1489,7 +1490,7 @@ function tutorialMultiplyBy6(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -1584,7 +1585,7 @@ function tutorialMultiplyBy8(scene) {
         // Title
         scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -1603,7 +1604,7 @@ function tutorialMultiplyBy8(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -1698,7 +1699,7 @@ function tutorialMultiplyBy12(scene) {
         // Title
         scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -1717,7 +1718,7 @@ function tutorialMultiplyBy12(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -1812,7 +1813,7 @@ function tutorialMultiplyBy15(scene) {
         // Title
         scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -1831,7 +1832,7 @@ function tutorialMultiplyBy15(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -1926,7 +1927,7 @@ function tutorialMultiplyBy25(scene) {
         // Title
         scene.add.text(450, 60, currentStep.title, {
             fontSize: '36px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
@@ -1945,7 +1946,7 @@ function tutorialMultiplyBy25(scene) {
         if (currentStep.example) {
             scene.add.text(450, 380, currentStep.example, {
                 fontSize: '40px',
-                fill: '#A44A3F',
+                fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
@@ -2215,7 +2216,7 @@ function showPractice(scene, levelId) {
         if (answer === currentQuestion.answer) {
             score++;
             feedbackText.setText('✓ Correct! +1');
-            feedbackText.setColor('#A44A3F');
+            feedbackText.setColor('#1CB0F6');
             playSound('success'); // Success sound
         } else {
             feedbackText.setText(`✗ Wrong. Answer: ${currentQuestion.answer}`);
@@ -2260,7 +2261,7 @@ function showResults(scene, score, total) {
     // Title
     scene.add.text(450, cardY + 40, passed ? '🎉 Great Job!' : '📚 Keep Practicing!', {
         fontSize: '38px',
-        fill: passed ? '#A44A3F' : '#FF6B6B',
+        fill: passed ? '#1CB0F6' : '#FF6B6B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -2323,7 +2324,7 @@ function showResults(scene, score, total) {
         playerProgress.unlockedLevels = unlockedLevels;
         scene.add.text(450, cardY + 340, '🔓 Next level unlocked!', {
             fontSize: '18px',
-            fill: '#A44A3F',
+            fill: '#1CB0F6',
             fontFamily: 'Arial',
             fontStyle: 'bold'
         }).setOrigin(0.5);
