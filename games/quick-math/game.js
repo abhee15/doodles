@@ -342,7 +342,7 @@ function showProgressScreen(scene) {
 
         const card = scene.add.rectangle(x, y, 350, 80, QM_COLORS.cardBg);
         card.setOrigin(0, 0);
-        card.setStrokeStyle(2, 0xCBDFBD);
+        card.setStrokeStyle(2, QM_COLORS.textMuted);
 
         scene.add.text(x + 25, y + 25, stat.icon, {
             fontSize: '32px'
@@ -379,9 +379,9 @@ function showProgressScreen(scene) {
         const y = 400 + row * 100;
         const unlocked = playerProgress.achievements.includes(ach.id);
 
-        const card = scene.add.rectangle(x, y, 220, 85, unlocked ? QM_COLORS.cardBg : 0xF6F4D2);
+        const card = scene.add.rectangle(x, y, 220, 85, unlocked ? QM_COLORS.cardBg : QM_COLORS.background);
         card.setOrigin(0, 0);
-        card.setStrokeStyle(2, unlocked ? QM_COLORS.success : 0xD4E09B);
+        card.setStrokeStyle(2, unlocked ? QM_COLORS.success : QM_COLORS.textMuted);
 
         scene.add.text(x + 20, y + 20, unlocked ? ach.icon : '🔒', {
             fontSize: '28px'
@@ -442,7 +442,7 @@ function showMainMenu(scene) {
     features.forEach((feature, i) => {
         const y = 280 + i * 70;
         const card = scene.add.rectangle(450, y, 400, 55, QM_COLORS.cardBg);
-        card.setStrokeStyle(2, 0xCBDFBD);
+        card.setStrokeStyle(2, QM_COLORS.textMuted);
 
         scene.add.text(280, y, feature.icon, {
             fontSize: '28px'
@@ -537,9 +537,9 @@ function createProfessionalCard(scene, x, y, level, isLocked) {
     shadow.setOrigin(0, 0);
 
     // Card background (white)
-    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xCBDFBD : QM_COLORS.cardBg);
+    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? QM_COLORS.background : QM_COLORS.cardBg);
     cardBg.setOrigin(0, 0);
-    cardBg.setStrokeStyle(2, isLocked ? 0xDEE2E6 : 0xCBDFBD);
+    cardBg.setStrokeStyle(2, isLocked ? QM_COLORS.textMuted : QM_COLORS.textMuted);
 
     // Colored accent bar (left side)
     if (!isLocked) {
