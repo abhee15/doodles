@@ -3,12 +3,53 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+  <!-- Primary Meta Tags -->
   <title>Body Map - Learn All US Presidents for Kids | Doodles Games</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <meta name="title" content="Body Map - Learn US Presidents with Memory Techniques">
+  <meta name="description" content="Learn all 47 US Presidents using the Body Peg memory system. Practice facts, dates, and historical details with interactive quizzes.">
+  <meta name="keywords" content="US Presidents, memory techniques, educational game, body peg system, history">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="game">
+  <meta property="og:url" content="https://abhee15.github.io/doodles/games/body-map/">
+  <meta property="og:title" content="Body Map - Learn US Presidents with Memory Techniques">
+  <meta property="og:description" content="Learn all 47 US Presidents using the Body Peg memory system. Practice facts, dates, and historical details with interactive quizzes.">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary">
+  <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/body-map/">
+  <meta property="twitter:title" content="Body Map - Learn US Presidents with Memory Techniques">
+  <meta property="twitter:description" content="Learn all 47 US Presidents using the Body Peg memory system. Practice facts, dates, and historical details with interactive quizzes.">
+
+  <link rel="canonical" href="https://abhee15.github.io/doodles/games/body-map/">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.css">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+
+  <!-- Design System -->
+  <link rel="stylesheet" href="../../shared/tokens.css">
+  <link rel="stylesheet" href="../../shared/game-dom.css">
   <style>
     :root {
+      /* Game-specific theme overrides */
+      --dom-nav-bg: #0A2424;
+      --dom-nav-border: rgba(255, 255, 255, 0.07);
+      --dom-bg: #0D1B2A;
+      --dom-bg-card: rgba(255, 255, 255, 0.05);
+      --dom-border: rgba(255, 255, 255, 0.12);
+      --dom-text: #E8EDF5;
+      --dom-text-muted: rgba(255, 255, 255, 0.5);
+      --dom-accent: #F5C518;     /* gold */
+      --dom-accent-dark: #E6B010;
+      --dom-accent2: #4CAF50;     /* correct answer green */
+
+      /* Game-specific legacy variables (for existing game styles) */
       --navy:    #0D1B2A;
       --navy2:   #152336;
       --navy3:   #1E3350;
@@ -40,23 +81,6 @@
       flex-direction: column;
       overflow-x: hidden;
     }
-
-    /* ── NAV ── */
-    .nav {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 20px;
-      background: rgba(0,0,0,0.3);
-      border-bottom: 1px solid var(--border);
-      flex-shrink: 0;
-    }
-    .nav a { color: var(--dim); text-decoration: none; font-size: 14px; display: flex; align-items: center; gap: 4px; }
-    .nav a:hover { color: var(--text); }
-    .nav-title { font-weight: 800; font-size: 18px; color: var(--gold); margin-left: auto; margin-right: auto; }
-    .nav-progress { font-size: 13px; color: var(--dim); }
-
-    /* ── SCREENS ── */
-    .screen { display: none; flex: 1; }
-    .screen.active { display: flex; }
 
     /* ══════════════════ START SCREEN ══════════════════ */
     #screen-start {
@@ -304,7 +328,7 @@
     .learn-footer-center { flex: 1; min-width: 0; text-align: center; }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       /* Learn main: stack vertically */
       .learn-main { flex-direction: column !important; }
 
@@ -359,16 +383,16 @@
 <body>
 
 <!-- ══ NAV ══ -->
-<nav class="nav">
+<nav class="dom-nav">
   <a href="../../index.html#body-map"><i class="ti ti-arrow-left"></i> Back</a>
-  <span class="nav-title" id="nav-title">Body Map</span>
-  <span class="nav-progress" id="nav-progress"></span>
+  <span class="dom-nav-title" id="nav-title">Body Map</span>
+  <span class="dom-nav-meta" id="nav-progress"></span>
 </nav>
 
 <!-- ══════════════════════════════════════
      START SCREEN
 ══════════════════════════════════════ -->
-<div id="screen-start" class="screen active">
+<div id="screen-start" class="dom-screen active">
   <div class="start-hero">
     <h1>🧠 Body Map</h1>
     <p>Learn all 47 US Presidents using your own body as a memory map!</p>
@@ -390,7 +414,7 @@
 <!-- ══════════════════════════════════════
      LEARN SCREEN
 ══════════════════════════════════════ -->
-<div id="screen-learn" class="screen" style="flex-direction:column;">
+<div id="screen-learn" class="dom-screen" style="flex-direction:column;">
   <div class="progress-bar-wrap"><div class="progress-bar-fill" id="learn-bar"></div></div>
 
   <div class="learn-main">
@@ -485,14 +509,14 @@
   </div>
 
   <div class="learn-footer">
-    <button class="btn-prev" id="btn-prev" onclick="prevStep()">
+    <button class="dom-btn dom-btn--ghost" id="btn-prev" onclick="prevStep()">
       <i class="ti ti-arrow-left"></i> Back
     </button>
     <div class="learn-footer-center">
       <div class="step-indicator" id="step-indicator">President 1 of 10</div>
       <div class="step-dots" id="step-dots"></div>
     </div>
-    <button class="btn-next" id="btn-next" onclick="nextStep()">
+    <button class="dom-btn dom-btn--primary" id="btn-next" onclick="nextStep()">
       Next <i class="ti ti-arrow-right"></i>
     </button>
   </div>
@@ -501,7 +525,7 @@
 <!-- ══════════════════════════════════════
      QUIZ SCREEN
 ══════════════════════════════════════ -->
-<div id="screen-quiz" class="screen" style="flex-direction:column;">
+<div id="screen-quiz" class="dom-screen" style="flex-direction:column;">
   <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-bar"></div></div>
 
   <div class="quiz-main">
@@ -526,16 +550,16 @@
 <!-- ══════════════════════════════════════
      SCORE SCREEN
 ══════════════════════════════════════ -->
-<div id="screen-score" class="screen">
+<div id="screen-score" class="dom-screen">
   <div class="score-emoji" id="score-emoji">🌟</div>
   <div class="score-title" id="score-title">Quiz Complete!</div>
   <div class="score-num" id="score-num">8</div>
   <div class="score-out" id="score-out">out of 10 correct</div>
   <div class="score-sub" id="score-sub">Keep practicing the body map!</div>
   <div class="score-btns">
-    <button class="btn-outline" onclick="replayBatch()"><i class="ti ti-arrow-back-up"></i> Try Again</button>
-    <button class="btn-outline" onclick="goStart()"><i class="ti ti-layout-list"></i> All Batches</button>
-    <button class="btn-gold"    id="btn-next-batch" onclick="nextBatch()"><i class="ti ti-arrow-right"></i> Next Batch</button>
+    <button class="dom-btn dom-btn--ghost" onclick="replayBatch()"><i class="ti ti-arrow-back-up"></i> Try Again</button>
+    <button class="dom-btn dom-btn--ghost" onclick="goStart()"><i class="ti ti-layout-list"></i> All Batches</button>
+    <button class="dom-btn dom-btn--gold"  id="btn-next-batch" onclick="nextBatch()"><i class="ti ti-arrow-right"></i> Next Batch</button>
   </div>
 </div>
 

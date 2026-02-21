@@ -18,26 +18,26 @@
 const COLORS = {
     // Primary Brand Colors
     primary: {
-        hex: '#4F46E5',    // Indigo
-        phaser: 0x4F46E5,
-        rgb: 'rgb(79, 70, 229)'
+        hex: '#1CB0F6',    // Dodger Blue
+        phaser: 0x1CB0F6,
+        rgb: 'rgb(28, 176, 246)'
     },
     secondary: {
-        hex: '#7C3AED',    // Purple
-        phaser: 0x7C3AED,
-        rgb: 'rgb(124, 58, 237)'
+        hex: '#FF7D00',    // Bright Orange
+        phaser: 0xFF7D00,
+        rgb: 'rgb(255, 125, 0)'
     },
 
     // Semantic Colors
     success: {
-        hex: '#10B981',    // Green (better contrast than #00D68F)
-        phaser: 0x10B981,
-        rgb: 'rgb(16, 185, 129)'
+        hex: '#58CC02',    // Bright Green
+        phaser: 0x58CC02,
+        rgb: 'rgb(88, 204, 2)'
     },
     error: {
-        hex: '#EF4444',    // Red (better contrast)
-        phaser: 0xEF4444,
-        rgb: 'rgb(239, 68, 68)'
+        hex: '#FF4444',    // Bright Red
+        phaser: 0xFF4444,
+        rgb: 'rgb(255, 68, 68)'
     },
     warning: {
         hex: '#F59E0B',    // Amber
@@ -148,7 +148,7 @@ const COLORS = {
 const TYPOGRAPHY = {
     // Font families (fallback chain for cross-platform support)
     fonts: {
-        primary: "'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif",
+        primary: "'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif",
         monospace: "'Consolas', 'Monaco', 'Courier New', monospace",
         playful: "'Comic Sans MS', 'Chalkboard SE', 'Arial Rounded MT Bold', sans-serif"
     },
@@ -175,6 +175,7 @@ const TYPOGRAPHY = {
     },
 
     // Phaser text style presets for crisp rendering
+    // Note: Arial is intentional here because Phaser renders canvas text and cannot use CSS-loaded web fonts
     phaserStyles: {
         // Heading style (large, bold, crisp)
         heading: {

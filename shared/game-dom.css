@@ -1,0 +1,324 @@
+/**
+ * Doodles DOM Game Shell — Archetype B
+ * Unified CSS foundation for all DOM-based games (body-map, doodle-school).
+ * Provides nav, screens, buttons, cards, and shared components.
+ *
+ * POLICY: Zero box-shadows. Depth via border-color, transform, backdrop-filter.
+ *
+ * Games override --dom-* variables in their own <style> block for theming.
+ */
+
+/* ============================================================
+   SHELL VARIABLES (per-game overrides)
+   ============================================================ */
+:root {
+  /* Typography */
+  --dom-font: var(--tok-font, 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif);
+
+  /* Layout */
+  --dom-nav-height: 60px;
+
+  /* Colors */
+  --dom-nav-bg: #5C3D8F;                   /* overridden per game */
+  --dom-nav-color: #FFFFFF;
+  --dom-nav-border: rgba(255, 255, 255, 0.1);
+
+  --dom-bg: #FFF8F0;
+  --dom-bg-card: #FFFFFF;
+  --dom-border: #E8E0F0;
+  --dom-text: #2D2D2D;
+  --dom-text-muted: #8A7A9B;
+
+  /* Accent colors */
+  --dom-accent: var(--tok-color-primary, #1CB0F6);
+  --dom-accent-dark: var(--tok-blue-dark, #0B8FDE);
+  --dom-accent2: var(--tok-color-secondary, #FF7D00);
+
+  /* Component defaults */
+  --dom-btn-radius: var(--tok-radius-lg, 12px);
+  --dom-card-radius: var(--tok-radius-xl, 16px);
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+html {
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--dom-font);
+  background: var(--dom-bg);
+  color: var(--dom-text);
+  overflow-x: hidden;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ============================================================
+   NAV BAR (.dom-nav)
+   ============================================================ */
+.dom-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--dom-nav-height);
+  display: flex;
+  align-items: center;
+  gap: var(--tok-space-4, 16px);
+  padding: 0 var(--tok-space-4, 16px);
+
+  background: var(--dom-nav-bg);
+  color: var(--dom-nav-color);
+  border-bottom: 1px solid var(--dom-nav-border);
+
+  /* NO box-shadow */
+}
+
+.dom-nav a {
+  display: flex;
+  align-items: center;
+  gap: var(--tok-space-2, 8px);
+  min-height: var(--tok-touch-min, 44px);
+  padding: 0 var(--tok-space-3, 12px);
+
+  color: var(--dom-nav-color);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+
+  border-radius: var(--tok-radius-sm, 4px);
+  transition: background var(--tok-transition-fast, 0.15s ease);
+}
+
+.dom-nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dom-nav a:active {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.dom-nav-title {
+  flex: 1;
+  text-align: center;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.dom-nav-meta {
+  font-size: 0.875rem;
+  opacity: 0.9;
+}
+
+/* ============================================================
+   SCREENS & LAYOUT (.dom-screen)
+   ============================================================ */
+.dom-screens-container {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--dom-nav-height));
+  position: relative;
+}
+
+.dom-screen {
+  display: none;
+  flex-direction: column;
+  width: 100%;
+  padding: var(--tok-space-6, 24px) var(--tok-space-4, 16px);
+  min-height: 100%;
+}
+
+.dom-screen.active {
+  display: flex;
+}
+
+/* ============================================================
+   BUTTONS (.dom-btn)
+   ============================================================ */
+.dom-btn {
+  /* Base button styles */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tok-space-2, 8px);
+
+  padding: var(--tok-space-3, 12px) var(--tok-space-4, 16px);
+  min-height: var(--tok-touch-min, 44px);
+  min-width: var(--tok-touch-min, 44px);
+
+  border: 2px solid transparent;
+  border-radius: var(--dom-btn-radius);
+
+  font-family: var(--dom-font);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all var(--tok-transition-normal, 0.20s ease);
+
+  /* NO box-shadow */
+}
+
+.dom-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.dom-btn:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.dom-btn:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+/* PRIMARY: filled accent color */
+.dom-btn--primary {
+  background: var(--dom-accent);
+  color: #FFFFFF;
+  border-color: var(--dom-accent-dark);
+}
+
+.dom-btn--primary:hover:not(:disabled) {
+  background: var(--dom-accent-dark);
+}
+
+/* SECONDARY: filled accent2 color */
+.dom-btn--secondary {
+  background: var(--dom-accent2);
+  color: #FFFFFF;
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.dom-btn--secondary:hover:not(:disabled) {
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+/* GHOST: transparent with border */
+.dom-btn--ghost {
+  background: transparent;
+  color: var(--dom-accent);
+  border-color: var(--dom-accent);
+}
+
+.dom-btn--ghost:hover:not(:disabled) {
+  background: rgba(var(--dom-accent-rgb, 28, 176, 246), 0.1);
+  border-color: var(--dom-accent-dark);
+}
+
+/* GOLD: special action color */
+.dom-btn--gold {
+  background: #F5C518;
+  color: #000000;
+  border-color: #E6B010;
+}
+
+.dom-btn--gold:hover:not(:disabled) {
+  background: #E6B010;
+}
+
+/* ============================================================
+   CARDS (.dom-card)
+   ============================================================ */
+.dom-card {
+  background: var(--dom-bg-card);
+  border: 1px solid var(--dom-border);
+  border-radius: var(--dom-card-radius);
+  padding: var(--tok-space-4, 16px);
+
+  transition: all var(--tok-transition-normal, 0.20s ease);
+
+  /* NO box-shadow */
+}
+
+.dom-card--interactive {
+  cursor: pointer;
+}
+
+.dom-card--interactive:hover {
+  border-color: var(--dom-accent);
+  transform: translateY(-2px);
+}
+
+.dom-card--tinted {
+  background: rgba(var(--dom-accent-rgb, 28, 176, 246), 0.05);
+}
+
+/* ============================================================
+   PROGRESS BAR (.dom-progress)
+   ============================================================ */
+.dom-progress {
+  width: 100%;
+  height: 6px;
+  background: var(--dom-border);
+  border-radius: var(--tok-radius-pill, 999px);
+  overflow: hidden;
+}
+
+.dom-progress-fill {
+  height: 100%;
+  background: var(--dom-accent);
+  border-radius: var(--tok-radius-pill, 999px);
+  transition: width var(--tok-transition-normal, 0.20s ease);
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+
+/* Mobile: stacked, full-width layouts */
+@media (max-width: 768px) {
+  :root {
+    --dom-nav-height: 52px;
+  }
+
+  .dom-nav {
+    padding: 0 var(--tok-space-3, 12px);
+    gap: var(--tok-space-2, 8px);
+  }
+
+  .dom-nav-title {
+    font-size: 1rem;
+  }
+
+  .dom-nav-meta {
+    font-size: 0.8rem;
+  }
+
+  .dom-screen {
+    padding: var(--tok-space-4, 16px) var(--tok-space-3, 12px);
+    min-height: calc(100vh - var(--dom-nav-height));
+  }
+
+  .dom-btn {
+    font-size: 0.95rem;
+  }
+
+  .dom-card {
+    padding: var(--tok-space-3, 12px);
+  }
+}
+
+/* Tablet: comfortable spacing */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .dom-screen {
+    padding: var(--tok-space-8, 32px) var(--tok-space-6, 24px);
+  }
+}
+
+/* Reduced motion: disable all animations */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -14,7 +14,9 @@ Read it before adding or modifying any game.
 ├── css/
 │   └── portal.css          # Portal-only styles
 ├── shared/
-│   ├── game-page-v2.css    # Mandatory shell CSS for all games
+│   ├── tokens.css          # Design token primitives (--tok-* variables)
+│   ├── game-page-v2.css    # Mandatory shell CSS for Phaser games (Archetype A)
+│   ├── game-dom.css        # Mandatory shell CSS for DOM games (Archetype B)
 │   ├── game-config.js      # Phaser config helper (Canvas/Phaser games)
 │   ├── design-system.js    # Design tokens for Phaser games
 │   ├── ui-components.js    # Shared Phaser UI components (createButton, etc.)
@@ -85,6 +87,15 @@ Every `games/<id>/index.html` must have, in this order:
 ```
 Both `<link rel="preconnect">` tags require the `crossorigin` attribute.
 
+**DOM games only:** Load shared design system before your `<style>` block:
+```html
+<link rel="stylesheet" href="../../shared/tokens.css">
+<link rel="stylesheet" href="../../shared/game-dom.css">
+<style>
+  /* Game-specific styles here */
+</style>
+```
+
 ---
 
 ## 4. Mandatory `<body>` Checklist
@@ -109,13 +120,23 @@ Both `<link rel="preconnect">` tags require the `crossorigin` attribute.
 ### 4b. DOM games (Body Map pattern)
 
 ```html
+<head>
+  ...
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="../../shared/tokens.css">
+  <link rel="stylesheet" href="../../shared/game-dom.css">
+</head>
+
 <body>
-  <nav class="nav">
-    <a href="../../index.html#<game-id>"><i class="ph-bold ph-arrow-left"></i> Back</a>
-    ...
+  <nav class="dom-nav">
+    <a href="../../index.html#<game-id>"><i class="ti ti-arrow-left"></i> Back</a>
+    <span class="dom-nav-title" id="nav-title">Game Name</span>
+    <span class="dom-nav-meta" id="nav-meta"></span>
   </nav>
 
-  <!-- game HTML here -->
+  <div class="dom-screen active">
+    <!-- game HTML here -->
+  </div>
 
   <script src="game.js"></script>
   <script src="../../shared/analytics.js"></script>
@@ -125,6 +146,10 @@ Both `<link rel="preconnect">` tags require the `crossorigin` attribute.
 ```
 
 **Rules:**
+- Use `class="dom-nav"` for the nav bar, `class="dom-nav-title"` for title, `class="dom-nav-meta"` for status text
+- Use `class="dom-screen"` and `class="dom-screen active"` for screen containers
+- Use `class="dom-btn dom-btn--primary"` and related button variants (see `shared/game-dom.css`)
+- Tabler Icons CDN: **pinned to major version `@3`** (not `@latest`) to prevent unexpected breakage
 - Back link text is always `← Back` (or icon + "Back" for DOM games)
 - Back link `href` anchors to the game card: `../../index.html#<game-id>`
 - Never put game logic in inline `<script>` tags — use `game.js`
@@ -149,12 +174,14 @@ Earth Explorer, Dino Hunter, Planet Quest (Solar System)
 
 ### Archetype B — DOM / HTML
 
-Used by: Body Map
+Used by: Body Map, Doodle School
 
 - Full-page HTML layout, not canvas-based
-- Custom `<nav>` bar replaces the floating `.back-link`
-- `shared/game-page-v2.css` is NOT used (the game has its own styles)
+- Uses `shared/game-dom.css` as mandatory shell CSS (provides nav, screens, buttons, cards)
+- Loads `shared/tokens.css` for design token primitives
+- `shared/game-page-v2.css` is NOT used
 - All JS logic lives in `game.js`
+- Games override `--dom-*` variables in their own `<style>` block for custom theming
 
 ---
 
@@ -174,8 +201,19 @@ Used by: Body Map
 
 ## 7. Color / Theme Guidance
 
-Each game has a unique gradient defined in `css/portal.css` under `:root`:
+### Design System Token Tiers
 
+Three naming conventions for different scopes:
+
+| Tier | Prefix | Usage | Example |
+|------|--------|-------|---------|
+| **Primitives** | `--tok-*` | Single source of truth, never overridden | `--tok-blue: #1CB0F6` |
+| **Phaser Overrides** | `--game-bg-*` | Per-game background in Phaser games | `--game-bg-start: #A8DADA` |
+| **DOM Overrides** | `--dom-*` | Per-game theming in DOM games | `--dom-accent: #F472B6` |
+
+### Phaser Games (Archetype A)
+
+Each game has a unique gradient defined in `css/portal.css` under `:root`:
 ```css
 --grad-<id>: linear-gradient(145deg, #COLOR1 0%, #COLOR2 100%);
 ```
@@ -188,13 +226,27 @@ Game page backgrounds use CSS variables in `game-page-v2.css`:
 
 Override them in the game's own `<style>` block if needed.
 
-**No box-shadows** — the design is flat. Use borders or blur/glass effects for depth.
+### DOM Games (Archetype B)
+
+Override shell variables in your `<style>` block `:root`:
+```css
+:root {
+  --dom-nav-bg:    #0A2424;        /* Your nav color */
+  --dom-accent:    #F5C518;        /* Your primary action color */
+  --dom-accent2:   #4CAF50;        /* Your secondary action color */
+  --dom-bg:        #0D1B2A;        /* Your background */
+  --dom-border:    rgba(255,255,255,0.12);  /* Your borders */
+  /* ... etc */
+}
+```
+
+**No box-shadows** — the design is flat. Use borders, `border-color` on hover, `transform`, or `backdrop-filter` for depth.
 
 ---
 
 ## 8. Breakpoint Standards
 
-From `shared/game-page-v2.css`:
+From `shared/game-page-v2.css` (Phaser games):
 
 | Breakpoint | Target |
 |-----------|--------|
@@ -202,10 +254,42 @@ From `shared/game-page-v2.css`:
 | `min-width: 769px` and `max-width: 1024px` | Tablet (92vw × 92vh) |
 | `max-width: 768px` + `orientation: landscape` | Landscape mobile |
 
-From `css/portal.css`:
+From `shared/game-dom.css` (DOM games):
+
+| Breakpoint | Target |
+|-----------|--------|
+| `max-width: 768px` | Mobile (stacked layouts, reduced font sizes) |
+
+From `css/portal.css` (Portal only):
 
 | Breakpoint | Target |
 |-----------|--------|
 | `max-width: 600px` | Small mobile card sizing |
 | `max-width: 900px` | Footer 2-column grid |
 | `max-width: 480px` | Footer 1-column, filter bar horizontal scroll |
+
+---
+
+## 9. Box-Shadow Policy
+
+**No `box-shadow` property is allowed in any game CSS.** The design system uses a flat aesthetic.
+
+### Approved Alternatives for Creating Depth
+
+| Effect | Method | Example |
+|--------|--------|---------|
+| **Card/button elevation on hover** | `border-color` change + `transform: translateY()` | See `.dom-card--interactive` in `game-dom.css` |
+| **Floating/lifted effect** | `transform: translateY(-2px)` | Buttons on hover/active |
+| **Depth on dark backgrounds** | `border: 1px solid rgba(255,255,255,0.15)` | Modal overlays |
+| **SVG icon depth** | `filter: drop-shadow()` (filter only, not box-shadow) | SVG zone highlights (body-map) |
+| **Modal prominence** | `backdrop-filter: blur()` + thin border | Modals over page background |
+| **Focus/selection indication** | `border-color` change | Form inputs, game cards |
+
+### Why No Box-Shadows?
+
+- Box-shadows are harder to control across different screen densities
+- They don't match the flat, playful design language
+- Border and transform changes are more predictable and performant
+- Backdrop filters provide modal hierarchy without visual clutter
+
+**Enforcement:** Grep for `box-shadow` in all `.css` files — should return zero results.

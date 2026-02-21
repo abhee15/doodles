@@ -48,7 +48,7 @@ body {
     );
 
     /* Typography */
-    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: var(--tok-font, 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif);
 
     /* Prevent accidental text selection in game */
     user-select: none;
@@ -168,7 +168,7 @@ canvas {
 @media (max-width: 768px) and (orientation: landscape) {
     #game-container {
         width: 100vw;
-        height: 100vh;
+        height: 100dvh;
     }
 
     .back-link {
@@ -185,7 +185,7 @@ canvas {
     canvas {
         /* Optimize for Retina displays */
         image-rendering: -webkit-optimize-contrast;
-        image-rendering: optimize-contrast;
+        image-rendering: pixelated;
     }
 }
 
