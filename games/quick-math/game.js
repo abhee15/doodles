@@ -33,7 +33,6 @@ const game = new Phaser.Game(config);
 // Game state
 let currentScene = 'menu';
 let currentLevel = 1;
-let unlockedLevels = 1;
 let score = 0;
 let currentQuestion = null;
 let userAnswer = '';
@@ -41,7 +40,6 @@ let soundEnabled = true;
 
 // Progress & Achievement System
 let playerProgress = {
-    unlockedLevels: 1,
     levelStars: {}, // { levelId: stars }
     achievements: [],
     totalScore: 0,
@@ -87,8 +85,8 @@ const ACHIEVEMENTS = {
         id: 'math_genius',
         name: 'Math Genius',
         icon: '🧠',
-        description: 'Unlock all levels',
-        check: () => playerProgress.unlockedLevels >= 12
+        description: 'Practice all 12 levels',
+        check: () => Object.keys(playerProgress.levelStars).length >= 12
     },
     score_master: {
         id: 'score_master',
@@ -113,7 +111,6 @@ function loadProgress() {
         const saved = localStorage.getItem('quickMathProgress');
         if (saved) {
             playerProgress = JSON.parse(saved);
-            unlockedLevels = playerProgress.unlockedLevels || 1;
             return true;
         }
     } catch (e) {
@@ -332,8 +329,7 @@ function showProgressScreen(scene) {
     const stats = [
         { label: 'Total Stars', value: playerProgress.totalStars, icon: '⭐' },
         { label: 'Games Played', value: playerProgress.gamesPlayed, icon: '🎮' },
-        { label: 'Total Score', value: playerProgress.totalScore, icon: '💯' },
-        { label: 'Levels Unlocked', value: playerProgress.unlockedLevels, icon: '🔓' }
+        { label: 'Total Score', value: playerProgress.totalScore, icon: '💯' }
     ];
 
     stats.forEach((stat, i) => {
@@ -497,17 +493,17 @@ function showLevelSelect(scene) {
 
     const levels = [
         { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x1CB0F6 },
-        { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF7D00, locked: true },
-        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x58CC02, locked: true },
-        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFE66D, locked: true },
-        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0xA855F7, locked: true },
-        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x4ECDC4, locked: true },
-        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0xFF6B6B, locked: true },
-        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0x0B8FDE, locked: true },
-        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0xFFA500, locked: true },
-        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0x10B981, locked: true },
-        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0xFF4444, locked: true },
-        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x6B7280, locked: true }
+        { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF7D00 },
+        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x58CC02 },
+        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFE66D },
+        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0xA855F7 },
+        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x4ECDC4 },
+        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0xFF6B6B },
+        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0x0B8FDE },
+        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0xFFA500 },
+        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0x10B981 },
+        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0xFF4444 },
+        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x6B7280 }
     ];
 
     levels.forEach((level, index) => {
@@ -515,9 +511,8 @@ function showLevelSelect(scene) {
         const row = Math.floor(index / 2);
         const x = startX + col * (cardWidth + gap);
         const y = 180 + row * 200;
-        const isLocked = level.locked && level.id > unlockedLevels;
 
-        createProfessionalCard(scene, x, y, level, isLocked);
+        createProfessionalCard(scene, x, y, level);
     });
 
     // Back button aligned with grid left edge
@@ -526,8 +521,8 @@ function showLevelSelect(scene) {
     }, 140, 50, true);
 }
 
-// Professional Card Design with Proper Padding
-function createProfessionalCard(scene, x, y, level, isLocked) {
+// Professional Card Design with Improved Visuals
+function createProfessionalCard(scene, x, y, level) {
     const cardWidth = 340;
     const cardHeight = 160;
     const padding = 25;
@@ -537,22 +532,21 @@ function createProfessionalCard(scene, x, y, level, isLocked) {
     shadow.setOrigin(0, 0);
 
     // Card background (white)
-    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? QM_COLORS.background : QM_COLORS.cardBg);
+    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, QM_COLORS.cardBg);
     cardBg.setOrigin(0, 0);
-    cardBg.setStrokeStyle(2, isLocked ? QM_COLORS.textMuted : QM_COLORS.textMuted);
+    cardBg.setStrokeStyle(2, level.color);
+    cardBg.setInteractive({ useHandCursor: true });
 
     // Colored accent bar (left side)
-    if (!isLocked) {
-        const accentBar = scene.add.rectangle(x, y, 6, cardHeight, level.color);
-        accentBar.setOrigin(0, 0);
-    }
+    const accentBar = scene.add.rectangle(x, y, 6, cardHeight, level.color);
+    accentBar.setOrigin(0, 0);
 
     // Icon circle (professional design)
-    const iconCircle = scene.add.circle(x + padding + 35, y + 50, 35, isLocked ? 0xCED4DA : level.color, 0.15);
+    const iconCircle = scene.add.circle(x + padding + 35, y + 50, 35, level.color, 0.2);
 
     const iconText = scene.add.text(x + padding + 35, y + 50, level.icon, {
         fontSize: '36px',
-        fill: isLocked ? '#ADB5BD' : '#2D3436',
+        fill: new Phaser.Display.Color().setFromInteger(level.color).toRGBString(),
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
@@ -563,7 +557,7 @@ function createProfessionalCard(scene, x, y, level, isLocked) {
 
     const titleText = scene.add.text(titleX, titleY, level.name, {
         fontSize: '20px',
-        fill: isLocked ? '#ADB5BD' : '#2D3436',
+        fill: '#1A1A1A',
         fontFamily: 'Arial',
         fontStyle: 'bold',
         wordWrap: { width: cardWidth - 130 }
@@ -572,46 +566,63 @@ function createProfessionalCard(scene, x, y, level, isLocked) {
     // Description (below title)
     const descText = scene.add.text(titleX, titleY + 35, level.desc, {
         fontSize: '18px',
-        fill: isLocked ? '#CED4DA' : '#636E72',
+        fill: '#6B7280',
         fontFamily: 'Arial',
         wordWrap: { width: cardWidth - 130 }
     }).setOrigin(0, 0);
 
-    // Action button (bottom right for unlocked; centered "Locked" for locked)
-    if (isLocked) {
-        const lockIcon = scene.add.text(x + cardWidth / 2, y + cardHeight - 40, '🔒 Locked', {
-            fontSize: '18px',
-            fill: '#ADB5BD',
-            fontFamily: 'Arial'
-        }).setOrigin(0.5, 0.5);
-    } else {
-        const btnX = x + cardWidth - padding - 70;
-        const btnY = y + cardHeight - 40;
+    // Stars row (earned stars from playerProgress)
+    const earnedStars = playerProgress.levelStars[level.id] || 0;
+    const starsX = x + cardWidth - padding - 90;
+    const starsY = y + padding + 15;
 
-        const playBtn = scene.add.rectangle(btnX, btnY, 120, 40, level.color);
-        playBtn.setInteractive({ useHandCursor: true });
-
-        const playText = scene.add.text(btnX, btnY, 'Start →', {
-            fontSize: '18px',
-            fill: '#FFFFFF',
-            fontFamily: 'Arial',
-            fontStyle: 'bold'
-        }).setOrigin(0.5);
-
-        playBtn.on('pointerdown', () => {
-            currentLevel = level.id;
-            showTutorial(scene, level.id);
-        });
-
-        playBtn.on('pointerover', () => {
-            playBtn.setAlpha(0.85);
-            playBtn.setScale(1.02);
-        });
-        playBtn.on('pointerout', () => {
-            playBtn.setAlpha(1);
-            playBtn.setScale(1);
-        });
+    for (let i = 0; i < 3; i++) {
+        const star = scene.add.text(starsX + i * 22, starsY, i < earnedStars ? '⭐' : '☆', {
+            fontSize: '20px'
+        }).setOrigin(0, 0);
     }
+
+    // Action button (bottom right)
+    const btnX = x + cardWidth - padding - 70;
+    const btnY = y + cardHeight - 40;
+
+    const playBtn = scene.add.rectangle(btnX, btnY, 120, 40, level.color);
+    playBtn.setInteractive({ useHandCursor: true });
+
+    const playText = scene.add.text(btnX, btnY, 'Start →', {
+        fontSize: '18px',
+        fill: '#FFFFFF',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+    }).setOrigin(0.5);
+
+    // Hover effects for the entire card
+    const onCardHover = () => {
+        cardBg.setScale(1.02);
+        playBtn.setAlpha(0.85);
+    };
+
+    const onCardOut = () => {
+        cardBg.setScale(1);
+        playBtn.setAlpha(1);
+    };
+
+    cardBg.on('pointerover', onCardHover);
+    cardBg.on('pointerout', onCardOut);
+
+    // Click handler
+    cardBg.on('pointerdown', () => {
+        currentLevel = level.id;
+        showTutorial(scene, level.id);
+    });
+
+    playBtn.on('pointerover', onCardHover);
+    playBtn.on('pointerout', onCardOut);
+
+    playBtn.on('pointerdown', () => {
+        currentLevel = level.id;
+        showTutorial(scene, level.id);
+    });
 }
 
 // ==================== TUTORIAL (Level 1: Multiply by 11) ====================
@@ -2318,18 +2329,6 @@ function showResults(scene, score, total) {
 
     // Recalculate total stars
     playerProgress.totalStars = Object.values(playerProgress.levelStars).reduce((a, b) => a + b, 0);
-
-    // Unlock next level
-    if (passed && unlockedLevels === currentLevel) {
-        unlockedLevels++;
-        playerProgress.unlockedLevels = unlockedLevels;
-        scene.add.text(450, cardY + 340, '🔓 Next level unlocked!', {
-            fontSize: '18px',
-            fill: '#1CB0F6',
-            fontFamily: 'Arial',
-            fontStyle: 'bold'
-        }).setOrigin(0.5);
-    }
 
     // Save and check achievements
     saveProgress();
