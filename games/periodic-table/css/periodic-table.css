@@ -1,0 +1,428 @@
+/* ============================================
+   PERIODIC TABLE MEMORY MASTER - Main Styles
+   ============================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+/* ============================================
+   App Container & Layout
+   ============================================ */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-header {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 30px 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.app-header h1 {
+  font-size: 32px;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.app-header p {
+  font-size: 16px;
+  color: #666;
+}
+
+.app-main {
+  flex: 1;
+  padding: 30px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.app-footer {
+  background: rgba(0, 0, 0, 0.1);
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: 30px;
+}
+
+/* ============================================
+   Screens
+   ============================================ */
+
+.screen {
+  display: none;
+  animation: fadeIn 0.3s ease-in;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.screen-content {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.screen-content h2 {
+  font-size: 28px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 16px;
+  color: #999;
+  margin-bottom: 30px;
+}
+
+/* ============================================
+   Chunk Selection Grid
+   ============================================ */
+
+.chunks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.chunk-card {
+  background: white;
+  border: 2px solid #eee;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.chunk-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.chunk-card:hover {
+  border-color: #667eea;
+  box-shadow: 0 4px 16px rgba(102, 126, 234, 0.2);
+  transform: translateY(-4px);
+}
+
+.chunk-card:hover::before {
+  transform: scaleX(1);
+}
+
+.chunk-number {
+  font-size: 48px;
+  font-weight: bold;
+  color: #667eea;
+  margin-bottom: 10px;
+}
+
+.chunk-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.chunk-range {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.chunk-description {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+}
+
+/* ============================================
+   Recommended Section
+   ============================================ */
+
+.recommended-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #333;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.recommended-box {
+  background: linear-gradient(135deg, #fffacd 0%, #fff8dc 100%);
+  border: 2px solid #ffc107;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 30px;
+}
+
+.recommended-box h2 {
+  color: #333;
+  margin-bottom: 15px;
+  font-size: 28px;
+}
+
+.rec-why {
+  color: #666;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.rec-buttons {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* ============================================
+   Techniques Grid
+   ============================================ */
+
+.alternatives-section {
+  margin-top: 40px;
+  padding-top: 30px;
+  border-top: 2px solid #eee;
+}
+
+.alternatives-section h3 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.techniques-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+  margin: 25px 0;
+}
+
+.technique-option {
+  background: white;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  position: relative;
+}
+
+.technique-option:hover {
+  border-color: #667eea;
+  background: #f8f9ff;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.technique-option.recommended {
+  border-color: #ffc107;
+  background: #fffacd;
+}
+
+.tech-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.tech-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.tech-desc {
+  font-size: 13px;
+  color: #999;
+  line-height: 1.4;
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: #f0f0f0;
+  color: #333;
+  margin-top: 20px;
+}
+
+.btn-secondary:hover {
+  background: #e0e0e0;
+}
+
+.btn-link {
+  background: none;
+  color: #667eea;
+  text-decoration: underline;
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.btn-link:hover {
+  color: #764ba2;
+}
+
+/* ============================================
+   Responsive Design
+   ============================================ */
+
+@media (max-width: 768px) {
+  .app-header {
+    padding: 20px 15px;
+  }
+
+  .app-header h1 {
+    font-size: 24px;
+  }
+
+  .screen-content {
+    padding: 25px 15px;
+  }
+
+  .chunks-grid {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .techniques-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .rec-buttons {
+    flex-direction: column;
+  }
+
+  .rec-buttons .btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 14px;
+  }
+
+  .app-header h1 {
+    font-size: 20px;
+  }
+
+  .screen-content h2 {
+    font-size: 22px;
+  }
+
+  .chunk-number {
+    font-size: 36px;
+  }
+
+  .recommended-box {
+    padding: 20px;
+  }
+
+  .recommended-box h2 {
+    font-size: 22px;
+  }
+
+  .techniques-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ============================================
+   Accessibility
+   ============================================ */
+
+.btn:focus,
+.chunk-card:focus,
+.technique-option:focus {
+  outline: 2px solid #667eea;
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.text-center {
+  text-align: center;
+}
+
+.mt-3 {
+  margin-top: 30px;
+}
+
+.mb-3 {
+  margin-bottom: 30px;
+}

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Periodic Table Memory Master - Game</title>
+  <link rel="stylesheet" href="css/periodic-table.css">
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+  <div class="app-container">
+    
+    <!-- Header -->
+    <header class="game-header">
+      <div class="header-left">
+        <button class="btn-back" onclick="goHome()">← Home</button>
+        <div class="game-info">
+          <h1 id="game-title">Story Chain - Elements 1-20</h1>
+          <p id="game-subtitle">Learn the periodic table</p>
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="progress-info">
+          <span id="progress-text">Chunk 1</span>
+          <div class="technique-badge" id="technique-badge">Story Chain</div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Game Content -->
+    <main class="game-main">
+      <div id="game-container">
+        <!-- Story Chain UI -->
+        <div id="story-chain-ui" class="game-ui story-chain-ui" style="display:none;">
+          <div class="story-phase" id="story-phase">
+            <h2>📖 The Periodic Story</h2>
+            <div class="story-narrative" id="story-text"></div>
+            <div class="story-panels" id="story-panels"></div>
+            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+          </div>
+          
+          <div class="recall-phase" id="recall-phase" style="display:none;">
+            <h2>🧠 Can you remember?</h2>
+            <p>Tap or click on the missing elements:</p>
+            <div class="recall-grid" id="recall-grid"></div>
+            <div id="recall-results" style="display:none;">
+              <div class="results-box">
+                <h3>Great job! 🎉</h3>
+                <p id="results-text"></p>
+                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Memory Palace UI -->
+        <div id="memory-palace-ui" class="game-ui memory-palace-ui" style="display:none;">
+          <div class="palace-container">
+            <h2>🏠 Your Memory Palace</h2>
+            <div class="room-view" id="room-view"></div>
+            <div class="element-list" id="element-list"></div>
+          </div>
+        </div>
+
+        <!-- Body Map UI -->
+        <div id="body-map-ui" class="game-ui body-map-ui" style="display:none;">
+          <div class="body-map-container">
+            <h2>🧍 Body Map Anchors</h2>
+            <div class="body-illustration" id="body-illustration"></div>
+            <div class="body-info" id="body-info"></div>
+          </div>
+        </div>
+
+        <!-- Keyword Image UI -->
+        <div id="keyword-ui" class="game-ui keyword-ui" style="display:none;">
+          <div class="keyword-container">
+            <h2>🎨 Keyword Associations</h2>
+            <div class="keywords-grid" id="keywords-grid"></div>
+          </div>
+        </div>
+
+        <!-- Rhyme Pegs UI -->
+        <div id="rhyme-pegs-ui" class="game-ui rhyme-pegs-ui" style="display:none;">
+          <div class="rhyme-container">
+            <h2>🎵 Rhyme Peg System</h2>
+            <div class="rhymes-grid" id="rhymes-grid"></div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="js/periodic-table-engine.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
