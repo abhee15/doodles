@@ -86,7 +86,7 @@ const ACHIEVEMENTS = {
         name: 'Math Genius',
         icon: '🧠',
         description: 'Unlock all levels',
-        check: () => playerProgress.unlockedLevels >= 9
+        check: () => playerProgress.unlockedLevels >= 12
     },
     score_master: {
         id: 'score_master',
@@ -502,7 +502,10 @@ function showLevelSelect(scene) {
         { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x10B981, locked: true },
         { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0x8B5CF6, locked: true },
         { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0xF59E0B, locked: true },
-        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0x06B6D4, locked: true }
+        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0x06B6D4, locked: true },
+        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0x14B8A6, locked: true },
+        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0xEF553B, locked: true },
+        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x8B7E74, locked: true }
     ];
 
     levels.forEach((level, index) => {
@@ -632,6 +635,12 @@ function showTutorial(scene, levelId) {
         tutorialMultiplyBy6(scene);
     } else if (levelId === 9) {
         tutorialMultiplyBy8(scene);
+    } else if (levelId === 10) {
+        tutorialMultiplyBy12(scene);
+    } else if (levelId === 11) {
+        tutorialMultiplyBy15(scene);
+    } else if (levelId === 12) {
+        tutorialMultiplyBy25(scene);
     }
     // Add more tutorials for other levels later
 }
@@ -1634,6 +1643,348 @@ function tutorialMultiplyBy8(scene) {
     showStep();
 }
 
+// ==================== TUTORIAL: MULTIPLY BY 12 ====================
+function tutorialMultiplyBy12(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Multiply by 12 - Simple Split!',
+            text: 'Learn to multiply by 12 using a super easy trick!',
+            example: ''
+        },
+        {
+            title: 'The Secret: 12 = 10 + 2',
+            text: 'We can split 12 into 10 and 2.\n\nSo: Any number × 12 = (×10) + (×2)\n\nExample: 12 × 7 = ?',
+            example: '12 × 7 = ?'
+        },
+        {
+            title: 'Step 1: Multiply by 10',
+            text: 'Multiply by 10 is easy!\nJust add a ZERO:\n\n7 × 10 = 70',
+            example: '70'
+        },
+        {
+            title: 'Step 2: Multiply by 2',
+            text: 'Now multiply by 2 (just double):\n\n7 × 2 = 14',
+            example: '14'
+        },
+        {
+            title: 'Step 3: Add Them Together!',
+            text: 'Add the two results:\n70 + 14 = 84\n\nDone!',
+            example: '12 × 7 = 84 ✓'
+        },
+        {
+            title: 'Try Another: 12 × 5',
+            text: '5 × 10 = 50\n5 × 2 = 10\n50 + 10 = 60\n\nAnswer:',
+            example: '12 × 5 = 60'
+        },
+        {
+            title: 'Try Another: 12 × 9',
+            text: '9 × 10 = 90\n9 × 2 = 18\n90 + 18 = 108\n\nAnswer:',
+            example: '12 × 9 = 108'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Any number × 12:\n1. Multiply by 10 (add zero)\n2. Multiply by 2 (double)\n3. Add the results!\n\n23 × 12 = 230 + 46 = 276',
+            example: '✨ Split & Add! ✨'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#A44A3F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 10);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
+// ==================== TUTORIAL: MULTIPLY BY 15 ====================
+function tutorialMultiplyBy15(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Multiply by 15 - Magic Doubling!',
+            text: 'Learn a clever trick to multiply by 15!',
+            example: ''
+        },
+        {
+            title: 'The Secret: Multiply by 10, Then Add Half!',
+            text: 'Multiply by 15 = Multiply by 10, then add HALF of that!\n\nExample: 15 × 4 = ?',
+            example: '15 × 4 = ?'
+        },
+        {
+            title: 'Step 1: Multiply by 10',
+            text: 'First, multiply by 10:\nJust add a ZERO!\n\n4 × 10 = 40',
+            example: '40'
+        },
+        {
+            title: 'Step 2: Find the Half',
+            text: 'Now find HALF of that result:\n\nHalf of 40 = 20',
+            example: '20'
+        },
+        {
+            title: 'Step 3: Add Them Together!',
+            text: 'Add the two numbers:\n40 + 20 = 60\n\nDone!',
+            example: '15 × 4 = 60 ✓'
+        },
+        {
+            title: 'Try Another: 15 × 6',
+            text: '6 × 10 = 60\nHalf of 60 = 30\n60 + 30 = 90\n\nAnswer:',
+            example: '15 × 6 = 90'
+        },
+        {
+            title: 'Try Another: 15 × 8',
+            text: '8 × 10 = 80\nHalf of 80 = 40\n80 + 40 = 120\n\nAnswer:',
+            example: '15 × 8 = 120'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Any number × 15:\n1. Multiply by 10 (add zero)\n2. Find half of that\n3. Add them together!\n\n12 × 15 = 120 + 60 = 180',
+            example: '✨ 10 + Half = 15! ✨'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#A44A3F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 11);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
+// ==================== TUTORIAL: MULTIPLY BY 25 ====================
+function tutorialMultiplyBy25(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Multiply by 25 - The Quarter Trick!',
+            text: 'Learn the FASTEST way to multiply by 25!',
+            example: ''
+        },
+        {
+            title: 'What is 25?',
+            text: '25 = One QUARTER of 100\n\nSo: Any number × 25 = (×100) ÷ 4\n\nExample: 25 × 12 = ?',
+            example: '25 × 12 = ?'
+        },
+        {
+            title: 'Step 1: Multiply by 100',
+            text: 'Multiply by 100 is SUPER easy!\nJust add TWO ZEROS:\n\n12 × 100 = 1200',
+            example: '1200'
+        },
+        {
+            title: 'Step 2: Divide by 4',
+            text: 'Now divide by 4.\nDividing by 4 = halving TWICE\n\n1200 ÷ 2 = 600\n600 ÷ 2 = 300',
+            example: '300'
+        },
+        {
+            title: 'Final Answer!',
+            text: 'So: 25 × 12 = 300\n\nDone!',
+            example: '25 × 12 = 300 ✓'
+        },
+        {
+            title: 'Try Another: 25 × 8',
+            text: '8 × 100 = 800\n800 ÷ 2 = 400\n400 ÷ 2 = 200\n\nAnswer:',
+            example: '25 × 8 = 200'
+        },
+        {
+            title: 'Try Another: 25 × 16',
+            text: '16 × 100 = 1600\n1600 ÷ 2 = 800\n800 ÷ 2 = 400\n\nAnswer:',
+            example: '25 × 16 = 400'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Any number × 25:\n1. Multiply by 100 (add 00)\n2. Divide by 4 (half, then half)\n\nUseful for money! 4 quarters = $1\n25¢ × 12 = $3.00',
+            example: '✨ Quarters Magic! ✨'
+        }
+    ];
+
+    function showStep() {
+        scene.children.removeAll();
+
+        const currentStep = steps[step];
+
+        // Title
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#A44A3F',
+            fontFamily: 'Arial',
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        // Explanation text
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: 'Arial',
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        // Example
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#A44A3F',
+                fontFamily: 'Arial',
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        // Progress
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: 'Arial'
+        }).setOrigin(0.5);
+
+        // Navigation buttons
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 12);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
 // ==================== PRACTICE MODE ====================
 function showPractice(scene, levelId) {
     scene.children.removeAll();
@@ -1757,6 +2108,33 @@ function showPractice(scene, levelId) {
                 type: '×8'
             };
             currentQuestion.answer = num * 8;
+        } else if (levelId === 10) {
+            // Level 10: Multiply by 12 (10 + 2)
+            const num = Phaser.Math.Between(1, 15);
+            currentQuestion = {
+                num: num,
+                answer: null,
+                type: '×12'
+            };
+            currentQuestion.answer = num * 12;
+        } else if (levelId === 11) {
+            // Level 11: Multiply by 15 (10 + half)
+            const num = Phaser.Math.Between(1, 14);
+            currentQuestion = {
+                num: num,
+                answer: null,
+                type: '×15'
+            };
+            currentQuestion.answer = num * 15;
+        } else if (levelId === 12) {
+            // Level 12: Multiply by 25 (÷4 of ×100)
+            const num = Phaser.Math.Between(1, 20);
+            currentQuestion = {
+                num: num,
+                answer: null,
+                type: '×25'
+            };
+            currentQuestion.answer = num * 25;
         }
 
         if (questionText) questionText.destroy();
@@ -1784,6 +2162,12 @@ function showPractice(scene, levelId) {
             questionStr = `${currentQuestion.num} × 6 = ?`;
         } else if (currentQuestion.type === '×8') {
             questionStr = `${currentQuestion.num} × 8 = ?`;
+        } else if (currentQuestion.type === '×12') {
+            questionStr = `${currentQuestion.num} × 12 = ?`;
+        } else if (currentQuestion.type === '×15') {
+            questionStr = `${currentQuestion.num} × 15 = ?`;
+        } else if (currentQuestion.type === '×25') {
+            questionStr = `${currentQuestion.num} × 25 = ?`;
         }
 
         questionText = scene.add.text(450, 120, questionStr, {
