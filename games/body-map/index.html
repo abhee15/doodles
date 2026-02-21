@@ -6,7 +6,7 @@
   <title>Body Map - Learn All US Presidents for Kids | Doodles Games</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.css">
   <style>
     :root {
       --navy:    #0D1B2A;
@@ -30,14 +30,15 @@
       --np: #37474F;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
+    html { height: auto; }
     body {
       font-family: 'Nunito', 'Segoe UI', sans-serif;
       background: var(--navy);
       color: var(--text);
-      min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
+      overflow-x: hidden;
     }
 
     /* ── NAV ── */
@@ -61,9 +62,10 @@
     #screen-start {
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 32px 20px;
-      gap: 28px;
+      justify-content: flex-start;
+      padding: 24px 20px;
+      gap: 20px;
+      overflow-y: auto;
     }
     .start-hero { text-align: center; }
     .start-hero h1 { font-size: clamp(32px,6vw,52px); font-weight: 900; color: var(--gold); letter-spacing: -1px; }
@@ -303,44 +305,53 @@
 
     /* ── RESPONSIVE ── */
     @media (max-width: 640px) {
+      /* Learn main: stack vertically */
+      .learn-main { flex-direction: column !important; }
+
       /* Body panel → horizontal strip at top */
       .body-panel {
-        width: 100% !important; height: auto !important; min-height: 64px;
+        width: 100% !important; height: auto !important; min-height: 60px;
         border-right: none !important; border-bottom: 1px solid var(--border);
-        flex-direction: row; padding: 8px 14px;
-        justify-content: flex-start; gap: 12px; align-items: center;
+        flex-direction: row; padding: 8px 12px;
+        justify-content: flex-start; gap: 12px; align-items: center; flex-shrink: 0;
       }
-      .body-label { margin-bottom: 0; font-size: 12px; }
-      #body-svg, #quiz-body-svg { width: 52px !important; flex-shrink: 0; }
+      .body-label { margin-bottom: 0; font-size: 11px; }
+      #body-svg, #quiz-body-svg { width: 50px !important; flex-shrink: 0; height: auto; }
 
       /* Info panel */
-      .info-panel { padding: 14px 14px 20px; gap: 12px; }
-      .pres-portrait-wrap { width: 72px; }
-      .portrait-num { font-size: 20px; }
-      .pres-name  { font-size: 20px !important; }
+      .info-panel { padding: 12px 12px 16px; gap: 12px; overflow-y: auto; flex: 1; }
+      .pres-portrait-wrap { width: 64px; }
+      .portrait-num { font-size: 18px; }
+      .pres-name  { font-size: 18px !important; }
+      .pres-term { font-size: 13px; }
 
       /* Footer: keep back | center | next in one row */
-      .learn-footer { padding: 10px 14px; gap: 8px; }
-      .learn-footer-center .step-indicator { font-size: 12px; }
+      .learn-footer { padding: 10px 12px; gap: 8px; flex-shrink: 0; }
+      .learn-footer-center { min-width: 0; }
+      .learn-footer-center .step-indicator { font-size: 11px; }
       .step-dots { display: none; }
-      .btn-prev, .btn-next { padding: 10px 12px; font-size: 13px; }
+      .btn-prev, .btn-next { padding: 8px 10px; font-size: 12px; }
 
       /* Quiz */
-      .quiz-main  { flex-direction: column; }
-      .quiz-q-panel { padding: 14px; gap: 12px; }
-      .quiz-question { font-size: 22px !important; }
+      .quiz-main  { flex-direction: column !important; }
+      .quiz-q-panel { padding: 12px; gap: 10px; overflow-y: auto; flex: 1; }
+      .quiz-question { font-size: 20px !important; }
       .options-grid { grid-template-columns: 1fr; gap: 8px; }
-      .opt-btn { padding: 12px 14px; font-size: 14px; }
-      .quiz-footer { padding: 10px 14px; }
+      .opt-btn { padding: 10px 12px; font-size: 13px; }
+      .quiz-footer { padding: 8px 12px; flex-shrink: 0; }
 
       /* Start screen */
-      #screen-start { padding: 24px 14px; gap: 18px; }
-      .batch-grid { grid-template-columns: 1fr 1fr; }
-      .batch-btn { padding: 14px 12px; }
+      #screen-start { padding: 16px 12px; gap: 16px; }
+      .start-hero h1 { font-size: 28px; }
+      .start-hero p { font-size: 14px; }
+      .technique-box { padding: 14px 16px; }
+      .batch-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .batch-btn { padding: 12px 10px; }
 
       /* Score screen */
-      #screen-score { padding: 24px 14px; gap: 16px; }
-      .score-btns { flex-direction: column; align-items: stretch; }
+      #screen-score { padding: 20px 12px; gap: 14px; overflow-y: auto; }
+      .score-num { font-size: clamp(40px,8vw,60px); }
+      .score-btns { flex-direction: column; align-items: stretch; gap: 8px; }
       .score-btns button { justify-content: center; }
     }
   </style>
