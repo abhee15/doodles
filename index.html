@@ -50,7 +50,7 @@
                 </div>
                 <span class="brand-name">Doodles</span>
             </a>
-            <span class="nav-count">10 games · 5 subjects</span> <!-- UPDATE THIS when adding games -->
+            <span class="nav-count">11 games · 6 subjects</span> <!-- UPDATE THIS when adding games -->
         </div>
     </nav>
 
@@ -76,6 +76,9 @@
             </button>
             <button class="pill" data-cat="memory" onclick="filter('memory', this)">
                 <i class="ti ti-brain"></i> Memory
+            </button>
+            <button class="pill" data-cat="art" onclick="filter('art', this)">
+                <i class="ti ti-palette"></i> Art
             </button>
         </div>
     </div>
@@ -297,6 +300,34 @@
         </div>
     </section>
 
+    <!-- Art & Creativity -->
+    <section class="cat-section" data-cat="art">
+        <div class="sec-header">
+            <div class="sec-title">
+                <div class="sec-bar art"></div>
+                <h2>Art &amp; Creativity</h2>
+                <span class="sec-count">1 game</span>
+            </div>
+        </div>
+        <div class="row-wrap">
+            <div class="cards-row">
+                <a class="game-card" href="games/doodle-school/index.html" id="doodle-school">
+                    <div class="thumb doodle-school">
+                        <span class="badge-new">New</span>
+                        <i class="ti ti-palette"></i>
+                    </div>
+                    <div class="card-overlay">
+                        <div class="card-title">Doodle School</div>
+                        <div class="card-desc">Follow step-by-step guides to draw animals, vehicles, characters, and more!</div>
+                        <span class="card-play">
+                            <i class="ti ti-player-play"></i> Play
+                        </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <div class="empty" id="empty">
         <i class="ti ti-mood-smile"></i>
         <p>More games coming soon in this category!</p>
@@ -346,6 +377,12 @@
                 <li><a href="games/body-map/index.html">Body Map</a></li>
             </ul>
         </div>
+        <div class="footer-col">
+            <h3>Art &amp; Creativity</h3>
+            <ul>
+                <li><a href="games/doodle-school/index.html">Doodle School</a></li>
+            </ul>
+        </div>
     </div>
     <div class="footer-bottom">
         <p>© 2026 Doodles · Built with care for learning</p>
@@ -355,6 +392,7 @@
             <div class="swatch" style="background:var(--c-geo)"></div>
             <div class="swatch" style="background:var(--c-words)"></div>
             <div class="swatch" style="background:var(--c-science)"></div>
+            <div class="swatch" style="background:var(--c-art)"></div>
         </div>
     </div>
 

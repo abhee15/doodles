@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+  <!-- Primary Meta Tags -->
+  <title>Doodle School - Learn to Draw for Kids | Doodles Games</title>
+  <meta name="title" content="Doodle School - Learn to Draw for Kids">
+  <meta name="description" content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!">
+  <meta name="keywords" content="drawing, tutorial, kids, learn to draw, art, animals, vehicles, characters">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="game">
+  <meta property="og:url" content="https://abhee15.github.io/doodles/games/doodle-school/">
+  <meta property="og:title" content="Doodle School - Learn to Draw for Kids">
+  <meta property="og:description" content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary">
+  <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/doodle-school/">
+  <meta property="twitter:title" content="Doodle School - Learn to Draw for Kids">
+  <meta property="twitter:description" content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!">
+
+  <link rel="canonical" href="https://abhee15.github.io/doodles/games/doodle-school/">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.min.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg: #FFF8F0;
+      --nav-bg: #5C3D8F;
+      --accent: #F472B6;
+      --accent2: #818CF8;
+      --text: #2D2D2D;
+      --muted: #8A7A9B;
+      --card-bg: #FFFFFF;
+      --border: #E8E0F0;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      font-family: 'Nunito', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      overflow: hidden;
+    }
+
+    nav.nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background-color: var(--nav-bg);
+      color: white;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      height: 60px;
+    }
+
+    nav.nav a {
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      transition: opacity 0.2s;
+    }
+
+    nav.nav a:hover {
+      opacity: 0.8;
+    }
+
+    nav.nav i {
+      font-size: 1.25rem;
+    }
+
+    .nav-title {
+      font-size: 1.25rem;
+      flex: 1;
+      text-align: center;
+    }
+
+    .nav-step {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+
+    /* Screens container */
+    .screens-container {
+      display: flex;
+      width: 100%;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Home Screen */
+    #screen-home {
+      padding: 2rem 1.5rem;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .home-title {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .home-title h1 {
+      font-size: 2rem;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .home-title p {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 800px;
+    }
+
+    .cat-card {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border: none;
+      border-radius: 16px;
+      padding: 2rem 1rem;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+
+    .cat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .cat-card i {
+      font-size: 2.5rem;
+    }
+
+    /* Subjects Screen */
+    #screen-subjects {
+      padding: 2rem 1.5rem;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .subjects-header {
+      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .subjects-header button {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .subjects-header h2 {
+      font-size: 1.75rem;
+      color: var(--text);
+    }
+
+    .subject-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 1rem;
+      width: 100%;
+      max-width: 700px;
+    }
+
+    .subject-card {
+      background: var(--card-bg);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      text-align: center;
+    }
+
+    .subject-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 12px rgba(244, 114, 182, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .subject-emoji {
+      font-size: 3rem;
+    }
+
+    .subject-name {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 1rem;
+    }
+
+    /* Drawing Screen */
+    #screen-drawing {
+      flex-direction: row;
+      padding: 1.5rem;
+      gap: 1.5rem;
+    }
+
+    .drawing-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .left-panel {
+      flex: 0 0 200px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+    }
+
+    .step-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.5;
+      margin-bottom: 1rem;
+    }
+
+    .step-counter {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+      background: var(--bg);
+      padding: 0.75rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .center-panel {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .canvas-wrap {
+      position: relative;
+      width: min(90vw, calc(100dvh - 260px));
+      aspect-ratio: 1;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      touch-action: none;
+      border: 1px solid var(--border);
+      max-width: 400px;
+    }
+
+    #canvas-guide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    #canvas-draw {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      cursor: crosshair;
+      border-radius: 12px;
+    }
+
+    .right-panel {
+      flex: 0 0 150px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .control-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .control-btn:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(244, 114, 182, 0.3);
+    }
+
+    .control-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .control-btn.secondary {
+      background: var(--accent2);
+    }
+
+    /* Complete Screen */
+    #screen-complete {
+      padding: 2rem 1.5rem;
+      gap: 1.5rem;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .celebrate-animation {
+      font-size: 4rem;
+      animation: float 1s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .completion-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin: 1rem 0;
+    }
+
+    .completion-msg {
+      font-size: 1.25rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .completion-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .completion-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 1rem 2rem;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .completion-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(244, 114, 182, 0.3);
+    }
+
+    .completion-btn.secondary {
+      background: var(--accent2);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      #screen-drawing {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .left-panel,
+      .right-panel {
+        flex: none;
+        width: 100%;
+      }
+
+      .right-panel {
+        flex-direction: row;
+        gap: 0.75rem;
+      }
+
+      .control-btn {
+        flex: 1;
+      }
+
+      .canvas-wrap {
+        width: min(85vw, calc(100dvh - 180px));
+        max-width: 100%;
+      }
+
+      .category-grid,
+      .subject-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .home-title h1 {
+        font-size: 1.5rem;
+      }
+
+      nav.nav {
+        padding: 0.75rem 1rem;
+      }
+
+      .nav-title {
+        font-size: 1rem;
+      }
+
+      .nav-step {
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .category-grid,
+      .subject-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .home-title h1 {
+        font-size: 1.25rem;
+      }
+
+      .completion-title {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="../../index.html#doodle-school"><i class="ti ti-arrow-left"></i> Back</a>
+    <span class="nav-title" id="nav-title">Doodle School</span>
+    <span class="nav-step" id="nav-step"></span>
+  </nav>
+
+  <div class="screens-container">
+    <!-- Home Screen -->
+    <div id="screen-home" class="screen active">
+      <div class="home-title">
+        <h1>🎨 Doodle School</h1>
+        <p>Pick a category to get started!</p>
+      </div>
+      <div class="category-grid" id="category-grid"></div>
+    </div>
+
+    <!-- Subjects Screen -->
+    <div id="screen-subjects" class="screen">
+      <div class="subjects-header">
+        <button id="back-to-cats" onclick="showScreen('screen-home')">
+          <i class="ti ti-arrow-left"></i>
+        </button>
+        <h2 id="subjects-title">Animals</h2>
+      </div>
+      <div class="subject-grid" id="subject-grid"></div>
+    </div>
+
+    <!-- Drawing Screen -->
+    <div id="screen-drawing" class="screen">
+      <div class="left-panel">
+        <div class="step-title" id="step-title"></div>
+        <div class="step-desc" id="step-desc"></div>
+        <div class="step-counter" id="step-counter"></div>
+      </div>
+
+      <div class="center-panel">
+        <div class="canvas-wrap">
+          <canvas id="canvas-guide" width="400" height="400"></canvas>
+          <canvas id="canvas-draw" width="400" height="400"></canvas>
+        </div>
+      </div>
+
+      <div class="right-panel">
+        <button class="control-btn" id="btn-prev" onclick="prevStep()">
+          <i class="ti ti-arrow-left"></i> Prev
+        </button>
+        <button class="control-btn secondary" id="btn-clear" onclick="clearDraw()">
+          <i class="ti ti-eraser"></i> Clear
+        </button>
+        <button class="control-btn" id="btn-next" onclick="nextStep()">
+          <i class="ti ti-arrow-right"></i> Next
+        </button>
+      </div>
+    </div>
+
+    <!-- Complete Screen -->
+    <div id="screen-complete" class="screen">
+      <div class="celebrate-animation">🎉</div>
+      <h1 class="completion-title">Amazing!</h1>
+      <p class="completion-msg" id="completion-msg">You've completed the drawing!</p>
+      <div class="completion-btns">
+        <button class="completion-btn" onclick="replaySubject()">
+          <i class="ti ti-refresh"></i> Replay
+        </button>
+        <button class="completion-btn secondary" onclick="showScreen('screen-subjects')">
+          <i class="ti ti-list"></i> Next Subject
+        </button>
+        <button class="completion-btn secondary" onclick="showScreen('screen-home')">
+          <i class="ti ti-home"></i> Home
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+  <script src="../../shared/analytics.js"></script>
+  <div id="ad-container"></div>
+  <script src="../../shared/ads.js"></script>
+</body>
+</html>

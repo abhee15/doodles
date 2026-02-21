@@ -27,12 +27,14 @@
     --grad-earth:        linear-gradient(140deg, #00ACC1 0%, #006064 100%);
     --grad-dino:         linear-gradient(145deg, #43A047 0%, #1B5E20 100%);
     --grad-solar:        linear-gradient(145deg, #0B0E2D 0%, #1a1060 55%, #0D2060 100%);
+    --grad-doodle-school: linear-gradient(145deg, #F472B6 0%, #818CF8 100%);
 
     /* Category dot colors (for section headers) */
     --c-math:    #BF360C;
     --c-geo:     #0277BD;
     --c-words:   #6A1B9A;
     --c-science: #2E7D32;
+    --c-art:     #EC4899;
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -142,6 +144,7 @@ body {
 .pill[data-cat="geo"].active     { color: var(--c-geo);  }
 .pill[data-cat="words"].active   { color: var(--c-words);}
 .pill[data-cat="science"].active { color: var(--c-science); }
+.pill[data-cat="art"].active     { color: var(--c-art); }
 
 /* ══════════════════════════════════════════════════
    PAGE CONTENT
@@ -173,6 +176,7 @@ body {
 .sec-bar.geo     { background: var(--c-geo);  }
 .sec-bar.words   { background: var(--c-words);}
 .sec-bar.science { background: var(--c-science); }
+.sec-bar.art     { background: var(--c-art); }
 
 .sec-title h2 {
     font-size: clamp(1.05rem, 2.5vw, 1.3rem);
@@ -245,6 +249,7 @@ body {
 .thumb.earth       { background: var(--grad-earth); }
 .thumb.dino        { background: var(--grad-dino); }
 .thumb.solar       { background: var(--grad-solar); }
+.thumb.doodle-school { background: var(--grad-doodle-school); }
 
 /* ── Unique background patterns per game ── */
 
@@ -344,6 +349,17 @@ body {
     background-position: 5px 8px, 18px 22px, 32px 12px;
 }
 
+/* Doodle School — paint dot pattern */
+.thumb.doodle-school::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+        radial-gradient(circle, rgba(255,255,255,0.25) 2px, transparent 2px),
+        radial-gradient(circle, rgba(255,255,255,0.15) 3px, transparent 3px);
+    background-size: 22px 22px, 37px 37px;
+    background-position: 3px 5px, 12px 18px;
+}
+
 /* Main icon */
 .thumb i {
     position: relative;
@@ -418,7 +434,7 @@ footer { background: var(--footer-bg); }
     max-width: var(--max-w); margin: 0 auto;
     padding: 48px var(--pad) 36px;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
     gap: 40px;
 }
 
