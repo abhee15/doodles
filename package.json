@@ -1,0 +1,37 @@
+{
+  "name": "doodles",
+  "version": "1.0.0",
+  "description": "Educational browser games for kids built with Phaser 3",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/abhee15/doodles.git"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .js --ignore-path .gitignore",
+    "lint:fix": "eslint . --ext .js --fix --ignore-path .gitignore",
+    "format": "prettier --write '**/*.{js,json,html,css,md}'",
+    "format:check": "prettier --check '**/*.{js,json,html,css,md}'",
+    "validate": "npm run format:check && npm run lint",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "prettier": "^3.1.1",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0"
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,html,css,md}": [
+      "prettier --write"
+    ]
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

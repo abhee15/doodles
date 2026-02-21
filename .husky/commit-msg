@@ -1,0 +1,30 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Validate commit message format
+# Commits should follow: "Type: description" or have Co-Authored-By trailer
+
+commit_msg=$(cat "$1")
+
+# Check if commit message starts with conventional commit type
+if ! echo "$commit_msg" | grep -qE '^(feat|fix|docs|style|refactor|perf|test|chore|ci|revert)(\(.+\))?:'; then
+  # If not, check if it has a Co-Authored-By (acceptable for AI-generated commits)
+  if ! echo "$commit_msg" | grep -q 'Co-Authored-By:'; then
+    echo "❌ Commit message does not follow conventions."
+    echo ""
+    echo "Format should be one of:"
+    echo "  feat(scope): description"
+    echo "  fix(scope): description"
+    echo "  docs: description"
+    echo "  style: description"
+    echo "  refactor(scope): description"
+    echo "  perf(scope): description"
+    echo "  test: description"
+    echo "  chore: description"
+    echo ""
+    echo "Or include Co-Authored-By trailer for collaborative commits."
+    exit 1
+  fi
+fi
+
+exit 0

@@ -1,0 +1,13 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run lint-staged to lint and format changed files
+npx lint-staged
+
+# Check for console.log statements in game files (warning only)
+if git diff --cached --name-only | grep -E 'games/.*\.js$' | xargs grep -l 'console\.log' 2>/dev/null; then
+  echo "⚠️  Warning: console.log statements found in game files. Consider removing before production."
+fi
+
+# Exit with success to allow commit, but lint errors will have already been caught
+exit 0

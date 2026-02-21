@@ -170,9 +170,175 @@ MIT License - Feel free to use and modify!
 
 ---
 
+## 🛠 Development Setup
+
+### Prerequisites
+- Node.js 18+ (for development tools only - games run in browser)
+- Git
+
+### Initial Setup
+```bash
+# Clone the repository
+git clone https://github.com/abhee15/doodles.git
+cd doodles
+
+# Install development dependencies
+npm install
+
+# Set up pre-commit hooks
+npm run prepare
+```
+
+### Development Commands
+
+```bash
+# Lint JavaScript files
+npm run lint
+
+# Auto-fix linting issues
+npm run lint:fix
+
+# Format all code (JS, JSON, HTML, CSS, Markdown)
+npm run format
+
+# Check formatting without modifying files
+npm run format:check
+
+# Run both format check and lint
+npm run validate
+```
+
+### Code Style
+
+This project uses **ESLint** and **Prettier** for consistent code quality:
+
+- **ESLint** enforces code correctness (no undefined variables, proper syntax, etc.)
+- **Prettier** enforces code formatting (indentation, quotes, line length, etc.)
+- **Pre-commit hooks** automatically lint and format staged files
+
+**Important:** All commits trigger automatic code quality checks. Fix any issues before committing:
+```bash
+# Before committing, run this
+npm run lint:fix
+npm run format
+```
+
+### Code Conventions
+
+**Variable & Function Names:**
+```javascript
+// Use camelCase for variables and functions
+const playerScore = 0;
+function calculateScore() { }
+
+// Use UPPERCASE for constants
+const MAX_PLAYERS = 10;
+
+// Use leading underscore for unused parameters
+function handler(_event) { }
+```
+
+**Spacing & Formatting:**
+- 2 spaces for indentation
+- Single quotes for strings (except HTML attributes)
+- Semicolons required
+- Max line length: 100 characters
+- No trailing whitespace
+
+**Comments:**
+```javascript
+// Single line comments for quick notes
+
+/**
+ * Multi-line comments for complex logic
+ * explaining why something is done this way
+ */
+```
+
+### Commit Message Convention
+
+Commits follow a structured format:
+
+```
+type(scope): description
+
+Optional: longer explanation here
+
+Co-Authored-By: Name <email> (for collaborative commits)
+```
+
+**Types:** `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `chore`, `ci`, `revert`
+
+**Examples:**
+```
+feat(quick-math): add landscape mode responsiveness
+fix(measure-master): resolve mobile touch target sizing
+docs(CLAUDE.md): update design system documentation
+chore: update ESLint configuration
+```
+
+### Testing Games Locally
+
+**No build process needed!** Just open in a browser:
+
+```bash
+# Using Python 3 (recommended for CORS compatibility)
+python -m http.server 8000
+
+# Or using Node.js http-server
+npx http-server
+
+# Then visit: http://localhost:8000
+```
+
+### Mobile Testing
+
+Test on actual devices for best results:
+
+```bash
+# Find your machine's IP
+ipconfig getifaddr en0  # macOS/Linux
+ipconfig | findstr IPv4  # Windows
+
+# Access from mobile browser
+http://YOUR_IP:8000
+```
+
+Test both portrait and landscape modes, especially on:
+- Small phones (320px width)
+- Tablets (768px width)
+- Large phones (414px width)
+
+### Design System
+
+All games should use the unified design system:
+
+**Token Files:**
+- `shared/tokens.css` - Primitive color variables (--tok-*)
+- `shared/design-system.js` - Phaser game tokens (COLORS, TYPOGRAPHY, LAYOUT)
+- `shared/game-dom.css` - DOM game shell (Archetype B games)
+
+**Color Palette:**
+```
+Primary:   #1CB0F6 (Dodger Blue)
+Secondary: #FF7D00 (Orange)
+Success:   #58CC02 (Green)
+Error:     #FF4444 (Red)
+```
+
+See `CLAUDE.md` for full design system documentation.
+
+---
+
 ## 🤝 Contributing
 
 This is a personal project, but suggestions welcome!
+
+**Before submitting changes:**
+1. Run `npm run validate` to check formatting
+2. Follow code conventions above
+3. Test on mobile (both portrait and landscape)
+4. Update CLAUDE.md if adding new conventions
 
 ---
 
