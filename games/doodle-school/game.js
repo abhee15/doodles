@@ -17,35 +17,21 @@ const CATEGORIES = [
   { id: 'characters', label: 'Characters', icon: 'ti-mood-happy', color: '#A78BFA' }
 ];
 
-// All subjects with steps
+// All subjects with steps - refined with proper tutorials
 const SUBJECTS = [
-  // Animals
+  // ANIMALS
   {
     id: 'cat',
     label: 'Cat',
     category: 'animals',
     emoji: '🐱',
     steps: [
-      { title: 'Draw the head', desc: 'Draw a big round circle in the middle.', draw: drawCat_step1 },
-      { title: 'Add ears', desc: 'Draw two pointy triangles on top.', draw: drawCat_step2 },
-      { title: 'Draw face guide', desc: 'Two circles for eyes guide.', draw: drawCat_step3 },
-      { title: 'Add eyes & nose', desc: 'Small circles for eyes, triangle for nose.', draw: drawCat_step4 },
-      { title: 'Whiskers', desc: 'Three lines on each side.', draw: drawCat_step5 },
-      { title: 'Mouth', desc: 'Curved line for the smile.', draw: drawCat_step6 }
-    ]
-  },
-  {
-    id: 'dog',
-    label: 'Dog',
-    category: 'animals',
-    emoji: '🐶',
-    steps: [
-      { title: 'Head', desc: 'Draw a large circle.', draw: drawDog_step1 },
-      { title: 'Ears', desc: 'Two floppy oval ears on sides.', draw: drawDog_step2 },
-      { title: 'Snout', desc: 'A protruding rectangle for the snout.', draw: drawDog_step3 },
-      { title: 'Eyes & nose', desc: 'Two circles for eyes, circle for nose.', draw: drawDog_step4 },
-      { title: 'Mouth', desc: 'Curved line with two dots below.', draw: drawDog_step5 },
-      { title: 'Tongue', desc: 'Small curved shape hanging out.', draw: drawDog_step6 }
+      { title: 'Draw the head', desc: 'Large circle in the middle.', draw: drawCat_step1 },
+      { title: 'Add pointy ears', desc: 'Two triangles on top of the head.', draw: drawCat_step2 },
+      { title: 'Draw eyes', desc: 'Two oval shapes, pointed at the corners.', draw: drawCat_step3 },
+      { title: 'Add nose & mouth', desc: 'Triangle nose, curved smile below.', draw: drawCat_step4 },
+      { title: 'Whiskers & body outline', desc: 'Three lines each side, then draw body shape below.', draw: drawCat_step5 },
+      { title: 'Front legs & tail', desc: 'Two straight legs below, curved tail on side.', draw: drawCat_step6 }
     ]
   },
   {
@@ -54,12 +40,28 @@ const SUBJECTS = [
     category: 'animals',
     emoji: '🐦',
     steps: [
-      { title: 'Body', desc: 'Draw an oval in the center.', draw: drawBird_step1 },
-      { title: 'Head', desc: 'Circle on top of the body.', draw: drawBird_step2 },
-      { title: 'Beak', desc: 'Pointed triangle to the right.', draw: drawBird_step3 },
-      { title: 'Eye', desc: 'Small circle on the head.', draw: drawBird_step4 },
-      { title: 'Wings', desc: 'Two curved lines on the sides.', draw: drawBird_step5 },
-      { title: 'Tail', desc: 'Flowing feather lines behind.', draw: drawBird_step6 }
+      { title: 'Body shape', desc: 'Draw a medium oval horizontally for the body.', draw: drawBird_step1 },
+      { title: 'Head circle', desc: 'Add a circle on the left side for the head (smaller than body).', draw: drawBird_step2 },
+      { title: 'Beak', desc: 'Draw a small pointed triangle on the left of the head.', draw: drawBird_step3 },
+      { title: 'Eye', desc: 'Add a small circle on the head for the eye.', draw: drawBird_step4 },
+      { title: 'Wings', desc: 'Draw two curved oval shapes on the sides of the body.', draw: drawBird_step5 },
+      { title: 'Tail feathers', desc: 'Add 3-4 curved lines at the back for tail feathers.', draw: drawBird_step6 },
+      { title: 'Legs & details', desc: 'Two short lines for legs, add details to wing.', draw: drawBird_step7 }
+    ]
+  },
+  {
+    id: 'dog',
+    label: 'Dog',
+    category: 'animals',
+    emoji: '🐶',
+    steps: [
+      { title: 'Head circle', desc: 'Draw a large circle for the head.', draw: drawDog_step1 },
+      { title: 'Floppy ears', desc: 'Add two large rounded rectangles on the sides for ears.', draw: drawDog_step2 },
+      { title: 'Snout area', desc: 'Draw a rounded rectangle shape sticking out for the snout.', draw: drawDog_step3 },
+      { title: 'Eyes', desc: 'Two small circles or ovals for eyes on the head.', draw: drawDog_step4 },
+      { title: 'Nose & mouth', desc: 'Small circle for nose, curved line for smiling mouth.', draw: drawDog_step5 },
+      { title: 'Body shape', desc: 'Draw a larger oval below the head for the body.', draw: drawDog_step6 },
+      { title: 'Legs & tail', desc: 'Four short lines for legs at bottom, curved tail.', draw: drawDog_step7 }
     ]
   },
   {
@@ -68,12 +70,12 @@ const SUBJECTS = [
     category: 'animals',
     emoji: '🐠',
     steps: [
-      { title: 'Body', desc: 'Draw an oval body.', draw: drawFish_step1 },
-      { title: 'Tail', desc: 'Triangle tail on the right.', draw: drawFish_step2 },
-      { title: 'Eye', desc: 'Circle near the head.', draw: drawFish_step3 },
-      { title: 'Mouth', desc: 'Small circle at the tip.', draw: drawFish_step4 },
-      { title: 'Fins', desc: 'Two curved fins on top and bottom.', draw: drawFish_step5 },
-      { title: 'Details', desc: 'Add some scale lines.', draw: drawFish_step6 }
+      { title: 'Body', desc: 'Draw a medium oval horizontally for the fish body.', draw: drawFish_step1 },
+      { title: 'Tail fin', desc: 'Draw a triangle pointing right at the back.', draw: drawFish_step2 },
+      { title: 'Top fin', desc: 'Add a curved triangle on top of the body.', draw: drawFish_step3 },
+      { title: 'Bottom fin', desc: 'Add another curved triangle on the bottom.', draw: drawFish_step4 },
+      { title: 'Eye', desc: 'Small circle near the front for the eye.', draw: drawFish_step5 },
+      { title: 'Mouth & details', desc: 'Small circle for mouth, add lines in tail for pattern.', draw: drawFish_step6 }
     ]
   },
   {
@@ -82,12 +84,13 @@ const SUBJECTS = [
     category: 'animals',
     emoji: '🦋',
     steps: [
-      { title: 'Body', desc: 'Draw a vertical line down the middle.', draw: drawButterfly_step1 },
-      { title: 'Top wings', desc: 'Two large circles or ovals above.', draw: drawButterfly_step2 },
-      { title: 'Bottom wings', desc: 'Two circles or ovals below.', draw: drawButterfly_step3 },
-      { title: 'Wing details', desc: 'Add patterns to the wings.', draw: drawButterfly_step4 },
-      { title: 'Antennae', desc: 'Two curved lines from the head.', draw: drawButterfly_step5 },
-      { title: 'Final touches', desc: 'Add dots and color patterns.', draw: drawButterfly_step6 }
+      { title: 'Body', desc: 'Draw a vertical rectangle down the middle for the body.', draw: drawButterfly_step1 },
+      { title: 'Upper left wing', desc: 'Draw a large oval tilted to the upper left.', draw: drawButterfly_step2 },
+      { title: 'Upper right wing', desc: 'Draw a matching oval tilted to the upper right.', draw: drawButterfly_step3 },
+      { title: 'Lower left wing', desc: 'Draw another oval below and tilted for lower left wing.', draw: drawButterfly_step4 },
+      { title: 'Lower right wing', desc: 'Draw matching lower right wing oval.', draw: drawButterfly_step5 },
+      { title: 'Antennae', desc: 'Two curved lines from the top of the body for antennae.', draw: drawButterfly_step6 },
+      { title: 'Wing patterns', desc: 'Add circles and dots on the wings for pretty patterns.', draw: drawButterfly_step7 }
     ]
   },
   {
@@ -96,214 +99,31 @@ const SUBJECTS = [
     category: 'animals',
     emoji: '🐰',
     steps: [
-      { title: 'Face', desc: 'Draw a circle for the head.', draw: drawRabbit_step1 },
-      { title: 'Ears', desc: 'Two tall ovals on top of head.', draw: drawRabbit_step2 },
-      { title: 'Inner ears', desc: 'Small ovals inside the ears.', draw: drawRabbit_step3 },
-      { title: 'Eyes', desc: 'Two circles on the face.', draw: drawRabbit_step4 },
-      { title: 'Nose & mouth', desc: 'Triangle nose and curved mouth line.', draw: drawRabbit_step5 },
-      { title: 'Fur details', desc: 'Add fluff and whiskers.', draw: drawRabbit_step6 }
+      { title: 'Head', desc: 'Draw a circle for the rabbit head.', draw: drawRabbit_step1 },
+      { title: 'Long ears', desc: 'Two tall ovals sticking up from the top of head.', draw: drawRabbit_step2 },
+      { title: 'Inner ears', desc: 'Smaller ovals inside each ear for detail.', draw: drawRabbit_step3 },
+      { title: 'Eyes', desc: 'Two circles for big bright eyes.', draw: drawRabbit_step4 },
+      { title: 'Nose & mouth', desc: 'Small triangle for nose, line for cute buck teeth/smile.', draw: drawRabbit_step5 },
+      { title: 'Body', desc: 'Larger oval below the head for the fuzzy body.', draw: drawRabbit_step6 },
+      { title: 'Legs & tail', desc: 'Two hind legs at bottom, fluffy tail at back.', draw: drawRabbit_step7 }
     ]
   },
-  // Flowers
-  {
-    id: 'sunflower',
-    label: 'Sunflower',
-    category: 'flowers',
-    emoji: '🌻',
-    steps: [
-      { title: 'Center', desc: 'Draw a circle in the middle.', draw: drawSunflower_step1 },
-      { title: 'Petals', desc: 'Draw 8 petals around the center.', draw: drawSunflower_step2 },
-      { title: 'Stem', desc: 'Long curved line going down.', draw: drawSunflower_step3 },
-      { title: 'Leaves', desc: 'Two long leaves on the stem.', draw: drawSunflower_step4 },
-      { title: 'Details', desc: 'Add petal and leaf textures.', draw: drawSunflower_step5 }
-    ]
-  },
-  {
-    id: 'rose',
-    label: 'Rose',
-    category: 'flowers',
-    emoji: '🌹',
-    steps: [
-      { title: 'Center petal', desc: 'Draw a curved spiral for center.', draw: drawRose_step1 },
-      { title: 'Petals layer 1', desc: 'Add curving petals around center.', draw: drawRose_step2 },
-      { title: 'Petals layer 2', desc: 'More petals for fullness.', draw: drawRose_step3 },
-      { title: 'Stem', desc: 'Draw a curved stem below.', draw: drawRose_step4 },
-      { title: 'Leaves & thorns', desc: 'Add leaves and small thorns.', draw: drawRose_step5 }
-    ]
-  },
-  {
-    id: 'tulip',
-    label: 'Tulip',
-    category: 'flowers',
-    emoji: '🌷',
-    steps: [
-      { title: 'Petals', desc: 'Draw three overlapping petals.', draw: drawTulip_step1 },
-      { title: 'Inner petals', desc: 'Add two smaller petals inside.', draw: drawTulip_step2 },
-      { title: 'Stem', desc: 'Long green stem below flower.', draw: drawTulip_step3 },
-      { title: 'Leaves', desc: 'Two pointed leaves on the stem.', draw: drawTulip_step4 },
-      { title: 'Details', desc: 'Add petal lines for texture.', draw: drawTulip_step5 }
-    ]
-  },
-  {
-    id: 'tree',
-    label: 'Tree',
-    category: 'flowers',
-    emoji: '🌳',
-    steps: [
-      { title: 'Trunk', desc: 'Draw a vertical rectangle.', draw: drawTree_step1 },
-      { title: 'Foliage', desc: 'Large circle or rounded top.', draw: drawTree_step2 },
-      { title: 'Branch structure', desc: 'Add lines within the foliage.', draw: drawTree_step3 },
-      { title: 'Details', desc: 'Add texture to the leaves.', draw: drawTree_step4 },
-      { title: 'Ground', desc: 'Add some grass or ground detail.', draw: drawTree_step5 }
-    ]
-  },
-  // Vehicles
-  {
-    id: 'car',
-    label: 'Car',
-    category: 'vehicles',
-    emoji: '🚗',
-    steps: [
-      { title: 'Body', desc: 'Draw a rectangle for the car body.', draw: drawCar_step1 },
-      { title: 'Top', desc: 'Add a smaller rectangle on top.', draw: drawCar_step2 },
-      { title: 'Wheels', desc: 'Two circles at the bottom.', draw: drawCar_step3 },
-      { title: 'Windows', desc: 'Draw two rectangles for windows.', draw: drawCar_step4 },
-      { title: 'Lights & bumper', desc: 'Add rectangles for lights and bumper.', draw: drawCar_step5 }
-    ]
-  },
-  {
-    id: 'airplane',
-    label: 'Airplane',
-    category: 'vehicles',
-    emoji: '✈️',
-    steps: [
-      { title: 'Fuselage', desc: 'Draw a long oval body.', draw: drawAirplane_step1 },
-      { title: 'Wings', desc: 'Add large horizontal lines for wings.', draw: drawAirplane_step2 },
-      { title: 'Tail', desc: 'Small triangle at the back.', draw: drawAirplane_step3 },
-      { title: 'Cockpit', desc: 'Circle or oval on the nose.', draw: drawAirplane_step4 },
-      { title: 'Details', desc: 'Add windows and engine details.', draw: drawAirplane_step5 }
-    ]
-  },
-  {
-    id: 'rocket',
-    label: 'Rocket',
-    category: 'vehicles',
-    emoji: '🚀',
-    steps: [
-      { title: 'Body', desc: 'Draw a tall rectangle.', draw: drawRocket_step1 },
-      { title: 'Nose', desc: 'Triangle on top for the nose.', draw: drawRocket_step2 },
-      { title: 'Fins', desc: 'Three triangles at the bottom.', draw: drawRocket_step3 },
-      { title: 'Window', desc: 'Circle near the top.', draw: drawRocket_step4 },
-      { title: 'Flame', desc: 'Add fire/flame below the rocket.', draw: drawRocket_step5 }
-    ]
-  },
-  {
-    id: 'boat',
-    label: 'Boat',
-    category: 'vehicles',
-    emoji: '⛵',
-    steps: [
-      { title: 'Hull', desc: 'Draw a curved boat shape.', draw: drawBoat_step1 },
-      { title: 'Mast', desc: 'Vertical line in the middle.', draw: drawBoat_step2 },
-      { title: 'Sail', desc: 'Triangle shape for the sail.', draw: drawBoat_step3 },
-      { title: 'Water', desc: 'Wavy lines at the bottom.', draw: drawBoat_step4 },
-      { title: 'Details', desc: 'Add window and rope details.', draw: drawBoat_step5 }
-    ]
-  },
-  // Food
-  {
-    id: 'ice-cream',
-    label: 'Ice Cream',
-    category: 'food',
-    emoji: '🍦',
-    steps: [
-      { title: 'Cone', desc: 'Draw a triangle for the cone.', draw: drawIceCream_step1 },
-      { title: 'Ice cream scoop 1', desc: 'Circle on top of cone.', draw: drawIceCream_step2 },
-      { title: 'Ice cream scoop 2', desc: 'Another circle on top.', draw: drawIceCream_step3 },
-      { title: 'Ice cream scoop 3', desc: 'One more circle on top.', draw: drawIceCream_step4 },
-      { title: 'Cherry & details', desc: 'Add cherry and cone texture.', draw: drawIceCream_step5 }
-    ]
-  },
-  {
-    id: 'pizza',
-    label: 'Pizza',
-    category: 'food',
-    emoji: '🍕',
-    steps: [
-      { title: 'Pizza circle', desc: 'Draw a large circle.', draw: drawPizza_step1 },
-      { title: 'Slice lines', desc: 'Add lines to divide into slices.', draw: drawPizza_step2 },
-      { title: 'Cheese', desc: 'Add wavy lines for melted cheese.', draw: drawPizza_step3 },
-      { title: 'Toppings', desc: 'Add circles for pepperoni.', draw: drawPizza_step4 },
-      { title: 'Details', desc: 'Add basil and crust details.', draw: drawPizza_step5 }
-    ]
-  },
-  {
-    id: 'apple',
-    label: 'Apple',
-    category: 'food',
-    emoji: '🍎',
-    steps: [
-      { title: 'Apple body', desc: 'Draw a round circle.', draw: drawApple_step1 },
-      { title: 'Top indent', desc: 'Small curved indent at top.', draw: drawApple_step2 },
-      { title: 'Stem', desc: 'Short line from the top.', draw: drawApple_step3 },
-      { title: 'Leaf', desc: 'Oval leaf attached to stem.', draw: drawApple_step4 },
-      { title: 'Details', desc: 'Add shine and texture.', draw: drawApple_step5 }
-    ]
-  },
-  {
-    id: 'cupcake',
-    label: 'Cupcake',
-    category: 'food',
-    emoji: '🧁',
-    steps: [
-      { title: 'Cup wrapper', desc: 'Draw a trapezoid for wrapper.', draw: drawCupcake_step1 },
-      { title: 'Frosting', desc: 'Curved line on top (like swirl).', draw: drawCupcake_step2 },
-      { title: 'Frosting shape', desc: 'Complete the frosting swirl.', draw: drawCupcake_step3 },
-      { title: 'Cherry', desc: 'Small circle on top.', draw: drawCupcake_step4 },
-      { title: 'Details', desc: 'Add wrapper texture and shadows.', draw: drawCupcake_step5 }
-    ]
-  },
-  // Characters
+
+  // CHARACTERS
   {
     id: 'mickey-mouse',
     label: 'Mickey Mouse',
     category: 'characters',
     emoji: '🐭',
     steps: [
-      { title: 'Face', desc: 'Large circle for the face.', draw: drawMickey_step1 },
-      { title: 'Ears', desc: 'Two big circles on top.', draw: drawMickey_step2 },
-      { title: 'Eyes', desc: 'Two large circles for eyes.', draw: drawMickey_step3 },
-      { title: 'Nose & mouth', desc: 'Small circle nose and mouth line.', draw: drawMickey_step4 },
-      { title: 'Body outline', desc: 'Add shoulders and body guide.', draw: drawMickey_step5 },
-      { title: 'Details', desc: 'Add buttons and hand details.', draw: drawMickey_step6 }
-    ]
-  },
-  {
-    id: 'donald-duck',
-    label: 'Donald Duck',
-    category: 'characters',
-    emoji: '🦆',
-    steps: [
-      { title: 'Head', desc: 'Large circle for head.', draw: drawDonald_step1 },
-      { title: 'Beak', desc: 'Curved triangle for bill.', draw: drawDonald_step2 },
-      { title: 'Eyes', desc: 'Two circles on the head.', draw: drawDonald_step3 },
-      { title: 'Sailor hat', desc: 'Rectangle and circle for hat.', draw: drawDonald_step4 },
-      { title: 'Body', desc: 'Add body and arms guide.', draw: drawDonald_step5 },
-      { title: 'Details', desc: 'Add sailor outfit details.', draw: drawDonald_step6 }
-    ]
-  },
-  {
-    id: 'hulk',
-    label: 'Hulk',
-    category: 'characters',
-    emoji: '💚',
-    steps: [
-      { title: 'Head', desc: 'Large circle for head.', draw: drawHulk_step1 },
-      { title: 'Face details', desc: 'Eyes and angry expression.', draw: drawHulk_step2 },
-      { title: 'Neck & shoulders', desc: 'Wide shoulders outline.', draw: drawHulk_step3 },
-      { title: 'Muscular arms', desc: 'Draw large arm muscles.', draw: drawHulk_step4 },
-      { title: 'Body', desc: 'Add chest and body outline.', draw: drawHulk_step5 },
-      { title: 'Details', desc: 'Add torn pants and final details.', draw: drawHulk_step6 }
+      { title: 'Head circle', desc: 'Draw a large circle in the center for Mickey\'s head.', draw: drawMickey_step1 },
+      { title: 'Left ear', desc: 'Draw a large circle on the upper left side.', draw: drawMickey_step2 },
+      { title: 'Right ear', desc: 'Draw matching circle on the upper right side.', draw: drawMickey_step3 },
+      { title: 'Eyes', desc: 'Two large oval shapes with smaller ovals inside for pupils.', draw: drawMickey_step4 },
+      { title: 'Nose & mouth', desc: 'Large oval nose between eyes, big smile line below.', draw: drawMickey_step5 },
+      { title: 'Body & shorts', desc: 'Draw oval for body, add short line for pants/shorts.', draw: drawMickey_step6 },
+      { title: 'Arms & legs', desc: 'Add two arms and two legs as simple shapes.', draw: drawMickey_step7 },
+      { title: 'Final details', desc: 'Add buttons on shorts and shoes at the bottom.', draw: drawMickey_step8 }
     ]
   },
   {
@@ -312,203 +132,449 @@ const SUBJECTS = [
     category: 'characters',
     emoji: '⚡',
     steps: [
-      { title: 'Head', desc: 'Round circle for head.', draw: drawPikachu_step1 },
-      { title: 'Ears', desc: 'Two pointed ears on top.', draw: drawPikachu_step2 },
-      { title: 'Face', desc: 'Eyes, nose, and rosy cheeks.', draw: drawPikachu_step3 },
-      { title: 'Body', desc: 'Oval shape for body.', draw: drawPikachu_step4 },
-      { title: 'Tail', desc: 'Lightning bolt shaped tail.', draw: drawPikachu_step5 },
-      { title: 'Details', desc: 'Add tail pattern and details.', draw: drawPikachu_step6 }
+      { title: 'Head shape', desc: 'Draw a circle for Pikachu\'s round head.', draw: drawPikachu_step1 },
+      { title: 'Pointy left ear', desc: 'Draw a tall pointed oval on the upper left.', draw: drawPikachu_step2 },
+      { title: 'Pointy right ear', desc: 'Draw matching pointed oval on upper right.', draw: drawPikachu_step3 },
+      { title: 'Cheek circles', desc: 'Two circles on sides of face for rosy red cheeks.', draw: drawPikachu_step4 },
+      { title: 'Eyes & nose', desc: 'Small circles for eyes, tiny triangle for nose.', draw: drawPikachu_step5 },
+      { title: 'Mouth', desc: 'Draw curved line for Pikachu\'s happy mouth.', draw: drawPikachu_step6 },
+      { title: 'Body', desc: 'Larger oval below head for the body.', draw: drawPikachu_step7 },
+      { title: 'Tail', desc: 'Lightning bolt shaped tail on the right back side.', draw: drawPikachu_step8 },
+      { title: 'Arms & legs', desc: 'Simple shapes for short arms and legs.', draw: drawPikachu_step9 }
+    ]
+  },
+  {
+    id: 'donald-duck',
+    label: 'Donald Duck',
+    category: 'characters',
+    emoji: '🦆',
+    steps: [
+      { title: 'Head circle', desc: 'Draw a large circle for the head.', draw: drawDonald_step1 },
+      { title: 'Long bill', desc: 'Draw an elongated triangle or rectangle for the bill.', draw: drawDonald_step2 },
+      { title: 'Eyes', desc: 'Two circles on the head, with pupils inside.', draw: drawDonald_step3 },
+      { title: 'Sailor hat', desc: 'Draw a curved line for the hat brim and top.', draw: drawDonald_step4 },
+      { title: 'Body outline', desc: 'Draw a larger oval for the sailor outfit body.', draw: drawDonald_step5 },
+      { title: 'Sailor jacket', desc: 'Add lines for jacket lapels and sailor collar detail.', draw: drawDonald_step6 },
+      { title: 'Legs & feet', desc: 'Two thin legs with large feet at bottom.', draw: drawDonald_step7 }
+    ]
+  },
+  {
+    id: 'hulk',
+    label: 'Hulk',
+    category: 'characters',
+    emoji: '💚',
+    steps: [
+      { title: 'Head', desc: 'Draw a circle for Hulk\'s head.', draw: drawHulk_step1 },
+      { title: 'Angry eyebrows', desc: 'Draw angry angled lines for eyebrows.', draw: drawHulk_step2 },
+      { title: 'Eyes & nose', desc: 'Two circles for eyes, small shape for nose.', draw: drawHulk_step3 },
+      { title: 'Fierce mouth', desc: 'Draw angry clenched teeth line.', draw: drawHulk_step4 },
+      { title: 'Thick neck', desc: 'Draw wide rectangle for the thick neck.', draw: drawHulk_step5 },
+      { title: 'Massive shoulders', desc: 'Draw very wide shoulders/trapezoid shape.', draw: drawHulk_step6 },
+      { title: 'Huge muscular arms', desc: 'Draw two very large, thick arms with muscle bumps.', draw: drawHulk_step7 },
+      { title: 'Chest & pants', desc: 'Add chest outline and ripped pants at bottom.', draw: drawHulk_step8 }
+    ]
+  },
+
+  // FLOWERS
+  {
+    id: 'sunflower',
+    label: 'Sunflower',
+    category: 'flowers',
+    emoji: '🌻',
+    steps: [
+      { title: 'Petals circle', desc: 'Draw a large circle - this is where petals will go.', draw: drawSunflower_step1 },
+      { title: 'Draw petals', desc: 'Draw 8 ovals pointing outward around the circle.', draw: drawSunflower_step2 },
+      { title: 'Flower center', desc: 'Small circle in the middle for the flower center.', draw: drawSunflower_step3 },
+      { title: 'Center texture', desc: 'Add small dots in the center for seed pattern.', draw: drawSunflower_step4 },
+      { title: 'Stem', desc: 'Long curved line going down for the stem.', draw: drawSunflower_step5 },
+      { title: 'Leaves', desc: 'Two long pointed ovals on the sides of stem.', draw: drawSunflower_step6 }
+    ]
+  },
+  {
+    id: 'rose',
+    label: 'Rose',
+    category: 'flowers',
+    emoji: '🌹',
+    steps: [
+      { title: 'Center petal', desc: 'Draw a small oval in the very center.', draw: drawRose_step1 },
+      { title: 'First ring of petals', desc: 'Draw 3-4 curved petals around the center.', draw: drawRose_step2 },
+      { title: 'Second ring of petals', desc: 'Add more petals outside for fullness.', draw: drawRose_step3 },
+      { title: 'Outer petals', desc: 'Add a few more outer petals for a full bloom.', draw: drawRose_step4 },
+      { title: 'Stem', desc: 'Draw a curved line down from the flower.', draw: drawRose_step5 },
+      { title: 'Leaves on stem', desc: 'Two or three pointed leaves along the stem.', draw: drawRose_step6 },
+      { title: 'Thorns', desc: 'Add small thorns along the stem for detail.', draw: drawRose_step7 }
+    ]
+  },
+  {
+    id: 'tulip',
+    label: 'Tulip',
+    category: 'flowers',
+    emoji: '🌷',
+    steps: [
+      { title: 'Center petal', desc: 'Draw a tall curved petal in the center.', draw: drawTulip_step1 },
+      { title: 'Left petal', desc: 'Draw a curved petal to the left side.', draw: drawTulip_step2 },
+      { title: 'Right petal', desc: 'Draw a matching curved petal on the right.', draw: drawTulip_step3 },
+      { title: 'Inner petals', desc: 'Add two smaller petals inside for depth.', draw: drawTulip_step4 },
+      { title: 'Stem', desc: 'Long straight or slightly curved line for the stem.', draw: drawTulip_step5 },
+      { title: 'Leaves', desc: 'Two pointed leaf shapes on the sides of the stem.', draw: drawTulip_step6 }
+    ]
+  },
+  {
+    id: 'tree',
+    label: 'Tree',
+    category: 'flowers',
+    emoji: '🌳',
+    steps: [
+      { title: 'Trunk', desc: 'Draw a vertical rectangle for the trunk.', draw: drawTree_step1 },
+      { title: 'Foliage circle', desc: 'Draw a large circle or oval on top for the leaves.', draw: drawTree_step2 },
+      { title: 'Tree outline', desc: 'Add a curved outline around foliage to look natural.', draw: drawTree_step3 },
+      { title: 'Texture lines', desc: 'Add curved lines inside to show tree shape.', draw: drawTree_step4 },
+      { title: 'Leaf details', desc: 'Add small bump shapes for foliage texture.', draw: drawTree_step5 },
+      { title: 'Grass base', desc: 'Draw wavy lines at the bottom for grass.', draw: drawTree_step6 }
+    ]
+  },
+
+  // VEHICLES
+  {
+    id: 'car',
+    label: 'Car',
+    category: 'vehicles',
+    emoji: '🚗',
+    steps: [
+      { title: 'Car body', desc: 'Draw a large rectangle for the main body.', draw: drawCar_step1 },
+      { title: 'Cabin/top', desc: 'Draw a smaller rectangle on top for the cabin.', draw: drawCar_step2 },
+      { title: 'Front wheels', desc: 'Draw two circles or ovals at the bottom for wheels.', draw: drawCar_step3 },
+      { title: 'Front window', desc: 'Rectangle on the front lower part of cabin.', draw: drawCar_step4 },
+      { title: 'Back window', desc: 'Another rectangle behind the front window.', draw: drawCar_step5 },
+      { title: 'Headlights', desc: 'Two small circles or rectangles at the front.', draw: drawCar_step6 },
+      { title: 'Door line', desc: 'Vertical line down the middle for car door.', draw: drawCar_step7 },
+      { title: 'Final details', desc: 'Add bumper line and wheel rims for details.', draw: drawCar_step8 }
+    ]
+  },
+  {
+    id: 'airplane',
+    label: 'Airplane',
+    category: 'vehicles',
+    emoji: '✈️',
+    steps: [
+      { title: 'Main body', desc: 'Draw an elongated oval for the plane body.', draw: drawAirplane_step1 },
+      { title: 'Wings', desc: 'Draw two large horizontal rectangles from each side.', draw: drawAirplane_step2 },
+      { title: 'Tail section', desc: 'Draw a small tail structure at the back.', draw: drawAirplane_step3 },
+      { title: 'Tail wing', desc: 'Add a vertical tail wing at the very back.', draw: drawAirplane_step4 },
+      { title: 'Cockpit', desc: 'Small circle or rounded rectangle on the nose.', draw: drawAirplane_step5 },
+      { title: 'Windows', desc: 'Add small circles along the body for windows.', draw: drawAirplane_step6 },
+      { title: 'Landing gear', desc: 'Three small circles or lines for wheels underneath.', draw: drawAirplane_step7 }
+    ]
+  },
+  {
+    id: 'rocket',
+    label: 'Rocket',
+    category: 'vehicles',
+    emoji: '🚀',
+    steps: [
+      { title: 'Main body', desc: 'Draw a tall rectangle for the rocket body.', draw: drawRocket_step1 },
+      { title: 'Nose cone', desc: 'Triangle on top pointing upward.', draw: drawRocket_step2 },
+      { title: 'Left fin', desc: 'Triangle on the lower left back for a fin.', draw: drawRocket_step3 },
+      { title: 'Right fin', desc: 'Triangle on the lower right back for matching fin.', draw: drawRocket_step4 },
+      { title: 'Center fin', desc: 'Small line or triangle in the middle back.', draw: drawRocket_step5 },
+      { title: 'Porthole', desc: 'Circle near the top for a window/porthole.', draw: drawRocket_step6 },
+      { title: 'Flame', desc: 'Draw wavy lines at the bottom for rocket fire.', draw: drawRocket_step7 }
+    ]
+  },
+  {
+    id: 'boat',
+    label: 'Boat',
+    category: 'vehicles',
+    emoji: '⛵',
+    steps: [
+      { title: 'Hull shape', desc: 'Draw a curved bottom (like a U or boat shape).', draw: drawBoat_step1 },
+      { title: 'Boat sides', desc: 'Add straight lines on sides going up from hull.', draw: drawBoat_step2 },
+      { title: 'Mast', desc: 'Draw a vertical line in the middle for the mast.', draw: drawBoat_step3 },
+      { title: 'Sail', desc: 'Triangle connected to mast for the main sail.', draw: drawBoat_step4 },
+      { title: 'Small sail', desc: 'Smaller triangle in front for jib sail.', draw: drawBoat_step5 },
+      { title: 'Cabin', desc: 'Small rectangle on the boat deck for cabin.', draw: drawBoat_step6 },
+      { title: 'Water waves', desc: 'Wavy lines under the boat for water.', draw: drawBoat_step7 }
+    ]
+  },
+
+  // FOOD
+  {
+    id: 'ice-cream',
+    label: 'Ice Cream',
+    category: 'food',
+    emoji: '🍦',
+    steps: [
+      { title: 'Cone', desc: 'Draw a triangle for the ice cream cone.', draw: drawIceCream_step1 },
+      { title: 'Cone lines', desc: 'Add diagonal lines across cone for texture.', draw: drawIceCream_step2 },
+      { title: 'First scoop', desc: 'Draw a circle on top of cone for first scoop.', draw: drawIceCream_step3 },
+      { title: 'Second scoop', desc: 'Add another circle on top of the first.', draw: drawIceCream_step4 },
+      { title: 'Third scoop', desc: 'Add one more circle on top for three scoops.', draw: drawIceCream_step5 },
+      { title: 'Swirl detail', desc: 'Add curved lines to make ice cream look swirly.', draw: drawIceCream_step6 },
+      { title: 'Cherry on top', desc: 'Small circle at the very top for cherry.', draw: drawIceCream_step7 }
+    ]
+  },
+  {
+    id: 'pizza',
+    label: 'Pizza',
+    category: 'food',
+    emoji: '🍕',
+    steps: [
+      { title: 'Pizza circle', desc: 'Draw a large circle for the pizza.', draw: drawPizza_step1 },
+      { title: 'Slice line 1', desc: 'Draw a line from center to edge (divide into slices).', draw: drawPizza_step2 },
+      { title: 'Slice line 2', desc: 'Draw another line from center at an angle.', draw: drawPizza_step3 },
+      { title: 'Slice line 3', desc: 'One more line to create pizza slice sections.', draw: drawPizza_step4 },
+      { title: 'Cheese', desc: 'Wavy or bumpy lines across pizza for melted cheese.', draw: drawPizza_step5 },
+      { title: 'Pepperoni', desc: 'Small circles scattered on pizza for pepperoni.', draw: drawPizza_step6 },
+      { title: 'Crust detail', desc: 'Add thicker line around edge for the crust.', draw: drawPizza_step7 }
+    ]
+  },
+  {
+    id: 'apple',
+    label: 'Apple',
+    category: 'food',
+    emoji: '🍎',
+    steps: [
+      { title: 'Apple shape', desc: 'Draw a circle, slightly wider in the middle.', draw: drawApple_step1 },
+      { title: 'Top indent', desc: 'Add a small curved indent at the top.', draw: drawApple_step2 },
+      { title: 'Stem', desc: 'Draw a short line from the top for the stem.', draw: drawApple_step3 },
+      { title: 'Leaf', desc: 'Oval shape attached to the stem.', draw: drawApple_step4 },
+      { title: 'Shine highlight', desc: 'Small curved shape on upper part for shine.', draw: drawApple_step5 },
+      { title: 'Bottom detail', desc: 'Add a small bottom indent for apple detail.', draw: drawApple_step6 }
+    ]
+  },
+  {
+    id: 'cupcake',
+    label: 'Cupcake',
+    category: 'food',
+    emoji: '🧁',
+    steps: [
+      { title: 'Wrapper', desc: 'Draw a trapezoid (wider at bottom) for the wrapper.', draw: drawCupcake_step1 },
+      { title: 'Wrapper pattern', desc: 'Add horizontal lines across wrapper for ridges.', draw: drawCupcake_step2 },
+      { title: 'Frosting base', desc: 'Draw a curved line on top for frosting shape.', draw: drawCupcake_step3 },
+      { title: 'Frosting swirl', desc: 'Add swirled lines on top for frosting texture.', draw: drawCupcake_step4 },
+      { title: 'Frosting peaks', desc: 'Add peaks and bumps for frosting detail.', draw: drawCupcake_step5 },
+      { title: 'Cherry', desc: 'Small circle at the top center for cherry.', draw: drawCupcake_step6 },
+      { title: 'Details', desc: 'Add sprinkles or decorative dots on frosting.', draw: drawCupcake_step7 }
     ]
   }
 ];
 
-// Drawing functions for each subject and step
+// ═══════════════════════════════════════════════════════════════════
+// DRAWING FUNCTIONS - ANIMALS
+// ═══════════════════════════════════════════════════════════════════
 
 // CAT
 function drawCat_step1(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 170, 90, 0, Math.PI * 2);
+  ctx.arc(200, 170, 80, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawCat_step2(ctx) {
   ctx.beginPath();
-  ctx.moveTo(130, 65);
-  ctx.lineTo(100, 120);
-  ctx.lineTo(165, 115);
+  ctx.moveTo(140, 85);
+  ctx.lineTo(110, 40);
+  ctx.lineTo(135, 95);
   ctx.closePath();
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(270, 65);
-  ctx.lineTo(235, 115);
-  ctx.lineTo(300, 120);
+  ctx.moveTo(260, 85);
+  ctx.lineTo(290, 40);
+  ctx.lineTo(265, 95);
   ctx.closePath();
   ctx.stroke();
 }
 function drawCat_step3(ctx) {
   ctx.beginPath();
-  ctx.arc(160, 160, 20, 0, Math.PI * 2);
+  ctx.ellipse(165, 160, 15, 25, -0.3, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.arc(240, 160, 20, 0, Math.PI * 2);
+  ctx.ellipse(235, 160, 15, 25, 0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawCat_step4(ctx) {
   ctx.beginPath();
-  ctx.arc(160, 160, 8, 0, Math.PI * 2);
+  ctx.arc(165, 160, 8, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.arc(240, 160, 8, 0, Math.PI * 2);
+  ctx.arc(235, 160, 8, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.arc(200, 190, 10, 0, Math.PI * 2);
+  ctx.moveTo(200, 185);
+  ctx.lineTo(195, 200);
+  ctx.lineTo(205, 200);
+  ctx.closePath();
   ctx.stroke();
 }
 function drawCat_step5(ctx) {
-  for (let i = 0; i < 3; i++) {
+  for (let i = -1; i <= 1; i++) {
     ctx.beginPath();
-    ctx.moveTo(110, 170 - i * 15);
-    ctx.lineTo(60, 170 - i * 15);
+    ctx.moveTo(110, 165 + i * 18);
+    ctx.lineTo(50, 165 + i * 18);
     ctx.stroke();
   }
-  for (let i = 0; i < 3; i++) {
+  for (let i = -1; i <= 1; i++) {
     ctx.beginPath();
-    ctx.moveTo(290, 170 - i * 15);
-    ctx.lineTo(340, 170 - i * 15);
+    ctx.moveTo(290, 165 + i * 18);
+    ctx.lineTo(350, 165 + i * 18);
     ctx.stroke();
   }
 }
 function drawCat_step6(ctx) {
   ctx.beginPath();
-  ctx.moveTo(175, 210);
-  ctx.quadraticCurveTo(200, 220, 225, 210);
-  ctx.stroke();
-}
-
-// DOG
-function drawDog_step1(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 180, 85, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawDog_step2(ctx) {
-  ctx.beginPath();
-  ctx.ellipse(110, 100, 35, 60, 0, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.ellipse(290, 100, 35, 60, 0, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawDog_step3(ctx) {
-  ctx.fillRect(170, 220, 60, 40);
-}
-function drawDog_step4(ctx) {
-  ctx.beginPath();
-  ctx.arc(170, 170, 15, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(230, 170, 15, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(200, 235, 12, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawDog_step5(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 255, 8, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(185, 245);
-  ctx.quadraticCurveTo(200, 260, 215, 245);
-  ctx.stroke();
-}
-function drawDog_step6(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 270, 8, 0, Math.PI * 2);
+  ctx.ellipse(200, 240, 70, 60, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 
 // BIRD
 function drawBird_step1(ctx) {
   ctx.beginPath();
-  ctx.ellipse(200, 200, 70, 50, 0, 0, Math.PI * 2);
+  ctx.ellipse(200, 200, 85, 55, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawBird_step2(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 120, 50, 0, Math.PI * 2);
+  ctx.arc(120, 140, 45, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawBird_step3(ctx) {
   ctx.beginPath();
-  ctx.moveTo(250, 120);
-  ctx.lineTo(310, 100);
-  ctx.lineTo(250, 140);
+  ctx.moveTo(80, 140);
+  ctx.lineTo(40, 130);
+  ctx.lineTo(75, 155);
   ctx.closePath();
   ctx.stroke();
 }
 function drawBird_step4(ctx) {
   ctx.beginPath();
-  ctx.arc(230, 110, 8, 0, Math.PI * 2);
+  ctx.arc(100, 130, 8, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawBird_step5(ctx) {
   ctx.beginPath();
-  ctx.arc(150, 190, 60, 0, Math.PI * 2);
+  ctx.ellipse(80, 180, 50, 60, -0.3, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.arc(250, 190, 60, 0, Math.PI * 2);
+  ctx.ellipse(280, 190, 50, 65, 0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawBird_step6(ctx) {
+  for (let i = 0; i < 4; i++) {
+    const angle = (i * Math.PI / 3) - 0.3;
+    const x = 285 + Math.cos(angle) * 50;
+    const y = 200 + Math.sin(angle) * 50;
+    ctx.beginPath();
+    ctx.moveTo(285, 200);
+    ctx.lineTo(x, y);
+    ctx.stroke();
+  }
+}
+function drawBird_step7(ctx) {
   ctx.beginPath();
-  ctx.moveTo(270, 200);
-  ctx.lineTo(340, 180);
-  ctx.lineTo(330, 220);
-  ctx.closePath();
+  ctx.moveTo(110, 240);
+  ctx.lineTo(110, 280);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(140, 240);
+  ctx.lineTo(140, 280);
+  ctx.stroke();
+}
+
+// DOG
+function drawDog_step1(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 170, 85, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDog_step2(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(100, 60, 35, 70, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(300, 60, 35, 70, 0, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDog_step3(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(170, 220);
+  ctx.lineTo(170, 270);
+  ctx.lineTo(230, 270);
+  ctx.lineTo(230, 220);
+  ctx.stroke();
+}
+function drawDog_step4(ctx) {
+  ctx.beginPath();
+  ctx.arc(165, 155, 18, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(235, 155, 18, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDog_step5(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 210, 12, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(185, 225);
+  ctx.quadraticCurveTo(200, 235, 215, 225);
+  ctx.stroke();
+}
+function drawDog_step6(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(200, 280, 95, 70, 0, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDog_step7(ctx) {
+  for (let i = 0; i < 4; i++) {
+    const x = 130 + i * 50;
+    ctx.beginPath();
+    ctx.moveTo(x, 340);
+    ctx.lineTo(x, 380);
+    ctx.stroke();
+  }
+  ctx.beginPath();
+  ctx.quadraticCurveTo(310, 290, 330, 260);
   ctx.stroke();
 }
 
 // FISH
 function drawFish_step1(ctx) {
   ctx.beginPath();
-  ctx.ellipse(200, 200, 80, 50, 0, 0, Math.PI * 2);
+  ctx.ellipse(200, 200, 90, 50, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step2(ctx) {
   ctx.beginPath();
-  ctx.moveTo(280, 200);
-  ctx.lineTo(330, 160);
-  ctx.lineTo(330, 240);
+  ctx.moveTo(290, 200);
+  ctx.lineTo(360, 160);
+  ctx.lineTo(360, 240);
   ctx.closePath();
   ctx.stroke();
 }
 function drawFish_step3(ctx) {
   ctx.beginPath();
-  ctx.arc(250, 190, 10, 0, Math.PI * 2);
+  ctx.ellipse(200, 140, 30, 45, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step4(ctx) {
   ctx.beginPath();
-  ctx.arc(320, 200, 5, 0, Math.PI * 2);
+  ctx.ellipse(200, 260, 30, 45, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step5(ctx) {
   ctx.beginPath();
-  ctx.moveTo(200, 150);
-  ctx.quadraticCurveTo(220, 120, 200, 100);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(200, 250);
-  ctx.quadraticCurveTo(220, 280, 200, 300);
+  ctx.arc(270, 190, 12, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step6(ctx) {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 6; i++) {
     ctx.beginPath();
-    ctx.moveTo(150 + i * 25, 185);
-    ctx.lineTo(165 + i * 25, 215);
+    ctx.moveTo(160 + i * 20, 190);
+    ctx.lineTo(165 + i * 20, 220);
     ctx.stroke();
   }
+  ctx.beginPath();
+  ctx.arc(360, 200, 8, 0, Math.PI * 2);
+  ctx.stroke();
 }
 
 // BUTTERFLY
@@ -520,76 +586,80 @@ function drawButterfly_step1(ctx) {
 }
 function drawButterfly_step2(ctx) {
   ctx.beginPath();
-  ctx.ellipse(110, 150, 50, 70, -0.4, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.ellipse(290, 150, 50, 70, 0.4, 0, Math.PI * 2);
+  ctx.ellipse(100, 140, 60, 85, -0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawButterfly_step3(ctx) {
   ctx.beginPath();
-  ctx.ellipse(110, 270, 40, 60, -0.4, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.ellipse(290, 270, 40, 60, 0.4, 0, Math.PI * 2);
+  ctx.ellipse(300, 140, 60, 85, 0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawButterfly_step4(ctx) {
-  for (let i = 0; i < 3; i++) {
-    ctx.beginPath();
-    ctx.arc(110 - 20 + i * 20, 150 - 30 + i * 15, 10, 0, Math.PI * 2);
-    ctx.stroke();
-  }
+  ctx.beginPath();
+  ctx.ellipse(100, 270, 50, 70, -0.3, 0, Math.PI * 2);
+  ctx.stroke();
 }
 function drawButterfly_step5(ctx) {
   ctx.beginPath();
-  ctx.moveTo(200, 100);
-  ctx.quadraticCurveTo(170, 60, 150, 40);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(200, 100);
-  ctx.quadraticCurveTo(230, 60, 250, 40);
+  ctx.ellipse(300, 270, 50, 70, 0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawButterfly_step6(ctx) {
   ctx.beginPath();
-  ctx.arc(130, 250, 8, 0, Math.PI * 2);
+  ctx.moveTo(200, 80);
+  ctx.quadraticCurveTo(170, 30, 150, 10);
   ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(200, 80);
+  ctx.quadraticCurveTo(230, 30, 250, 10);
+  ctx.stroke();
+}
+function drawButterfly_step7(ctx) {
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath();
+    ctx.arc(85 + i * 40, 120 - i * 10, 8, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath();
+    ctx.arc(315 - i * 40, 120 - i * 10, 8, 0, Math.PI * 2);
+    ctx.stroke();
+  }
 }
 
 // RABBIT
 function drawRabbit_step1(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 200, 80, 0, Math.PI * 2);
+  ctx.arc(200, 200, 75, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawRabbit_step2(ctx) {
   ctx.beginPath();
-  ctx.ellipse(160, 60, 25, 80, 0, 0, Math.PI * 2);
+  ctx.ellipse(150, 80, 28, 95, 0, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.ellipse(240, 60, 25, 80, 0, 0, Math.PI * 2);
+  ctx.ellipse(250, 80, 28, 95, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawRabbit_step3(ctx) {
   ctx.beginPath();
-  ctx.ellipse(160, 60, 12, 50, 0, 0, Math.PI * 2);
+  ctx.ellipse(150, 80, 12, 60, 0, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.ellipse(240, 60, 12, 50, 0, 0, Math.PI * 2);
+  ctx.ellipse(250, 80, 12, 60, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawRabbit_step4(ctx) {
   ctx.beginPath();
-  ctx.arc(160, 180, 15, 0, Math.PI * 2);
+  ctx.arc(170, 190, 15, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.arc(240, 180, 15, 0, Math.PI * 2);
+  ctx.arc(230, 190, 15, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawRabbit_step5(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 220, 10, 0, Math.PI * 2);
+  ctx.arc(200, 225, 10, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
   ctx.moveTo(180, 240);
@@ -597,94 +667,419 @@ function drawRabbit_step5(ctx) {
   ctx.stroke();
 }
 function drawRabbit_step6(ctx) {
-  for (let i = 0; i < 3; i++) {
-    ctx.beginPath();
-    ctx.moveTo(110, 190 + i * 15);
-    ctx.lineTo(60, 190 + i * 15);
-    ctx.stroke();
-  }
+  ctx.beginPath();
+  ctx.ellipse(200, 290, 70, 65, 0, 0, Math.PI * 2);
+  ctx.stroke();
 }
+function drawRabbit_step7(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(160, 340);
+  ctx.lineTo(160, 380);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(240, 340);
+  ctx.lineTo(240, 380);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.quadraticCurveTo(250, 310, 270, 300);
+  ctx.stroke();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DRAWING FUNCTIONS - CHARACTERS
+// ═══════════════════════════════════════════════════════════════════
+
+// MICKEY MOUSE
+function drawMickey_step1(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 200, 80, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawMickey_step2(ctx) {
+  ctx.beginPath();
+  ctx.arc(100, 100, 50, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawMickey_step3(ctx) {
+  ctx.beginPath();
+  ctx.arc(300, 100, 50, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawMickey_step4(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(170, 190, 18, 28, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(230, 190, 18, 28, 0, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(170, 190, 8, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(230, 190, 8, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawMickey_step5(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 230, 12, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(185, 245);
+  ctx.quadraticCurveTo(200, 255, 215, 245);
+  ctx.stroke();
+}
+function drawMickey_step6(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(200, 310, 90, 75, 0, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawMickey_step7(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(130, 280);
+  ctx.lineTo(130, 320);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(270, 280);
+  ctx.lineTo(270, 320);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(160, 260);
+  ctx.lineTo(160, 300);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(240, 260);
+  ctx.lineTo(240, 300);
+  ctx.stroke();
+}
+function drawMickey_step8(ctx) {
+  ctx.beginPath();
+  ctx.arc(160, 335, 8, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(240, 335, 8, 0, Math.PI * 2);
+  ctx.stroke();
+}
+
+// PIKACHU
+function drawPikachu_step1(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 190, 70, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawPikachu_step2(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(155, 100);
+  ctx.lineTo(130, 40);
+  ctx.lineTo(175, 110);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawPikachu_step3(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(245, 100);
+  ctx.lineTo(270, 40);
+  ctx.lineTo(225, 110);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawPikachu_step4(ctx) {
+  ctx.beginPath();
+  ctx.arc(130, 185, 20, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(270, 185, 20, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawPikachu_step5(ctx) {
+  ctx.beginPath();
+  ctx.arc(170, 175, 10, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(230, 175, 10, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(200, 210, 6, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawPikachu_step6(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(180, 225);
+  ctx.quadraticCurveTo(200, 235, 220, 225);
+  ctx.stroke();
+}
+function drawPikachu_step7(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(200, 290, 65, 70, 0, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawPikachu_step8(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(270, 320);
+  ctx.lineTo(330, 310);
+  ctx.lineTo(300, 360);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawPikachu_step9(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(150, 250);
+  ctx.lineTo(140, 300);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(250, 250);
+  ctx.lineTo(260, 300);
+  ctx.stroke();
+}
+
+// DONALD DUCK
+function drawDonald_step1(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 210, 75, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDonald_step2(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(200, 160);
+  ctx.lineTo(170, 210);
+  ctx.lineTo(230, 210);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawDonald_step3(ctx) {
+  ctx.beginPath();
+  ctx.arc(165, 200, 14, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(235, 200, 14, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(165, 200, 6, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(235, 200, 6, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDonald_step4(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(140, 120);
+  ctx.lineTo(260, 120);
+  ctx.lineTo(265, 155);
+  ctx.lineTo(135, 155);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(200, 110, 30, 0, Math.PI);
+  ctx.stroke();
+}
+function drawDonald_step5(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(200, 310, 85, 70, 0, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDonald_step6(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(150, 280);
+  ctx.lineTo(130, 320);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(250, 280);
+  ctx.lineTo(270, 320);
+  ctx.stroke();
+}
+function drawDonald_step7(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(160, 360);
+  ctx.lineTo(160, 390);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(240, 360);
+  ctx.lineTo(240, 390);
+  ctx.stroke();
+}
+
+// HULK
+function drawHulk_step1(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 130, 65, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawHulk_step2(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(155, 110);
+  ctx.lineTo(130, 90);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(245, 110);
+  ctx.lineTo(270, 90);
+  ctx.stroke();
+}
+function drawHulk_step3(ctx) {
+  ctx.beginPath();
+  ctx.arc(165, 120, 10, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(235, 120, 10, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawHulk_step4(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(180, 155);
+  ctx.lineTo(220, 155);
+  ctx.stroke();
+}
+function drawHulk_step5(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(170, 195);
+  ctx.lineTo(230, 195);
+  ctx.lineTo(240, 220);
+  ctx.lineTo(160, 220);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawHulk_step6(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(160, 220);
+  ctx.lineTo(100, 240);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(240, 220);
+  ctx.lineTo(300, 240);
+  ctx.stroke();
+}
+function drawHulk_step7(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(100, 240);
+  ctx.lineTo(80, 300);
+  ctx.lineTo(100, 300);
+  ctx.lineTo(120, 240);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(300, 240);
+  ctx.lineTo(280, 300);
+  ctx.lineTo(300, 300);
+  ctx.lineTo(320, 240);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawHulk_step8(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(180, 300);
+  ctx.lineTo(220, 300);
+  ctx.lineTo(225, 340);
+  ctx.lineTo(175, 340);
+  ctx.closePath();
+  ctx.stroke();
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DRAWING FUNCTIONS - FLOWERS & PLANTS
+// ═══════════════════════════════════════════════════════════════════
 
 // SUNFLOWER
 function drawSunflower_step1(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 180, 30, 0, Math.PI * 2);
+  ctx.arc(200, 180, 35, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawSunflower_step2(ctx) {
   for (let i = 0; i < 8; i++) {
     const angle = (i * Math.PI * 2) / 8;
-    const x = 200 + Math.cos(angle) * 80;
-    const y = 180 + Math.sin(angle) * 80;
+    const x = 200 + Math.cos(angle) * 90;
+    const y = 180 + Math.sin(angle) * 90;
     ctx.beginPath();
-    ctx.ellipse(x, y, 25, 40, angle, 0, Math.PI * 2);
+    ctx.ellipse(x, y, 28, 45, angle, 0, Math.PI * 2);
     ctx.stroke();
   }
 }
 function drawSunflower_step3(ctx) {
   ctx.beginPath();
-  ctx.moveTo(200, 210);
-  ctx.quadraticCurveTo(210, 280, 200, 340);
+  ctx.arc(200, 180, 25, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawSunflower_step4(ctx) {
-  ctx.beginPath();
-  ctx.ellipse(140, 260, 35, 20, -0.3, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.ellipse(260, 260, 35, 20, 0.3, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawSunflower_step5(ctx) {
-  for (let i = 0; i < 8; i++) {
-    const angle = (i * Math.PI * 2) / 8;
-    const x = 200 + Math.cos(angle) * 75;
-    const y = 180 + Math.sin(angle) * 75;
+  for (let i = 0; i < 20; i++) {
+    const angle = (i * Math.PI * 2) / 20;
+    const x = 200 + Math.cos(angle) * 15;
+    const y = 180 + Math.sin(angle) * 15;
     ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + Math.cos(angle) * 10, y + Math.sin(angle) * 10);
+    ctx.arc(x, y, 2, 0, Math.PI * 2);
     ctx.stroke();
   }
+}
+function drawSunflower_step5(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(200, 210);
+  ctx.quadraticCurveTo(205, 280, 200, 340);
+  ctx.stroke();
+}
+function drawSunflower_step6(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(140, 280, 35, 25, -0.4, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(260, 280, 35, 25, 0.4, 0, Math.PI * 2);
+  ctx.stroke();
 }
 
 // ROSE
 function drawRose_step1(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 170, 15, 0, Math.PI * 2);
+  ctx.arc(200, 170, 12, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawRose_step2(ctx) {
-  for (let i = 0; i < 5; i++) {
-    const angle = (i * Math.PI * 2) / 5;
-    const x = 200 + Math.cos(angle) * 40;
-    const y = 170 + Math.sin(angle) * 40;
+  for (let i = 0; i < 3; i++) {
+    const angle = (i * Math.PI * 2) / 3;
+    const x = 200 + Math.cos(angle) * 35;
+    const y = 170 + Math.sin(angle) * 35;
     ctx.beginPath();
-    ctx.arc(x, y, 20, 0, Math.PI * 2);
+    ctx.ellipse(x, y, 22, 30, angle + Math.PI / 2, 0, Math.PI * 2);
     ctx.stroke();
   }
 }
 function drawRose_step3(ctx) {
-  for (let i = 0; i < 6; i++) {
-    const angle = (i * Math.PI * 2) / 6 + Math.PI / 6;
-    const x = 200 + Math.cos(angle) * 65;
-    const y = 170 + Math.sin(angle) * 65;
+  for (let i = 0; i < 5; i++) {
+    const angle = (i * Math.PI * 2) / 5 + Math.PI / 5;
+    const x = 200 + Math.cos(angle) * 60;
+    const y = 170 + Math.sin(angle) * 60;
     ctx.beginPath();
-    ctx.arc(x, y, 18, 0, Math.PI * 2);
+    ctx.ellipse(x, y, 24, 35, angle + Math.PI / 2, 0, Math.PI * 2);
     ctx.stroke();
   }
 }
 function drawRose_step4(ctx) {
-  ctx.beginPath();
-  ctx.moveTo(200, 190);
-  ctx.quadraticCurveTo(210, 270, 200, 330);
-  ctx.stroke();
+  for (let i = 0; i < 6; i++) {
+    const angle = (i * Math.PI * 2) / 6;
+    const x = 200 + Math.cos(angle) * 85;
+    const y = 170 + Math.sin(angle) * 85;
+    ctx.beginPath();
+    ctx.ellipse(x, y, 26, 40, angle + Math.PI / 2, 0, Math.PI * 2);
+    ctx.stroke();
+  }
 }
 function drawRose_step5(ctx) {
   ctx.beginPath();
-  ctx.ellipse(160, 240, 25, 15, -0.4, 0, Math.PI * 2);
+  ctx.moveTo(200, 195);
+  ctx.quadraticCurveTo(205, 270, 200, 330);
+  ctx.stroke();
+}
+function drawRose_step6(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(160, 250, 30, 20, -0.4, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.ellipse(240, 240, 25, 15, 0.4, 0, Math.PI * 2);
+  ctx.ellipse(240, 250, 30, 20, 0.4, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawRose_step7(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(195, 210);
+  ctx.lineTo(185, 230);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(205, 220);
+  ctx.lineTo(215, 240);
   ctx.stroke();
 }
 
@@ -692,108 +1087,164 @@ function drawRose_step5(ctx) {
 function drawTulip_step1(ctx) {
   ctx.beginPath();
   ctx.moveTo(200, 80);
-  ctx.lineTo(160, 160);
-  ctx.lineTo(240, 160);
-  ctx.closePath();
+  ctx.quadraticCurveTo(175, 150, 180, 180);
   ctx.stroke();
 }
 function drawTulip_step2(ctx) {
   ctx.beginPath();
-  ctx.moveTo(180, 130);
-  ctx.lineTo(200, 90);
-  ctx.lineTo(220, 130);
-  ctx.closePath();
+  ctx.moveTo(200, 80);
+  ctx.quadraticCurveTo(225, 150, 220, 180);
   ctx.stroke();
 }
 function drawTulip_step3(ctx) {
   ctx.beginPath();
-  ctx.moveTo(200, 160);
-  ctx.lineTo(200, 280);
+  ctx.moveTo(200, 90);
+  ctx.quadraticCurveTo(190, 140, 190, 175);
   ctx.stroke();
 }
 function drawTulip_step4(ctx) {
   ctx.beginPath();
-  ctx.ellipse(150, 230, 20, 30, -0.3, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.ellipse(250, 230, 20, 30, 0.3, 0, Math.PI * 2);
+  ctx.moveTo(200, 90);
+  ctx.quadraticCurveTo(210, 140, 210, 175);
   ctx.stroke();
 }
 function drawTulip_step5(ctx) {
   ctx.beginPath();
-  ctx.moveTo(170, 140);
-  ctx.lineTo(160, 150);
+  ctx.moveTo(200, 175);
+  ctx.lineTo(200, 330);
+  ctx.stroke();
+}
+function drawTulip_step6(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(150, 260, 25, 35, -0.3, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(230, 140);
-  ctx.lineTo(240, 150);
+  ctx.ellipse(250, 260, 25, 35, 0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 
 // TREE
 function drawTree_step1(ctx) {
-  ctx.fillRect(180, 240, 40, 100);
+  ctx.beginPath();
+  ctx.moveTo(185, 250);
+  ctx.lineTo(185, 340);
+  ctx.lineTo(215, 340);
+  ctx.lineTo(215, 250);
+  ctx.closePath();
+  ctx.stroke();
 }
 function drawTree_step2(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 150, 100, 0, Math.PI * 2);
+  ctx.arc(200, 140, 110, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawTree_step3(ctx) {
   ctx.beginPath();
-  ctx.moveTo(200, 100);
-  ctx.lineTo(200, 200);
+  ctx.moveTo(200, 80);
+  ctx.lineTo(200, 210);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(150, 150);
-  ctx.lineTo(250, 150);
+  ctx.moveTo(120, 140);
+  ctx.lineTo(280, 140);
   ctx.stroke();
 }
 function drawTree_step4(ctx) {
-  for (let i = 0; i < 20; i++) {
+  ctx.beginPath();
+  ctx.moveTo(150, 100);
+  ctx.quadraticCurveTo(170, 80, 190, 95);
+  ctx.stroke();
+}
+function drawTree_step5(ctx) {
+  for (let i = 0; i < 25; i++) {
     const x = 100 + Math.random() * 200;
-    const y = 80 + Math.random() * 140;
+    const y = 50 + Math.random() * 180;
     ctx.beginPath();
-    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.arc(x, y, 2.5, 0, Math.PI * 2);
     ctx.stroke();
   }
 }
-function drawTree_step5(ctx) {
+function drawTree_step6(ctx) {
   ctx.beginPath();
-  ctx.moveTo(100, 340);
-  ctx.quadraticCurveTo(150, 350, 200, 340);
-  ctx.quadraticCurveTo(250, 350, 300, 340);
+  ctx.moveTo(150, 345);
+  ctx.quadraticCurveTo(175, 355, 200, 345);
+  ctx.quadraticCurveTo(225, 355, 250, 345);
   ctx.stroke();
 }
 
+// ═══════════════════════════════════════════════════════════════════
+// DRAWING FUNCTIONS - VEHICLES
+// ═══════════════════════════════════════════════════════════════════
+
 // CAR
 function drawCar_step1(ctx) {
-  ctx.fillRect(100, 200, 200, 70);
+  ctx.beginPath();
+  ctx.moveTo(80, 200);
+  ctx.lineTo(320, 200);
+  ctx.lineTo(320, 240);
+  ctx.lineTo(80, 240);
+  ctx.closePath();
+  ctx.stroke();
 }
 function drawCar_step2(ctx) {
-  ctx.fillRect(140, 140, 120, 60);
+  ctx.beginPath();
+  ctx.moveTo(120, 160);
+  ctx.lineTo(280, 160);
+  ctx.lineTo(290, 200);
+  ctx.lineTo(110, 200);
+  ctx.closePath();
+  ctx.stroke();
 }
 function drawCar_step3(ctx) {
   ctx.beginPath();
-  ctx.arc(150, 270, 25, 0, Math.PI * 2);
+  ctx.arc(130, 250, 22, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.arc(250, 270, 25, 0, Math.PI * 2);
+  ctx.arc(270, 250, 22, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawCar_step4(ctx) {
-  ctx.fillRect(160, 160, 40, 30);
-  ctx.fillRect(220, 160, 40, 30);
+  ctx.beginPath();
+  ctx.moveTo(140, 170);
+  ctx.lineTo(140, 195);
+  ctx.lineTo(170, 195);
+  ctx.lineTo(170, 170);
+  ctx.closePath();
+  ctx.stroke();
 }
 function drawCar_step5(ctx) {
-  ctx.fillRect(110, 220, 20, 15);
-  ctx.fillRect(270, 220, 20, 15);
+  ctx.beginPath();
+  ctx.moveTo(230, 170);
+  ctx.lineTo(230, 195);
+  ctx.lineTo(260, 195);
+  ctx.lineTo(260, 170);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawCar_step6(ctx) {
+  ctx.beginPath();
+  ctx.arc(95, 195, 8, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(305, 195, 8, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawCar_step7(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(200, 200);
+  ctx.lineTo(200, 240);
+  ctx.stroke();
+}
+function drawCar_step8(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(80, 245);
+  ctx.lineTo(320, 245);
+  ctx.stroke();
 }
 
 // AIRPLANE
 function drawAirplane_step1(ctx) {
   ctx.beginPath();
-  ctx.ellipse(200, 200, 60, 40, 0, 0, Math.PI * 2);
+  ctx.ellipse(200, 200, 70, 45, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawAirplane_step2(ctx) {
@@ -812,18 +1263,46 @@ function drawAirplane_step3(ctx) {
 }
 function drawAirplane_step4(ctx) {
   ctx.beginPath();
-  ctx.arc(230, 190, 12, 0, Math.PI * 2);
+  ctx.moveTo(280, 180);
+  ctx.lineTo(300, 180);
+  ctx.lineTo(300, 220);
+  ctx.lineTo(280, 220);
+  ctx.closePath();
   ctx.stroke();
 }
 function drawAirplane_step5(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 180, 5, 0, Math.PI * 2);
+  ctx.arc(235, 185, 15, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawAirplane_step6(ctx) {
+  for (let i = 0; i < 4; i++) {
+    ctx.beginPath();
+    ctx.arc(160 + i * 35, 195, 5, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+}
+function drawAirplane_step7(ctx) {
+  ctx.beginPath();
+  ctx.arc(120, 245, 10, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(200, 250, 10, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(280, 245, 10, 0, Math.PI * 2);
   ctx.stroke();
 }
 
 // ROCKET
 function drawRocket_step1(ctx) {
-  ctx.fillRect(170, 100, 60, 150);
+  ctx.beginPath();
+  ctx.moveTo(170, 100);
+  ctx.lineTo(170, 250);
+  ctx.lineTo(230, 250);
+  ctx.lineTo(230, 100);
+  ctx.closePath();
+  ctx.stroke();
 }
 function drawRocket_step2(ctx) {
   ctx.beginPath();
@@ -835,35 +1314,41 @@ function drawRocket_step2(ctx) {
 }
 function drawRocket_step3(ctx) {
   ctx.beginPath();
-  ctx.moveTo(170, 240);
-  ctx.lineTo(150, 280);
-  ctx.lineTo(170, 260);
+  ctx.moveTo(170, 220);
+  ctx.lineTo(145, 270);
+  ctx.lineTo(170, 245);
   ctx.closePath();
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(230, 240);
-  ctx.lineTo(250, 280);
-  ctx.lineTo(230, 260);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(200, 240);
-  ctx.lineTo(200, 280);
   ctx.stroke();
 }
 function drawRocket_step4(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 150, 12, 0, Math.PI * 2);
+  ctx.moveTo(230, 220);
+  ctx.lineTo(255, 270);
+  ctx.lineTo(230, 245);
+  ctx.closePath();
   ctx.stroke();
 }
 function drawRocket_step5(ctx) {
   ctx.beginPath();
-  ctx.moveTo(185, 260);
-  ctx.quadraticCurveTo(180, 300, 190, 340);
+  ctx.moveTo(200, 250);
+  ctx.lineTo(190, 290);
+  ctx.lineTo(210, 290);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawRocket_step6(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 160, 15, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawRocket_step7(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(185, 265);
+  ctx.quadraticCurveTo(180, 310, 190, 340);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(215, 260);
-  ctx.quadraticCurveTo(220, 300, 210, 340);
+  ctx.moveTo(215, 265);
+  ctx.quadraticCurveTo(220, 310, 210, 340);
   ctx.stroke();
 }
 
@@ -879,335 +1364,234 @@ function drawBoat_step1(ctx) {
 }
 function drawBoat_step2(ctx) {
   ctx.beginPath();
-  ctx.moveTo(200, 200);
-  ctx.lineTo(200, 100);
+  ctx.moveTo(140, 200);
+  ctx.lineTo(140, 240);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(260, 200);
+  ctx.lineTo(260, 240);
   ctx.stroke();
 }
 function drawBoat_step3(ctx) {
   ctx.beginPath();
-  ctx.moveTo(200, 100);
-  ctx.lineTo(280, 200);
-  ctx.lineTo(200, 160);
-  ctx.closePath();
+  ctx.moveTo(200, 200);
+  ctx.lineTo(200, 100);
   ctx.stroke();
 }
 function drawBoat_step4(ctx) {
-  for (let i = 0; i < 5; i++) {
-    ctx.beginPath();
-    ctx.moveTo(80 + i * 50, 260 + Math.sin(i) * 10);
-    ctx.quadraticCurveTo(95 + i * 50, 275, 110 + i * 50, 260 + Math.sin(i + 1) * 10);
-    ctx.stroke();
-  }
+  ctx.beginPath();
+  ctx.moveTo(200, 100);
+  ctx.lineTo(280, 190);
+  ctx.lineTo(200, 150);
+  ctx.closePath();
+  ctx.stroke();
 }
 function drawBoat_step5(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 220, 8, 0, Math.PI * 2);
+  ctx.moveTo(200, 120);
+  ctx.lineTo(140, 180);
+  ctx.lineTo(200, 140);
+  ctx.closePath();
   ctx.stroke();
 }
+function drawBoat_step6(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(170, 220);
+  ctx.lineTo(170, 255);
+  ctx.lineTo(230, 255);
+  ctx.lineTo(230, 220);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawBoat_step7(ctx) {
+  for (let i = 0; i < 6; i++) {
+    ctx.beginPath();
+    ctx.moveTo(80 + i * 50, 250 + Math.sin(i) * 8);
+    ctx.quadraticCurveTo(105 + i * 50, 265, 130 + i * 50, 250 + Math.sin(i + 1) * 8);
+    ctx.stroke();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DRAWING FUNCTIONS - FOOD
+// ═══════════════════════════════════════════════════════════════════
 
 // ICE CREAM
 function drawIceCream_step1(ctx) {
   ctx.beginPath();
   ctx.moveTo(200, 240);
-  ctx.lineTo(160, 320);
-  ctx.lineTo(240, 320);
+  ctx.lineTo(160, 330);
+  ctx.lineTo(240, 330);
   ctx.closePath();
   ctx.stroke();
 }
 function drawIceCream_step2(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 200, 45, 0, Math.PI * 2);
-  ctx.stroke();
+  for (let i = 0; i < 6; i++) {
+    ctx.beginPath();
+    ctx.moveTo(160 + i * 13, 330);
+    ctx.lineTo(175 + i * 13, 340);
+    ctx.stroke();
+  }
 }
 function drawIceCream_step3(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 150, 45, 0, Math.PI * 2);
+  ctx.arc(200, 210, 40, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawIceCream_step4(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 100, 45, 0, Math.PI * 2);
+  ctx.arc(200, 165, 40, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawIceCream_step5(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 60, 12, 0, Math.PI * 2);
+  ctx.arc(200, 120, 40, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawIceCream_step6(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 210, 35, 0, Math.PI);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(200, 165, 35, 0, Math.PI);
+  ctx.stroke();
+}
+function drawIceCream_step7(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 80, 10, 0, Math.PI * 2);
   ctx.stroke();
 }
 
 // PIZZA
 function drawPizza_step1(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 200, 90, 0, Math.PI * 2);
+  ctx.arc(200, 200, 100, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawPizza_step2(ctx) {
   ctx.beginPath();
   ctx.moveTo(200, 200);
-  ctx.lineTo(200, 290);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(200, 200);
-  ctx.lineTo(290, 200);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(200, 200);
-  ctx.lineTo(130, 270);
+  ctx.lineTo(200, 300);
   ctx.stroke();
 }
 function drawPizza_step3(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 210, 20, 0, Math.PI * 2);
+  ctx.moveTo(200, 200);
+  ctx.lineTo(280, 260);
   ctx.stroke();
 }
 function drawPizza_step4(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(200, 200);
+  ctx.lineTo(120, 260);
+  ctx.stroke();
+}
+function drawPizza_step5(ctx) {
   for (let i = 0; i < 8; i++) {
     const angle = (i * Math.PI * 2) / 8;
-    const x = 200 + Math.cos(angle) * 60;
-    const y = 200 + Math.sin(angle) * 60;
+    const x = 200 + Math.cos(angle) * 70;
+    const y = 200 + Math.sin(angle) * 70;
     ctx.beginPath();
-    ctx.arc(x, y, 8, 0, Math.PI * 2);
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
     ctx.stroke();
   }
 }
-function drawPizza_step5(ctx) {
+function drawPizza_step6(ctx) {
+  for (let i = 0; i < 12; i++) {
+    const angle = (i * Math.PI * 2) / 12;
+    const x = 200 + Math.cos(angle) * 40;
+    const y = 200 + Math.sin(angle) * 40;
+    ctx.beginPath();
+    ctx.arc(x, y, 4, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+}
+function drawPizza_step7(ctx) {
   ctx.beginPath();
-  ctx.moveTo(200, 290);
-  ctx.lineTo(200, 310);
+  ctx.arc(200, 200, 105, 0, Math.PI * 2);
   ctx.stroke();
 }
 
 // APPLE
 function drawApple_step1(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 200, 70, 0, Math.PI * 2);
+  ctx.arc(200, 200, 75, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawApple_step2(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 130, 20, 0, Math.PI * 2);
+  ctx.moveTo(200, 120);
+  ctx.quadraticCurveTo(185, 115, 185, 130);
   ctx.stroke();
 }
 function drawApple_step3(ctx) {
   ctx.beginPath();
-  ctx.moveTo(200, 130);
-  ctx.lineTo(200, 100);
+  ctx.moveTo(200, 125);
+  ctx.lineTo(200, 95);
   ctx.stroke();
 }
 function drawApple_step4(ctx) {
   ctx.beginPath();
-  ctx.ellipse(220, 90, 15, 10, 0.3, 0, Math.PI * 2);
+  ctx.ellipse(215, 90, 18, 12, 0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawApple_step5(ctx) {
   ctx.beginPath();
-  ctx.arc(230, 160, 20, 0, Math.PI * 2);
+  ctx.arc(235, 160, 25, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawApple_step6(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 275, 12, 0, Math.PI * 2);
   ctx.stroke();
 }
 
 // CUPCAKE
 function drawCupcake_step1(ctx) {
   ctx.beginPath();
-  ctx.moveTo(150, 240);
+  ctx.moveTo(140, 240);
   ctx.lineTo(180, 300);
   ctx.lineTo(220, 300);
-  ctx.lineTo(250, 240);
+  ctx.lineTo(260, 240);
   ctx.closePath();
   ctx.stroke();
 }
 function drawCupcake_step2(ctx) {
+  for (let i = 0; i < 5; i++) {
+    ctx.beginPath();
+    ctx.moveTo(140 + i * 30, 250);
+    ctx.lineTo(140 + i * 30, 285);
+    ctx.stroke();
+  }
+}
+function drawCupcake_step3(ctx) {
   ctx.beginPath();
   ctx.moveTo(160, 240);
   ctx.quadraticCurveTo(170, 180, 200, 140);
   ctx.quadraticCurveTo(230, 180, 240, 240);
   ctx.stroke();
 }
-function drawCupcake_step3(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 160, 30, 0, Math.PI);
-  ctx.stroke();
-}
 function drawCupcake_step4(ctx) {
   ctx.beginPath();
-  ctx.arc(200, 130, 10, 0, Math.PI * 2);
+  ctx.arc(200, 180, 25, 0, Math.PI);
   ctx.stroke();
 }
 function drawCupcake_step5(ctx) {
-  for (let i = 0; i < 5; i++) {
+  ctx.beginPath();
+  ctx.moveTo(180, 155);
+  ctx.quadraticCurveTo(190, 125, 200, 140);
+  ctx.quadraticCurveTo(210, 125, 220, 155);
+  ctx.stroke();
+}
+function drawCupcake_step6(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 120, 8, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawCupcake_step7(ctx) {
+  for (let i = 0; i < 7; i++) {
     ctx.beginPath();
-    ctx.moveTo(165 + i * 18, 280);
-    ctx.lineTo(165 + i * 18, 295);
-    ctx.stroke();
-  }
-}
-
-// MICKEY MOUSE
-function drawMickey_step1(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 200, 80, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawMickey_step2(ctx) {
-  ctx.beginPath();
-  ctx.arc(120, 110, 45, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(280, 110, 45, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawMickey_step3(ctx) {
-  ctx.beginPath();
-  ctx.arc(160, 190, 20, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(240, 190, 20, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawMickey_step4(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 230, 12, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(180, 250);
-  ctx.quadraticCurveTo(200, 260, 220, 250);
-  ctx.stroke();
-}
-function drawMickey_step5(ctx) {
-  ctx.fillRect(140, 280, 120, 60);
-}
-function drawMickey_step6(ctx) {
-  ctx.beginPath();
-  ctx.arc(160, 310, 8, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(240, 310, 8, 0, Math.PI * 2);
-  ctx.stroke();
-}
-
-// DONALD DUCK
-function drawDonald_step1(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 210, 70, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawDonald_step2(ctx) {
-  ctx.beginPath();
-  ctx.moveTo(200, 160);
-  ctx.lineTo(170, 200);
-  ctx.lineTo(230, 200);
-  ctx.closePath();
-  ctx.stroke();
-}
-function drawDonald_step3(ctx) {
-  ctx.beginPath();
-  ctx.arc(170, 190, 15, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(230, 190, 15, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawDonald_step4(ctx) {
-  ctx.beginPath();
-  ctx.moveTo(140, 120);
-  ctx.lineTo(260, 120);
-  ctx.lineTo(260, 150);
-  ctx.lineTo(140, 150);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(200, 115, 25, 0, Math.PI);
-  ctx.stroke();
-}
-function drawDonald_step5(ctx) {
-  ctx.fillRect(160, 280, 80, 70);
-}
-function drawDonald_step6(ctx) {
-  ctx.fillRect(170, 290, 10, 30);
-  ctx.fillRect(220, 290, 10, 30);
-}
-
-// HULK
-function drawHulk_step1(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 120, 50, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawHulk_step2(ctx) {
-  ctx.beginPath();
-  ctx.arc(160, 110, 15, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(240, 110, 15, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(170, 130);
-  ctx.lineTo(230, 130);
-  ctx.stroke();
-}
-function drawHulk_step3(ctx) {
-  ctx.fillRect(140, 170, 120, 30);
-}
-function drawHulk_step4(ctx) {
-  ctx.fillRect(90, 200, 40, 80);
-  ctx.fillRect(270, 200, 40, 80);
-}
-function drawHulk_step5(ctx) {
-  ctx.fillRect(150, 200, 100, 80);
-}
-function drawHulk_step6(ctx) {
-  ctx.fillRect(160, 280, 30, 50);
-  ctx.fillRect(210, 280, 30, 50);
-}
-
-// PIKACHU
-function drawPikachu_step1(ctx) {
-  ctx.beginPath();
-  ctx.arc(200, 180, 60, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawPikachu_step2(ctx) {
-  ctx.beginPath();
-  ctx.moveTo(160, 100);
-  ctx.lineTo(140, 50);
-  ctx.lineTo(170, 110);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(240, 100);
-  ctx.lineTo(260, 50);
-  ctx.lineTo(230, 110);
-  ctx.closePath();
-  ctx.stroke();
-}
-function drawPikachu_step3(ctx) {
-  ctx.beginPath();
-  ctx.arc(160, 170, 12, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(240, 170, 12, 0, Math.PI * 2);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.arc(200, 200, 8, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawPikachu_step4(ctx) {
-  ctx.beginPath();
-  ctx.ellipse(200, 280, 50, 70, 0, 0, Math.PI * 2);
-  ctx.stroke();
-}
-function drawPikachu_step5(ctx) {
-  ctx.beginPath();
-  ctx.moveTo(250, 330);
-  ctx.lineTo(310, 320);
-  ctx.lineTo(280, 360);
-  ctx.closePath();
-  ctx.stroke();
-}
-function drawPikachu_step6(ctx) {
-  for (let i = 0; i < 3; i++) {
-    ctx.beginPath();
-    ctx.moveTo(280 + i * 15, 330);
-    ctx.lineTo(295 + i * 15, 340);
+    ctx.arc(160 + i * 15, 140 + Math.random() * 20, 2, 0, Math.PI * 2);
     ctx.stroke();
   }
 }
