@@ -198,7 +198,7 @@ body {
 
 .cards-row {
     display: flex; gap: 18px;
-    overflow-x: auto; padding-bottom: 14px;
+    overflow-x: auto; padding: 12px 0 14px 0;
     scroll-snap-type: x mandatory;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
