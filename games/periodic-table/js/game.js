@@ -151,7 +151,7 @@ function showResults() {
       const badgesDisplay = document.getElementById('badges-display');
       if (badgesDisplay) {
         badgesDisplay.innerHTML = `
-          <h3 style="margin-top: 20px; text-align: center;">🏆 Achievements Unlocked!</h3>
+          <h3 style="margin-top: 20px; text-align: center;"><i class="ti ti-trophy"></i> Achievements Unlocked!</h3>
           ${stats.badges.map(badge => `
             <div class="badge earned" title="${badge.description}">
               <div class="badge-icon">${badge.icon}</div>
@@ -181,7 +181,7 @@ function nextChunk() {
   if (nextChunk <= 5) {
     window.location.href = `index.html`;
   } else {
-    alert('🎉 Congratulations! You\'ve completed all 5 chunks!\n\nWould you like to review any chunk?');
+    alert('Congratulations! You\'ve completed all 5 chunks!\n\nWould you like to review any chunk?');
     window.location.href = `index.html`;
   }
 }
@@ -285,7 +285,7 @@ function showStreakCelebration(streakCount) {
   
   const message = document.createElement('div');
   message.className = 'streak-message';
-  message.textContent = streakCount === 5 ? '🔥 5 in a row!' : '⚡ 10 in a row!';
+  message.textContent = streakCount === 5 ? '5 in a row!' : '10 in a row!';
   
   celebration.appendChild(message);
   document.body.appendChild(celebration);

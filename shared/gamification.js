@@ -189,31 +189,31 @@ class GamificationSystem {
     // First correct answer
     if (this.sessionState.correctAnswers === 1 && !this.state.milestones.firstCorrect) {
       this.state.milestones.firstCorrect = true;
-      newBadges.push(this.createBadge('first_correct', 'First Step! 🎉', 'You got your first correct answer!'));
+      newBadges.push(this.createBadge('first_correct', 'First Step!', 'You got your first correct answer!'));
     }
     
     // 5 in a row
     if (this.sessionState.currentStreak === 5 && !this.state.milestones.five_in_a_row) {
       this.state.milestones.five_in_a_row = true;
-      newBadges.push(this.createBadge('five_in_a_row', 'On Fire! 🔥', '5 correct answers in a row!'));
+      newBadges.push(this.createBadge('five_in_a_row', 'On Fire!', '5 correct answers in a row!'));
     }
     
     // 10 in a row
     if (this.sessionState.currentStreak === 10 && !this.state.milestones.ten_in_a_row) {
       this.state.milestones.ten_in_a_row = true;
-      newBadges.push(this.createBadge('ten_in_a_row', 'Unstoppable! ⚡', '10 correct answers in a row!'));
+      newBadges.push(this.createBadge('ten_in_a_row', 'Unstoppable!', '10 correct answers in a row!'));
     }
     
     // Mastered all elements (20 learned)
     if (this.state.elementsLearned.length >= 20 && !this.state.milestones.all_elements) {
       this.state.milestones.all_elements = true;
-      newBadges.push(this.createBadge('all_elements', 'Element Master! 👑', 'You\'ve learned all 20 elements!'));
+      newBadges.push(this.createBadge('all_elements', 'Element Master!', 'You\'ve learned all 20 elements!'));
     }
     
     // Master level (level 3+)
     if (this.state.level >= 3 && !this.state.milestones.master_level) {
       this.state.milestones.master_level = true;
-      newBadges.push(this.createBadge('master_level', 'Memory Master! 🧠', 'You\'ve reached Master Level!'));
+      newBadges.push(this.createBadge('master_level', 'Memory Master!', 'You\'ve reached Master Level!'));
     }
     
     // Add new badges to the collection
@@ -244,13 +244,13 @@ class GamificationSystem {
    */
   getBadgeIcon(badgeId) {
     const icons = {
-      'first_correct': '🎉',
-      'five_in_a_row': '🔥',
-      'ten_in_a_row': '⚡',
-      'all_elements': '👑',
-      'master_level': '🧠'
+      'first_correct': '<i class="ti ti-crown-2"></i>',
+      'five_in_a_row': '<i class="ti ti-flame"></i>',
+      'ten_in_a_row': '<i class="ti ti-lightning-2"></i>',
+      'all_elements': '<i class="ti ti-crown"></i>',
+      'master_level': '<i class="ti ti-brain"></i>'
     };
-    return icons[badgeId] || '⭐';
+    return icons[badgeId] || '<i class="ti ti-star"></i>';
   }
 
   /**

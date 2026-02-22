@@ -150,7 +150,7 @@ class PeriodicTableGameEngine {
     const storyText = document.getElementById('story-text');
     storyText.innerHTML = `
       <div style="text-align: center; margin-bottom: 20px;">
-        <h3>🎯 Create a Story with These Elements:</h3>
+        <h3><i class="ti ti-target"></i> Create a Story with These Elements:</h3>
         <p style="font-size: 13px; color: #666;">Link each element in an epic narrative - the more vivid, the better!</p>
       </div>
     `;
@@ -175,7 +175,7 @@ class PeriodicTableGameEngine {
     const roomSize = Math.ceil(this.elements.length / 5); // Create ~5 rooms
     const rooms = [];
     const roomNames = ['Entrance Hall', 'Library', 'Throne Room', 'Garden', 'Treasury'];
-    const roomIcons = ['🚪', '📚', '👑', '🌳', '💎'];
+    const roomIconNames = ['door-2', 'bookshelf', 'crown', 'plant-2', 'gems'];
     
     for (let i = 0; i < this.elements.length; i += roomSize) {
       rooms.push(this.elements.slice(i, i + roomSize));
@@ -187,7 +187,7 @@ class PeriodicTableGameEngine {
       <div class="palace-rooms-grid">
         ${rooms.map((room, roomIdx) => `
           <div class="palace-room-card" onclick="selectPalaceRoom(${roomIdx})">
-            <div class="room-icon">${roomIcons[roomIdx % roomIcons.length]}</div>
+            <div class="room-icon"><i class="ti ti-${roomIconNames[roomIdx % roomIconNames.length]}"></i></div>
             <div class="room-title">${roomNames[roomIdx % roomNames.length]}</div>
             <div class="room-element-count">${room.length} elements</div>
             <div class="room-symbols">
@@ -246,14 +246,14 @@ class PeriodicTableGameEngine {
 
     // Define body zones with icons
     const bodyZones = [
-      { num: 1, label: 'Head', icon: '🧠', pct: 15, color: '#FF6B6B' },
-      { num: 2, label: 'Neck', icon: '⭕', pct: 20, color: '#FFA06B' },
-      { num: 3, label: 'Chest', icon: '❤️', pct: 25, color: '#FFD93D' },
-      { num: 4, label: 'Waist', icon: '⚡', pct: 35, color: '#6BCB77' },
-      { num: 5, label: 'Left Hand', icon: '✋', pct: 45, color: '#4D96FF' },
-      { num: 6, label: 'Right Hand', icon: '✋', pct: 55, color: '#7C3AED' },
-      { num: 7, label: 'Left Leg', icon: '🦵', pct: 70, color: '#F24E1E' },
-      { num: 8, label: 'Right Leg', icon: '🦵', pct: 80, color: '#00D4AA' }
+      { num: 1, label: 'Head', icon: 'brain', pct: 15, color: '#FF6B6B' },
+      { num: 2, label: 'Neck', icon: 'circle', pct: 20, color: '#FFA06B' },
+      { num: 3, label: 'Chest', icon: 'heart', pct: 25, color: '#FFD93D' },
+      { num: 4, label: 'Waist', icon: 'lightning-2', pct: 35, color: '#6BCB77' },
+      { num: 5, label: 'Left Hand', icon: 'hand', pct: 45, color: '#4D96FF' },
+      { num: 6, label: 'Right Hand', icon: 'hand', pct: 55, color: '#7C3AED' },
+      { num: 7, label: 'Left Leg', icon: 'leg', pct: 70, color: '#F24E1E' },
+      { num: 8, label: 'Right Leg', icon: 'leg', pct: 80, color: '#00D4AA' }
     ];
 
     // Create body map illustration
@@ -266,7 +266,7 @@ class PeriodicTableGameEngine {
                  data-zone="${idx + 1}" 
                  onclick="showBodyZoneDetails(${idx + 1})"
                  title="${zone.label}: ${this.elements[idx]?.name || 'Element'}">
-              <div class="zone-icon">${zone.icon}</div>
+              <div class="zone-icon"><i class="ti ti-${zone.icon}"></i></div>
               <div class="zone-label-mini">${zone.label}</div>
               <div class="zone-element">${this.elements[idx]?.symbol || ''}</div>
             </div>
