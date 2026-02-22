@@ -127,8 +127,8 @@ class PeriodicTableGameEngine {
     // Fall back to old structure (direct fields)
     const fieldMap = {
       'story_chain': 'story',
-      'memory_palace': 'mnemonic',
-      'body_map': 'bodyPart',
+      'memory_palace': 'memory_tip',
+      'body_map': 'memory_tip',  // For Body Map, use the general memory tip, not bodyPart
       'keyword_image': 'associationImage',
       'rhyme_pegs': 'rhymePeg'
     };
@@ -198,7 +198,7 @@ class PeriodicTableGameEngine {
       </div>
     `;
 
-    // Create element list with journey visualization
+    // Create element list with journey visualization - ENHANCED WITH VISUAL CARDS
     const elementList = document.getElementById('element-list');
     elementList.innerHTML = `
       <div class="palace-description">
@@ -215,7 +215,9 @@ class PeriodicTableGameEngine {
             </div>
             <div class="timeline-content">
               <div class="element-header">
-                <span class="symbol-large">${el.symbol}</span>
+                <div class="element-visual-mini">
+                  ${createElementVisual(el)}
+                </div>
                 <div class="element-details">
                   <div class="element-name">${el.name}</div>
                   <div class="element-number">#${el.atomicNumber}</div>

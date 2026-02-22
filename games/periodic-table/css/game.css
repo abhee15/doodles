@@ -456,6 +456,23 @@
   margin-bottom: 10px;
 }
 
+.element-visual-mini {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, rgba(28, 176, 246, 0.1), rgba(124, 58, 237, 0.1));
+  border-radius: 8px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.element-visual-mini svg {
+  width: 100%;
+  height: 100%;
+}
+
 .symbol-large {
   font-size: 32px;
   font-weight: 700;
