@@ -175,22 +175,68 @@ class PeriodicTableGameEngine {
     const uiDiv = document.getElementById('memory-palace-ui');
     uiDiv.style.display = 'block';
 
+    // Create palace rooms (divide elements into logical rooms)
+    const roomSize = Math.ceil(this.elements.length / 5); // Create ~5 rooms
+    const rooms = [];
+    const roomNames = ['Entrance Hall', 'Library', 'Throne Room', 'Garden', 'Treasury'];
+    const roomIcons = ['🚪', '📚', '👑', '🌳', '💎'];
+    
+    for (let i = 0; i < this.elements.length; i += roomSize) {
+      rooms.push(this.elements.slice(i, i + roomSize));
+    }
+
+    // Create room selector with enhanced visuals
     const roomView = document.getElementById('room-view');
     roomView.innerHTML = `
-      <div class="palace-room">
-        <div class="room-title">Your Palace Rooms</div>
-        <p>Click on each room to explore...</p>
+      <div class="palace-rooms-grid">
+        ${rooms.map((room, roomIdx) => `
+          <div class="palace-room-card" onclick="selectPalaceRoom(${roomIdx})">
+            <div class="room-icon">${roomIcons[roomIdx % roomIcons.length]}</div>
+            <div class="room-title">${roomNames[roomIdx % roomNames.length]}</div>
+            <div class="room-element-count">${room.length} elements</div>
+            <div class="room-symbols">
+              ${room.map(el => `<span class="symbol-badge">${el.symbol}</span>`).join('')}
+            </div>
+          </div>
+        `).join('')}
       </div>
     `;
 
+    // Create element list with journey visualization
     const elementList = document.getElementById('element-list');
-    elementList.innerHTML = this.elements.map(el => `
-      <div class="palace-element">
-        <span class="symbol">${el.symbol}</span>
-        <span class="name">${el.name}</span>
-        <span class="tip">${this.getMemoryTip(el)}</span>
+    elementList.innerHTML = `
+      <div class="palace-description">
+        <h3><i class="ti ti-map"></i> Your Memory Palace Journey</h3>
+        <p>Imagine walking through your magical palace, visiting each room in order.</p>
+        <p>Picture the elements in vivid, unusual ways at specific locations in each room.</p>
+        <p class="palace-tip"><i class="ti ti-lightbulb"></i> <strong>Tip:</strong> The more bizarre and memorable your mental image, the better you'll remember!</p>
       </div>
-    `).join('');
+      <div class="palace-timeline">
+        ${this.elements.map((el, idx) => `
+          <div class="timeline-item" data-element-id="${el.atomicNumber}">
+            <div class="timeline-marker">
+              <span class="marker-number">${idx + 1}</span>
+            </div>
+            <div class="timeline-content">
+              <div class="element-header">
+                <span class="symbol-large">${el.symbol}</span>
+                <div class="element-details">
+                  <div class="element-name">${el.name}</div>
+                  <div class="element-number">#${el.atomicNumber}</div>
+                </div>
+              </div>
+              <div class="element-room">Room ${Math.floor(idx / roomSize) + 1}: ${roomNames[Math.floor(idx / roomSize) % roomNames.length]}</div>
+              <div class="memory-palace-tip">${this.getMemoryTip(el)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // Store room data for interaction
+    window.palaceRooms = rooms;
+    window.roomNames = roomNames;
+    window.roomIcons = roomIcons;
   }
 
   /**
@@ -202,16 +248,72 @@ class PeriodicTableGameEngine {
     const uiDiv = document.getElementById('body-map-ui');
     uiDiv.style.display = 'block';
 
-    const bodyInfo = document.getElementById('body-info');
-    bodyInfo.innerHTML = this.elements.map((el, idx) => `
-      <div class="body-part-item">
-        <div class="body-location">Location ${idx + 1}</div>
-        <div class="element-info">
-          <strong>${el.symbol} - ${el.name}</strong>
-          <p>${this.getMemoryTip(el)}</p>
+    // Define body zones with icons
+    const bodyZones = [
+      { num: 1, label: 'Head', icon: '🧠', pct: 15, color: '#FF6B6B' },
+      { num: 2, label: 'Neck', icon: '⭕', pct: 20, color: '#FFA06B' },
+      { num: 3, label: 'Chest', icon: '❤️', pct: 25, color: '#FFD93D' },
+      { num: 4, label: 'Waist', icon: '⚡', pct: 35, color: '#6BCB77' },
+      { num: 5, label: 'Left Hand', icon: '✋', pct: 45, color: '#4D96FF' },
+      { num: 6, label: 'Right Hand', icon: '✋', pct: 55, color: '#7C3AED' },
+      { num: 7, label: 'Left Leg', icon: '🦵', pct: 70, color: '#F24E1E' },
+      { num: 8, label: 'Right Leg', icon: '🦵', pct: 80, color: '#00D4AA' }
+    ];
+
+    // Create body map illustration
+    const bodyIllustration = document.getElementById('body-illustration');
+    bodyIllustration.innerHTML = `
+      <div class="body-map-visual">
+        <div class="body-stick-figure">
+          ${bodyZones.slice(0, Math.min(this.elements.length, 8)).map((zone, idx) => `
+            <div class="zone-interactive zone-${idx + 1}" 
+                 data-zone="${idx + 1}" 
+                 onclick="showBodyZoneDetails(${idx + 1})"
+                 title="${zone.label}: ${this.elements[idx]?.name || 'Element'}">
+              <div class="zone-icon">${zone.icon}</div>
+              <div class="zone-label-mini">${zone.label}</div>
+              <div class="zone-element">${this.elements[idx]?.symbol || ''}</div>
+            </div>
+          `).join('')}
+        </div>
+        <div class="body-map-legend">
+          <p><i class="ti ti-click"></i> Click zones to see elements</p>
         </div>
       </div>
-    `).join('');
+    `;
+
+    // Create detailed zone information
+    const bodyInfo = document.getElementById('body-info');
+    bodyInfo.innerHTML = `
+      <div class="zone-details">
+        <div class="zone-info-header">
+          <h3 id="zone-title">Click a zone to learn</h3>
+        </div>
+        <div id="zone-content" class="zone-content">
+          <p style="text-align: center; color: #999;">Select a body zone to view elements anchored there</p>
+        </div>
+      </div>
+      <div class="all-zones-list">
+        <h3>All Zones:</h3>
+        ${this.elements.map((el, idx) => {
+          const zone = bodyZones[Math.min(idx, 7)];
+          return `
+            <div class="zone-list-item" onclick="showBodyZoneDetails(${idx + 1})" style="--zone-color: ${zone.color}">
+              <div class="zone-list-icon">${zone.icon}</div>
+              <div class="zone-list-info">
+                <div class="zone-list-label">${zone.label}</div>
+                <div class="zone-list-element"><strong>${el.symbol}</strong> - ${el.name}</div>
+              </div>
+              <div class="zone-list-tip">${this.getMemoryTip(el)}</div>
+            </div>
+          `;
+        }).join('')}
+      </div>
+    `;
+
+    // Store body zones globally for interaction
+    window.bodyZones = bodyZones;
+    window.bodyMapElements = this.elements;
   }
 
   /**
@@ -226,7 +328,9 @@ class PeriodicTableGameEngine {
     const keywordsGrid = document.getElementById('keywords-grid');
     keywordsGrid.innerHTML = this.elements.map(el => `
       <div class="keyword-card">
-        <div class="keyword-symbol">${el.symbol}</div>
+        <div class="keyword-visual">
+          <div class="keyword-symbol">${el.symbol}</div>
+        </div>
         <div class="keyword-name">${el.name}</div>
         <div class="keyword-tip">${this.getMemoryTip(el)}</div>
       </div>
@@ -289,6 +393,41 @@ class PeriodicTableGameEngine {
   }
 }
 
+/**
+ * Global function to select palace room
+ */
+function selectPalaceRoom(roomIdx) {
+  if (!gameEngine || !gameEngine.elements) return;
+
+  // Highlight selected room
+  document.querySelectorAll('.palace-room-card').forEach((card, idx) => {
+    if (idx === roomIdx) {
+      card.classList.add('active');
+    } else {
+      card.classList.remove('active');
+    }
+  });
+
+  // Highlight corresponding timeline items
+  const roomSize = Math.ceil(gameEngine.elements.length / 5);
+  const startIdx = roomIdx * roomSize;
+  const endIdx = Math.min(startIdx + roomSize, gameEngine.elements.length);
+
+  document.querySelectorAll('.timeline-item').forEach((item, idx) => {
+    if (idx >= startIdx && idx < endIdx) {
+      item.classList.add('highlight');
+    } else {
+      item.classList.remove('highlight');
+    }
+  });
+
+  // Scroll to first element in room
+  const firstItem = document.querySelector(`.timeline-item[data-element-id="${gameEngine.elements[startIdx].atomicNumber}"]`);
+  if (firstItem) {
+    firstItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+}
+
 // Global engine instance
 let gameEngine = null;
 
@@ -302,6 +441,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const technique = urlParams.get('technique') || 'story_chain';
 
   console.log(`Game initialized: Chunk ${chunk}, Technique ${technique}`);
+
+  // Initialize gamification system
+  if (typeof initGamification === 'function') {
+    initGamification();
+  }
 
   // Create and initialize game engine
   gameEngine = new PeriodicTableGameEngine(chunk, technique);

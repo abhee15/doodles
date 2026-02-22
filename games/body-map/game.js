@@ -218,6 +218,16 @@ function init() {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+
+  // Hide back button during focused learning (learn/quiz screens)
+  // Show it only on start/score screens where navigation is appropriate
+  const backLink = document.getElementById('nav-back-link');
+  if (id === 'screen-learn' || id === 'screen-quiz') {
+    backLink.classList.add('hidden');
+  } else {
+    backLink.classList.remove('hidden');
+  }
 }
 
 /* ═══════════════════════════════════════════════════

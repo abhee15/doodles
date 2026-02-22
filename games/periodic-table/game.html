@@ -17,6 +17,7 @@
   
   <link rel="stylesheet" href="css/periodic-table.css">
   <link rel="stylesheet" href="css/game.css">
+  <link rel="stylesheet" href="css/gamification.css">
 </head>
 <body>
   <div class="app-container">
@@ -31,6 +32,20 @@
         </div>
       </div>
       <div class="header-right">
+        <div class="stats-display" id="stats-display">
+          <div class="stat-item">
+            <i class="ti ti-star"></i>
+            <span id="score-display">0</span>
+          </div>
+          <div class="stat-item">
+            <i class="ti ti-flame"></i>
+            <span id="streak-display">0</span>
+          </div>
+          <div class="stat-item">
+            <i class="ti ti-chart-line"></i>
+            <span id="level-display">1</span>
+          </div>
+        </div>
         <div class="progress-info">
           <span id="progress-text">Chunk 1</span>
           <div class="technique-badge" id="technique-badge">Story Chain</div>
@@ -58,6 +73,7 @@
               <div class="results-box">
                 <h3>Great job! <i class="ti ti-confetti"></i></h3>
                 <p id="results-text"></p>
+                <div id="badges-display" class="badges-container" style="display:none;"></div>
                 <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
               </div>
             </div>
@@ -103,6 +119,7 @@
 
   </div>
 
+  <script src="../../shared/gamification.js"></script>
   <script src="js/periodic-table-engine.js"></script>
   <script src="js/game.js"></script>
 </body>

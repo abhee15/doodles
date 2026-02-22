@@ -324,6 +324,9 @@
     .btn-prev:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
     .btn-prev:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
 
+    /* ── NAV BACK LINK (hidden during focused learning) ── */
+    #nav-back-link.hidden { display: none; }
+
     /* ── FOOTER CENTRE ── */
     .learn-footer-center { flex: 1; min-width: 0; text-align: center; }
 
@@ -384,7 +387,7 @@
 
 <!-- ══ NAV ══ -->
 <nav class="dom-nav">
-  <a href="../../index.html#body-map"><i class="ti ti-arrow-left"></i> Back</a>
+  <a href="../../index.html#body-map" id="nav-back-link"><i class="ti ti-arrow-left"></i> Back</a>
   <span class="dom-nav-title" id="nav-title">Body Map</span>
   <span class="dom-nav-meta" id="nav-progress"></span>
 </nav>
