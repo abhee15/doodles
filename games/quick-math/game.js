@@ -551,7 +551,7 @@ function createProfessionalCard(scene, x, y, level) {
 
     const iconText = scene.add.text(x + padding + 35, y + 50, level.icon, {
         fontSize: '36px',
-        fill: new Phaser.Display.Color().setFromInteger(level.color).toRGBString(),
+        fill: '#' + level.color.toString(16).padStart(6, '0').toUpperCase(),
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
