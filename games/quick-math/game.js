@@ -489,7 +489,7 @@ function showLevelSelect(scene) {
     const cardWidth = 340;
     const gap = 40;
     const gridWidth = 2 * cardWidth + gap;
-    const startX = (config.width - gridWidth) / 2;
+    const startX = (scene.scale.width - gridWidth) / 2;
 
     const levels = [
         { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x1CB0F6 },
