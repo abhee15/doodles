@@ -190,7 +190,7 @@ function nextChunk() {
  * Go back to picker hub
  */
 function goBack() {
-  window.location.href = 'index.html';
+  window.location.href = '../../index.html';
 }
 
 /**

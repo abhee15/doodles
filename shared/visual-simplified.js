@@ -156,13 +156,13 @@ function getElementTypeIcon(type) {
 function getTopUseIcon(element) {
   const icons = {
     'H': '<i class="ti ti-droplet"></i>',
-    'He': '<i class="ti ti-balloon"></i>',
+    'He': '<i class="ti ti-balloon-2"></i>',
     'C': '<i class="ti ti-gem"></i>',
     'O': '<i class="ti ti-flame"></i>',
     'N': '<i class="ti ti-wind"></i>',
     'Fe': '<i class="ti ti-shield-check"></i>',
-    'Na': '<i class="ti ti-salt"></i>',
-    'Ca': '<i class="ti ti-bone"></i>',
+    'Na': '<i class="ti ti-seasoning"></i>',
+    'Ca': '<i class="ti ti-bone-off"></i>',
     'Al': '<i class="ti ti-coin"></i>',
     'Cu': '<i class="ti ti-circle"></i>'
   };
@@ -265,26 +265,26 @@ function createProfessionalRhymePeg(element, pegNumber) {
   
   // Map peg to icon
   const pegIcons = {
-    1: 'ti-bread',
-    2: 'ti-shoe',
-    3: 'ti-tree',
-    4: 'ti-door-2',
-    5: 'ti-beehive',
-    6: 'ti-logs',
-    7: 'ti-cloud',
-    8: 'ti-gate',
-    9: 'ti-plant-2',
-    10: 'ti-egg',
-    11: 'ti-ball-basketball',
-    12: 'ti-bookshelf',
-    13: 'ti-tent',
-    14: 'ti-guitar',
-    15: 'ti-cake',
-    16: 'ti-coin',
-    17: 'ti-mask',
-    18: 'ti-mountain',
-    19: 'ti-sailboat',
-    20: 'ti-gift'
+    1: 'sun',
+    2: 'shoe',
+    3: 'tree',
+    4: 'door-2',
+    5: 'bug',
+    6: 'logs',
+    7: 'cloud',
+    8: 'fish',
+    9: 'plant-2',
+    10: 'egg',
+    11: 'lightbulb',
+    12: 'bookshelf',
+    13: 'tent',
+    14: 'guitar',
+    15: 'cake',
+    16: 'coin',
+    17: 'mask',
+    18: 'mountain',
+    19: 'sailboat',
+    20: 'gift'
   };
   
   return `
@@ -292,7 +292,7 @@ function createProfessionalRhymePeg(element, pegNumber) {
       <div class="prc-number">${pegNumber}</div>
       
       <div class="prc-peg-icon">
-        <i class="ti ${pegIcons[pegNumber] || 'ti-help'}"></i>
+        <i class="ti ti-${pegIcons[pegNumber] || 'help'}"></i>
       </div>
       
       <div class="prc-peg-name">${peg.peg}</div>
