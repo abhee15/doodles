@@ -270,6 +270,7 @@ function preload() {
 }
 
 function create() {
+    console.log('create() called, this:', this, 'scene:', this);
     this.scene = this;
 
     // Load saved progress
@@ -524,7 +525,7 @@ function showLevelSelect(scene) {
 
 // Professional Card Design with Improved Visuals
 function createProfessionalCard(scene, x, y, level) {
-    console.log('createProfessionalCard called for level:', level.id, level.name);
+    console.log('createProfessionalCard called for level:', level.id, level.name, 'x:', x, 'y:', y);
     const cardWidth = 340;
     const cardHeight = 160;
     const padding = 25;
@@ -537,7 +538,9 @@ function createProfessionalCard(scene, x, y, level) {
     const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, QM_COLORS.cardBg);
     cardBg.setOrigin(0, 0);
     cardBg.setStrokeStyle(2, level.color);
+    console.log('Setting interactive on cardBg');
     cardBg.setInteractive({ useHandCursor: true });
+    console.log('cardBg interactive:', cardBg.input);
 
     // Colored accent bar (left side)
     const accentBar = scene.add.rectangle(x, y, 6, cardHeight, level.color);
@@ -609,16 +612,19 @@ function createProfessionalCard(scene, x, y, level) {
         playBtn.setAlpha(1);
     };
 
+    console.log('Attaching hover listeners to cardBg');
     cardBg.on('pointerover', onCardHover);
     cardBg.on('pointerout', onCardOut);
 
     // Click handler
+    console.log('Attaching pointerdown listener to cardBg');
     cardBg.on('pointerdown', () => {
         console.log('Card clicked:', level.id);
         currentLevel = level.id;
         showTutorial(scene, level.id);
     });
 
+    console.log('Attaching listeners to playBtn');
     playBtn.on('pointerover', onCardHover);
     playBtn.on('pointerout', onCardOut);
 
@@ -627,6 +633,7 @@ function createProfessionalCard(scene, x, y, level) {
         currentLevel = level.id;
         showTutorial(scene, level.id);
     });
+    console.log('createProfessionalCard finished for level:', level.id);
 }
 
 // ==================== TUTORIAL (Level 1: Multiply by 11) ====================
