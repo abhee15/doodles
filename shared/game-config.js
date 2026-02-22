@@ -47,6 +47,13 @@ function createGameConfig(options = {}) {
             autoRound: true
         },
         scene: scene,
+        // Input configuration - CRITICAL for mobile interaction
+        input: {
+            activePointers: 3,
+            keyboard: {
+                target: window
+            }
+        },
         // High-DPI support for Retina displays
         render: {
             pixelArt: false,
