@@ -467,6 +467,7 @@ function showMainMenu(scene) {
 
 // ==================== LEVEL SELECT ====================
 function showLevelSelect(scene) {
+    console.log('showLevelSelect called, scene:', scene);
     scene.children.removeAll();
     currentScene = 'level-select';
 
@@ -511,7 +512,7 @@ function showLevelSelect(scene) {
         const row = Math.floor(index / 2);
         const x = startX + col * (cardWidth + gap);
         const y = 180 + row * 200;
-
+        console.log('Creating card:', level.name, 'at x:', x, 'y:', y);
         createProfessionalCard(scene, x, y, level);
     });
 
@@ -523,6 +524,7 @@ function showLevelSelect(scene) {
 
 // Professional Card Design with Improved Visuals
 function createProfessionalCard(scene, x, y, level) {
+    console.log('createProfessionalCard called for level:', level.id, level.name);
     const cardWidth = 340;
     const cardHeight = 160;
     const padding = 25;
@@ -612,6 +614,7 @@ function createProfessionalCard(scene, x, y, level) {
 
     // Click handler
     cardBg.on('pointerdown', () => {
+        console.log('Card clicked:', level.id);
         currentLevel = level.id;
         showTutorial(scene, level.id);
     });
@@ -620,6 +623,7 @@ function createProfessionalCard(scene, x, y, level) {
     playBtn.on('pointerout', onCardOut);
 
     playBtn.on('pointerdown', () => {
+        console.log('PlayBtn clicked:', level.id);
         currentLevel = level.id;
         showTutorial(scene, level.id);
     });
