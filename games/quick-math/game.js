@@ -1999,6 +1999,9 @@ function showPractice(scene, levelId) {
     let questionsAnswered = 0;
     const totalQuestions = 5;
 
+    // Detect desktop vs mobile
+    const isDesktop = !scene.sys.game.device.os.android && !scene.sys.game.device.os.iOS;
+
     // Title
     scene.add.text(400, 40, '⚡ Practice Time!', {
         fontSize: '36px',
@@ -2014,10 +2017,39 @@ function showPractice(scene, levelId) {
     }).setOrigin(0.5);
 
     // Question area
-    let questionText, answerText, feedbackText, inputText;
+    let questionText, answerText, feedbackText, inputText, keyboardHintText;
+
+    // Keyboard input handler (desktop only)
+    function handleKeyInput(event) {
+        if (!isDesktop) return;
+
+        // Number keys (0-9)
+        if (event.key >= '0' && event.key <= '9' && userAnswer.length < 4) {
+            userAnswer += event.key;
+            inputText.setText(userAnswer);
+        }
+        // Backspace
+        else if (event.key === 'Backspace') {
+            userAnswer = userAnswer.slice(0, -1);
+            inputText.setText(userAnswer);
+        }
+        // Enter to submit
+        else if (event.key === 'Enter') {
+            checkAnswer();
+        }
+    }
+
+    // Register keyboard listener
+    if (isDesktop) {
+        scene.input.keyboard.on('keydown', handleKeyInput);
+    }
 
     function generateQuestion() {
         if (questionsAnswered >= totalQuestions) {
+            // Clean up keyboard listener before transitioning
+            if (isDesktop) {
+                scene.input.keyboard.removeAllListeners();
+            }
             showResults(scene, score, totalQuestions);
             return;
         }
@@ -2192,6 +2224,16 @@ function showPractice(scene, levelId) {
             fill: '#FDCB6E',
             fontStyle: 'bold'
         }).setOrigin(0.5);
+
+        // Keyboard hint (desktop only)
+        if (keyboardHintText) keyboardHintText.destroy();
+        if (isDesktop) {
+            keyboardHintText = scene.add.text(400, 240, '⌨ Type your answer and press Enter', {
+                fontSize: '12px',
+                fill: '#9CA3AF',
+                fontFamily: 'Arial'
+            }).setOrigin(0.5);
+        }
 
         // Feedback (below input)
         feedbackText = scene.add.text(400, 270, '', {
