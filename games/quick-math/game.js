@@ -279,7 +279,7 @@ function create() {
     // Add sound toggle button (top right, always visible)
     createSoundToggle(this);
 
-    showMainMenu(this);
+    showLevelSelect(this);
 }
 
 // Sound Toggle Button
@@ -315,7 +315,7 @@ function update() {
 
 // ==================== PROGRESS & ACHIEVEMENTS SCREEN ====================
 function showProgressScreen(scene) {
-    scene.children.removeAll();
+    scene.children.removeAll(true);
     currentScene = 'progress';
 
     // Title
@@ -407,7 +407,7 @@ function showProgressScreen(scene) {
 
 // ==================== MAIN MENU ====================
 function showMainMenu(scene) {
-    scene.children.removeAll();
+    scene.children.removeAll(true);
     currentScene = 'menu';
 
     // Background decoration
@@ -469,29 +469,36 @@ function showMainMenu(scene) {
 // ==================== LEVEL SELECT ====================
 function showLevelSelect(scene) {
     console.log('showLevelSelect called, scene:', scene);
-    scene.children.removeAll();
+    scene.children.removeAll(true);
     currentScene = 'level-select';
 
-    // Title
-    scene.add.text(450, 60, 'Choose Your Math Trick', {
-        fontSize: '42px',
+    // Header: Title and Progress button
+    scene.add.text(80, 30, '⚡ Quick Math Tricks', {
+        fontSize: '32px',
         fill: '#1E293B',
         fontFamily: 'Arial',
         fontStyle: 'bold'
-    }).setOrigin(0.5);
+    }).setOrigin(0, 0.5);
+
+    // Progress button (top-right, compact)
+    createModernButton(scene, 820, 30, '🏆 Progress', QM_COLORS.secondary, () => {
+        playSound('click');
+        showProgressScreen(scene);
+    }, 140, 40, true);
 
     // Subtitle
-    scene.add.text(450, 105, 'Master one trick at a time', {
-        fontSize: '18px',
-        fill: '#475569',
+    scene.add.text(80, 60, 'Pick a trick to master →', {
+        fontSize: '14px',
+        fill: '#6B7280',
         fontFamily: 'Arial'
-    }).setOrigin(0.5);
+    }).setOrigin(0, 0.5);
 
-    // Level cards - 2x2 grid centered with equal side margins
+    // Level cards - Single column layout that fits 650px canvas
     const cardWidth = 340;
-    const gap = 40;
-    const gridWidth = 2 * cardWidth + gap;
-    const startX = (scene.scale.width - gridWidth) / 2;
+    const cardHeight = 85;
+    const gap = 8;
+    const centerX = (scene.scale.width - cardWidth) / 2;
+    const startY = 90; // Below header
 
     const levels = [
         { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x1CB0F6 },
@@ -509,136 +516,104 @@ function showLevelSelect(scene) {
     ];
 
     levels.forEach((level, index) => {
-        const col = index % 2;
-        const row = Math.floor(index / 2);
-        const x = startX + col * (cardWidth + gap);
-        const y = 180 + row * 200;
-        console.log('Creating card:', level.name, 'at x:', x, 'y:', y);
-        createProfessionalCard(scene, x, y, level);
+        const y = startY + index * (cardHeight + gap);
+        createProfessionalCard(scene, centerX, y, level, cardWidth, cardHeight);
     });
-
-    // Back button aligned with grid left edge
-    createModernButton(scene, startX, 600, '← Back', QM_COLORS.textLight, () => {
-        showMainMenu(scene);
-    }, 140, 50, true);
 }
 
-// Professional Card Design with Improved Visuals
-function createProfessionalCard(scene, x, y, level) {
-    console.log('createProfessionalCard called for level:', level.id, level.name, 'x:', x, 'y:', y);
-    const cardWidth = 340;
-    const cardHeight = 160;
-    const padding = 25;
-
-    // Card shadow (depth effect)
-    const shadow = scene.add.rectangle(x, y + 4, cardWidth, cardHeight, 0x000000, 0.08);
-    shadow.setOrigin(0, 0);
+// Professional Card Design - Compact Single Column Layout
+function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
+    console.log('createProfessionalCard called for level:', level.id, level.name, 'at y:', y);
 
     // Card background (white)
     const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, QM_COLORS.cardBg);
     cardBg.setOrigin(0, 0);
     cardBg.setStrokeStyle(2, level.color);
-    console.log('Setting interactive on cardBg');
     cardBg.setInteractive({ useHandCursor: true });
-    console.log('cardBg interactive:', cardBg.input);
 
-    // Colored accent bar (left side)
+    // Colored accent bar (left side, 6px wide)
     const accentBar = scene.add.rectangle(x, y, 6, cardHeight, level.color);
     accentBar.setOrigin(0, 0);
 
-    // Icon circle (professional design)
-    const iconCircle = scene.add.circle(x + padding + 35, y + 50, 35, level.color, 0.2);
+    // Icon zone: 24px radius circle at low opacity with icon inside
+    const iconX = x + 40;
+    const iconY = y + cardHeight / 2;
+    const iconCircle = scene.add.circle(iconX, iconY, 24, level.color, 0.15);
 
-    const iconText = scene.add.text(x + padding + 35, y + 50, level.icon, {
-        fontSize: '36px',
+    const iconText = scene.add.text(iconX, iconY, level.icon, {
+        fontSize: '24px',
         fill: '#' + level.color.toString(16).padStart(6, '0').toUpperCase(),
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
 
-    // Title (with proper padding and bounds)
-    const titleX = x + padding + 90;
-    const titleY = y + padding + 10;
+    // Title zone: trick name 18px bold dark
+    const titleX = x + 70;
+    const titleY = y + 13;
 
     const titleText = scene.add.text(titleX, titleY, level.name, {
-        fontSize: '20px',
+        fontSize: '18px',
         fill: '#1A1A1A',
         fontFamily: 'Arial',
-        fontStyle: 'bold',
-        wordWrap: { width: cardWidth - 130 }
+        fontStyle: 'bold'
     }).setOrigin(0, 0);
 
-    // Description (below title)
-    const descText = scene.add.text(titleX, titleY + 35, level.desc, {
-        fontSize: '18px',
+    // Description: 12px muted
+    const descText = scene.add.text(titleX, titleY + 22, level.desc, {
+        fontSize: '12px',
         fill: '#6B7280',
-        fontFamily: 'Arial',
-        wordWrap: { width: cardWidth - 130 }
+        fontFamily: 'Arial'
     }).setOrigin(0, 0);
 
-    // Stars row (earned stars from playerProgress)
+    // Stars row (right side): 3 stars based on playerProgress
     const earnedStars = playerProgress.levelStars[level.id] || 0;
-    const starsX = x + cardWidth - padding - 90;
-    const starsY = y + padding + 15;
+    const starsX = x + cardWidth - 60;
+    const starsY = y + 18;
 
     for (let i = 0; i < 3; i++) {
-        const star = scene.add.text(starsX + i * 22, starsY, i < earnedStars ? '⭐' : '☆', {
-            fontSize: '20px'
+        const star = scene.add.text(starsX + i * 16, starsY, i < earnedStars ? '⭐' : '☆', {
+            fontSize: '16px'
         }).setOrigin(0, 0);
     }
 
-    // Action button (bottom right)
-    const btnX = x + cardWidth - padding - 70;
-    const btnY = y + cardHeight - 40;
-
-    const playBtn = scene.add.rectangle(btnX, btnY, 120, 40, level.color);
-    playBtn.setInteractive({ useHandCursor: true });
-
-    const playText = scene.add.text(btnX, btnY, 'Start →', {
-        fontSize: '18px',
-        fill: '#FFFFFF',
-        fontFamily: 'Arial',
-        fontStyle: 'bold'
-    }).setOrigin(0.5);
-
-    // Hover effects for the entire card
+    // Hover interaction: border-color change + translateY offset
     const onCardHover = () => {
-        cardBg.setScale(1.02);
-        playBtn.setAlpha(0.85);
+        cardBg.setStrokeStyle(3, level.color);
+        cardBg.setY(y - 2); // Slight lift up
     };
 
     const onCardOut = () => {
-        cardBg.setScale(1);
-        playBtn.setAlpha(1);
+        cardBg.setStrokeStyle(2, level.color);
+        cardBg.setY(y); // Back to normal
     };
 
-    console.log('Attaching hover listeners to cardBg');
     cardBg.on('pointerover', onCardHover);
     cardBg.on('pointerout', onCardOut);
 
-    // Click handler
-    console.log('Attaching pointerdown listener to cardBg');
+    // Click handler with brief pulse animation
     cardBg.on('pointerdown', () => {
         console.log('Card clicked:', level.id);
         currentLevel = level.id;
-        showTutorial(scene, level.id);
+
+        // Brief scale pulse: 1 → 1.04 → 1 over 120ms
+        scene.tweens.add({
+            targets: cardBg,
+            scaleX: 1.04,
+            scaleY: 1.04,
+            duration: 60,
+            yoyo: true,
+            onComplete: () => {
+                showTutorial(scene, level.id);
+            }
+        });
     });
 
-    console.log('Attaching listeners to playBtn');
-    playBtn.on('pointerover', onCardHover);
-    playBtn.on('pointerout', onCardOut);
-
-    playBtn.on('pointerdown', () => {
-        console.log('PlayBtn clicked:', level.id);
-        currentLevel = level.id;
-        showTutorial(scene, level.id);
-    });
-    console.log('createProfessionalCard finished for level:', level.id);
+    console.log('Card created for level:', level.id);
 }
 
 // ==================== TUTORIAL (Level 1: Multiply by 11) ====================
 function showTutorial(scene, levelId) {
-    scene.children.removeAll();
+    scene.children.removeAll(true);
     currentScene = 'tutorial';
 
     if (levelId === 1) {
@@ -709,7 +684,7 @@ function tutorialMultiplyBy11(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -826,7 +801,7 @@ function tutorialSquareEndingIn5(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -932,7 +907,7 @@ function tutorialDoubleAndHalf(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -1051,7 +1026,7 @@ function tutorialBaseMethod(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -1160,7 +1135,7 @@ function tutorialMultiplyBy9(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -1269,7 +1244,7 @@ function tutorialMultiplyBy5(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -1378,7 +1353,7 @@ function tutorialMultiplyBy4(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -1487,7 +1462,7 @@ function tutorialMultiplyBy6(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -1601,7 +1576,7 @@ function tutorialMultiplyBy8(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -1715,7 +1690,7 @@ function tutorialMultiplyBy12(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -1829,7 +1804,7 @@ function tutorialMultiplyBy15(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -1943,7 +1918,7 @@ function tutorialMultiplyBy25(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll();
+        scene.children.removeAll(true);
 
         const currentStep = steps[step];
 
@@ -2011,7 +1986,7 @@ function tutorialMultiplyBy25(scene) {
 
 // ==================== PRACTICE MODE ====================
 function showPractice(scene, levelId) {
-    scene.children.removeAll();
+    scene.children.removeAll(true);
     currentScene = 'practice';
 
     score = 0;
@@ -2260,7 +2235,7 @@ function showPractice(scene, levelId) {
 
 // ==================== RESULTS ====================
 function showResults(scene, score, total) {
-    scene.children.removeAll();
+    scene.children.removeAll(true);
 
     const percentage = (score / total) * 100;
     const passed = percentage >= 60;
