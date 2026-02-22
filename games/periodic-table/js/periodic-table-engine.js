@@ -146,24 +146,20 @@ class PeriodicTableGameEngine {
     const uiDiv = document.getElementById('story-chain-ui');
     uiDiv.style.display = 'block';
 
-    // Build story from elements
-    const storyParts = this.elements.map(el => {
-      const tip = this.getMemoryTip(el);
-      return `🔹 ${tip}`;
-    });
-
+    // Create visual story cards instead of text
     const storyText = document.getElementById('story-text');
-    storyText.innerHTML = storyParts.join('<br><br>');
-
-    // Build story panels (comic strip style)
-    const panelsDiv = document.getElementById('story-panels');
-    panelsDiv.innerHTML = this.elements.map((el, idx) => `
-      <div class="story-panel">
-        <div class="panel-number">${idx + 1}</div>
-        <div class="panel-symbol">${el.symbol}</div>
-        <div class="panel-name">${el.name}</div>
+    storyText.innerHTML = `
+      <div style="text-align: center; margin-bottom: 20px;">
+        <h3>🎯 Create a Story with These Elements:</h3>
+        <p style="font-size: 13px; color: #666;">Link each element in an epic narrative - the more vivid, the better!</p>
       </div>
-    `).join('');
+    `;
+
+    // Build professional simplified story cards
+    const panelsDiv = document.getElementById('story-panels');
+    panelsDiv.innerHTML = `<div class="visual-grid-simplified">${
+      this.elements.map((el, idx) => createSimplifiedStoryCard(el, idx, this.elements.length)).join('')
+    }</div>`;
   }
 
   /**
@@ -325,16 +321,23 @@ class PeriodicTableGameEngine {
     const uiDiv = document.getElementById('keyword-ui');
     uiDiv.style.display = 'block';
 
+    // Add instruction header
+    const keywordContainer = document.querySelector('.keyword-container');
+    if (keywordContainer) {
+      const header = document.createElement('div');
+      header.style.marginBottom = '20px';
+      header.innerHTML = `
+        <p style="text-align: center; color: #666; font-size: 13px;">
+          Each element has a unique visual association. Study the pictures to create mental images!
+        </p>
+      `;
+      keywordContainer.insertBefore(header, keywordContainer.firstChild);
+    }
+
     const keywordsGrid = document.getElementById('keywords-grid');
-    keywordsGrid.innerHTML = this.elements.map(el => `
-      <div class="keyword-card">
-        <div class="keyword-visual">
-          <div class="keyword-symbol">${el.symbol}</div>
-        </div>
-        <div class="keyword-name">${el.name}</div>
-        <div class="keyword-tip">${this.getMemoryTip(el)}</div>
-      </div>
-    `).join('');
+    keywordsGrid.innerHTML = `<div class="visual-grid-simplified">${
+      this.elements.map(el => createProfessionalKeywordCard(el)).join('')
+    }</div>`;
   }
 
   /**
@@ -346,25 +349,23 @@ class PeriodicTableGameEngine {
     const uiDiv = document.getElementById('rhyme-pegs-ui');
     uiDiv.style.display = 'block';
 
-    const rhymeMap = {
-      1: 'ONE-BUN', 2: 'TWO-SHOE', 3: 'THREE-TREE', 4: 'FOUR-DOOR',
-      5: 'FIVE-HIVE', 6: 'SIX-STICKS', 7: 'SEVEN-HEAVEN', 8: 'EIGHT-GATE',
-      9: 'NINE-PINE', 10: 'TEN-PEN', 11: 'ELEVEN-HEAVEN', 12: 'TWELVE-SHELVES',
-      13: 'THIRTEEN-QUEEN', 14: 'FOURTEEN-QUEEN', 15: 'FIFTEEN-QUEEN',
-      16: 'SIXTEEN-QUEEN', 17: 'SEVENTEEN-HEAVEN', 18: 'EIGHTEEN-HEAVEN',
-      19: 'NINETEEN-QUEEN', 20: 'TWENTY-PLENTY'
-    };
+    // Add instruction header
+    const rhymeContainer = document.querySelector('.rhyme-container');
+    if (rhymeContainer) {
+      const header = document.createElement('div');
+      header.style.marginBottom = '20px';
+      header.innerHTML = `
+        <p style="text-align: center; color: #666; font-size: 13px;">
+          Link each element number to its visual icon - create vivid mental connections!
+        </p>
+      `;
+      rhymeContainer.insertBefore(header, rhymeContainer.firstChild);
+    }
 
     const rhymesGrid = document.getElementById('rhymes-grid');
-    rhymesGrid.innerHTML = this.elements.map((el, idx) => `
-      <div class="rhyme-card">
-        <div class="rhyme-number">${el.atomicNumber}</div>
-        <div class="rhyme-peg">${rhymeMap[el.atomicNumber] || 'RHYME'}</div>
-        <div class="element-symbol">${el.symbol}</div>
-        <div class="element-name">${el.name}</div>
-        <div class="tip">${this.getMemoryTip(el)}</div>
-      </div>
-    `).join('');
+    rhymesGrid.innerHTML = `<div class="visual-grid-compact">${
+      this.elements.map((el, idx) => createProfessionalRhymePeg(el, idx + 1)).join('')
+    }</div>`;
   }
 
   /**

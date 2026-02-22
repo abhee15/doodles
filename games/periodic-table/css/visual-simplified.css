@@ -1,0 +1,386 @@
+/**
+ * PROFESSIONAL VISUAL CARD STYLES
+ * Icon-based, minimal text, maximum visual impact for kids
+ */
+
+/* Simplified Story Card - Visual Focused */
+.simplified-story-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 2px solid var(--element-light, #E5F0FF);
+}
+
+.simplified-story-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  border-color: var(--element-color, #1CB0F6);
+}
+
+.ssc-progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--element-color, #1CB0F6), var(--element-light, #E5F0FF));
+  transition: width 0.3s ease;
+}
+
+.ssc-visual {
+  background: linear-gradient(135deg, var(--element-light, #E5F0FF) 0%, rgba(255,255,255,0.5) 100%);
+  padding: 20px;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ssc-visual svg {
+  width: 80px;
+  height: 80px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.ssc-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ssc-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-dark, #333);
+  text-align: center;
+  padding: 12px 16px 0 16px;
+}
+
+.ssc-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--color-text-light, #666);
+  padding: 6px 16px;
+}
+
+.ssc-type i {
+  font-size: 14px;
+  color: var(--element-color, #1CB0F6);
+}
+
+.ssc-hook {
+  padding: 12px 16px;
+  background: linear-gradient(135deg, var(--element-light, #E5F0FF), rgba(255,255,255,0));
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-text-dark, #333);
+}
+
+.ssc-hook strong {
+  color: var(--element-color, #1CB0F6);
+}
+
+.ssc-uses {
+  padding: 10px 16px 16px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--color-text-light, #666);
+  text-align: center;
+}
+
+.ssc-uses i {
+  font-size: 16px;
+  color: var(--element-color, #1CB0F6);
+}
+
+/* Professional Keyword Card - Visual Dominant */
+.pro-keyword-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border-bottom: 4px solid var(--element-color, #1CB0F6);
+  display: flex;
+  flex-direction: column;
+}
+
+.pro-keyword-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.pkc-visual-area {
+  background: linear-gradient(135deg, rgba(28, 176, 246, 0.05), rgba(124, 58, 237, 0.05));
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  min-height: 140px;
+}
+
+.pkc-visual {
+  width: 90px;
+  height: 90px;
+}
+
+.pkc-visual svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+.pkc-symbol {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--element-color, #1CB0F6);
+}
+
+.pkc-info {
+  padding: 16px;
+  text-align: center;
+}
+
+.pkc-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-dark, #333);
+  margin-bottom: 10px;
+}
+
+.pkc-hook {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--color-text-dark, #333);
+  background: linear-gradient(135deg, var(--element-light, #E5F0FF), rgba(255,255,255,0));
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+.pkc-hook i {
+  color: var(--element-color, #1CB0F6);
+  font-size: 14px;
+}
+
+/* Professional Rhyme Card - Number Focused */
+.pro-rhyme-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 2px solid var(--element-color, #1CB0F6);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.pro-rhyme-card:hover {
+  transform: scale(1.04) rotateY(2deg);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.prc-number {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background: var(--element-color, #1CB0F6);
+  color: white;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.prc-peg-icon {
+  background: linear-gradient(135deg, var(--element-color, #1CB0F6), rgba(124, 58, 237, 0.7));
+  padding: 20px;
+  text-align: center;
+  color: white;
+}
+
+.prc-peg-icon i {
+  font-size: 48px;
+}
+
+.prc-peg-name {
+  text-align: center;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--color-text-dark, #333);
+  padding: 12px 12px 8px 12px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.02), transparent);
+}
+
+.prc-element {
+  padding: 12px;
+  background: linear-gradient(135deg, rgba(28, 176, 246, 0.05), rgba(124, 58, 237, 0.05));
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.prc-element-symbol {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--element-color, #1CB0F6);
+}
+
+.prc-element-name {
+  font-size: 12px;
+  color: var(--color-text-light, #666);
+  margin-top: 4px;
+}
+
+.prc-link {
+  padding: 12px;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  font-size: 12px;
+  color: var(--color-text-light, #666);
+}
+
+.prc-link strong {
+  color: var(--element-color, #1CB0F6);
+  display: block;
+}
+
+.prc-link small {
+  display: block;
+  margin-top: 4px;
+  color: var(--color-text-dark, #333);
+  font-weight: 600;
+}
+
+/* Grid Layouts */
+.visual-grid-simplified {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin: 20px 0;
+}
+
+.visual-grid-compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
+  margin: 15px 0;
+}
+
+/* Icon Integration */
+.element-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(28, 176, 246, 0.1), rgba(124, 58, 237, 0.1));
+  color: var(--element-color, #1CB0F6);
+  font-size: 16px;
+}
+
+.memory-hook-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--element-color, #1CB0F6), var(--element-light, #E5F0FF));
+  color: white;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .visual-grid-simplified {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+
+  .visual-grid-compact {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .ssc-visual svg {
+    width: 70px;
+    height: 70px;
+  }
+
+  .pkc-visual {
+    width: 80px;
+    height: 80px;
+  }
+
+  .prc-peg-icon i {
+    font-size: 40px;
+  }
+
+  .pro-rhyme-card:hover {
+    transform: scale(1.02);
+  }
+}
+
+@media (max-width: 480px) {
+  .visual-grid-simplified,
+  .visual-grid-compact {
+    grid-template-columns: 1fr;
+  }
+
+  .ssc-visual {
+    padding: 16px;
+    min-height: 100px;
+  }
+
+  .ssc-visual svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .ssc-badge {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .ssc-name {
+    font-size: 16px;
+  }
+
+  .pkc-visual {
+    width: 70px;
+    height: 70px;
+  }
+
+  .prc-peg-icon i {
+    font-size: 36px;
+  }
+}
