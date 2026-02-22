@@ -980,47 +980,52 @@ function tutorialBaseMethod(scene) {
     const steps = [
         {
             title: 'Base Method',
-            text: 'Learn to multiply numbers CLOSE to 10, 100, 1000!',
+            text: 'Multiply numbers CLOSE to 10, 100, 1000 using a clever shortcut!',
             example: ''
         },
         {
             title: 'What is "Base"?',
-            text: 'Base means a NUMBER that\'s easy to work with.\n\nExamples: 10, 100, 1000',
+            text: 'Base means a NUMBER that\'s easy to work with.\nExamples: 10, 100, 1000\n\nWe start with the BASE!',
             example: 'We use 10 as our base!'
         },
         {
+            title: 'What is "Close to Base"?',
+            text: 'Numbers like 7, 8, 9, 11, 12, 13 are all close to 10.\n\nWe find the DISTANCE from 10.',
+            example: '9 is -1 from 10\n11 is +1 from 10'
+        },
+        {
             title: 'Example: 9 × 11',
-            text: 'Both numbers are CLOSE to 10:\n9 is 1 LESS than 10\n11 is 1 MORE than 10',
-            example: 'Let\'s use this!'
+            text: 'Step 1: Find each number\'s distance from 10\n9 = 10 - 1 → deviation = -1\n11 = 10 + 1 → deviation = +1',
+            example: 'd₁ = -1, d₂ = +1'
         },
         {
-            title: 'Step 1: Distance from Base',
-            text: '9 is 1 away from 10 → write -1\n11 is 1 away from 10 → write +1',
-            example: '-1  and  +1'
+            title: 'Step 2: Find the LEFT part',
+            text: 'LEFT = First number + Second deviation\nLEFT = 9 + (+1) = 10\n\nThis is the TENS part of our answer!',
+            example: 'LEFT = 10'
         },
         {
-            title: 'Step 2: Multiply the Distances',
-            text: 'Multiply the two distances:\n(-1) × (+1) = -1',
-            example: '-1'
+            title: 'Step 3: Find the RIGHT part',
+            text: 'RIGHT = Multiply the two deviations\nRIGHT = (-1) × (+1) = -1\n\nThis is the UNITS part (but it\'s negative!)',
+            example: 'RIGHT = -1'
         },
         {
-            title: 'Step 3: Subtract from Base',
-            text: 'Start with the base: 10\nSubtract the result: 10 - 1 = 9',
-            example: '9__'
+            title: 'Step 4: Fix the Negative',
+            text: 'When RIGHT is negative, we BORROW from LEFT:\nLEFT = 10 - 1 = 9\nRIGHT = 10 + (-1) = 9\n\nNow LEFT = 9 and RIGHT = 9',
+            example: 'LEFT=9, RIGHT=9'
         },
         {
-            title: 'Step 4: Add Last Digit',
-            text: 'The answer is: 99\n(We already know it ends in 9)',
-            example: '9 × 11 = 99'
+            title: 'Step 5: Join the Answer!',
+            text: 'Put LEFT and RIGHT together:\n9 and 9 → 99 ✓\n\nSo: 9 × 11 = 99!',
+            example: '9 × 11 = 99 🎉'
         },
         {
             title: 'More Examples!',
-            text: '8 × 12 → (-2)(+2) = -4 → 10 - 4 = 96\n7 × 13 → (-3)(+3) = -9 → 10 - 9 = 91\n12 × 8 → (+2)(-2) = -4 → 100 - 4 = 96\n\nWait, that last one uses 10!',
-            example: '✨ Magic! ✨'
+            text: '8 × 12: d=-2,+2 → LEFT=8+2=10, RIGHT=(-2)(+2)=-4 → borrow → LEFT=9, RIGHT=6 → 96\n7 × 13: d=-3,+3 → LEFT=7+3=10, RIGHT=(-3)(+3)=-9 → borrow → LEFT=9, RIGHT=1 → 91',
+            example: '8×12=96 ✓\n7×13=91 ✓'
         },
         {
-            title: 'The Pattern!',
-            text: 'Pick a BASE (10, 100, 1000...)\nFind distance from base for each number\nMultiply the distances\nSubtract from base!\n\n(Base + A) × (Base + B) = Base + A + B + A×B',
+            title: 'The Formula!',
+            text: 'For numbers near a base:\n1. Find deviations (distance from base)\n2. LEFT = either number + other\'s deviation\n3. RIGHT = multiply the deviations\n4. Fix if needed!\n\n(Base+d₁)(Base+d₂) formula works magic!',
             example: '🎯 Ready to practice!'
         }
     ];
@@ -1040,7 +1045,7 @@ function tutorialBaseMethod(scene) {
 
         // Explanation text
         scene.add.text(450, 200, currentStep.text, {
-            fontSize: '20px',
+            fontSize: '18px',
             fill: '#1E293B',
             fontFamily: 'Arial',
             align: 'center',
@@ -1050,14 +1055,15 @@ function tutorialBaseMethod(scene) {
 
         // Example
         if (currentStep.example) {
-            scene.add.text(450, 380, currentStep.example, {
-                fontSize: '40px',
+            scene.add.text(450, 390, currentStep.example, {
+                fontSize: '38px',
                 fill: '#1CB0F6',
                 fontFamily: 'Arial',
                 fontStyle: 'bold',
                 stroke: '#fff',
                 strokeThickness: 2,
                 align: 'center',
+                lineSpacing: 8,
                 wordWrap: { width: 700 }
             }).setOrigin(0.5);
         }
