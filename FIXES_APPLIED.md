@@ -3,13 +3,16 @@
 ## PROBLEMS IDENTIFIED & RESOLVED
 
 ### 1. Back Button Navigation Issue ✅ FIXED
+
 **Problem**: "Once i select the periodic table not seeing an option to get back to the games selection page"
 
-**Root Cause**: 
+**Root Cause**:
+
 - `goBack()` function redirected to `index.html` (doesn't exist in periodic-table folder)
 - Should redirect to `../../index.html` (main portal)
 
 **Fix Applied**:
+
 ```javascript
 // BEFORE:
 function goBack() {
@@ -27,9 +30,11 @@ function goBack() {
 ---
 
 ### 2. Visual Elements Not Showing ✅ FIXED
+
 **Problem**: "NO VISUAL QUES FOUND" (no visual elements visible)
 
 **Root Causes Identified**:
+
 1. Invalid Tabler icon names in visual-simplified.js:
    - `ti-balloon` → doesn't exist, should be `ti-balloon-2`
    - `ti-salt` → doesn't exist, should be `ti-seasoning`
@@ -42,19 +47,20 @@ function goBack() {
    - Template literal wasn't adding `ti ti-` class prefix correctly
 
 **Fixes Applied**:
+
 ```javascript
 // BEFORE (invalid icons):
 const icons = {
-  'H': '<i class="ti ti-balloon"></i>',  // ❌ Invalid
-  'Na': '<i class="ti ti-salt"></i>',    // ❌ Invalid
-  'Ca': '<i class="ti ti-bone"></i>'     // ❌ Invalid
+  H: '<i class="ti ti-balloon"></i>', // ❌ Invalid
+  Na: '<i class="ti ti-salt"></i>', // ❌ Invalid
+  Ca: '<i class="ti ti-bone"></i>' // ❌ Invalid
 };
 
 // AFTER (valid icons):
 const icons = {
-  'H': '<i class="ti ti-balloon-2"></i>',  // ✅ Valid
-  'Na': '<i class="ti ti-seasoning"></i>', // ✅ Valid
-  'Ca': '<i class="ti ti-bone-off"></i>'   // ✅ Valid
+  H: '<i class="ti ti-balloon-2"></i>', // ✅ Valid
+  Na: '<i class="ti ti-seasoning"></i>', // ✅ Valid
+  Ca: '<i class="ti ti-bone-off"></i>' // ✅ Valid
 };
 ```
 
@@ -77,6 +83,7 @@ const pegIcons = {
 ```
 
 **Icons Fixed**:
+
 - ❌ `ti-balloon` → ✅ `ti-balloon-2`
 - ❌ `ti-salt` → ✅ `ti-seasoning`
 - ❌ `ti-bone` → ✅ `ti-bone-off`
@@ -97,7 +104,7 @@ const pegIcons = {
 
 2. **shared/visual-simplified.js**
    - Fixed `getTopUseIcon()` function with valid Tabler icon names
-   - Fixed peg icon definitions in `createProfessionalRhymePeg()` 
+   - Fixed peg icon definitions in `createProfessionalRhymePeg()`
    - Fixed template literal to add `ti-` prefix correctly
 
 ---
@@ -107,9 +114,10 @@ const pegIcons = {
 ✅ **Back Button**: Users can now navigate back from game to portal using the ← Back button
 
 ✅ **Visual Cards**: All three techniques should now display correctly:
-   - Story Chain cards with SVG visuals
-   - Keyword cards with visual associations
-   - Rhyme peg cards with number icons
+
+- Story Chain cards with SVG visuals
+- Keyword cards with visual associations
+- Rhyme peg cards with number icons
 
 ✅ **Icon Display**: All Tabler icons will render properly without console errors
 

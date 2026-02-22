@@ -84,35 +84,99 @@
 
         <!-- Memory Palace UI -->
         <div id="memory-palace-ui" class="game-ui memory-palace-ui" style="display:none;">
-          <div class="palace-container">
-            <h2><i class="ti ti-building-mansion"></i> Your Memory Palace</h2>
-            <div class="room-view" id="room-view"></div>
-            <div class="element-list" id="element-list"></div>
+          <div class="palace-phase" id="palace-phase">
+            <div class="palace-container">
+              <h2><i class="ti ti-building-mansion"></i> Your Memory Palace</h2>
+              <div class="room-view" id="room-view"></div>
+              <div class="element-list" id="element-list"></div>
+            </div>
+            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+          </div>
+          <div class="recall-phase" id="palace-recall" style="display:none;">
+            <h2><i class="ti ti-brain"></i> Navigate Your Palace</h2>
+            <p>Can you remember which room each element was in?</p>
+            <div class="recall-grid" id="palace-recall-grid"></div>
+            <div id="palace-recall-results" style="display:none;">
+              <div class="results-box">
+                <h3>Amazing! <i class="ti ti-confetti"></i></h3>
+                <p id="palace-results-text"></p>
+                <div id="palace-badges-display" class="badges-container" style="display:none;"></div>
+                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Body Map UI -->
         <div id="body-map-ui" class="game-ui body-map-ui" style="display:none;">
-          <div class="body-map-container">
-            <h2><i class="ti ti-body"></i> Body Map Anchors</h2>
-            <div class="body-illustration" id="body-illustration"></div>
-            <div class="body-info" id="body-info"></div>
+          <div class="body-phase" id="body-phase">
+            <div class="body-map-container">
+              <h2><i class="ti ti-body"></i> Body Map Anchors</h2>
+              <div class="body-illustration" id="body-illustration"></div>
+              <div class="body-info" id="body-info"></div>
+            </div>
+            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+          </div>
+          <div class="recall-phase" id="body-recall" style="display:none;">
+            <h2><i class="ti ti-brain"></i> Where Were They?</h2>
+            <p>Can you remember which body part each element was anchored to?</p>
+            <div class="recall-grid" id="body-recall-grid"></div>
+            <div id="body-recall-results" style="display:none;">
+              <div class="results-box">
+                <h3>Excellent! <i class="ti ti-confetti"></i></h3>
+                <p id="body-results-text"></p>
+                <div id="body-badges-display" class="badges-container" style="display:none;"></div>
+                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Keyword Image UI -->
         <div id="keyword-ui" class="game-ui keyword-ui" style="display:none;">
-          <div class="keyword-container">
-            <h2><i class="ti ti-palette"></i> Keyword Associations</h2>
-            <div class="keywords-grid" id="keywords-grid"></div>
+          <div class="keyword-phase" id="keyword-phase">
+            <div class="keyword-container">
+              <h2><i class="ti ti-palette"></i> Keyword Associations</h2>
+              <div class="keywords-grid" id="keywords-grid"></div>
+            </div>
+            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+          </div>
+          <div class="recall-phase" id="keyword-recall" style="display:none;">
+            <h2><i class="ti ti-brain"></i> Match the Elements</h2>
+            <p>Can you match each element to its keyword association?</p>
+            <div class="recall-grid" id="keyword-recall-grid"></div>
+            <div id="keyword-recall-results" style="display:none;">
+              <div class="results-box">
+                <h3>Perfect! <i class="ti ti-confetti"></i></h3>
+                <p id="keyword-results-text"></p>
+                <div id="keyword-badges-display" class="badges-container" style="display:none;"></div>
+                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Rhyme Pegs UI -->
         <div id="rhyme-pegs-ui" class="game-ui rhyme-pegs-ui" style="display:none;">
-          <div class="rhyme-container">
-            <h2><i class="ti ti-music"></i> Rhyme Peg System</h2>
-            <div class="rhymes-grid" id="rhymes-grid"></div>
+          <div class="rhyme-phase" id="rhyme-phase">
+            <div class="rhyme-container">
+              <h2><i class="ti ti-music"></i> Rhyme Peg System</h2>
+              <div class="rhymes-grid" id="rhymes-grid"></div>
+            </div>
+            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+          </div>
+          <div class="recall-phase" id="rhyme-recall" style="display:none;">
+            <h2><i class="ti ti-brain"></i> Match by Number</h2>
+            <p>Can you remember which element goes with each rhyme peg?</p>
+            <div class="recall-grid" id="rhyme-recall-grid"></div>
+            <div id="rhyme-recall-results" style="display:none;">
+              <div class="results-box">
+                <h3>Fantastic! <i class="ti ti-confetti"></i></h3>
+                <p id="rhyme-results-text"></p>
+                <div id="rhyme-badges-display" class="badges-container" style="display:none;"></div>
+                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+              </div>
+            </div>
           </div>
         </div>
 

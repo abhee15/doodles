@@ -232,7 +232,7 @@ class PeriodicTableGameEngine {
     // Store room data for interaction
     window.palaceRooms = rooms;
     window.roomNames = roomNames;
-    window.roomIcons = roomIcons;
+    window.roomIconNames = roomIconNames;
   }
 
   /**

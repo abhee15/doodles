@@ -4,36 +4,36 @@
  */
 
 const elementTypeColors = {
-  'Alkali Metals': { color: '#FF6B6B', lightColor: '#FFE5E5', icon: '🔥' },
-  'Alkaline Earth Metals': { color: '#FF8C42', lightColor: '#FFE4CC', icon: '⚙️' },
-  'Transition Metals': { color: '#4ECDC4', lightColor: '#D4F6F4', icon: '🛡️' },
-  'Post-transition Metals': { color: '#95E1D3', lightColor: '#E8F7F3', icon: '🪨' },
-  'Nonmetals': { color: '#FFD93D', lightColor: '#FFF5CC', icon: '💨' },
-  'Halogens': { color: '#6BCB77', lightColor: '#E8F7E8', icon: '⚗️' },
-  'Noble Gases': { color: '#4D96FF', lightColor: '#E5F0FF', icon: '✨' }
+  'Alkali Metals': { color: '#FF6B6B', lightColor: '#FFE5E5', icon: 'ti-flame' },
+  'Alkaline Earth Metals': { color: '#FF8C42', lightColor: '#FFE4CC', icon: 'ti-tools' },
+  'Transition Metals': { color: '#4ECDC4', lightColor: '#D4F6F4', icon: 'ti-shield-check' },
+  'Post-transition Metals': { color: '#95E1D3', lightColor: '#E8F7F3', icon: 'ti-stone' },
+  'Nonmetals': { color: '#FFD93D', lightColor: '#FFF5CC', icon: 'ti-wind' },
+  'Halogens': { color: '#6BCB77', lightColor: '#E8F7E8', icon: 'ti-flask-2' },
+  'Noble Gases': { color: '#4D96FF', lightColor: '#E5F0FF', icon: 'ti-sparkles' }
 };
 
 const rhymePegs = {
-  1: { peg: 'Bun', symbol: '🍞', image: 'A golden bun with number 1 on it' },
-  2: { peg: 'Shoe', symbol: '👟', image: 'A red shoe with number 2 on it' },
-  3: { peg: 'Tree', symbol: '🌳', image: 'A tall green tree with number 3 on it' },
-  4: { peg: 'Door', symbol: '🚪', image: 'A blue door with number 4 on it' },
-  5: { peg: 'Hive', symbol: '🐝', image: 'A yellow beehive with number 5 on it' },
-  6: { peg: 'Sticks', symbol: '🪵', image: 'Brown sticks bundled with number 6 on it' },
-  7: { peg: 'Heaven', symbol: '☁️', image: 'A fluffy cloud with number 7 on it' },
-  8: { peg: 'Gate', symbol: '⛩️', image: 'A golden gate with number 8 on it' },
-  9: { peg: 'Vine', symbol: '🍇', image: 'A purple vine with number 9 on it' },
-  10: { peg: 'Hen', symbol: '🐔', image: 'A red hen with number 10 on it' },
-  11: { peg: 'Eleven', symbol: '🏀', image: 'Eleven basketballs stacked' },
-  12: { peg: 'Shelves', symbol: '🗂️', image: 'Wooden shelves with number 12 on it' },
-  13: { peg: 'Thirteen', symbol: '🎪', image: 'A circus tent with number 13 on it' },
-  14: { peg: 'Fourteen', symbol: '🎸', image: 'A guitar with number 14 on it' },
-  15: { peg: 'Fifteen', symbol: '🎂', image: 'A birthday cake with number 15 on it' },
-  16: { peg: 'Sixteen', symbol: '🎰', image: 'A slot machine with number 16 on it' },
-  17: { peg: 'Seventeen', symbol: '🎭', image: 'Theater masks with number 17 on it' },
-  18: { peg: 'Eighteen', symbol: '🏔️', image: 'Mountains with number 18 on it' },
-  19: { peg: 'Nineteen', symbol: '⛵', image: 'A sailboat with number 19 on it' },
-  20: { peg: 'Twenty', symbol: '🎁', image: 'A wrapped present with number 20 on it' }
+  1: { peg: 'Bun', symbol: 'ti-bread', image: 'A golden bun with number 1 on it' },
+  2: { peg: 'Shoe', symbol: 'ti-shoe', image: 'A red shoe with number 2 on it' },
+  3: { peg: 'Tree', symbol: 'ti-tree', image: 'A tall green tree with number 3 on it' },
+  4: { peg: 'Door', symbol: 'ti-door-2', image: 'A blue door with number 4 on it' },
+  5: { peg: 'Hive', symbol: 'ti-bug', image: 'A yellow beehive with number 5 on it' },
+  6: { peg: 'Sticks', symbol: 'ti-logs', image: 'Brown sticks bundled with number 6 on it' },
+  7: { peg: 'Heaven', symbol: 'ti-cloud', image: 'A fluffy cloud with number 7 on it' },
+  8: { peg: 'Gate', symbol: 'ti-door-2', image: 'A golden gate with number 8 on it' },
+  9: { peg: 'Vine', symbol: 'ti-plant-2', image: 'A purple vine with number 9 on it' },
+  10: { peg: 'Hen', symbol: 'ti-bird', image: 'A red hen with number 10 on it' },
+  11: { peg: 'Eleven', symbol: 'ti-ball', image: 'Eleven basketballs stacked' },
+  12: { peg: 'Shelves', symbol: 'ti-bookshelf', image: 'Wooden shelves with number 12 on it' },
+  13: { peg: 'Thirteen', symbol: 'ti-tent', image: 'A circus tent with number 13 on it' },
+  14: { peg: 'Fourteen', symbol: 'ti-guitar', image: 'A guitar with number 14 on it' },
+  15: { peg: 'Fifteen', symbol: 'ti-cake', image: 'A birthday cake with number 15 on it' },
+  16: { peg: 'Sixteen', symbol: 'ti-coin', image: 'A slot machine with number 16 on it' },
+  17: { peg: 'Seventeen', symbol: 'ti-mask', image: 'Theater masks with number 17 on it' },
+  18: { peg: 'Eighteen', symbol: 'ti-mountain', image: 'Mountains with number 18 on it' },
+  19: { peg: 'Nineteen', symbol: 'ti-sailboat', image: 'A sailboat with number 19 on it' },
+  20: { peg: 'Twenty', symbol: 'ti-gift', image: 'A wrapped present with number 20 on it' }
 };
 
 /**
@@ -79,7 +79,7 @@ function createStoryCard(element, index, totalElements) {
         </div>
         <div class="story-element-info">
           <div class="story-element-name">${element.name}</div>
-          <div class="story-element-type">${typeInfo.type} ${typeInfo.icon}</div>
+          <div class="story-element-type">${typeInfo.type} <i class="ti ti-${typeInfo.icon}"></i></div>
         </div>
       </div>
       
@@ -108,13 +108,14 @@ function createKeywordCard(element, index) {
   
   // Create a visual symbol representation
   const symbols = {
-    'H': '💧', 'He': '🎈', 'Li': '🔋', 'Be': '⚙️', 'B': '🧪',
-    'C': '💎', 'N': '💨', 'O': '🌬️', 'F': '⚡', 'Ne': '✨',
-    'Na': '🧂', 'Mg': '💪', 'Al': '🍎', 'Si': '🏖️', 'P': '💥',
-    'S': '🌋', 'Cl': '🧼', 'Ar': '🌌', 'K': '🍌', 'Ca': '🦴'
+    'H': 'ti-droplet', 'He': 'ti-balloon-2', 'Li': 'ti-battery', 'Be': 'ti-tools', 'B': 'ti-flask-2',
+    'C': 'ti-gem', 'N': 'ti-wind', 'O': 'ti-flame', 'F': 'ti-lightning-2', 'Ne': 'ti-sparkles',
+    'Na': 'ti-seasoning', 'Mg': 'ti-biceps-2', 'Al': 'ti-circle', 'Si': 'ti-beach', 'P': 'ti-bomb',
+    'S': 'ti-volcano', 'Cl': 'ti-soap', 'Ar': 'ti-moon', 'K': 'ti-plant-2', 'Ca': 'ti-bone-off'
   };
   
-  const visualSymbol = symbols[element.symbol] || '⭐';
+  const iconClass = symbols[element.symbol] || 'ti-atom-2';
+  const visualSymbol = `<i class="ti ti-${iconClass}"></i>`;
   
   return `
     <div class="keyword-card-enhanced" style="--element-color: ${typeInfo.color}; --element-light: ${typeInfo.lightColor};">
@@ -226,7 +227,7 @@ function createMemoryTipsCard(element) {
         <div class="tips-symbol">${element.symbol}</div>
         <div class="tips-info">
           <div class="tips-name">${element.name}</div>
-          <div class="tips-type">#${element.atomicNumber} • ${typeInfo.type} ${typeInfo.icon}</div>
+          <div class="tips-type">#${element.atomicNumber} • ${typeInfo.type} <i class="ti ti-${typeInfo.icon}"></i></div>
         </div>
       </div>
       
