@@ -992,29 +992,47 @@ function drawHulk_step5(ctx) {
   ctx.stroke();
 }
 function drawHulk_step6(ctx) {
+  // Left shoulder - thick trapezoid
   ctx.beginPath();
-  ctx.moveTo(160, 220);
-  ctx.lineTo(100, 240);
+  ctx.moveTo(140, 220);
+  ctx.lineTo(90, 245);
+  ctx.lineTo(100, 290);
+  ctx.lineTo(160, 260);
+  ctx.closePath();
   ctx.stroke();
+  // Right shoulder - thick trapezoid
   ctx.beginPath();
-  ctx.moveTo(240, 220);
-  ctx.lineTo(300, 240);
+  ctx.moveTo(260, 220);
+  ctx.lineTo(310, 245);
+  ctx.lineTo(300, 290);
+  ctx.lineTo(240, 260);
+  ctx.closePath();
   ctx.stroke();
 }
 function drawHulk_step7(ctx) {
+  // Left arm - thick muscular arm extending down
   ctx.beginPath();
-  ctx.moveTo(100, 240);
-  ctx.lineTo(80, 300);
-  ctx.lineTo(100, 300);
-  ctx.lineTo(120, 240);
+  ctx.moveTo(90, 270);
+  ctx.lineTo(50, 340);
+  ctx.lineTo(75, 350);
+  ctx.lineTo(115, 280);
   ctx.closePath();
   ctx.stroke();
+  // Left bicep bump
   ctx.beginPath();
-  ctx.moveTo(300, 240);
-  ctx.lineTo(280, 300);
-  ctx.lineTo(300, 300);
-  ctx.lineTo(320, 240);
+  ctx.arc(80, 290, 12, 0, Math.PI * 2);
+  ctx.stroke();
+  // Right arm - thick muscular arm extending down
+  ctx.beginPath();
+  ctx.moveTo(310, 270);
+  ctx.lineTo(350, 340);
+  ctx.lineTo(325, 350);
+  ctx.lineTo(285, 280);
   ctx.closePath();
+  ctx.stroke();
+  // Right bicep bump
+  ctx.beginPath();
+  ctx.arc(320, 290, 12, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawHulk_step8(ctx) {
@@ -1317,19 +1335,21 @@ function drawAirplane_step2(ctx) {
   ctx.stroke();
 }
 function drawAirplane_step3(ctx) {
+  // Horizontal tail stabilizer
   ctx.beginPath();
-  ctx.moveTo(260, 200);
-  ctx.lineTo(280, 160);
-  ctx.lineTo(280, 240);
+  ctx.moveTo(265, 205);
+  ctx.lineTo(330, 200);
+  ctx.lineTo(335, 210);
+  ctx.lineTo(270, 215);
   ctx.closePath();
   ctx.stroke();
 }
 function drawAirplane_step4(ctx) {
+  // Vertical tail fin (rudder)
   ctx.beginPath();
-  ctx.moveTo(280, 180);
-  ctx.lineTo(300, 180);
-  ctx.lineTo(300, 220);
-  ctx.lineTo(280, 220);
+  ctx.moveTo(310, 210);
+  ctx.lineTo(320, 180);
+  ctx.lineTo(330, 210);
   ctx.closePath();
   ctx.stroke();
 }
