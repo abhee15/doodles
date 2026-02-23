@@ -472,6 +472,89 @@ function showLevelSelect(scene) {
     scene.children.removeAll(true);
     currentScene = 'level-select';
 
+    // Level definition - all tricks
+    const levels = [
+        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x1CB0F6 },
+        { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF7D00 },
+        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x58CC02 },
+        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFE66D },
+        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0xA855F7 },
+        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x4ECDC4 },
+        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0xFF6B6B },
+        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0x0B8FDE },
+        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0xFFA500 },
+        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0x10B981 },
+        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0xFF4444 },
+        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x6B7280 }
+    ];
+
+    // Grid layout configuration
+    const CARDS_PER_PAGE = 10;   // 2 cols × 5 rows
+    const cardWidth = 340;
+    const cardHeight = 85;
+    const rowGap = 8;
+    const colGap = 20;
+    const gridWidth = 2 * cardWidth + colGap;       // 700px
+    const startX = (scene.scale.width - gridWidth) / 2;  // 100px
+    const startY = 80;
+
+    let currentPage = 0;
+    const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
+    let cardContainers = [];  // Track card objects for page changes
+    let pageDots = [];        // Track page indicator dots
+
+    // Function to render a specific page
+    function renderPage(pageNum) {
+        // Destroy existing cards
+        cardContainers.forEach(container => {
+            if (container && container.destroy) {
+                container.destroy(true);
+            }
+        });
+        cardContainers = [];
+
+        const pageStart = pageNum * CARDS_PER_PAGE;
+        const pageEnd = Math.min(pageStart + CARDS_PER_PAGE, levels.length);
+
+        for (let i = pageStart; i < pageEnd; i++) {
+            const localIndex = i - pageStart;
+            const col = localIndex % 2;
+            const row = Math.floor(localIndex / 2);
+            const x = startX + col * (cardWidth + colGap);
+            const y = startY + row * (cardHeight + rowGap);
+            const container = createProfessionalCard(scene, x, y, levels[i], cardWidth, cardHeight);
+            cardContainers.push(container);
+        }
+
+        // Update page dots
+        updatePageDots();
+    }
+
+    // Function to update page indicator dots
+    function updatePageDots() {
+        const dotRadius = 6;
+        const dotSpacing = 18;
+        const totalDotsWidth = totalPages * dotSpacing;
+        const dotsStartX = (scene.scale.width - totalDotsWidth) / 2 + dotRadius;
+
+        // Destroy old dots
+        pageDots.forEach(dot => {
+            if (dot && dot.destroy) {
+                dot.destroy();
+            }
+        });
+        pageDots = [];
+
+        // Create new dots
+        for (let i = 0; i < totalPages; i++) {
+            const dotX = dotsStartX + i * dotSpacing;
+            const dotY = 600;
+            const fillColor = i === currentPage ? 0x1E293B : 0xD1D5DB;
+            const dot = scene.add.circle(dotX, dotY, dotRadius, fillColor);
+            pageDots.push(dot);
+        }
+    }
+
     // Header: Title and Progress button
     scene.add.text(80, 30, '⚡ Quick Math Tricks', {
         fontSize: '32px',
@@ -493,52 +576,57 @@ function showLevelSelect(scene) {
         fontFamily: 'Arial'
     }).setOrigin(0, 0.5);
 
-    // Level cards - Single column layout that fits 650px canvas
-    const cardWidth = 340;
-    const cardHeight = 85;
-    const gap = 8;
-    const centerX = (scene.scale.width - cardWidth) / 2;
-    const startY = 90; // Below header
+    // Render first page
+    renderPage(0);
 
-    const levels = [
-        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x1CB0F6 },
-        { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF7D00 },
-        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x58CC02 },
-        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFE66D },
-        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0xA855F7 },
-        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x4ECDC4 },
-        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0xFF6B6B },
-        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0x0B8FDE },
-        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0xFFA500 },
-        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0x10B981 },
-        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0xFF4444 },
-        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x6B7280 }
-    ];
+    // Pagination controls (only show if more than 1 page)
+    if (totalPages > 1) {
+        const prevBtn = createModernButton(scene, 150, 590, '← Prev', QM_COLORS.secondary, () => {
+            playSound('click');
+            if (currentPage > 0) {
+                currentPage--;
+                renderPage(currentPage);
+            }
+        }, 100, 40, false);
+        prevBtn.pagControl = true;
 
-    levels.forEach((level, index) => {
-        const y = startY + index * (cardHeight + gap);
-        createProfessionalCard(scene, centerX, y, level, cardWidth, cardHeight);
-    });
+        const nextBtn = createModernButton(scene, 750, 590, 'Next →', QM_COLORS.secondary, () => {
+            playSound('click');
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                renderPage(currentPage);
+            }
+        }, 100, 40, false);
+        nextBtn.pageControl = true;
+    }
 }
 
 // Professional Card Design - Compact Single Column Layout
+// Returns a container object so cards can be tracked and destroyed on page change
 function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     console.log('createProfessionalCard called for level:', level.id, level.name, 'at y:', y);
+
+    // Create a container to hold all card elements
+    const container = scene.add.container(0, 0);
+    const cardElements = [];
 
     // Card background (white)
     const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, QM_COLORS.cardBg);
     cardBg.setOrigin(0, 0);
     cardBg.setStrokeStyle(2, level.color);
     cardBg.setInteractive({ useHandCursor: true });
+    cardElements.push(cardBg);
 
     // Colored accent bar (left side, 6px wide)
     const accentBar = scene.add.rectangle(x, y, 6, cardHeight, level.color);
     accentBar.setOrigin(0, 0);
+    cardElements.push(accentBar);
 
     // Icon zone: 24px radius circle at low opacity with icon inside
     const iconX = x + 40;
     const iconY = y + cardHeight / 2;
     const iconCircle = scene.add.circle(iconX, iconY, 24, level.color, 0.15);
+    cardElements.push(iconCircle);
 
     const iconText = scene.add.text(iconX, iconY, level.icon, {
         fontSize: '24px',
@@ -546,6 +634,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0.5);
+    cardElements.push(iconText);
 
     // Title zone: trick name 18px bold dark
     const titleX = x + 70;
@@ -557,6 +646,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         fontFamily: 'Arial',
         fontStyle: 'bold'
     }).setOrigin(0, 0);
+    cardElements.push(titleText);
 
     // Description: 12px muted
     const descText = scene.add.text(titleX, titleY + 22, level.desc, {
@@ -564,6 +654,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         fill: '#6B7280',
         fontFamily: 'Arial'
     }).setOrigin(0, 0);
+    cardElements.push(descText);
 
     // Stars row (right side): 3 stars based on playerProgress
     const earnedStars = playerProgress.levelStars[level.id] || 0;
@@ -574,7 +665,13 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         const star = scene.add.text(starsX + i * 16, starsY, i < earnedStars ? '⭐' : '☆', {
             fontSize: '16px'
         }).setOrigin(0, 0);
+        cardElements.push(star);
     }
+
+    // Add all elements to container
+    cardElements.forEach(el => {
+        container.add(el);
+    });
 
     // Hover interaction: border-color change + translateY offset
     const onCardHover = () => {
@@ -609,6 +706,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     });
 
     console.log('Card created for level:', level.id);
+    return container;
 }
 
 // ==================== TUTORIAL (Level 1: Multiply by 11) ====================
