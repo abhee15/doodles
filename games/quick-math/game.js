@@ -472,20 +472,20 @@ function showLevelSelect(scene) {
     scene.children.removeAll(true);
     currentScene = 'level-select';
 
-    // Level definition - all tricks
+    // Level definition - all tricks (colors harmonized with blue app gradient #1CB0F6 → #0891B2)
     const levels = [
-        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x1CB0F6 },
-        { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0xFF7D00 },
-        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x58CC02 },
-        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0xFFE66D },
-        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0xA855F7 },
-        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x4ECDC4 },
-        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0xFF6B6B },
-        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0x0B8FDE },
-        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0xFFA500 },
-        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0x10B981 },
-        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0xFF4444 },
-        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x6B7280 }
+        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x1CB0F6 },   // Primary Blue
+        { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0x06B6D4 },        // Cyan
+        { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x0EA5E9 },            // Sky Blue
+        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0x0891B2 },             // Secondary Blue
+        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0x06D6A0 },         // Mint Green
+        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x10B981 },                // Emerald
+        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0x8B5CF6 },            // Vibrant Purple
+        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0xEC4899 },              // Vibrant Pink
+        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0xF97316 },              // Warm Orange
+        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0xEF4444 },            // Bright Red
+        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0x14B8A6 },              // Teal
+        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x3B82F6 }             // Vibrant Blue
     ];
 
     // Grid layout configuration
