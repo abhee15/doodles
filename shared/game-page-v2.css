@@ -31,8 +31,8 @@ body {
     /* Full viewport layout */
     margin: 0;
     padding: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 
     /* Flexbox centering for game */
@@ -58,17 +58,17 @@ body {
 
 /* ==================== GAME CONTAINER ==================== */
 #game-container {
-    /* Responsive sizing - fills most of viewport */
-    width: min(95vw, 1200px);
-    height: min(95vh, 900px);
+    /* Fill full viewport */
+    width: 100%;
+    height: 100%;
 
     /* Visual polish */
-    border-radius: 12px;
+    border-radius: 0;
     overflow: hidden;
 
     /* Container for canvas */
     position: relative;
-    background: #000;
+    background: transparent;
 }
 
 /* ==================== CANVAS OPTIMIZATION ==================== */

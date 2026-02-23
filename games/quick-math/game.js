@@ -30,7 +30,7 @@ const config = createGameConfig({
     height: 650,
     backgroundColor: QM_COLORS.background,
     scale: {
-        mode: Phaser.Scale.FIT,
+        mode: Phaser.Scale.EXPAND,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         expandParent: true,
         orientation: Phaser.Scale.Orientation.PORTRAIT_BY_DEFAULT
