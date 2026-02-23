@@ -20,9 +20,15 @@ const QM_COLORS = {
 
 // Clear scene helper - removes all children, timers, and keyboard listeners to prevent race conditions
 function clearScene(scene) {
-    scene.time.removeAllEvents();
-    scene.input.keyboard.removeAllListeners();
-    scene.children.removeAll(true);
+    try {
+        console.log('🧹 clearScene: removing timers, listeners, children...');
+        scene.time.removeAllEvents();
+        scene.input.keyboard.removeAllListeners();
+        scene.children.removeAll(true);
+        console.log('✅ clearScene complete');
+    } catch (err) {
+        console.error('❌ ERROR in clearScene:', err, err.stack);
+    }
 }
 
 const config = createGameConfig({
@@ -842,29 +848,34 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
 
     // Click handler - direct pointerdown event for immediate mobile response
     cardBg.on('pointerdown', () => {
-        console.log('Card pointerdown event fired for level:', level.id, 'at', new Date().getTime());
-        currentLevel = level.id;
+        try {
+            console.log('🔵 Card pointerdown fired for level:', level.id, level.name);
+            currentLevel = level.id;
 
-        // On mobile, skip animation for faster response
-        const isMobile = scene.scale.width < 600;
-        console.log('Mobile check:', isMobile, 'width:', scene.scale.width);
+            // On mobile, skip animation for faster response
+            const isMobile = scene.scale.width < 600;
+            console.log('📱 Mobile:', isMobile, '| Width:', scene.scale.width);
 
-        if (isMobile) {
-            console.log('MOBILE: Calling showTutorial for level:', level.id);
-            showTutorial(scene, level.id);
-        } else {
-            // Desktop: show animation then navigate
-            scene.tweens.add({
-                targets: cardBg,
-                scaleX: 1.008,
-                scaleY: 1.008,
-                duration: 50,
-                yoyo: true,
-                onComplete: () => {
-                    console.log('DESKTOP: Animation complete, calling showTutorial');
-                    showTutorial(scene, level.id);
-                }
-            });
+            if (isMobile) {
+                console.log('✅ MOBILE: Calling showTutorial for level', level.id);
+                showTutorial(scene, level.id);
+            } else {
+                // Desktop: show animation then navigate
+                console.log('🖥️ DESKTOP: Starting animation');
+                scene.tweens.add({
+                    targets: cardBg,
+                    scaleX: 1.008,
+                    scaleY: 1.008,
+                    duration: 50,
+                    yoyo: true,
+                    onComplete: () => {
+                        console.log('✅ DESKTOP: Animation complete, calling showTutorial');
+                        showTutorial(scene, level.id);
+                    }
+                });
+            }
+        } catch (err) {
+            console.error('❌ ERROR in card click handler:', err, err.stack);
         }
     });
 
@@ -874,41 +885,52 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
 
 // ==================== TUTORIAL (Level 1: Multiply by 11) ====================
 function showTutorial(scene, levelId) {
-    clearScene(scene);
-    currentScene = 'tutorial';
+    try {
+        console.log('📚 showTutorial called for level:', levelId);
+        console.log('🧹 Clearing scene...');
+        clearScene(scene);
+        currentScene = 'tutorial';
+        console.log('✅ Scene cleared, scene objects:', scene.children.list.length);
 
-    if (levelId === 1) {
-        tutorialMultiplyBy11(scene);
-    } else if (levelId === 2) {
-        tutorialSquareEndingIn5(scene);
-    } else if (levelId === 3) {
-        tutorialDoubleAndHalf(scene);
-    } else if (levelId === 4) {
-        tutorialBaseMethod(scene);
-    } else if (levelId === 5) {
-        tutorialMultiplyBy9(scene);
-    } else if (levelId === 6) {
-        tutorialMultiplyBy5(scene);
-    } else if (levelId === 7) {
-        tutorialMultiplyBy4(scene);
-    } else if (levelId === 8) {
-        tutorialMultiplyBy6(scene);
-    } else if (levelId === 9) {
-        tutorialMultiplyBy8(scene);
-    } else if (levelId === 10) {
-        tutorialMultiplyBy12(scene);
-    } else if (levelId === 11) {
-        tutorialMultiplyBy15(scene);
-    } else if (levelId === 12) {
-        tutorialMultiplyBy25(scene);
-    } else if (levelId === 13) {
-        tutorialMultiplyBy99(scene);
-    } else if (levelId === 14) {
-        tutorialMultiplyBy11Extended(scene);
-    } else if (levelId === 15) {
-        tutorialDifferBy2(scene);
-    } else if (levelId === 16) {
-        tutorialSameTens(scene);
+        console.log('🎬 Loading tutorial for level', levelId);
+        if (levelId === 1) {
+            tutorialMultiplyBy11(scene);
+        } else if (levelId === 2) {
+            tutorialSquareEndingIn5(scene);
+        } else if (levelId === 3) {
+            tutorialDoubleAndHalf(scene);
+        } else if (levelId === 4) {
+            tutorialBaseMethod(scene);
+        } else if (levelId === 5) {
+            tutorialMultiplyBy9(scene);
+        } else if (levelId === 6) {
+            tutorialMultiplyBy5(scene);
+        } else if (levelId === 7) {
+            tutorialMultiplyBy4(scene);
+        } else if (levelId === 8) {
+            tutorialMultiplyBy6(scene);
+        } else if (levelId === 9) {
+            tutorialMultiplyBy8(scene);
+        } else if (levelId === 10) {
+            tutorialMultiplyBy12(scene);
+        } else if (levelId === 11) {
+            tutorialMultiplyBy15(scene);
+        } else if (levelId === 12) {
+            tutorialMultiplyBy25(scene);
+        } else if (levelId === 13) {
+            tutorialMultiplyBy99(scene);
+        } else if (levelId === 14) {
+            tutorialMultiplyBy11Extended(scene);
+        } else if (levelId === 15) {
+            tutorialDifferBy2(scene);
+        } else if (levelId === 16) {
+            tutorialSameTens(scene);
+        } else {
+            console.error('❌ Unknown level ID:', levelId);
+        }
+        console.log('✅ Tutorial loaded successfully');
+    } catch (err) {
+        console.error('❌ ERROR in showTutorial:', err, err.stack);
     }
 }
 
