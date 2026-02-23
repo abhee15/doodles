@@ -542,7 +542,7 @@ function showLevelSelect(scene) {
 
     const gridWidth = 2 * cardWidth + colGap;
     const startX = (scene.scale.width - gridWidth) / 2;
-    const startY = isMobile ? 50 : 60;
+    const startY = isMobile ? 40 : 55;
 
     let currentPage = 0;
     const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
@@ -605,7 +605,8 @@ function showLevelSelect(scene) {
     }
 
     // Header: Title and Progress button
-    scene.add.text(80, 30, '⚡ Quick Math Tricks', {
+    const titleY = isMobile ? 18 : 25;
+    scene.add.text(80, titleY, '⚡ Quick Math Tricks', {
         fontSize: '32px',
         fill: '#1E293B',
         fontFamily: 'Arial',
@@ -613,7 +614,7 @@ function showLevelSelect(scene) {
     }).setOrigin(0, 0.5);
 
     // Progress button (top-right, compact)
-    createModernButton(scene, 820, 30, '🏆 Progress', QM_COLORS.secondary, () => {
+    createModernButton(scene, 820, titleY, '🏆 Progress', QM_COLORS.secondary, () => {
         playSound('click');
         showProgressScreen(scene);
     }, 140, 40, true);
