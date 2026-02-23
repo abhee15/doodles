@@ -678,35 +678,87 @@ function showLevelSelect(scene) {
     updateButtonStates();
 }
 
-// Glassmorphic Card Design - Modern frosted glass effect with soft shadows
+// Glassmorphic Card Design - Modern frosted glass effect with soft shadows and curved corners
 // Returns an array of all card elements so they can be tracked and destroyed on page change
 function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     console.log('createProfessionalCard called for level:', level.id, level.name, 'at y:', y);
 
     const cardElements = [];
+    const cornerRadius = 10; // Radius for rounded corners
 
-    // Soft shadow layer - creates depth without hard borders
-    const shadowBlur = scene.add.rectangle(x + 2, y + 3, cardWidth - 2, cardHeight - 2, 0x000000, 0.08);
-    shadowBlur.setOrigin(0, 0);
-    shadowBlur.setDepth(-1);
+    // Soft shadow layer - creates depth without hard borders (with rounded corners)
+    const shadowGraphics = scene.make.graphics({ x: x + cardWidth / 2, y: y + cardHeight / 2, add: true });
+    shadowGraphics.fillStyle(0x000000, 0.08);
+    shadowGraphics.beginPath();
+    shadowGraphics.moveTo(-cardWidth / 2 + 2 + cornerRadius, -cardHeight / 2 + 3);
+    shadowGraphics.lineTo(cardWidth / 2 - 2 - cornerRadius, -cardHeight / 2 + 3);
+    shadowGraphics.arc(cardWidth / 2 - 2 - cornerRadius, -cardHeight / 2 + 3 + cornerRadius, cornerRadius, -Math.PI / 2, 0);
+    shadowGraphics.lineTo(cardWidth / 2 - 2, cardHeight / 2 - 3 - cornerRadius);
+    shadowGraphics.arc(cardWidth / 2 - 2 - cornerRadius, cardHeight / 2 - 3 - cornerRadius, cornerRadius, 0, Math.PI / 2);
+    shadowGraphics.lineTo(-cardWidth / 2 + 2 + cornerRadius, cardHeight / 2 - 3);
+    shadowGraphics.arc(-cardWidth / 2 + 2 + cornerRadius, cardHeight / 2 - 3 - cornerRadius, cornerRadius, Math.PI / 2, Math.PI);
+    shadowGraphics.lineTo(-cardWidth / 2 + 2, -cardHeight / 2 + 3 + cornerRadius);
+    shadowGraphics.arc(-cardWidth / 2 + 2 + cornerRadius, -cardHeight / 2 + 3 + cornerRadius, cornerRadius, Math.PI, -Math.PI / 2);
+    shadowGraphics.closePath();
+    shadowGraphics.fillPath();
+    shadowGraphics.setDepth(-1);
+    const shadowBlur = shadowGraphics;
     cardElements.push(shadowBlur);
 
-    // Main card background - translucent frosted glass effect
-    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, 0xFBFCFD, 0.92);
-    cardBg.setOrigin(0, 0);
-    // Subtle border instead of hard stroke - creates glass edge
-    cardBg.setStrokeStyle(1, 0xE5E7EB, 0.5);
-    cardBg.setInteractive({ useHandCursor: true });
+    // Main card background - translucent frosted glass effect with rounded corners
+    const cardGraphics = scene.make.graphics({ x: x + cardWidth / 2, y: y + cardHeight / 2, add: true });
+    cardGraphics.fillStyle(0xFBFCFD, 0.92);
+    cardGraphics.beginPath();
+    cardGraphics.moveTo(-cardWidth / 2 + cornerRadius, -cardHeight / 2);
+    cardGraphics.lineTo(cardWidth / 2 - cornerRadius, -cardHeight / 2);
+    cardGraphics.arc(cardWidth / 2 - cornerRadius, -cardHeight / 2 + cornerRadius, cornerRadius, -Math.PI / 2, 0);
+    cardGraphics.lineTo(cardWidth / 2, cardHeight / 2 - cornerRadius);
+    cardGraphics.arc(cardWidth / 2 - cornerRadius, cardHeight / 2 - cornerRadius, cornerRadius, 0, Math.PI / 2);
+    cardGraphics.lineTo(-cardWidth / 2 + cornerRadius, cardHeight / 2);
+    cardGraphics.arc(-cardWidth / 2 + cornerRadius, cardHeight / 2 - cornerRadius, cornerRadius, Math.PI / 2, Math.PI);
+    cardGraphics.lineTo(-cardWidth / 2, -cardHeight / 2 + cornerRadius);
+    cardGraphics.arc(-cardWidth / 2 + cornerRadius, -cardHeight / 2 + cornerRadius, cornerRadius, Math.PI, -Math.PI / 2);
+    cardGraphics.closePath();
+    cardGraphics.fillPath();
+
+    // Add subtle border
+    cardGraphics.strokeStyle(1, 0xE5E7EB, 0.5);
+    cardGraphics.beginPath();
+    cardGraphics.moveTo(-cardWidth / 2 + cornerRadius, -cardHeight / 2);
+    cardGraphics.lineTo(cardWidth / 2 - cornerRadius, -cardHeight / 2);
+    cardGraphics.arc(cardWidth / 2 - cornerRadius, -cardHeight / 2 + cornerRadius, cornerRadius, -Math.PI / 2, 0);
+    cardGraphics.lineTo(cardWidth / 2, cardHeight / 2 - cornerRadius);
+    cardGraphics.arc(cardWidth / 2 - cornerRadius, cardHeight / 2 - cornerRadius, cornerRadius, 0, Math.PI / 2);
+    cardGraphics.lineTo(-cardWidth / 2 + cornerRadius, cardHeight / 2);
+    cardGraphics.arc(-cardWidth / 2 + cornerRadius, cardHeight / 2 - cornerRadius, cornerRadius, Math.PI / 2, Math.PI);
+    cardGraphics.lineTo(-cardWidth / 2, -cardHeight / 2 + cornerRadius);
+    cardGraphics.arc(-cardWidth / 2 + cornerRadius, -cardHeight / 2 + cornerRadius, cornerRadius, Math.PI, -Math.PI / 2);
+    cardGraphics.closePath();
+    cardGraphics.strokePath();
+
+    cardGraphics.setInteractive(new Phaser.Geom.Rectangle(-cardWidth / 2, -cardHeight / 2, cardWidth, cardHeight), Phaser.Geom.Rectangle.Contains);
+    cardGraphics.setInteractive({ useHandCursor: true });
+    const cardBg = cardGraphics;
     cardElements.push(cardBg);
 
     // Glassmorphic gradient overlay - simulates depth and light
-    const glassOverlay = scene.add.rectangle(x, y, cardWidth, cardHeight * 0.4, level.color, 0.06);
-    glassOverlay.setOrigin(0, 0);
+    const glassOverlay = scene.add.rectangle(x + cardWidth / 2, y + cardHeight * 0.2, cardWidth, cardHeight * 0.4, level.color, 0.06);
+    glassOverlay.setOrigin(0.5, 0);
     cardElements.push(glassOverlay);
 
-    // Accent gradient bar at top - subtle glow effect instead of hard line
-    const accentGlow = scene.add.rectangle(x, y, cardWidth, 4, level.color, 0.12);
-    accentGlow.setOrigin(0, 0);
+    // Accent gradient bar at top - subtle glow effect instead of hard line (with rounded top corners)
+    const accentGraphics = scene.make.graphics({ x: x + cardWidth / 2, y: y, add: true });
+    accentGraphics.fillStyle(level.color, 0.12);
+    accentGraphics.beginPath();
+    accentGraphics.moveTo(-cardWidth / 2 + cornerRadius, 0);
+    accentGraphics.lineTo(cardWidth / 2 - cornerRadius, 0);
+    accentGraphics.arc(cardWidth / 2 - cornerRadius, cornerRadius, cornerRadius, -Math.PI / 2, 0);
+    accentGraphics.lineTo(cardWidth / 2, 4);
+    accentGraphics.lineTo(-cardWidth / 2, 4);
+    accentGraphics.arc(-cardWidth / 2 + cornerRadius, cornerRadius, cornerRadius, Math.PI, -Math.PI / 2);
+    accentGraphics.closePath();
+    accentGraphics.fillPath();
+    const accentGlow = accentGraphics;
     cardElements.push(accentGlow);
 
     // Icon zone: Soft circular background with gentle glow
