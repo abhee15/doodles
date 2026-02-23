@@ -625,23 +625,29 @@ function showLevelSelect(scene) {
         const cardsEndY = startY + 4 * (cardHeight + rowGap);
         const buttonY = cardsEndY + 70;
 
-        prevBtnObj = createModernButton(scene, 150, buttonY, '← Prev', QM_COLORS.secondary, () => {
+        // Responsive button positioning
+        const buttonWidth = isMobile ? 80 : 100;
+        const btnPadding = isMobile ? 15 : 50;
+        const prevBtnX = btnPadding + (buttonWidth / 2);
+        const nextBtnX = scene.scale.width - btnPadding - (buttonWidth / 2);
+
+        prevBtnObj = createModernButton(scene, prevBtnX, buttonY, '← Prev', QM_COLORS.secondary, () => {
             playSound('click');
             if (currentPage > 0) {
                 currentPage--;
                 renderPage(currentPage);
                 updateButtonStates();
             }
-        }, 100, 40, false);
+        }, buttonWidth, 40, false);
 
-        nextBtnObj = createModernButton(scene, 750, buttonY, 'Next →', QM_COLORS.secondary, () => {
+        nextBtnObj = createModernButton(scene, nextBtnX, buttonY, 'Next →', QM_COLORS.secondary, () => {
             playSound('click');
             if (currentPage < totalPages - 1) {
                 currentPage++;
                 renderPage(currentPage);
                 updateButtonStates();
             }
-        }, 100, 40, false);
+        }, buttonWidth, 40, false);
     }
 
     // Function to update button disabled states based on current page
