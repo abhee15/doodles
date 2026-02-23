@@ -678,12 +678,12 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     }).setOrigin(0.5);
     cardElements.push(iconText);
 
-    // Title zone: trick name 18px bold dark
+    // Title zone: trick name 17px bold dark
     const titleX = x + 70;
-    const titleY = y + 13;
+    const titleY = y + 8;
 
     const titleText = scene.add.text(titleX, titleY, level.name, {
-        fontSize: '17px',
+        fontSize: '16px',
         fill: '#1A1A1A',
         fontFamily: "'Nunito', Arial, sans-serif",
         fontStyle: 'bold',
@@ -691,9 +691,9 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     }).setOrigin(0, 0);
     cardElements.push(titleText);
 
-    // Description: 12px muted
-    const descText = scene.add.text(titleX, titleY + 22, level.desc, {
-        fontSize: '12px',
+    // Description: 11px muted
+    const descText = scene.add.text(titleX, titleY + 25, level.desc, {
+        fontSize: '11px',
         fill: '#6B7280',
         fontFamily: "'Nunito', Arial, sans-serif",
         resolution: 2
