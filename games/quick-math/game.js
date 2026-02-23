@@ -526,8 +526,8 @@ function showLevelSelect(scene) {
         { id: 16, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: 0x0D9488 }                    // Modern Teal
     ];
 
-    // Responsive grid layout configuration based on scene width
-    const isMobile = scene.scale.width < 600;
+    // Responsive grid layout configuration based on actual device width
+    const isMobile = window.innerWidth < 600;
     const CARDS_PER_PAGE = 10;   // 2 cols × 5 rows
 
     let cardWidth, cardHeight, rowGap, colGap;
@@ -852,8 +852,9 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
             currentLevel = level.id;
 
             // On mobile, skip animation for faster response
-            const isMobile = scene.scale.width < 600;
-            console.log('📱 Mobile:', isMobile, '| Width:', scene.scale.width);
+            // Use window.innerWidth for actual device width, not game canvas width
+            const isMobile = window.innerWidth < 600;
+            console.log('📱 Mobile:', isMobile, '| Device Width:', window.innerWidth, '| Game Width:', scene.scale.width);
 
             if (isMobile) {
                 console.log('✅ MOBILE: Calling showTutorial for level', level.id);
@@ -2695,7 +2696,7 @@ function showPractice(scene, levelId) {
 
     // Responsive positioning
     const centerX = scene.scale.width / 2;
-    const isMobileView = scene.scale.width < 600;
+    const isMobileView = window.innerWidth < 600;
     const titleSize = isMobileView ? '28px' : '36px';
     const scoreSize = isMobileView ? '18px' : '24px';
     const titleY = scene.scale.height * 0.06;
@@ -3165,7 +3166,7 @@ function showResults(scene, score, total, levelId) {
 // ==================== NUMBER PAD ====================
 function createNumberPad(scene, inputText, centerX = 450, startY = 350) {
     // Responsive button sizing
-    const isMobileView = scene.scale.width < 600;
+    const isMobileView = window.innerWidth < 600;
     const buttonSize = isMobileView ? 40 : 55;
     const spacing = buttonSize + (isMobileView ? 8 : 10);
     const fontSize = isMobileView ? '20px' : '26px';
