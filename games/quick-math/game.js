@@ -502,22 +502,22 @@ function showLevelSelect(scene) {
 
     // Level definition - all tricks (colors harmonized with blue app gradient #1CB0F6 → #0891B2)
     const levels = [
-        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x1CB0F6 },   // Primary Blue
+        { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: 0x3B82F6 },   // Modern Blue
         { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0x06B6D4 },        // Cyan
         { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x0EA5E9 },            // Sky Blue
-        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0x0891B2 },             // Secondary Blue
-        { id: 5, name: 'Multiply by 9', icon: '×9', desc: 'Finger trick magic', color: 0x06D6A0 },         // Mint Green
-        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x10B981 },                // Emerald
-        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0x8B5CF6 },            // Vibrant Purple
-        { id: 8, name: 'Multiply by 6', icon: '×6', desc: 'Even pattern', color: 0xEC4899 },              // Vibrant Pink
-        { id: 9, name: 'Multiply by 8', icon: '×8', desc: 'Triple double', color: 0xF97316 },              // Warm Orange
-        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0xEF4444 },            // Bright Red
-        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0x14B8A6 },              // Teal
-        { id: 12, name: 'Multiply by 25', icon: '×25', desc: 'Quarter trick', color: 0x3B82F6 },             // Vibrant Blue
-        { id: 13, name: 'Multiply by 99', icon: '×99', desc: 'n×100−n shortcut', color: 0x7C3AED },          // Violet
-        { id: 14, name: '×11 Extended', icon: '11++', desc: 'With carry logic', color: 0x0284C7 },           // Sky Blue
-        { id: 15, name: 'Differ by 2', icon: 'n±1', desc: 'Sandwich squares', color: 0xD97706 },             // Amber
-        { id: 16, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: 0x059669 }                    // Emerald
+        { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0x2563EB },             // Deep Blue
+        { id: 5, name: 'Multiply by 9', icon: '×9', desc: 'Finger trick magic', color: 0x10B981 },         // Emerald Green
+        { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x059669 },                // Forest Green
+        { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0x7C3AED },            // Modern Purple
+        { id: 8, name: 'Multiply by 6', icon: '×6', desc: 'Even pattern', color: 0xDB2777 },              // Modern Pink
+        { id: 9, name: 'Multiply by 8', icon: '×8', desc: 'Triple double', color: 0xEA580C },              // Modern Orange
+        { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0xDC2626 },            // Modern Red
+        { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0x0891B2 },              // Teal
+        { id: 12, name: 'Multiply by 25', icon: '×25', desc: 'Quarter trick', color: 0x1D4ED8 },             // Royal Blue
+        { id: 13, name: 'Multiply by 99', icon: '×99', desc: 'n×100−n shortcut', color: 0x6D28D9 },          // Modern Violet
+        { id: 14, name: '×11 Extended', icon: '11++', desc: 'With carry logic', color: 0x2563EB },           // Modern Sky Blue
+        { id: 15, name: 'Differ by 2', icon: 'n±1', desc: 'Sandwich squares', color: 0xD97706 },             // Warm Amber
+        { id: 16, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: 0x0D9488 }                    // Modern Teal
     ];
 
     // Responsive grid layout configuration based on scene width
@@ -678,39 +678,45 @@ function showLevelSelect(scene) {
     updateButtonStates();
 }
 
-// Modern Card Design - Enhanced with gradient, better typography, and smooth interactions
+// Glassmorphic Card Design - Modern frosted glass effect with soft shadows
 // Returns an array of all card elements so they can be tracked and destroyed on page change
 function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     console.log('createProfessionalCard called for level:', level.id, level.name, 'at y:', y);
 
     const cardElements = [];
 
-    // Main card background with subtle gradient effect
-    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, 0xFFFFFF);
+    // Soft shadow layer - creates depth without hard borders
+    const shadowBlur = scene.add.rectangle(x + 2, y + 3, cardWidth - 2, cardHeight - 2, 0x000000, 0.08);
+    shadowBlur.setOrigin(0, 0);
+    shadowBlur.setDepth(-1);
+    cardElements.push(shadowBlur);
+
+    // Main card background - translucent frosted glass effect
+    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, 0xFBFCFD, 0.92);
     cardBg.setOrigin(0, 0);
-    cardBg.setStrokeStyle(2, level.color);
+    // Subtle border instead of hard stroke - creates glass edge
+    cardBg.setStrokeStyle(1, 0xE5E7EB, 0.5);
     cardBg.setInteractive({ useHandCursor: true });
     cardElements.push(cardBg);
 
-    // Gradient overlay (subtle color tint at top using a semi-transparent rectangle)
-    const gradientOverlay = scene.add.rectangle(x, y, cardWidth, cardHeight * 0.3, level.color, 0.08);
-    gradientOverlay.setOrigin(0, 0);
-    cardElements.push(gradientOverlay);
+    // Glassmorphic gradient overlay - simulates depth and light
+    const glassOverlay = scene.add.rectangle(x, y, cardWidth, cardHeight * 0.4, level.color, 0.06);
+    glassOverlay.setOrigin(0, 0);
+    cardElements.push(glassOverlay);
 
-    // Colored accent bar at top (more prominent)
-    const accentBar = scene.add.rectangle(x, y, cardWidth, 3, level.color);
-    accentBar.setOrigin(0, 0);
-    cardElements.push(accentBar);
+    // Accent gradient bar at top - subtle glow effect instead of hard line
+    const accentGlow = scene.add.rectangle(x, y, cardWidth, 4, level.color, 0.12);
+    accentGlow.setOrigin(0, 0);
+    cardElements.push(accentGlow);
 
-    // Icon zone: Larger, more prominent circular background
+    // Icon zone: Soft circular background with gentle glow
     const iconX = x + 32;
     const iconY = y + cardHeight / 2;
-    const iconCircle = scene.add.circle(iconX, iconY, 28, level.color, 0.15);
-    iconCircle.setStrokeStyle(2, level.color);
-    cardElements.push(iconCircle);
+    const iconBg = scene.add.circle(iconX, iconY, 30, level.color, 0.12);
+    cardElements.push(iconBg);
 
     const iconText = scene.add.text(iconX, iconY, level.icon, {
-        fontSize: '22px',
+        fontSize: '24px',
         fill: '#' + level.color.toString(16).padStart(6, '0').toUpperCase(),
         fontFamily: "'Nunito', Arial, sans-serif",
         fontStyle: 'bold',
@@ -718,104 +724,109 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     }).setOrigin(0.5);
     cardElements.push(iconText);
 
-    // Title zone: Better typography hierarchy
-    const titleX = x + 68;
-    const titleY = y + 10;
+    // Title zone: Modern typography with color accent
+    const titleX = x + 70;
+    const titleY = y + 12;
 
     const titleText = scene.add.text(titleX, titleY, level.name, {
-        fontSize: '17px',
-        fill: '#' + level.color.toString(16).padStart(6, '0').toUpperCase(),
+        fontSize: '16px',
+        fill: '#1F2937',
         fontFamily: "'Nunito', Arial, sans-serif",
         fontStyle: 'bold',
         resolution: 2
     }).setOrigin(0, 0);
     cardElements.push(titleText);
 
-    // Horizontal separator line
-    const separator = scene.add.line(x + titleX, titleY + 22, 0, 0, cardWidth - titleX - 50, 0, 0xE5E7EB);
-    separator.setOrigin(0, 0);
-    cardElements.push(separator);
+    // Subtle colored accent under title (thin line)
+    const titleAccent = scene.add.rectangle(titleX, titleY + 20, 40, 2, level.color, 0.4);
+    titleAccent.setOrigin(0, 0);
+    cardElements.push(titleAccent);
 
-    // Description: More prominent with better styling
-    const descText = scene.add.text(titleX, titleY + 30, level.desc, {
-        fontSize: '12px',
-        fill: '#4B5563',
+    // Description: Refined styling with better contrast
+    const descText = scene.add.text(titleX, titleY + 28, level.desc, {
+        fontSize: '11px',
+        fill: '#6B7280',
         fontFamily: "'Nunito', Arial, sans-serif",
         fontStyle: 'normal',
         resolution: 2
     }).setOrigin(0, 0);
     cardElements.push(descText);
 
-    // Stars row (right side): More prominent with animation support
+    // Stars row (right side): Modern minimal star display
     const earnedStars = playerProgress.levelStars[level.id] || 0;
-    const starsX = x + cardWidth - 62;
-    const starsY = y + 12;
+    const starsX = x + cardWidth - 58;
+    const starsY = y + 14;
 
-    // Star container for better organization
+    // Star display with subtle backgrounds
     for (let i = 0; i < 3; i++) {
-        const starBg = scene.add.rectangle(starsX + i * 18, starsY + 8, 14, 14, i < earnedStars ? level.color : 0xF3F4F6, 0.2);
-        starBg.setStrokeStyle(1.5, i < earnedStars ? level.color : '#D1D5DB');
-        cardElements.push(starBg);
+        const starCircle = scene.add.circle(starsX + i * 16, starsY + 6, 7, i < earnedStars ? level.color : 0xE5E7EB, 0.15);
+        cardElements.push(starCircle);
 
-        const star = scene.add.text(starsX + i * 18, starsY + 8, i < earnedStars ? '★' : '☆', {
-            fontSize: '14px',
+        const star = scene.add.text(starsX + i * 16, starsY + 6, i < earnedStars ? '★' : '☆', {
+            fontSize: '12px',
             fill: i < earnedStars ? '#' + level.color.toString(16).padStart(6, '0').toUpperCase() : '#9CA3AF',
             fontFamily: 'Arial, sans-serif'
         }).setOrigin(0.5);
         cardElements.push(star);
     }
 
-    // Hover interaction: Smooth scale and color effects
+    // Hover interaction: Enhanced glassmorphic effect
     const onCardHover = () => {
-        // Lift effect
+        // Subtle lift with scale
         scene.tweens.killTweensOf(cardBg);
         scene.tweens.add({
             targets: cardBg,
-            scaleX: 1.02,
-            scaleY: 1.02,
-            duration: 200,
+            scaleX: 1.015,
+            scaleY: 1.015,
+            duration: 250,
             ease: 'Power2.easeOut'
         });
 
-        // Enhanced border
-        cardBg.setStrokeStyle(3, level.color);
+        // Enhance glass overlay for glow effect
+        glassOverlay.setAlpha(0.12);
 
-        // Enhance gradient overlay
-        gradientOverlay.setAlpha(0.15);
+        // Brighten shadow for lifted effect
+        shadowBlur.setAlpha(0.15);
+
+        // Enhance accent glow
+        accentGlow.setAlpha(0.2);
     };
 
     const onCardOut = () => {
-        // Reset effects
+        // Reset to original state
         scene.tweens.killTweensOf(cardBg);
         scene.tweens.add({
             targets: cardBg,
             scaleX: 1,
             scaleY: 1,
-            duration: 200,
+            duration: 250,
             ease: 'Power2.easeOut'
         });
 
-        // Reset border
-        cardBg.setStrokeStyle(2, level.color);
+        // Reset glass overlay
+        glassOverlay.setAlpha(0.06);
 
-        // Reset gradient overlay
-        gradientOverlay.setAlpha(0.08);
+        // Reset shadow
+        shadowBlur.setAlpha(0.08);
+
+        // Reset accent
+        accentGlow.setAlpha(0.12);
     };
 
     cardBg.on('pointerover', onCardHover);
     cardBg.on('pointerout', onCardOut);
 
-    // Click handler with brief pulse animation
+    // Click handler with smooth tap animation
     cardBg.on('pointerdown', () => {
         console.log('Card clicked:', level.id);
         currentLevel = level.id;
 
-        // Brief scale pulse: 1 → 1.04 → 1 over 120ms
+        // Smooth press animation
         scene.tweens.add({
             targets: cardBg,
-            scaleX: 1.04,
-            scaleY: 1.04,
-            duration: 60,
+            scaleX: 1.008,
+            scaleY: 1.008,
+            duration: 50,
             yoyo: true,
             onComplete: () => {
                 showTutorial(scene, level.id);
