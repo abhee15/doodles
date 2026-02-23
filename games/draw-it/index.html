@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 
   <!-- Primary Meta Tags -->
-  <title>Doodle School - Learn to Draw for Kids | Doodles Games</title>
-  <meta name="title" content="Doodle School - Learn to Draw for Kids">
+  <title>Draw It - Learn to Draw for Kids | Doodles Games</title>
+  <meta name="title" content="Draw It - Learn to Draw for Kids">
   <meta name="description" content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!">
   <meta name="keywords" content="drawing, tutorial, kids, learn to draw, art, animals, vehicles, characters">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="game">
-  <meta property="og:url" content="https://abhee15.github.io/doodles/games/doodle-school/">
-  <meta property="og:title" content="Doodle School - Learn to Draw for Kids">
+  <meta property="og:url" content="https://abhee15.github.io/doodles/games/draw-it/">
+  <meta property="og:title" content="Draw It - Learn to Draw for Kids">
   <meta property="og:description" content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!">
 
   <!-- Twitter -->
   <meta property="twitter:card" content="summary">
-  <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/doodle-school/">
-  <meta property="twitter:title" content="Doodle School - Learn to Draw for Kids">
+  <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/draw-it/">
+  <meta property="twitter:title" content="Draw It - Learn to Draw for Kids">
   <meta property="twitter:description" content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!">
 
-  <link rel="canonical" href="https://abhee15.github.io/doodles/games/doodle-school/">
+  <link rel="canonical" href="https://abhee15.github.io/doodles/games/draw-it/">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -305,6 +305,151 @@
       text-align: center;
     }
 
+    .see-final-btn {
+      background: var(--accent2);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      margin-top: 1rem;
+    }
+
+    .see-final-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    /* Color toolbar */
+    .color-toolbar {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 1rem;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
+    .color-palette {
+      display: flex;
+      gap: 0.3rem;
+    }
+
+    .color-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .color-swatch:hover {
+      transform: scale(1.1);
+    }
+
+    .color-swatch.active {
+      border-color: var(--text);
+    }
+
+    .brush-size-controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .brush-size-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+    }
+
+    .brush-size-btn:hover {
+      border-color: var(--accent);
+    }
+
+    .brush-size-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    .tool-toggle-btn {
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      background: white;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .tool-toggle-btn.active {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    /* Preview modal */
+    .preview-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .preview-modal.active {
+      display: flex;
+    }
+
+    .preview-modal-content {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .preview-modal-canvas {
+      max-width: 90vw;
+      max-height: 70vh;
+      border-radius: 12px;
+      border: 2px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
+
+    .preview-modal-button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 2rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all 0.2s;
+    }
+
+    .preview-modal-button:hover {
+      transform: translateY(-2px);
+    }
+
     .center-panel {
       flex: 1;
       display: flex;
@@ -508,8 +653,8 @@
 </head>
 <body>
   <nav class="nav">
-    <a href="../../index.html#doodle-school"><i class="ti ti-arrow-left"></i> Back</a>
-    <span class="nav-title" id="nav-title">Doodle School</span>
+    <a href="../../index.html#draw-it"><i class="ti ti-arrow-left"></i> Back</a>
+    <span class="nav-title" id="nav-title">Draw It</span>
     <span class="nav-step" id="nav-step"></span>
   </nav>
 
@@ -517,7 +662,7 @@
     <!-- Home Screen -->
     <div id="screen-home" class="screen active">
       <div class="home-title">
-        <h1>🎨 Doodle School</h1>
+        <h1>🎨 Draw It</h1>
         <p>Pick a category to get started!</p>
       </div>
       <div class="category-grid" id="category-grid"></div>
@@ -540,12 +685,37 @@
         <div class="step-title" id="step-title"></div>
         <div class="step-desc" id="step-desc"></div>
         <div class="step-counter" id="step-counter"></div>
+        <button class="see-final-btn" onclick="showPreviewModal()">
+          <i class="ti ti-eye"></i> See Final
+        </button>
       </div>
 
       <div class="center-panel">
-        <div class="canvas-wrap">
-          <canvas id="canvas-guide" width="400" height="400"></canvas>
-          <canvas id="canvas-draw" width="400" height="400"></canvas>
+        <div style="width: 100%; max-width: 400px;">
+          <div class="color-toolbar">
+            <div class="color-palette">
+              <button class="color-swatch active" style="background: #1A1A1A;" onclick="setColor('#1A1A1A')" title="Black"></button>
+              <button class="color-swatch" style="background: #555555;" onclick="setColor('#555555')" title="Gray"></button>
+              <button class="color-swatch" style="background: #FF0000;" onclick="setColor('#FF0000')" title="Red"></button>
+              <button class="color-swatch" style="background: #FF8C00;" onclick="setColor('#FF8C00')" title="Orange"></button>
+              <button class="color-swatch" style="background: #FFFF00;" onclick="setColor('#FFFF00')" title="Yellow"></button>
+              <button class="color-swatch" style="background: #00CC00;" onclick="setColor('#00CC00')" title="Green"></button>
+              <button class="color-swatch" style="background: #00CCFF;" onclick="setColor('#00CCFF')" title="Sky Blue"></button>
+              <button class="color-swatch" style="background: #0000FF;" onclick="setColor('#0000FF')" title="Blue"></button>
+              <button class="color-swatch" style="background: #9900FF;" onclick="setColor('#9900FF')" title="Purple"></button>
+              <button class="color-swatch" style="background: #FF1493;" onclick="setColor('#FF1493')" title="Pink"></button>
+            </div>
+            <div class="brush-size-controls">
+              <button class="brush-size-btn" onclick="setBrushSize(2)">S</button>
+              <button class="brush-size-btn active" onclick="setBrushSize(5)">M</button>
+              <button class="brush-size-btn" onclick="setBrushSize(10)">L</button>
+              <button class="tool-toggle-btn" onclick="toggleEraser()" id="eraser-btn">✏️ Pen</button>
+            </div>
+          </div>
+          <div class="canvas-wrap">
+            <canvas id="canvas-guide" width="400" height="400"></canvas>
+            <canvas id="canvas-draw" width="400" height="400"></canvas>
+          </div>
         </div>
       </div>
 
@@ -553,8 +723,14 @@
         <button class="control-btn" id="btn-prev" onclick="prevStep()">
           <i class="ti ti-arrow-left"></i> Prev
         </button>
+        <button class="control-btn secondary" onclick="undo()">
+          <i class="ti ti-arrow-back-up"></i> Undo
+        </button>
         <button class="control-btn secondary" id="btn-clear" onclick="clearDraw()">
           <i class="ti ti-eraser"></i> Clear
+        </button>
+        <button class="control-btn secondary" onclick="redo()">
+          <i class="ti ti-arrow-forward-up"></i> Redo
         </button>
         <button class="control-btn" id="btn-next" onclick="nextStep()">
           <i class="ti ti-arrow-right"></i> Next
@@ -578,6 +754,15 @@
           <i class="ti ti-home"></i> Home
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- Preview Modal -->
+  <div id="preview-modal" class="preview-modal">
+    <div class="preview-modal-content">
+      <canvas id="preview-canvas" class="preview-modal-canvas" width="400" height="400"></canvas>
+      <br>
+      <button class="preview-modal-button" onclick="closePreviewModal()">Got it</button>
     </div>
   </div>
 

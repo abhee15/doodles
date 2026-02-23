@@ -1,11 +1,17 @@
-// State management
+// State management with new features
 const state = {
   currentCat: null,
   currentSubject: null,
   currentStep: 0,
   isDrawing: false,
   lastX: 0,
-  lastY: 0
+  lastY: 0,
+  penColor: '#1A1A1A',
+  penSize: 5,
+  eraserMode: false,
+  undoStack: [],
+  redoStack: [],
+  maxUndoDepth: 30
 };
 
 // Categories
@@ -14,10 +20,11 @@ const CATEGORIES = [
   { id: 'flowers', label: 'Flowers & Plants', icon: 'ti-flower', color: '#4ECDC4' },
   { id: 'vehicles', label: 'Vehicles', icon: 'ti-car', color: '#FFB347' },
   { id: 'food', label: 'Food', icon: 'ti-ice-cream', color: '#FF8C69' },
-  { id: 'characters', label: 'Characters', icon: 'ti-mood-happy', color: '#A78BFA' }
+  { id: 'characters', label: 'Characters', icon: 'ti-mood-happy', color: '#A78BFA' },
+  { id: 'fantasy', label: 'Fantasy', icon: 'ti-wand', color: '#A78BFA' }
 ];
 
-// All subjects with steps - refined with proper tutorials
+// All subjects with steps
 const SUBJECTS = [
   // ANIMALS
   {
@@ -356,6 +363,39 @@ const SUBJECTS = [
       { title: 'Cherry', desc: 'Small circle at the top center for cherry.', draw: drawCupcake_step6 },
       { title: 'Details', desc: 'Add sprinkles or decorative dots on frosting.', draw: drawCupcake_step7 }
     ]
+  },
+
+  // FANTASY
+  {
+    id: 'dragon',
+    label: 'Dragon',
+    category: 'fantasy',
+    emoji: '🐉',
+    steps: [
+      { title: 'Head shape', desc: 'Draw a circle for the dragon\'s head.', draw: drawDragon_step1 },
+      { title: 'Snout', desc: 'Add a pointed oval extending from the head for snout.', draw: drawDragon_step2 },
+      { title: 'Horn', desc: 'Draw a tall pointed triangle on top of the head.', draw: drawDragon_step3 },
+      { title: 'Spines', desc: 'Add 4-5 triangular spines down the back and neck.', draw: drawDragon_step4 },
+      { title: 'Body', desc: 'Draw a large oval or S-curve for the dragon\'s body.', draw: drawDragon_step5 },
+      { title: 'Wings', desc: 'Draw two large, pointed triangular or bat-like wings.', draw: drawDragon_step6 },
+      { title: 'Legs & claws', desc: 'Add four legs with curved lines for claws.', draw: drawDragon_step7 },
+      { title: 'Tail & fire', desc: 'Long curved tail and flames coming from mouth.', draw: drawDragon_step8 }
+    ]
+  },
+  {
+    id: 'castle',
+    label: 'Castle',
+    category: 'fantasy',
+    emoji: '🏰',
+    steps: [
+      { title: 'Base wall', desc: 'Draw a large rectangle for the main castle wall.', draw: drawCastle_step1 },
+      { title: 'Towers', desc: 'Add two tall rectangles on left and right for towers.', draw: drawCastle_step2 },
+      { title: 'Battlements', desc: 'Add small rectangles along the top for castle battlements.', draw: drawCastle_step3 },
+      { title: 'Gate arch', desc: 'Draw a curved arch in the center for the main gate.', draw: drawCastle_step4 },
+      { title: 'Windows', desc: 'Add small rectangles for windows in the towers.', draw: drawCastle_step5 },
+      { title: 'Flag', desc: 'Add a flag with a pole on top of one tower.', draw: drawCastle_step6 },
+      { title: 'Stone texture', desc: 'Add lines and patterns for stone bricks detail.', draw: drawCastle_step7 }
+    ]
   }
 ];
 
@@ -404,6 +444,10 @@ function drawCat_step4(ctx) {
   ctx.lineTo(205, 200);
   ctx.closePath();
   ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(185, 210);
+  ctx.quadraticCurveTo(200, 220, 215, 210);
+  ctx.stroke();
 }
 function drawCat_step5(ctx) {
   for (let i = -1; i <= 1; i++) {
@@ -421,7 +465,16 @@ function drawCat_step5(ctx) {
 }
 function drawCat_step6(ctx) {
   ctx.beginPath();
-  ctx.ellipse(200, 240, 70, 60, 0, 0, Math.PI * 2);
+  ctx.moveTo(160, 240);
+  ctx.lineTo(160, 300);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(240, 240);
+  ctx.lineTo(240, 300);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(260, 220);
+  ctx.quadraticCurveTo(300, 200, 320, 150);
   ctx.stroke();
 }
 
@@ -532,7 +585,8 @@ function drawDog_step7(ctx) {
     ctx.stroke();
   }
   ctx.beginPath();
-  ctx.quadraticCurveTo(310, 290, 330, 260);
+  ctx.moveTo(260, 280);
+  ctx.quadraticCurveTo(300, 260, 320, 220);
   ctx.stroke();
 }
 
@@ -552,12 +606,12 @@ function drawFish_step2(ctx) {
 }
 function drawFish_step3(ctx) {
   ctx.beginPath();
-  ctx.ellipse(200, 140, 30, 45, 0, 0, Math.PI * 2);
+  ctx.ellipse(220, 140, 30, 45, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step4(ctx) {
   ctx.beginPath();
-  ctx.ellipse(200, 260, 30, 45, 0, 0, Math.PI * 2);
+  ctx.ellipse(220, 260, 30, 45, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step5(ctx) {
@@ -681,7 +735,8 @@ function drawRabbit_step7(ctx) {
   ctx.lineTo(240, 380);
   ctx.stroke();
   ctx.beginPath();
-  ctx.quadraticCurveTo(250, 310, 270, 300);
+  ctx.moveTo(250, 310);
+  ctx.quadraticCurveTo(280, 290, 300, 270);
   ctx.stroke();
 }
 
@@ -1155,9 +1210,14 @@ function drawTree_step4(ctx) {
   ctx.stroke();
 }
 function drawTree_step5(ctx) {
+  const seed = 42;
+  const pseudoRandom = (i) => {
+    const x = Math.sin(i + seed) * 10000;
+    return x - Math.floor(x);
+  };
   for (let i = 0; i < 25; i++) {
-    const x = 100 + Math.random() * 200;
-    const y = 50 + Math.random() * 180;
+    const x = 100 + pseudoRandom(i) * 200;
+    const y = 50 + pseudoRandom(i + 25) * 180;
     ctx.beginPath();
     ctx.arc(x, y, 2.5, 0, Math.PI * 2);
     ctx.stroke();
@@ -1249,8 +1309,11 @@ function drawAirplane_step1(ctx) {
 }
 function drawAirplane_step2(ctx) {
   ctx.beginPath();
-  ctx.moveTo(100, 200);
-  ctx.lineTo(300, 200);
+  ctx.moveTo(100, 175);
+  ctx.lineTo(300, 175);
+  ctx.lineTo(300, 225);
+  ctx.lineTo(100, 225);
+  ctx.closePath();
   ctx.stroke();
 }
 function drawAirplane_step3(ctx) {
@@ -1396,10 +1459,10 @@ function drawBoat_step5(ctx) {
 }
 function drawBoat_step6(ctx) {
   ctx.beginPath();
-  ctx.moveTo(170, 220);
-  ctx.lineTo(170, 255);
-  ctx.lineTo(230, 255);
-  ctx.lineTo(230, 220);
+  ctx.moveTo(170, 190);
+  ctx.lineTo(170, 215);
+  ctx.lineTo(230, 215);
+  ctx.lineTo(230, 190);
   ctx.closePath();
   ctx.stroke();
 }
@@ -1589,10 +1652,157 @@ function drawCupcake_step6(ctx) {
   ctx.stroke();
 }
 function drawCupcake_step7(ctx) {
-  for (let i = 0; i < 7; i++) {
+  const sprinklePositions = [160, 175, 190, 205, 220, 235, 250];
+  for (let i = 0; i < sprinklePositions.length; i++) {
     ctx.beginPath();
-    ctx.arc(160 + i * 15, 140 + Math.random() * 20, 2, 0, Math.PI * 2);
+    ctx.arc(sprinklePositions[i], 140 + (i % 3) * 5, 2, 0, Math.PI * 2);
     ctx.stroke();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// DRAWING FUNCTIONS - FANTASY
+// ═══════════════════════════════════════════════════════════════════
+
+// DRAGON
+function drawDragon_step1(ctx) {
+  ctx.beginPath();
+  ctx.arc(150, 180, 60, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDragon_step2(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(210, 160, 40, 35, 0.3, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDragon_step3(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(230, 130);
+  ctx.lineTo(250, 80);
+  ctx.lineTo(240, 140);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawDragon_step4(ctx) {
+  for (let i = 0; i < 5; i++) {
+    const x = 150 + i * 25;
+    const y = 110 - i * 15;
+    ctx.beginPath();
+    ctx.moveTo(x, y);
+    ctx.lineTo(x - 10, y - 20);
+    ctx.lineTo(x + 10, y - 20);
+    ctx.closePath();
+    ctx.stroke();
+  }
+}
+function drawDragon_step5(ctx) {
+  ctx.beginPath();
+  ctx.ellipse(200, 240, 80, 60, 0.2, 0, Math.PI * 2);
+  ctx.stroke();
+}
+function drawDragon_step6(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(100, 200);
+  ctx.lineTo(60, 150);
+  ctx.lineTo(80, 220);
+  ctx.closePath();
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(300, 200);
+  ctx.lineTo(340, 150);
+  ctx.lineTo(320, 220);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawDragon_step7(ctx) {
+  for (let i = 0; i < 4; i++) {
+    const x = 140 + i * 50;
+    ctx.beginPath();
+    ctx.moveTo(x, 290);
+    ctx.lineTo(x - 5, 340);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, 290);
+    ctx.lineTo(x + 5, 340);
+    ctx.stroke();
+  }
+}
+function drawDragon_step8(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(320, 240);
+  ctx.quadraticCurveTo(360, 200, 380, 150);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(330, 220);
+  ctx.lineTo(355, 170);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(340, 200);
+  ctx.lineTo(365, 150);
+  ctx.stroke();
+}
+
+// CASTLE
+function drawCastle_step1(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(120, 200);
+  ctx.lineTo(280, 200);
+  ctx.lineTo(280, 280);
+  ctx.lineTo(120, 280);
+  ctx.closePath();
+  ctx.stroke();
+}
+function drawCastle_step2(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(100, 160);
+  ctx.lineTo(100, 290);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(300, 160);
+  ctx.lineTo(300, 290);
+  ctx.stroke();
+}
+function drawCastle_step3(ctx) {
+  for (let i = 0; i < 6; i++) {
+    const x = 120 + i * 30;
+    ctx.beginPath();
+    ctx.moveTo(x, 195);
+    ctx.lineTo(x + 12, 195);
+    ctx.lineTo(x + 12, 185);
+    ctx.lineTo(x + 24, 185);
+    ctx.stroke();
+  }
+}
+function drawCastle_step4(ctx) {
+  ctx.beginPath();
+  ctx.arc(200, 220, 30, 0, Math.PI);
+  ctx.stroke();
+}
+function drawCastle_step5(ctx) {
+  for (let i = 0; i < 3; i++) {
+    ctx.beginPath();
+    ctx.rect(110 + i * 85, 220, 12, 15);
+    ctx.stroke();
+  }
+}
+function drawCastle_step6(ctx) {
+  ctx.beginPath();
+  ctx.moveTo(95, 160);
+  ctx.lineTo(95, 110);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(85, 115);
+  ctx.lineTo(105, 115);
+  ctx.stroke();
+}
+function drawCastle_step7(ctx) {
+  for (let i = 0; i < 8; i++) {
+    for (let j = 0; j < 4; j++) {
+      ctx.beginPath();
+      ctx.moveTo(120 + i * 20, 200 + j * 20);
+      ctx.lineTo(135 + i * 20, 215 + j * 20);
+      ctx.stroke();
+    }
   }
 }
 
@@ -1639,6 +1849,8 @@ function startSubject(subjectId) {
   const subject = SUBJECTS.find(s => s.id === subjectId);
   state.currentSubject = subject;
   state.currentStep = 0;
+  state.undoStack = [];
+  state.redoStack = [];
 
   clearDraw();
   renderGuide();
@@ -1665,14 +1877,14 @@ function renderGuide() {
   }
 }
 
-// Initialize drawing canvas
+// Initialize drawing canvas with color and undo/redo support
 function initDrawCanvas() {
   const canvas = document.getElementById('canvas-draw');
   const ctx = canvas.getContext('2d');
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = '#1A1A1A';
+  ctx.lineWidth = state.penSize;
+  ctx.strokeStyle = state.penColor;
 
   function getPos(e) {
     const rect = canvas.getBoundingClientRect();
@@ -1683,11 +1895,26 @@ function initDrawCanvas() {
     };
   }
 
+  function saveSnapshot() {
+    const imageData = ctx.getImageData(0, 0, 400, 400);
+    state.undoStack.push(imageData);
+    state.redoStack = [];
+    if (state.undoStack.length > state.maxUndoDepth) {
+      state.undoStack.shift();
+    }
+  }
+
+  function applyStroke() {
+    ctx.lineWidth = state.penSize;
+    ctx.strokeStyle = state.eraserMode ? '#FFFFFF' : state.penColor;
+  }
+
   canvas.addEventListener('mousedown', e => {
     state.isDrawing = true;
     const pos = getPos(e);
     state.lastX = pos.x;
     state.lastY = pos.y;
+    applyStroke();
   });
 
   canvas.addEventListener('mousemove', e => {
@@ -1702,11 +1929,17 @@ function initDrawCanvas() {
   });
 
   canvas.addEventListener('mouseup', () => {
-    state.isDrawing = false;
+    if (state.isDrawing) {
+      saveSnapshot();
+      state.isDrawing = false;
+    }
   });
 
   canvas.addEventListener('mouseleave', () => {
-    state.isDrawing = false;
+    if (state.isDrawing) {
+      saveSnapshot();
+      state.isDrawing = false;
+    }
   });
 
   canvas.addEventListener('touchstart', e => {
@@ -1715,6 +1948,7 @@ function initDrawCanvas() {
     const pos = getPos(e);
     state.lastX = pos.x;
     state.lastY = pos.y;
+    applyStroke();
   });
 
   canvas.addEventListener('touchmove', e => {
@@ -1731,7 +1965,10 @@ function initDrawCanvas() {
 
   canvas.addEventListener('touchend', e => {
     e.preventDefault();
-    state.isDrawing = false;
+    if (state.isDrawing) {
+      saveSnapshot();
+      state.isDrawing = false;
+    }
   });
 }
 
@@ -1766,7 +2003,6 @@ function nextStep() {
     renderGuide();
     updateStepUI();
   } else {
-    // Last step - show completion screen
     document.getElementById('completion-msg').textContent = `You've completed "${state.currentSubject.label}"!`;
     showScreen('screen-complete');
   }
@@ -1776,6 +2012,30 @@ function clearDraw() {
   const canvas = document.getElementById('canvas-draw');
   const ctx = canvas.getContext('2d');
   ctx.clearRect(0, 0, 400, 400);
+  state.undoStack = [];
+  state.redoStack = [];
+}
+
+function undo() {
+  const canvas = document.getElementById('canvas-draw');
+  const ctx = canvas.getContext('2d');
+  if (state.undoStack.length > 0) {
+    const current = ctx.getImageData(0, 0, 400, 400);
+    state.redoStack.push(current);
+    const previous = state.undoStack.pop();
+    ctx.putImageData(previous, 0, 0);
+  }
+}
+
+function redo() {
+  const canvas = document.getElementById('canvas-draw');
+  const ctx = canvas.getContext('2d');
+  if (state.redoStack.length > 0) {
+    const current = ctx.getImageData(0, 0, 400, 400);
+    state.undoStack.push(current);
+    const next = state.redoStack.pop();
+    ctx.putImageData(next, 0, 0);
+  }
 }
 
 function replaySubject() {
@@ -1786,8 +2046,73 @@ function replaySubject() {
   showScreen('screen-drawing');
 }
 
+// Color and brush control functions
+function setColor(color) {
+  state.penColor = color;
+  state.eraserMode = false;
+  document.querySelectorAll('.color-swatch').forEach((btn, idx) => {
+    const colors = ['#1A1A1A', '#555555', '#FF0000', '#FF8C00', '#FFFF00', '#00CC00', '#00CCFF', '#0000FF', '#9900FF', '#FF1493'];
+    btn.classList.toggle('active', colors[idx] === color);
+  });
+  updateEraserButton();
+}
+
+function setBrushSize(size) {
+  state.penSize = size;
+  document.querySelectorAll('.brush-size-btn').forEach((btn, idx) => {
+    const sizes = [2, 5, 10];
+    btn.classList.toggle('active', sizes[idx] === size);
+  });
+}
+
+function toggleEraser() {
+  state.eraserMode = !state.eraserMode;
+  updateEraserButton();
+}
+
+function updateEraserButton() {
+  const btn = document.getElementById('eraser-btn');
+  if (state.eraserMode) {
+    btn.textContent = '🧹 Eraser';
+    btn.classList.add('active');
+    document.querySelectorAll('.color-swatch').forEach(s => s.classList.remove('active'));
+  } else {
+    btn.textContent = '✏️ Pen';
+    btn.classList.remove('active');
+  }
+}
+
+function showPreviewModal() {
+  const modal = document.getElementById('preview-modal');
+  const previewCanvas = document.getElementById('preview-canvas');
+  const previewCtx = previewCanvas.getContext('2d');
+
+  previewCtx.fillStyle = '#FFFFFF';
+  previewCtx.fillRect(0, 0, 400, 400);
+
+  const { steps } = state.currentSubject;
+  for (let i = 0; i < steps.length; i++) {
+    previewCtx.save();
+    previewCtx.globalAlpha = 0.7;
+    previewCtx.strokeStyle = '#2244BB';
+    previewCtx.lineWidth = 2;
+    previewCtx.lineCap = 'round';
+    previewCtx.lineJoin = 'round';
+    steps[i].draw(previewCtx);
+    previewCtx.restore();
+  }
+
+  modal.classList.add('active');
+}
+
+function closePreviewModal() {
+  document.getElementById('preview-modal').classList.remove('active');
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
   buildCategoryGrid();
   initDrawCanvas();
+  setBrushSize(5);
+  setColor('#1A1A1A');
 });
