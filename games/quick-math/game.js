@@ -576,29 +576,58 @@ function showLevelSelect(scene) {
         fontFamily: 'Arial'
     }).setOrigin(0, 0.5);
 
-    // Render first page
-    renderPage(0);
-
-    // Pagination controls (only show if more than 1 page)
+    // Create pagination controls (only if more than 1 page)
+    let prevBtn, nextBtn;
     if (totalPages > 1) {
-        const prevBtn = createModernButton(scene, 150, 590, '← Prev', QM_COLORS.secondary, () => {
+        prevBtn = createModernButton(scene, 150, 590, '← Prev', QM_COLORS.secondary, () => {
             playSound('click');
             if (currentPage > 0) {
                 currentPage--;
                 renderPage(currentPage);
+                updateButtonStates();
             }
         }, 100, 40, false);
-        prevBtn.pagControl = true;
 
-        const nextBtn = createModernButton(scene, 750, 590, 'Next →', QM_COLORS.secondary, () => {
+        nextBtn = createModernButton(scene, 750, 590, 'Next →', QM_COLORS.secondary, () => {
             playSound('click');
             if (currentPage < totalPages - 1) {
                 currentPage++;
                 renderPage(currentPage);
+                updateButtonStates();
             }
         }, 100, 40, false);
-        nextBtn.pageControl = true;
     }
+
+    // Function to update button disabled states based on current page
+    function updateButtonStates() {
+        if (totalPages <= 1) return;
+
+        // Disable prev button on first page
+        if (prevBtn) {
+            if (currentPage === 0) {
+                prevBtn.setAlpha(0.4);
+                prevBtn.disableInteractive();
+            } else {
+                prevBtn.setAlpha(1);
+                prevBtn.setInteractive({ useHandCursor: true });
+            }
+        }
+
+        // Disable next button on last page
+        if (nextBtn) {
+            if (currentPage === totalPages - 1) {
+                nextBtn.setAlpha(0.4);
+                nextBtn.disableInteractive();
+            } else {
+                nextBtn.setAlpha(1);
+                nextBtn.setInteractive({ useHandCursor: true });
+            }
+        }
+    }
+
+    // Render first page
+    renderPage(0);
+    updateButtonStates();
 }
 
 // Professional Card Design - Compact Single Column Layout
