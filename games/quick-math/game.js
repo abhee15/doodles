@@ -705,11 +705,8 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.setOrigin(0, 0);
     // Black border for visual definition
     cardBg.setStrokeStyle(2, 0x000000, 1);
-    // Explicit hit area to ensure clicks work through overlay elements
-    cardBg.setInteractive(
-        new Phaser.Geom.Rectangle(0, 0, cardWidth, cardHeight),
-        Phaser.Geom.Rectangle.Contains
-    );
+    // Simple interactive setup - use default bounds for better mobile compatibility
+    cardBg.setInteractive();
     cardBg.input.cursor = 'pointer';
     cardElements.push(cardBg);
 
@@ -830,14 +827,15 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.on('pointerover', onCardHover);
     cardBg.on('pointerout', onCardOut);
 
-    // Click handler with smooth tap animation
-    cardBg.on('pointerup', () => {
-        console.log('Card clicked:', level.id);
+    // Click handler - use pointerdown for better mobile support
+    cardBg.on('pointerdown', () => {
+        console.log('Card pointerdown:', level.id);
         currentLevel = level.id;
 
         // On mobile, skip animation for faster response
         const isMobile = scene.scale.width < 600;
         if (isMobile) {
+            console.log('Mobile detected, opening tutorial immediately');
             showTutorial(scene, level.id);
         } else {
             // Desktop: show animation then navigate
