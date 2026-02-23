@@ -527,22 +527,22 @@ function showLevelSelect(scene) {
     let cardWidth, cardHeight, rowGap, colGap;
 
     if (isMobile) {
-        // Mobile: smaller cards to fit screen
+        // Mobile: optimized card sizing for better content ratio
         cardWidth = Math.min(280, scene.scale.width - 40);
-        cardHeight = 75;
-        rowGap = 6;
-        colGap = 10;
-    } else {
-        // Desktop/Tablet: standard card sizes
-        cardWidth = Math.max(300, Math.min(340, (scene.scale.width - 80) / 2));
         cardHeight = 85;
         rowGap = 8;
+        colGap = 10;
+    } else {
+        // Desktop/Tablet: larger cards to fill more space
+        cardWidth = Math.max(320, Math.min(360, (scene.scale.width - 80) / 2));
+        cardHeight = 100;
+        rowGap = 10;
         colGap = Math.max(15, scene.scale.width * 0.02);
     }
 
     const gridWidth = 2 * cardWidth + colGap;
     const startX = (scene.scale.width - gridWidth) / 2;
-    const startY = Math.max(60, scene.scale.height * 0.1);
+    const startY = Math.max(50, scene.scale.height * 0.08);
 
     let currentPage = 0;
     const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
@@ -583,6 +583,10 @@ function showLevelSelect(scene) {
         const totalDotsWidth = totalPages * dotSpacing;
         const dotsStartX = (scene.scale.width - totalDotsWidth) / 2 + dotRadius;
 
+        // Position dots 30px below last row of cards
+        const cardsEndY = startY + 4 * (cardHeight + rowGap);
+        const dotY = cardsEndY + 30;
+
         // Destroy old dots
         pageDots.forEach(dot => {
             if (dot && dot.destroy) {
@@ -594,7 +598,6 @@ function showLevelSelect(scene) {
         // Create new dots
         for (let i = 0; i < totalPages; i++) {
             const dotX = dotsStartX + i * dotSpacing;
-            const dotY = 600;
             const fillColor = i === currentPage ? 0x1E293B : 0xD1D5DB;
             const dot = scene.add.circle(dotX, dotY, dotRadius, fillColor);
             pageDots.push(dot);
@@ -618,7 +621,11 @@ function showLevelSelect(scene) {
     // Create pagination controls (only if more than 1 page)
     let prevBtnObj, nextBtnObj;
     if (totalPages > 1) {
-        prevBtnObj = createModernButton(scene, 150, 590, '← Prev', QM_COLORS.secondary, () => {
+        // Position buttons 20px below the dots (which are 30px below cards)
+        const cardsEndY = startY + 4 * (cardHeight + rowGap);
+        const buttonY = cardsEndY + 70;
+
+        prevBtnObj = createModernButton(scene, 150, buttonY, '← Prev', QM_COLORS.secondary, () => {
             playSound('click');
             if (currentPage > 0) {
                 currentPage--;
@@ -627,7 +634,7 @@ function showLevelSelect(scene) {
             }
         }, 100, 40, false);
 
-        nextBtnObj = createModernButton(scene, 750, 590, 'Next →', QM_COLORS.secondary, () => {
+        nextBtnObj = createModernButton(scene, 750, buttonY, 'Next →', QM_COLORS.secondary, () => {
             playSound('click');
             if (currentPage < totalPages - 1) {
                 currentPage++;
