@@ -840,19 +840,17 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.on('pointerover', onCardHover);
     cardBg.on('pointerout', onCardOut);
 
-    // Click handler - use pointerup for better mobile support (more reliable than pointerdown)
-    let isClickProcessing = false;
-    const handleCardClick = () => {
-        if (isClickProcessing) return; // Prevent double-click
-        isClickProcessing = true;
-
-        console.log('Card clicked:', level.id, level.name, 'Mobile:', scene.scale.width < 600);
+    // Click handler - direct pointerdown event for immediate mobile response
+    cardBg.on('pointerdown', () => {
+        console.log('Card pointerdown event fired for level:', level.id, 'at', new Date().getTime());
         currentLevel = level.id;
 
         // On mobile, skip animation for faster response
         const isMobile = scene.scale.width < 600;
+        console.log('Mobile check:', isMobile, 'width:', scene.scale.width);
+
         if (isMobile) {
-            console.log('Mobile detected, opening tutorial immediately for level:', level.id);
+            console.log('MOBILE: Calling showTutorial for level:', level.id);
             showTutorial(scene, level.id);
         } else {
             // Desktop: show animation then navigate
@@ -863,17 +861,12 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
                 duration: 50,
                 yoyo: true,
                 onComplete: () => {
+                    console.log('DESKTOP: Animation complete, calling showTutorial');
                     showTutorial(scene, level.id);
                 }
             });
         }
-
-        // Reset processing flag after a brief delay
-        scene.time.delayedCall(100, () => { isClickProcessing = false; });
-    };
-
-    // Use pointerup for better mobile compatibility
-    cardBg.on('pointerup', handleCardClick);
+    });
 
     console.log('Card created for level:', level.id);
     return cardElements;
