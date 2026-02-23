@@ -528,16 +528,16 @@ function showLevelSelect(scene) {
 
     if (isMobile) {
         // Mobile: optimized to fit all elements without overlap
-        cardWidth = Math.min(280, scene.scale.width - 40);
-        cardHeight = 80;
-        rowGap = 3;
-        colGap = 10;
+        cardWidth = Math.min(300, scene.scale.width - 40);  // Increased from 280 for better fill
+        cardHeight = 90;  // Increased from 80 for more prominent cards
+        rowGap = 12;  // Increased from 3 for better vertical spacing
+        colGap = 15;  // Increased from 10 for better horizontal spacing
     } else {
         // Desktop/Tablet: balanced sizing for content and spacing
-        cardWidth = Math.max(320, Math.min(360, (scene.scale.width - 80) / 2));
-        cardHeight = 95;
-        rowGap = 4;
-        colGap = Math.max(15, scene.scale.width * 0.02);
+        cardWidth = Math.max(340, Math.min(380, (scene.scale.width - 80) / 2));  // Increased for better prominence
+        cardHeight = 105;  // Increased from 95 for larger cards
+        rowGap = 16;  // Increased from 4 for better vertical spacing
+        colGap = Math.max(22, scene.scale.width * 0.025);  // Increased for better horizontal spacing
     }
 
     const gridWidth = 2 * cardWidth + colGap;
