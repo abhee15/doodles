@@ -542,7 +542,7 @@ function showLevelSelect(scene) {
 
     const gridWidth = 2 * cardWidth + colGap;
     const startX = (scene.scale.width - gridWidth) / 2;
-    const startY = isMobile ? 40 : 55;
+    const startY = isMobile ? 85 : 100;
 
     let currentPage = 0;
     const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
@@ -604,8 +604,8 @@ function showLevelSelect(scene) {
         }
     }
 
-    // Header: Title and Progress button
-    const titleY = isMobile ? 18 : 25;
+    // Header: Title and Progress button - scaled for larger canvas (1200px height)
+    const titleY = isMobile ? 40 : 50;
     scene.add.text(80, titleY, '⚡ Quick Math Tricks', {
         fontSize: '32px',
         fill: '#1E293B',
@@ -2924,13 +2924,13 @@ function showPractice(scene, levelId) {
             questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
         }
 
-        // Responsive positioning for practice questions - optimized for minimal blank space
-        const questionY = isMobileView ? 70 : 80;
-        const inputBoxY = isMobileView ? 140 : 160;
+        // Responsive positioning for practice questions - scaled for 1200px canvas height
+        const questionY = isMobileView ? 140 : 160;
+        const inputBoxY = isMobileView ? 250 : 290;
         const questionSize = isMobileView ? '32px' : '44px';
         const inputSize = isMobileView ? '32px' : '40px';
         const inputBoxWidth = Math.min(250, scene.scale.width * 0.55);
-        const inputBoxHeight = Math.min(60, scene.scale.height * 0.1);
+        const inputBoxHeight = Math.min(60, scene.scale.height * 0.08);
 
         questionText = scene.add.text(centerX, questionY, questionStr, {
             fontSize: questionSize,
@@ -2953,10 +2953,10 @@ function showPractice(scene, levelId) {
             resolution: 2
         }).setOrigin(0.5);
 
-        // Responsive feedback positioning - tightened spacing
-        const feedbackY = inputBoxY + (inputBoxHeight / 2) + 15;
-        const numPadY = isMobileView ? 260 : 300;
-        const buttonY = isMobileView ? 440 : 500;
+        // Responsive feedback positioning - spread out for larger canvas
+        const feedbackY = inputBoxY + (inputBoxHeight / 2) + 20;
+        const numPadY = isMobileView ? 420 : 490;
+        const buttonY = isMobileView ? 750 : 850;
         const feedbackSize = isMobileView ? '18px' : '24px';
 
         // Keyboard hint (desktop only)
