@@ -526,8 +526,10 @@ function showLevelSelect(scene) {
         { id: 16, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: 0x0D9488 }                    // Modern Teal
     ];
 
-    // Responsive grid layout configuration based on actual device width
-    const isMobile = window.innerWidth < 600;
+    // Responsive grid layout configuration based on actual device dimensions
+    // Mobile detection: check if smallest dimension is < 600 OR if it's a touch device
+    const isMobile = Math.min(window.innerWidth, window.innerHeight) < 600 ||
+                   (window.matchMedia && window.matchMedia('(hover: none)').matches);
     const isLandscape = window.innerHeight < window.innerWidth;
     console.log('📱 Device: Mobile=' + isMobile + ', Landscape=' + isLandscape + ', Size:', window.innerWidth + 'x' + window.innerHeight);
 
@@ -867,9 +869,10 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
             currentLevel = level.id;
 
             // On mobile, skip animation for faster response
-            // Use window.innerWidth for actual device width, not game canvas width
-            const isMobile = window.innerWidth < 600;
-            console.log('📱 Mobile:', isMobile, '| Device Width:', window.innerWidth, '| Game Width:', scene.scale.width);
+            // Mobile detection: check if smallest dimension is < 600 OR if it's a touch device
+            const isMobile = Math.min(window.innerWidth, window.innerHeight) < 600 ||
+                           (window.matchMedia && window.matchMedia('(hover: none)').matches);
+            console.log('📱 Mobile:', isMobile, '| Size:', window.innerWidth + 'x' + window.innerHeight, '| Min:', Math.min(window.innerWidth, window.innerHeight));
 
             if (isMobile) {
                 console.log('✅ MOBILE: Calling showTutorial for level', level.id);
@@ -2711,7 +2714,9 @@ function showPractice(scene, levelId) {
 
     // Responsive positioning
     const centerX = scene.scale.width / 2;
-    const isMobileView = window.innerWidth < 600;
+    // Mobile detection: check if smallest dimension is < 600 OR if it's a touch device
+    const isMobileView = Math.min(window.innerWidth, window.innerHeight) < 600 ||
+                        (window.matchMedia && window.matchMedia('(hover: none)').matches);
     const titleSize = isMobileView ? '28px' : '36px';
     const scoreSize = isMobileView ? '18px' : '24px';
     const titleY = scene.scale.height * 0.06;
@@ -3206,7 +3211,9 @@ function showResults(scene, score, total, levelId) {
 // ==================== NUMBER PAD ====================
 function createNumberPad(scene, inputText, centerX = 450, startY = 350) {
     // Responsive button sizing
-    const isMobileView = window.innerWidth < 600;
+    // Mobile detection: check if smallest dimension is < 600 OR if it's a touch device
+    const isMobileView = Math.min(window.innerWidth, window.innerHeight) < 600 ||
+                        (window.matchMedia && window.matchMedia('(hover: none)').matches);
     const buttonSize = isMobileView ? 40 : 55;
     const spacing = buttonSize + (isMobileView ? 8 : 10);
     const fontSize = isMobileView ? '20px' : '26px';
