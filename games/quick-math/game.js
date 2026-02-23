@@ -698,7 +698,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     // Soft shadow layer - creates depth without hard borders
     const shadowBlur = scene.add.rectangle(x + 2, y + 3, cardWidth - 2, cardHeight - 2, 0x000000, 0.08);
     shadowBlur.setOrigin(0, 0);
-    shadowBlur.setDepth(-1);
+    shadowBlur.setDepth(-10);  // Behind everything
     cardElements.push(shadowBlur);
 
     // Main card background - translucent frosted glass effect with black border
@@ -706,8 +706,8 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.setOrigin(0, 0);
     // Black border for visual definition
     cardBg.setStrokeStyle(2, 0x000000, 1);
-    // Set high depth so it's interactive layer on top
-    cardBg.setDepth(10);
+    // Set depth to -5 so glass overlays render on top, but below text (depth 5)
+    cardBg.setDepth(-5);
     // Explicit rectangular hit area for reliable mobile detection
     const hitArea = new Phaser.Geom.Rectangle(0, 0, cardWidth, cardHeight);
     cardBg.setInteractive(hitArea, Phaser.Geom.Rectangle.Contains);
@@ -717,20 +717,20 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     // Glassmorphic gradient overlay - simulates depth and light
     const glassOverlay = scene.add.rectangle(x, y, cardWidth, cardHeight * 0.4, level.color, 0.06);
     glassOverlay.setOrigin(0, 0);
-    glassOverlay.setDepth(5);
+    glassOverlay.setDepth(-2);  // Between background and text
     cardElements.push(glassOverlay);
 
     // Accent gradient bar at top - subtle glow effect instead of hard line
     const accentGlow = scene.add.rectangle(x, y, cardWidth, 4, level.color, 0.12);
     accentGlow.setOrigin(0, 0);
-    accentGlow.setDepth(5);
+    accentGlow.setDepth(-2);  // Between background and text
     cardElements.push(accentGlow);
 
     // Icon zone: Soft circular background with gentle glow
     const iconX = x + 32;
     const iconY = y + cardHeight / 2;
     const iconBg = scene.add.circle(iconX, iconY, 30, level.color, 0.12);
-    iconBg.setDepth(5);
+    iconBg.setDepth(-2);  // Decorative element below text
     cardElements.push(iconBg);
 
     const iconText = scene.add.text(iconX, iconY, level.icon, {
@@ -740,7 +740,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         fontStyle: 'bold',
         resolution: 2
     }).setOrigin(0.5);
-    iconText.setDepth(5);
+    iconText.setDepth(0);  // Text above decorative elements
     cardElements.push(iconText);
 
     // Title zone: Modern typography with color accent
@@ -754,13 +754,13 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         fontStyle: 'bold',
         resolution: 2
     }).setOrigin(0, 0);
-    titleText.setDepth(5);
+    titleText.setDepth(0);  // Text above decorative elements
     cardElements.push(titleText);
 
     // Subtle colored accent under title (thin line)
     const titleAccent = scene.add.rectangle(titleX, titleY + 20, 40, 2, level.color, 0.4);
     titleAccent.setOrigin(0, 0);
-    titleAccent.setDepth(5);
+    titleAccent.setDepth(-2);  // Decorative element below text
     cardElements.push(titleAccent);
 
     // Description: Refined styling with better contrast
@@ -771,7 +771,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         fontStyle: 'normal',
         resolution: 2
     }).setOrigin(0, 0);
-    descText.setDepth(5);
+    descText.setDepth(0);  // Text above decorative elements
     cardElements.push(descText);
 
     // Stars row (right side): Modern minimal star display
@@ -782,7 +782,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     // Star display with subtle backgrounds
     for (let i = 0; i < 3; i++) {
         const starCircle = scene.add.circle(starsX + i * 16, starsY + 6, 7, i < earnedStars ? level.color : 0xE5E7EB, 0.15);
-        starCircle.setDepth(5);
+        starCircle.setDepth(-2);  // Decorative element below text
         cardElements.push(starCircle);
 
         const star = scene.add.text(starsX + i * 16, starsY + 6, i < earnedStars ? '★' : '☆', {
@@ -790,7 +790,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
             fill: i < earnedStars ? '#' + level.color.toString(16).padStart(6, '0').toUpperCase() : '#9CA3AF',
             fontFamily: 'Arial, sans-serif'
         }).setOrigin(0.5);
-        star.setDepth(5);
+        star.setDepth(0);  // Text above decorative elements
         cardElements.push(star);
     }
 
