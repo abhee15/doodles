@@ -93,8 +93,8 @@ const ACHIEVEMENTS = {
         id: 'math_genius',
         name: 'Math Genius',
         icon: '🧠',
-        description: 'Practice all 12 levels',
-        check: () => Object.keys(playerProgress.levelStars).length >= 12
+        description: 'Practice all 16 levels',
+        check: () => Object.keys(playerProgress.levelStars).length >= 16
     },
     score_master: {
         id: 'score_master',
@@ -493,7 +493,11 @@ function showLevelSelect(scene) {
         { id: 9, name: 'Multiply by 8', icon: '×8', desc: 'Triple double', color: 0xF97316 },              // Warm Orange
         { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0xEF4444 },            // Bright Red
         { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0x14B8A6 },              // Teal
-        { id: 12, name: 'Multiply by 25', icon: '×25', desc: 'Quarter trick', color: 0x3B82F6 }             // Vibrant Blue
+        { id: 12, name: 'Multiply by 25', icon: '×25', desc: 'Quarter trick', color: 0x3B82F6 },             // Vibrant Blue
+        { id: 13, name: 'Multiply by 99', icon: '×99', desc: 'n×100−n shortcut', color: 0x7C3AED },          // Violet
+        { id: 14, name: '×11 Extended', icon: '11++', desc: 'With carry logic', color: 0x0284C7 },           // Sky Blue
+        { id: 15, name: 'Differ by 2', icon: 'n±1', desc: 'Sandwich squares', color: 0xD97706 },             // Amber
+        { id: 16, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: 0x059669 }                    // Emerald
     ];
 
     // Grid layout configuration
@@ -775,8 +779,15 @@ function showTutorial(scene, levelId) {
         tutorialMultiplyBy15(scene);
     } else if (levelId === 12) {
         tutorialMultiplyBy25(scene);
+    } else if (levelId === 13) {
+        tutorialMultiplyBy99(scene);
+    } else if (levelId === 14) {
+        tutorialMultiplyBy11Extended(scene);
+    } else if (levelId === 15) {
+        tutorialDifferBy2(scene);
+    } else if (levelId === 16) {
+        tutorialSameTens(scene);
     }
-    // Add more tutorials for other levels later
 }
 
 function tutorialMultiplyBy11(scene) {
@@ -2125,6 +2136,407 @@ function tutorialMultiplyBy25(scene) {
     showStep();
 }
 
+// ==================== TUTORIAL: MULTIPLY BY 99 ====================
+function tutorialMultiplyBy99(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Multiply by 99 - The n×100−n Trick!',
+            text: 'Learn the shortcut for multiplying any number by 99!',
+            example: ''
+        },
+        {
+            title: 'The Secret: n×100 minus n',
+            text: 'Instead of multiplying by 99,\nthink of it as:\nn × 100 − n\n\nExample: 47 × 99 = ?',
+            example: '47 × 99 = ?'
+        },
+        {
+            title: 'Step 1: Multiply by 100',
+            text: '47 × 100 = 4700',
+            example: '4700'
+        },
+        {
+            title: 'Step 2: Subtract the original',
+            text: '4700 − 47 = 4653',
+            example: '4653'
+        },
+        {
+            title: 'Try Another: 23 × 99',
+            text: '23 × 100 = 2300\n2300 − 23 = 2277\n\nAnswer:',
+            example: '23 × 99 = 2277'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'For ANY number × 99:\nMultiply by 100\nSubtract the number\n\n56 × 99 = 5600 − 56 = 5544',
+            example: '✨ Fast Calculation! ✨'
+        }
+    ];
+
+    function showStep() {
+        clearScene(scene);
+
+        const currentStep = steps[step];
+
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#1CB0F6',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#1CB0F6',
+                fontFamily: "'Nunito', Arial, sans-serif",
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: "'Nunito', Arial, sans-serif"
+        }).setOrigin(0.5);
+
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 13);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
+// ==================== TUTORIAL: MULTIPLY BY 11 EXTENDED ====================
+function tutorialMultiplyBy11Extended(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: '×11 Extended - With Carry!',
+            text: 'Learn the ×11 trick when the middle digit causes a carry!',
+            example: ''
+        },
+        {
+            title: 'Review: Basic ×11',
+            text: 'Remember: separate digits then add middle\n\n23 × 11:\nFirst digit = 2\nMiddle = 2+3 = 5\nLast = 3\nAnswer: 253',
+            example: '23 × 11 = 253'
+        },
+        {
+            title: 'What About Larger Middle?',
+            text: 'When the middle sum ≥ 10, we need a CARRY!\n\n76 × 11:\nFirst = 7, Middle = 7+6 = 13 (carry!)',
+            example: '76 × 11 = ?'
+        },
+        {
+            title: 'Step 1: Handle the Carry',
+            text: 'Middle = 7+6 = 13\nWe write 3 and carry 1:\n7+1 = 8 (hundreds place)',
+            example: '8_3'
+        },
+        {
+            title: 'Complete Answer',
+            text: 'Hundreds: 7+1 = 8\nTens: 3\nOnes: 6\n\nAnswer:',
+            example: '76 × 11 = 836'
+        },
+        {
+            title: 'Try Another: 85 × 11',
+            text: 'First = 8\nMiddle = 8+5 = 13\nCarry: 8+1 = 9\nAnswer: 9_5',
+            example: '85 × 11 = 935'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Add the digits\nIf sum ≥ 10:\n  Write ones digit\n  Carry 1 to first digit\n\nWorks for ALL 2-digit numbers!',
+            example: '✨ Carry Logic! ✨'
+        }
+    ];
+
+    function showStep() {
+        clearScene(scene);
+
+        const currentStep = steps[step];
+
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#1CB0F6',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#1CB0F6',
+                fontFamily: "'Nunito', Arial, sans-serif",
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: "'Nunito', Arial, sans-serif"
+        }).setOrigin(0.5);
+
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 14);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
+// ==================== TUTORIAL: DIFFER BY 2 ====================
+function tutorialDifferBy2(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Differ by 2 - Sandwich Squares!',
+            text: 'Multiply two numbers that differ by 2 using squares!',
+            example: ''
+        },
+        {
+            title: 'The Identity',
+            text: 'n × (n+2) = (n+1)² − 1\n\nWhy? Because:\n(n+1)² = n² + 2n + 1\nSubtract 1: n² + 2n\nWhich is n × (n+2)!',
+            example: 'n × (n+2) = (n+1)² − 1'
+        },
+        {
+            title: 'Example: 7 × 9',
+            text: 'Numbers differ by 2\nMiddle number = 8\n\n7 × 9 = 8² − 1\n8² = 64\n64 − 1 = ?',
+            example: '7 × 9 = ?'
+        },
+        {
+            title: 'Solution',
+            text: '8² = 64\n64 − 1 = 63\n\nAnswer:',
+            example: '7 × 9 = 63'
+        },
+        {
+            title: 'Try Another: 14 × 16',
+            text: 'Middle = 15\n15² = 225\n225 − 1 = 224\n\nAnswer:',
+            example: '14 × 16 = 224'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'For ANY n and (n+2):\nFind the middle number\nSquare it\nSubtract 1\n\nAlways works!',
+            example: '✨ Sandwich Squares! ✨'
+        }
+    ];
+
+    function showStep() {
+        clearScene(scene);
+
+        const currentStep = steps[step];
+
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#1CB0F6',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#1CB0F6',
+                fontFamily: "'Nunito', Arial, sans-serif",
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: "'Nunito', Arial, sans-serif"
+        }).setOrigin(0.5);
+
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 15);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
+// ==================== TUTORIAL: SAME TENS ====================
+function tutorialSameTens(scene) {
+    let step = 0;
+
+    const steps = [
+        {
+            title: 'Same Tens - Ones Sum to 10!',
+            text: 'Multiply numbers with same tens digit where ones sum to 10!',
+            example: ''
+        },
+        {
+            title: 'The Condition',
+            text: 'Numbers like: 23 and 27\nSame tens digit = 2\nOnes digits: 3 + 7 = 10\n\nThere\'s a MAGIC PATTERN!',
+            example: ''
+        },
+        {
+            title: 'The Formula',
+            text: 'Left part: T × (T+1)\nRight part: A × (10−A)\nConcat them!\n\nExample: 23 × 27\nT=2, A=3',
+            example: 'T × (T+1) | A × (10−A)'
+        },
+        {
+            title: 'Worked Example: 23 × 27',
+            text: 'Left = 2 × 3 = 6\nRight = 3 × 7 = 21\nConcat: 621\n\nAnswer:',
+            example: '23 × 27 = 621'
+        },
+        {
+            title: 'Try Another: 44 × 46',
+            text: 'T=4, A=4\nLeft = 4 × 5 = 20\nRight = 4 × 6 = 24\nConcat: 2024\n\nAnswer:',
+            example: '44 × 46 = 2024'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'Same tens, ones sum to 10:\nMultiply tens digit by (tens+1)\nMultiply ones digits\nWrite left then right!\n\n83 × 87 = 7221',
+            example: '✨ Magic Pattern! ✨'
+        }
+    ];
+
+    function showStep() {
+        clearScene(scene);
+
+        const currentStep = steps[step];
+
+        scene.add.text(450, 60, currentStep.title, {
+            fontSize: '36px',
+            fill: '#1CB0F6',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            fontStyle: 'bold'
+        }).setOrigin(0.5);
+
+        scene.add.text(450, 200, currentStep.text, {
+            fontSize: '20px',
+            fill: '#1E293B',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            align: 'center',
+            lineSpacing: 8,
+            wordWrap: { width: 700 }
+        }).setOrigin(0.5);
+
+        if (currentStep.example) {
+            scene.add.text(450, 380, currentStep.example, {
+                fontSize: '40px',
+                fill: '#1CB0F6',
+                fontFamily: "'Nunito', Arial, sans-serif",
+                fontStyle: 'bold',
+                stroke: '#fff',
+                strokeThickness: 2,
+                align: 'center',
+                wordWrap: { width: 700 }
+            }).setOrigin(0.5);
+        }
+
+        scene.add.text(450, 520, `Step ${step + 1} of ${steps.length}`, {
+            fontSize: '18px',
+            fill: '#475569',
+            fontFamily: "'Nunito', Arial, sans-serif"
+        }).setOrigin(0.5);
+
+        if (step > 0) {
+            createModernButton(scene, 220, 590, '← Previous', QM_COLORS.textLight, () => {
+                step--;
+                showStep();
+            }, 150, 50, true);
+        }
+
+        if (step < steps.length - 1) {
+            createModernButton(scene, 680, 590, 'Next →', QM_COLORS.primary, () => {
+                step++;
+                showStep();
+            }, 150, 50);
+        } else {
+            createModernButton(scene, 680, 590, 'Practice!', QM_COLORS.success, () => {
+                showPractice(scene, 16);
+            }, 150, 50);
+        }
+    }
+
+    showStep();
+}
+
 // ==================== PRACTICE MODE ====================
 function showPractice(scene, levelId) {
     clearScene(scene);
@@ -2312,6 +2724,49 @@ function showPractice(scene, levelId) {
                 type: '×25'
             };
             currentQuestion.answer = num * 25;
+        } else if (levelId === 13) {
+            // Level 13: Multiply by 99 (n × 100 − n)
+            const num = Phaser.Math.Between(12, 60);
+            currentQuestion = {
+                num: num,
+                answer: null,
+                type: '×99'
+            };
+            currentQuestion.answer = num * 99;
+        } else if (levelId === 14) {
+            // Level 14: ×11 Extended (with carry)
+            const num = Phaser.Math.Between(57, 99);
+            currentQuestion = {
+                num: num,
+                answer: null,
+                type: '×11ext'
+            };
+            currentQuestion.answer = num * 11;
+        } else if (levelId === 15) {
+            // Level 15: Differ by 2 (n×(n+2) = (n+1)² − 1)
+            const m = Phaser.Math.Between(5, 20);
+            const num1 = m - 1;
+            const num2 = m + 1;
+            currentQuestion = {
+                num1: num1,
+                num2: num2,
+                answer: null,
+                type: 'differ'
+            };
+            currentQuestion.answer = num1 * num2;
+        } else if (levelId === 16) {
+            // Level 16: Same tens, ones sum to 10
+            const T = Phaser.Math.Between(2, 8);
+            const A = Phaser.Math.Between(1, 4);
+            const num1 = T * 10 + A;
+            const num2 = T * 10 + (10 - A);
+            currentQuestion = {
+                num1: num1,
+                num2: num2,
+                answer: null,
+                type: 'sametens'
+            };
+            currentQuestion.answer = num1 * num2;
         }
 
         if (questionText) questionText.destroy();
@@ -2345,6 +2800,14 @@ function showPractice(scene, levelId) {
             questionStr = `${currentQuestion.num} × 15 = ?`;
         } else if (currentQuestion.type === '×25') {
             questionStr = `${currentQuestion.num} × 25 = ?`;
+        } else if (currentQuestion.type === '×99') {
+            questionStr = `${currentQuestion.num} × 99 = ?`;
+        } else if (currentQuestion.type === '×11ext') {
+            questionStr = `${currentQuestion.num} × 11 = ?`;
+        } else if (currentQuestion.type === 'differ') {
+            questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
+        } else if (currentQuestion.type === 'sametens') {
+            questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
         }
 
         questionText = scene.add.text(450, 120, questionStr, {
