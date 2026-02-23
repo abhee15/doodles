@@ -554,13 +554,15 @@ function showLevelSelect(scene) {
             CARDS_PER_PAGE = 10;   // 2 cols × 5 rows
         }
     } else {
-        // Desktop/Tablet: balanced sizing for content and spacing
-        cardWidth = Math.max(340, Math.min(380, (scene.scale.width - 80) / 2));
+        // Desktop/Tablet: responsive grid that uses full width
+        cardWidth = 340;
         cardHeight = 105;
         rowGap = 16;
-        colGap = Math.max(22, scene.scale.width * 0.025);
-        cardsPerRow = 2;
-        CARDS_PER_PAGE = 10;   // 2 cols × 5 rows
+        colGap = 24;
+        // Calculate how many cards can fit horizontally
+        const availableWidth = scene.scale.width - 80;
+        cardsPerRow = Math.max(2, Math.floor((availableWidth + colGap) / (cardWidth + colGap)));
+        CARDS_PER_PAGE = cardsPerRow * 5;   // Fill 5 rows
     }
 
     const gridWidth = cardsPerRow * cardWidth + (cardsPerRow - 1) * colGap;
