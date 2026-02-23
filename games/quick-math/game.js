@@ -29,6 +29,12 @@ const config = createGameConfig({
     width: 900,
     height: 650,
     backgroundColor: QM_COLORS.background,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        expandParent: true,
+        orientation: Phaser.Scale.Orientation.PORTRAIT_BY_DEFAULT
+    },
     scene: {
         preload: preload,
         create: create,
@@ -37,6 +43,20 @@ const config = createGameConfig({
 });
 
 const game = new Phaser.Game(config);
+
+// Helper to get actual game dimensions (accounting for scaling)
+function getActualGameWidth() {
+    return game.scale.gameSize.width;
+}
+
+function getActualGameHeight() {
+    return game.scale.gameSize.height;
+}
+
+// Helper to calculate responsive scale factor
+function getScaleFactor() {
+    return getActualGameWidth() / 900; // 900 is base width
+}
 
 // Game state
 let currentScene = 'menu';
@@ -500,15 +520,29 @@ function showLevelSelect(scene) {
         { id: 16, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: 0x059669 }                    // Emerald
     ];
 
-    // Grid layout configuration
+    // Responsive grid layout configuration based on scene width
+    const isMobile = scene.scale.width < 600;
     const CARDS_PER_PAGE = 10;   // 2 cols × 5 rows
-    const cardWidth = 340;
-    const cardHeight = 85;
-    const rowGap = 8;
-    const colGap = 20;
-    const gridWidth = 2 * cardWidth + colGap;       // 700px
-    const startX = (scene.scale.width - gridWidth) / 2;  // 100px
-    const startY = 80;
+
+    let cardWidth, cardHeight, rowGap, colGap;
+
+    if (isMobile) {
+        // Mobile: smaller cards to fit screen
+        cardWidth = Math.min(280, scene.scale.width - 40);
+        cardHeight = 75;
+        rowGap = 6;
+        colGap = 10;
+    } else {
+        // Desktop/Tablet: standard card sizes
+        cardWidth = Math.max(300, Math.min(340, (scene.scale.width - 80) / 2));
+        cardHeight = 85;
+        rowGap = 8;
+        colGap = Math.max(15, scene.scale.width * 0.02);
+    }
+
+    const gridWidth = 2 * cardWidth + colGap;
+    const startX = (scene.scale.width - gridWidth) / 2;
+    const startY = Math.max(60, scene.scale.height * 0.1);
 
     let currentPage = 0;
     const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
@@ -2550,9 +2584,17 @@ function showPractice(scene, levelId) {
     // Detect desktop vs mobile
     const isDesktop = !scene.sys.game.device.os.android && !scene.sys.game.device.os.iOS;
 
+    // Responsive positioning
+    const centerX = scene.scale.width / 2;
+    const isMobileView = scene.scale.width < 600;
+    const titleSize = isMobileView ? '28px' : '36px';
+    const scoreSize = isMobileView ? '18px' : '24px';
+    const titleY = scene.scale.height * 0.06;
+    const scoreX = centerX + (isMobileView ? -50 : 250);
+
     // Title
-    scene.add.text(400, 40, '⚡ Practice Time!', {
-        fontSize: '36px',
+    scene.add.text(centerX, titleY, '⚡ Practice Time!', {
+        fontSize: titleSize,
         fill: '#FDCB6E',
         fontStyle: 'bold',
         fontFamily: "'Nunito', Arial, sans-serif",
@@ -2560,8 +2602,8 @@ function showPractice(scene, levelId) {
     }).setOrigin(0.5);
 
     // Score
-    const scoreText = scene.add.text(650, 40, 'Score: 0/5', {
-        fontSize: '24px',
+    const scoreText = scene.add.text(scoreX, titleY, 'Score: 0/5', {
+        fontSize: scoreSize,
         fill: '#fff',
         fontStyle: 'bold',
         fontFamily: "'Nunito', Arial, sans-serif",
@@ -2810,8 +2852,16 @@ function showPractice(scene, levelId) {
             questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
         }
 
-        questionText = scene.add.text(450, 120, questionStr, {
-            fontSize: '44px',
+        // Responsive positioning for practice questions
+        const questionY = scene.scale.height * 0.18;
+        const inputBoxY = scene.scale.height * 0.32;
+        const questionSize = isMobileView ? '32px' : '44px';
+        const inputSize = isMobileView ? '32px' : '40px';
+        const inputBoxWidth = Math.min(250, scene.scale.width * 0.55);
+        const inputBoxHeight = Math.min(70, scene.scale.height * 0.12);
+
+        questionText = scene.add.text(centerX, questionY, questionStr, {
+            fontSize: questionSize,
             fill: '#2D3436',
             fontFamily: "'Nunito', Arial, sans-serif",
             fontStyle: 'bold',
@@ -2819,31 +2869,37 @@ function showPractice(scene, levelId) {
         }).setOrigin(0.5);
 
         // Input box background
-        answerText = scene.add.rectangle(400, 200, 250, 70, 0x2d3436);
-        answerText.setStrokeStyle(3, QM_COLORS.buttonBg);
+        answerText = scene.add.rectangle(centerX, inputBoxY, inputBoxWidth, inputBoxHeight, 0x2d3436);
+        answerText.setStrokeStyle(Math.max(1, scene.scale.width / 450), QM_COLORS.buttonBg);
 
         // Input text
-        inputText = scene.add.text(400, 200, '', {
-            fontSize: '40px',
+        inputText = scene.add.text(centerX, inputBoxY, '', {
+            fontSize: inputSize,
             fill: '#FDCB6E',
             fontStyle: 'bold',
             fontFamily: "'Nunito', Arial, sans-serif",
             resolution: 2
         }).setOrigin(0.5);
 
+        // Responsive feedback positioning
+        const feedbackY = inputBoxY + (inputBoxHeight / 2) + 25;
+        const numPadY = Math.max(scene.scale.height * 0.45, feedbackY + 40);
+        const buttonY = Math.min(scene.scale.height * 0.8, numPadY + 90);
+        const feedbackSize = isMobileView ? '18px' : '24px';
+
         // Keyboard hint (desktop only)
         if (keyboardHintText) keyboardHintText.destroy();
         if (isDesktop) {
-            keyboardHintText = scene.add.text(400, 240, '⌨ Type your answer and press Enter', {
-                fontSize: '12px',
+            keyboardHintText = scene.add.text(centerX, inputBoxY + (inputBoxHeight / 2) + 12, '⌨ Type your answer and press Enter', {
+                fontSize: Math.max(10, scene.scale.width / 80) + 'px',
                 fill: '#9CA3AF',
                 fontFamily: "'Nunito', Arial, sans-serif"
             }).setOrigin(0.5);
         }
 
         // Feedback (below input)
-        feedbackText = scene.add.text(400, 270, '', {
-            fontSize: '24px',
+        feedbackText = scene.add.text(centerX, feedbackY, '', {
+            fontSize: feedbackSize,
             fill: '#fff',
             fontStyle: 'bold',
             fontFamily: "'Nunito', Arial, sans-serif",
@@ -2851,17 +2907,21 @@ function showPractice(scene, levelId) {
         }).setOrigin(0.5);
 
         // Number pad (centered, lower on screen)
-        createNumberPad(scene, inputText);
+        createNumberPad(scene, inputText, centerX, numPadY);
 
-        // Action buttons (bottom)
-        createButton(scene, 280, 560, 'Clear', QM_COLORS.error, () => {
+        // Action buttons (bottom) - responsive sizing
+        const buttonWidth = Math.max(100, Math.min(140, scene.scale.width * 0.2));
+        const buttonHeight = Math.max(40, Math.min(50, scene.scale.height * 0.08));
+        const buttonGap = Math.max(20, scene.scale.width * 0.08);
+
+        createButton(scene, centerX - buttonWidth - (buttonGap / 2), buttonY, 'Clear', QM_COLORS.error, () => {
             userAnswer = '';
             inputText.setText('');
-        }, 140, 50);
+        }, buttonWidth, buttonHeight);
 
-        createButton(scene, 520, 560, 'Submit', QM_COLORS.success, () => {
+        createButton(scene, centerX + buttonWidth + (buttonGap / 2), buttonY, 'Submit', QM_COLORS.success, () => {
             checkAnswer();
-        }, 140, 50);
+        }, buttonWidth, buttonHeight);
     }
 
     function checkAnswer() {
@@ -2994,21 +3054,27 @@ function showResults(scene, score, total, levelId) {
 }
 
 // ==================== NUMBER PAD ====================
-function createNumberPad(scene, inputText) {
-    const startX = 265;
-    const startY = 350;
-    const spacing = 65;
+function createNumberPad(scene, inputText, centerX = 450, startY = 350) {
+    // Responsive button sizing
+    const isMobileView = scene.scale.width < 600;
+    const buttonSize = isMobileView ? 40 : 55;
+    const spacing = buttonSize + (isMobileView ? 8 : 10);
+    const fontSize = isMobileView ? '20px' : '26px';
+
+    // Calculate grid positioning
+    const gridWidth = 5 * spacing - (isMobileView ? 8 : 10);
+    const padStartX = centerX - (gridWidth / 2);
 
     for (let i = 0; i <= 9; i++) {
-        const x = startX + (i % 5) * spacing;
-        const y = startY + Math.floor(i / 5) * 70;
+        const x = padStartX + (i % 5) * spacing;
+        const y = startY + Math.floor(i / 5) * spacing;
 
-        const btn = scene.add.rectangle(x, y, 55, 55, QM_COLORS.buttonBg);
+        const btn = scene.add.rectangle(x, y, buttonSize, buttonSize, QM_COLORS.buttonBg);
         btn.setInteractive({ useHandCursor: true });
-        btn.setStrokeStyle(2, 0x000);
+        btn.setStrokeStyle(Math.max(1, scene.scale.width / 450), 0x000);
 
         const text = scene.add.text(x, y, i, {
-            fontSize: '26px',
+            fontSize: fontSize,
             fill: '#000',
             fontStyle: 'bold',
             fontFamily: "'Nunito', Arial, sans-serif",
