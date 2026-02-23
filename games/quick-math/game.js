@@ -500,18 +500,18 @@ function showLevelSelect(scene) {
 
     let currentPage = 0;
     const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
-    let cardContainers = [];  // Track card objects for page changes
-    let pageDots = [];        // Track page indicator dots
+    let cardElements = [];     // Track all card display objects for destruction
+    let pageDots = [];         // Track page indicator dots
 
     // Function to render a specific page
     function renderPage(pageNum) {
-        // Destroy existing cards
-        cardContainers.forEach(container => {
-            if (container && container.destroy) {
-                container.destroy(true);
+        // Destroy existing card elements
+        cardElements.forEach(element => {
+            if (element && element.destroy) {
+                element.destroy();
             }
         });
-        cardContainers = [];
+        cardElements = [];
 
         const pageStart = pageNum * CARDS_PER_PAGE;
         const pageEnd = Math.min(pageStart + CARDS_PER_PAGE, levels.length);
@@ -522,8 +522,8 @@ function showLevelSelect(scene) {
             const row = Math.floor(localIndex / 2);
             const x = startX + col * (cardWidth + colGap);
             const y = startY + row * (cardHeight + rowGap);
-            const container = createProfessionalCard(scene, x, y, levels[i], cardWidth, cardHeight);
-            cardContainers.push(container);
+            const elementsCreated = createProfessionalCard(scene, x, y, levels[i], cardWidth, cardHeight);
+            cardElements.push(...elementsCreated);
         }
 
         // Update page dots
@@ -602,12 +602,10 @@ function showLevelSelect(scene) {
 }
 
 // Professional Card Design - Compact Single Column Layout
-// Returns a container object so cards can be tracked and destroyed on page change
+// Returns an array of all card elements so they can be tracked and destroyed on page change
 function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     console.log('createProfessionalCard called for level:', level.id, level.name, 'at y:', y);
 
-    // Create a container to hold all card elements
-    const container = scene.add.container(0, 0);
     const cardElements = [];
 
     // Card background (white)
@@ -668,11 +666,6 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         cardElements.push(star);
     }
 
-    // Add all elements to container
-    cardElements.forEach(el => {
-        container.add(el);
-    });
-
     // Hover interaction: border-color change + translateY offset
     const onCardHover = () => {
         cardBg.setStrokeStyle(3, level.color);
@@ -706,7 +699,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     });
 
     console.log('Card created for level:', level.id);
-    return container;
+    return cardElements;
 }
 
 // ==================== TUTORIAL (Level 1: Multiply by 11) ====================
