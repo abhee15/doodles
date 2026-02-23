@@ -705,6 +705,8 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.setOrigin(0, 0);
     // Black border for visual definition
     cardBg.setStrokeStyle(2, 0x000000, 1);
+    // Set high depth so it's interactive layer on top
+    cardBg.setDepth(10);
     // Simple interactive setup - use default bounds for better mobile compatibility
     cardBg.setInteractive();
     cardBg.input.cursor = 'pointer';
@@ -713,17 +715,20 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     // Glassmorphic gradient overlay - simulates depth and light
     const glassOverlay = scene.add.rectangle(x, y, cardWidth, cardHeight * 0.4, level.color, 0.06);
     glassOverlay.setOrigin(0, 0);
+    glassOverlay.setDepth(5);
     cardElements.push(glassOverlay);
 
     // Accent gradient bar at top - subtle glow effect instead of hard line
     const accentGlow = scene.add.rectangle(x, y, cardWidth, 4, level.color, 0.12);
     accentGlow.setOrigin(0, 0);
+    accentGlow.setDepth(5);
     cardElements.push(accentGlow);
 
     // Icon zone: Soft circular background with gentle glow
     const iconX = x + 32;
     const iconY = y + cardHeight / 2;
     const iconBg = scene.add.circle(iconX, iconY, 30, level.color, 0.12);
+    iconBg.setDepth(5);
     cardElements.push(iconBg);
 
     const iconText = scene.add.text(iconX, iconY, level.icon, {
@@ -733,6 +738,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         fontStyle: 'bold',
         resolution: 2
     }).setOrigin(0.5);
+    iconText.setDepth(5);
     cardElements.push(iconText);
 
     // Title zone: Modern typography with color accent
@@ -746,11 +752,13 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         fontStyle: 'bold',
         resolution: 2
     }).setOrigin(0, 0);
+    titleText.setDepth(5);
     cardElements.push(titleText);
 
     // Subtle colored accent under title (thin line)
     const titleAccent = scene.add.rectangle(titleX, titleY + 20, 40, 2, level.color, 0.4);
     titleAccent.setOrigin(0, 0);
+    titleAccent.setDepth(5);
     cardElements.push(titleAccent);
 
     // Description: Refined styling with better contrast
@@ -761,6 +769,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         fontStyle: 'normal',
         resolution: 2
     }).setOrigin(0, 0);
+    descText.setDepth(5);
     cardElements.push(descText);
 
     // Stars row (right side): Modern minimal star display
@@ -771,6 +780,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     // Star display with subtle backgrounds
     for (let i = 0; i < 3; i++) {
         const starCircle = scene.add.circle(starsX + i * 16, starsY + 6, 7, i < earnedStars ? level.color : 0xE5E7EB, 0.15);
+        starCircle.setDepth(5);
         cardElements.push(starCircle);
 
         const star = scene.add.text(starsX + i * 16, starsY + 6, i < earnedStars ? '★' : '☆', {
@@ -778,6 +788,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
             fill: i < earnedStars ? '#' + level.color.toString(16).padStart(6, '0').toUpperCase() : '#9CA3AF',
             fontFamily: 'Arial, sans-serif'
         }).setOrigin(0.5);
+        star.setDepth(5);
         cardElements.push(star);
     }
 
