@@ -2924,13 +2924,13 @@ function showPractice(scene, levelId) {
             questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
         }
 
-        // Responsive positioning for practice questions
-        const questionY = scene.scale.height * 0.18;
-        const inputBoxY = scene.scale.height * 0.32;
+        // Responsive positioning for practice questions - optimized for minimal blank space
+        const questionY = isMobileView ? 70 : 80;
+        const inputBoxY = isMobileView ? 140 : 160;
         const questionSize = isMobileView ? '32px' : '44px';
         const inputSize = isMobileView ? '32px' : '40px';
         const inputBoxWidth = Math.min(250, scene.scale.width * 0.55);
-        const inputBoxHeight = Math.min(70, scene.scale.height * 0.12);
+        const inputBoxHeight = Math.min(60, scene.scale.height * 0.1);
 
         questionText = scene.add.text(centerX, questionY, questionStr, {
             fontSize: questionSize,
@@ -2953,10 +2953,10 @@ function showPractice(scene, levelId) {
             resolution: 2
         }).setOrigin(0.5);
 
-        // Responsive feedback positioning
-        const feedbackY = inputBoxY + (inputBoxHeight / 2) + 25;
-        const numPadY = Math.max(scene.scale.height * 0.45, feedbackY + 40);
-        const buttonY = Math.min(scene.scale.height * 0.88, numPadY + 160);
+        // Responsive feedback positioning - tightened spacing
+        const feedbackY = inputBoxY + (inputBoxHeight / 2) + 15;
+        const numPadY = isMobileView ? 260 : 300;
+        const buttonY = isMobileView ? 440 : 500;
         const feedbackSize = isMobileView ? '18px' : '24px';
 
         // Keyboard hint (desktop only)
