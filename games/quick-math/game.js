@@ -27,7 +27,7 @@ function clearScene(scene) {
 
 const config = createGameConfig({
     width: 900,
-    height: 650,
+    height: 1200,
     backgroundColor: QM_COLORS.background,
     scale: {
         mode: Phaser.Scale.EXPAND,
