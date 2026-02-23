@@ -714,10 +714,9 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.setStrokeStyle(2, 0x000000, 1);
     // Set depth to -5 so glass overlays render on top, but below text (depth 5)
     cardBg.setDepth(-5);
-    // Explicit rectangular hit area for reliable mobile detection
-    const hitArea = new Phaser.Geom.Rectangle(0, 0, cardWidth, cardHeight);
-    cardBg.setInteractive(hitArea, Phaser.Geom.Rectangle.Contains);
-    cardBg.input.cursor = 'pointer';
+    // Simple interactive setup - default bounds work better for mobile
+    cardBg.setInteractive({ useHandCursor: true });
+    console.log('🎯 Card interactive setup for level', level.id, 'at position', x, y, 'size', cardWidth, cardHeight);
     cardElements.push(cardBg);
 
     // Glassmorphic gradient overlay - simulates depth and light
