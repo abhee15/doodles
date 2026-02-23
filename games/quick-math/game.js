@@ -2957,7 +2957,7 @@ function showPractice(scene, levelId) {
         // Responsive feedback positioning
         const feedbackY = inputBoxY + (inputBoxHeight / 2) + 25;
         const numPadY = Math.max(scene.scale.height * 0.45, feedbackY + 40);
-        const buttonY = Math.min(scene.scale.height * 0.8, numPadY + 90);
+        const buttonY = Math.min(scene.scale.height * 0.88, numPadY + 160);
         const feedbackSize = isMobileView ? '18px' : '24px';
 
         // Keyboard hint (desktop only)
