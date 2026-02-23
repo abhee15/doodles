@@ -527,22 +527,22 @@ function showLevelSelect(scene) {
     let cardWidth, cardHeight, rowGap, colGap;
 
     if (isMobile) {
-        // Mobile: optimized card sizing for better content ratio
+        // Mobile: maximized card sizing to fill screen
         cardWidth = Math.min(280, scene.scale.width - 40);
-        cardHeight = 85;
-        rowGap = 8;
+        cardHeight = 95;
+        rowGap = 4;
         colGap = 10;
     } else {
         // Desktop/Tablet: larger cards to fill more space
         cardWidth = Math.max(320, Math.min(360, (scene.scale.width - 80) / 2));
-        cardHeight = 100;
-        rowGap = 10;
+        cardHeight = 110;
+        rowGap = 6;
         colGap = Math.max(15, scene.scale.width * 0.02);
     }
 
     const gridWidth = 2 * cardWidth + colGap;
     const startX = (scene.scale.width - gridWidth) / 2;
-    const startY = Math.max(50, scene.scale.height * 0.08);
+    const startY = Math.max(35, scene.scale.height * 0.05);
 
     let currentPage = 0;
     const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
@@ -823,21 +823,27 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.on('pointerout', onCardOut);
 
     // Click handler with smooth tap animation
-    cardBg.on('pointerdown', () => {
+    cardBg.on('pointerup', () => {
         console.log('Card clicked:', level.id);
         currentLevel = level.id;
 
-        // Smooth press animation
-        scene.tweens.add({
-            targets: cardBg,
-            scaleX: 1.008,
-            scaleY: 1.008,
-            duration: 50,
-            yoyo: true,
-            onComplete: () => {
-                showTutorial(scene, level.id);
-            }
-        });
+        // On mobile, skip animation for faster response
+        const isMobile = scene.scale.width < 600;
+        if (isMobile) {
+            showTutorial(scene, level.id);
+        } else {
+            // Desktop: show animation then navigate
+            scene.tweens.add({
+                targets: cardBg,
+                scaleX: 1.008,
+                scaleY: 1.008,
+                duration: 50,
+                yoyo: true,
+                onComplete: () => {
+                    showTutorial(scene, level.id);
+                }
+            });
+        }
     });
 
     console.log('Card created for level:', level.id);
