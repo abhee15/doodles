@@ -690,7 +690,12 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.setOrigin(0, 0);
     // Black border for visual definition
     cardBg.setStrokeStyle(2, 0x000000, 1);
-    cardBg.setInteractive({ useHandCursor: true });
+    // Explicit hit area to ensure clicks work through overlay elements
+    cardBg.setInteractive(
+        new Phaser.Geom.Rectangle(0, 0, cardWidth, cardHeight),
+        Phaser.Geom.Rectangle.Contains
+    );
+    cardBg.input.cursor = 'pointer';
     cardElements.push(cardBg);
 
     // Glassmorphic gradient overlay - simulates depth and light
