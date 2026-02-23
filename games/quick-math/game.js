@@ -527,22 +527,22 @@ function showLevelSelect(scene) {
     let cardWidth, cardHeight, rowGap, colGap;
 
     if (isMobile) {
-        // Mobile: maximized card sizing to fill screen
+        // Mobile: optimized to fit all elements without overlap
         cardWidth = Math.min(280, scene.scale.width - 40);
-        cardHeight = 95;
-        rowGap = 4;
+        cardHeight = 80;
+        rowGap = 3;
         colGap = 10;
     } else {
-        // Desktop/Tablet: larger cards to fill more space
+        // Desktop/Tablet: balanced sizing for content and spacing
         cardWidth = Math.max(320, Math.min(360, (scene.scale.width - 80) / 2));
-        cardHeight = 110;
-        rowGap = 6;
+        cardHeight = 95;
+        rowGap = 4;
         colGap = Math.max(15, scene.scale.width * 0.02);
     }
 
     const gridWidth = 2 * cardWidth + colGap;
     const startX = (scene.scale.width - gridWidth) / 2;
-    const startY = Math.max(60, scene.scale.height * 0.1);
+    const startY = isMobile ? 50 : 60;
 
     let currentPage = 0;
     const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
@@ -583,9 +583,9 @@ function showLevelSelect(scene) {
         const totalDotsWidth = totalPages * dotSpacing;
         const dotsStartX = (scene.scale.width - totalDotsWidth) / 2 + dotRadius;
 
-        // Position dots 30px below last row of cards
-        const cardsEndY = startY + 4 * (cardHeight + rowGap);
-        const dotY = cardsEndY + 30;
+        // Position dots 15px below last row of cards (5 rows total)
+        const cardsEndY = startY + 4 * (cardHeight + rowGap) + cardHeight;
+        const dotY = cardsEndY + 15;
 
         // Destroy old dots
         pageDots.forEach(dot => {
@@ -621,9 +621,10 @@ function showLevelSelect(scene) {
     // Create pagination controls (only if more than 1 page)
     let prevBtnObj, nextBtnObj;
     if (totalPages > 1) {
-        // Position buttons 20px below the dots (which are 30px below cards)
-        const cardsEndY = startY + 4 * (cardHeight + rowGap);
-        const buttonY = cardsEndY + 70;
+        // Position buttons below pagination dots
+        const cardsEndY = startY + 4 * (cardHeight + rowGap) + cardHeight;
+        const dotY = cardsEndY + 15;
+        const buttonY = dotY + 35;
 
         // Responsive button positioning
         const buttonWidth = isMobile ? 80 : 100;
