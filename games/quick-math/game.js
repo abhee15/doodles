@@ -707,8 +707,9 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.setStrokeStyle(2, 0x000000, 1);
     // Set high depth so it's interactive layer on top
     cardBg.setDepth(10);
-    // Simple interactive setup - use default bounds for better mobile compatibility
-    cardBg.setInteractive();
+    // Explicit rectangular hit area for reliable mobile detection
+    const hitArea = new Phaser.Geom.Rectangle(0, 0, cardWidth, cardHeight);
+    cardBg.setInteractive(hitArea, Phaser.Geom.Rectangle.Contains);
     cardBg.input.cursor = 'pointer';
     cardElements.push(cardBg);
 
@@ -838,15 +839,19 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     cardBg.on('pointerover', onCardHover);
     cardBg.on('pointerout', onCardOut);
 
-    // Click handler - use pointerdown for better mobile support
-    cardBg.on('pointerdown', () => {
-        console.log('Card pointerdown:', level.id);
+    // Click handler - use pointerup for better mobile support (more reliable than pointerdown)
+    let isClickProcessing = false;
+    const handleCardClick = () => {
+        if (isClickProcessing) return; // Prevent double-click
+        isClickProcessing = true;
+
+        console.log('Card clicked:', level.id, level.name, 'Mobile:', scene.scale.width < 600);
         currentLevel = level.id;
 
         // On mobile, skip animation for faster response
         const isMobile = scene.scale.width < 600;
         if (isMobile) {
-            console.log('Mobile detected, opening tutorial immediately');
+            console.log('Mobile detected, opening tutorial immediately for level:', level.id);
             showTutorial(scene, level.id);
         } else {
             // Desktop: show animation then navigate
@@ -861,7 +866,13 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
                 }
             });
         }
-    });
+
+        // Reset processing flag after a brief delay
+        scene.time.delayedCall(100, () => { isClickProcessing = false; });
+    };
+
+    // Use pointerup for better mobile compatibility
+    cardBg.on('pointerup', handleCardClick);
 
     console.log('Card created for level:', level.id);
     return cardElements;
