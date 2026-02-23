@@ -528,27 +528,42 @@ function showLevelSelect(scene) {
 
     // Responsive grid layout configuration based on actual device width
     const isMobile = window.innerWidth < 600;
-    const CARDS_PER_PAGE = 10;   // 2 cols × 5 rows
+    const isLandscape = window.innerHeight < window.innerWidth;
+    console.log('📱 Device: Mobile=' + isMobile + ', Landscape=' + isLandscape + ', Size:', window.innerWidth + 'x' + window.innerHeight);
 
-    let cardWidth, cardHeight, rowGap, colGap;
+    let cardWidth, cardHeight, rowGap, colGap, CARDS_PER_PAGE, cardsPerRow;
 
     if (isMobile) {
-        // Mobile: optimized to fit all elements without overlap
-        cardWidth = Math.min(300, scene.scale.width - 40);  // Increased from 280 for better fill
-        cardHeight = 90;  // Increased from 80 for more prominent cards
-        rowGap = 12;  // Increased from 3 for better vertical spacing
-        colGap = 15;  // Increased from 10 for better horizontal spacing
+        if (isLandscape) {
+            // Mobile Landscape: compact layout with more cards per row
+            cardWidth = Math.min(200, (scene.scale.width - 60) / 3);
+            cardHeight = 70;
+            rowGap = 6;
+            colGap = 10;
+            cardsPerRow = 3;
+            CARDS_PER_PAGE = 9;   // 3 cols × 3 rows
+        } else {
+            // Mobile Portrait: larger cards, 2 per row
+            cardWidth = Math.min(300, scene.scale.width - 40);
+            cardHeight = 90;
+            rowGap = 12;
+            colGap = 15;
+            cardsPerRow = 2;
+            CARDS_PER_PAGE = 10;   // 2 cols × 5 rows
+        }
     } else {
         // Desktop/Tablet: balanced sizing for content and spacing
-        cardWidth = Math.max(340, Math.min(380, (scene.scale.width - 80) / 2));  // Increased for better prominence
-        cardHeight = 105;  // Increased from 95 for larger cards
-        rowGap = 16;  // Increased from 4 for better vertical spacing
-        colGap = Math.max(22, scene.scale.width * 0.025);  // Increased for better horizontal spacing
+        cardWidth = Math.max(340, Math.min(380, (scene.scale.width - 80) / 2));
+        cardHeight = 105;
+        rowGap = 16;
+        colGap = Math.max(22, scene.scale.width * 0.025);
+        cardsPerRow = 2;
+        CARDS_PER_PAGE = 10;   // 2 cols × 5 rows
     }
 
-    const gridWidth = 2 * cardWidth + colGap;
+    const gridWidth = cardsPerRow * cardWidth + (cardsPerRow - 1) * colGap;
     const startX = (scene.scale.width - gridWidth) / 2;
-    const startY = isMobile ? 85 : 100;
+    const startY = isMobile && isLandscape ? 50 : (isMobile ? 85 : 100);
 
     let currentPage = 0;
     const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
@@ -570,8 +585,8 @@ function showLevelSelect(scene) {
 
         for (let i = pageStart; i < pageEnd; i++) {
             const localIndex = i - pageStart;
-            const col = localIndex % 2;
-            const row = Math.floor(localIndex / 2);
+            const col = localIndex % cardsPerRow;
+            const row = Math.floor(localIndex / cardsPerRow);
             const x = startX + col * (cardWidth + colGap);
             const y = startY + row * (cardHeight + rowGap);
             console.log(`Card ${levels[i].id}: position (${x.toFixed(0)}, ${y.toFixed(0)}), size ${cardWidth}x${cardHeight}, scene ${scene.scale.width}x${scene.scale.height}`);
@@ -2962,11 +2977,39 @@ function showPractice(scene, levelId) {
             questionStr = `${currentQuestion.num1} × ${currentQuestion.num2} = ?`;
         }
 
-        // Responsive positioning for practice questions - scaled for 1200px canvas height
-        const questionY = isMobileView ? 140 : 160;
-        const inputBoxY = isMobileView ? 250 : 290;
-        const questionSize = isMobileView ? '32px' : '44px';
-        const inputSize = isMobileView ? '32px' : '40px';
+        // Responsive positioning for practice questions - scaled for canvas height
+        const isLandscapeView = window.innerHeight < window.innerWidth;
+        let questionY, inputBoxY, questionSize, inputSize, numPadY, buttonY, feedbackSize;
+
+        if (isMobileView && isLandscapeView) {
+            // Mobile Landscape: compact vertical layout
+            questionY = 80;
+            inputBoxY = 130;
+            questionSize = '24px';
+            inputSize = '24px';
+            numPadY = 200;
+            buttonY = 280;
+            feedbackSize = '14px';
+        } else if (isMobileView) {
+            // Mobile Portrait: standard layout
+            questionY = 140;
+            inputBoxY = 250;
+            questionSize = '32px';
+            inputSize = '32px';
+            numPadY = 420;
+            buttonY = 750;
+            feedbackSize = '18px';
+        } else {
+            // Desktop: larger layout
+            questionY = 160;
+            inputBoxY = 290;
+            questionSize = '44px';
+            inputSize = '40px';
+            numPadY = 490;
+            buttonY = 850;
+            feedbackSize = '24px';
+        }
+
         const inputBoxWidth = Math.min(250, scene.scale.width * 0.55);
         const inputBoxHeight = Math.min(60, scene.scale.height * 0.08);
 
@@ -2993,9 +3036,6 @@ function showPractice(scene, levelId) {
 
         // Responsive feedback positioning - spread out for larger canvas
         const feedbackY = inputBoxY + (inputBoxHeight / 2) + 20;
-        const numPadY = isMobileView ? 420 : 490;
-        const buttonY = isMobileView ? 750 : 850;
-        const feedbackSize = isMobileView ? '18px' : '24px';
 
         // Keyboard hint (desktop only)
         if (keyboardHintText) keyboardHintText.destroy();
