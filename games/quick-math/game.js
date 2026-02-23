@@ -616,7 +616,7 @@ function showLevelSelect(scene) {
     }, 140, 40, true);
 
     // Subtitle
-    scene.add.text(80, 60, 'Pick a trick to master →', {
+    scene.add.text(80, 30, 'Pick a trick to master →', {
         fontSize: '14px',
         fill: '#6B7280',
         fontFamily: 'Arial'
@@ -704,8 +704,8 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     // Main card background - translucent frosted glass effect
     const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, 0xFBFCFD, 0.92);
     cardBg.setOrigin(0, 0);
-    // Subtle border instead of hard stroke - creates glass edge
-    cardBg.setStrokeStyle(1, 0xE5E7EB, 0.5);
+    // Black border for visual definition + subtle inner edge
+    cardBg.setStrokeStyle(2, 0x000000, 1);
     cardBg.setInteractive({ useHandCursor: true });
     cardElements.push(cardBg);
 
@@ -716,7 +716,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
         scene.add.circle(x + cornerRadius, y + cardHeight - cornerRadius, cornerRadius, 0xFBFCFD, 0.92),
         scene.add.circle(x + cardWidth - cornerRadius, y + cardHeight - cornerRadius, cornerRadius, 0xFBFCFD, 0.92)
     ];
-    cornerCircles.forEach(c => { c.setStrokeStyle(1, 0xE5E7EB, 0.5); cardElements.push(c); });
+    cornerCircles.forEach(c => { c.setStrokeStyle(2, 0x000000, 1); cardElements.push(c); });
 
     // Glassmorphic gradient overlay - simulates depth and light
     const glassOverlay = scene.add.rectangle(x, y, cardWidth, cardHeight * 0.4, level.color, 0.06);
