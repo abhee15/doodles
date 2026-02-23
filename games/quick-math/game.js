@@ -11,11 +11,19 @@ const QM_COLORS = {
     error: 0xFF4444,          // Bright Red - error feedback
     background: 0xF8F9FA,     // Soft gray-white
     cardBg: 0xFFFFFF,         // White cards
+    buttonBg: 0xF1F5F9,       // Light gray for buttons
     text: 0x1A1A1A,           // Dark text
     textMuted: 0x6B7280,      // Muted text
     textLight: 0x9CA3AF,      // Light gray text
     accent: 0xFFE66D          // Gold accent
 };
+
+// Clear scene helper - removes all children, timers, and keyboard listeners to prevent race conditions
+function clearScene(scene) {
+    scene.time.removeAllEvents();
+    scene.input.keyboard.removeAllListeners();
+    clearScene(scene);
+}
 
 const config = createGameConfig({
     width: 900,
@@ -315,7 +323,7 @@ function update() {
 
 // ==================== PROGRESS & ACHIEVEMENTS SCREEN ====================
 function showProgressScreen(scene) {
-    scene.children.removeAll(true);
+    clearScene(scene);
     currentScene = 'progress';
 
     // Title
@@ -407,7 +415,7 @@ function showProgressScreen(scene) {
 
 // ==================== MAIN MENU ====================
 function showMainMenu(scene) {
-    scene.children.removeAll(true);
+    clearScene(scene);
     currentScene = 'menu';
 
     // Background decoration
@@ -469,7 +477,7 @@ function showMainMenu(scene) {
 // ==================== LEVEL SELECT ====================
 function showLevelSelect(scene) {
     console.log('showLevelSelect called, scene:', scene);
-    scene.children.removeAll(true);
+    clearScene(scene);
     currentScene = 'level-select';
 
     // Level definition - all tricks (colors harmonized with blue app gradient #1CB0F6 → #0891B2)
@@ -478,14 +486,14 @@ function showLevelSelect(scene) {
         { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: 0x06B6D4 },        // Cyan
         { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: 0x0EA5E9 },            // Sky Blue
         { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: 0x0891B2 },             // Secondary Blue
-        { id: 5, name: 'Multiply by 9', icon: '✋', desc: 'Finger trick magic', color: 0x06D6A0 },         // Mint Green
+        { id: 5, name: 'Multiply by 9', icon: '×9', desc: 'Finger trick magic', color: 0x06D6A0 },         // Mint Green
         { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: 0x10B981 },                // Emerald
         { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: 0x8B5CF6 },            // Vibrant Purple
-        { id: 8, name: 'Multiply by 6', icon: '6️⃣', desc: 'Even pattern', color: 0xEC4899 },              // Vibrant Pink
-        { id: 9, name: 'Multiply by 8', icon: '∞', desc: 'Triple double', color: 0xF97316 },              // Warm Orange
+        { id: 8, name: 'Multiply by 6', icon: '×6', desc: 'Even pattern', color: 0xEC4899 },              // Vibrant Pink
+        { id: 9, name: 'Multiply by 8', icon: '×8', desc: 'Triple double', color: 0xF97316 },              // Warm Orange
         { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: 0xEF4444 },            // Bright Red
         { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: 0x14B8A6 },              // Teal
-        { id: 12, name: 'Multiply by 25', icon: '¢', desc: 'Quarter trick', color: 0x3B82F6 }             // Vibrant Blue
+        { id: 12, name: 'Multiply by 25', icon: '×25', desc: 'Quarter trick', color: 0x3B82F6 }             // Vibrant Blue
     ];
 
     // Grid layout configuration
@@ -642,7 +650,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     // Card background (white)
     const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, QM_COLORS.cardBg);
     cardBg.setOrigin(0, 0);
-    cardBg.setStrokeStyle(2, level.color);
+    cardBg.setStrokeStyle(1, 0xE2E8F0);
     cardBg.setInteractive({ useHandCursor: true });
     cardElements.push(cardBg);
 
@@ -654,14 +662,15 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     // Icon zone: 24px radius circle at low opacity with icon inside
     const iconX = x + 40;
     const iconY = y + cardHeight / 2;
-    const iconCircle = scene.add.circle(iconX, iconY, 24, level.color, 0.15);
+    const iconCircle = scene.add.circle(iconX, iconY, 24, level.color, 0.22);
     cardElements.push(iconCircle);
 
     const iconText = scene.add.text(iconX, iconY, level.icon, {
-        fontSize: '24px',
+        fontSize: '20px',
         fill: '#' + level.color.toString(16).padStart(6, '0').toUpperCase(),
-        fontFamily: 'Arial',
-        fontStyle: 'bold'
+        fontFamily: "'Nunito', Arial, sans-serif",
+        fontStyle: 'bold',
+        resolution: 2
     }).setOrigin(0.5);
     cardElements.push(iconText);
 
@@ -670,10 +679,11 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     const titleY = y + 13;
 
     const titleText = scene.add.text(titleX, titleY, level.name, {
-        fontSize: '18px',
+        fontSize: '17px',
         fill: '#1A1A1A',
-        fontFamily: 'Arial',
-        fontStyle: 'bold'
+        fontFamily: "'Nunito', Arial, sans-serif",
+        fontStyle: 'bold',
+        resolution: 2
     }).setOrigin(0, 0);
     cardElements.push(titleText);
 
@@ -681,7 +691,8 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     const descText = scene.add.text(titleX, titleY + 22, level.desc, {
         fontSize: '12px',
         fill: '#6B7280',
-        fontFamily: 'Arial'
+        fontFamily: "'Nunito', Arial, sans-serif",
+        resolution: 2
     }).setOrigin(0, 0);
     cardElements.push(descText);
 
@@ -691,20 +702,22 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     const starsY = y + 18;
 
     for (let i = 0; i < 3; i++) {
-        const star = scene.add.text(starsX + i * 16, starsY, i < earnedStars ? '⭐' : '☆', {
-            fontSize: '16px'
+        const star = scene.add.text(starsX + i * 16, starsY, i < earnedStars ? '★' : '☆', {
+            fontSize: '16px',
+            fill: i < earnedStars ? '#' + level.color.toString(16).padStart(6, '0').toUpperCase() : '#CBD5E1',
+            fontFamily: 'Arial, sans-serif'
         }).setOrigin(0, 0);
         cardElements.push(star);
     }
 
     // Hover interaction: border-color change + translateY offset
     const onCardHover = () => {
-        cardBg.setStrokeStyle(3, level.color);
+        cardBg.setStrokeStyle(2, 0xE2E8F0);
         cardBg.setY(y - 2); // Slight lift up
     };
 
     const onCardOut = () => {
-        cardBg.setStrokeStyle(2, level.color);
+        cardBg.setStrokeStyle(1, 0xE2E8F0);
         cardBg.setY(y); // Back to normal
     };
 
@@ -735,7 +748,7 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
 
 // ==================== TUTORIAL (Level 1: Multiply by 11) ====================
 function showTutorial(scene, levelId) {
-    scene.children.removeAll(true);
+    clearScene(scene);
     currentScene = 'tutorial';
 
     if (levelId === 1) {
@@ -806,7 +819,7 @@ function tutorialMultiplyBy11(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -923,7 +936,7 @@ function tutorialSquareEndingIn5(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -1029,7 +1042,7 @@ function tutorialDoubleAndHalf(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -1153,7 +1166,7 @@ function tutorialBaseMethod(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -1263,7 +1276,7 @@ function tutorialMultiplyBy9(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -1372,7 +1385,7 @@ function tutorialMultiplyBy5(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -1481,7 +1494,7 @@ function tutorialMultiplyBy4(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -1590,7 +1603,7 @@ function tutorialMultiplyBy6(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -1704,7 +1717,7 @@ function tutorialMultiplyBy8(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -1818,7 +1831,7 @@ function tutorialMultiplyBy12(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -1932,7 +1945,7 @@ function tutorialMultiplyBy15(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -2046,7 +2059,7 @@ function tutorialMultiplyBy25(scene) {
     ];
 
     function showStep() {
-        scene.children.removeAll(true);
+        clearScene(scene);
 
         const currentStep = steps[step];
 
@@ -2114,12 +2127,13 @@ function tutorialMultiplyBy25(scene) {
 
 // ==================== PRACTICE MODE ====================
 function showPractice(scene, levelId) {
-    scene.children.removeAll(true);
+    clearScene(scene);
     currentScene = 'practice';
 
     score = 0;
     let questionsAnswered = 0;
     const totalQuestions = 5;
+    let answered = false; // Guard against double-tap on mobile
 
     // Detect desktop vs mobile
     const isDesktop = !scene.sys.game.device.os.android && !scene.sys.game.device.os.iOS;
@@ -2128,14 +2142,18 @@ function showPractice(scene, levelId) {
     scene.add.text(400, 40, '⚡ Practice Time!', {
         fontSize: '36px',
         fill: '#FDCB6E',
-        fontStyle: 'bold'
+        fontStyle: 'bold',
+        fontFamily: "'Nunito', Arial, sans-serif",
+        resolution: 2
     }).setOrigin(0.5);
 
     // Score
     const scoreText = scene.add.text(650, 40, 'Score: 0/5', {
         fontSize: '24px',
         fill: '#fff',
-        fontStyle: 'bold'
+        fontStyle: 'bold',
+        fontFamily: "'Nunito', Arial, sans-serif",
+        resolution: 2
     }).setOrigin(0.5);
 
     // Question area
@@ -2172,7 +2190,7 @@ function showPractice(scene, levelId) {
             if (isDesktop) {
                 scene.input.keyboard.removeAllListeners();
             }
-            showResults(scene, score, totalQuestions);
+            showResults(scene, score, totalQuestions, levelId);
             return;
         }
 
@@ -2251,7 +2269,7 @@ function showPractice(scene, levelId) {
             currentQuestion.answer = num * 4;
         } else if (levelId === 8) {
             // Level 8: Multiply by 6 (pattern with even numbers)
-            const evenNum = Phaser.Math.Between(1, 5) * 2; // 2, 4, 6, 8, 10
+            const evenNum = Phaser.Math.Between(2, 15);
             currentQuestion = {
                 num: evenNum,
                 answer: null,
@@ -2332,8 +2350,9 @@ function showPractice(scene, levelId) {
         questionText = scene.add.text(450, 120, questionStr, {
             fontSize: '44px',
             fill: '#2D3436',
-            fontFamily: 'Arial',
-            fontStyle: 'bold'
+            fontFamily: "'Nunito', Arial, sans-serif",
+            fontStyle: 'bold',
+            resolution: 2
         }).setOrigin(0.5);
 
         // Input box background
@@ -2344,7 +2363,9 @@ function showPractice(scene, levelId) {
         inputText = scene.add.text(400, 200, '', {
             fontSize: '40px',
             fill: '#FDCB6E',
-            fontStyle: 'bold'
+            fontStyle: 'bold',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            resolution: 2
         }).setOrigin(0.5);
 
         // Keyboard hint (desktop only)
@@ -2353,7 +2374,7 @@ function showPractice(scene, levelId) {
             keyboardHintText = scene.add.text(400, 240, '⌨ Type your answer and press Enter', {
                 fontSize: '12px',
                 fill: '#9CA3AF',
-                fontFamily: 'Arial'
+                fontFamily: "'Nunito', Arial, sans-serif"
             }).setOrigin(0.5);
         }
 
@@ -2361,7 +2382,9 @@ function showPractice(scene, levelId) {
         feedbackText = scene.add.text(400, 270, '', {
             fontSize: '24px',
             fill: '#fff',
-            fontStyle: 'bold'
+            fontStyle: 'bold',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            resolution: 2
         }).setOrigin(0.5);
 
         // Number pad (centered, lower on screen)
@@ -2379,6 +2402,9 @@ function showPractice(scene, levelId) {
     }
 
     function checkAnswer() {
+        if (answered) return; // Prevent double-tap
+        answered = true;
+
         const answer = parseInt(userAnswer);
 
         if (answer === currentQuestion.answer) {
@@ -2396,6 +2422,7 @@ function showPractice(scene, levelId) {
         scoreText.setText(`Score: ${score}/${totalQuestions}`);
 
         scene.time.delayedCall(2000, () => {
+            answered = false;
             generateQuestion();
         });
     }
@@ -2404,8 +2431,8 @@ function showPractice(scene, levelId) {
 }
 
 // ==================== RESULTS ====================
-function showResults(scene, score, total) {
-    scene.children.removeAll(true);
+function showResults(scene, score, total, levelId) {
+    clearScene(scene);
 
     const percentage = (score / total) * 100;
     const passed = percentage >= 60;
@@ -2444,9 +2471,10 @@ function showResults(scene, score, total) {
         const x = startX + i * starSpacing;
         const filled = i < stars;
 
-        scene.add.text(x, starY, filled ? '⭐' : '☆', {
+        scene.add.text(x, starY, filled ? '★' : '☆', {
             fontSize: `${starSize}px`,
-            fill: filled ? '#F19C79' : '#DFE6E9'
+            fill: filled ? '#F19C79' : '#DFE6E9',
+            fontFamily: 'Arial, sans-serif'
         }).setOrigin(0.5);
     }
 
@@ -2478,9 +2506,9 @@ function showResults(scene, score, total) {
     playerProgress.totalScore += score;
 
     // Save star rating (only if better than before)
-    const currentBestStars = playerProgress.levelStars[currentLevel] || 0;
+    const currentBestStars = playerProgress.levelStars[levelId] || 0;
     if (stars > currentBestStars) {
-        playerProgress.levelStars[currentLevel] = stars;
+        playerProgress.levelStars[levelId] = stars;
     }
 
     // Recalculate total stars
@@ -2493,7 +2521,7 @@ function showResults(scene, score, total) {
     // Buttons
     createModernButton(scene, 300, 580, 'Try Again', QM_COLORS.primary, () => {
         playSound('click');
-        showPractice(scene, currentLevel);
+        showPractice(scene, levelId);
     }, 180, 50);
 
     createModernButton(scene, 600, 580, 'Level Select', QM_COLORS.success, () => {
@@ -2519,7 +2547,9 @@ function createNumberPad(scene, inputText) {
         const text = scene.add.text(x, y, i, {
             fontSize: '26px',
             fill: '#000',
-            fontStyle: 'bold'
+            fontStyle: 'bold',
+            fontFamily: "'Nunito', Arial, sans-serif",
+            resolution: 2
         }).setOrigin(0.5);
 
         btn.on('pointerdown', () => {
