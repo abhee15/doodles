@@ -577,9 +577,9 @@ function showLevelSelect(scene) {
     }).setOrigin(0, 0.5);
 
     // Create pagination controls (only if more than 1 page)
-    let prevBtn, nextBtn;
+    let prevBtnObj, nextBtnObj;
     if (totalPages > 1) {
-        prevBtn = createModernButton(scene, 150, 590, '← Prev', QM_COLORS.secondary, () => {
+        prevBtnObj = createModernButton(scene, 150, 590, '← Prev', QM_COLORS.secondary, () => {
             playSound('click');
             if (currentPage > 0) {
                 currentPage--;
@@ -588,7 +588,7 @@ function showLevelSelect(scene) {
             }
         }, 100, 40, false);
 
-        nextBtn = createModernButton(scene, 750, 590, 'Next →', QM_COLORS.secondary, () => {
+        nextBtnObj = createModernButton(scene, 750, 590, 'Next →', QM_COLORS.secondary, () => {
             playSound('click');
             if (currentPage < totalPages - 1) {
                 currentPage++;
@@ -603,7 +603,8 @@ function showLevelSelect(scene) {
         if (totalPages <= 1) return;
 
         // Disable prev button on first page
-        if (prevBtn) {
+        if (prevBtnObj) {
+            const prevBtn = prevBtnObj.button;
             if (currentPage === 0) {
                 prevBtn.setAlpha(0.4);
                 prevBtn.disableInteractive();
@@ -614,7 +615,8 @@ function showLevelSelect(scene) {
         }
 
         // Disable next button on last page
-        if (nextBtn) {
+        if (nextBtnObj) {
+            const nextBtn = nextBtnObj.button;
             if (currentPage === totalPages - 1) {
                 nextBtn.setAlpha(0.4);
                 nextBtn.disableInteractive();
