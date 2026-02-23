@@ -22,7 +22,7 @@ const QM_COLORS = {
 function clearScene(scene) {
     scene.time.removeAllEvents();
     scene.input.keyboard.removeAllListeners();
-    clearScene(scene);
+    scene.children.removeAll(true);
 }
 
 const config = createGameConfig({
