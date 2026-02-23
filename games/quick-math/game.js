@@ -568,6 +568,7 @@ function showLevelSelect(scene) {
             const row = Math.floor(localIndex / 2);
             const x = startX + col * (cardWidth + colGap);
             const y = startY + row * (cardHeight + rowGap);
+            console.log(`Card ${levels[i].id}: position (${x.toFixed(0)}, ${y.toFixed(0)}), size ${cardWidth}x${cardHeight}, scene ${scene.scale.width}x${scene.scale.height}`);
             const elementsCreated = createProfessionalCard(scene, x, y, levels[i], cardWidth, cardHeight);
             cardElements.push(...elementsCreated);
         }
