@@ -678,33 +678,39 @@ function showLevelSelect(scene) {
     updateButtonStates();
 }
 
-// Professional Card Design - Compact Single Column Layout
+// Modern Card Design - Enhanced with gradient, better typography, and smooth interactions
 // Returns an array of all card elements so they can be tracked and destroyed on page change
 function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     console.log('createProfessionalCard called for level:', level.id, level.name, 'at y:', y);
 
     const cardElements = [];
 
-    // Card background (white)
-    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, QM_COLORS.cardBg);
+    // Main card background with subtle gradient effect
+    const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, 0xFFFFFF);
     cardBg.setOrigin(0, 0);
-    cardBg.setStrokeStyle(1, 0xE2E8F0);
+    cardBg.setStrokeStyle(2, level.color);
     cardBg.setInteractive({ useHandCursor: true });
     cardElements.push(cardBg);
 
-    // Colored accent bar (left side, 6px wide)
-    const accentBar = scene.add.rectangle(x, y, 6, cardHeight, level.color);
+    // Gradient overlay (subtle color tint at top using a semi-transparent rectangle)
+    const gradientOverlay = scene.add.rectangle(x, y, cardWidth, cardHeight * 0.3, level.color, 0.08);
+    gradientOverlay.setOrigin(0, 0);
+    cardElements.push(gradientOverlay);
+
+    // Colored accent bar at top (more prominent)
+    const accentBar = scene.add.rectangle(x, y, cardWidth, 3, level.color);
     accentBar.setOrigin(0, 0);
     cardElements.push(accentBar);
 
-    // Icon zone: 24px radius circle at low opacity with icon inside
-    const iconX = x + 40;
+    // Icon zone: Larger, more prominent circular background
+    const iconX = x + 32;
     const iconY = y + cardHeight / 2;
-    const iconCircle = scene.add.circle(iconX, iconY, 24, level.color, 0.22);
+    const iconCircle = scene.add.circle(iconX, iconY, 28, level.color, 0.15);
+    iconCircle.setStrokeStyle(2, level.color);
     cardElements.push(iconCircle);
 
     const iconText = scene.add.text(iconX, iconY, level.icon, {
-        fontSize: '20px',
+        fontSize: '22px',
         fill: '#' + level.color.toString(16).padStart(6, '0').toUpperCase(),
         fontFamily: "'Nunito', Arial, sans-serif",
         fontStyle: 'bold',
@@ -712,51 +718,88 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     }).setOrigin(0.5);
     cardElements.push(iconText);
 
-    // Title zone: trick name 17px bold dark
-    const titleX = x + 70;
-    const titleY = y + 8;
+    // Title zone: Better typography hierarchy
+    const titleX = x + 68;
+    const titleY = y + 10;
 
     const titleText = scene.add.text(titleX, titleY, level.name, {
-        fontSize: '16px',
-        fill: '#1A1A1A',
+        fontSize: '17px',
+        fill: '#' + level.color.toString(16).padStart(6, '0').toUpperCase(),
         fontFamily: "'Nunito', Arial, sans-serif",
         fontStyle: 'bold',
         resolution: 2
     }).setOrigin(0, 0);
     cardElements.push(titleText);
 
-    // Description: 11px muted
-    const descText = scene.add.text(titleX, titleY + 25, level.desc, {
-        fontSize: '11px',
-        fill: '#6B7280',
+    // Horizontal separator line
+    const separator = scene.add.line(x + titleX, titleY + 22, 0, 0, cardWidth - titleX - 50, 0, 0xE5E7EB);
+    separator.setOrigin(0, 0);
+    cardElements.push(separator);
+
+    // Description: More prominent with better styling
+    const descText = scene.add.text(titleX, titleY + 30, level.desc, {
+        fontSize: '12px',
+        fill: '#4B5563',
         fontFamily: "'Nunito', Arial, sans-serif",
+        fontStyle: 'normal',
         resolution: 2
     }).setOrigin(0, 0);
     cardElements.push(descText);
 
-    // Stars row (right side): 3 stars based on playerProgress
+    // Stars row (right side): More prominent with animation support
     const earnedStars = playerProgress.levelStars[level.id] || 0;
-    const starsX = x + cardWidth - 60;
-    const starsY = y + 18;
+    const starsX = x + cardWidth - 62;
+    const starsY = y + 12;
 
+    // Star container for better organization
     for (let i = 0; i < 3; i++) {
-        const star = scene.add.text(starsX + i * 16, starsY, i < earnedStars ? '★' : '☆', {
-            fontSize: '16px',
-            fill: i < earnedStars ? '#' + level.color.toString(16).padStart(6, '0').toUpperCase() : '#CBD5E1',
+        const starBg = scene.add.rectangle(starsX + i * 18, starsY + 8, 14, 14, i < earnedStars ? level.color : 0xF3F4F6, 0.2);
+        starBg.setStrokeStyle(1.5, i < earnedStars ? level.color : '#D1D5DB');
+        cardElements.push(starBg);
+
+        const star = scene.add.text(starsX + i * 18, starsY + 8, i < earnedStars ? '★' : '☆', {
+            fontSize: '14px',
+            fill: i < earnedStars ? '#' + level.color.toString(16).padStart(6, '0').toUpperCase() : '#9CA3AF',
             fontFamily: 'Arial, sans-serif'
-        }).setOrigin(0, 0);
+        }).setOrigin(0.5);
         cardElements.push(star);
     }
 
-    // Hover interaction: border-color change + translateY offset
+    // Hover interaction: Smooth scale and color effects
     const onCardHover = () => {
-        cardBg.setStrokeStyle(2, 0xE2E8F0);
-        cardBg.setY(y - 2); // Slight lift up
+        // Lift effect
+        scene.tweens.killTweensOf(cardBg);
+        scene.tweens.add({
+            targets: cardBg,
+            scaleX: 1.02,
+            scaleY: 1.02,
+            duration: 200,
+            ease: 'Power2.easeOut'
+        });
+
+        // Enhanced border
+        cardBg.setStrokeStyle(3, level.color);
+
+        // Enhance gradient overlay
+        gradientOverlay.setAlpha(0.15);
     };
 
     const onCardOut = () => {
-        cardBg.setStrokeStyle(1, 0xE2E8F0);
-        cardBg.setY(y); // Back to normal
+        // Reset effects
+        scene.tweens.killTweensOf(cardBg);
+        scene.tweens.add({
+            targets: cardBg,
+            scaleX: 1,
+            scaleY: 1,
+            duration: 200,
+            ease: 'Power2.easeOut'
+        });
+
+        // Reset border
+        cardBg.setStrokeStyle(2, level.color);
+
+        // Reset gradient overlay
+        gradientOverlay.setAlpha(0.08);
     };
 
     cardBg.on('pointerover', onCardHover);
