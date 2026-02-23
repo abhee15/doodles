@@ -615,13 +615,6 @@ function showLevelSelect(scene) {
         showProgressScreen(scene);
     }, 140, 40, true);
 
-    // Subtitle
-    scene.add.text(80, 30, 'Pick a trick to master →', {
-        fontSize: '14px',
-        fill: '#6B7280',
-        fontFamily: 'Arial'
-    }).setOrigin(0, 0.5);
-
     // Create pagination controls (only if more than 1 page)
     let prevBtnObj, nextBtnObj;
     if (totalPages > 1) {
@@ -692,31 +685,13 @@ function createProfessionalCard(scene, x, y, level, cardWidth, cardHeight) {
     shadowBlur.setDepth(-1);
     cardElements.push(shadowBlur);
 
-    // Add corner circles to shadow for rounded effect
-    const shadowCorners = [
-        scene.add.circle(x + cornerRadius, y + cornerRadius, cornerRadius, 0x000000, 0.08),
-        scene.add.circle(x + cardWidth - cornerRadius, y + cornerRadius, cornerRadius, 0x000000, 0.08),
-        scene.add.circle(x + cornerRadius, y + cardHeight - cornerRadius, cornerRadius, 0x000000, 0.08),
-        scene.add.circle(x + cardWidth - cornerRadius, y + cardHeight - cornerRadius, cornerRadius, 0x000000, 0.08)
-    ];
-    shadowCorners.forEach(c => { c.setDepth(-1); cardElements.push(c); });
-
-    // Main card background - translucent frosted glass effect
+    // Main card background - translucent frosted glass effect with black border
     const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, 0xFBFCFD, 0.92);
     cardBg.setOrigin(0, 0);
-    // Black border for visual definition + subtle inner edge
+    // Black border for visual definition
     cardBg.setStrokeStyle(2, 0x000000, 1);
     cardBg.setInteractive({ useHandCursor: true });
     cardElements.push(cardBg);
-
-    // Add corner circles to card for rounded corners
-    const cornerCircles = [
-        scene.add.circle(x + cornerRadius, y + cornerRadius, cornerRadius, 0xFBFCFD, 0.92),
-        scene.add.circle(x + cardWidth - cornerRadius, y + cornerRadius, cornerRadius, 0xFBFCFD, 0.92),
-        scene.add.circle(x + cornerRadius, y + cardHeight - cornerRadius, cornerRadius, 0xFBFCFD, 0.92),
-        scene.add.circle(x + cardWidth - cornerRadius, y + cardHeight - cornerRadius, cornerRadius, 0xFBFCFD, 0.92)
-    ];
-    cornerCircles.forEach(c => { c.setStrokeStyle(2, 0x000000, 1); cardElements.push(c); });
 
     // Glassmorphic gradient overlay - simulates depth and light
     const glassOverlay = scene.add.rectangle(x, y, cardWidth, cardHeight * 0.4, level.color, 0.06);
