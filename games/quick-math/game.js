@@ -542,7 +542,7 @@ function showLevelSelect(scene) {
 
     const gridWidth = 2 * cardWidth + colGap;
     const startX = (scene.scale.width - gridWidth) / 2;
-    const startY = Math.max(35, scene.scale.height * 0.05);
+    const startY = Math.max(60, scene.scale.height * 0.1);
 
     let currentPage = 0;
     const totalPages = Math.ceil(levels.length / CARDS_PER_PAGE);
