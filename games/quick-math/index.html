@@ -49,6 +49,13 @@
             --dom-text-muted:  #6B7280;
             --qm-green:        #58CC02;
             --qm-red:          #FF4444;
+
+            /* Color System for CPA Method */
+            --qm-blue:         #3B82F6;   /* Groups, Sets */
+            --qm-orange:       #FF7D00;   /* Key Numbers, Operations */
+            --qm-green-light:  #10B981;   /* Steps Completed */
+            --qm-purple:       #8B5CF6;   /* Challenge, Patterns */
+            --qm-yellow:       #FBBF24;   /* Highlights, Attention */
         }
 
         /* Level Grid */
@@ -150,24 +157,146 @@
 
         /* Tutorial */
         .qm-tutorial-card {
-            max-width: 600px;
-            margin: 40px auto;
+            max-width: 700px;
+            margin: 30px auto;
             text-align: center;
+        }
+
+        .qm-tutorial-mnemonic {
+            background: color-mix(in srgb, var(--qm-yellow) 20%, white);
+            border-left: 4px solid var(--qm-yellow);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--qm-orange);
         }
 
         .qm-tutorial-title {
             font-size: 28px;
             font-weight: 700;
             color: var(--dom-accent);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         .qm-tutorial-text {
             font-size: 16px;
             color: var(--dom-text);
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             white-space: pre-wrap;
+        }
+
+        /* Visual Stages (CPA Method) */
+        .qm-visual-stages {
+            margin: 30px 0;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .qm-stage-btn {
+            padding: 8px 14px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 2px solid var(--dom-border);
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .qm-stage-btn:hover {
+            border-color: var(--dom-accent);
+            color: var(--dom-accent);
+        }
+
+        .qm-stage-btn.active {
+            background: var(--dom-accent);
+            color: white;
+            border-color: var(--dom-accent);
+        }
+
+        /* Visual Breakdown Container */
+        .qm-visual-breakdown {
+            background: color-mix(in srgb, var(--dom-accent) 8%, white);
+            border: 1px solid var(--dom-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        /* Step-by-step breakdown */
+        .qm-step-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0;
+            text-align: left;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .qm-step {
+            background: white;
+            border: 1px solid var(--dom-border);
+            border-radius: 6px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .qm-step.completed {
+            background: color-mix(in srgb, var(--qm-green) 15%, white);
+            border-color: var(--qm-green);
+        }
+
+        .qm-step.current {
+            background: color-mix(in srgb, var(--dom-accent) 15%, white);
+            border-color: var(--dom-accent);
+            border-width: 2px;
+        }
+
+        .qm-step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--dom-accent);
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .qm-step.completed .qm-step-number {
+            background: var(--qm-green);
+        }
+
+        .qm-step-content {
+            flex: 1;
+            font-size: 15px;
+            color: var(--dom-text);
+        }
+
+        .qm-step-highlight {
+            background: color-mix(in srgb, var(--qm-orange) 30%, white);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 700;
+            color: var(--qm-orange);
         }
 
         .qm-tutorial-example {
@@ -193,6 +322,21 @@
             justify-content: center;
             margin-top: 40px;
             flex-wrap: wrap;
+        }
+
+        /* Tip Box */
+        .qm-tip-box {
+            background: color-mix(in srgb, var(--qm-blue) 15%, white);
+            border-left: 4px solid var(--qm-blue);
+            border-radius: 6px;
+            padding: 12px 16px;
+            margin: 15px 0;
+            font-size: 14px;
+            color: var(--dom-text);
+        }
+
+        .qm-tip-box strong {
+            color: var(--qm-blue);
         }
 
         /* Practice Mode */
@@ -547,9 +691,25 @@
         <!-- Tutorial Screen -->
         <div id="screen-tutorial" class="dom-screen">
             <div class="qm-tutorial-card">
+                <div id="tut-mnemonic" class="qm-tutorial-mnemonic" style="display: none;"></div>
                 <h2 id="tut-title" class="qm-tutorial-title"></h2>
                 <p id="tut-text" class="qm-tutorial-text"></p>
+
+                <!-- Visual Stages Buttons -->
+                <div id="tut-stages" class="qm-visual-stages" style="display: none;">
+                    <button class="qm-stage-btn active" data-stage="explanation">📖 Explanation</button>
+                    <button class="qm-stage-btn" data-stage="visual">🎨 Show Visually</button>
+                    <button class="qm-stage-btn" data-stage="steps">📋 Step by Step</button>
+                </div>
+
+                <!-- Visual Breakdown Area -->
+                <div id="tut-visual-breakdown" class="qm-visual-breakdown" style="display: none;"></div>
+
+                <!-- Step-by-step Container -->
+                <div id="tut-step-container" class="qm-step-container" style="display: none;"></div>
+
                 <div id="tut-example" class="qm-tutorial-example"></div>
+                <div id="tut-tip" class="qm-tip-box" style="display: none;"></div>
                 <p id="tut-progress" class="qm-tutorial-progress"></p>
             </div>
             <div class="qm-tutorial-buttons">

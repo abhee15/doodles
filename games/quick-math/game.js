@@ -45,12 +45,61 @@ const LEVELS = [
 // ==================== TUTORIAL DATA ====================
 const TUTORIAL_STEPS = {
     1: [
-        { title: 'The ×11 Trick', text: 'Learn the fastest way to multiply any 2-digit number by 11!', example: '' },
-        { title: 'Example: 23 × 11', text: 'The normal way:\n23 × 10 = 230\n23 × 1 = 23\n230 + 23 = 253', example: '23 × 11 = 253' },
-        { title: 'The Quick Way!', text: 'Step 1: Write the first digit → 2__', example: '2__' },
-        { title: 'The Quick Way!', text: 'Step 2: Add the two digits → 2+3 = 5', example: '2_5_' },
-        { title: 'The Quick Way!', text: 'Step 3: Write the last digit → 3', example: '253' },
-        { title: 'The Pattern!', text: 'For any number AB:\nA [A+B] B = Answer\n\n23 → 2 [2+3] 3 → 253\n45 → 4 [4+5] 5 → 495', example: '✨ Magic! ✨' }
+        {
+            title: 'The ×11 Trick',
+            text: 'Learn the fastest way to multiply any 2-digit number by 11!',
+            example: '',
+            mnemonic: 'Split, Add Middle, Done! 🎯'
+        },
+        {
+            title: 'Example: 23 × 11',
+            text: 'The slow way takes many steps:\n23 × 10 = 230\n23 × 1 = 23\n230 + 23 = 253',
+            example: '23 × 11 = 253',
+            tip: 'The trick lets us skip all these steps and find the answer instantly!'
+        },
+        {
+            title: 'The Quick Way!',
+            text: 'We use a simple pattern with the digits in 23:',
+            example: '2_3',
+            steps: [
+                '📍 <span class="qm-step-highlight">Split</span> the number: 2 and 3',
+                '➕ <span class="qm-step-highlight">Add</span> the digits: 2 + 3 = 5',
+                '✍️ Put the 5 in the <span class="qm-step-highlight">middle</span>: 253'
+            ],
+            mnemonic: 'First Digit | Sum | Last Digit'
+        },
+        {
+            title: 'Why Does This Work?',
+            text: 'When you multiply by 11, you\'re adding the number to itself shifted left:\n\n23 × 11 = 23 × (10 + 1) = 230 + 23 = 253\n\nThe middle digit is where they overlap!',
+            example: '253',
+            visual: {
+                html: `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: center; width: 100%; max-width: 400px;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: bold; color: var(--qm-blue); margin-bottom: 8px;">23</div>
+                            <div style="font-size: 12px; color: var(--dom-text-muted);">× 11</div>
+                        </div>
+                        <div style="text-align: center;">
+                            <div style="font-size: 24px; font-weight: bold; color: var(--qm-orange);">253</div>
+                            <div style="font-size: 12px; color: var(--dom-text-muted);">Answer!</div>
+                        </div>
+                    </div>
+                `
+            },
+            tip: 'The first digit stays, the last stays, but the two digits in the middle add together!'
+        },
+        {
+            title: 'Try Another: 34 × 11',
+            text: 'Using the same pattern:\nFirst digit: 3\nMiddle: 3 + 4 = 7\nLast digit: 4\n\nAnswer: 374',
+            example: '34 × 11 = 374',
+            tip: 'This works for ANY 2-digit number! Try it with different numbers to see the pattern.'
+        },
+        {
+            title: 'The Pattern!',
+            text: 'For any number AB:\nA [A+B] B = Answer\n\n23 → 2 [2+3] 3 → 253\n45 → 4 [4+5] 5 → 495',
+            example: '✨ Ready to Practice! ✨',
+            mnemonic: 'Split 👉 Add Middle 👉 Answer!'
+        }
     ],
     2: [
         { title: 'Square Numbers Ending in 5', text: 'Learn the fastest way to square numbers like 25, 35, 45!', example: '' },
@@ -81,9 +130,58 @@ const TUTORIAL_STEPS = {
         { title: 'The Finger Trick', text: 'Hold up 10 fingers\nBend the 5th finger\nYou see: 4 fingers | 5 fingers\nAnswer: 45!', example: '✨ Fingers Magic! ✨' }
     ],
     6: [
-        { title: 'Multiply by 5', text: 'The simplest trick: half of ×10!', example: '' },
-        { title: 'The Secret', text: '×5 = ×10 ÷ 2\n\n8 × 5 = 8 × 10 ÷ 2 = 80 ÷ 2 = 40', example: '8 × 5 = 40' },
-        { title: 'Even Easier!', text: 'For EVEN numbers:\nHalf it, then add a 0\n\n12 × 5 = 6_0 = 60', example: '12 × 5 = 60' }
+        {
+            title: 'Multiply by 5',
+            text: 'Learn the easiest trick: multiply by 10, then divide by 2!',
+            example: '',
+            mnemonic: '×10 Then ÷2 = ×5'
+        },
+        {
+            title: 'The Secret Formula',
+            text: '×5 is the same as ×10 ÷ 2\n\nBecause: 5 = 10 ÷ 2\n\nExample with 8:',
+            example: '8 × 5 = ?',
+            steps: [
+                '1️⃣ Multiply by <span class="qm-step-highlight">10</span>: 8 × 10 = 80',
+                '2️⃣ Divide by <span class="qm-step-highlight">2</span> (cut in half): 80 ÷ 2 = 40',
+                '✅ Answer: 8 × 5 = 40'
+            ],
+            tip: 'Always multiply by 10 first (just add a 0), then cut the result in half!'
+        },
+        {
+            title: 'Even Faster for EVEN Numbers!',
+            text: 'When the number is even, you can do it backwards:\nHalf first, then add the 0!\n\nExample with 12:',
+            example: '12 × 5 = ?',
+            steps: [
+                '1️⃣ <span class="qm-step-highlight">Half</span> the number: 12 ÷ 2 = 6',
+                '2️⃣ Add a <span class="qm-step-highlight">0</span>: 60',
+                '✅ Answer: 12 × 5 = 60'
+            ],
+            visual: {
+                html: `
+                    <div style="background: color-mix(in srgb, var(--qm-blue) 20%, white); padding: 15px; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 14px; color: var(--dom-text-muted); margin-bottom: 10px;">Even Numbers Get This Bonus Trick:</div>
+                        <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                            <div style="background: white; padding: 10px 15px; border-radius: 4px; border: 2px solid var(--qm-blue);">
+                                <div style="font-size: 12px; color: var(--qm-blue);">÷2</div>
+                                <div style="font-size: 18px; font-weight: bold;">12</div>
+                            </div>
+                            <div style="font-size: 20px; color: var(--qm-orange);">→</div>
+                            <div style="background: white; padding: 10px 15px; border-radius: 4px; border: 2px solid var(--qm-orange);">
+                                <div style="font-size: 12px; color: var(--qm-orange);">+0</div>
+                                <div style="font-size: 18px; font-weight: bold;">60</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            mnemonic: 'Half the number, add a zero! 🎯'
+        },
+        {
+            title: 'More Examples!',
+            text: 'Practice the pattern with different numbers:\n\n16 × 5: Half of 16 = 8, add 0 → 80\n24 × 5: Half of 24 = 12, add 0 → 120\n14 × 5: (14×10)÷2 = 140÷2 = 70',
+            example: '✨ See the Pattern? ✨',
+            tip: 'Use the even number trick when possible—it\'s faster!'
+        }
     ],
     7: [
         { title: 'Multiply by 4', text: 'Double, then double again!', example: '' },
@@ -374,6 +472,62 @@ function renderLevelGrid() {
     });
 }
 
+// ==================== VISUAL SYSTEM HELPERS ====================
+function renderVisualBreakdown(visualData) {
+    const container = document.getElementById('tut-visual-breakdown');
+    if (!visualData) {
+        container.style.display = 'none';
+        return;
+    }
+    container.style.display = 'flex';
+    container.innerHTML = visualData.html || '';
+}
+
+function renderStepByStep(steps) {
+    const container = document.getElementById('tut-step-container');
+    if (!steps || steps.length === 0) {
+        container.style.display = 'none';
+        return;
+    }
+
+    container.style.display = 'flex';
+    container.innerHTML = steps.map((step, idx) => `
+        <div class="qm-step ${idx === 0 ? 'current' : ''}">
+            <div class="qm-step-number">${idx + 1}</div>
+            <div class="qm-step-content">${step}</div>
+        </div>
+    `).join('');
+}
+
+function showVisualStages() {
+    const stagesContainer = document.getElementById('tut-stages');
+    stagesContainer.style.display = 'flex';
+
+    document.querySelectorAll('.qm-stage-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.qm-stage-btn').forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+
+            const stage = e.target.dataset.stage;
+            const step = TUTORIAL_STEPS[currentLevelId][tutStep];
+
+            if (stage === 'explanation') {
+                document.getElementById('tut-visual-breakdown').style.display = 'none';
+                document.getElementById('tut-step-container').style.display = 'none';
+                document.getElementById('tut-text').style.display = 'block';
+            } else if (stage === 'visual' && step.visual) {
+                renderVisualBreakdown(step.visual);
+                document.getElementById('tut-step-container').style.display = 'none';
+                document.getElementById('tut-text').style.display = 'none';
+            } else if (stage === 'steps' && step.steps) {
+                renderStepByStep(step.steps);
+                document.getElementById('tut-visual-breakdown').style.display = 'none';
+                document.getElementById('tut-text').style.display = 'none';
+            }
+        });
+    });
+}
+
 // ==================== TUTORIAL ====================
 function showTutorial(levelId) {
     showScreen('screen-tutorial');
@@ -388,8 +542,41 @@ function renderTutorialStep() {
 
     document.getElementById('tut-title').textContent = step.title;
     document.getElementById('tut-text').textContent = step.text;
+    document.getElementById('tut-text').style.display = 'block';
     document.getElementById('tut-example').textContent = step.example;
     document.getElementById('tut-progress').textContent = `Step ${tutStep + 1} of ${steps.length}`;
+
+    // Display mnemonic if available
+    const mnemonicEl = document.getElementById('tut-mnemonic');
+    if (step.mnemonic) {
+        mnemonicEl.textContent = `💡 Remember: ${step.mnemonic}`;
+        mnemonicEl.style.display = 'block';
+    } else {
+        mnemonicEl.style.display = 'none';
+    }
+
+    // Display tip if available
+    const tipEl = document.getElementById('tut-tip');
+    if (step.tip) {
+        tipEl.innerHTML = `<strong>💡 Tip:</strong> ${step.tip}`;
+        tipEl.style.display = 'block';
+    } else {
+        tipEl.style.display = 'none';
+    }
+
+    // Reset visual elements
+    document.getElementById('tut-visual-breakdown').style.display = 'none';
+    document.getElementById('tut-step-container').style.display = 'none';
+
+    // Show visual stages if this step has them
+    if (step.visual || step.steps) {
+        showVisualStages();
+        // Reset stage buttons
+        document.querySelectorAll('.qm-stage-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelector('[data-stage="explanation"]').classList.add('active');
+    } else {
+        document.getElementById('tut-stages').style.display = 'none';
+    }
 
     const prevBtn = document.getElementById('tut-prev');
     const nextBtn = document.getElementById('tut-next');
