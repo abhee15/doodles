@@ -890,7 +890,7 @@ function initMenu() {
             <div class="mm-mode-title">${m.title}</div>
             <div class="mm-mode-subtitle">${m.sub}</div>
         `;
-    card.onclick = m.action;
+    card.addEventListener('click', m.action);
     grid.appendChild(card);
   });
 
