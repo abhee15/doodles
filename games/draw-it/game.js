@@ -605,13 +605,15 @@ function drawFish_step2(ctx) {
   ctx.stroke();
 }
 function drawFish_step3(ctx) {
+  // Top fin - positioned on body
   ctx.beginPath();
-  ctx.ellipse(220, 140, 30, 45, 0, 0, Math.PI * 2);
+  ctx.ellipse(210, 145, 28, 40, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step4(ctx) {
+  // Bottom fin - positioned on body
   ctx.beginPath();
-  ctx.ellipse(220, 260, 30, 45, 0, 0, Math.PI * 2);
+  ctx.ellipse(210, 255, 28, 40, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step5(ctx) {
@@ -789,29 +791,35 @@ function drawMickey_step6(ctx) {
   ctx.stroke();
 }
 function drawMickey_step7(ctx) {
+  // Left arm - extending from body side
   ctx.beginPath();
-  ctx.moveTo(130, 280);
-  ctx.lineTo(130, 320);
+  ctx.moveTo(125, 290);
+  ctx.lineTo(80, 310);
   ctx.stroke();
+  // Right arm - extending from body side
   ctx.beginPath();
-  ctx.moveTo(270, 280);
-  ctx.lineTo(270, 320);
+  ctx.moveTo(275, 290);
+  ctx.lineTo(320, 310);
   ctx.stroke();
+  // Left leg - extending down from body
   ctx.beginPath();
-  ctx.moveTo(160, 260);
-  ctx.lineTo(160, 300);
+  ctx.moveTo(170, 375);
+  ctx.lineTo(165, 410);
   ctx.stroke();
+  // Right leg - extending down from body
   ctx.beginPath();
-  ctx.moveTo(240, 260);
-  ctx.lineTo(240, 300);
+  ctx.moveTo(230, 375);
+  ctx.lineTo(235, 410);
   ctx.stroke();
 }
 function drawMickey_step8(ctx) {
+  // Left shoe
   ctx.beginPath();
-  ctx.arc(160, 335, 8, 0, Math.PI * 2);
+  ctx.arc(165, 415, 10, 0, Math.PI * 2);
   ctx.stroke();
+  // Right shoe
   ctx.beginPath();
-  ctx.arc(240, 335, 8, 0, Math.PI * 2);
+  ctx.arc(235, 415, 10, 0, Math.PI * 2);
   ctx.stroke();
 }
 
@@ -876,13 +884,25 @@ function drawPikachu_step8(ctx) {
   ctx.stroke();
 }
 function drawPikachu_step9(ctx) {
+  // Left arm - connect from body to side
   ctx.beginPath();
-  ctx.moveTo(150, 250);
-  ctx.lineTo(140, 300);
+  ctx.moveTo(140, 280);
+  ctx.lineTo(100, 310);
   ctx.stroke();
+  // Right arm - connect from body to side
   ctx.beginPath();
-  ctx.moveTo(250, 250);
-  ctx.lineTo(260, 300);
+  ctx.moveTo(260, 280);
+  ctx.lineTo(300, 310);
+  ctx.stroke();
+  // Left leg - connect from body base
+  ctx.beginPath();
+  ctx.moveTo(170, 350);
+  ctx.lineTo(160, 380);
+  ctx.stroke();
+  // Right leg - connect from body base
+  ctx.beginPath();
+  ctx.moveTo(230, 350);
+  ctx.lineTo(240, 380);
   ctx.stroke();
 }
 
@@ -932,23 +952,27 @@ function drawDonald_step5(ctx) {
   ctx.stroke();
 }
 function drawDonald_step6(ctx) {
+  // Left arm/wing
   ctx.beginPath();
-  ctx.moveTo(150, 280);
-  ctx.lineTo(130, 320);
+  ctx.moveTo(130, 310);
+  ctx.lineTo(80, 340);
   ctx.stroke();
+  // Right arm/wing
   ctx.beginPath();
-  ctx.moveTo(250, 280);
-  ctx.lineTo(270, 320);
+  ctx.moveTo(270, 310);
+  ctx.lineTo(320, 340);
   ctx.stroke();
 }
 function drawDonald_step7(ctx) {
+  // Left leg
   ctx.beginPath();
-  ctx.moveTo(160, 360);
-  ctx.lineTo(160, 390);
+  ctx.moveTo(170, 370);
+  ctx.lineTo(165, 410);
   ctx.stroke();
+  // Right leg
   ctx.beginPath();
-  ctx.moveTo(240, 360);
-  ctx.lineTo(240, 390);
+  ctx.moveTo(230, 370);
+  ctx.lineTo(235, 410);
   ctx.stroke();
 }
 
