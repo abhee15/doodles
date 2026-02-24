@@ -131,7 +131,8 @@
     var allBtn = document.createElement('button');
     allBtn.className = 'pill active';
     allBtn.setAttribute('data-cat', 'all');
-    allBtn.innerHTML = '<i class="ti ti-layout-grid"></i> All Games';
+    allBtn.setAttribute('data-label', 'All Games');
+    allBtn.innerHTML = '<i class="ti ti-layout-grid"></i> <span class="pill-text">All Games</span>';
     filterBar.appendChild(allBtn);
 
     // Category pills
@@ -139,6 +140,7 @@
       var btn = document.createElement('button');
       btn.className = 'pill';
       btn.setAttribute('data-cat', cat.id);
+      btn.setAttribute('data-label', cat.label);
 
       var icon = '';
       switch (cat.id) {
@@ -150,7 +152,7 @@
         case 'art': icon = 'ti-palette'; break;
       }
 
-      btn.innerHTML = '<i class="ti ' + icon + '"></i> ' + cat.label;
+      btn.innerHTML = '<i class="ti ' + icon + '"></i> <span class="pill-text">' + cat.label + '</span>';
       filterBar.appendChild(btn);
     });
 
