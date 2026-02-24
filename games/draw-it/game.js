@@ -36,9 +36,21 @@ const SUBJECTS = [
       { title: 'Draw the head', desc: 'Large circle in the middle.', draw: drawCat_step1 },
       { title: 'Add pointy ears', desc: 'Two triangles on top of the head.', draw: drawCat_step2 },
       { title: 'Draw eyes', desc: 'Two oval shapes, pointed at the corners.', draw: drawCat_step3 },
-      { title: 'Add nose & mouth', desc: 'Triangle nose, curved smile below.', draw: drawCat_step4 },
-      { title: 'Whiskers & body outline', desc: 'Three lines each side, then draw body shape below.', draw: drawCat_step5 },
-      { title: 'Front legs & tail', desc: 'Two straight legs below, curved tail on side.', draw: drawCat_step6 }
+      {
+        title: 'Add nose & mouth',
+        desc: 'Triangle nose, curved smile below.',
+        draw: drawCat_step4
+      },
+      {
+        title: 'Whiskers & body outline',
+        desc: 'Three lines each side, then draw body shape below.',
+        draw: drawCat_step5
+      },
+      {
+        title: 'Front legs & tail',
+        desc: 'Two straight legs below, curved tail on side.',
+        draw: drawCat_step6
+      }
     ]
   },
   {
@@ -47,13 +59,37 @@ const SUBJECTS = [
     category: 'animals',
     emoji: '🐦',
     steps: [
-      { title: 'Body shape', desc: 'Draw a medium oval horizontally for the body.', draw: drawBird_step1 },
-      { title: 'Head circle', desc: 'Add a circle on the left side for the head (smaller than body).', draw: drawBird_step2 },
-      { title: 'Beak', desc: 'Draw a small pointed triangle on the left of the head.', draw: drawBird_step3 },
+      {
+        title: 'Body shape',
+        desc: 'Draw a medium oval horizontally for the body.',
+        draw: drawBird_step1
+      },
+      {
+        title: 'Head circle',
+        desc: 'Add a circle on the left side for the head (smaller than body).',
+        draw: drawBird_step2
+      },
+      {
+        title: 'Beak',
+        desc: 'Draw a small pointed triangle on the left of the head.',
+        draw: drawBird_step3
+      },
       { title: 'Eye', desc: 'Add a small circle on the head for the eye.', draw: drawBird_step4 },
-      { title: 'Wings', desc: 'Draw two curved oval shapes on the sides of the body.', draw: drawBird_step5 },
-      { title: 'Tail feathers', desc: 'Add 3-4 curved lines at the back for tail feathers.', draw: drawBird_step6 },
-      { title: 'Legs & details', desc: 'Two short lines for legs, add details to wing.', draw: drawBird_step7 }
+      {
+        title: 'Wings',
+        desc: 'Draw two curved oval shapes on the sides of the body.',
+        draw: drawBird_step5
+      },
+      {
+        title: 'Tail feathers',
+        desc: 'Add 3-4 curved lines at the back for tail feathers.',
+        draw: drawBird_step6
+      },
+      {
+        title: 'Legs & details',
+        desc: 'Two short lines for legs, add details to wing.',
+        draw: drawBird_step7
+      }
     ]
   },
   {
@@ -63,12 +99,36 @@ const SUBJECTS = [
     emoji: '🐶',
     steps: [
       { title: 'Head circle', desc: 'Draw a large circle for the head.', draw: drawDog_step1 },
-      { title: 'Floppy ears', desc: 'Add two large rounded rectangles on the sides for ears.', draw: drawDog_step2 },
-      { title: 'Snout area', desc: 'Draw a rounded rectangle shape sticking out for the snout.', draw: drawDog_step3 },
-      { title: 'Eyes', desc: 'Two small circles or ovals for eyes on the head.', draw: drawDog_step4 },
-      { title: 'Nose & mouth', desc: 'Small circle for nose, curved line for smiling mouth.', draw: drawDog_step5 },
-      { title: 'Body shape', desc: 'Draw a larger oval below the head for the body.', draw: drawDog_step6 },
-      { title: 'Legs & tail', desc: 'Four short lines for legs at bottom, curved tail.', draw: drawDog_step7 }
+      {
+        title: 'Floppy ears',
+        desc: 'Add two large rounded rectangles on the sides for ears.',
+        draw: drawDog_step2
+      },
+      {
+        title: 'Snout area',
+        desc: 'Draw a rounded rectangle shape sticking out for the snout.',
+        draw: drawDog_step3
+      },
+      {
+        title: 'Eyes',
+        desc: 'Two small circles or ovals for eyes on the head.',
+        draw: drawDog_step4
+      },
+      {
+        title: 'Nose & mouth',
+        desc: 'Small circle for nose, curved line for smiling mouth.',
+        draw: drawDog_step5
+      },
+      {
+        title: 'Body shape',
+        desc: 'Draw a larger oval below the head for the body.',
+        draw: drawDog_step6
+      },
+      {
+        title: 'Legs & tail',
+        desc: 'Four short lines for legs at bottom, curved tail.',
+        draw: drawDog_step7
+      }
     ]
   },
   {
@@ -77,12 +137,28 @@ const SUBJECTS = [
     category: 'animals',
     emoji: '🐠',
     steps: [
-      { title: 'Body', desc: 'Draw a medium oval horizontally for the fish body.', draw: drawFish_step1 },
-      { title: 'Tail fin', desc: 'Draw a triangle pointing right at the back.', draw: drawFish_step2 },
+      {
+        title: 'Body',
+        desc: 'Draw a medium oval horizontally for the fish body.',
+        draw: drawFish_step1
+      },
+      {
+        title: 'Tail fin',
+        desc: 'Draw a triangle pointing right at the back.',
+        draw: drawFish_step2
+      },
       { title: 'Top fin', desc: 'Add a curved triangle on top of the body.', draw: drawFish_step3 },
-      { title: 'Bottom fin', desc: 'Add another curved triangle on the bottom.', draw: drawFish_step4 },
+      {
+        title: 'Bottom fin',
+        desc: 'Add another curved triangle on the bottom.',
+        draw: drawFish_step4
+      },
       { title: 'Eye', desc: 'Small circle near the front for the eye.', draw: drawFish_step5 },
-      { title: 'Mouth & details', desc: 'Small circle for mouth, add lines in tail for pattern.', draw: drawFish_step6 }
+      {
+        title: 'Mouth & details',
+        desc: 'Small circle for mouth, add lines in tail for pattern.',
+        draw: drawFish_step6
+      }
     ]
   },
   {
@@ -91,13 +167,41 @@ const SUBJECTS = [
     category: 'animals',
     emoji: '🦋',
     steps: [
-      { title: 'Body', desc: 'Draw a vertical rectangle down the middle for the body.', draw: drawButterfly_step1 },
-      { title: 'Upper left wing', desc: 'Draw a large oval tilted to the upper left.', draw: drawButterfly_step2 },
-      { title: 'Upper right wing', desc: 'Draw a matching oval tilted to the upper right.', draw: drawButterfly_step3 },
-      { title: 'Lower left wing', desc: 'Draw another oval below and tilted for lower left wing.', draw: drawButterfly_step4 },
-      { title: 'Lower right wing', desc: 'Draw matching lower right wing oval.', draw: drawButterfly_step5 },
-      { title: 'Antennae', desc: 'Two curved lines from the top of the body for antennae.', draw: drawButterfly_step6 },
-      { title: 'Wing patterns', desc: 'Add circles and dots on the wings for pretty patterns.', draw: drawButterfly_step7 }
+      {
+        title: 'Body',
+        desc: 'Draw a vertical rectangle down the middle for the body.',
+        draw: drawButterfly_step1
+      },
+      {
+        title: 'Upper left wing',
+        desc: 'Draw a large oval tilted to the upper left.',
+        draw: drawButterfly_step2
+      },
+      {
+        title: 'Upper right wing',
+        desc: 'Draw a matching oval tilted to the upper right.',
+        draw: drawButterfly_step3
+      },
+      {
+        title: 'Lower left wing',
+        desc: 'Draw another oval below and tilted for lower left wing.',
+        draw: drawButterfly_step4
+      },
+      {
+        title: 'Lower right wing',
+        desc: 'Draw matching lower right wing oval.',
+        draw: drawButterfly_step5
+      },
+      {
+        title: 'Antennae',
+        desc: 'Two curved lines from the top of the body for antennae.',
+        draw: drawButterfly_step6
+      },
+      {
+        title: 'Wing patterns',
+        desc: 'Add circles and dots on the wings for pretty patterns.',
+        draw: drawButterfly_step7
+      }
     ]
   },
   {
@@ -107,12 +211,32 @@ const SUBJECTS = [
     emoji: '🐰',
     steps: [
       { title: 'Head', desc: 'Draw a circle for the rabbit head.', draw: drawRabbit_step1 },
-      { title: 'Long ears', desc: 'Two tall ovals sticking up from the top of head.', draw: drawRabbit_step2 },
-      { title: 'Inner ears', desc: 'Smaller ovals inside each ear for detail.', draw: drawRabbit_step3 },
+      {
+        title: 'Long ears',
+        desc: 'Two tall ovals sticking up from the top of head.',
+        draw: drawRabbit_step2
+      },
+      {
+        title: 'Inner ears',
+        desc: 'Smaller ovals inside each ear for detail.',
+        draw: drawRabbit_step3
+      },
       { title: 'Eyes', desc: 'Two circles for big bright eyes.', draw: drawRabbit_step4 },
-      { title: 'Nose & mouth', desc: 'Small triangle for nose, line for cute buck teeth/smile.', draw: drawRabbit_step5 },
-      { title: 'Body', desc: 'Larger oval below the head for the fuzzy body.', draw: drawRabbit_step6 },
-      { title: 'Legs & tail', desc: 'Two hind legs at bottom, fluffy tail at back.', draw: drawRabbit_step7 }
+      {
+        title: 'Nose & mouth',
+        desc: 'Small triangle for nose, line for cute buck teeth/smile.',
+        draw: drawRabbit_step5
+      },
+      {
+        title: 'Body',
+        desc: 'Larger oval below the head for the fuzzy body.',
+        draw: drawRabbit_step6
+      },
+      {
+        title: 'Legs & tail',
+        desc: 'Two hind legs at bottom, fluffy tail at back.',
+        draw: drawRabbit_step7
+      }
     ]
   },
 
@@ -123,14 +247,46 @@ const SUBJECTS = [
     category: 'characters',
     emoji: '🐭',
     steps: [
-      { title: 'Head circle', desc: 'Draw a large circle in the center for Mickey\'s head.', draw: drawMickey_step1 },
-      { title: 'Left ear', desc: 'Draw a large circle on the upper left side.', draw: drawMickey_step2 },
-      { title: 'Right ear', desc: 'Draw matching circle on the upper right side.', draw: drawMickey_step3 },
-      { title: 'Eyes', desc: 'Two large oval shapes with smaller ovals inside for pupils.', draw: drawMickey_step4 },
-      { title: 'Nose & mouth', desc: 'Large oval nose between eyes, big smile line below.', draw: drawMickey_step5 },
-      { title: 'Body & shorts', desc: 'Draw oval for body, add short line for pants/shorts.', draw: drawMickey_step6 },
-      { title: 'Arms & legs', desc: 'Add two arms and two legs as simple shapes.', draw: drawMickey_step7 },
-      { title: 'Final details', desc: 'Add buttons on shorts and shoes at the bottom.', draw: drawMickey_step8 }
+      {
+        title: 'Head circle',
+        desc: "Draw a large circle in the center for Mickey's head.",
+        draw: drawMickey_step1
+      },
+      {
+        title: 'Left ear',
+        desc: 'Draw a large circle on the upper left side.',
+        draw: drawMickey_step2
+      },
+      {
+        title: 'Right ear',
+        desc: 'Draw matching circle on the upper right side.',
+        draw: drawMickey_step3
+      },
+      {
+        title: 'Eyes',
+        desc: 'Two large oval shapes with smaller ovals inside for pupils.',
+        draw: drawMickey_step4
+      },
+      {
+        title: 'Nose & mouth',
+        desc: 'Large oval nose between eyes, big smile line below.',
+        draw: drawMickey_step5
+      },
+      {
+        title: 'Body & shorts',
+        desc: 'Draw oval for body, add short line for pants/shorts.',
+        draw: drawMickey_step6
+      },
+      {
+        title: 'Arms & legs',
+        desc: 'Add two arms and two legs as simple shapes.',
+        draw: drawMickey_step7
+      },
+      {
+        title: 'Final details',
+        desc: 'Add buttons on shorts and shoes at the bottom.',
+        draw: drawMickey_step8
+      }
     ]
   },
   {
@@ -139,15 +295,47 @@ const SUBJECTS = [
     category: 'characters',
     emoji: '⚡',
     steps: [
-      { title: 'Head shape', desc: 'Draw a circle for Pikachu\'s round head.', draw: drawPikachu_step1 },
-      { title: 'Pointy left ear', desc: 'Draw a tall pointed oval on the upper left.', draw: drawPikachu_step2 },
-      { title: 'Pointy right ear', desc: 'Draw matching pointed oval on upper right.', draw: drawPikachu_step3 },
-      { title: 'Cheek circles', desc: 'Two circles on sides of face for rosy red cheeks.', draw: drawPikachu_step4 },
-      { title: 'Eyes & nose', desc: 'Small circles for eyes, tiny triangle for nose.', draw: drawPikachu_step5 },
-      { title: 'Mouth', desc: 'Draw curved line for Pikachu\'s happy mouth.', draw: drawPikachu_step6 },
+      {
+        title: 'Head shape',
+        desc: "Draw a circle for Pikachu's round head.",
+        draw: drawPikachu_step1
+      },
+      {
+        title: 'Pointy left ear',
+        desc: 'Draw a tall pointed oval on the upper left.',
+        draw: drawPikachu_step2
+      },
+      {
+        title: 'Pointy right ear',
+        desc: 'Draw matching pointed oval on upper right.',
+        draw: drawPikachu_step3
+      },
+      {
+        title: 'Cheek circles',
+        desc: 'Two circles on sides of face for rosy red cheeks.',
+        draw: drawPikachu_step4
+      },
+      {
+        title: 'Eyes & nose',
+        desc: 'Small circles for eyes, tiny triangle for nose.',
+        draw: drawPikachu_step5
+      },
+      {
+        title: 'Mouth',
+        desc: "Draw curved line for Pikachu's happy mouth.",
+        draw: drawPikachu_step6
+      },
       { title: 'Body', desc: 'Larger oval below head for the body.', draw: drawPikachu_step7 },
-      { title: 'Tail', desc: 'Lightning bolt shaped tail on the right back side.', draw: drawPikachu_step8 },
-      { title: 'Arms & legs', desc: 'Simple shapes for short arms and legs.', draw: drawPikachu_step9 }
+      {
+        title: 'Tail',
+        desc: 'Lightning bolt shaped tail on the right back side.',
+        draw: drawPikachu_step8
+      },
+      {
+        title: 'Arms & legs',
+        desc: 'Simple shapes for short arms and legs.',
+        draw: drawPikachu_step9
+      }
     ]
   },
   {
@@ -157,12 +345,36 @@ const SUBJECTS = [
     emoji: '🦆',
     steps: [
       { title: 'Head circle', desc: 'Draw a large circle for the head.', draw: drawDonald_step1 },
-      { title: 'Long bill', desc: 'Draw an elongated triangle or rectangle for the bill.', draw: drawDonald_step2 },
-      { title: 'Eyes', desc: 'Two circles on the head, with pupils inside.', draw: drawDonald_step3 },
-      { title: 'Sailor hat', desc: 'Draw a curved line for the hat brim and top.', draw: drawDonald_step4 },
-      { title: 'Body outline', desc: 'Draw a larger oval for the sailor outfit body.', draw: drawDonald_step5 },
-      { title: 'Sailor jacket', desc: 'Add lines for jacket lapels and sailor collar detail.', draw: drawDonald_step6 },
-      { title: 'Legs & feet', desc: 'Two thin legs with large feet at bottom.', draw: drawDonald_step7 }
+      {
+        title: 'Long bill',
+        desc: 'Draw an elongated triangle or rectangle for the bill.',
+        draw: drawDonald_step2
+      },
+      {
+        title: 'Eyes',
+        desc: 'Two circles on the head, with pupils inside.',
+        draw: drawDonald_step3
+      },
+      {
+        title: 'Sailor hat',
+        desc: 'Draw a curved line for the hat brim and top.',
+        draw: drawDonald_step4
+      },
+      {
+        title: 'Body outline',
+        desc: 'Draw a larger oval for the sailor outfit body.',
+        draw: drawDonald_step5
+      },
+      {
+        title: 'Sailor jacket',
+        desc: 'Add lines for jacket lapels and sailor collar detail.',
+        draw: drawDonald_step6
+      },
+      {
+        title: 'Legs & feet',
+        desc: 'Two thin legs with large feet at bottom.',
+        draw: drawDonald_step7
+      }
     ]
   },
   {
@@ -171,14 +383,38 @@ const SUBJECTS = [
     category: 'characters',
     emoji: '💚',
     steps: [
-      { title: 'Head', desc: 'Draw a circle for Hulk\'s head.', draw: drawHulk_step1 },
-      { title: 'Angry eyebrows', desc: 'Draw angry angled lines for eyebrows.', draw: drawHulk_step2 },
-      { title: 'Eyes & nose', desc: 'Two circles for eyes, small shape for nose.', draw: drawHulk_step3 },
+      { title: 'Head', desc: "Draw a circle for Hulk's head.", draw: drawHulk_step1 },
+      {
+        title: 'Angry eyebrows',
+        desc: 'Draw angry angled lines for eyebrows.',
+        draw: drawHulk_step2
+      },
+      {
+        title: 'Eyes & nose',
+        desc: 'Two circles for eyes, small shape for nose.',
+        draw: drawHulk_step3
+      },
       { title: 'Fierce mouth', desc: 'Draw angry clenched teeth line.', draw: drawHulk_step4 },
-      { title: 'Thick neck', desc: 'Draw wide rectangle for the thick neck.', draw: drawHulk_step5 },
-      { title: 'Massive shoulders', desc: 'Draw very wide shoulders/trapezoid shape.', draw: drawHulk_step6 },
-      { title: 'Huge muscular arms', desc: 'Draw two very large, thick arms with muscle bumps.', draw: drawHulk_step7 },
-      { title: 'Chest & pants', desc: 'Add chest outline and ripped pants at bottom.', draw: drawHulk_step8 }
+      {
+        title: 'Thick neck',
+        desc: 'Draw wide rectangle for the thick neck.',
+        draw: drawHulk_step5
+      },
+      {
+        title: 'Massive shoulders',
+        desc: 'Draw very wide shoulders/trapezoid shape.',
+        draw: drawHulk_step6
+      },
+      {
+        title: 'Huge muscular arms',
+        desc: 'Draw two very large, thick arms with muscle bumps.',
+        draw: drawHulk_step7
+      },
+      {
+        title: 'Chest & pants',
+        desc: 'Add chest outline and ripped pants at bottom.',
+        draw: drawHulk_step8
+      }
     ]
   },
 
@@ -189,12 +425,36 @@ const SUBJECTS = [
     category: 'flowers',
     emoji: '🌻',
     steps: [
-      { title: 'Petals circle', desc: 'Draw a large circle - this is where petals will go.', draw: drawSunflower_step1 },
-      { title: 'Draw petals', desc: 'Draw 8 ovals pointing outward around the circle.', draw: drawSunflower_step2 },
-      { title: 'Flower center', desc: 'Small circle in the middle for the flower center.', draw: drawSunflower_step3 },
-      { title: 'Center texture', desc: 'Add small dots in the center for seed pattern.', draw: drawSunflower_step4 },
-      { title: 'Stem', desc: 'Long curved line going down for the stem.', draw: drawSunflower_step5 },
-      { title: 'Leaves', desc: 'Two long pointed ovals on the sides of stem.', draw: drawSunflower_step6 }
+      {
+        title: 'Petals circle',
+        desc: 'Draw a large circle - this is where petals will go.',
+        draw: drawSunflower_step1
+      },
+      {
+        title: 'Draw petals',
+        desc: 'Draw 8 ovals pointing outward around the circle.',
+        draw: drawSunflower_step2
+      },
+      {
+        title: 'Flower center',
+        desc: 'Small circle in the middle for the flower center.',
+        draw: drawSunflower_step3
+      },
+      {
+        title: 'Center texture',
+        desc: 'Add small dots in the center for seed pattern.',
+        draw: drawSunflower_step4
+      },
+      {
+        title: 'Stem',
+        desc: 'Long curved line going down for the stem.',
+        draw: drawSunflower_step5
+      },
+      {
+        title: 'Leaves',
+        desc: 'Two long pointed ovals on the sides of stem.',
+        draw: drawSunflower_step6
+      }
     ]
   },
   {
@@ -203,12 +463,32 @@ const SUBJECTS = [
     category: 'flowers',
     emoji: '🌹',
     steps: [
-      { title: 'Center petal', desc: 'Draw a small oval in the very center.', draw: drawRose_step1 },
-      { title: 'First ring of petals', desc: 'Draw 3-4 curved petals around the center.', draw: drawRose_step2 },
-      { title: 'Second ring of petals', desc: 'Add more petals outside for fullness.', draw: drawRose_step3 },
-      { title: 'Outer petals', desc: 'Add a few more outer petals for a full bloom.', draw: drawRose_step4 },
+      {
+        title: 'Center petal',
+        desc: 'Draw a small oval in the very center.',
+        draw: drawRose_step1
+      },
+      {
+        title: 'First ring of petals',
+        desc: 'Draw 3-4 curved petals around the center.',
+        draw: drawRose_step2
+      },
+      {
+        title: 'Second ring of petals',
+        desc: 'Add more petals outside for fullness.',
+        draw: drawRose_step3
+      },
+      {
+        title: 'Outer petals',
+        desc: 'Add a few more outer petals for a full bloom.',
+        draw: drawRose_step4
+      },
       { title: 'Stem', desc: 'Draw a curved line down from the flower.', draw: drawRose_step5 },
-      { title: 'Leaves on stem', desc: 'Two or three pointed leaves along the stem.', draw: drawRose_step6 },
+      {
+        title: 'Leaves on stem',
+        desc: 'Two or three pointed leaves along the stem.',
+        draw: drawRose_step6
+      },
       { title: 'Thorns', desc: 'Add small thorns along the stem for detail.', draw: drawRose_step7 }
     ]
   },
@@ -218,12 +498,32 @@ const SUBJECTS = [
     category: 'flowers',
     emoji: '🌷',
     steps: [
-      { title: 'Center petal', desc: 'Draw a tall curved petal in the center.', draw: drawTulip_step1 },
+      {
+        title: 'Center petal',
+        desc: 'Draw a tall curved petal in the center.',
+        draw: drawTulip_step1
+      },
       { title: 'Left petal', desc: 'Draw a curved petal to the left side.', draw: drawTulip_step2 },
-      { title: 'Right petal', desc: 'Draw a matching curved petal on the right.', draw: drawTulip_step3 },
-      { title: 'Inner petals', desc: 'Add two smaller petals inside for depth.', draw: drawTulip_step4 },
-      { title: 'Stem', desc: 'Long straight or slightly curved line for the stem.', draw: drawTulip_step5 },
-      { title: 'Leaves', desc: 'Two pointed leaf shapes on the sides of the stem.', draw: drawTulip_step6 }
+      {
+        title: 'Right petal',
+        desc: 'Draw a matching curved petal on the right.',
+        draw: drawTulip_step3
+      },
+      {
+        title: 'Inner petals',
+        desc: 'Add two smaller petals inside for depth.',
+        draw: drawTulip_step4
+      },
+      {
+        title: 'Stem',
+        desc: 'Long straight or slightly curved line for the stem.',
+        draw: drawTulip_step5
+      },
+      {
+        title: 'Leaves',
+        desc: 'Two pointed leaf shapes on the sides of the stem.',
+        draw: drawTulip_step6
+      }
     ]
   },
   {
@@ -233,11 +533,31 @@ const SUBJECTS = [
     emoji: '🌳',
     steps: [
       { title: 'Trunk', desc: 'Draw a vertical rectangle for the trunk.', draw: drawTree_step1 },
-      { title: 'Foliage circle', desc: 'Draw a large circle or oval on top for the leaves.', draw: drawTree_step2 },
-      { title: 'Tree outline', desc: 'Add a curved outline around foliage to look natural.', draw: drawTree_step3 },
-      { title: 'Texture lines', desc: 'Add curved lines inside to show tree shape.', draw: drawTree_step4 },
-      { title: 'Leaf details', desc: 'Add small bump shapes for foliage texture.', draw: drawTree_step5 },
-      { title: 'Grass base', desc: 'Draw wavy lines at the bottom for grass.', draw: drawTree_step6 }
+      {
+        title: 'Foliage circle',
+        desc: 'Draw a large circle or oval on top for the leaves.',
+        draw: drawTree_step2
+      },
+      {
+        title: 'Tree outline',
+        desc: 'Add a curved outline around foliage to look natural.',
+        draw: drawTree_step3
+      },
+      {
+        title: 'Texture lines',
+        desc: 'Add curved lines inside to show tree shape.',
+        draw: drawTree_step4
+      },
+      {
+        title: 'Leaf details',
+        desc: 'Add small bump shapes for foliage texture.',
+        draw: drawTree_step5
+      },
+      {
+        title: 'Grass base',
+        desc: 'Draw wavy lines at the bottom for grass.',
+        draw: drawTree_step6
+      }
     ]
   },
 
@@ -249,13 +569,41 @@ const SUBJECTS = [
     emoji: '🚗',
     steps: [
       { title: 'Car body', desc: 'Draw a large rectangle for the main body.', draw: drawCar_step1 },
-      { title: 'Cabin/top', desc: 'Draw a smaller rectangle on top for the cabin.', draw: drawCar_step2 },
-      { title: 'Front wheels', desc: 'Draw two circles or ovals at the bottom for wheels.', draw: drawCar_step3 },
-      { title: 'Front window', desc: 'Rectangle on the front lower part of cabin.', draw: drawCar_step4 },
-      { title: 'Back window', desc: 'Another rectangle behind the front window.', draw: drawCar_step5 },
-      { title: 'Headlights', desc: 'Two small circles or rectangles at the front.', draw: drawCar_step6 },
-      { title: 'Door line', desc: 'Vertical line down the middle for car door.', draw: drawCar_step7 },
-      { title: 'Final details', desc: 'Add bumper line and wheel rims for details.', draw: drawCar_step8 }
+      {
+        title: 'Cabin/top',
+        desc: 'Draw a smaller rectangle on top for the cabin.',
+        draw: drawCar_step2
+      },
+      {
+        title: 'Front wheels',
+        desc: 'Draw two circles or ovals at the bottom for wheels.',
+        draw: drawCar_step3
+      },
+      {
+        title: 'Front window',
+        desc: 'Rectangle on the front lower part of cabin.',
+        draw: drawCar_step4
+      },
+      {
+        title: 'Back window',
+        desc: 'Another rectangle behind the front window.',
+        draw: drawCar_step5
+      },
+      {
+        title: 'Headlights',
+        desc: 'Two small circles or rectangles at the front.',
+        draw: drawCar_step6
+      },
+      {
+        title: 'Door line',
+        desc: 'Vertical line down the middle for car door.',
+        draw: drawCar_step7
+      },
+      {
+        title: 'Final details',
+        desc: 'Add bumper line and wheel rims for details.',
+        draw: drawCar_step8
+      }
     ]
   },
   {
@@ -264,13 +612,41 @@ const SUBJECTS = [
     category: 'vehicles',
     emoji: '✈️',
     steps: [
-      { title: 'Main body', desc: 'Draw an elongated oval for the plane body.', draw: drawAirplane_step1 },
-      { title: 'Wings', desc: 'Draw two large horizontal rectangles from each side.', draw: drawAirplane_step2 },
-      { title: 'Tail section', desc: 'Draw a small tail structure at the back.', draw: drawAirplane_step3 },
-      { title: 'Tail wing', desc: 'Add a vertical tail wing at the very back.', draw: drawAirplane_step4 },
-      { title: 'Cockpit', desc: 'Small circle or rounded rectangle on the nose.', draw: drawAirplane_step5 },
-      { title: 'Windows', desc: 'Add small circles along the body for windows.', draw: drawAirplane_step6 },
-      { title: 'Landing gear', desc: 'Three small circles or lines for wheels underneath.', draw: drawAirplane_step7 }
+      {
+        title: 'Main body',
+        desc: 'Draw an elongated oval for the plane body.',
+        draw: drawAirplane_step1
+      },
+      {
+        title: 'Wings',
+        desc: 'Draw two large horizontal rectangles from each side.',
+        draw: drawAirplane_step2
+      },
+      {
+        title: 'Tail section',
+        desc: 'Draw a small tail structure at the back.',
+        draw: drawAirplane_step3
+      },
+      {
+        title: 'Tail wing',
+        desc: 'Add a vertical tail wing at the very back.',
+        draw: drawAirplane_step4
+      },
+      {
+        title: 'Cockpit',
+        desc: 'Small circle or rounded rectangle on the nose.',
+        draw: drawAirplane_step5
+      },
+      {
+        title: 'Windows',
+        desc: 'Add small circles along the body for windows.',
+        draw: drawAirplane_step6
+      },
+      {
+        title: 'Landing gear',
+        desc: 'Three small circles or lines for wheels underneath.',
+        draw: drawAirplane_step7
+      }
     ]
   },
   {
@@ -279,13 +655,37 @@ const SUBJECTS = [
     category: 'vehicles',
     emoji: '🚀',
     steps: [
-      { title: 'Main body', desc: 'Draw a tall rectangle for the rocket body.', draw: drawRocket_step1 },
+      {
+        title: 'Main body',
+        desc: 'Draw a tall rectangle for the rocket body.',
+        draw: drawRocket_step1
+      },
       { title: 'Nose cone', desc: 'Triangle on top pointing upward.', draw: drawRocket_step2 },
-      { title: 'Left fin', desc: 'Triangle on the lower left back for a fin.', draw: drawRocket_step3 },
-      { title: 'Right fin', desc: 'Triangle on the lower right back for matching fin.', draw: drawRocket_step4 },
-      { title: 'Center fin', desc: 'Small line or triangle in the middle back.', draw: drawRocket_step5 },
-      { title: 'Porthole', desc: 'Circle near the top for a window/porthole.', draw: drawRocket_step6 },
-      { title: 'Flame', desc: 'Draw wavy lines at the bottom for rocket fire.', draw: drawRocket_step7 }
+      {
+        title: 'Left fin',
+        desc: 'Triangle on the lower left back for a fin.',
+        draw: drawRocket_step3
+      },
+      {
+        title: 'Right fin',
+        desc: 'Triangle on the lower right back for matching fin.',
+        draw: drawRocket_step4
+      },
+      {
+        title: 'Center fin',
+        desc: 'Small line or triangle in the middle back.',
+        draw: drawRocket_step5
+      },
+      {
+        title: 'Porthole',
+        desc: 'Circle near the top for a window/porthole.',
+        draw: drawRocket_step6
+      },
+      {
+        title: 'Flame',
+        desc: 'Draw wavy lines at the bottom for rocket fire.',
+        draw: drawRocket_step7
+      }
     ]
   },
   {
@@ -294,11 +694,31 @@ const SUBJECTS = [
     category: 'vehicles',
     emoji: '⛵',
     steps: [
-      { title: 'Hull shape', desc: 'Draw a curved bottom (like a U or boat shape).', draw: drawBoat_step1 },
-      { title: 'Boat sides', desc: 'Add straight lines on sides going up from hull.', draw: drawBoat_step2 },
-      { title: 'Mast', desc: 'Draw a vertical line in the middle for the mast.', draw: drawBoat_step3 },
-      { title: 'Sail', desc: 'Triangle connected to mast for the main sail.', draw: drawBoat_step4 },
-      { title: 'Small sail', desc: 'Smaller triangle in front for jib sail.', draw: drawBoat_step5 },
+      {
+        title: 'Hull shape',
+        desc: 'Draw a curved bottom (like a U or boat shape).',
+        draw: drawBoat_step1
+      },
+      {
+        title: 'Boat sides',
+        desc: 'Add straight lines on sides going up from hull.',
+        draw: drawBoat_step2
+      },
+      {
+        title: 'Mast',
+        desc: 'Draw a vertical line in the middle for the mast.',
+        draw: drawBoat_step3
+      },
+      {
+        title: 'Sail',
+        desc: 'Triangle connected to mast for the main sail.',
+        draw: drawBoat_step4
+      },
+      {
+        title: 'Small sail',
+        desc: 'Smaller triangle in front for jib sail.',
+        draw: drawBoat_step5
+      },
       { title: 'Cabin', desc: 'Small rectangle on the boat deck for cabin.', draw: drawBoat_step6 },
       { title: 'Water waves', desc: 'Wavy lines under the boat for water.', draw: drawBoat_step7 }
     ]
@@ -312,12 +732,36 @@ const SUBJECTS = [
     emoji: '🍦',
     steps: [
       { title: 'Cone', desc: 'Draw a triangle for the ice cream cone.', draw: drawIceCream_step1 },
-      { title: 'Cone lines', desc: 'Add diagonal lines across cone for texture.', draw: drawIceCream_step2 },
-      { title: 'First scoop', desc: 'Draw a circle on top of cone for first scoop.', draw: drawIceCream_step3 },
-      { title: 'Second scoop', desc: 'Add another circle on top of the first.', draw: drawIceCream_step4 },
-      { title: 'Third scoop', desc: 'Add one more circle on top for three scoops.', draw: drawIceCream_step5 },
-      { title: 'Swirl detail', desc: 'Add curved lines to make ice cream look swirly.', draw: drawIceCream_step6 },
-      { title: 'Cherry on top', desc: 'Small circle at the very top for cherry.', draw: drawIceCream_step7 }
+      {
+        title: 'Cone lines',
+        desc: 'Add diagonal lines across cone for texture.',
+        draw: drawIceCream_step2
+      },
+      {
+        title: 'First scoop',
+        desc: 'Draw a circle on top of cone for first scoop.',
+        draw: drawIceCream_step3
+      },
+      {
+        title: 'Second scoop',
+        desc: 'Add another circle on top of the first.',
+        draw: drawIceCream_step4
+      },
+      {
+        title: 'Third scoop',
+        desc: 'Add one more circle on top for three scoops.',
+        draw: drawIceCream_step5
+      },
+      {
+        title: 'Swirl detail',
+        desc: 'Add curved lines to make ice cream look swirly.',
+        draw: drawIceCream_step6
+      },
+      {
+        title: 'Cherry on top',
+        desc: 'Small circle at the very top for cherry.',
+        draw: drawIceCream_step7
+      }
     ]
   },
   {
@@ -327,12 +771,36 @@ const SUBJECTS = [
     emoji: '🍕',
     steps: [
       { title: 'Pizza circle', desc: 'Draw a large circle for the pizza.', draw: drawPizza_step1 },
-      { title: 'Slice line 1', desc: 'Draw a line from center to edge (divide into slices).', draw: drawPizza_step2 },
-      { title: 'Slice line 2', desc: 'Draw another line from center at an angle.', draw: drawPizza_step3 },
-      { title: 'Slice line 3', desc: 'One more line to create pizza slice sections.', draw: drawPizza_step4 },
-      { title: 'Cheese', desc: 'Wavy or bumpy lines across pizza for melted cheese.', draw: drawPizza_step5 },
-      { title: 'Pepperoni', desc: 'Small circles scattered on pizza for pepperoni.', draw: drawPizza_step6 },
-      { title: 'Crust detail', desc: 'Add thicker line around edge for the crust.', draw: drawPizza_step7 }
+      {
+        title: 'Slice line 1',
+        desc: 'Draw a line from center to edge (divide into slices).',
+        draw: drawPizza_step2
+      },
+      {
+        title: 'Slice line 2',
+        desc: 'Draw another line from center at an angle.',
+        draw: drawPizza_step3
+      },
+      {
+        title: 'Slice line 3',
+        desc: 'One more line to create pizza slice sections.',
+        draw: drawPizza_step4
+      },
+      {
+        title: 'Cheese',
+        desc: 'Wavy or bumpy lines across pizza for melted cheese.',
+        draw: drawPizza_step5
+      },
+      {
+        title: 'Pepperoni',
+        desc: 'Small circles scattered on pizza for pepperoni.',
+        draw: drawPizza_step6
+      },
+      {
+        title: 'Crust detail',
+        desc: 'Add thicker line around edge for the crust.',
+        draw: drawPizza_step7
+      }
     ]
   },
   {
@@ -341,12 +809,28 @@ const SUBJECTS = [
     category: 'food',
     emoji: '🍎',
     steps: [
-      { title: 'Apple shape', desc: 'Draw a circle, slightly wider in the middle.', draw: drawApple_step1 },
+      {
+        title: 'Apple shape',
+        desc: 'Draw a circle, slightly wider in the middle.',
+        draw: drawApple_step1
+      },
       { title: 'Top indent', desc: 'Add a small curved indent at the top.', draw: drawApple_step2 },
-      { title: 'Stem', desc: 'Draw a short line from the top for the stem.', draw: drawApple_step3 },
+      {
+        title: 'Stem',
+        desc: 'Draw a short line from the top for the stem.',
+        draw: drawApple_step3
+      },
       { title: 'Leaf', desc: 'Oval shape attached to the stem.', draw: drawApple_step4 },
-      { title: 'Shine highlight', desc: 'Small curved shape on upper part for shine.', draw: drawApple_step5 },
-      { title: 'Bottom detail', desc: 'Add a small bottom indent for apple detail.', draw: drawApple_step6 }
+      {
+        title: 'Shine highlight',
+        desc: 'Small curved shape on upper part for shine.',
+        draw: drawApple_step5
+      },
+      {
+        title: 'Bottom detail',
+        desc: 'Add a small bottom indent for apple detail.',
+        draw: drawApple_step6
+      }
     ]
   },
   {
@@ -355,13 +839,41 @@ const SUBJECTS = [
     category: 'food',
     emoji: '🧁',
     steps: [
-      { title: 'Wrapper', desc: 'Draw a trapezoid (wider at bottom) for the wrapper.', draw: drawCupcake_step1 },
-      { title: 'Wrapper pattern', desc: 'Add horizontal lines across wrapper for ridges.', draw: drawCupcake_step2 },
-      { title: 'Frosting base', desc: 'Draw a curved line on top for frosting shape.', draw: drawCupcake_step3 },
-      { title: 'Frosting swirl', desc: 'Add swirled lines on top for frosting texture.', draw: drawCupcake_step4 },
-      { title: 'Frosting peaks', desc: 'Add peaks and bumps for frosting detail.', draw: drawCupcake_step5 },
-      { title: 'Cherry', desc: 'Small circle at the top center for cherry.', draw: drawCupcake_step6 },
-      { title: 'Details', desc: 'Add sprinkles or decorative dots on frosting.', draw: drawCupcake_step7 }
+      {
+        title: 'Wrapper',
+        desc: 'Draw a trapezoid (wider at bottom) for the wrapper.',
+        draw: drawCupcake_step1
+      },
+      {
+        title: 'Wrapper pattern',
+        desc: 'Add horizontal lines across wrapper for ridges.',
+        draw: drawCupcake_step2
+      },
+      {
+        title: 'Frosting base',
+        desc: 'Draw a curved line on top for frosting shape.',
+        draw: drawCupcake_step3
+      },
+      {
+        title: 'Frosting swirl',
+        desc: 'Add swirled lines on top for frosting texture.',
+        draw: drawCupcake_step4
+      },
+      {
+        title: 'Frosting peaks',
+        desc: 'Add peaks and bumps for frosting detail.',
+        draw: drawCupcake_step5
+      },
+      {
+        title: 'Cherry',
+        desc: 'Small circle at the top center for cherry.',
+        draw: drawCupcake_step6
+      },
+      {
+        title: 'Details',
+        desc: 'Add sprinkles or decorative dots on frosting.',
+        draw: drawCupcake_step7
+      }
     ]
   },
 
@@ -372,14 +884,42 @@ const SUBJECTS = [
     category: 'fantasy',
     emoji: '🐉',
     steps: [
-      { title: 'Head shape', desc: 'Draw a circle for the dragon\'s head.', draw: drawDragon_step1 },
-      { title: 'Snout', desc: 'Add a pointed oval extending from the head for snout.', draw: drawDragon_step2 },
-      { title: 'Horn', desc: 'Draw a tall pointed triangle on top of the head.', draw: drawDragon_step3 },
-      { title: 'Spines', desc: 'Add 4-5 triangular spines down the back and neck.', draw: drawDragon_step4 },
-      { title: 'Body', desc: 'Draw a large oval or S-curve for the dragon\'s body.', draw: drawDragon_step5 },
-      { title: 'Wings', desc: 'Draw two large, pointed triangular or bat-like wings.', draw: drawDragon_step6 },
-      { title: 'Legs & claws', desc: 'Add four legs with curved lines for claws.', draw: drawDragon_step7 },
-      { title: 'Tail & fire', desc: 'Long curved tail and flames coming from mouth.', draw: drawDragon_step8 }
+      { title: 'Head shape', desc: "Draw a circle for the dragon's head.", draw: drawDragon_step1 },
+      {
+        title: 'Snout',
+        desc: 'Add a pointed oval extending from the head for snout.',
+        draw: drawDragon_step2
+      },
+      {
+        title: 'Horn',
+        desc: 'Draw a tall pointed triangle on top of the head.',
+        draw: drawDragon_step3
+      },
+      {
+        title: 'Spines',
+        desc: 'Add 4-5 triangular spines down the back and neck.',
+        draw: drawDragon_step4
+      },
+      {
+        title: 'Body',
+        desc: "Draw a large oval or S-curve for the dragon's body.",
+        draw: drawDragon_step5
+      },
+      {
+        title: 'Wings',
+        desc: 'Draw two large, pointed triangular or bat-like wings.',
+        draw: drawDragon_step6
+      },
+      {
+        title: 'Legs & claws',
+        desc: 'Add four legs with curved lines for claws.',
+        draw: drawDragon_step7
+      },
+      {
+        title: 'Tail & fire',
+        desc: 'Long curved tail and flames coming from mouth.',
+        draw: drawDragon_step8
+      }
     ]
   },
   {
@@ -388,13 +928,41 @@ const SUBJECTS = [
     category: 'fantasy',
     emoji: '🏰',
     steps: [
-      { title: 'Base wall', desc: 'Draw a large rectangle for the main castle wall.', draw: drawCastle_step1 },
-      { title: 'Towers', desc: 'Add two tall rectangles on left and right for towers.', draw: drawCastle_step2 },
-      { title: 'Battlements', desc: 'Add small rectangles along the top for castle battlements.', draw: drawCastle_step3 },
-      { title: 'Gate arch', desc: 'Draw a curved arch in the center for the main gate.', draw: drawCastle_step4 },
-      { title: 'Windows', desc: 'Add small rectangles for windows in the towers.', draw: drawCastle_step5 },
-      { title: 'Flag', desc: 'Add a flag with a pole on top of one tower.', draw: drawCastle_step6 },
-      { title: 'Stone texture', desc: 'Add lines and patterns for stone bricks detail.', draw: drawCastle_step7 }
+      {
+        title: 'Base wall',
+        desc: 'Draw a large rectangle for the main castle wall.',
+        draw: drawCastle_step1
+      },
+      {
+        title: 'Towers',
+        desc: 'Add two tall rectangles on left and right for towers.',
+        draw: drawCastle_step2
+      },
+      {
+        title: 'Battlements',
+        desc: 'Add small rectangles along the top for castle battlements.',
+        draw: drawCastle_step3
+      },
+      {
+        title: 'Gate arch',
+        desc: 'Draw a curved arch in the center for the main gate.',
+        draw: drawCastle_step4
+      },
+      {
+        title: 'Windows',
+        desc: 'Add small rectangles for windows in the towers.',
+        draw: drawCastle_step5
+      },
+      {
+        title: 'Flag',
+        desc: 'Add a flag with a pole on top of one tower.',
+        draw: drawCastle_step6
+      },
+      {
+        title: 'Stone texture',
+        desc: 'Add lines and patterns for stone bricks detail.',
+        draw: drawCastle_step7
+      }
     ]
   }
 ];
@@ -1334,7 +1902,7 @@ function drawTree_step4(ctx) {
 }
 function drawTree_step5(ctx) {
   const seed = 42;
-  const pseudoRandom = (i) => {
+  const pseudoRandom = i => {
     const x = Math.sin(i + seed) * 10000;
     return x - Math.floor(x);
   };
@@ -2106,14 +2674,16 @@ function updateStepUI() {
   const step = state.currentSubject.steps[state.currentStep];
   document.getElementById('step-title').textContent = step.title;
   document.getElementById('step-desc').textContent = step.desc;
-  document.getElementById('step-counter').textContent = `Step ${state.currentStep + 1} of ${state.currentSubject.steps.length}`;
+  document.getElementById('step-counter').textContent =
+    `Step ${state.currentStep + 1} of ${state.currentSubject.steps.length}`;
 
   const prevBtn = document.getElementById('btn-prev');
   const nextBtn = document.getElementById('btn-next');
   prevBtn.disabled = state.currentStep === 0;
   nextBtn.disabled = state.currentStep === state.currentSubject.steps.length - 1;
 
-  document.getElementById('nav-step').textContent = `${state.currentStep + 1}/${state.currentSubject.steps.length}`;
+  document.getElementById('nav-step').textContent =
+    `${state.currentStep + 1}/${state.currentSubject.steps.length}`;
 }
 
 // Navigation functions
@@ -2132,7 +2702,8 @@ function nextStep() {
     renderGuide();
     updateStepUI();
   } else {
-    document.getElementById('completion-msg').textContent = `You've completed "${state.currentSubject.label}"!`;
+    document.getElementById('completion-msg').textContent =
+      `You've completed "${state.currentSubject.label}"!`;
     showScreen('screen-complete');
   }
 }
@@ -2180,7 +2751,18 @@ function setColor(color) {
   state.penColor = color;
   state.eraserMode = false;
   document.querySelectorAll('.color-swatch').forEach((btn, idx) => {
-    const colors = ['#1A1A1A', '#555555', '#FF0000', '#FF8C00', '#FFFF00', '#00CC00', '#00CCFF', '#0000FF', '#9900FF', '#FF1493'];
+    const colors = [
+      '#1A1A1A',
+      '#555555',
+      '#FF0000',
+      '#FF8C00',
+      '#FFFF00',
+      '#00CC00',
+      '#00CCFF',
+      '#0000FF',
+      '#9900FF',
+      '#FF1493'
+    ];
     btn.classList.toggle('active', colors[idx] === color);
   });
   updateEraserButton();
@@ -2244,4 +2826,56 @@ document.addEventListener('DOMContentLoaded', () => {
   initDrawCanvas();
   setBrushSize(5);
   setColor('#1A1A1A');
+
+  // Navigation and screen listeners
+  document
+    .getElementById('back-to-cats')
+    .addEventListener('click', () => showScreen('screen-home'));
+
+  // Color swatches
+  const colorMap = {
+    'color-black': '#1A1A1A',
+    'color-gray': '#555555',
+    'color-red': '#FF0000',
+    'color-orange': '#FF8C00',
+    'color-yellow': '#FFFF00',
+    'color-green': '#00CC00',
+    'color-sky-blue': '#00CCFF',
+    'color-blue': '#0000FF',
+    'color-purple': '#9900FF',
+    'color-pink': '#FF1493'
+  };
+
+  Object.entries(colorMap).forEach(([id, color]) => {
+    const btn = document.getElementById(id);
+    if (btn) {
+      btn.addEventListener('click', () => setColor(color));
+    }
+  });
+
+  // Brush size buttons
+  document.getElementById('brush-size-small').addEventListener('click', () => setBrushSize(2));
+  document.getElementById('brush-size-medium').addEventListener('click', () => setBrushSize(5));
+  document.getElementById('brush-size-large').addEventListener('click', () => setBrushSize(10));
+
+  // Eraser button
+  document.getElementById('eraser-btn').addEventListener('click', toggleEraser);
+
+  // Drawing control buttons
+  document.getElementById('btn-prev').addEventListener('click', prevStep);
+  document.getElementById('btn-undo').addEventListener('click', undo);
+  document.getElementById('btn-clear').addEventListener('click', clearDraw);
+  document.getElementById('btn-redo').addEventListener('click', redo);
+  document.getElementById('btn-next').addEventListener('click', nextStep);
+
+  // Preview modal
+  document.getElementById('see-final-btn').addEventListener('click', showPreviewModal);
+  document.getElementById('close-preview-btn').addEventListener('click', closePreviewModal);
+
+  // Completion screen buttons
+  document.getElementById('btn-replay').addEventListener('click', replaySubject);
+  document
+    .getElementById('btn-next-subject')
+    .addEventListener('click', () => showScreen('screen-subjects'));
+  document.getElementById('btn-home').addEventListener('click', () => showScreen('screen-home'));
 });

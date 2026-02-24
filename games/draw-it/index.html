@@ -1,777 +1,779 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-
-  <!-- Primary Meta Tags -->
-  <title>Draw It - Learn to Draw for Kids | Doodles Games</title>
-  <meta name="title" content="Draw It - Learn to Draw for Kids">
-  <meta name="description" content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!">
-  <meta name="keywords" content="drawing, tutorial, kids, learn to draw, art, animals, vehicles, characters">
-
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="game">
-  <meta property="og:url" content="https://abhee15.github.io/doodles/games/draw-it/">
-  <meta property="og:title" content="Draw It - Learn to Draw for Kids">
-  <meta property="og:description" content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!">
-
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary">
-  <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/draw-it/">
-  <meta property="twitter:title" content="Draw It - Learn to Draw for Kids">
-  <meta property="twitter:description" content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!">
-
-  <link rel="canonical" href="https://abhee15.github.io/doodles/games/draw-it/">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap">
-
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
-
-  <!-- Design System -->
-  <link rel="stylesheet" href="../../shared/tokens.css">
-  <link rel="stylesheet" href="../../shared/game-dom.css">
-
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    :root {
-      /* Shell variable overrides for this game */
-      --dom-nav-bg: #5C3D8F;
-      --dom-nav-color: #FFFFFF;
-      --dom-accent: #F472B6;
-      --dom-accent2: #818CF8;
-      --dom-bg: #FFF8F0;
-      --dom-border: #E8E0F0;
-      --dom-text: #2D2D2D;
-      --dom-text-muted: #8A7A9B;
-
-      /* Game-specific legacy variables */
-      --bg: #FFF8F0;
-      --nav-bg: #5C3D8F;
-      --accent: #F472B6;
-      --accent2: #818CF8;
-      --text: #2D2D2D;
-      --muted: #8A7A9B;
-      --card-bg: #FFFFFF;
-      --border: #E8E0F0;
-    }
-
-    html, body {
-      width: 100%;
-      height: 100%;
-      font-family: 'Nunito', sans-serif;
-      background-color: var(--bg);
-      color: var(--text);
-      overflow: hidden;
-    }
-
-    nav.dom-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.5rem;
-      background-color: var(--dom-nav-bg);
-      color: white;
-      font-weight: 600;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      height: 60px;
-    }
-
-    nav.dom-nav a {
-      color: white;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1rem;
-      transition: opacity 0.2s;
-    }
-
-    nav.dom-nav a:hover {
-      opacity: 0.8;
-    }
-
-    nav.dom-nav i {
-      font-size: 1.25rem;
-    }
-
-    .dom-nav-title {
-      font-size: 1.25rem;
-      flex: 1;
-      text-align: center;
-    }
-
-    .dom-nav-meta {
-      font-size: 0.9rem;
-      opacity: 0.9;
-    }
-
-    /* Screens container */
-    .screens-container {
-      display: flex;
-      width: 100%;
-      height: calc(100vh - 60px);
-      overflow: hidden;
-    }
-
-    .screen {
-      display: none;
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-    }
-
-    .screen.active {
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Home Screen */
-    #screen-home {
-      padding: 2rem 1.5rem;
-      gap: 1.5rem;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .home-title {
-      text-align: center;
-      margin-bottom: 1rem;
-    }
-
-    .home-title h1 {
-      font-size: 2rem;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .home-title p {
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .category-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 1rem;
-      width: 100%;
-      max-width: 800px;
-    }
-
-    .cat-card {
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      border: none;
-      border-radius: 16px;
-      padding: 2rem 1rem;
-      color: white;
-      font-weight: 700;
-      font-size: 1.1rem;
-      cursor: pointer;
-      transition: transform 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-      text-align: center;
-    }
-
-    .cat-card:hover {
-      transform: translateY(-4px);
-    }
-
-    .cat-card i {
-      font-size: 2.5rem;
-    }
-
-    /* Subjects Screen */
-    #screen-subjects {
-      padding: 1.5rem 1.5rem;
-      gap: 1.5rem;
-      align-items: flex-start;
-      justify-content: flex-start;
-      overflow-y: auto;
-    }
-
-    .subjects-header {
-      text-align: center;
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .subjects-header button {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      padding: 0.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .subjects-header h2 {
-      font-size: 1.75rem;
-      color: var(--text);
-    }
-
-    .subject-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-      gap: 1rem;
-      width: 100%;
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .subject-card {
-      background: var(--card-bg);
-      border: 2px solid var(--border);
-      border-radius: 12px;
-      padding: 1.5rem 1rem;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.75rem;
-      text-align: center;
-    }
-
-    .subject-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    .subject-emoji {
-      font-size: 3rem;
-    }
-
-    .subject-name {
-      font-weight: 600;
-      color: var(--text);
-      font-size: 1rem;
-    }
-
-    /* Drawing Screen */
-    #screen-drawing {
-      flex-direction: row;
-      padding: 1.5rem;
-      gap: 1.5rem;
-    }
-
-    .drawing-panel {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .left-panel {
-      flex: 0 0 200px;
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 1.5rem;
-      border: 1px solid var(--border);
-    }
-
-    .step-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .step-desc {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-
-    .step-counter {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text);
-      background: var(--bg);
-      padding: 0.75rem;
-      border-radius: 8px;
-      text-align: center;
-    }
-
-    .see-final-btn {
-      background: var(--accent2);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-      margin-top: 1rem;
-    }
-
-    .see-final-btn:hover {
-      transform: translateY(-2px);
-    }
-
-    /* Color toolbar */
-    .color-toolbar {
-      display: flex;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      padding: 1rem;
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      margin-bottom: 1rem;
-    }
-
-    .color-palette {
-      display: flex;
-      gap: 0.3rem;
-    }
-
-    .color-swatch {
-      width: 28px;
-      height: 28px;
-      border-radius: 6px;
-      border: 2px solid transparent;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .color-swatch:hover {
-      transform: scale(1.1);
-    }
-
-    .color-swatch.active {
-      border-color: var(--text);
-    }
-
-    .brush-size-controls {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
-    .brush-size-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 6px;
-      border: 2px solid var(--border);
-      background: white;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.8rem;
-      transition: all 0.2s;
-    }
-
-    .brush-size-btn:hover {
-      border-color: var(--accent);
-    }
-
-    .brush-size-btn.active {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
-
-    .tool-toggle-btn {
-      padding: 0.5rem 0.75rem;
-      border-radius: 6px;
-      border: 2px solid var(--border);
-      background: white;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 0.85rem;
-      transition: all 0.2s;
-    }
-
-    .tool-toggle-btn.active {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
-
-    /* Preview modal */
-    .preview-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-
-    .preview-modal.active {
-      display: flex;
-    }
-
-    .preview-modal-content {
-      background: white;
-      border-radius: 16px;
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .preview-modal-canvas {
-      max-width: 90vw;
-      max-height: 70vh;
-      border-radius: 12px;
-      border: 2px solid var(--border);
-      margin-bottom: 1.5rem;
-    }
-
-    .preview-modal-button {
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem 2rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: all 0.2s;
-    }
-
-    .preview-modal-button:hover {
-      transform: translateY(-2px);
-    }
-
-    .center-panel {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 0;
-    }
-
-    .canvas-wrap {
-      position: relative;
-      width: min(90vw, calc(100dvh - 260px));
-      aspect-ratio: 1;
-      background: white;
-      border-radius: 12px;
-      border: 2px solid var(--border);
-      touch-action: none;
-      max-width: 400px;
-    }
-
-    #canvas-guide {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-    }
-
-    #canvas-draw {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      cursor: crosshair;
-      border-radius: 12px;
-    }
-
-    .right-panel {
-      flex: 0 0 150px;
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 1.5rem;
-      border: 1px solid var(--border);
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .control-btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.75rem;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: all 0.2s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-    }
-
-    .control-btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-    }
-
-    .control-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-
-    .control-btn.secondary {
-      background: var(--accent2);
-    }
-
-    /* Complete Screen */
-    #screen-complete {
-      padding: 2rem 1.5rem;
-      gap: 1.5rem;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .celebrate-animation {
-      font-size: 4rem;
-      animation: float 1s ease-in-out infinite;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .completion-title {
-      font-size: 2.5rem;
-      font-weight: 800;
-      color: var(--accent);
-      margin: 1rem 0;
-    }
-
-    .completion-msg {
-      font-size: 1.25rem;
-      color: var(--muted);
-      margin-bottom: 2rem;
-    }
-
-    .completion-btns {
-      display: flex;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .completion-btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 1rem 2rem;
-      font-weight: 600;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .completion-btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .completion-btn.secondary {
-      background: var(--accent2);
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 768px) {
-      #screen-drawing {
-        flex-direction: column;
-        padding: 1rem;
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Draw It - Learn to Draw for Kids | Doodles Games</title>
+    <meta name="title" content="Draw It - Learn to Draw for Kids" />
+    <meta
+      name="description"
+      content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!"
+    />
+    <meta name="keywords" content="drawing, tutorial, kids, learn to draw, art, animals, vehicles, characters" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/draw-it/" />
+    <meta property="og:title" content="Draw It - Learn to Draw for Kids" />
+    <meta
+      property="og:description"
+      content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/draw-it/" />
+    <meta property="twitter:title" content="Draw It - Learn to Draw for Kids" />
+    <meta
+      property="twitter:description"
+      content="Follow step-by-step drawing guides to create animals, vehicles, characters, and more. A fun way for kids to learn drawing!"
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/draw-it/" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
       }
 
-      .left-panel,
-      .right-panel {
-        flex: none;
+      :root {
+        /* Shell variable overrides for this game */
+        --dom-nav-bg: #5c3d8f;
+        --dom-nav-color: #ffffff;
+        --dom-accent: #f472b6;
+        --dom-accent2: #818cf8;
+        --dom-bg: #fff8f0;
+        --dom-border: #e8e0f0;
+        --dom-text: #2d2d2d;
+        --dom-text-muted: #8a7a9b;
+
+        /* Game-specific legacy variables */
+        --bg: #fff8f0;
+        --nav-bg: #5c3d8f;
+        --accent: #f472b6;
+        --accent2: #818cf8;
+        --text: #2d2d2d;
+        --muted: #8a7a9b;
+        --card-bg: #ffffff;
+        --border: #e8e0f0;
+      }
+
+      html,
+      body {
         width: 100%;
-      }
-
-      .right-panel {
-        flex-direction: row;
-        gap: 0.75rem;
-      }
-
-      .control-btn {
-        flex: 1;
-      }
-
-      .canvas-wrap {
-        width: min(85vw, calc(100dvh - 180px));
-        max-width: 100%;
-      }
-
-      .category-grid,
-      .subject-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .home-title h1 {
-        font-size: 1.5rem;
+        height: 100%;
+        font-family: 'Nunito', sans-serif;
+        background-color: var(--bg);
+        color: var(--text);
+        overflow: hidden;
       }
 
       nav.dom-nav {
-        padding: 0.75rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.5rem;
+        background-color: var(--dom-nav-bg);
+        color: white;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        height: 60px;
       }
 
-      .dom-nav-title {
+      nav.dom-nav a {
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
         font-size: 1rem;
+        transition: opacity 0.2s;
       }
 
-      .dom-nav-meta {
-        font-size: 0.8rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .category-grid,
-      .subject-grid {
-        grid-template-columns: 1fr;
+      nav.dom-nav a:hover {
+        opacity: 0.8;
       }
 
-      .home-title h1 {
+      nav.dom-nav i {
         font-size: 1.25rem;
       }
 
-      .completion-title {
-        font-size: 2rem;
+      .dom-nav-title {
+        font-size: 1.25rem;
+        flex: 1;
+        text-align: center;
       }
-    }
-  </style>
-</head>
-<body>
-  <nav class="dom-nav">
-    <a href="../../index.html#draw-it" id="game-back-btn"><i class="ti ti-arrow-left"></i> Back</a>
-    <span class="dom-nav-title" id="nav-title">Draw It</span>
-    <span class="dom-nav-meta" id="nav-step"></span>
-  </nav>
 
-  <div class="screens-container">
-    <!-- Home Screen -->
-    <div id="screen-home" class="screen active">
-      <div class="home-title">
-        <h1>🎨 Draw It</h1>
-        <p>Pick a category to get started!</p>
+      .dom-nav-meta {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      /* Screens container */
+      .screens-container {
+        display: flex;
+        width: 100%;
+        height: calc(100vh - 60px);
+        overflow: hidden;
+      }
+
+      .screen {
+        display: none;
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+      }
+
+      .screen.active {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Home Screen */
+      #screen-home {
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .home-title {
+        text-align: center;
+        margin-bottom: 1rem;
+      }
+
+      .home-title h1 {
+        font-size: 2rem;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+
+      .home-title p {
+        color: var(--muted);
+        font-size: 1rem;
+      }
+
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        width: 100%;
+        max-width: 800px;
+      }
+
+      .cat-card {
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        border: none;
+        border-radius: 16px;
+        padding: 2rem 1rem;
+        color: white;
+        font-weight: 700;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: transform 0.2s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        text-align: center;
+      }
+
+      .cat-card:hover {
+        transform: translateY(-4px);
+      }
+
+      .cat-card i {
+        font-size: 2.5rem;
+      }
+
+      /* Subjects Screen */
+      #screen-subjects {
+        padding: 1.5rem 1.5rem;
+        gap: 1.5rem;
+        align-items: flex-start;
+        justify-content: flex-start;
+        overflow-y: auto;
+      }
+
+      .subjects-header {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .subjects-header button {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .subjects-header h2 {
+        font-size: 1.75rem;
+        color: var(--text);
+      }
+
+      .subject-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 1rem;
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .subject-card {
+        background: var(--card-bg);
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 1.5rem 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        text-align: center;
+      }
+
+      .subject-card:hover {
+        border-color: var(--accent);
+        transform: translateY(-2px);
+      }
+
+      .subject-emoji {
+        font-size: 3rem;
+      }
+
+      .subject-name {
+        font-weight: 600;
+        color: var(--text);
+        font-size: 1rem;
+      }
+
+      /* Drawing Screen */
+      #screen-drawing {
+        flex-direction: row;
+        padding: 1.5rem;
+        gap: 1.5rem;
+      }
+
+      .drawing-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .left-panel {
+        flex: 0 0 200px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+      }
+
+      .step-title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--accent);
+        margin-bottom: 0.5rem;
+      }
+
+      .step-desc {
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+
+      .step-counter {
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: var(--text);
+        background: var(--bg);
+        padding: 0.75rem;
+        border-radius: 8px;
+        text-align: center;
+      }
+
+      .see-final-btn {
+        background: var(--accent2);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+        margin-top: 1rem;
+      }
+
+      .see-final-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      /* Color toolbar */
+      .color-toolbar {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        padding: 1rem;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        margin-bottom: 1rem;
+      }
+
+      .color-palette {
+        display: flex;
+        gap: 0.3rem;
+      }
+
+      .color-swatch {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .color-swatch:hover {
+        transform: scale(1.1);
+      }
+
+      .color-swatch.active {
+        border-color: var(--text);
+      }
+
+      .brush-size-controls {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+      }
+
+      .brush-size-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        border: 2px solid var(--border);
+        background: white;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.8rem;
+        transition: all 0.2s;
+      }
+
+      .brush-size-btn:hover {
+        border-color: var(--accent);
+      }
+
+      .brush-size-btn.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      .tool-toggle-btn {
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        border: 2px solid var(--border);
+        background: white;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.85rem;
+        transition: all 0.2s;
+      }
+
+      .tool-toggle-btn.active {
+        background: var(--accent);
+        color: white;
+        border-color: var(--accent);
+      }
+
+      /* Preview modal */
+      .preview-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+      }
+
+      .preview-modal.active {
+        display: flex;
+      }
+
+      .preview-modal-content {
+        background: white;
+        border-radius: 16px;
+        padding: 2rem;
+        text-align: center;
+      }
+
+      .preview-modal-canvas {
+        max-width: 90vw;
+        max-height: 70vh;
+        border-radius: 12px;
+        border: 2px solid var(--border);
+        margin-bottom: 1.5rem;
+      }
+
+      .preview-modal-button {
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.2s;
+      }
+
+      .preview-modal-button:hover {
+        transform: translateY(-2px);
+      }
+
+      .center-panel {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 0;
+      }
+
+      .canvas-wrap {
+        position: relative;
+        width: min(90vw, calc(100dvh - 260px));
+        aspect-ratio: 1;
+        background: white;
+        border-radius: 12px;
+        border: 2px solid var(--border);
+        touch-action: none;
+        max-width: 400px;
+      }
+
+      #canvas-guide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      #canvas-draw {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        cursor: crosshair;
+        border-radius: 12px;
+      }
+
+      .right-panel {
+        flex: 0 0 150px;
+        background: var(--card-bg);
+        border-radius: 12px;
+        padding: 1.5rem;
+        border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .control-btn {
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 0.95rem;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .control-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+      }
+
+      .control-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .control-btn.secondary {
+        background: var(--accent2);
+      }
+
+      /* Complete Screen */
+      #screen-complete {
+        padding: 2rem 1.5rem;
+        gap: 1.5rem;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .celebrate-animation {
+        font-size: 4rem;
+        animation: float 1s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      .completion-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--accent);
+        margin: 1rem 0;
+      }
+
+      .completion-msg {
+        font-size: 1.25rem;
+        color: var(--muted);
+        margin-bottom: 2rem;
+      }
+
+      .completion-btns {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+      }
+
+      .completion-btn {
+        background: var(--accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 1rem 2rem;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .completion-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .completion-btn.secondary {
+        background: var(--accent2);
+      }
+
+      /* Mobile Responsive */
+      @media (max-width: 768px) {
+        #screen-drawing {
+          flex-direction: column;
+          padding: 1rem;
+        }
+
+        .left-panel,
+        .right-panel {
+          flex: none;
+          width: 100%;
+        }
+
+        .right-panel {
+          flex-direction: row;
+          gap: 0.75rem;
+        }
+
+        .control-btn {
+          flex: 1;
+        }
+
+        .canvas-wrap {
+          width: min(85vw, calc(100dvh - 180px));
+          max-width: 100%;
+        }
+
+        .category-grid,
+        .subject-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .home-title h1 {
+          font-size: 1.5rem;
+        }
+
+        nav.dom-nav {
+          padding: 0.75rem 1rem;
+        }
+
+        .dom-nav-title {
+          font-size: 1rem;
+        }
+
+        .dom-nav-meta {
+          font-size: 0.8rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .category-grid,
+        .subject-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .home-title h1 {
+          font-size: 1.25rem;
+        }
+
+        .completion-title {
+          font-size: 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#draw-it" id="game-back-btn"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Draw It</span>
+      <span class="dom-nav-meta" id="nav-step"></span>
+    </nav>
+
+    <div class="screens-container">
+      <!-- Home Screen -->
+      <div id="screen-home" class="screen active">
+        <div class="home-title">
+          <h1>🎨 Draw It</h1>
+          <p>Pick a category to get started!</p>
+        </div>
+        <div class="category-grid" id="category-grid"></div>
       </div>
-      <div class="category-grid" id="category-grid"></div>
-    </div>
 
-    <!-- Subjects Screen -->
-    <div id="screen-subjects" class="screen">
-      <div class="subjects-header">
-        <button id="back-to-cats" onclick="showScreen('screen-home')">
-          <i class="ti ti-arrow-left"></i>
-        </button>
-        <h2 id="subjects-title">Animals</h2>
-      </div>
-      <div class="subject-grid" id="subject-grid"></div>
-    </div>
-
-    <!-- Drawing Screen -->
-    <div id="screen-drawing" class="screen">
-      <div class="left-panel">
-        <div class="step-title" id="step-title"></div>
-        <div class="step-desc" id="step-desc"></div>
-        <div class="step-counter" id="step-counter"></div>
-        <button class="see-final-btn" onclick="showPreviewModal()">
-          <i class="ti ti-eye"></i> See Final
-        </button>
+      <!-- Subjects Screen -->
+      <div id="screen-subjects" class="screen">
+        <div class="subjects-header">
+          <button id="back-to-cats">
+            <i class="ti ti-arrow-left"></i>
+          </button>
+          <h2 id="subjects-title">Animals</h2>
+        </div>
+        <div class="subject-grid" id="subject-grid"></div>
       </div>
 
-      <div class="center-panel">
-        <div style="width: 100%; max-width: 400px;">
-          <div class="color-toolbar">
-            <div class="color-palette">
-              <button class="color-swatch active" style="background: #1A1A1A;" onclick="setColor('#1A1A1A')" title="Black"></button>
-              <button class="color-swatch" style="background: #555555;" onclick="setColor('#555555')" title="Gray"></button>
-              <button class="color-swatch" style="background: #FF0000;" onclick="setColor('#FF0000')" title="Red"></button>
-              <button class="color-swatch" style="background: #FF8C00;" onclick="setColor('#FF8C00')" title="Orange"></button>
-              <button class="color-swatch" style="background: #FFFF00;" onclick="setColor('#FFFF00')" title="Yellow"></button>
-              <button class="color-swatch" style="background: #00CC00;" onclick="setColor('#00CC00')" title="Green"></button>
-              <button class="color-swatch" style="background: #00CCFF;" onclick="setColor('#00CCFF')" title="Sky Blue"></button>
-              <button class="color-swatch" style="background: #0000FF;" onclick="setColor('#0000FF')" title="Blue"></button>
-              <button class="color-swatch" style="background: #9900FF;" onclick="setColor('#9900FF')" title="Purple"></button>
-              <button class="color-swatch" style="background: #FF1493;" onclick="setColor('#FF1493')" title="Pink"></button>
+      <!-- Drawing Screen -->
+      <div id="screen-drawing" class="screen">
+        <div class="left-panel">
+          <div class="step-title" id="step-title"></div>
+          <div class="step-desc" id="step-desc"></div>
+          <div class="step-counter" id="step-counter"></div>
+          <button class="see-final-btn" id="see-final-btn"><i class="ti ti-eye"></i> See Final</button>
+        </div>
+
+        <div class="center-panel">
+          <div style="width: 100%; max-width: 400px">
+            <div class="color-toolbar">
+              <div class="color-palette">
+                <button class="color-swatch active" id="color-black" style="background: #1a1a1a" title="Black"></button>
+                <button class="color-swatch" id="color-gray" style="background: #555555" title="Gray"></button>
+                <button class="color-swatch" id="color-red" style="background: #ff0000" title="Red"></button>
+                <button class="color-swatch" id="color-orange" style="background: #ff8c00" title="Orange"></button>
+                <button class="color-swatch" id="color-yellow" style="background: #ffff00" title="Yellow"></button>
+                <button class="color-swatch" id="color-green" style="background: #00cc00" title="Green"></button>
+                <button class="color-swatch" id="color-sky-blue" style="background: #00ccff" title="Sky Blue"></button>
+                <button class="color-swatch" id="color-blue" style="background: #0000ff" title="Blue"></button>
+                <button class="color-swatch" id="color-purple" style="background: #9900ff" title="Purple"></button>
+                <button class="color-swatch" id="color-pink" style="background: #ff1493" title="Pink"></button>
+              </div>
+              <div class="brush-size-controls">
+                <button class="brush-size-btn" id="brush-size-small">S</button>
+                <button class="brush-size-btn active" id="brush-size-medium">M</button>
+                <button class="brush-size-btn" id="brush-size-large">L</button>
+                <button class="tool-toggle-btn" id="eraser-btn">✏️ Pen</button>
+              </div>
             </div>
-            <div class="brush-size-controls">
-              <button class="brush-size-btn" onclick="setBrushSize(2)">S</button>
-              <button class="brush-size-btn active" onclick="setBrushSize(5)">M</button>
-              <button class="brush-size-btn" onclick="setBrushSize(10)">L</button>
-              <button class="tool-toggle-btn" onclick="toggleEraser()" id="eraser-btn">✏️ Pen</button>
+            <div class="canvas-wrap">
+              <canvas id="canvas-guide" width="400" height="400"></canvas>
+              <canvas id="canvas-draw" width="400" height="400"></canvas>
             </div>
           </div>
-          <div class="canvas-wrap">
-            <canvas id="canvas-guide" width="400" height="400"></canvas>
-            <canvas id="canvas-draw" width="400" height="400"></canvas>
-          </div>
+        </div>
+
+        <div class="right-panel">
+          <button class="control-btn" id="btn-prev"><i class="ti ti-arrow-left"></i> Prev</button>
+          <button class="control-btn secondary" id="btn-undo"><i class="ti ti-arrow-back-up"></i> Undo</button>
+          <button class="control-btn secondary" id="btn-clear"><i class="ti ti-eraser"></i> Clear</button>
+          <button class="control-btn secondary" id="btn-redo"><i class="ti ti-arrow-forward-up"></i> Redo</button>
+          <button class="control-btn" id="btn-next"><i class="ti ti-arrow-right"></i> Next</button>
         </div>
       </div>
 
-      <div class="right-panel">
-        <button class="control-btn" id="btn-prev" onclick="prevStep()">
-          <i class="ti ti-arrow-left"></i> Prev
-        </button>
-        <button class="control-btn secondary" onclick="undo()">
-          <i class="ti ti-arrow-back-up"></i> Undo
-        </button>
-        <button class="control-btn secondary" id="btn-clear" onclick="clearDraw()">
-          <i class="ti ti-eraser"></i> Clear
-        </button>
-        <button class="control-btn secondary" onclick="redo()">
-          <i class="ti ti-arrow-forward-up"></i> Redo
-        </button>
-        <button class="control-btn" id="btn-next" onclick="nextStep()">
-          <i class="ti ti-arrow-right"></i> Next
-        </button>
+      <!-- Complete Screen -->
+      <div id="screen-complete" class="screen">
+        <div class="celebrate-animation">🎉</div>
+        <h1 class="completion-title">Amazing!</h1>
+        <p class="completion-msg" id="completion-msg">You've completed the drawing!</p>
+        <div class="completion-btns">
+          <button class="completion-btn" id="btn-replay"><i class="ti ti-refresh"></i> Replay</button>
+          <button class="completion-btn secondary" id="btn-next-subject">
+            <i class="ti ti-list"></i> Next Subject
+          </button>
+          <button class="completion-btn secondary" id="btn-home"><i class="ti ti-home"></i> Home</button>
+        </div>
       </div>
     </div>
 
-    <!-- Complete Screen -->
-    <div id="screen-complete" class="screen">
-      <div class="celebrate-animation">🎉</div>
-      <h1 class="completion-title">Amazing!</h1>
-      <p class="completion-msg" id="completion-msg">You've completed the drawing!</p>
-      <div class="completion-btns">
-        <button class="completion-btn" onclick="replaySubject()">
-          <i class="ti ti-refresh"></i> Replay
-        </button>
-        <button class="completion-btn secondary" onclick="showScreen('screen-subjects')">
-          <i class="ti ti-list"></i> Next Subject
-        </button>
-        <button class="completion-btn secondary" onclick="showScreen('screen-home')">
-          <i class="ti ti-home"></i> Home
-        </button>
+    <!-- Preview Modal -->
+    <div id="preview-modal" class="preview-modal">
+      <div class="preview-modal-content">
+        <canvas id="preview-canvas" class="preview-modal-canvas" width="400" height="400"></canvas>
+        <br />
+        <button class="preview-modal-button" id="close-preview-btn">Got it</button>
       </div>
     </div>
-  </div>
 
-  <!-- Preview Modal -->
-  <div id="preview-modal" class="preview-modal">
-    <div class="preview-modal-content">
-      <canvas id="preview-canvas" class="preview-modal-canvas" width="400" height="400"></canvas>
-      <br>
-      <button class="preview-modal-button" onclick="closePreviewModal()">Got it</button>
-    </div>
-  </div>
-
-  <script src="../../shared/navigation.js"></script>
-  <script src="game.js"></script>
-  <script src="../../shared/analytics.js"></script>
-  <div id="ad-container"></div>
-  <script src="../../shared/ads.js"></script>
-</body>
+    <script src="../../shared/navigation.js"></script>
+    <script src="game.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
 </html>

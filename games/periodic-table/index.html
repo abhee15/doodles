@@ -1,173 +1,178 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Primary Meta Tags -->
-  <title>Periodic Table Memory Master - Choose Your Path | Doodles Games</title>
-  <meta name="title" content="Periodic Table Memory Master - Learn Chemistry with Memory Techniques">
-  <meta name="description" content="Master the periodic table using 5 proven memory techniques: Story Chain, Memory Palace, Body Map, Keyword Image, and Rhyme Pegs. Learn elements interactively!">
-  <meta name="keywords" content="periodic table, memory techniques, chemistry, learning, mnemonics, educational game">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="game">
-  <meta property="og:url" content="https://abhee15.github.io/doodles/games/periodic-table/">
-  <meta property="og:title" content="Periodic Table Memory Master - Learn Chemistry with Memory Techniques">
-  <meta property="og:description" content="Master the periodic table using 5 proven memory techniques: Story Chain, Memory Palace, Body Map, Keyword Image, and Rhyme Pegs. Learn elements interactively!">
+    <!-- Primary Meta Tags -->
+    <title>Periodic Table Memory Master - Choose Your Path | Doodles Games</title>
+    <meta name="title" content="Periodic Table Memory Master - Learn Chemistry with Memory Techniques" />
+    <meta
+      name="description"
+      content="Master the periodic table using 5 proven memory techniques: Story Chain, Memory Palace, Body Map, Keyword Image, and Rhyme Pegs. Learn elements interactively!"
+    />
+    <meta
+      name="keywords"
+      content="periodic table, memory techniques, chemistry, learning, mnemonics, educational game"
+    />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary">
-  <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/periodic-table/">
-  <meta property="twitter:title" content="Periodic Table Memory Master">
-  <meta property="twitter:description" content="Master the periodic table using 5 proven memory techniques. Learn chemistry interactively!">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/periodic-table/" />
+    <meta property="og:title" content="Periodic Table Memory Master - Learn Chemistry with Memory Techniques" />
+    <meta
+      property="og:description"
+      content="Master the periodic table using 5 proven memory techniques: Story Chain, Memory Palace, Body Map, Keyword Image, and Rhyme Pegs. Learn elements interactively!"
+    />
 
-  <link rel="canonical" href="https://abhee15.github.io/doodles/games/periodic-table/">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/periodic-table/" />
+    <meta property="twitter:title" content="Periodic Table Memory Master" />
+    <meta
+      property="twitter:description"
+      content="Master the periodic table using 5 proven memory techniques. Learn chemistry interactively!"
+    />
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/periodic-table/" />
 
-  <!-- Design System -->
-  <link rel="stylesheet" href="css/periodic-table.css">
-</head>
-<body>
-  <a href="../../index.html#periodic-table" id="game-back-btn" class="back-link">← Back</a>
-  <div class="app-container">
-    
-    <!-- Header -->
-    <header class="app-header">
-      <div class="header-icon"><i class="ti ti-flask-2"></i></div>
-      <h1>Periodic Table Memory Master</h1>
-      <p>Choose your learning path</p>
-    </header>
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
 
-    <!-- Main Content -->
-    <main class="app-main">
-      
-      <!-- Chunk Selection Screen -->
-      <div id="chunk-selector" class="screen active">
-        <div class="screen-content">
-          <h2><i class="ti ti-book"></i> Which elements would you like to learn?</h2>
-          <p class="subtitle">Each set builds on the last. Start with Set 1!</p>
-          
-          <div class="chunks-grid">
-            <button class="chunk-card" onclick="selectChunk(1)" data-chunk="1">
-              <div class="chunk-number">1</div>
-              <div class="chunk-title">Elements 1-20</div>
-              <div class="chunk-range">Hydrogen → Calcium</div>
-              <div class="chunk-description"><i class="ti ti-rocket"></i> Start here!</div>
-            </button>
-            
-            <button class="chunk-card" onclick="selectChunk(2)" data-chunk="2">
-              <div class="chunk-number">2</div>
-              <div class="chunk-title">Elements 21-40</div>
-              <div class="chunk-range">Scandium → Krypton</div>
-              <div class="chunk-description"><i class="ti ti-star"></i> Level up!</div>
-            </button>
-            
-            <button class="chunk-card" onclick="selectChunk(3)" data-chunk="3">
-              <div class="chunk-number">3</div>
-              <div class="chunk-title">Elements 41-60</div>
-              <div class="chunk-range">Yttrium → Neodymium</div>
-              <div class="chunk-description"><i class="ti ti-flame"></i> Getting harder!</div>
-            </button>
-            
-            <button class="chunk-card" onclick="selectChunk(4)" data-chunk="4">
-              <div class="chunk-number">4</div>
-              <div class="chunk-title">Elements 61-80</div>
-              <div class="chunk-range">Promethium → Mercury</div>
-              <div class="chunk-description"><i class="ti ti-biceps-2"></i> Expert mode!</div>
-            </button>
-            
-            <button class="chunk-card" onclick="selectChunk(5)" data-chunk="5">
-              <div class="chunk-number">5</div>
-              <div class="chunk-title">Elements 81-101</div>
-              <div class="chunk-range">Thallium → Oganesson</div>
-              <div class="chunk-description"><i class="ti ti-trophy"></i> Champion!</div>
-            </button>
+    <!-- Design System -->
+    <link rel="stylesheet" href="css/periodic-table.css" />
+  </head>
+  <body>
+    <a href="../../index.html#periodic-table" id="game-back-btn" class="back-link">← Back</a>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-icon"><i class="ti ti-flask-2"></i></div>
+        <h1>Periodic Table Memory Master</h1>
+        <p>Choose your learning path</p>
+      </header>
+
+      <!-- Main Content -->
+      <main class="app-main">
+        <!-- Chunk Selection Screen -->
+        <div id="chunk-selector" class="screen active">
+          <div class="screen-content">
+            <h2><i class="ti ti-book"></i> Which elements would you like to learn?</h2>
+            <p class="subtitle">Each set builds on the last. Start with Set 1!</p>
+
+            <div class="chunks-grid">
+              <button class="chunk-card" id="chunk-btn-1" data-chunk="1">
+                <div class="chunk-number">1</div>
+                <div class="chunk-title">Elements 1-20</div>
+                <div class="chunk-range">Hydrogen → Calcium</div>
+                <div class="chunk-description"><i class="ti ti-rocket"></i> Start here!</div>
+              </button>
+
+              <button class="chunk-card" id="chunk-btn-2" data-chunk="2">
+                <div class="chunk-number">2</div>
+                <div class="chunk-title">Elements 21-40</div>
+                <div class="chunk-range">Scandium → Krypton</div>
+                <div class="chunk-description"><i class="ti ti-star"></i> Level up!</div>
+              </button>
+
+              <button class="chunk-card" id="chunk-btn-3" data-chunk="3">
+                <div class="chunk-number">3</div>
+                <div class="chunk-title">Elements 41-60</div>
+                <div class="chunk-range">Yttrium → Neodymium</div>
+                <div class="chunk-description"><i class="ti ti-flame"></i> Getting harder!</div>
+              </button>
+
+              <button class="chunk-card" id="chunk-btn-4" data-chunk="4">
+                <div class="chunk-number">4</div>
+                <div class="chunk-title">Elements 61-80</div>
+                <div class="chunk-range">Promethium → Mercury</div>
+                <div class="chunk-description"><i class="ti ti-biceps-2"></i> Expert mode!</div>
+              </button>
+
+              <button class="chunk-card" id="chunk-btn-5" data-chunk="5">
+                <div class="chunk-number">5</div>
+                <div class="chunk-title">Elements 81-101</div>
+                <div class="chunk-range">Thallium → Oganesson</div>
+                <div class="chunk-description"><i class="ti ti-trophy"></i> Champion!</div>
+              </button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Technique Selection Screen -->
-      <div id="technique-selector" class="screen">
-        <div class="screen-content">
-          
-          <!-- Recommended Technique -->
-          <div class="recommended-section">
-            <div class="recommended-badge"><i class="ti ti-sparkles"></i> RECOMMENDED FOR THIS CHUNK</div>
-            
-            <div class="recommended-box" id="recommended-box">
-              <h2 id="rec-technique-name">Story Chain</h2>
-              <p id="rec-technique-why" class="rec-why">
-                Why? These elements flow naturally together in a narrative...
-              </p>
-              <div class="rec-buttons">
-                <button class="btn btn-primary" onclick="selectTechnique(getTechnique(), true)">
-                  ✓ Use <span id="rec-technique-short">Story Chain</span>
-                </button>
-                <button class="btn btn-link" onclick="toggleAlternatives()">
-                  Try a different technique? →
-                </button>
+        <!-- Technique Selection Screen -->
+        <div id="technique-selector" class="screen">
+          <div class="screen-content">
+            <!-- Recommended Technique -->
+            <div class="recommended-section">
+              <div class="recommended-badge"><i class="ti ti-sparkles"></i> RECOMMENDED FOR THIS CHUNK</div>
+
+              <div class="recommended-box" id="recommended-box">
+                <h2 id="rec-technique-name">Story Chain</h2>
+                <p id="rec-technique-why" class="rec-why">
+                  Why? These elements flow naturally together in a narrative...
+                </p>
+                <div class="rec-buttons">
+                  <button class="btn btn-primary" id="btn-use-technique">
+                    ✓ Use <span id="rec-technique-short">Story Chain</span>
+                  </button>
+                  <button class="btn btn-link" id="btn-show-alternatives">Try a different technique? →</button>
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Alternative Techniques -->
-          <div id="alternatives-section" class="alternatives-section" style="display:none;">
-            <h3>Other Techniques You Can Try:</h3>
-            <p class="subtitle">All techniques work - pick what feels right for you!</p>
-            
-            <div class="techniques-grid">
-              <button class="technique-option" onclick="selectTechnique('story_chain')" data-technique="story_chain">
-                <div class="tech-icon"><i class="ti ti-book-2"></i></div>
-                <div class="tech-name">Story Chain</div>
-                <div class="tech-desc">Link elements as a narrative story</div>
-              </button>
-              
-              <button class="technique-option" onclick="selectTechnique('memory_palace')" data-technique="memory_palace">
-                <div class="tech-icon"><i class="ti ti-building-mansion"></i></div>
-                <div class="tech-name">Memory Palace</div>
-                <div class="tech-desc">Place elements in rooms or locations</div>
-              </button>
-              
-              <button class="technique-option" onclick="selectTechnique('body_map')" data-technique="body_map">
-                <div class="tech-icon"><i class="ti ti-body"></i></div>
-                <div class="tech-name">Body Map</div>
-                <div class="tech-desc">Anchor elements to your body</div>
-              </button>
-              
-              <button class="technique-option" onclick="selectTechnique('keyword_image')" data-technique="keyword_image">
-                <div class="tech-icon"><i class="ti ti-palette"></i></div>
-                <div class="tech-name">Keyword Image</div>
-                <div class="tech-desc">Sound-alike word associations</div>
-              </button>
-              
-              <button class="technique-option" onclick="selectTechnique('rhyme_pegs')" data-technique="rhyme_pegs">
-                <div class="tech-icon"><i class="ti ti-music"></i></div>
-                <div class="tech-name">Rhyme Pegs</div>
-                <div class="tech-desc">Link to rhyming numbers</div>
-              </button>
+            <!-- Alternative Techniques -->
+            <div id="alternatives-section" class="alternatives-section" style="display: none">
+              <h3>Other Techniques You Can Try:</h3>
+              <p class="subtitle">All techniques work - pick what feels right for you!</p>
+
+              <div class="techniques-grid">
+                <button class="technique-option" id="tech-story-chain" data-technique="story_chain">
+                  <div class="tech-icon"><i class="ti ti-book-2"></i></div>
+                  <div class="tech-name">Story Chain</div>
+                  <div class="tech-desc">Link elements as a narrative story</div>
+                </button>
+
+                <button class="technique-option" id="tech-memory-palace" data-technique="memory_palace">
+                  <div class="tech-icon"><i class="ti ti-building-mansion"></i></div>
+                  <div class="tech-name">Memory Palace</div>
+                  <div class="tech-desc">Place elements in rooms or locations</div>
+                </button>
+
+                <button class="technique-option" id="tech-body-map" data-technique="body_map">
+                  <div class="tech-icon"><i class="ti ti-body"></i></div>
+                  <div class="tech-name">Body Map</div>
+                  <div class="tech-desc">Anchor elements to your body</div>
+                </button>
+
+                <button class="technique-option" id="tech-keyword-image" data-technique="keyword_image">
+                  <div class="tech-icon"><i class="ti ti-palette"></i></div>
+                  <div class="tech-name">Keyword Image</div>
+                  <div class="tech-desc">Sound-alike word associations</div>
+                </button>
+
+                <button class="technique-option" id="tech-rhyme-pegs" data-technique="rhyme_pegs">
+                  <div class="tech-icon"><i class="ti ti-music"></i></div>
+                  <div class="tech-name">Rhyme Pegs</div>
+                  <div class="tech-desc">Link to rhyming numbers</div>
+                </button>
+              </div>
+
+              <button class="btn btn-secondary" id="btn-back-to-recommended">← Back to Recommended</button>
             </div>
-
-            <button class="btn btn-secondary" onclick="toggleAlternatives()">
-              ← Back to Recommended
-            </button>
           </div>
-
         </div>
-      </div>
+      </main>
 
-    </main>
+      <!-- Footer -->
+      <footer class="app-footer">
+        <p>
+          <i class="ti ti-bulb"></i> Tip: The recommended technique is optimized for each chunk, but you can always try
+          another!
+        </p>
+      </footer>
+    </div>
 
-    <!-- Footer -->
-    <footer class="app-footer">
-      <p><i class="ti ti-bulb"></i> Tip: The recommended technique is optimized for each chunk, but you can always try another!</p>
-    </footer>
-
-  </div>
-
-  <script src="../../shared/navigation.js"></script>
-  <script src="js/picker-hub.js"></script>
-</body>
+    <script src="../../shared/navigation.js"></script>
+    <script src="js/picker-hub.js"></script>
+  </body>
 </html>

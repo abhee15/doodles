@@ -75,8 +75,51 @@ const TECHNIQUES = {
 let currentChunk = null;
 let currentTechnique = null;
 
+// Initialize GameNavigation for back button handling
+let gameNav;
+if (typeof GameNavigation !== 'undefined') {
+  gameNav = new GameNavigation('periodic-table', {
+    screens: ['chunk-selector', 'technique-selector'],
+    initialScreen: 'chunk-selector',
+    gameName: 'Periodic Table Master'
+  });
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', function () {
+  // Add event listeners for chunk buttons
+  document.getElementById('chunk-btn-1').addEventListener('click', () => selectChunk(1));
+  document.getElementById('chunk-btn-2').addEventListener('click', () => selectChunk(2));
+  document.getElementById('chunk-btn-3').addEventListener('click', () => selectChunk(3));
+  document.getElementById('chunk-btn-4').addEventListener('click', () => selectChunk(4));
+  document.getElementById('chunk-btn-5').addEventListener('click', () => selectChunk(5));
+
+  // Add event listeners for technique recommendation buttons
+  document
+    .getElementById('btn-use-technique')
+    .addEventListener('click', () => selectTechnique(getTechnique(), true));
+  document.getElementById('btn-show-alternatives').addEventListener('click', toggleAlternatives);
+
+  // Add event listeners for technique option buttons
+  document
+    .getElementById('tech-story-chain')
+    .addEventListener('click', () => selectTechnique('story_chain'));
+  document
+    .getElementById('tech-memory-palace')
+    .addEventListener('click', () => selectTechnique('memory_palace'));
+  document
+    .getElementById('tech-body-map')
+    .addEventListener('click', () => selectTechnique('body_map'));
+  document
+    .getElementById('tech-keyword-image')
+    .addEventListener('click', () => selectTechnique('keyword_image'));
+  document
+    .getElementById('tech-rhyme-pegs')
+    .addEventListener('click', () => selectTechnique('rhyme_pegs'));
+
+  // Add event listener for back button
+  document.getElementById('btn-back-to-recommended').addEventListener('click', toggleAlternatives);
+
   console.log('Picker Hub initialized');
 });
 

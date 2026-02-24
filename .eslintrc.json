@@ -31,7 +31,12 @@
     "gameNav": "writable",
     "gameAnalytics": "readonly",
     "gtag": "readonly",
-    "dataLayer": "writable"
+    "dataLayer": "writable",
+    "createSimplifiedStoryCard": "readonly",
+    "createElementVisual": "readonly",
+    "createProfessionalKeywordCard": "readonly",
+    "createProfessionalRhymePeg": "readonly",
+    "initGamification": "readonly"
   },
   "rules": {
     "no-unused-vars": [
