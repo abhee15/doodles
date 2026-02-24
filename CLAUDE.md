@@ -3,6 +3,8 @@
 This document defines the conventions every game in this repo must follow.
 Read it before adding or modifying any game.
 
+> **New!** See [FRAMEWORK_STANDARDS.md](FRAMEWORK_STANDARDS.md) for comprehensive framework design, consistency checklist, and automated auditing tools.
+
 ---
 
 ## 1. Repository Structure
@@ -296,7 +298,23 @@ From `css/portal.css` (Portal only):
 
 ---
 
-## 10. Games Manifest Schema
+## 10. Framework Standards & Consistency Tools
+
+**See [FRAMEWORK_STANDARDS.md](FRAMEWORK_STANDARDS.md) for:**
+- Navigation Architecture Standard (back button always goes to logical parent)
+- Shared Navigation Component (`shared/navigation.js`)
+- Game Structure Standard (HTML/JS patterns)
+- **Consistency Audit Checklist** — verify before every commit
+- **Automated Audit Tool** — run `npm run audit` to catch inconsistencies
+- Kid-Friendly UX Checklist (font sizes, button targets, color contrast)
+- Shared Utilities Library (reusable components)
+- Code examples and templates
+
+**Key principle:** The back button should never skip levels. Quick Math module → back goes to technique picker, not portal. Draw It step → back goes to game landing, not portal.
+
+---
+
+## 11. Games Manifest Schema
 
 The portal is entirely driven by two global objects: `CATEGORIES` and `GAMES` (defined in `games-manifest.js`).
 
