@@ -936,10 +936,10 @@ function showUnitGrid(mode) {
             <div class="mm-unit-abbr">${unit.abbr}</div>
             <div class="mm-unit-tagline">${unit.tagline}</div>
         `;
-    card.onclick = () => {
+    card.addEventListener('click', () => {
       currentUnitIndex = idx;
       showUnitDetail(idx, mode);
-    };
+    });
     container.appendChild(card);
   });
 
@@ -988,38 +988,38 @@ function showUnitDetail(index, mode) {
   renderTabContent(unit, initialMode);
 
   // Tab switching
-  document.getElementById('tab-story').onclick = () => {
+  document.getElementById('tab-story').addEventListener('click', () => {
     unitDetailMode = 'story';
     document.querySelectorAll('.mm-tab').forEach((t, i) => {
       t.classList.toggle('active', i === 0);
     });
     renderTabContent(unit, 'story');
-  };
+  });
 
-  document.getElementById('tab-examples').onclick = () => {
+  document.getElementById('tab-examples').addEventListener('click', () => {
     unitDetailMode = 'examples';
     document.querySelectorAll('.mm-tab').forEach((t, i) => {
       t.classList.toggle('active', i === 1);
     });
     renderTabContent(unit, 'examples');
-  };
+  });
 
   // Navigation
   if (index > 0) {
-    document.getElementById('prev-unit-btn').onclick = () => {
+    document.getElementById('prev-unit-btn').addEventListener('click', () => {
       currentUnitIndex--;
       showUnitDetail(currentUnitIndex, mode);
-    };
+    });
   }
 
   if (index < UNITS.length - 1) {
-    document.getElementById('next-unit-btn').onclick = () => {
+    document.getElementById('next-unit-btn').addEventListener('click', () => {
       currentUnitIndex++;
       showUnitDetail(currentUnitIndex, mode);
-    };
+    });
   }
 
-  document.getElementById('menu-unit-btn').onclick = initMenu;
+  document.getElementById('menu-unit-btn').addEventListener('click', initMenu);
 
   showScreen('screen-unit-detail');
 }
@@ -1077,21 +1077,21 @@ function renderSortUI() {
                 <div class="mm-slot-emoji">${unit.emoji}</div>
                 <div class="mm-slot-abbr">${unit.abbr}</div>
             `;
-      slot.onclick = () => {
+      slot.addEventListener('click', () => {
         sortState.bank.push(sortState.slots[i]);
         sortState.slots[i] = null;
         sortState.selected = null;
         renderSortUI();
-      };
+      });
     } else {
-      slot.onclick = () => {
+      slot.addEventListener('click', () => {
         if (sortState.selected !== null) {
           sortState.slots[i] = sortState.selected;
           sortState.bank = sortState.bank.filter(id => id !== sortState.selected);
           sortState.selected = null;
           renderSortUI();
         }
-      };
+      });
     }
 
     slotsDiv.appendChild(slot);
@@ -1108,17 +1108,17 @@ function renderSortUI() {
     }
     card.style.setProperty('--unit-color', unit.cssColor);
     card.innerHTML = `${unit.emoji} ${unit.abbr}`;
-    card.onclick = () => {
+    card.addEventListener('click', () => {
       sortState.selected = sortState.selected === uid ? null : uid;
       renderSortUI();
-    };
+    });
     bankDiv.appendChild(card);
   });
 
   const allPlaced = sortState.slots.every(s => s !== null);
   const checkBtn = document.getElementById('check-sort-btn');
   checkBtn.disabled = !allPlaced;
-  checkBtn.onclick = () => {
+  checkBtn.addEventListener('click', () => {
     let correct = 0;
     CORRECT_ORDER.forEach((uid, i) => {
       if (sortState.slots[i] === uid) {
@@ -1126,10 +1126,10 @@ function renderSortUI() {
       }
     });
     showSortResult(correct);
-  };
+  });
 
-  document.getElementById('reset-sort-btn').onclick = showSortScreen;
-  document.getElementById('menu-from-sort-btn').onclick = initMenu;
+  document.getElementById('reset-sort-btn').addEventListener('click', showSortScreen);
+  document.getElementById('menu-from-sort-btn').addEventListener('click', initMenu);
 }
 
 function showSortResult(correct) {
@@ -1219,14 +1219,14 @@ function showQuizQuestion() {
     btn.className = 'mm-choice-btn';
     btn.style.setProperty('--btn-color', unit.cssColor);
     btn.textContent = unit.name;
-    btn.onclick = () => handleQuizAnswer(uid, q, btn);
+    btn.addEventListener('click', () => handleQuizAnswer(uid, q, btn));
     choicesDiv.appendChild(btn);
   });
 
   const hintBtn = document.getElementById('quiz-hint-btn');
   hintBtn.textContent = '💡 Show Hint';
   document.getElementById('quiz-hint').style.display = 'none';
-  hintBtn.onclick = () => {
+  hintBtn.addEventListener('click', () => {
     if (document.getElementById('quiz-hint').style.display === 'none') {
       document.getElementById('quiz-hint').textContent = q.hint;
       document.getElementById('quiz-hint').style.display = 'block';
@@ -1235,7 +1235,7 @@ function showQuizQuestion() {
       document.getElementById('quiz-hint').style.display = 'none';
       hintBtn.textContent = '💡 Show Hint';
     }
-  };
+  });
 
   showScreen('screen-quiz');
 }
@@ -1327,14 +1327,14 @@ function showConvQuestion() {
     const btn = document.createElement('button');
     btn.className = 'mm-choice-btn';
     btn.textContent = String(choice);
-    btn.onclick = () => handleConvAnswer(choice, q, btn);
+    btn.addEventListener('click', () => handleConvAnswer(choice, q, btn));
     choicesDiv.appendChild(btn);
   });
 
   const hintBtn = document.getElementById('conv-hint-btn');
   hintBtn.textContent = '💡 Show Hint';
   document.getElementById('conv-hint').style.display = 'none';
-  hintBtn.onclick = () => {
+  hintBtn.addEventListener('click', () => {
     if (document.getElementById('conv-hint').style.display === 'none') {
       document.getElementById('conv-hint').textContent = q.formula;
       document.getElementById('conv-hint').style.display = 'block';
@@ -1343,7 +1343,7 @@ function showConvQuestion() {
       document.getElementById('conv-hint').style.display = 'none';
       hintBtn.textContent = '💡 Show Hint';
     }
-  };
+  });
 
   showScreen('screen-conversions');
 }
@@ -1447,14 +1447,14 @@ function showScenQuestion() {
     const btn = document.createElement('button');
     btn.className = 'mm-choice-btn';
     btn.textContent = String(choice);
-    btn.onclick = () => handleScenAnswer(choice, q, btn);
+    btn.addEventListener('click', () => handleScenAnswer(choice, q, btn));
     choicesDiv.appendChild(btn);
   });
 
   const hintBtn = document.getElementById('scen-hint-btn');
   hintBtn.textContent = '💡 Show Hint';
   document.getElementById('scen-hint').style.display = 'none';
-  hintBtn.onclick = () => {
+  hintBtn.addEventListener('click', () => {
     if (document.getElementById('scen-hint').style.display === 'none') {
       document.getElementById('scen-hint').textContent = q.formula;
       document.getElementById('scen-hint').style.display = 'block';
@@ -1463,7 +1463,7 @@ function showScenQuestion() {
       document.getElementById('scen-hint').style.display = 'none';
       hintBtn.textContent = '💡 Show Hint';
     }
-  };
+  });
 
   showScreen('screen-scenarios');
 }
