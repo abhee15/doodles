@@ -1618,16 +1618,6 @@ function showLevelSelect() {
   };
 }
 
-// ==================== SOUND TOGGLE ====================
-document.getElementById('sound-toggle').addEventListener('click', () => {
-  soundEnabled = !soundEnabled;
-  document.getElementById('sound-toggle').textContent = soundEnabled ? '🔊' : '🔇';
-  if (soundEnabled) {
-    initAudio();
-    playSound('click');
-  }
-});
-
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize navigation system (handles back button and screen transitions)
@@ -1636,6 +1626,19 @@ document.addEventListener('DOMContentLoaded', () => {
   loadProgress();
   renderLevelGrid();
   showLevelSelect();
+
+  // Sound toggle (only attach if element exists)
+  const soundToggle = document.getElementById('sound-toggle');
+  if (soundToggle) {
+    soundToggle.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      soundToggle.textContent = soundEnabled ? '🔊' : '🔇';
+      if (soundEnabled) {
+        initAudio();
+        playSound('click');
+      }
+    });
+  }
 
   document.addEventListener(
     'click',
