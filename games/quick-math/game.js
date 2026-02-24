@@ -23,33 +23,38 @@ let playerProgress = {
 };
 
 // ==================== LEVEL DATA ====================
+// Ordered from Easy → Medium → Hard for optimal learning progression
 const LEVELS = [
-    { id: 1, name: 'Multiply by 11', icon: '×11', desc: 'Learn the pattern trick', color: '#3B82F6' },
-    { id: 2, name: 'Square Numbers', icon: '5²', desc: 'Numbers ending in 5', color: '#06B6D4' },
-    { id: 3, name: 'Double & Half', icon: '×÷', desc: 'Smart shortcuts', color: '#0EA5E9' },
-    { id: 4, name: 'Base Method', icon: '~10', desc: 'Near 10, 100...', color: '#2563EB' },
-    { id: 5, name: 'Multiply by 9', icon: '×9', desc: 'Finger trick magic', color: '#10B981' },
-    { id: 6, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: '#059669' },
-    { id: 7, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: '#7C3AED' },
-    { id: 8, name: 'Multiply by 6', icon: '×6', desc: 'Even pattern', color: '#DB2777' },
-    { id: 9, name: 'Multiply by 8', icon: '×8', desc: 'Triple double', color: '#EA580C' },
-    { id: 10, name: 'Multiply by 12', icon: '×12', desc: 'Split & add', color: '#DC2626' },
-    { id: 11, name: 'Multiply by 15', icon: '×15', desc: '10 + half', color: '#0891B2' },
-    { id: 12, name: 'Multiply by 25', icon: '×25', desc: 'Quarter trick', color: '#1D4ED8' },
-    { id: 13, name: 'Multiply by 99', icon: '×99', desc: 'n×100−n shortcut', color: '#6D28D9' },
-    { id: 14, name: '×11 Extended', icon: '11++', desc: 'With carry logic', color: '#2563EB' },
-    { id: 15, name: 'Differ by 2', icon: 'n±1', desc: 'Sandwich squares', color: '#D97706' },
-    { id: 16, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: '#0D9488' },
-    { id: 17, name: 'Multiply by 3', icon: '×3', desc: 'Triple tricks', color: '#EC4899' },
-    { id: 18, name: 'Multiply by 7', icon: '×7', desc: 'Cross magic', color: '#8B5CF6' },
-    { id: 19, name: 'Multiply by 20', icon: '×20', desc: '×2 then ×10', color: '#F59E0B' },
-    { id: 20, name: 'Multiply by 30', icon: '×30', desc: '×3 then ×10', color: '#14B8A6' },
-    { id: 21, name: 'Square by 1', icon: '1²', desc: 'Numbers ending in 1', color: '#06B6D4' },
-    { id: 22, name: 'Square by 6', icon: '6²', desc: 'Numbers ending in 6', color: '#F97316' },
-    { id: 23, name: 'Near 50', icon: '~50', desc: 'Base 50 method', color: '#3B82F6' },
-    { id: 24, name: 'Divide by 5', icon: '÷5', desc: '×2 then ÷10', color: '#10B981' },
-    { id: 25, name: 'Cross Multiply', icon: '2×2', desc: 'Two-digit magic', color: '#DC2626' },
-    { id: 26, name: 'Divisibility 9', icon: '÷9✓', desc: 'Digital root trick', color: '#7C3AED' }
+    // === EASY (Foundational tricks) ===
+    { id: 1, name: 'Multiply by 4', icon: '2²', desc: 'Double, double!', color: '#7C3AED' },
+    { id: 2, name: 'Multiply by 5', icon: '×5', desc: 'Half of ×10', color: '#059669' },
+    { id: 3, name: 'Multiply by 3', icon: '×3', desc: 'Double + number', color: '#EC4899' },
+    { id: 4, name: 'Divide by 5', icon: '÷5', desc: '×2 then ÷10', color: '#10B981' },
+    { id: 5, name: 'Multiply by 20', icon: '×20', desc: '×2 then ×10', color: '#F59E0B' },
+    { id: 6, name: 'Multiply by 30', icon: '×30', desc: '×3 then ×10', color: '#14B8A6' },
+
+    // === MEDIUM (Pattern recognition) ===
+    { id: 7, name: 'Multiply by 9', icon: '×9', desc: 'Finger trick magic', color: '#10B981' },
+    { id: 8, name: 'Multiply by 11', icon: '×11', desc: 'Split, add, done!', color: '#3B82F6' },
+    { id: 9, name: 'Multiply by 6', icon: '×6', desc: '(×5) + (×1)', color: '#DB2777' },
+    { id: 10, name: 'Multiply by 7', icon: '×7', desc: '(×5) + (×2)', color: '#8B5CF6' },
+    { id: 11, name: 'Multiply by 8', icon: '×8', desc: 'Triple double', color: '#EA580C' },
+    { id: 12, name: 'Multiply by 12', icon: '×12', desc: '(×10) + (×2)', color: '#DC2626' },
+    { id: 13, name: 'Multiply by 15', icon: '×15', desc: '×10 + half', color: '#0891B2' },
+    { id: 14, name: 'Multiply by 25', icon: '×25', desc: 'Quarter trick', color: '#1D4ED8' },
+    { id: 15, name: 'Multiply by 99', icon: '×99', desc: '(×100) − (×1)', color: '#6D28D9' },
+    { id: 16, name: 'Square Ending 5', icon: '5²', desc: 'N(N+1) + 25', color: '#06B6D4' },
+    { id: 17, name: 'Square Ending 1', icon: '1²', desc: 'Pattern magic', color: '#06B6D4' },
+    { id: 18, name: 'Square Ending 6', icon: '6²', desc: 'Always ends in 6', color: '#F97316' },
+    { id: 19, name: 'Divisibility 9', icon: '÷9✓', desc: 'Digital root', color: '#7C3AED' },
+
+    // === HARD (Advanced/Algebraic) ===
+    { id: 20, name: 'Base Method (10)', icon: '~10', desc: 'Near 10, 100...', color: '#2563EB' },
+    { id: 21, name: 'Base Method (50)', icon: '~50', desc: 'Near 50 method', color: '#3B82F6' },
+    { id: 22, name: '×11 Extended', icon: '11++', desc: 'With carry logic', color: '#2563EB' },
+    { id: 23, name: 'Differ by 2', icon: 'n±1', desc: 'Sandwich squares', color: '#D97706' },
+    { id: 24, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: '#0D9488' },
+    { id: 25, name: 'Cross Multiply', icon: '2×2', desc: 'Two-digit magic', color: '#DC2626' }
 ];
 
 // ==================== TUTORIAL DATA ====================
