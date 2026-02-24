@@ -55,8 +55,13 @@ class GameNavigation {
     const backBtn = document.getElementById('game-back-btn');
     if (backBtn) {
       backBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        this.goBack();
+        // Only prevent default if we're NOT at the landing screen
+        // At landing, we want the link to work and go to portal
+        if (this.currentScreen !== 'landing') {
+          e.preventDefault();
+          this.goBack();
+        }
+        // At landing, let the natural link behavior work (no preventDefault)
       });
     }
 

@@ -660,9 +660,9 @@ function showScreen(id) {
     // Map old ID to new data-screen name if needed
     const screenName = screenMap[id] || id;
 
-    // Use GameNavigation if initialized
+    // Use GameNavigation to track navigation properly
     if (gameNav && gameNav.config.screens.includes(screenName)) {
-        gameNav.goToScreen(screenName, { preserveStack: true });
+        gameNav.goToScreen(screenName);  // Don't preserve stack - let navigation track it
     } else {
         // Fallback for backward compatibility
         document.querySelectorAll('.dom-screen').forEach(s => s.classList.remove('active'));
