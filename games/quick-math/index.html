@@ -129,7 +129,7 @@
         }
 
         .qm-level-desc {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--dom-text-muted);
             margin: 2px 0 0 0;
         }
@@ -199,7 +199,7 @@
 
         .qm-stage-btn {
             padding: 8px 14px;
-            font-size: 13px;
+            font-size: 14px;
             font-weight: 700;
             border: 2px solid var(--dom-border);
             border-radius: 6px;
@@ -512,7 +512,7 @@
         }
 
         .qm-stat-label {
-            font-size: 12px;
+            font-size: 14px;
             color: var(--dom-text-muted);
             text-transform: uppercase;
             margin-bottom: 8px;
@@ -560,7 +560,7 @@
         }
 
         .qm-achievement-desc {
-            font-size: 11px;
+            font-size: 14px;
             color: var(--dom-text-muted);
             line-height: 1.3;
         }
@@ -672,14 +672,14 @@
 </head>
 <body>
     <nav class="dom-nav">
-        <a href="../../index.html#quick-math"><i class="ti ti-arrow-left"></i> Back</a>
-        <span class="dom-nav-title">Quick Math</span>
-        <button class="qm-sound-btn" id="sound-toggle" title="Toggle sound">🔊</button>
+        <a id="game-back-btn" href="../../index.html#quick-math"><i class="ti ti-arrow-left"></i> Back</a>
+        <span id="nav-title" class="dom-nav-title">Quick Math</span>
+        <span id="nav-meta"></span>
     </nav>
 
     <div class="dom-screens-container">
         <!-- Level Select Screen -->
-        <div id="screen-level-select" class="dom-screen active">
+        <div data-screen="landing" class="dom-screen active">
             <div style="padding: 20px; text-align: center;">
                 <h1 style="font-size: 28px; color: var(--dom-text); margin: 0 0 10px 0;">⚡ Quick Math Tricks</h1>
                 <p style="color: var(--dom-text-muted); margin: 0;">Learn Vedic math shortcuts</p>
@@ -689,7 +689,7 @@
         </div>
 
         <!-- Tutorial Screen -->
-        <div id="screen-tutorial" class="dom-screen">
+        <div data-screen="tutorial" class="dom-screen">
             <div class="qm-tutorial-card">
                 <div id="tut-mnemonic" class="qm-tutorial-mnemonic" style="display: none;"></div>
                 <h2 id="tut-title" class="qm-tutorial-title"></h2>
@@ -720,7 +720,7 @@
         </div>
 
         <!-- Practice Screen -->
-        <div id="screen-practice" class="dom-screen">
+        <div data-screen="practice" class="dom-screen">
             <div class="qm-practice-container">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
                     <h2 style="font-size: 24px; font-weight: 700; color: #FDCB6E; margin: 0;">⚡ Practice Time!</h2>
@@ -736,7 +736,7 @@
         </div>
 
         <!-- Results Screen -->
-        <div id="screen-results" class="dom-screen">
+        <div data-screen="results" class="dom-screen">
             <div class="qm-results-card">
                 <h2 id="results-title" class="qm-results-title"></h2>
                 <div class="qm-stars-row" id="results-stars"></div>
@@ -751,7 +751,7 @@
         </div>
 
         <!-- Progress Screen -->
-        <div id="screen-progress" class="dom-screen">
+        <div data-screen="progress" class="dom-screen">
             <div style="padding: 20px; text-align: center;">
                 <h1 style="font-size: 28px; color: var(--dom-text); margin: 0 0 20px 0;">🏆 Your Progress</h1>
             </div>
@@ -789,6 +789,7 @@
     <!-- Toast notification -->
     <div id="achievement-toast" class="qm-toast"></div>
 
+    <script src="../../shared/navigation.js"></script>
     <script src="game.js"></script>
     <script src="../../shared/analytics.js"></script>
     <div id="ad-container"></div>

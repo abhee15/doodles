@@ -1,6 +1,34 @@
 // Quick Math - Learn Vedic Math Tricks!
 // DOM-based Educational Game (No Phaser)
 
+// ==================== NAVIGATION SETUP ====================
+// Initialize game navigation (handles back button and screen transitions)
+let gameNav;
+
+function initNavigation() {
+  gameNav = new GameNavigation('quick-math', {
+    screens: ['landing', 'tutorial', 'practice', 'results', 'progress'],
+    initialScreen: 'landing',
+    gameName: 'Quick Math',
+    titles: {
+      landing: 'Quick Math',
+      tutorial: 'Learn the Trick',
+      practice: 'Practice Problems',
+      results: 'Results',
+      progress: 'Your Progress'
+    }
+  });
+}
+
+// Map old screen IDs to new data-screen names for backward compatibility
+const screenMap = {
+  'screen-level-select': 'landing',
+  'screen-tutorial': 'tutorial',
+  'screen-practice': 'practice',
+  'screen-results': 'results',
+  'screen-progress': 'progress'
+};
+
 // ==================== GAME STATE ====================
 let currentLevelId = null;
 let tutStep = 0;
@@ -594,7 +622,7 @@ function saveProgress() {
     try {
         localStorage.setItem('quickMathProgress', JSON.stringify(playerProgress));
     } catch (e) {
-        console.log('Could not save progress:', e);
+        // Silently fail if localStorage is unavailable
     }
 }
 
@@ -606,7 +634,7 @@ function loadProgress() {
             return true;
         }
     } catch (e) {
-        console.log('Could not load progress:', e);
+        // Silently fail if localStorage is unavailable
     }
     return false;
 }
@@ -629,8 +657,20 @@ function getStarRating(score, total) {
 }
 
 function showScreen(id) {
-    document.querySelectorAll('.dom-screen').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+    // Map old ID to new data-screen name if needed
+    const screenName = screenMap[id] || id;
+
+    // Use GameNavigation if initialized
+    if (gameNav && gameNav.config.screens.includes(screenName)) {
+        gameNav.goToScreen(screenName, { preserveStack: true });
+    } else {
+        // Fallback for backward compatibility
+        document.querySelectorAll('.dom-screen').forEach(s => s.classList.remove('active'));
+        const element = document.querySelector(`[data-screen="${screenName}"]`) || document.getElementById(id);
+        if (element) {
+            element.classList.add('active');
+        }
+    }
 
     if (autoAdvanceTimer) {
         clearTimeout(autoAdvanceTimer);
@@ -1262,6 +1302,9 @@ document.getElementById('sound-toggle').addEventListener('click', () => {
 
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize navigation system (handles back button and screen transitions)
+    initNavigation();
+
     loadProgress();
     renderLevelGrid();
     showLevelSelect();
