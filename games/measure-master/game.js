@@ -334,12 +334,12 @@ function initMenu() {
     grid.innerHTML = '';
 
     const modes = [
-        { color: '#A44A3F', emoji: '🔍', title: 'Explore Units', sub: 'See what each unit looks like in real life', action: () => showUnitGrid('explore') },
-        { color: '#8E44AD', emoji: '📖', title: 'Origin Stories', sub: 'How each unit was invented & why it exists', action: () => showUnitGrid('history') },
-        { color: '#2980B9', emoji: '📊', title: 'Sort Challenge', sub: 'Order units from smallest to largest', action: () => showSortScreen() },
+        { color: '#3498DB', emoji: '🔍', title: 'Explore Units', sub: 'See what each unit looks like in real life', action: () => showUnitGrid('explore') },
+        { color: '#2980B9', emoji: '📖', title: 'Origin Stories', sub: 'How each unit was invented & why it exists', action: () => showUnitGrid('history') },
+        { color: '#2471A3', emoji: '📊', title: 'Sort Challenge', sub: 'Order units from smallest to largest', action: () => showSortScreen() },
         { color: '#16A085', emoji: '🔄', title: 'Conversions', sub: 'Inches to feet, cm to m, and more!', action: () => startConversions() },
-        { color: '#A44A3F', emoji: '❓', title: 'Quiz Time!', sub: 'Pick the right unit for each real-world thing', action: () => startQuiz() },
-        { color: '#E67E22', emoji: '🌍', title: 'Real Scenarios', sub: 'Solve measurement puzzles from everyday life!', action: () => startScenarios() }
+        { color: '#3498DB', emoji: '❓', title: 'Quiz Time!', sub: 'Pick the right unit for each real-world thing', action: () => startQuiz() },
+        { color: '#1ABC9C', emoji: '🌍', title: 'Real Scenarios', sub: 'Solve measurement puzzles from everyday life!', action: () => startScenarios() }
     ];
 
     modes.forEach(m => {
