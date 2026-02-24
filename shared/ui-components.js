@@ -16,20 +16,20 @@
  * Button Variants (Design System)
  */
 const ButtonVariants = {
-    PRIMARY: 'primary',      // Main actions (Start, Play, Continue)
-    SECONDARY: 'secondary',  // Secondary actions (Settings, Info)
-    SUCCESS: 'success',      // Positive actions (Submit, Confirm)
-    DANGER: 'danger',        // Destructive actions (Delete, Reset)
-    GHOST: 'ghost'           // Minimal style (Back, Cancel)
+  PRIMARY: 'primary',      // Main actions (Start, Play, Continue)
+  SECONDARY: 'secondary',  // Secondary actions (Settings, Info)
+  SUCCESS: 'success',      // Positive actions (Submit, Confirm)
+  DANGER: 'danger',        // Destructive actions (Delete, Reset)
+  GHOST: 'ghost'           // Minimal style (Back, Cancel)
 };
 
 /**
  * Button Sizes
  */
 const ButtonSizes = {
-    SMALL: 'small',      // 120x40
-    MEDIUM: 'medium',    // 180x55
-    LARGE: 'large'       // 240x70
+  SMALL: 'small',      // 120x40
+  MEDIUM: 'medium',    // 180x55
+  LARGE: 'large'       // 240x70
 };
 
 /**
@@ -37,53 +37,53 @@ const ButtonSizes = {
  * @private
  */
 function getButtonStyle(variant) {
-    const styles = {
-        primary: {
-            bgColor: 0x1CB0F6,           // Dodger Blue (from design-colors.css)
-            bgColorHover: 0x0B8FDE,
-            bgColorPressed: 0x0870B8,
-            textColor: '#FFFFFF',
-            shadowColor: 0x000000,
-            shadowAlpha: 0.25
-        },
-        secondary: {
-            bgColor: 0xFF7D00,           // Bright Orange (from design-colors.css)
-            bgColorHover: 0xE67300,
-            bgColorPressed: 0xCC6900,
-            textColor: '#FFFFFF',
-            shadowColor: 0x000000,
-            shadowAlpha: 0.2
-        },
-        success: {
-            bgColor: 0x58CC02,           // Bright Green (from design-colors.css)
-            bgColorHover: 0x4BA502,
-            bgColorPressed: 0x3F8802,
-            textColor: '#FFFFFF',
-            shadowColor: 0x000000,
-            shadowAlpha: 0.25
-        },
-        danger: {
-            bgColor: 0xFF4444,           // Bright Red (from design-colors.css)
-            bgColorHover: 0xCC2222,
-            bgColorPressed: 0x991111,
-            textColor: '#FFFFFF',
-            shadowColor: 0x000000,
-            shadowAlpha: 0.3
-        },
-        ghost: {
-            bgColor: 0x1CB0F6,           // Dodger Blue, semi-transparent
-            bgColorHover: 0x0B8FDE,
-            bgColorPressed: 0x0870B8,
-            textColor: '#FFFFFF',
-            shadowColor: 0x000000,
-            shadowAlpha: 0.15,
-            alpha: 0.55,
-            alphaHover: 0.75,
-            alphaPressed: 0.9
-        }
-    };
+  const styles = {
+    primary: {
+      bgColor: 0x1CB0F6,           // Dodger Blue (from design-colors.css)
+      bgColorHover: 0x0B8FDE,
+      bgColorPressed: 0x0870B8,
+      textColor: '#FFFFFF',
+      shadowColor: 0x000000,
+      shadowAlpha: 0.25
+    },
+    secondary: {
+      bgColor: 0xFF7D00,           // Bright Orange (from design-colors.css)
+      bgColorHover: 0xE67300,
+      bgColorPressed: 0xCC6900,
+      textColor: '#FFFFFF',
+      shadowColor: 0x000000,
+      shadowAlpha: 0.2
+    },
+    success: {
+      bgColor: 0x58CC02,           // Bright Green (from design-colors.css)
+      bgColorHover: 0x4BA502,
+      bgColorPressed: 0x3F8802,
+      textColor: '#FFFFFF',
+      shadowColor: 0x000000,
+      shadowAlpha: 0.25
+    },
+    danger: {
+      bgColor: 0xFF4444,           // Bright Red (from design-colors.css)
+      bgColorHover: 0xCC2222,
+      bgColorPressed: 0x991111,
+      textColor: '#FFFFFF',
+      shadowColor: 0x000000,
+      shadowAlpha: 0.3
+    },
+    ghost: {
+      bgColor: 0x1CB0F6,           // Dodger Blue, semi-transparent
+      bgColorHover: 0x0B8FDE,
+      bgColorPressed: 0x0870B8,
+      textColor: '#FFFFFF',
+      shadowColor: 0x000000,
+      shadowAlpha: 0.15,
+      alpha: 0.55,
+      alphaHover: 0.75,
+      alphaPressed: 0.9
+    }
+  };
 
-    return styles[variant] || styles.primary;
+  return styles[variant] || styles.primary;
 }
 
 /**
@@ -91,13 +91,13 @@ function getButtonStyle(variant) {
  * @private
  */
 function getButtonSize(size) {
-    const sizes = {
-        small: { width: 140, height: 45, fontSize: '16px', padding: 8 },
-        medium: { width: 200, height: 60, fontSize: '18px', padding: 12 },
-        large: { width: 260, height: 75, fontSize: '22px', padding: 16 }
-    };
+  const sizes = {
+    small: { width: 140, height: 45, fontSize: '16px', padding: 8 },
+    medium: { width: 200, height: 60, fontSize: '18px', padding: 12 },
+    large: { width: 260, height: 75, fontSize: '22px', padding: 16 }
+  };
 
-    return sizes[size] || sizes.medium;
+  return sizes[size] || sizes.medium;
 }
 
 /**
@@ -115,127 +115,151 @@ function getButtonSize(size) {
  * @returns {Object} Button object with {container, bg, text, destroy()}
  */
 function createButton(scene, x, y, label, callback, options = {}) {
-    const {
-        variant = ButtonVariants.PRIMARY,
-        size = ButtonSizes.MEDIUM,
-        icon = null
-    } = options;
+  const {
+    variant = ButtonVariants.PRIMARY,
+    size = ButtonSizes.MEDIUM,
+    icon = null
+  } = options;
 
-    const style = getButtonStyle(variant);
-    const dimensions = getButtonSize(size);
+  const style = getButtonStyle(variant);
+  const dimensions = getButtonSize(size);
 
-    // Standalone background — NOT inside a Phaser Container.
-    // Phaser Container children do not correctly propagate setScrollFactor(0)
-    // to their hit-area when the camera is scrolled, causing touch misses.
-    // Standalone objects with setScrollFactor(0) work correctly.
-    const bg = scene.add.rectangle(x, y, dimensions.width, dimensions.height, style.bgColor);
-    bg.setOrigin(0.5);
-    bg.setInteractive({ useHandCursor: true });
-    if (style.alpha) bg.setAlpha(style.alpha);
+  // Standalone background — NOT inside a Phaser Container.
+  // Phaser Container children do not correctly propagate setScrollFactor(0)
+  // to their hit-area when the camera is scrolled, causing touch misses.
+  // Standalone objects with setScrollFactor(0) work correctly.
+  const bg = scene.add.rectangle(x, y, dimensions.width, dimensions.height, style.bgColor);
+  bg.setOrigin(0.5);
+  bg.setInteractive({ useHandCursor: true });
+  if (style.alpha) {
+    bg.setAlpha(style.alpha);
+  }
 
-    // Standalone text (rendered just above bg)
-    const displayText = icon ? `${icon} ${label}` : label;
-    const text = scene.add.text(x, y, displayText, {
-        fontSize: dimensions.fontSize,
-        fill: style.textColor,
-        fontFamily: 'Arial, sans-serif',
-        fontStyle: 'bold',
-        align: 'center'
-    });
-    text.setOrigin(0.5);
+  // Standalone text (rendered just above bg)
+  const displayText = icon ? `${icon} ${label}` : label;
+  const text = scene.add.text(x, y, displayText, {
+    fontSize: dimensions.fontSize,
+    fill: style.textColor,
+    fontFamily: 'Arial, sans-serif',
+    fontStyle: 'bold',
+    align: 'center'
+  });
+  text.setOrigin(0.5);
 
-    // Scale both objects together (replaces container.setScale)
-    const setScale = (s) => { bg.setScale(s); text.setScale(s); };
+  // Scale both objects together (replaces container.setScale)
+  const setScale = (s) => {
+    bg.setScale(s); text.setScale(s);
+  };
 
-    // Interaction states
-    let isPressed = false;
+  // Interaction states
+  let isPressed = false;
 
-    bg.on('pointerover', () => {
-        if (!isPressed) {
-            bg.setFillStyle(style.bgColorHover);
-            if (style.alphaHover) bg.setAlpha(style.alphaHover);
-            setScale(1.03);
-        }
-    });
+  bg.on('pointerover', () => {
+    if (!isPressed) {
+      bg.setFillStyle(style.bgColorHover);
+      if (style.alphaHover) {
+        bg.setAlpha(style.alphaHover);
+      }
+      setScale(1.03);
+    }
+  });
 
-    bg.on('pointerout', () => {
-        if (!isPressed) {
-            bg.setFillStyle(style.bgColor);
-            if (style.alpha) bg.setAlpha(style.alpha);
-            setScale(1);
-        }
-    });
+  bg.on('pointerout', () => {
+    if (!isPressed) {
+      bg.setFillStyle(style.bgColor);
+      if (style.alpha) {
+        bg.setAlpha(style.alpha);
+      }
+      setScale(1);
+    }
+  });
 
-    bg.on('pointerdown', () => {
-        isPressed = true;
-        bg.setFillStyle(style.bgColorPressed);
-        if (style.alphaPressed) bg.setAlpha(style.alphaPressed);
-        setScale(0.97);
-    });
+  bg.on('pointerdown', () => {
+    isPressed = true;
+    bg.setFillStyle(style.bgColorPressed);
+    if (style.alphaPressed) {
+      bg.setAlpha(style.alphaPressed);
+    }
+    setScale(0.97);
+  });
 
-    bg.on('pointerup', () => {
-        isPressed = false;
-        bg.setFillStyle(style.bgColorHover);
-        if (style.alphaHover) bg.setAlpha(style.alphaHover);
-        setScale(1.03);
-        if (callback && typeof callback === 'function') {
-            callback();
-        }
-    });
+  bg.on('pointerup', () => {
+    isPressed = false;
+    bg.setFillStyle(style.bgColorHover);
+    if (style.alphaHover) {
+      bg.setAlpha(style.alphaHover);
+    }
+    setScale(1.03);
+    if (callback && typeof callback === 'function') {
+      callback();
+    }
+  });
 
-    // Compatibility shim so existing callers can still do:
-    //   btn.container.setScrollFactor(0).setDepth(N)
-    const containerShim = {
-        setScrollFactor: (sfx, sfy) => {
-            const sy = (sfy !== undefined) ? sfy : sfx;
-            bg.setScrollFactor(sfx, sy);
-            text.setScrollFactor(sfx, sy);
-            return containerShim;
-        },
-        setDepth: (d) => {
-            bg.setDepth(d);
-            text.setDepth(d + 1); // text always one layer above bg
-            return containerShim;
-        },
-        setPosition: (nx, ny) => {
-            bg.setPosition(nx, ny);
-            text.setPosition(nx, ny);
-            return containerShim;
-        },
-        setVisible: (v) => {
-            bg.setVisible(v);
-            text.setVisible(v);
-            return containerShim;
-        },
-        setScale: (s) => { setScale(s); return containerShim; },
-        setAlpha: (a) => { bg.setAlpha(a); text.setAlpha(a); return containerShim; },
-        setName: (n) => {
-            bg.setName(n);
-            return containerShim;
-        },
-        destroy: () => { bg.destroy(); text.destroy(); }
-    };
+  // Compatibility shim so existing callers can still do:
+  //   btn.container.setScrollFactor(0).setDepth(N)
+  const containerShim = {
+    setScrollFactor: (sfx, sfy) => {
+      const sy = (sfy !== undefined) ? sfy : sfx;
+      bg.setScrollFactor(sfx, sy);
+      text.setScrollFactor(sfx, sy);
+      return containerShim;
+    },
+    setDepth: (d) => {
+      bg.setDepth(d);
+      text.setDepth(d + 1); // text always one layer above bg
+      return containerShim;
+    },
+    setPosition: (nx, ny) => {
+      bg.setPosition(nx, ny);
+      text.setPosition(nx, ny);
+      return containerShim;
+    },
+    setVisible: (v) => {
+      bg.setVisible(v);
+      text.setVisible(v);
+      return containerShim;
+    },
+    setScale: (s) => {
+      setScale(s); return containerShim;
+    },
+    setAlpha: (a) => {
+      bg.setAlpha(a); text.setAlpha(a); return containerShim;
+    },
+    setName: (n) => {
+      bg.setName(n);
+      return containerShim;
+    },
+    destroy: () => {
+      bg.destroy(); text.destroy();
+    }
+  };
 
-    return {
-        container: containerShim,
-        background: bg,
-        text: text,
-        setPosition: (newX, newY) => { bg.setPosition(newX, newY); text.setPosition(newX, newY); },
-        setVisible: (visible) => { bg.setVisible(visible); text.setVisible(visible); },
-        setText: (newText) => {
-            text.setText(icon ? `${icon} ${newText}` : newText);
-        },
-        setEnabled: (enabled) => {
-            if (enabled) {
-                bg.setInteractive({ useHandCursor: true });
-                bg.setAlpha(style.alpha || 1);
-            } else {
-                bg.disableInteractive();
-                bg.setAlpha(0.5);
-            }
-        },
-        destroy: () => { bg.destroy(); text.destroy(); }
-    };
+  return {
+    container: containerShim,
+    background: bg,
+    text: text,
+    setPosition: (newX, newY) => {
+      bg.setPosition(newX, newY); text.setPosition(newX, newY);
+    },
+    setVisible: (visible) => {
+      bg.setVisible(visible); text.setVisible(visible);
+    },
+    setText: (newText) => {
+      text.setText(icon ? `${icon} ${newText}` : newText);
+    },
+    setEnabled: (enabled) => {
+      if (enabled) {
+        bg.setInteractive({ useHandCursor: true });
+        bg.setAlpha(style.alpha || 1);
+      } else {
+        bg.disableInteractive();
+        bg.setAlpha(0.5);
+      }
+    },
+    destroy: () => {
+      bg.destroy(); text.destroy();
+    }
+  };
 }
 
 /**
@@ -250,33 +274,33 @@ function createButton(scene, x, y, label, callback, options = {}) {
  * @returns {Object} Card object with {container, bg, destroy()}
  */
 function createCard(scene, x, y, width, height, options = {}) {
-    const {
-        bgColor = 0xFFFFFF,
-        borderColor = 0xE5E7EB,
-        borderWidth = 2,
-        shadowDepth = 3
-    } = options;
+  const {
+    bgColor = 0xFFFFFF,
+    borderColor = 0xE5E7EB,
+    borderWidth = 2,
+    shadowDepth = 3
+  } = options;
 
-    const container = scene.add.container(x, y);
+  const container = scene.add.container(x, y);
 
-    // Shadow
-    const shadow = scene.add.rectangle(0, shadowDepth, width, height, 0x000000, 0.1);
-    shadow.setOrigin(0.5);
+  // Shadow
+  const shadow = scene.add.rectangle(0, shadowDepth, width, height, 0x000000, 0.1);
+  shadow.setOrigin(0.5);
 
-    // Background
-    const bg = scene.add.rectangle(0, 0, width, height, bgColor);
-    bg.setOrigin(0.5);
-    bg.setStrokeStyle(borderWidth, borderColor);
+  // Background
+  const bg = scene.add.rectangle(0, 0, width, height, bgColor);
+  bg.setOrigin(0.5);
+  bg.setStrokeStyle(borderWidth, borderColor);
 
-    container.add([shadow, bg]);
+  container.add([shadow, bg]);
 
-    return {
-        container: container,
-        background: bg,
-        addChild: (child) => container.add(child),
-        setPosition: (newX, newY) => container.setPosition(newX, newY),
-        destroy: () => container.destroy()
-    };
+  return {
+    container: container,
+    background: bg,
+    addChild: (child) => container.add(child),
+    setPosition: (newX, newY) => container.setPosition(newX, newY),
+    destroy: () => container.destroy()
+  };
 }
 
 /**
@@ -291,42 +315,42 @@ function createCard(scene, x, y, width, height, options = {}) {
  * @returns {Object} Progress bar object with {container, update(), destroy()}
  */
 function createProgressBar(scene, x, y, width, height, options = {}) {
-    const {
-        bgColor = 0xE5E7EB,
-        fillColor = 0x10B981,
-        borderColor = 0x9CA3AF,
-        borderWidth = 2,
-        initialProgress = 0
-    } = options;
+  const {
+    bgColor = 0xE5E7EB,
+    fillColor = 0x10B981,
+    borderColor = 0x9CA3AF,
+    borderWidth = 2,
+    initialProgress = 0
+  } = options;
 
-    const container = scene.add.container(x, y);
+  const container = scene.add.container(x, y);
 
-    // Background
-    const bg = scene.add.rectangle(0, 0, width, height, bgColor);
-    bg.setOrigin(0, 0);
-    bg.setStrokeStyle(borderWidth, borderColor);
+  // Background
+  const bg = scene.add.rectangle(0, 0, width, height, bgColor);
+  bg.setOrigin(0, 0);
+  bg.setStrokeStyle(borderWidth, borderColor);
 
-    // Fill (progress indicator)
-    const fill = scene.add.rectangle(
-        borderWidth, borderWidth,
-        (width - borderWidth * 2) * initialProgress,
-        height - borderWidth * 2,
-        fillColor
-    );
-    fill.setOrigin(0, 0);
+  // Fill (progress indicator)
+  const fill = scene.add.rectangle(
+    borderWidth, borderWidth,
+    (width - borderWidth * 2) * initialProgress,
+    height - borderWidth * 2,
+    fillColor
+  );
+  fill.setOrigin(0, 0);
 
-    container.add([bg, fill]);
+  container.add([bg, fill]);
 
-    return {
-        container: container,
-        update: (progress) => {
-            // Clamp progress between 0 and 1
-            const clampedProgress = Math.max(0, Math.min(1, progress));
-            fill.width = (width - borderWidth * 2) * clampedProgress;
-        },
-        setPosition: (newX, newY) => container.setPosition(newX, newY),
-        destroy: () => container.destroy()
-    };
+  return {
+    container: container,
+    update: (progress) => {
+      // Clamp progress between 0 and 1
+      const clampedProgress = Math.max(0, Math.min(1, progress));
+      fill.width = (width - borderWidth * 2) * clampedProgress;
+    },
+    setPosition: (newX, newY) => container.setPosition(newX, newY),
+    destroy: () => container.destroy()
+  };
 }
 
 /**
@@ -340,36 +364,36 @@ function createProgressBar(scene, x, y, width, height, options = {}) {
  * @returns {Object} Score display object with {container, updateValue(), destroy()}
  */
 function createScoreDisplay(scene, x, y, label, initialValue = 0) {
-    const container = scene.add.container(x, y);
+  const container = scene.add.container(x, y);
 
-    // Label
-    const labelText = scene.add.text(0, 0, label, {
-        fontSize: '16px',
-        fill: '#6B7280',
-        fontFamily: 'Arial, sans-serif',
-        fontStyle: 'bold',
-        align: 'center'
-    });
-    labelText.setOrigin(0.5);
+  // Label
+  const labelText = scene.add.text(0, 0, label, {
+    fontSize: '16px',
+    fill: '#6B7280',
+    fontFamily: 'Arial, sans-serif',
+    fontStyle: 'bold',
+    align: 'center'
+  });
+  labelText.setOrigin(0.5);
 
-    // Value (large, prominent)
-    const valueText = scene.add.text(0, 30, initialValue.toString(), {
-        fontSize: '36px',
-        fill: '#1F2937',
-        fontFamily: 'Arial, sans-serif',
-        fontStyle: 'bold',
-        align: 'center'
-    });
-    valueText.setOrigin(0.5);
+  // Value (large, prominent)
+  const valueText = scene.add.text(0, 30, initialValue.toString(), {
+    fontSize: '36px',
+    fill: '#1F2937',
+    fontFamily: 'Arial, sans-serif',
+    fontStyle: 'bold',
+    align: 'center'
+  });
+  valueText.setOrigin(0.5);
 
-    container.add([labelText, valueText]);
+  container.add([labelText, valueText]);
 
-    return {
-        container: container,
-        updateValue: (newValue) => valueText.setText(newValue.toString()),
-        setPosition: (newX, newY) => container.setPosition(newX, newY),
-        destroy: () => container.destroy()
-    };
+  return {
+    container: container,
+    updateValue: (newValue) => valueText.setText(newValue.toString()),
+    setPosition: (newX, newY) => container.setPosition(newX, newY),
+    destroy: () => container.destroy()
+  };
 }
 
 /**
@@ -382,106 +406,108 @@ function createScoreDisplay(scene, x, y, label, initialValue = 0) {
  * @returns {Object} Modal object with {container, destroy()}
  */
 function createModal(scene, title, message, buttons = []) {
-    const container = scene.add.container(0, 0);
-    container.setDepth(1000); // Ensure it's on top
+  const container = scene.add.container(0, 0);
+  container.setDepth(1000); // Ensure it's on top
 
-    // Overlay (darkens background)
-    const overlay = scene.add.rectangle(
-        scene.scale.width / 2,
-        scene.scale.height / 2,
-        scene.scale.width,
-        scene.scale.height,
-        0x000000,
-        0.7
-    );
-    overlay.setInteractive(); // Blocks clicks to game behind
+  // Overlay (darkens background)
+  const overlay = scene.add.rectangle(
+    scene.scale.width / 2,
+    scene.scale.height / 2,
+    scene.scale.width,
+    scene.scale.height,
+    0x000000,
+    0.7
+  );
+  overlay.setInteractive(); // Blocks clicks to game behind
 
-    // Dialog box
-    const dialogWidth = Math.min(500, scene.scale.width * 0.9);
-    const dialogHeight = Math.min(350, scene.scale.height * 0.7);
+  // Dialog box
+  const dialogWidth = Math.min(500, scene.scale.width * 0.9);
+  const dialogHeight = Math.min(350, scene.scale.height * 0.7);
 
-    const dialog = scene.add.rectangle(
-        scene.scale.width / 2,
-        scene.scale.height / 2,
-        dialogWidth,
-        dialogHeight,
-        0xFFFFFF
-    );
-    dialog.setStrokeStyle(2, 0xE5E7EB);
+  const dialog = scene.add.rectangle(
+    scene.scale.width / 2,
+    scene.scale.height / 2,
+    dialogWidth,
+    dialogHeight,
+    0xFFFFFF
+  );
+  dialog.setStrokeStyle(2, 0xE5E7EB);
 
-    // Title
-    const titleText = scene.add.text(
-        scene.scale.width / 2,
-        scene.scale.height / 2 - dialogHeight / 3,
-        title,
-        {
-            fontSize: '28px',
-            fill: '#1F2937',
-            fontFamily: 'Arial, sans-serif',
-            fontStyle: 'bold',
-            align: 'center',
-            wordWrap: { width: dialogWidth - 40 }
+  // Title
+  const titleText = scene.add.text(
+    scene.scale.width / 2,
+    scene.scale.height / 2 - dialogHeight / 3,
+    title,
+    {
+      fontSize: '28px',
+      fill: '#1F2937',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      align: 'center',
+      wordWrap: { width: dialogWidth - 40 }
+    }
+  );
+  titleText.setOrigin(0.5);
+
+  // Message
+  const messageText = scene.add.text(
+    scene.scale.width / 2,
+    scene.scale.height / 2 - dialogHeight / 6,
+    message,
+    {
+      fontSize: '18px',
+      fill: '#4B5563',
+      fontFamily: 'Arial, sans-serif',
+      align: 'center',
+      wordWrap: { width: dialogWidth - 60 }
+    }
+  );
+  messageText.setOrigin(0.5);
+
+  container.add([overlay, dialog, titleText, messageText]);
+
+  // Add buttons
+  const buttonSpacing = 20;
+  const totalButtonWidth = buttons.length * 180 + (buttons.length - 1) * buttonSpacing;
+  const startX = scene.scale.width / 2 - totalButtonWidth / 2 + 90;
+  const buttonY = scene.scale.height / 2 + dialogHeight / 3;
+
+  buttons.forEach((btn, index) => {
+    const buttonX = startX + index * (180 + buttonSpacing);
+    const button = createButton(
+      scene,
+      buttonX,
+      buttonY,
+      btn.label,
+      () => {
+        if (btn.callback) {
+          btn.callback();
         }
+        container.destroy();
+      },
+      {
+        variant: btn.variant || ButtonVariants.PRIMARY,
+        size: ButtonSizes.MEDIUM
+      }
     );
-    titleText.setOrigin(0.5);
+    container.add([button.background, button.text]);
+  });
 
-    // Message
-    const messageText = scene.add.text(
-        scene.scale.width / 2,
-        scene.scale.height / 2 - dialogHeight / 6,
-        message,
-        {
-            fontSize: '18px',
-            fill: '#4B5563',
-            fontFamily: 'Arial, sans-serif',
-            align: 'center',
-            wordWrap: { width: dialogWidth - 60 }
-        }
-    );
-    messageText.setOrigin(0.5);
-
-    container.add([overlay, dialog, titleText, messageText]);
-
-    // Add buttons
-    const buttonSpacing = 20;
-    const totalButtonWidth = buttons.length * 180 + (buttons.length - 1) * buttonSpacing;
-    const startX = scene.scale.width / 2 - totalButtonWidth / 2 + 90;
-    const buttonY = scene.scale.height / 2 + dialogHeight / 3;
-
-    buttons.forEach((btn, index) => {
-        const buttonX = startX + index * (180 + buttonSpacing);
-        const button = createButton(
-            scene,
-            buttonX,
-            buttonY,
-            btn.label,
-            () => {
-                if (btn.callback) btn.callback();
-                container.destroy();
-            },
-            {
-                variant: btn.variant || ButtonVariants.PRIMARY,
-                size: ButtonSizes.MEDIUM
-            }
-        );
-        container.add([button.background, button.text]);
-    });
-
-    return {
-        container: container,
-        destroy: () => container.destroy()
-    };
+  return {
+    container: container,
+    destroy: () => container.destroy()
+  };
 }
 
 // Export for use in games
 if (typeof module !== 'undefined' && module.exports) {
-    module.exports = {
-        ButtonVariants,
-        ButtonSizes,
-        createButton,
-        createCard,
-        createProgressBar,
-        createScoreDisplay,
-        createModal
-    };
+  module.exports = {
+    ButtonVariants,
+    ButtonSizes,
+    createButton,
+    createCard,
+    createProgressBar,
+    createScoreDisplay,
+    createModal
+  };
 }

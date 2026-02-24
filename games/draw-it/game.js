@@ -2043,7 +2043,9 @@ function initDrawCanvas() {
   });
 
   canvas.addEventListener('mousemove', e => {
-    if (!state.isDrawing) return;
+    if (!state.isDrawing) {
+      return;
+    }
     const pos = getPos(e);
     ctx.beginPath();
     ctx.moveTo(state.lastX, state.lastY);
@@ -2078,7 +2080,9 @@ function initDrawCanvas() {
 
   canvas.addEventListener('touchmove', e => {
     e.preventDefault();
-    if (!state.isDrawing) return;
+    if (!state.isDrawing) {
+      return;
+    }
     const pos = getPos(e);
     ctx.beginPath();
     ctx.moveTo(state.lastX, state.lastY);

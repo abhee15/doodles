@@ -2,7 +2,9 @@
 const fs = require('fs');
 const path = require('path');
 const outDir = path.join(__dirname);
-if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true });
+if (!fs.existsSync(outDir)) {
+  fs.mkdirSync(outDir, { recursive: true });
+}
 
 const items = [
   {fn: '01_H_Hydrogen.svg', title: 'Hydrogen', colorBg: '#041826', accents: ['#E6F7FF'], shape: 'spark', caption: 'The tiny spark that starts the sea.'},
@@ -24,13 +26,13 @@ const items = [
   {fn: '17_Cl_Chlorine.svg', title: 'Chlorine', colorBg: '#e7fdf9', accents: ['#79d6b0','#5fbfa0'], shape: 'witch', caption: 'The tide-witch swirling the river.'},
   {fn: '18_Ar_Argon.svg', title: 'Argon', colorBg: '#eef7ff', accents: ['#bfe0ff','#ffffff'], shape: 'watchman', caption: 'The glass watchman—still and calm.'},
   {fn: '19_K_Potassium.svg', title: 'Potassium', colorBg: '#0b2b12', accents: ['#b7ffb7','#7de27d'], shape: 'gardener', caption: 'The gardener\'s green ladder-staff.'},
-  {fn: '20_Ca_Calcium.svg', title: 'Calcium', colorBg: '#fffaf7', accents: ['#ffd7c2','#ffcfa6'], shape: 'giant', caption: 'The giant holding the horizon.'},
+  {fn: '20_Ca_Calcium.svg', title: 'Calcium', colorBg: '#fffaf7', accents: ['#ffd7c2','#ffcfa6'], shape: 'giant', caption: 'The giant holding the horizon.'}
 ];
 
 function makeSVG(item) {
   const w = 2000, h = 2000;
   // Simple composition: background rect + central shape placeholder + title text + small caption
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'>\n  <rect width='100%' height='100%' fill='${item.colorBg}'/>\n  <g transform='translate(${w/2},${h/2})'>\n    <circle cx='0' cy='-150' r='380' fill='${item.accents[0]}' opacity='0.12'/>\n    <text x='0' y='-150' font-family='"Nunito", "Arial"' font-size='120' text-anchor='middle' fill='${item.accents[0]}' opacity='0.95'>${item.title}</text>\n    <rect x='-420' y='120' width='840' height='420' rx='30' fill='rgba(255,255,255,0.08)'/>\n    <text x='0' y='220' font-family='"Nunito", "Arial"' font-size='42' text-anchor='middle' fill='${item.accents[0]}' opacity='0.95'>${item.caption}</text>\n  </g>\n</svg>`;
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<svg xmlns='http://www.w3.org/2000/svg' width='${w}' height='${h}' viewBox='0 0 ${w} ${h}'>\n  <rect width='100%' height='100%' fill='${item.colorBg}'/>\n  <g transform='translate(${w / 2},${h / 2})'>\n    <circle cx='0' cy='-150' r='380' fill='${item.accents[0]}' opacity='0.12'/>\n    <text x='0' y='-150' font-family='"Nunito", "Arial"' font-size='120' text-anchor='middle' fill='${item.accents[0]}' opacity='0.95'>${item.title}</text>\n    <rect x='-420' y='120' width='840' height='420' rx='30' fill='rgba(255,255,255,0.08)'/>\n    <text x='0' y='220' font-family='"Nunito", "Arial"' font-size='42' text-anchor='middle' fill='${item.accents[0]}' opacity='0.95'>${item.caption}</text>\n  </g>\n</svg>`;
 }
 
 items.forEach(it => {

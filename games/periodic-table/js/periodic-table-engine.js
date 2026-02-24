@@ -12,7 +12,7 @@ class PeriodicTableGameEngine {
     this.elementData = null;
     this.score = 0;
     this.maxScore = 0;
-    
+
     this.init();
   }
 
@@ -32,10 +32,10 @@ class PeriodicTableGameEngine {
     try {
       const response = await fetch('periodic-table-data.json');
       const data = await response.json();
-      
+
       // Extract elements array from response
-      let elements = data.elements || data.items || [];
-      
+      const elements = data.elements || data.items || [];
+
       // Add chunk ID to all elements (all current elements are chunk 1)
       this.elementData = {
         elements: elements.map(el => ({
@@ -44,7 +44,7 @@ class PeriodicTableGameEngine {
           id: el.atomicNumber
         }))
       };
-      
+
       console.log('Element data loaded:', this.elementData.elements.length, 'elements');
     } catch (error) {
       console.error('Error loading element data:', error);
@@ -56,12 +56,14 @@ class PeriodicTableGameEngine {
    * Filter elements by chunk ID
    */
   filterElementsByChunk() {
-    if (!this.elementData.elements) return;
-    
+    if (!this.elementData.elements) {
+      return;
+    }
+
     this.elements = this.elementData.elements.filter(
       el => el.chunk === this.chunk
     );
-    
+
     console.log(`Loaded ${this.elements.length} elements for Chunk ${this.chunk}`);
   }
 
@@ -108,7 +110,7 @@ class PeriodicTableGameEngine {
       'rhyme_pegs': 'Rhyme Pegs'
     };
 
-    document.getElementById('game-title').textContent = 
+    document.getElementById('game-title').textContent =
       `${techniqueName[this.technique]} - ${chunkTitles[this.chunk]}`;
     document.getElementById('technique-badge').textContent = techniqueName[this.technique];
   }
@@ -117,13 +119,15 @@ class PeriodicTableGameEngine {
    * GET MEMORY TIP FOR SPECIFIC TECHNIQUE
    */
   getMemoryTip(element) {
-    if (!element) return '';
-    
+    if (!element) {
+      return '';
+    }
+
     // Try new structure first
     if (element.memory_tips && element.memory_tips[this.technique]) {
       return element.memory_tips[this.technique];
     }
-    
+
     // Fall back to old structure (direct fields)
     const fieldMap = {
       'story_chain': 'story',
@@ -132,7 +136,7 @@ class PeriodicTableGameEngine {
       'keyword_image': 'associationImage',
       'rhyme_pegs': 'rhymePeg'
     };
-    
+
     const fieldName = fieldMap[this.technique] || 'memory_tip';
     return element[fieldName] || element.memory_tip || element.name;
   }
@@ -142,7 +146,7 @@ class PeriodicTableGameEngine {
    */
   setupStoryChainUI() {
     console.log('Setting up Story Chain UI');
-    
+
     const uiDiv = document.getElementById('story-chain-ui');
     uiDiv.style.display = 'block';
 
@@ -167,7 +171,7 @@ class PeriodicTableGameEngine {
    */
   setupMemoryPalaceUI() {
     console.log('Setting up Memory Palace UI');
-    
+
     const uiDiv = document.getElementById('memory-palace-ui');
     uiDiv.style.display = 'block';
 
@@ -176,7 +180,7 @@ class PeriodicTableGameEngine {
     const rooms = [];
     const roomNames = ['Entrance Hall', 'Library', 'Throne Room', 'Garden', 'Treasury'];
     const roomIconNames = ['door-2', 'bookshelf', 'crown', 'plant-2', 'gems'];
-    
+
     for (let i = 0; i < this.elements.length; i += roomSize) {
       rooms.push(this.elements.slice(i, i + roomSize));
     }
@@ -242,7 +246,7 @@ class PeriodicTableGameEngine {
    */
   setupBodyMapUI() {
     console.log('Setting up Body Map UI');
-    
+
     const uiDiv = document.getElementById('body-map-ui');
     uiDiv.style.display = 'block';
 
@@ -294,8 +298,8 @@ class PeriodicTableGameEngine {
       <div class="all-zones-list">
         <h3>All Zones:</h3>
         ${this.elements.map((el, idx) => {
-          const zone = bodyZones[Math.min(idx, 7)];
-          return `
+    const zone = bodyZones[Math.min(idx, 7)];
+    return `
             <div class="zone-list-item" onclick="showBodyZoneDetails(${idx + 1})" style="--zone-color: ${zone.color}">
               <div class="zone-list-icon">${zone.icon}</div>
               <div class="zone-list-info">
@@ -305,7 +309,7 @@ class PeriodicTableGameEngine {
               <div class="zone-list-tip">${this.getMemoryTip(el)}</div>
             </div>
           `;
-        }).join('')}
+  }).join('')}
       </div>
     `;
 
@@ -319,7 +323,7 @@ class PeriodicTableGameEngine {
    */
   setupKeywordImageUI() {
     console.log('Setting up Keyword Image UI');
-    
+
     const uiDiv = document.getElementById('keyword-ui');
     uiDiv.style.display = 'block';
 
@@ -347,7 +351,7 @@ class PeriodicTableGameEngine {
    */
   setupRhymePegsUI() {
     console.log('Setting up Rhyme Pegs UI');
-    
+
     const uiDiv = document.getElementById('rhyme-pegs-ui');
     uiDiv.style.display = 'block';
 
@@ -400,7 +404,9 @@ class PeriodicTableGameEngine {
  * Global function to select palace room
  */
 function selectPalaceRoom(roomIdx) {
-  if (!gameEngine || !gameEngine.elements) return;
+  if (!gameEngine || !gameEngine.elements) {
+    return;
+  }
 
   // Highlight selected room
   document.querySelectorAll('.palace-room-card').forEach((card, idx) => {
@@ -437,7 +443,7 @@ let gameEngine = null;
 /**
  * Initialize game on page load
  */
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Get URL parameters
   const urlParams = new URLSearchParams(window.location.search);
   const chunk = urlParams.get('chunk') || '1';

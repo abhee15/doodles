@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /**
  * VISUAL ELEMENT CARDS WITH SIMPLIFIED MNEMONICS
  * Simple diagrams, icons, and short memory phrases for kids
@@ -79,7 +80,7 @@ function createElementVisual(element) {
 function createSimplifiedStoryCard(element, index, totalElements) {
   const typeInfo = getElementTypeInfo(element);
   const progressPercent = ((index + 1) / totalElements) * 100;
-  
+
   // Super short memory hooks
   const shortHooks = {
     'H': 'Floats up',
@@ -103,7 +104,7 @@ function createSimplifiedStoryCard(element, index, totalElements) {
     'K': 'Bounces water',
     'Ca': 'In bones'
   };
-  
+
   return `
     <div class="simplified-story-card" style="--element-color: ${typeInfo.color}; --element-light: ${typeInfo.lightColor};">
       <div class="ssc-progress-bar" style="width: ${progressPercent}%"></div>
@@ -204,7 +205,7 @@ function getTopUse(element) {
 function createProfessionalKeywordCard(element) {
   const typeInfo = getElementTypeInfo(element);
   const shortHook = getKeywordHook(element);
-  
+
   return `
     <div class="pro-keyword-card" style="--element-color: ${typeInfo.color};">
       <div class="pkc-visual-area">
@@ -258,11 +259,13 @@ function getKeywordHook(element) {
  * Create professional rhyme peg - visual + minimal text
  */
 function createProfessionalRhymePeg(element, pegNumber) {
-  if (!rhymePegs[pegNumber]) return '';
-  
+  if (!rhymePegs[pegNumber]) {
+    return '';
+  }
+
   const peg = rhymePegs[pegNumber];
   const typeInfo = getElementTypeInfo(element);
-  
+
   // Map peg to icon
   const pegIcons = {
     1: 'sun',
@@ -286,7 +289,7 @@ function createProfessionalRhymePeg(element, pegNumber) {
     19: 'sailboat',
     20: 'gift'
   };
-  
+
   return `
     <div class="pro-rhyme-card" style="--element-color: ${typeInfo.color};">
       <div class="prc-number">${pegNumber}</div>

@@ -387,7 +387,7 @@
 
 <!-- ══ NAV ══ -->
 <nav class="dom-nav">
-  <a href="../../index.html#body-map" id="nav-back-link"><i class="ti ti-arrow-left"></i> Back</a>
+  <a id="game-back-btn" href="../../index.html#body-map"><i class="ti ti-arrow-left"></i> Back</a>
   <span class="dom-nav-title" id="nav-title">Body Map</span>
   <span class="dom-nav-meta" id="nav-progress"></span>
 </nav>
@@ -395,7 +395,7 @@
 <!-- ══════════════════════════════════════
      START SCREEN
 ══════════════════════════════════════ -->
-<div id="screen-start" class="dom-screen active">
+<div data-screen="landing" class="dom-screen active">
   <div class="start-hero">
     <h1>🧠 Body Map</h1>
     <p>Learn all 47 US Presidents using your own body as a memory map!</p>
@@ -417,7 +417,7 @@
 <!-- ══════════════════════════════════════
      LEARN SCREEN
 ══════════════════════════════════════ -->
-<div id="screen-learn" class="dom-screen" style="flex-direction:column;">
+<div data-screen="learn" class="dom-screen" style="flex-direction:column;">
   <div class="progress-bar-wrap"><div class="progress-bar-fill" id="learn-bar"></div></div>
 
   <div class="learn-main">
@@ -512,14 +512,14 @@
   </div>
 
   <div class="learn-footer">
-    <button class="dom-btn dom-btn--ghost" id="btn-prev" onclick="prevStep()">
+    <button class="dom-btn dom-btn--ghost" id="btn-prev">
       <i class="ti ti-arrow-left"></i> Back
     </button>
     <div class="learn-footer-center">
       <div class="step-indicator" id="step-indicator">President 1 of 10</div>
       <div class="step-dots" id="step-dots"></div>
     </div>
-    <button class="dom-btn dom-btn--primary" id="btn-next" onclick="nextStep()">
+    <button class="dom-btn dom-btn--primary" id="btn-next">
       Next <i class="ti ti-arrow-right"></i>
     </button>
   </div>
@@ -528,7 +528,7 @@
 <!-- ══════════════════════════════════════
      QUIZ SCREEN
 ══════════════════════════════════════ -->
-<div id="screen-quiz" class="dom-screen" style="flex-direction:column;">
+<div data-screen="quiz" class="dom-screen" style="flex-direction:column;">
   <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-bar"></div></div>
 
   <div class="quiz-main">
@@ -553,19 +553,20 @@
 <!-- ══════════════════════════════════════
      SCORE SCREEN
 ══════════════════════════════════════ -->
-<div id="screen-score" class="dom-screen">
+<div data-screen="score" class="dom-screen">
   <div class="score-emoji" id="score-emoji">🌟</div>
   <div class="score-title" id="score-title">Quiz Complete!</div>
   <div class="score-num" id="score-num">8</div>
   <div class="score-out" id="score-out">out of 10 correct</div>
   <div class="score-sub" id="score-sub">Keep practicing the body map!</div>
   <div class="score-btns">
-    <button class="dom-btn dom-btn--ghost" onclick="replayBatch()"><i class="ti ti-arrow-back-up"></i> Try Again</button>
-    <button class="dom-btn dom-btn--ghost" onclick="goStart()"><i class="ti ti-layout-list"></i> All Batches</button>
-    <button class="dom-btn dom-btn--gold"  id="btn-next-batch" onclick="nextBatch()"><i class="ti ti-arrow-right"></i> Next Batch</button>
+    <button class="dom-btn dom-btn--ghost" id="btn-replay"><i class="ti ti-arrow-back-up"></i> Try Again</button>
+    <button class="dom-btn dom-btn--ghost" id="btn-all-batches"><i class="ti ti-layout-list"></i> All Batches</button>
+    <button class="dom-btn dom-btn--gold"  id="btn-next-batch"><i class="ti ti-arrow-right"></i> Next Batch</button>
   </div>
 </div>
 
+<script src="../../shared/navigation.js"></script>
 <script src="game.js"></script>
 
 <script src="../../shared/analytics.js"></script>

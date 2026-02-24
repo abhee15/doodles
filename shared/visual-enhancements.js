@@ -42,17 +42,27 @@ const rhymePegs = {
 function getElementTypeInfo(element) {
   // Determine element type based on properties or name
   let type = 'Other';
-  
-  if (element.symbol === 'H') type = 'Nonmetals';
-  else if (['Li', 'Na', 'K'].includes(element.symbol)) type = 'Alkali Metals';
-  else if (['Be', 'Mg', 'Ca'].includes(element.symbol)) type = 'Alkaline Earth Metals';
-  else if (['He', 'Ne', 'Ar'].includes(element.symbol)) type = 'Noble Gases';
-  else if (['F', 'Cl', 'Br'].includes(element.symbol)) type = 'Halogens';
-  else if (element.symbol === 'C') type = 'Nonmetals';
-  else if (['N', 'O', 'P', 'S'].includes(element.symbol)) type = 'Nonmetals';
-  else if (['Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn'].includes(element.symbol)) type = 'Transition Metals';
-  else if (['Al', 'Ga', 'In', 'Sn', 'Pb', 'Bi'].includes(element.symbol)) type = 'Post-transition Metals';
-  
+
+  if (element.symbol === 'H') {
+    type = 'Nonmetals';
+  } else if (['Li', 'Na', 'K'].includes(element.symbol)) {
+    type = 'Alkali Metals';
+  } else if (['Be', 'Mg', 'Ca'].includes(element.symbol)) {
+    type = 'Alkaline Earth Metals';
+  } else if (['He', 'Ne', 'Ar'].includes(element.symbol)) {
+    type = 'Noble Gases';
+  } else if (['F', 'Cl', 'Br'].includes(element.symbol)) {
+    type = 'Halogens';
+  } else if (element.symbol === 'C') {
+    type = 'Nonmetals';
+  } else if (['N', 'O', 'P', 'S'].includes(element.symbol)) {
+    type = 'Nonmetals';
+  } else if (['Sc', 'Ti', 'V', 'Cr', 'Mn', 'Fe', 'Co', 'Ni', 'Cu', 'Zn'].includes(element.symbol)) {
+    type = 'Transition Metals';
+  } else if (['Al', 'Ga', 'In', 'Sn', 'Pb', 'Bi'].includes(element.symbol)) {
+    type = 'Post-transition Metals';
+  }
+
   return {
     type,
     ...elementTypeColors[type] || elementTypeColors['Other']
@@ -65,7 +75,7 @@ function getElementTypeInfo(element) {
 function createStoryCard(element, index, totalElements) {
   const typeInfo = getElementTypeInfo(element);
   const progressPercent = ((index + 1) / totalElements) * 100;
-  
+
   return `
     <div class="story-card" style="--element-color: ${typeInfo.color}; --element-light: ${typeInfo.lightColor};">
       <div class="story-card-number">
@@ -105,7 +115,7 @@ function createStoryCard(element, index, totalElements) {
  */
 function createKeywordCard(element, index) {
   const typeInfo = getElementTypeInfo(element);
-  
+
   // Create a visual symbol representation
   const symbols = {
     'H': 'ti-droplet', 'He': 'ti-balloon-2', 'Li': 'ti-battery', 'Be': 'ti-tools', 'B': 'ti-flask-2',
@@ -113,10 +123,10 @@ function createKeywordCard(element, index) {
     'Na': 'ti-seasoning', 'Mg': 'ti-biceps-2', 'Al': 'ti-circle', 'Si': 'ti-beach', 'P': 'ti-bomb',
     'S': 'ti-volcano', 'Cl': 'ti-soap', 'Ar': 'ti-moon', 'K': 'ti-plant-2', 'Ca': 'ti-bone-off'
   };
-  
+
   const iconClass = symbols[element.symbol] || 'ti-atom-2';
   const visualSymbol = `<i class="ti ti-${iconClass}"></i>`;
-  
+
   return `
     <div class="keyword-card-enhanced" style="--element-color: ${typeInfo.color}; --element-light: ${typeInfo.lightColor};">
       <div class="keyword-top-bar" style="background: linear-gradient(135deg, ${typeInfo.color}, ${typeInfo.lightColor});">
@@ -151,11 +161,13 @@ function createKeywordCard(element, index) {
  * Create a rhyme peg card with vivid visualization
  */
 function createRhymePegCard(element, pegNumber) {
-  if (!rhymePegs[pegNumber]) return '';
-  
+  if (!rhymePegs[pegNumber]) {
+    return '';
+  }
+
   const peg = rhymePegs[pegNumber];
   const typeInfo = getElementTypeInfo(element);
-  
+
   return `
     <div class="rhyme-peg-card" style="--element-color: ${typeInfo.color};">
       <div class="rhyme-peg-header" style="background: linear-gradient(135deg, ${typeInfo.color}, #333);">
@@ -211,7 +223,7 @@ function getQuickMemoryTip(element) {
     'K': 'K = Potassium is bouncy! Explodes in water, very reactive',
     'Ca': 'Ca = Calcium is bones! Milk, bones, teeth, limestone'
   };
-  
+
   return tips[element.symbol] || `Remember ${element.symbol} = ${element.name}!`;
 }
 
@@ -220,7 +232,7 @@ function getQuickMemoryTip(element) {
  */
 function createMemoryTipsCard(element) {
   const typeInfo = getElementTypeInfo(element);
-  
+
   return `
     <div class="memory-tips-card" style="--element-color: ${typeInfo.color};">
       <div class="tips-header" style="border-left: 4px solid ${typeInfo.color};">

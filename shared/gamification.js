@@ -9,7 +9,7 @@ class GamificationSystem {
     this.gameKey = gameKey;
     this.storageKey = `doodles_gamification_${gameKey}`;
     this.sessionKey = `session_${gameKey}`;
-    
+
     // Load or initialize game state
     this.loadState();
   }
@@ -20,19 +20,19 @@ class GamificationSystem {
   loadState() {
     const saved = localStorage.getItem(this.storageKey);
     const session = sessionStorage.getItem(this.sessionKey);
-    
+
     if (saved) {
       this.state = JSON.parse(saved);
     } else {
       this.state = this.getDefaultState();
     }
-    
+
     if (session) {
       this.sessionState = JSON.parse(session);
     } else {
       this.sessionState = this.getDefaultSessionState();
     }
-    
+
     this.updateStreaks();
   }
 
@@ -84,7 +84,7 @@ class GamificationSystem {
   updateStreaks() {
     const today = new Date().toDateString();
     const lastPlay = this.state.lastPlayDate;
-    
+
     if (lastPlay === today) {
       // Same day - streak continues (already counted)
     } else if (new Date(lastPlay) - new Date(today) === -24 * 60 * 60 * 1000) {
@@ -94,7 +94,7 @@ class GamificationSystem {
       // Break in streak
       this.state.streak = 0;
     }
-    
+
     this.state.lastPlayDate = today;
   }
 
@@ -109,15 +109,15 @@ class GamificationSystem {
     const speedBonusPoints = speedBonus ? 5 : 0;
     const streakBonusPoints = Math.min(this.sessionState.currentStreak * 2, 20); // Max 20
     const totalPoints = basePoints + speedBonusPoints + streakBonusPoints;
-    
+
     // Update session state
     this.sessionState.sessionScore += totalPoints;
     this.sessionState.correctAnswers++;
     this.sessionState.currentStreak++;
-    
+
     // Update total state
     this.state.totalScore += totalPoints;
-    
+
     // Update technique stats
     if (technique && this.state.techniqueStats[technique]) {
       this.state.techniqueStats[technique].successes++;
@@ -126,17 +126,17 @@ class GamificationSystem {
       }
       this.sessionState.answersPerTechnique[technique].correct++;
     }
-    
+
     // Check for level up (every 200 points)
     const oldLevel = this.state.level;
     this.state.level = Math.floor(this.state.totalScore / 200) + 1;
     const leveledUp = this.state.level > oldLevel;
-    
+
     // Check for streak milestone
     this.checkMilestones();
-    
+
     this.save();
-    
+
     return {
       points: totalPoints,
       basePoints,
@@ -156,7 +156,7 @@ class GamificationSystem {
   recordIncorrectAnswer(technique = '') {
     this.sessionState.incorrectAnswers++;
     this.sessionState.currentStreak = 0;
-    
+
     if (technique && this.state.techniqueStats[technique]) {
       this.state.techniqueStats[technique].attempts++;
       if (!this.sessionState.answersPerTechnique[technique]) {
@@ -164,7 +164,7 @@ class GamificationSystem {
       }
       this.sessionState.answersPerTechnique[technique].incorrect++;
     }
-    
+
     this.save();
   }
 
@@ -185,44 +185,44 @@ class GamificationSystem {
    */
   checkMilestones() {
     const newBadges = [];
-    
+
     // First correct answer
     if (this.sessionState.correctAnswers === 1 && !this.state.milestones.firstCorrect) {
       this.state.milestones.firstCorrect = true;
       newBadges.push(this.createBadge('first_correct', 'First Step!', 'You got your first correct answer!'));
     }
-    
+
     // 5 in a row
     if (this.sessionState.currentStreak === 5 && !this.state.milestones.five_in_a_row) {
       this.state.milestones.five_in_a_row = true;
       newBadges.push(this.createBadge('five_in_a_row', 'On Fire!', '5 correct answers in a row!'));
     }
-    
+
     // 10 in a row
     if (this.sessionState.currentStreak === 10 && !this.state.milestones.ten_in_a_row) {
       this.state.milestones.ten_in_a_row = true;
       newBadges.push(this.createBadge('ten_in_a_row', 'Unstoppable!', '10 correct answers in a row!'));
     }
-    
+
     // Mastered all elements (20 learned)
     if (this.state.elementsLearned.length >= 20 && !this.state.milestones.all_elements) {
       this.state.milestones.all_elements = true;
       newBadges.push(this.createBadge('all_elements', 'Element Master!', 'You\'ve learned all 20 elements!'));
     }
-    
+
     // Master level (level 3+)
     if (this.state.level >= 3 && !this.state.milestones.master_level) {
       this.state.milestones.master_level = true;
       newBadges.push(this.createBadge('master_level', 'Memory Master!', 'You\'ve reached Master Level!'));
     }
-    
+
     // Add new badges to the collection
     newBadges.forEach(badge => {
       if (!this.state.badges.some(b => b.id === badge.id)) {
         this.state.badges.push(badge);
       }
     });
-    
+
     return newBadges;
   }
 
@@ -266,7 +266,7 @@ class GamificationSystem {
       correctAnswers: this.sessionState.correctAnswers,
       incorrectAnswers: this.sessionState.incorrectAnswers,
       totalAttempts: this.sessionState.correctAnswers + this.sessionState.incorrectAnswers,
-      accuracy: this.sessionState.correctAnswers + this.sessionState.incorrectAnswers > 0 
+      accuracy: this.sessionState.correctAnswers + this.sessionState.incorrectAnswers > 0
         ? Math.round((this.sessionState.correctAnswers / (this.sessionState.correctAnswers + this.sessionState.incorrectAnswers)) * 100)
         : 0,
       elementsLearned: this.state.elementsLearned.length,

@@ -5,7 +5,7 @@
  * Loaded globally as window.CATEGORIES and window.GAMES
  */
 
-var CATEGORIES = [
+const CATEGORIES = [
   { id: 'math',    label: 'Math & Numbers',      color: '#BF360C',
     footerHeading: 'Math & Numbers' },
   { id: 'memory',  label: 'Memory & Learning',   color: '#8B5CF6',
@@ -17,10 +17,10 @@ var CATEGORIES = [
   { id: 'science', label: 'Science & Nature',    color: '#2E7D32',
     footerHeading: 'Science & Memory' },
   { id: 'art',     label: 'Art & Creativity',    color: '#EC4899',
-    footerHeading: 'Art & Creativity' },
+    footerHeading: 'Art & Creativity' }
 ];
 
-var GAMES = [
+const GAMES = [
   {
     id: 'math-ladder', name: 'Math Ladder',
     category: 'math',
@@ -30,7 +30,7 @@ var GAMES = [
     pattern: 'repeating-linear-gradient(-55deg, transparent, transparent 6px, rgba(255,255,255,.06) 6px, rgba(255,255,255,.06) 12px)',
     patternSize: null, patternPosition: null,
     newUntil: null,
-    footerName: 'Math Ladder',
+    footerName: 'Math Ladder'
   },
   {
     id: 'number-ninja', name: 'Number Ninja',
@@ -42,7 +42,7 @@ var GAMES = [
     pattern: 'radial-gradient(circle, rgba(255,255,255,.15) 2px, transparent 2px) 50% 50% / 30px 30px, radial-gradient(circle, rgba(255,255,255,.08) 4px, transparent 4px) 50% 50% / 60px 60px, radial-gradient(circle, rgba(255,255,255,.05) 6px, transparent 6px) 50% 50% / 90px 90px',
     patternSize: null, patternPosition: null,
     newUntil: null,
-    footerName: 'Number Ninja',
+    footerName: 'Number Ninja'
   },
   {
     id: 'quick-math', name: 'Quick Math',
@@ -54,7 +54,7 @@ var GAMES = [
     pattern: 'repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 10deg, rgba(255,255,255,.04) 10deg, rgba(255,255,255,.04) 11deg)',
     patternSize: null, patternPosition: null,
     newUntil: null,
-    footerName: 'Quick Math',
+    footerName: 'Quick Math'
   },
   {
     id: 'measure-master', name: 'Measure Master',
@@ -66,7 +66,7 @@ var GAMES = [
     pattern: 'repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0px, rgba(255,255,255,.12) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0px, rgba(255,255,255,.06) 1px, transparent 1px, transparent 5px)',
     patternSize: null, patternPosition: null,
     newUntil: '2026-04-01',
-    footerName: 'Measure Master',
+    footerName: 'Measure Master'
   },
   {
     id: 'body-map', name: 'Body Map',
@@ -78,7 +78,7 @@ var GAMES = [
     pattern: null,
     patternSize: null, patternPosition: null,
     newUntil: '2026-04-01',
-    footerName: 'Body Map',
+    footerName: 'Body Map'
   },
   {
     id: 'periodic-table', name: 'Periodic Table Master',
@@ -90,7 +90,7 @@ var GAMES = [
     pattern: null,
     patternSize: null, patternPosition: null,
     newUntil: '2026-04-01',
-    footerName: 'Periodic Table Master',
+    footerName: 'Periodic Table Master'
   },
   {
     id: 'world-explorer', name: 'World Explorer',
@@ -102,7 +102,7 @@ var GAMES = [
     pattern: 'repeating-linear-gradient(0deg, rgba(255,255,255,.07) 0px, rgba(255,255,255,.07) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0px, rgba(255,255,255,.07) 1px, transparent 1px, transparent 20px)',
     patternSize: null, patternPosition: null,
     newUntil: null,
-    footerName: 'World Explorer',
+    footerName: 'World Explorer'
   },
   {
     id: 'earth-explorer', name: 'Earth Explorer',
@@ -114,7 +114,7 @@ var GAMES = [
     pattern: 'repeating-linear-gradient(30deg, transparent, transparent 8px, rgba(255,255,255,.06) 8px, rgba(255,255,255,.06) 16px)',
     patternSize: null, patternPosition: null,
     newUntil: null,
-    footerName: 'Earth Explorer',
+    footerName: 'Earth Explorer'
   },
   {
     id: 'word-explorer', name: 'Word Explorer',
@@ -127,7 +127,7 @@ var GAMES = [
     patternSize: '20px 20px',
     patternPosition: null,
     newUntil: null,
-    footerName: 'Word Explorer',
+    footerName: 'Word Explorer'
   },
   {
     id: 'solar-system', name: 'Planet Quest',
@@ -140,7 +140,7 @@ var GAMES = [
     patternSize: '50px 50px, 30px 30px, 20px 20px',
     patternPosition: '0 0, 10px 15px, 25px 5px',
     newUntil: '2026-04-01',
-    footerName: 'Planet Quest',
+    footerName: 'Planet Quest'
   },
   {
     id: 'dino-hunter', name: 'Dino Hunter',
@@ -153,7 +153,7 @@ var GAMES = [
     patternSize: '28px 28px',
     patternPosition: null,
     newUntil: null,
-    footerName: 'Dino Hunter',
+    footerName: 'Dino Hunter'
   },
   {
     id: 'draw-it', name: 'Draw It',
@@ -165,6 +165,6 @@ var GAMES = [
     pattern: null,
     patternSize: null, patternPosition: null,
     newUntil: '2026-04-01',
-    footerName: 'Draw It',
-  },
+    footerName: 'Draw It'
+  }
 ];
