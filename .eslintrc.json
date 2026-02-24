@@ -26,7 +26,12 @@
     "createScoreDisplay": "readonly",
     "createModal": "readonly",
     "ButtonVariants": "readonly",
-    "ButtonSizes": "readonly"
+    "ButtonSizes": "readonly",
+    "GameNavigation": "readonly",
+    "gameNav": "writable",
+    "gameAnalytics": "readonly",
+    "gtag": "readonly",
+    "dataLayer": "writable"
   },
   "rules": {
     "no-unused-vars": [
@@ -52,11 +57,14 @@
     "comma-dangle": ["error", "never"],
     "no-trailing-spaces": "error",
     "no-multiple-empty-lines": ["error", { "max": 2 }],
-    "space-before-function-paren": ["error", {
-      "anonymous": "always",
-      "named": "never",
-      "asyncArrow": "always"
-    }],
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
     "keyword-spacing": "error",
     "space-infix-ops": "error",
     "no-var": "error",
