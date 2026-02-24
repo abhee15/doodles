@@ -75,7 +75,34 @@ const H = 650;
 const SUN_X = 360;
 const SUN_Y = H / 2;
 
-// ── Entry point (called from HTML) ─────────────────────────────
+// ── Initialize mode buttons ───────────────────────────────────
+function initModeButtons() {
+  const btnExplore = document.getElementById('btn-explore');
+  const btnQuiz = document.getElementById('btn-quiz');
+
+  if (btnExplore) {
+    btnExplore.onclick = function() {
+      document.getElementById('mode-screen').style.display = 'none';
+      window.startPlanetQuest('explore');
+    };
+  }
+
+  if (btnQuiz) {
+    btnQuiz.onclick = function() {
+      document.getElementById('mode-screen').style.display = 'none';
+      window.startPlanetQuest('quiz');
+    };
+  }
+}
+
+// Call when page loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initModeButtons);
+} else {
+  initModeButtons();
+}
+
+// ── Entry point (called when game mode is selected) ────────────
 window.startPlanetQuest = function (mode) {
     gameMode = mode;
     quizScore = 0;
