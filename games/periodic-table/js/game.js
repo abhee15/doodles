@@ -53,26 +53,26 @@ function startRecall() {
 
   // Hide study phase, show recall phase based on technique
   switch (technique) {
-    case 'story_chain':
-      document.getElementById('story-phase').style.display = 'none';
-      document.getElementById('recall-phase').style.display = 'block';
-      break;
-    case 'memory_palace':
-      document.getElementById('palace-phase').style.display = 'none';
-      document.getElementById('palace-recall').style.display = 'block';
-      break;
-    case 'body_map':
-      document.getElementById('body-phase').style.display = 'none';
-      document.getElementById('body-recall').style.display = 'block';
-      break;
-    case 'keyword_image':
-      document.getElementById('keyword-phase').style.display = 'none';
-      document.getElementById('keyword-recall').style.display = 'block';
-      break;
-    case 'rhyme_pegs':
-      document.getElementById('rhyme-phase').style.display = 'none';
-      document.getElementById('rhyme-recall').style.display = 'block';
-      break;
+  case 'story_chain':
+    document.getElementById('story-phase').style.display = 'none';
+    document.getElementById('recall-phase').style.display = 'block';
+    break;
+  case 'memory_palace':
+    document.getElementById('palace-phase').style.display = 'none';
+    document.getElementById('palace-recall').style.display = 'block';
+    break;
+  case 'body_map':
+    document.getElementById('body-phase').style.display = 'none';
+    document.getElementById('body-recall').style.display = 'block';
+    break;
+  case 'keyword_image':
+    document.getElementById('keyword-phase').style.display = 'none';
+    document.getElementById('keyword-recall').style.display = 'block';
+    break;
+  case 'rhyme_pegs':
+    document.getElementById('rhyme-phase').style.display = 'none';
+    document.getElementById('rhyme-recall').style.display = 'block';
+    break;
   }
 
   buildRecallUI();
@@ -94,26 +94,26 @@ function buildRecallUI() {
 
   // Get the correct recall grid based on technique
   switch (technique) {
-    case 'story_chain':
-      recallGrid = document.getElementById('recall-grid');
-      gridId = 'recall-grid';
-      break;
-    case 'memory_palace':
-      recallGrid = document.getElementById('palace-recall-grid');
-      gridId = 'palace-recall-grid';
-      break;
-    case 'body_map':
-      recallGrid = document.getElementById('body-recall-grid');
-      gridId = 'body-recall-grid';
-      break;
-    case 'keyword_image':
-      recallGrid = document.getElementById('keyword-recall-grid');
-      gridId = 'keyword-recall-grid';
-      break;
-    case 'rhyme_pegs':
-      recallGrid = document.getElementById('rhyme-recall-grid');
-      gridId = 'rhyme-recall-grid';
-      break;
+  case 'story_chain':
+    recallGrid = document.getElementById('recall-grid');
+    gridId = 'recall-grid';
+    break;
+  case 'memory_palace':
+    recallGrid = document.getElementById('palace-recall-grid');
+    gridId = 'palace-recall-grid';
+    break;
+  case 'body_map':
+    recallGrid = document.getElementById('body-recall-grid');
+    gridId = 'body-recall-grid';
+    break;
+  case 'keyword_image':
+    recallGrid = document.getElementById('keyword-recall-grid');
+    gridId = 'keyword-recall-grid';
+    break;
+  case 'rhyme_pegs':
+    recallGrid = document.getElementById('rhyme-recall-grid');
+    gridId = 'rhyme-recall-grid';
+    break;
   }
 
   if (!recallGrid) {
@@ -134,14 +134,14 @@ function buildRecallUI() {
         <div class="recall-question">What's element #${el.atomicNumber}?</div>
         <div class="recall-options">
           ${shuffledElements
-            .map(
-              (opt, optIdx) => `
+    .map(
+      (opt, optIdx) => `
             <button class="recall-btn" onclick="checkAnswer(${idx}, '${opt.symbol}', '${gridId}')">
               ${opt.symbol}
             </button>
           `
-            )
-            .join('')}
+    )
+    .join('')}
         </div>
       </div>
     `
@@ -155,14 +155,14 @@ function buildRecallUI() {
         <div class="recall-question">${el.name} (${el.symbol}) was in which room?</div>
         <div class="recall-options">
           ${['Entrance Hall', 'Library', 'Throne Room', 'Garden', 'Treasury']
-            .map(
-              (room, roomIdx) => `
+    .map(
+      (room, roomIdx) => `
             <button class="recall-btn" onclick="checkAnswerRoom(${idx}, ${roomIdx}, '${gridId}')">
               ${room}
             </button>
           `
-            )
-            .join('')}
+    )
+    .join('')}
         </div>
       </div>
     `
@@ -186,14 +186,14 @@ function buildRecallUI() {
         <div class="recall-question">${el.name} (${el.symbol}) was anchored to which body part?</div>
         <div class="recall-options">
           ${bodyParts
-            .map(
-              (part, partIdx) => `
+    .map(
+      (part, partIdx) => `
             <button class="recall-btn" onclick="checkAnswerBodyPart(${idx}, ${partIdx}, '${gridId}')">
               ${part}
             </button>
           `
-            )
-            .join('')}
+    )
+    .join('')}
         </div>
       </div>
     `
@@ -207,14 +207,14 @@ function buildRecallUI() {
         <div class="recall-question">What's the keyword for ${el.name}?</div>
         <div class="recall-options">
           ${shuffledElements
-            .map(
-              (opt, optIdx) => `
+    .map(
+      (opt, optIdx) => `
             <button class="recall-btn" onclick="checkAnswerKeyword(${idx}, '${opt.symbol}', '${gridId}')">
               ${opt.name}
             </button>
           `
-            )
-            .join('')}
+    )
+    .join('')}
         </div>
       </div>
     `
@@ -228,14 +228,14 @@ function buildRecallUI() {
         <div class="recall-question">Which element goes with peg #${idx + 1}?</div>
         <div class="recall-options">
           ${shuffledElements
-            .map(
-              (opt, optIdx) => `
+    .map(
+      (opt, optIdx) => `
             <button class="recall-btn" onclick="checkAnswer(${idx}, '${opt.symbol}', '${gridId}')">
               ${opt.symbol} - ${opt.name}
             </button>
           `
-            )
-            .join('')}
+    )
+    .join('')}
         </div>
       </div>
     `
@@ -418,31 +418,31 @@ function showResults() {
 
   // Get correct results div based on technique
   switch (technique) {
-    case 'story_chain':
-      resultsDivId = 'recall-results';
-      resultTextId = 'results-text';
-      badgesDivId = 'badges-display';
-      break;
-    case 'memory_palace':
-      resultsDivId = 'palace-recall-results';
-      resultTextId = 'palace-results-text';
-      badgesDivId = 'palace-badges-display';
-      break;
-    case 'body_map':
-      resultsDivId = 'body-recall-results';
-      resultTextId = 'body-results-text';
-      badgesDivId = 'body-badges-display';
-      break;
-    case 'keyword_image':
-      resultsDivId = 'keyword-recall-results';
-      resultTextId = 'keyword-results-text';
-      badgesDivId = 'keyword-badges-display';
-      break;
-    case 'rhyme_pegs':
-      resultsDivId = 'rhyme-recall-results';
-      resultTextId = 'rhyme-results-text';
-      badgesDivId = 'rhyme-badges-display';
-      break;
+  case 'story_chain':
+    resultsDivId = 'recall-results';
+    resultTextId = 'results-text';
+    badgesDivId = 'badges-display';
+    break;
+  case 'memory_palace':
+    resultsDivId = 'palace-recall-results';
+    resultTextId = 'palace-results-text';
+    badgesDivId = 'palace-badges-display';
+    break;
+  case 'body_map':
+    resultsDivId = 'body-recall-results';
+    resultTextId = 'body-results-text';
+    badgesDivId = 'body-badges-display';
+    break;
+  case 'keyword_image':
+    resultsDivId = 'keyword-recall-results';
+    resultTextId = 'keyword-results-text';
+    badgesDivId = 'keyword-badges-display';
+    break;
+  case 'rhyme_pegs':
+    resultsDivId = 'rhyme-recall-results';
+    resultTextId = 'rhyme-results-text';
+    badgesDivId = 'rhyme-badges-display';
+    break;
   }
 
   const resultsDiv = document.getElementById(resultsDivId);
@@ -466,16 +466,16 @@ function showResults() {
         badgesDisplay.innerHTML = `
           <h3 style="margin-top: 20px; text-align: center;"><i class="ti ti-trophy"></i> Achievements Unlocked!</h3>
           ${stats.badges
-            .map(
-              badge => `
+    .map(
+      badge => `
             <div class="badge earned" title="${badge.description}">
               <div class="badge-icon">${badge.icon}</div>
               <div class="badge-title">${badge.title}</div>
               <div class="badge-description">${badge.description}</div>
             </div>
           `
-            )
-            .join('')}
+    )
+    .join('')}
         `;
         badgesDisplay.style.display = 'grid';
       }

@@ -160,19 +160,19 @@ const TUTORIAL_STEPS = {
         html: `
                     <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; max-width: 200px; margin: 0 auto;">
                         ${Array(5)
-                          .fill(0)
-                          .map(
-                            () =>
-                              '<div style="background: var(--qm-orange); width: 30px; height: 30px; border-radius: 4px;"></div>'
-                          )
-                          .join('')}
+    .fill(0)
+    .map(
+      () =>
+        '<div style="background: var(--qm-orange); width: 30px; height: 30px; border-radius: 4px;"></div>'
+    )
+    .join('')}
                         ${Array(5)
-                          .fill(0)
-                          .map(
-                            () =>
-                              '<div style="background: var(--qm-orange); width: 30px; height: 30px; border-radius: 4px;"></div>'
-                          )
-                          .join('')}
+    .fill(0)
+    .map(
+      () =>
+        '<div style="background: var(--qm-orange); width: 30px; height: 30px; border-radius: 4px;"></div>'
+    )
+    .join('')}
                     </div>
                     <div style="text-align: center; margin-top: 10px; font-size: 12px; color: var(--dom-text-muted);">5 rows × 5 columns = 25 squares!</div>
                 `
@@ -375,15 +375,15 @@ const TUTORIAL_STEPS = {
         html: `
                     <div style="display: flex; flex-direction: column; gap: 10px; max-width: 250px; margin: 0 auto;">
                         ${[1, 2, 3, 4, 5]
-                          .map(
-                            n => `
+    .map(
+      n => `
                             <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: color-mix(in srgb, var(--qm-orange) 15%, white); border-radius: 4px;">
                                 <span style="font-weight: bold;">${n}×9 = ${n * 9}</span>
                                 <span style="color: var(--qm-orange); font-weight: bold;">${n - 1}${10 - n}</span>
                             </div>
                         `
-                          )
-                          .join('')}
+    )
+    .join('')}
                     </div>
                 `
       },
@@ -1015,50 +1015,50 @@ function playSound(type) {
   gainNode.connect(audioContext.destination);
 
   switch (type) {
-    case 'success':
-      oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
-      oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
-      oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2);
-      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.3);
-      break;
+  case 'success':
+    oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime);
+    oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1);
+    oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2);
+    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.3);
+    break;
 
-    case 'error':
-      oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
-      oscillator.frequency.setValueAtTime(200, audioContext.currentTime + 0.15);
-      oscillator.type = 'sawtooth';
-      gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.2);
-      break;
+  case 'error':
+    oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+    oscillator.frequency.setValueAtTime(200, audioContext.currentTime + 0.15);
+    oscillator.type = 'sawtooth';
+    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.2);
+    break;
 
-    case 'click':
-      oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-      oscillator.type = 'sine';
-      gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-      oscillator.start(audioContext.currentTime);
-      oscillator.stop(audioContext.currentTime + 0.05);
-      break;
+  case 'click':
+    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+    oscillator.type = 'sine';
+    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.05);
+    break;
 
-    case 'celebrate': {
-      const frequencies = [523.25, 659.25, 783.99, 1046.5];
-      frequencies.forEach((freq, i) => {
-        const osc = audioContext.createOscillator();
-        const gain = audioContext.createGain();
-        osc.connect(gain);
-        gain.connect(audioContext.destination);
-        osc.frequency.setValueAtTime(freq, audioContext.currentTime + i * 0.1);
-        gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.1);
-        gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.3);
-        osc.start(audioContext.currentTime + i * 0.1);
-        osc.stop(audioContext.currentTime + i * 0.1 + 0.3);
-      });
-      return;
-    }
+  case 'celebrate': {
+    const frequencies = [523.25, 659.25, 783.99, 1046.5];
+    frequencies.forEach((freq, i) => {
+      const osc = audioContext.createOscillator();
+      const gain = audioContext.createGain();
+      osc.connect(gain);
+      gain.connect(audioContext.destination);
+      osc.frequency.setValueAtTime(freq, audioContext.currentTime + i * 0.1);
+      gain.gain.setValueAtTime(0.2, audioContext.currentTime + i * 0.1);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.3);
+      osc.start(audioContext.currentTime + i * 0.1);
+      osc.stop(audioContext.currentTime + i * 0.1 + 0.3);
+    });
+    return;
+  }
   }
 }
 
