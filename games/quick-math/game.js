@@ -39,7 +39,17 @@ const LEVELS = [
     { id: 13, name: 'Multiply by 99', icon: '×99', desc: 'n×100−n shortcut', color: '#6D28D9' },
     { id: 14, name: '×11 Extended', icon: '11++', desc: 'With carry logic', color: '#2563EB' },
     { id: 15, name: 'Differ by 2', icon: 'n±1', desc: 'Sandwich squares', color: '#D97706' },
-    { id: 16, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: '#0D9488' }
+    { id: 16, name: 'Same Tens', icon: 'ab', desc: 'Ones sum to 10', color: '#0D9488' },
+    { id: 17, name: 'Multiply by 3', icon: '×3', desc: 'Triple tricks', color: '#EC4899' },
+    { id: 18, name: 'Multiply by 7', icon: '×7', desc: 'Cross magic', color: '#8B5CF6' },
+    { id: 19, name: 'Multiply by 20', icon: '×20', desc: '×2 then ×10', color: '#F59E0B' },
+    { id: 20, name: 'Multiply by 30', icon: '×30', desc: '×3 then ×10', color: '#14B8A6' },
+    { id: 21, name: 'Square by 1', icon: '1²', desc: 'Numbers ending in 1', color: '#06B6D4' },
+    { id: 22, name: 'Square by 6', icon: '6²', desc: 'Numbers ending in 6', color: '#F97316' },
+    { id: 23, name: 'Near 50', icon: '~50', desc: 'Base 50 method', color: '#3B82F6' },
+    { id: 24, name: 'Divide by 5', icon: '÷5', desc: '×2 then ÷10', color: '#10B981' },
+    { id: 25, name: 'Cross Multiply', icon: '2×2', desc: 'Two-digit magic', color: '#DC2626' },
+    { id: 26, name: 'Divisibility 9', icon: '÷9✓', desc: 'Digital root trick', color: '#7C3AED' }
 ];
 
 // ==================== TUTORIAL DATA ====================
@@ -471,6 +481,56 @@ const TUTORIAL_STEPS = {
         { title: 'The Condition', text: '23 × 27:\nSame tens digit: 2\nOnes sum to 10: 3+7=10\n\nSpecial pattern!', example: '', steps: ['🔹 Tens digit T = 2', '🔹 Ones digits: A=3, (10−A)=7'] },
         { title: 'The Formula', text: 'Left part: T×(T+1) = 2×3 = 6\nRight part: A×(10−A) = 3×7 = 21\nConcat: 621', example: '23 × 27 = 621', steps: ['➕ Left: 2 × 3 = 6', '✖️ Right: 3 × 7 = 21', '🔗 Concat: 621'] },
         { title: 'Another Example', text: '44 × 46 = [4×5][4×6] = [20][24] = 2024', example: '✨ Master Pattern! ✨', tip: 'This works because the ones digits "complete each other" to 10!' }
+    ],
+    17: [
+        { title: 'Multiply by 3', text: 'Learn the triple trick!', example: '', mnemonic: '×3 = ×2 + ×1' },
+        { title: 'The Secret', text: '3 = 2 + 1\n\nSo ×3 = ×2 + ×1\n\nDouble the number, then add it once more!', example: '5 × 3 = ?', steps: ['📍 Double: 5 × 2 = 10', '➕ Add once: 10 + 5 = 15'] },
+        { title: 'More Examples', text: '7 × 3 = 14 + 7 = 21\n8 × 3 = 16 + 8 = 24\n12 × 3 = 24 + 12 = 36', example: '✨ Double & Add! ✨', tip: 'Super simple: just double it, then add the original!' }
+    ],
+    18: [
+        { title: 'Multiply by 7', text: 'The Cross Multiplication Magic!', example: '', mnemonic: '×7 = ×5 + ×2' },
+        { title: 'Break It Down', text: '7 = 5 + 2\n\nSo ×7 = ×5 + ×2\n\nMultiply by 5, then add twice!', example: '6 × 7 = ?', steps: ['📍 Multiply by 5: 6 × 5 = 30', '📍 Double: 6 × 2 = 12', '✅ Add: 30 + 12 = 42'] },
+        { title: 'Pattern Recognition', text: '4 × 7 = 20 + 8 = 28\n8 × 7 = 40 + 16 = 56\n9 × 7 = 45 + 18 = 63', example: '✨ 5 + 2 = 7! ✨', tip: 'Using 5 makes multiplication easier since we can halve!' }
+    ],
+    19: [
+        { title: 'Multiply by 20', text: 'Double the number, then ×10!', example: '', mnemonic: '(×2) then (×10) = ×20' },
+        { title: 'The Strategy', text: '20 = 2 × 10\n\nSo ×20 = ×2 then ×10\nWhich means: Double, then add a 0!', example: '7 × 20 = ?', steps: ['📍 Double: 7 × 2 = 14', '📍 Add a zero: 140'] },
+        { title: 'Quick Examples', text: '5 × 20 = 10 × 10 = 100\n8 × 20 = 16 × 10 = 160\n12 × 20 = 24 × 10 = 240', example: '✨ Double & Zero! ✨' }
+    ],
+    20: [
+        { title: 'Multiply by 30', text: 'Triple the number, then ×10!', example: '', mnemonic: '(×3) then (×10) = ×30' },
+        { title: 'The Strategy', text: '30 = 3 × 10\n\nSo ×30 = ×3 then ×10\nWhich means: Triple, then add a 0!', example: '4 × 30 = ?', steps: ['📍 Triple (×3): 4 × 3 = 12', '📍 Add a zero: 120'] },
+        { title: 'Examples', text: '5 × 30 = 15 × 10 = 150\n6 × 30 = 18 × 10 = 180\n7 × 30 = 21 × 10 = 210', example: '✨ Triple & Zero! ✨' }
+    ],
+    21: [
+        { title: 'Square Numbers Ending in 1', text: 'Pattern for 21, 31, 41, etc.!', example: '', mnemonic: '(N-1)² + 2N' },
+        { title: 'The Formula', text: 'Numbers ending in 1 square using:\nN1² = (N×10+1)² = 100N² + 20N + 1', example: '21² = ?', steps: ['📍 Use pattern: 20² + 2(20×1) + 1', '📍 = 400 + 40 + 1 = 441'] },
+        { title: 'More Examples', text: '31² = 30² + 2(30) + 1 = 900 + 60 + 1 = 961\n41² = 40² + 2(40) + 1 = 1600 + 80 + 1 = 1681', example: '✨ Ending in 1 Magic! ✨' }
+    ],
+    22: [
+        { title: 'Square Numbers Ending in 6', text: 'The Complementary Pattern!', example: '', mnemonic: '6² always ends in 6!' },
+        { title: 'Magic Property', text: 'Numbers ending in 6 have a special property:\nWhen you square them, they ALWAYS end in 6!\n\n6² = 36 (ends in 6)\n16² = 256 (ends in 6)\n26² = 676 (ends in 6)', example: '26² = ?', steps: ['🎯 Last digit: Always 6', '📍 Use formula: (20+6)² = 400 + 240 + 36 = 676'] },
+        { title: 'Why This Happens', text: 'Because 6 × 6 = 36, which ends in 6!\n\nAny number ending in 6 × 6 will end in 6!', example: '✨ 6 is Magic! ✨' }
+    ],
+    23: [
+        { title: 'Numbers Near 50', text: 'The Base 50 Method!', example: '', mnemonic: 'Base 50: Close to middle' },
+        { title: 'The Strategy', text: '50 is a great base number!\n\nFor 48 × 52:\n48 = 50 - 2\n52 = 50 + 2\n\nUse the formula: (50-2)(50+2) = 50² - 2² = 2500 - 4 = 2496', example: '48 × 52 = 2496', steps: ['📍 Distance from 50: -2 and +2', '📍 (50)² = 2500', '📍 2² = 4', '📍 2500 - 4 = 2496'] },
+        { title: 'More Examples', text: '49 × 51 = 50² - 1² = 2500 - 1 = 2499\n47 × 53 = 50² - 3² = 2500 - 9 = 2491', example: '✨ Base 50 Works! ✨' }
+    ],
+    24: [
+        { title: 'Divide by 5', text: 'The Reverse of ×5!', example: '', mnemonic: '×2 then ÷10 = ÷5' },
+        { title: 'The Trick', text: '÷5 = ×2 ÷10\n\nDouble the number, then remove a 0!\n\n20 ÷ 5 = ?', example: '20 ÷ 5 = 4', steps: ['📍 Double: 20 × 2 = 40', '📍 Remove a zero: 40 ÷ 10 = 4'] },
+        { title: 'Examples', text: '30 ÷ 5 = 60 ÷ 10 = 6\n50 ÷ 5 = 100 ÷ 10 = 10\n80 ÷ 5 = 160 ÷ 10 = 16', example: '✨ Double & Divide! ✨', tip: 'This is the reverse of the ×5 trick!' }
+    ],
+    25: [
+        { title: 'Cross Multiplication', text: 'Two-Digit × Two-Digit Magic!', example: '', mnemonic: 'Left | Middle | Right' },
+        { title: 'The Pattern', text: 'For 23 × 14:\nStep 1: Right side: 3 × 4 = 12 (write 2, carry 1)\nStep 2: Cross: (2×4) + (3×1) = 11 + carry 1 = 12 (write 2, carry 1)\nStep 3: Left: 2 × 1 = 2 + carry 1 = 3\nAnswer: 322', example: '23 × 14 = 322', steps: ['🔹 Right (ones): 3 × 4 = 12 → 2, carry 1', '🔹 Cross (mixed): 2×4 + 3×1 = 11, + 1 = 12 → 2, carry 1', '🔹 Left (tens): 2 × 1 = 2, + 1 = 3', '✅ Answer: 322'] },
+        { title: 'More Practice', text: '12 × 13 = 156\n24 × 15 = 360\n31 × 22 = 682', example: '✨ Cross Multiply! ✨' }
+    ],
+    26: [
+        { title: 'Divisibility by 9', text: 'The Digital Root Trick!', example: '', mnemonic: 'Sum digits = 9? Divisible! ✓' },
+        { title: 'The Rule', text: 'A number is divisible by 9 if the sum of its digits equals 9 (or a multiple of 9)!\n\nExample: 27\n2 + 7 = 9 ✓ Divisible!\n\nExample: 45\n4 + 5 = 9 ✓ Divisible!', example: '✨ Digital Magic! ✨', steps: ['📍 Check: Is 36 divisible by 9?', '📍 Sum digits: 3 + 6 = 9 ✓', '📍 YES! 36 ÷ 9 = 4'] },
+        { title: 'Test Your Knowledge', text: 'Is 72 divisible by 9?\n7 + 2 = 9 ✓ YES!\n\nIs 81 divisible by 9?\n8 + 1 = 9 ✓ YES!\n\nIs 50 divisible by 9?\n5 + 0 = 5 ✗ NO!', example: '✨ Check Any Number! ✨', tip: 'This also works for divisibility by 3 (digits sum to 3, 6, or 9)!' }
     ]
 };
 
@@ -1031,6 +1091,66 @@ function generateQuestion(levelId) {
         num2 = T * 10 + (10 - A);
         answer = num1 * num2;
         questionStr = `${num1} × ${num2} = ?`;
+    } else if (levelId === 17) {
+        // Multiply by 3
+        num = randInt(1, 20);
+        answer = num * 3;
+        questionStr = `${num} × 3 = ?`;
+    } else if (levelId === 18) {
+        // Multiply by 7
+        num = randInt(1, 15);
+        answer = num * 7;
+        questionStr = `${num} × 7 = ?`;
+    } else if (levelId === 19) {
+        // Multiply by 20
+        num = randInt(1, 20);
+        answer = num * 20;
+        questionStr = `${num} × 20 = ?`;
+    } else if (levelId === 20) {
+        // Multiply by 30
+        num = randInt(1, 15);
+        answer = num * 30;
+        questionStr = `${num} × 30 = ?`;
+    } else if (levelId === 21) {
+        // Square numbers ending in 1
+        const tens = randInt(1, 8);
+        num = tens * 10 + 1;
+        answer = num * num;
+        questionStr = `${num}² = ?`;
+    } else if (levelId === 22) {
+        // Square numbers ending in 6
+        const tens = randInt(1, 8);
+        num = tens * 10 + 6;
+        answer = num * num;
+        questionStr = `${num}² = ?`;
+    } else if (levelId === 23) {
+        // Numbers near 50 (base 50)
+        const offset = randInt(1, 10);
+        num1 = 50 - offset;
+        num2 = 50 + offset;
+        answer = num1 * num2;
+        questionStr = `${num1} × ${num2} = ?`;
+    } else if (levelId === 24) {
+        // Divide by 5
+        num = randInt(2, 20) * 5; // Even multiples of 5
+        answer = num / 5;
+        questionStr = `${num} ÷ 5 = ?`;
+    } else if (levelId === 25) {
+        // Cross multiplication (2-digit × 2-digit)
+        num1 = randInt(10, 30);
+        num2 = randInt(10, 30);
+        answer = num1 * num2;
+        questionStr = `${num1} × ${num2} = ?`;
+    } else if (levelId === 26) {
+        // Divisibility by 9 (practice: is number divisible by 9?)
+        // Generate numbers and ask to verify divisibility
+        const divisibleBy9 = [9, 18, 27, 36, 45, 54, 63, 72, 81, 90, 99, 108, 117, 126, 135];
+        const notDivisible = [10, 20, 25, 35, 40, 50, 65, 75, 85, 95];
+        const isDiv = Math.random() > 0.5;
+        const numList = isDiv ? divisibleBy9 : notDivisible;
+        num = randFrom(numList);
+        answer = isDiv ? 1 : 0; // 1 = yes, 0 = no
+        questionStr = `Is ${num} divisible by 9? (1=yes, 0=no)`;
     }
 
     return { questionStr, answer, levelId };
