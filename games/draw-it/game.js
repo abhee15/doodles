@@ -913,10 +913,11 @@ function drawDonald_step1(ctx) {
   ctx.stroke();
 }
 function drawDonald_step2(ctx) {
+  // Donald's bill - elongated triangle pointing forward/left
   ctx.beginPath();
-  ctx.moveTo(200, 160);
-  ctx.lineTo(170, 210);
-  ctx.lineTo(230, 210);
+  ctx.moveTo(150, 200);
+  ctx.lineTo(80, 185);
+  ctx.lineTo(85, 220);
   ctx.closePath();
   ctx.stroke();
 }
