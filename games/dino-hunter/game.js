@@ -18,7 +18,32 @@ const DINOS = [
 // ── State ─────────────────────────────────────────────────
 let G = null; // game state
 
-// ── Entry point (called from index.html) ──────────────────
+// ── Initialize dino button grid ───────────────────────────
+function initDinoGrid() {
+  const grid = document.getElementById('dino-grid');
+  if (!grid) return;
+
+  DINOS.forEach(function(dino) {
+    const btn = document.createElement('button');
+    btn.className = 'dino-btn';
+    btn.style.background = dino.color;
+    btn.innerHTML = '<span style="font-size:22px">' + dino.emoji + '</span><br>' + dino.nick + '<br><span style="font-size:14px">' + dino.dietIcon + ' ' + dino.diet + '</span>';
+    btn.onclick = function() {
+      document.getElementById('select-screen').style.display = 'none';
+      window.startDinoGame(dino.id);
+    };
+    grid.appendChild(btn);
+  });
+}
+
+// Call when page loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initDinoGrid);
+} else {
+  initDinoGrid();
+}
+
+// ── Entry point (called when dino is selected) ────────────
 window.startDinoGame = function(targetId) {
     // Remove old canvas and dino divs if re-starting
     const old = document.getElementById('dh-canvas');
