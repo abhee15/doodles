@@ -648,7 +648,7 @@
   border-radius: 12px;
   padding: 25px;
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .zone-detail-symbol {
@@ -687,7 +687,7 @@
   background: white;
   border-radius: 12px;
   padding: 25px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .all-zones-list h3 {
@@ -711,7 +711,7 @@
 
 .zone-list-item:hover {
   transform: translateX(4px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-left-width: 5px;
 }
 
 .zone-list-item.active {
@@ -777,7 +777,7 @@
   background: white;
   border-radius: 8px;
   padding: 25px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .keyword-container h2 {
@@ -806,9 +806,9 @@
 
 .keyword-card:hover {
   border-color: var(--color-primary, #1CB0F6);
+  border-width: 2px;
   background: var(--color-bg-soft, #F8F9FA);
   transform: translateY(-4px);
-  box-shadow: 0 4px 12px rgba(28, 176, 246, 0.2);
 }
 
 .keyword-visual {
@@ -848,7 +848,7 @@
   background: white;
   border-radius: 8px;
   padding: 25px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .rhyme-container h2 {
@@ -876,7 +876,7 @@
 
 .rhyme-card:hover {
   border-color: var(--color-primary-dark, #0B8FDE);
-  box-shadow: 0 4px 12px rgba(28, 176, 246, 0.2);
+  border-width: 2px;
   transform: translateY(-4px);
 }
 
