@@ -60,9 +60,7 @@ class PeriodicTableGameEngine {
       return;
     }
 
-    this.elements = this.elementData.elements.filter(
-      el => el.chunk === this.chunk
-    );
+    this.elements = this.elementData.elements.filter(el => el.chunk === this.chunk);
 
     console.log(`Loaded ${this.elements.length} elements for Chunk ${this.chunk}`);
   }
@@ -72,11 +70,11 @@ class PeriodicTableGameEngine {
    */
   setupGameUI() {
     const techniqueMap = {
-      'story_chain': 'setupStoryChainUI',
-      'memory_palace': 'setupMemoryPalaceUI',
-      'body_map': 'setupBodyMapUI',
-      'keyword_image': 'setupKeywordImageUI',
-      'rhyme_pegs': 'setupRhymePegsUI'
+      story_chain: 'setupStoryChainUI',
+      memory_palace: 'setupMemoryPalaceUI',
+      body_map: 'setupBodyMapUI',
+      keyword_image: 'setupKeywordImageUI',
+      rhyme_pegs: 'setupRhymePegsUI'
     };
 
     const setupMethod = techniqueMap[this.technique];
@@ -103,11 +101,11 @@ class PeriodicTableGameEngine {
     };
 
     const techniqueName = {
-      'story_chain': 'Story Chain',
-      'memory_palace': 'Memory Palace',
-      'body_map': 'Body Map',
-      'keyword_image': 'Keyword Image',
-      'rhyme_pegs': 'Rhyme Pegs'
+      story_chain: 'Story Chain',
+      memory_palace: 'Memory Palace',
+      body_map: 'Body Map',
+      keyword_image: 'Keyword Image',
+      rhyme_pegs: 'Rhyme Pegs'
     };
 
     document.getElementById('game-title').textContent =
@@ -130,11 +128,11 @@ class PeriodicTableGameEngine {
 
     // Fall back to old structure (direct fields)
     const fieldMap = {
-      'story_chain': 'story',
-      'memory_palace': 'memory_tip',
-      'body_map': 'memory_tip',  // For Body Map, use the general memory tip, not bodyPart
-      'keyword_image': 'associationImage',
-      'rhyme_pegs': 'rhymePeg'
+      story_chain: 'story',
+      memory_palace: 'memory_tip',
+      body_map: 'memory_tip', // For Body Map, use the general memory tip, not bodyPart
+      keyword_image: 'associationImage',
+      rhyme_pegs: 'rhymePeg'
     };
 
     const fieldName = fieldMap[this.technique] || 'memory_tip';
@@ -161,9 +159,9 @@ class PeriodicTableGameEngine {
 
     // Build professional simplified story cards
     const panelsDiv = document.getElementById('story-panels');
-    panelsDiv.innerHTML = `<div class="visual-grid-simplified">${
-      this.elements.map((el, idx) => createSimplifiedStoryCard(el, idx, this.elements.length)).join('')
-    }</div>`;
+    panelsDiv.innerHTML = `<div class="visual-grid-simplified">${this.elements
+      .map((el, idx) => createSimplifiedStoryCard(el, idx, this.elements.length))
+      .join('')}</div>`;
   }
 
   /**
@@ -189,7 +187,9 @@ class PeriodicTableGameEngine {
     const roomView = document.getElementById('room-view');
     roomView.innerHTML = `
       <div class="palace-rooms-grid">
-        ${rooms.map((room, roomIdx) => `
+        ${rooms
+          .map(
+            (room, roomIdx) => `
           <div class="palace-room-card" onclick="selectPalaceRoom(${roomIdx})">
             <div class="room-icon"><i class="ti ti-${roomIconNames[roomIdx % roomIconNames.length]}"></i></div>
             <div class="room-title">${roomNames[roomIdx % roomNames.length]}</div>
@@ -198,7 +198,9 @@ class PeriodicTableGameEngine {
               ${room.map(el => `<span class="symbol-badge">${el.symbol}</span>`).join('')}
             </div>
           </div>
-        `).join('')}
+        `
+          )
+          .join('')}
       </div>
     `;
 
@@ -212,7 +214,9 @@ class PeriodicTableGameEngine {
         <p class="palace-tip"><i class="ti ti-lightbulb"></i> <strong>Tip:</strong> The more bizarre and memorable your mental image, the better you'll remember!</p>
       </div>
       <div class="palace-timeline">
-        ${this.elements.map((el, idx) => `
+        ${this.elements
+          .map(
+            (el, idx) => `
           <div class="timeline-item" data-element-id="${el.atomicNumber}">
             <div class="timeline-marker">
               <span class="marker-number">${idx + 1}</span>
@@ -231,7 +235,9 @@ class PeriodicTableGameEngine {
               <div class="memory-palace-tip">${this.getMemoryTip(el)}</div>
             </div>
           </div>
-        `).join('')}
+        `
+          )
+          .join('')}
       </div>
     `;
 
@@ -267,7 +273,10 @@ class PeriodicTableGameEngine {
     bodyIllustration.innerHTML = `
       <div class="body-map-visual">
         <div class="body-stick-figure">
-          ${bodyZones.slice(0, Math.min(this.elements.length, 8)).map((zone, idx) => `
+          ${bodyZones
+            .slice(0, Math.min(this.elements.length, 8))
+            .map(
+              (zone, idx) => `
             <div class="zone-interactive zone-${idx + 1}" 
                  data-zone="${idx + 1}" 
                  onclick="showBodyZoneDetails(${idx + 1})"
@@ -276,7 +285,9 @@ class PeriodicTableGameEngine {
               <div class="zone-label-mini">${zone.label}</div>
               <div class="zone-element">${this.elements[idx]?.symbol || ''}</div>
             </div>
-          `).join('')}
+          `
+            )
+            .join('')}
         </div>
         <div class="body-map-legend">
           <p><i class="ti ti-click"></i> Click zones to see elements</p>
@@ -297,9 +308,10 @@ class PeriodicTableGameEngine {
       </div>
       <div class="all-zones-list">
         <h3>All Zones:</h3>
-        ${this.elements.map((el, idx) => {
-    const zone = bodyZones[Math.min(idx, 7)];
-    return `
+        ${this.elements
+          .map((el, idx) => {
+            const zone = bodyZones[Math.min(idx, 7)];
+            return `
             <div class="zone-list-item" onclick="showBodyZoneDetails(${idx + 1})" style="--zone-color: ${zone.color}">
               <div class="zone-list-icon">${zone.icon}</div>
               <div class="zone-list-info">
@@ -309,7 +321,8 @@ class PeriodicTableGameEngine {
               <div class="zone-list-tip">${this.getMemoryTip(el)}</div>
             </div>
           `;
-  }).join('')}
+          })
+          .join('')}
       </div>
     `;
 
@@ -341,9 +354,9 @@ class PeriodicTableGameEngine {
     }
 
     const keywordsGrid = document.getElementById('keywords-grid');
-    keywordsGrid.innerHTML = `<div class="visual-grid-simplified">${
-      this.elements.map(el => createProfessionalKeywordCard(el)).join('')
-    }</div>`;
+    keywordsGrid.innerHTML = `<div class="visual-grid-simplified">${this.elements
+      .map(el => createProfessionalKeywordCard(el))
+      .join('')}</div>`;
   }
 
   /**
@@ -369,9 +382,9 @@ class PeriodicTableGameEngine {
     }
 
     const rhymesGrid = document.getElementById('rhymes-grid');
-    rhymesGrid.innerHTML = `<div class="visual-grid-compact">${
-      this.elements.map((el, idx) => createProfessionalRhymePeg(el, idx + 1)).join('')
-    }</div>`;
+    rhymesGrid.innerHTML = `<div class="visual-grid-compact">${this.elements
+      .map((el, idx) => createProfessionalRhymePeg(el, idx + 1))
+      .join('')}</div>`;
   }
 
   /**
@@ -431,7 +444,9 @@ function selectPalaceRoom(roomIdx) {
   });
 
   // Scroll to first element in room
-  const firstItem = document.querySelector(`.timeline-item[data-element-id="${gameEngine.elements[startIdx].atomicNumber}"]`);
+  const firstItem = document.querySelector(
+    `.timeline-item[data-element-id="${gameEngine.elements[startIdx].atomicNumber}"]`
+  );
   if (firstItem) {
     firstItem.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }

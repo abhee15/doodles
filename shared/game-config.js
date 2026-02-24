@@ -24,13 +24,7 @@
  * @returns {Object} Phaser game configuration
  */
 function createGameConfig(options = {}) {
-  const {
-    width = 900,
-    height = 650,
-    backgroundColor = 0xF5F7FA,
-    physics = null,
-    scene
-  } = options;
+  const { width = 900, height = 650, backgroundColor = 0xf5f7fa, physics = null, scene } = options;
 
   const config = {
     type: Phaser.AUTO,
@@ -133,7 +127,7 @@ function getResponsiveFontSize(scene, baseSize) {
  * @param {Function} callback - Optional callback when resize occurs
  */
 function setupResponsiveResize(scene, callback) {
-  scene.scale.on('resize', (gameSize) => {
+  scene.scale.on('resize', gameSize => {
     const width = gameSize.width;
     const height = gameSize.height;
 

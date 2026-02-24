@@ -16,20 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // World Explorer local colors - Coolors palette #D4E09B / #F6F4D2 / #CBDFBD / #F19C79 / #A44A3F
 const WE_COLORS = {
-  primary: 0xA44A3F,        // Brick red - main buttons & CTAs
-  secondary: 0xF19C79,      // Peach - secondary buttons
-  success: 0xA44A3F,        // Brick red (only dark enough for white button text)
-  error: 0xA44A3F,          // Brick red
-  background: 0xF6F4D2,     // Cream background
-  cardBg: 0xFFFFFF,         // White cards for contrast
+  primary: 0xa44a3f, // Brick red - main buttons & CTAs
+  secondary: 0xf19c79, // Peach - secondary buttons
+  success: 0xa44a3f, // Brick red (only dark enough for white button text)
+  error: 0xa44a3f, // Brick red
+  background: 0xf6f4d2, // Cream background
+  cardBg: 0xffffff, // White cards for contrast
   text: COLORS.neutral.darkText.phaser,
-  textLight: 0x8B6456,      // Muted brick for back/minor buttons
+  textLight: 0x8b6456, // Muted brick for back/minor buttons
   // Continent colors - one palette color each
-  africa: 0xF19C79,         // Peach
-  asia: 0xA44A3F,           // Brick red
-  americas: 0xCBDFBD,       // Soft green
-  europe: 0xD4E09B,         // Yellow-green
-  oceania: 0xCBDFBD         // Soft green
+  africa: 0xf19c79, // Peach
+  asia: 0xa44a3f, // Brick red
+  americas: 0xcbdfbd, // Soft green
+  europe: 0xd4e09b, // Yellow-green
+  oceania: 0xcbdfbd // Soft green
 };
 
 const config = createGameConfig({
@@ -75,7 +75,8 @@ const COUNTRIES = {
       'Invented the airplane and internet',
       'Home to the biggest tech companies'
     ],
-    culture: 'Famous for hamburgers, hot dogs, and pizza. Loves sports like basketball and American football!',
+    culture:
+      'Famous for hamburgers, hot dogs, and pizza. Loves sports like basketball and American football!',
     difficulty: 1
   },
 
@@ -98,7 +99,8 @@ const COUNTRIES = {
       'Invented football (soccer)',
       'Drinks more tea than any country!'
     ],
-    culture: 'Famous for fish and chips, tea time, and double-decker buses. Very polite and loves queuing!',
+    culture:
+      'Famous for fish and chips, tea time, and double-decker buses. Very polite and loves queuing!',
     difficulty: 1
   },
 
@@ -375,7 +377,8 @@ const COUNTRIES = {
       'Has the most pyramids in the world',
       'Day of the Dead celebrates ancestors'
     ],
-    culture: 'Famous for tacos, mariachi music, and colorful culture. Very festive and warm people!',
+    culture:
+      'Famous for tacos, mariachi music, and colorful culture. Very festive and warm people!',
     difficulty: 2
   },
 
@@ -444,7 +447,8 @@ const COUNTRIES = {
       'Has over 6,000 islands!',
       'Invented theater and philosophy'
     ],
-    culture: 'Famous for Greek salad, mythology, and breaking plates. Loves dancing and celebrating!',
+    culture:
+      'Famous for Greek salad, mythology, and breaking plates. Loves dancing and celebrating!',
     difficulty: 2
   },
 
@@ -467,7 +471,8 @@ const COUNTRIES = {
       'Land of Smiles - very friendly people',
       'Has a water festival where everyone splashes'
     ],
-    culture: 'Famous for pad thai, temples, and elephants. Very respectful with hands together greeting!',
+    culture:
+      'Famous for pad thai, temples, and elephants. Very respectful with hands together greeting!',
     difficulty: 2
   },
 
@@ -606,7 +611,8 @@ const COUNTRIES = {
       "World's best long-distance runners",
       'See the Great Migration of animals'
     ],
-    culture: 'Famous for safaris, wildlife, and Masai warriors. Very diverse with 40+ ethnic groups!',
+    culture:
+      'Famous for safaris, wildlife, and Masai warriors. Very diverse with 40+ ethnic groups!',
     difficulty: 3
   },
 
@@ -629,7 +635,8 @@ const COUNTRIES = {
       'Famous for mint tea and tagine',
       'Has mountains, deserts, and beaches'
     ],
-    culture: 'Famous for colorful markets, spices, and hospitality. Mix of Arab and Berber culture!',
+    culture:
+      'Famous for colorful markets, spices, and hospitality. Mix of Arab and Berber culture!',
     difficulty: 3
   },
 
@@ -792,7 +799,8 @@ const COUNTRIES = {
       'Most volcanoes in the world',
       'Fourth most populated country'
     ],
-    culture: 'Famous for temples, beaches, and diversity. Over 300 ethnic groups speak 700+ languages!',
+    culture:
+      'Famous for temples, beaches, and diversity. Over 300 ethnic groups speak 700+ languages!',
     difficulty: 3
   },
 
@@ -861,7 +869,8 @@ const COUNTRIES = {
       'Invented Halloween',
       'Has more castles per person than anywhere'
     ],
-    culture: 'Famous for Guinness beer, leprechauns, and friendliness. Loves storytelling and music!',
+    culture:
+      'Famous for Guinness beer, leprechauns, and friendliness. Loves storytelling and music!',
     difficulty: 3
   },
 
@@ -1046,7 +1055,8 @@ const COUNTRIES = {
       "Home to the world's smallest mammal",
       "Kuala Lumpur means 'muddy river'"
     ],
-    culture: 'Famous for satay, diverse culture, and rainforests. Mix of Malay, Chinese, and Indian!',
+    culture:
+      'Famous for satay, diverse culture, and rainforests. Mix of Malay, Chinese, and Indian!',
     difficulty: 4
   },
 
@@ -1069,7 +1079,8 @@ const COUNTRIES = {
       'Nollywood makes 2,500+ movies per year',
       'Has over 500 different languages'
     ],
-    culture: 'Famous for Afrobeat music, Nollywood, and diversity. Very vibrant and entrepreneurial!',
+    culture:
+      'Famous for Afrobeat music, Nollywood, and diversity. Very vibrant and entrepreneurial!',
     difficulty: 4
   },
 
@@ -1161,7 +1172,8 @@ const COUNTRIES = {
       "Usain Bolt's home country",
       'First Caribbean country to have bobsled team'
     ],
-    culture: "Famous for reggae, jerk chicken, and sprinting. Very laid-back 'no problem' attitude!",
+    culture:
+      "Famous for reggae, jerk chicken, and sprinting. Very laid-back 'no problem' attitude!",
     difficulty: 4
   },
 
@@ -1179,12 +1191,9 @@ const COUNTRIES = {
       'Legoland - Original LEGO theme park',
       'Nyhavn - Colorful waterfront'
     ],
-    funFacts: [
-      'Invented LEGO bricks',
-      'Happiest country in world',
-      'Has more bikes than cars'
-    ],
-    culture: 'Famous for hygge (coziness), pastries, and Hans Christian Andersen. Very bike-friendly!',
+    funFacts: ['Invented LEGO bricks', 'Happiest country in world', 'Has more bikes than cars'],
+    culture:
+      'Famous for hygge (coziness), pastries, and Hans Christian Andersen. Very bike-friendly!',
     difficulty: 4
   },
 
@@ -1230,7 +1239,8 @@ const COUNTRIES = {
       'Most startups per capita globally',
       'Revived Hebrew language from extinct'
     ],
-    culture: 'Famous for falafel, innovation, and ancient history. Very entrepreneurial and diverse!',
+    culture:
+      'Famous for falafel, innovation, and ancient history. Very entrepreneurial and diverse!',
     difficulty: 4
   },
 
@@ -1347,7 +1357,8 @@ const COUNTRIES = {
       'Sunflowers are their national flower',
       'Invented the helicopter (Igor Sikorsky)'
     ],
-    culture: 'Famous for borscht, embroidery, and folk traditions. Very artistic and resilient people!',
+    culture:
+      'Famous for borscht, embroidery, and folk traditions. Very artistic and resilient people!',
     difficulty: 3
   },
 
@@ -1370,7 +1381,8 @@ const COUNTRIES = {
       'One of oldest civilizations on Earth',
       'Never colonized by Europeans'
     ],
-    culture: "Famous for injera bread, coffee, and ancient history. Called the 'Cradle of Humanity'!",
+    culture:
+      "Famous for injera bread, coffee, and ancient history. Called the 'Cradle of Humanity'!",
     difficulty: 3
   },
 
@@ -1462,7 +1474,8 @@ const COUNTRIES = {
       "Salt flat is so large it's seen from space",
       'Has the highest capital city in world'
     ],
-    culture: 'Famous for colorful festivals, indigenous traditions, and salt flats. Very high altitude living!',
+    culture:
+      'Famous for colorful festivals, indigenous traditions, and salt flats. Very high altitude living!',
     difficulty: 3
   },
 
@@ -1485,7 +1498,8 @@ const COUNTRIES = {
       'Galápagos has unique animals found nowhere else',
       'Highest active volcano in world'
     ],
-    culture: 'Famous for the Galápagos, roses, and biodiversity. Grows the most roses in the world!',
+    culture:
+      'Famous for the Galápagos, roses, and biodiversity. Grows the most roses in the world!',
     difficulty: 3
   },
 
@@ -1509,7 +1523,8 @@ const COUNTRIES = {
       'Invented the necktie (cravat)',
       'Has over 1,000 islands'
     ],
-    culture: 'Famous for seafood, ancient cities, and beaches. Very rich history and stunning nature!',
+    culture:
+      'Famous for seafood, ancient cities, and beaches. Very rich history and stunning nature!',
     difficulty: 4
   },
 
@@ -1532,7 +1547,8 @@ const COUNTRIES = {
       'Has the 2nd largest parliament building',
       'Famous gymnast Nadia Comaneci is Romanian'
     ],
-    culture: 'Famous for Dracula stories, painted monasteries, and folklore. Very artistic culture!',
+    culture:
+      'Famous for Dracula stories, painted monasteries, and folklore. Very artistic culture!',
     difficulty: 4
   },
 
@@ -1555,7 +1571,8 @@ const COUNTRIES = {
       "World's largest rose oil producer",
       'Has yogurt made its national symbol'
     ],
-    culture: 'Famous for roses, yogurt, and ancient Thracian history. Very proud of their alphabet!',
+    culture:
+      'Famous for roses, yogurt, and ancient Thracian history. Very proud of their alphabet!',
     difficulty: 4
   },
 
@@ -1601,7 +1618,8 @@ const COUNTRIES = {
       'Longest serving democracy in Africa',
       'Famous for wrestling sport'
     ],
-    culture: 'Famous for teranga (hospitality), music, and colorful boubou clothing. Very welcoming!',
+    culture:
+      'Famous for teranga (hospitality), music, and colorful boubou clothing. Very welcoming!',
     difficulty: 4
   },
 
@@ -1624,7 +1642,8 @@ const COUNTRIES = {
       "World's first astronauts launched from here",
       'Has wild horses and snow leopards'
     ],
-    culture: 'Famous for nomadic traditions, horseback riding, and the vast steppe. Very open and free!',
+    culture:
+      'Famous for nomadic traditions, horseback riding, and the vast steppe. Very open and free!',
     difficulty: 4
   },
 
@@ -1647,7 +1666,8 @@ const COUNTRIES = {
       'Has a 100 trillion dollar note (from inflation)',
       'Great Zimbabwe is a UNESCO World Heritage site'
     ],
-    culture: 'Famous for Victoria Falls, stone ruins, and wildlife. Very artistic with stone sculpture!',
+    culture:
+      'Famous for Victoria Falls, stone ruins, and wildlife. Very artistic with stone sculpture!',
     difficulty: 4
   },
 
@@ -1670,7 +1690,8 @@ const COUNTRIES = {
       'Invented Skype',
       'Has the cleanest air in Europe'
     ],
-    culture: 'Famous for singing festivals, digital innovation, and medieval architecture. Very tech-savvy!',
+    culture:
+      'Famous for singing festivals, digital innovation, and medieval architecture. Very tech-savvy!',
     difficulty: 4
   },
 
@@ -1693,7 +1714,8 @@ const COUNTRIES = {
       'Lake Bled is one of most photographed places',
       '90% of the country is green/forested'
     ],
-    culture: 'Famous for alpine scenery, fairy-tale landscapes, and outdoor sports. Very nature-loving!',
+    culture:
+      'Famous for alpine scenery, fairy-tale landscapes, and outdoor sports. Very nature-loving!',
     difficulty: 4
   },
 
@@ -1716,7 +1738,8 @@ const COUNTRIES = {
       'Panama Canal saves ships 8,000 miles',
       'Panama hats are actually from Ecuador!'
     ],
-    culture: 'Famous for the canal, diverse wildlife, and mixing cultures. Hub connecting continents!',
+    culture:
+      'Famous for the canal, diverse wildlife, and mixing cultures. Hub connecting continents!',
     difficulty: 4
   },
 
@@ -1762,7 +1785,8 @@ const COUNTRIES = {
       'Source of the mighty Nile River',
       "Has Africa's second largest lake"
     ],
-    culture: "Famous for gorilla trekking, the Nile, and warmth. Called 'Pearl of Africa' by Churchill!",
+    culture:
+      "Famous for gorilla trekking, the Nile, and warmth. Called 'Pearl of Africa' by Churchill!",
     difficulty: 4
   },
 
@@ -1808,16 +1832,15 @@ const COUNTRIES = {
       'Only place with nautilus shells still found',
       'French territory in South Pacific'
     ],
-    culture: 'Famous for turquoise lagoon, Kanak culture, and French influence. Unique island paradise!',
+    culture:
+      'Famous for turquoise lagoon, Kanak culture, and French influence. Unique island paradise!',
     difficulty: 4
   }
 };
 
 // Get countries by difficulty
 function getCountriesByDifficulty(difficulty) {
-  return Object.keys(COUNTRIES).filter(key =>
-    COUNTRIES[key].difficulty === difficulty
-  );
+  return Object.keys(COUNTRIES).filter(key => COUNTRIES[key].difficulty === difficulty);
 }
 
 function preload() {
@@ -1842,47 +1865,73 @@ function showMainMenu(scene) {
   const bg = scene.add.rectangle(450, 325, 900, 650, WE_COLORS.background);
 
   // Title with shadow
-  scene.add.text(452, 82, '🌍 World Explorer', {
-    fontSize: '64px',
-    fill: '#000',
-    fontStyle: 'bold'
-  }).setOrigin(0.5).setAlpha(0.1);
+  scene.add
+    .text(452, 82, '🌍 World Explorer', {
+      fontSize: '64px',
+      fill: '#000',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5)
+    .setAlpha(0.1);
 
-  scene.add.text(450, 80, '🌍 World Explorer', {
-    fontSize: '64px',
-    fill: '#1E293B',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 80, '🌍 World Explorer', {
+      fontSize: '64px',
+      fill: '#1E293B',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 145, 'Discover Amazing Countries!', {
-    fontSize: '24px',
-    fill: '#475569',
-    fontStyle: 'italic'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 145, 'Discover Amazing Countries!', {
+      fontSize: '24px',
+      fill: '#475569',
+      fontStyle: 'italic'
+    })
+    .setOrigin(0.5);
 
   // Stats
   const stats = scene.add.container(450, 220);
-  const statBg = scene.add.rectangle(0, 0, 400, 80, 0xFFFFFF);
-  statBg.setStrokeStyle(2, 0xCBDFBD);
+  const statBg = scene.add.rectangle(0, 0, 400, 80, 0xffffff);
+  statBg.setStrokeStyle(2, 0xcbdfbd);
 
-  const learnedText = scene.add.text(0, 0,
-    `Countries Learned: ${countriesLearned.length}/60`, {
+  const learnedText = scene.add
+    .text(0, 0, `Countries Learned: ${countriesLearned.length}/60`, {
       fontSize: '20px',
       fill: '#1E293B',
       fontStyle: 'bold'
-    }).setOrigin(0.5);
+    })
+    .setOrigin(0.5);
 
   stats.add([statBg, learnedText]);
 
   // Start button
-  createModernButton(scene, 450, 320, 'Start Learning! →', WE_COLORS.primary, () => {
-    showDifficultySelect(scene);
-  }, 300, 70);
+  createModernButton(
+    scene,
+    450,
+    320,
+    'Start Learning! →',
+    WE_COLORS.primary,
+    () => {
+      showDifficultySelect(scene);
+    },
+    300,
+    70
+  );
 
   // How to Play button
-  createModernButton(scene, 450, 410, 'How to Play', WE_COLORS.secondary, () => {
-    showHowToPlay(scene);
-  }, 300, 70);
+  createModernButton(
+    scene,
+    450,
+    410,
+    'How to Play',
+    WE_COLORS.secondary,
+    () => {
+      showHowToPlay(scene);
+    },
+    300,
+    70
+  );
 
   // Features list
   const features = [
@@ -1893,10 +1942,12 @@ function showMainMenu(scene) {
   ];
 
   features.forEach((text, i) => {
-    scene.add.text(450, 510 + (i * 30), text, {
-      fontSize: '18px',
-      fill: '#475569'
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 510 + i * 30, text, {
+        fontSize: '18px',
+        fill: '#475569'
+      })
+      .setOrigin(0.5);
   });
 }
 
@@ -1904,11 +1955,13 @@ function showMainMenu(scene) {
 function showHowToPlay(scene) {
   scene.children.removeAll();
 
-  scene.add.text(450, 50, 'How to Play', {
-    fontSize: '42px',
-    fill: '#1E293B',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 50, 'How to Play', {
+      fontSize: '42px',
+      fill: '#1E293B',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   const instructions = [
     {
@@ -1941,29 +1994,43 @@ function showHowToPlay(scene) {
   instructions.forEach((item, i) => {
     const y = 140 + i * 95;
 
-    const card = scene.add.rectangle(450, y, 750, 80, 0xFFFFFF);
-    card.setStrokeStyle(2, 0xCBDFBD);
+    const card = scene.add.rectangle(450, y, 750, 80, 0xffffff);
+    card.setStrokeStyle(2, 0xcbdfbd);
 
-    scene.add.text(150, y, item.icon, {
-      fontSize: '36px'
-    }).setOrigin(0.5);
+    scene.add
+      .text(150, y, item.icon, {
+        fontSize: '36px'
+      })
+      .setOrigin(0.5);
 
-    scene.add.text(220, y - 15, item.title, {
-      fontSize: '20px',
-      fill: '#1E293B',
-      fontStyle: 'bold'
-    }).setOrigin(0, 0.5);
+    scene.add
+      .text(220, y - 15, item.title, {
+        fontSize: '20px',
+        fill: '#1E293B',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0, 0.5);
 
-    scene.add.text(220, y + 10, item.desc, {
-      fontSize: '18px',
-      fill: '#475569',
-      wordWrap: { width: 500 }
-    }).setOrigin(0, 0.5);
+    scene.add
+      .text(220, y + 10, item.desc, {
+        fontSize: '18px',
+        fill: '#475569',
+        wordWrap: { width: 500 }
+      })
+      .setOrigin(0, 0.5);
   });
 
-  createModernButton(scene, 450, 600, '← Back to Menu', WE_COLORS.textLight, () => {
-    showMainMenu(scene);
-  }, 200);
+  createModernButton(
+    scene,
+    450,
+    600,
+    '← Back to Menu',
+    WE_COLORS.textLight,
+    () => {
+      showMainMenu(scene);
+    },
+    200
+  );
 }
 
 // ==================== DIFFICULTY SELECT ====================
@@ -1971,16 +2038,20 @@ function showDifficultySelect(scene) {
   scene.children.removeAll();
   currentScene = 'difficulty';
 
-  scene.add.text(450, 60, 'Choose Your Journey', {
-    fontSize: '42px',
-    fill: '#1E293B',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 60, 'Choose Your Journey', {
+      fontSize: '42px',
+      fill: '#1E293B',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 105, 'Start easy and unlock more!', {
-    fontSize: '18px',
-    fill: '#475569'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 105, 'Start easy and unlock more!', {
+      fontSize: '18px',
+      fill: '#475569'
+    })
+    .setOrigin(0.5);
 
   const d1Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === 1).length;
   const d2Count = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === 2).length;
@@ -2009,7 +2080,7 @@ function showDifficultySelect(scene) {
       name: 'Navigator',
       icon: '🧭',
       desc: `${d3Count} diverse countries`,
-      color: 0xA44A3F,
+      color: 0xa44a3f,
       countries: d3Count,
       locked: true
     },
@@ -2031,9 +2102,19 @@ function showDifficultySelect(scene) {
     createDifficultyCard(scene, 450, y, level, isLocked);
   });
 
-  createModernButton(scene, 120, 600, '← Back', WE_COLORS.textLight, () => {
-    showMainMenu(scene);
-  }, 140, 50, true);
+  createModernButton(
+    scene,
+    120,
+    600,
+    '← Back',
+    WE_COLORS.textLight,
+    () => {
+      showMainMenu(scene);
+    },
+    140,
+    50,
+    true
+  );
 }
 
 function createDifficultyCard(scene, x, y, level, isLocked) {
@@ -2044,43 +2125,59 @@ function createDifficultyCard(scene, x, y, level, isLocked) {
   const shadow = scene.add.rectangle(x, y + 3, cardWidth, cardHeight, 0x000000, 0.08);
 
   // Card background
-  const cardBg = scene.add.rectangle(x, y, cardWidth, cardHeight, isLocked ? 0xCBDFBD : WE_COLORS.cardBg);
-  cardBg.setStrokeStyle(3, isLocked ? 0xD4E09B : level.color);
+  const cardBg = scene.add.rectangle(
+    x,
+    y,
+    cardWidth,
+    cardHeight,
+    isLocked ? 0xcbdfbd : WE_COLORS.cardBg
+  );
+  cardBg.setStrokeStyle(3, isLocked ? 0xd4e09b : level.color);
 
   // Icon circle
-  const iconCircle = scene.add.circle(x - 270, y, 35, isLocked ? 0xCED4DA : level.color, 0.2);
-  const iconText = scene.add.text(x - 270, y, level.icon, {
-    fontSize: '36px'
-  }).setOrigin(0.5);
+  const iconCircle = scene.add.circle(x - 270, y, 35, isLocked ? 0xced4da : level.color, 0.2);
+  const iconText = scene.add
+    .text(x - 270, y, level.icon, {
+      fontSize: '36px'
+    })
+    .setOrigin(0.5);
 
   // Title and description
-  scene.add.text(x - 210, y - 20, level.name, {
-    fontSize: '28px',
-    fill: isLocked ? '#ADB5BD' : '#2D3436',
-    fontStyle: 'bold'
-  }).setOrigin(0, 0.5);
+  scene.add
+    .text(x - 210, y - 20, level.name, {
+      fontSize: '28px',
+      fill: isLocked ? '#ADB5BD' : '#2D3436',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0, 0.5);
 
-  scene.add.text(x - 210, y + 12, level.desc, {
-    fontSize: '18px',
-    fill: isLocked ? '#CED4DA' : '#636E72'
-  }).setOrigin(0, 0.5);
+  scene.add
+    .text(x - 210, y + 12, level.desc, {
+      fontSize: '18px',
+      fill: isLocked ? '#CED4DA' : '#636E72'
+    })
+    .setOrigin(0, 0.5);
 
   // Action button
   if (isLocked) {
-    const lockBtn = scene.add.text(x + 240, y, '🔒 Locked', {
-      fontSize: '18px',
-      fill: '#ADB5BD',
-      fontStyle: 'bold'
-    }).setOrigin(0.5);
+    const lockBtn = scene.add
+      .text(x + 240, y, '🔒 Locked', {
+        fontSize: '18px',
+        fill: '#ADB5BD',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0.5);
   } else {
     const playBtn = scene.add.rectangle(x + 240, y, 140, 50, level.color);
     playBtn.setInteractive({ useHandCursor: true });
 
-    const playText = scene.add.text(x + 240, y, 'Explore →', {
-      fontSize: '18px',
-      fill: '#FFFFFF',
-      fontStyle: 'bold'
-    }).setOrigin(0.5);
+    const playText = scene.add
+      .text(x + 240, y, 'Explore →', {
+        fontSize: '18px',
+        fill: '#FFFFFF',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0.5);
 
     playBtn.on('pointerdown', () => {
       currentDifficulty = level.id;
@@ -2103,18 +2200,22 @@ function showCountrySelect(scene, difficulty) {
   scene.children.removeAll();
   currentScene = 'country-select';
 
-  scene.add.text(450, 40, 'Choose a Country to Learn', {
-    fontSize: '38px',
-    fill: '#1E293B',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 40, 'Choose a Country to Learn', {
+      fontSize: '38px',
+      fill: '#1E293B',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   const availableCountries = getCountriesByDifficulty(difficulty);
 
-  scene.add.text(450, 85, `${availableCountries.length} countries available`, {
-    fontSize: '18px',
-    fill: '#475569'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 85, `${availableCountries.length} countries available`, {
+      fontSize: '18px',
+      fill: '#475569'
+    })
+    .setOrigin(0.5);
 
   // Create scrollable grid of country cards (centered, consistent alignment)
   const startY = 130;
@@ -2133,14 +2234,25 @@ function showCountrySelect(scene, difficulty) {
     const x = startX + col * (cardWidth + gapX);
     const y = startY + row * spacingY;
 
-    if (y < 550) { // Only show if on screen
+    if (y < 550) {
+      // Only show if on screen
       createCountryCard(scene, x, y, country, countryKey);
     }
   });
 
-  createModernButton(scene, startX, 600, '← Back', WE_COLORS.textLight, () => {
-    showDifficultySelect(scene);
-  }, 140, 50, true);
+  createModernButton(
+    scene,
+    startX,
+    600,
+    '← Back',
+    WE_COLORS.textLight,
+    () => {
+      showDifficultySelect(scene);
+    },
+    140,
+    50,
+    true
+  );
 }
 
 function createCountryCard(scene, x, y, country, countryKey) {
@@ -2156,7 +2268,7 @@ function createCountryCard(scene, x, y, country, countryKey) {
   shadow.setOrigin(0, 0);
 
   // Background
-  const bg = scene.add.rectangle(0, 0, cardWidth, cardHeight, 0xFFFFFF);
+  const bg = scene.add.rectangle(0, 0, cardWidth, cardHeight, 0xffffff);
   bg.setOrigin(0, 0);
   bg.setStrokeStyle(2, country.continentColor);
   bg.setInteractive({ useHandCursor: true });
@@ -2166,32 +2278,40 @@ function createCountryCard(scene, x, y, country, countryKey) {
   accent.setOrigin(0, 0);
 
   // Flag
-  const flag = scene.add.text(30, 45, country.flag, {
-    fontSize: '40px',
-    fontFamily: "'Noto Color Emoji', sans-serif"
-  }).setOrigin(0.5);
+  const flag = scene.add
+    .text(30, 45, country.flag, {
+      fontSize: '40px',
+      fontFamily: "'Noto Color Emoji', sans-serif"
+    })
+    .setOrigin(0.5);
 
   // Country name
-  const name = scene.add.text(75, 25, country.name, {
-    fontSize: '18px',
-    fill: '#1E293B',
-    fontStyle: 'bold',
-    wordWrap: { width: 170 }
-  }).setOrigin(0, 0);
+  const name = scene.add
+    .text(75, 25, country.name, {
+      fontSize: '18px',
+      fill: '#1E293B',
+      fontStyle: 'bold',
+      wordWrap: { width: 170 }
+    })
+    .setOrigin(0, 0);
 
   // Continent
-  const continent = scene.add.text(75, 50, country.continent, {
-    fontSize: '18px',
-    fill: '#475569'
-  }).setOrigin(0, 0);
+  const continent = scene.add
+    .text(75, 50, country.continent, {
+      fontSize: '18px',
+      fill: '#475569'
+    })
+    .setOrigin(0, 0);
 
   // Learned indicator
   if (isLearned) {
-    const check = scene.add.text(cardWidth - 15, 15, '✓', {
-      fontSize: '20px',
-      fill: '#A44A3F',
-      fontStyle: 'bold'
-    }).setOrigin(0.5);
+    const check = scene.add
+      .text(cardWidth - 15, 15, '✓', {
+        fontSize: '20px',
+        fill: '#A44A3F',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0.5);
     card.add(check);
   }
 
@@ -2237,7 +2357,7 @@ function showCountryLearn(scene, countryKey) {
     {
       title: 'Language & Cities',
       icon: '🗣️',
-      content: `Language: ${country.language.join(', ')}\n\n🏙️ Major Cities:\n${country.majorCities.map(city => `• ${  city}`).join('\n')}`,
+      content: `Language: ${country.language.join(', ')}\n\n🏙️ Major Cities:\n${country.majorCities.map(city => `• ${city}`).join('\n')}`,
       size: '40px'
     },
     {
@@ -2272,63 +2392,111 @@ function showCountryLearn(scene, countryKey) {
     const slide = slides[currentSlide];
 
     // Title
-    scene.add.text(450, 50, slide.title, {
-      fontSize: '36px',
-      fill: '#1E293B',
-      fontStyle: 'bold'
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 50, slide.title, {
+        fontSize: '36px',
+        fill: '#1E293B',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0.5);
 
     // Icon
-    scene.add.text(450, 140, slide.icon, {
-      fontSize: slide.size,
-      fontFamily: "'Noto Color Emoji', sans-serif"
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 140, slide.icon, {
+        fontSize: slide.size,
+        fontFamily: "'Noto Color Emoji', sans-serif"
+      })
+      .setOrigin(0.5);
 
     // Content
-    scene.add.text(450, 320, slide.content, {
-      fontSize: '18px',
-      fill: '#1E293B',
-      align: 'center',
-      lineSpacing: 10,
-      wordWrap: { width: 750 },
-      fontFamily: "'Noto Color Emoji', sans-serif"
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 320, slide.content, {
+        fontSize: '18px',
+        fill: '#1E293B',
+        align: 'center',
+        lineSpacing: 10,
+        wordWrap: { width: 750 },
+        fontFamily: "'Noto Color Emoji', sans-serif"
+      })
+      .setOrigin(0.5);
 
     // Progress indicator
-    scene.add.text(450, 530, `${currentSlide + 1} / ${slides.length}`, {
-      fontSize: '18px',
-      fill: '#475569'
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 530, `${currentSlide + 1} / ${slides.length}`, {
+        fontSize: '18px',
+        fill: '#475569'
+      })
+      .setOrigin(0.5);
 
     // Progress dots
     for (let i = 0; i < slides.length; i++) {
-      const dot = scene.add.circle(350 + i * 25, 560, 6,
-        i === currentSlide ? country.continentColor : 0xD4E09B);
+      const dot = scene.add.circle(
+        350 + i * 25,
+        560,
+        6,
+        i === currentSlide ? country.continentColor : 0xd4e09b
+      );
     }
 
     // Navigation
     if (currentSlide > 0) {
-      createModernButton(scene, 200, 590, '← Previous', WE_COLORS.textLight, () => {
-        currentSlide--;
-        showSlide();
-      }, 150, 50);
+      createModernButton(
+        scene,
+        200,
+        590,
+        '← Previous',
+        WE_COLORS.textLight,
+        () => {
+          currentSlide--;
+          showSlide();
+        },
+        150,
+        50
+      );
     }
 
     if (currentSlide < slides.length - 1) {
-      createModernButton(scene, 700, 590, 'Next →', WE_COLORS.success, () => {
-        currentSlide++;
-        showSlide();
-      }, 150, 50);
+      createModernButton(
+        scene,
+        700,
+        590,
+        'Next →',
+        WE_COLORS.success,
+        () => {
+          currentSlide++;
+          showSlide();
+        },
+        150,
+        50
+      );
     } else {
-      createModernButton(scene, 700, 590, 'Take Quiz! 🎯', WE_COLORS.success, () => {
-        showQuiz(scene, countryKey);
-      }, 180, 50);
+      createModernButton(
+        scene,
+        700,
+        590,
+        'Take Quiz! 🎯',
+        WE_COLORS.success,
+        () => {
+          showQuiz(scene, countryKey);
+        },
+        180,
+        50
+      );
     }
 
     // Back button
-    createModernButton(scene, 120, 40, '← Back', WE_COLORS.error, () => {
-      showCountrySelect(scene, currentDifficulty);
-    }, 120, 40);
+    createModernButton(
+      scene,
+      120,
+      40,
+      '← Back',
+      WE_COLORS.error,
+      () => {
+        showCountrySelect(scene, currentDifficulty);
+      },
+      120,
+      40
+    );
   }
 
   showSlide();
@@ -2358,40 +2526,53 @@ function showQuiz(scene, countryKey) {
     const q = questions[currentQuestion];
 
     // Header
-    scene.add.text(450, 40, `Quiz: ${country.name} ${country.flag}`, {
-      fontSize: '32px',
-      fill: '#1E293B',
-      fontStyle: 'bold',
-      fontFamily: "'Noto Color Emoji', sans-serif"
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 40, `Quiz: ${country.name} ${country.flag}`, {
+        fontSize: '32px',
+        fill: '#1E293B',
+        fontStyle: 'bold',
+        fontFamily: "'Noto Color Emoji', sans-serif"
+      })
+      .setOrigin(0.5);
 
     // Score
-    scene.add.text(450, 85, `Question ${currentQuestion + 1}/${totalQuestions} | Score: ${score}/${totalQuestions}`, {
-      fontSize: '18px',
-      fill: '#475569'
-    }).setOrigin(0.5);
+    scene.add
+      .text(
+        450,
+        85,
+        `Question ${currentQuestion + 1}/${totalQuestions} | Score: ${score}/${totalQuestions}`,
+        {
+          fontSize: '18px',
+          fill: '#475569'
+        }
+      )
+      .setOrigin(0.5);
 
     // Question
-    scene.add.text(450, 160, q.question, {
-      fontSize: '24px',
-      fill: '#1E293B',
-      fontStyle: 'bold',
-      align: 'center',
-      wordWrap: { width: 750 }
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 160, q.question, {
+        fontSize: '24px',
+        fill: '#1E293B',
+        fontStyle: 'bold',
+        align: 'center',
+        wordWrap: { width: 750 }
+      })
+      .setOrigin(0.5);
 
     // Answer options
     q.options.forEach((option, index) => {
       const y = 250 + index * 80;
-      const btn = scene.add.rectangle(450, y, 600, 60, 0xFFFFFF);
-      btn.setStrokeStyle(3, 0xCBDFBD);
+      const btn = scene.add.rectangle(450, y, 600, 60, 0xffffff);
+      btn.setStrokeStyle(3, 0xcbdfbd);
       btn.setInteractive({ useHandCursor: true });
 
-      const text = scene.add.text(450, y, option, {
-        fontSize: '20px',
-        fill: '#1E293B',
-        wordWrap: { width: 550 }
-      }).setOrigin(0.5);
+      const text = scene.add
+        .text(450, y, option, {
+          fontSize: '20px',
+          fill: '#1E293B',
+          wordWrap: { width: 550 }
+        })
+        .setOrigin(0.5);
 
       btn.on('pointerdown', () => {
         checkAnswer(btn, text, option, q.correct);
@@ -2401,14 +2582,23 @@ function showQuiz(scene, countryKey) {
         btn.setStrokeStyle(3, country.continentColor);
       });
       btn.on('pointerout', () => {
-        btn.setStrokeStyle(3, 0xCBDFBD);
+        btn.setStrokeStyle(3, 0xcbdfbd);
       });
     });
 
     // Back button
-    createModernButton(scene, 120, 600, '← Back', WE_COLORS.error, () => {
-      showCountrySelect(scene, currentDifficulty);
-    }, 120, 40);
+    createModernButton(
+      scene,
+      120,
+      600,
+      '← Back',
+      WE_COLORS.error,
+      () => {
+        showCountrySelect(scene, currentDifficulty);
+      },
+      120,
+      40
+    );
   }
 
   function checkAnswer(btn, text, selected, correct) {
@@ -2448,32 +2638,30 @@ function generateQuestions(country, countryKey) {
     },
     {
       question: `Which continent is ${country.name} located in?`,
-      options: shuffleArray([
-        country.continent,
-        'Europe',
-        'Asia',
-        'Africa'
-      ].filter((v, i, a) => a.indexOf(v) === i)),
+      options: shuffleArray(
+        [country.continent, 'Europe', 'Asia', 'Africa'].filter((v, i, a) => a.indexOf(v) === i)
+      ),
       correct: country.continent
     },
     {
       question: `What language is primarily spoken in ${country.name}?`,
-      options: shuffleArray([
-        country.language[0],
-        'Spanish',
-        'English',
-        'French'
-      ].filter((v, i, a) => a.indexOf(v) === i)),
+      options: shuffleArray(
+        [country.language[0], 'Spanish', 'English', 'French'].filter(
+          (v, i, a) => a.indexOf(v) === i
+        )
+      ),
       correct: country.language[0]
     },
     {
       question: `Which of these is a famous place in ${country.name}?`,
-      options: shuffleArray([
-        country.famousPlaces[0].split(' - ')[0],
-        'Eiffel Tower',
-        'Big Ben',
-        'Statue of Liberty'
-      ].filter((v, i, a) => a.indexOf(v) === i)),
+      options: shuffleArray(
+        [
+          country.famousPlaces[0].split(' - ')[0],
+          'Eiffel Tower',
+          'Big Ben',
+          'Statue of Liberty'
+        ].filter((v, i, a) => a.indexOf(v) === i)
+      ),
       correct: country.famousPlaces[0].split(' - ')[0]
     },
     (() => {
@@ -2502,14 +2690,57 @@ function getRandomCapital(excludeKey) {
 
 function getRandomCity(excludeKey) {
   const cities = [
-    'Tokyo', 'Paris', 'London', 'Berlin', 'Rome', 'Madrid', 'Moscow', 'Sydney',
-    'Toronto', 'Seoul', 'Bangkok', 'Dubai', 'Cairo', 'Lagos', 'Nairobi',
-    'Buenos Aires', 'Lima', 'Bogotá', 'Santiago', 'Lisbon', 'Athens',
-    'Warsaw', 'Vienna', 'Prague', 'Amsterdam', 'Stockholm', 'Oslo',
-    'Copenhagen', 'Helsinki', 'Zurich', 'Brussels', 'Budapest', 'Bucharest',
-    'Istanbul', 'Tehran', 'Karachi', 'Dhaka', 'Colombo', 'Kathmandu',
-    'Hanoi', 'Manila', 'Kuala Lumpur', 'Singapore', 'Jakarta', 'Taipei',
-    'Accra', 'Dakar', 'Addis Ababa', 'Kinshasa', 'Dar es Salaam', 'Casablanca'
+    'Tokyo',
+    'Paris',
+    'London',
+    'Berlin',
+    'Rome',
+    'Madrid',
+    'Moscow',
+    'Sydney',
+    'Toronto',
+    'Seoul',
+    'Bangkok',
+    'Dubai',
+    'Cairo',
+    'Lagos',
+    'Nairobi',
+    'Buenos Aires',
+    'Lima',
+    'Bogotá',
+    'Santiago',
+    'Lisbon',
+    'Athens',
+    'Warsaw',
+    'Vienna',
+    'Prague',
+    'Amsterdam',
+    'Stockholm',
+    'Oslo',
+    'Copenhagen',
+    'Helsinki',
+    'Zurich',
+    'Brussels',
+    'Budapest',
+    'Bucharest',
+    'Istanbul',
+    'Tehran',
+    'Karachi',
+    'Dhaka',
+    'Colombo',
+    'Kathmandu',
+    'Hanoi',
+    'Manila',
+    'Kuala Lumpur',
+    'Singapore',
+    'Jakarta',
+    'Taipei',
+    'Accra',
+    'Dakar',
+    'Addis Ababa',
+    'Kinshasa',
+    'Dar es Salaam',
+    'Casablanca'
   ];
   const country = COUNTRIES[excludeKey];
   const excludeCities = [...country.majorCities, country.capital];
@@ -2534,28 +2765,36 @@ function showQuizResults(scene, score, total, countryKey) {
   const percentage = (score / total) * 100;
   const passed = score >= 4; // Need 4/5 to pass
 
-  scene.add.text(450, 100, passed ? '🎉 Excellent!' : '📚 Good Try!', {
-    fontSize: '48px',
-    fill: passed ? '#A44A3F' : '#F19C79',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 100, passed ? '🎉 Excellent!' : '📚 Good Try!', {
+      fontSize: '48px',
+      fill: passed ? '#A44A3F' : '#F19C79',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 180, `${country.name} ${country.flag}`, {
-    fontSize: '32px',
-    fill: '#1E293B',
-    fontFamily: "'Noto Color Emoji', sans-serif"
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 180, `${country.name} ${country.flag}`, {
+      fontSize: '32px',
+      fill: '#1E293B',
+      fontFamily: "'Noto Color Emoji', sans-serif"
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 240, `Score: ${score}/${total}`, {
-    fontSize: '42px',
-    fill: '#1E293B',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 240, `Score: ${score}/${total}`, {
+      fontSize: '42px',
+      fill: '#1E293B',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 300, `${percentage}%`, {
-    fontSize: '36px',
-    fill: country.continentColor
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 300, `${percentage}%`, {
+      fontSize: '36px',
+      fill: country.continentColor
+    })
+    .setOrigin(0.5);
 
   if (passed) {
     // Mark country as learned on pass and persist
@@ -2565,52 +2804,99 @@ function showQuizResults(scene, score, total, countryKey) {
     }
 
     // Unlock next difficulty if at least 1 country passed at the current level
-    const levelCountries = Object.keys(COUNTRIES).filter(k => COUNTRIES[k].difficulty === currentDifficulty);
+    const levelCountries = Object.keys(COUNTRIES).filter(
+      k => COUNTRIES[k].difficulty === currentDifficulty
+    );
     const learnedInThisLevel = levelCountries.filter(k => countriesLearned.includes(k));
     if (learnedInThisLevel.length >= 1 && unlockedDifficulties === currentDifficulty) {
       unlockedDifficulties++;
       localStorage.setItem('we_unlockedDifficulties', unlockedDifficulties.toString());
-      scene.add.text(450, 390, '🔓 Next level unlocked! Keep exploring!', {
-        fontSize: '20px',
-        fill: '#F19C79',
-        fontStyle: 'bold'
-      }).setOrigin(0.5);
+      scene.add
+        .text(450, 390, '🔓 Next level unlocked! Keep exploring!', {
+          fontSize: '20px',
+          fill: '#F19C79',
+          fontStyle: 'bold'
+        })
+        .setOrigin(0.5);
     }
 
-    scene.add.text(450, 430, '✓ Great knowledge about this country!', {
-      fontSize: '20px',
-      fill: '#CBDFBD'
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 430, '✓ Great knowledge about this country!', {
+        fontSize: '20px',
+        fill: '#CBDFBD'
+      })
+      .setOrigin(0.5);
   } else {
-    scene.add.text(450, 390, 'Review the country info and try again!', {
-      fontSize: '18px',
-      fill: '#475569'
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 390, 'Review the country info and try again!', {
+        fontSize: '18px',
+        fill: '#475569'
+      })
+      .setOrigin(0.5);
   }
 
-  createModernButton(scene, 300, 500, 'Learn Again', WE_COLORS.primary, () => {
-    showCountryLearn(scene, countryKey);
-  }, 200, 60);
+  createModernButton(
+    scene,
+    300,
+    500,
+    'Learn Again',
+    WE_COLORS.primary,
+    () => {
+      showCountryLearn(scene, countryKey);
+    },
+    200,
+    60
+  );
 
-  createModernButton(scene, 600, 500, 'Choose Country', WE_COLORS.success, () => {
-    showCountrySelect(scene, currentDifficulty);
-  }, 200, 60);
+  createModernButton(
+    scene,
+    600,
+    500,
+    'Choose Country',
+    WE_COLORS.success,
+    () => {
+      showCountrySelect(scene, currentDifficulty);
+    },
+    200,
+    60
+  );
 
-  createModernButton(scene, 450, 580, 'Main Menu', WE_COLORS.textLight, () => {
-    showMainMenu(scene);
-  }, 200, 50);
+  createModernButton(
+    scene,
+    450,
+    580,
+    'Main Menu',
+    WE_COLORS.textLight,
+    () => {
+      showMainMenu(scene);
+    },
+    200,
+    50
+  );
 }
 
 // ==================== HELPER: CREATE MODERN BUTTON ====================
-function createModernButton(scene, x, y, label, color, callback, width = 200, height = 60, small = false) {
+function createModernButton(
+  scene,
+  x,
+  y,
+  label,
+  color,
+  callback,
+  width = 200,
+  height = 60,
+  small = false
+) {
   const button = scene.add.rectangle(x, y, width, height, color);
   button.setInteractive({ useHandCursor: true });
 
-  const text = scene.add.text(x, y, label, {
-    fontSize: small ? '16px' : '20px',
-    fill: '#FFFFFF',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  const text = scene.add
+    .text(x, y, label, {
+      fontSize: small ? '16px' : '20px',
+      fill: '#FFFFFF',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   button.on('pointerdown', callback);
   button.on('pointerover', () => {

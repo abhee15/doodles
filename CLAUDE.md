@@ -35,13 +35,13 @@ Read it before adding or modifying any game.
 
 ## 2. Naming Conventions
 
-| Item | Convention | Example |
-|------|-----------|---------|
-| Game folder | `kebab-case` | `math-ladder`, `body-map` |
-| Game card `id` | same as folder | `id="math-ladder"` |
-| Game JS file | `game.js` | `games/math-ladder/game.js` |
-| Auxiliary data | descriptive name | `planet-data.js` |
-| No backup files | never commit `.backup` files | — |
+| Item            | Convention                   | Example                     |
+| --------------- | ---------------------------- | --------------------------- |
+| Game folder     | `kebab-case`                 | `math-ladder`, `body-map`   |
+| Game card `id`  | same as folder               | `id="math-ladder"`          |
+| Game JS file    | `game.js`                    | `games/math-ladder/game.js` |
+| Auxiliary data  | descriptive name             | `planet-data.js`            |
+| No backup files | never commit `.backup` files | —                           |
 
 ---
 
@@ -50,49 +50,56 @@ Read it before adding or modifying any game.
 Every `games/<id>/index.html` must have, in this order:
 
 ```html
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0,
-      maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta charset="UTF-8" />
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+/>
 
 <!-- Primary Meta Tags -->
 <title>Game Name - Description for Kids | Doodles Games</title>
-<meta name="title" content="Game Name - Short Description">
-<meta name="description" content="One or two sentences describing the game.">
-<meta name="keywords" content="relevant, keywords, here">
+<meta name="title" content="Game Name - Short Description" />
+<meta name="description" content="One or two sentences describing the game." />
+<meta name="keywords" content="relevant, keywords, here" />
 
 <!-- Open Graph / Facebook -->
-<meta property="og:type" content="game">
-<meta property="og:url" content="https://abhee15.github.io/doodles/games/<id>/">
-<meta property="og:title" content="Game Name - Short Description">
-<meta property="og:description" content="Same or similar to meta description.">
+<meta property="og:type" content="game" />
+<meta property="og:url" content="https://abhee15.github.io/doodles/games/<id>/" />
+<meta property="og:title" content="Game Name - Short Description" />
+<meta property="og:description" content="Same or similar to meta description." />
 
 <!-- Twitter -->
-<meta property="twitter:card" content="summary">
-<meta property="twitter:url" content="https://abhee15.github.io/doodles/games/<id>/">
-<meta property="twitter:title" content="Game Name - Short Description">
-<meta property="twitter:description" content="Same or similar to meta description.">
+<meta property="twitter:card" content="summary" />
+<meta property="twitter:url" content="https://abhee15.github.io/doodles/games/<id>/" />
+<meta property="twitter:title" content="Game Name - Short Description" />
+<meta property="twitter:description" content="Same or similar to meta description." />
 
-<link rel="canonical" href="https://abhee15.github.io/doodles/games/<id>/">
+<link rel="canonical" href="https://abhee15.github.io/doodles/games/<id>/" />
 
-<link rel="stylesheet" href="../../shared/game-page-v2.css">
+<link rel="stylesheet" href="../../shared/game-page-v2.css" />
 ```
 
 **Title format:** `Game Name - Description for Kids | Doodles Games`
+
 - Use a hyphen (`-`), not an em dash (`—`)
 - Include "for Kids" in the description part
 - Always end with `| Doodles Games`
 
 **Google Fonts preconnect** (only if loading a Google Font):
+
 ```html
-<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 ```
+
 Both `<link rel="preconnect">` tags require the `crossorigin` attribute.
 
 **DOM games only:** Load shared design system before your `<style>` block:
+
 ```html
-<link rel="stylesheet" href="../../shared/tokens.css">
-<link rel="stylesheet" href="../../shared/game-dom.css">
+<link rel="stylesheet" href="../../shared/tokens.css" />
+<link rel="stylesheet" href="../../shared/game-dom.css" />
 <style>
   /* Game-specific styles here */
 </style>
@@ -124,9 +131,12 @@ Both `<link rel="preconnect">` tags require the `crossorigin` attribute.
 ```html
 <head>
   ...
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
-  <link rel="stylesheet" href="../../shared/tokens.css">
-  <link rel="stylesheet" href="../../shared/game-dom.css">
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css"
+  />
+  <link rel="stylesheet" href="../../shared/tokens.css" />
+  <link rel="stylesheet" href="../../shared/game-dom.css" />
 </head>
 
 <body>
@@ -148,6 +158,7 @@ Both `<link rel="preconnect">` tags require the `crossorigin` attribute.
 ```
 
 **Rules:**
+
 - Use `class="dom-nav"` for the nav bar, `class="dom-nav-title"` for title, `class="dom-nav-meta"` for status text
 - Use `class="dom-screen"` and `class="dom-screen active"` for screen containers
 - Use `class="dom-btn dom-btn--primary"` and related button variants (see `shared/game-dom.css`)
@@ -207,20 +218,22 @@ Used by: Body Map, Doodle School
 
 Three naming conventions for different scopes:
 
-| Tier | Prefix | Usage | Example |
-|------|--------|-------|---------|
-| **Primitives** | `--tok-*` | Single source of truth, never overridden | `--tok-blue: #1CB0F6` |
-| **Phaser Overrides** | `--game-bg-*` | Per-game background in Phaser games | `--game-bg-start: #A8DADA` |
-| **DOM Overrides** | `--dom-*` | Per-game theming in DOM games | `--dom-accent: #F472B6` |
+| Tier                 | Prefix        | Usage                                    | Example                    |
+| -------------------- | ------------- | ---------------------------------------- | -------------------------- |
+| **Primitives**       | `--tok-*`     | Single source of truth, never overridden | `--tok-blue: #1CB0F6`      |
+| **Phaser Overrides** | `--game-bg-*` | Per-game background in Phaser games      | `--game-bg-start: #A8DADA` |
+| **DOM Overrides**    | `--dom-*`     | Per-game theming in DOM games            | `--dom-accent: #F472B6`    |
 
 ### Phaser Games (Archetype A)
 
 Each game has a unique gradient defined in `css/portal.css` under `:root`:
+
 ```css
 --grad-<id>: linear-gradient(145deg, #COLOR1 0%, #COLOR2 100%);
 ```
 
 Game page backgrounds use CSS variables in `game-page-v2.css`:
+
 ```css
 --game-bg-start  (default: #A8DADA)
 --game-bg-end    (default: #3D9E9E)
@@ -231,13 +244,14 @@ Override them in the game's own `<style>` block if needed.
 ### DOM Games (Archetype B)
 
 Override shell variables in your `<style>` block `:root`:
+
 ```css
 :root {
-  --dom-nav-bg:    #0A2424;        /* Your nav color */
-  --dom-accent:    #F5C518;        /* Your primary action color */
-  --dom-accent2:   #4CAF50;        /* Your secondary action color */
-  --dom-bg:        #0D1B2A;        /* Your background */
-  --dom-border:    rgba(255,255,255,0.12);  /* Your borders */
+  --dom-nav-bg: #0a2424; /* Your nav color */
+  --dom-accent: #f5c518; /* Your primary action color */
+  --dom-accent2: #4caf50; /* Your secondary action color */
+  --dom-bg: #0d1b2a; /* Your background */
+  --dom-border: rgba(255, 255, 255, 0.12); /* Your borders */
   /* ... etc */
 }
 ```
@@ -250,24 +264,24 @@ Override shell variables in your `<style>` block `:root`:
 
 From `shared/game-page-v2.css` (Phaser games):
 
-| Breakpoint | Target |
-|-----------|--------|
-| `max-width: 768px` | Mobile (full-viewport canvas, no border-radius) |
-| `min-width: 769px` and `max-width: 1024px` | Tablet (92vw × 92vh) |
-| `max-width: 768px` + `orientation: landscape` | Landscape mobile |
+| Breakpoint                                    | Target                                          |
+| --------------------------------------------- | ----------------------------------------------- |
+| `max-width: 768px`                            | Mobile (full-viewport canvas, no border-radius) |
+| `min-width: 769px` and `max-width: 1024px`    | Tablet (92vw × 92vh)                            |
+| `max-width: 768px` + `orientation: landscape` | Landscape mobile                                |
 
 From `shared/game-dom.css` (DOM games):
 
-| Breakpoint | Target |
-|-----------|--------|
+| Breakpoint         | Target                                       |
+| ------------------ | -------------------------------------------- |
 | `max-width: 768px` | Mobile (stacked layouts, reduced font sizes) |
 
 From `css/portal.css` (Portal only):
 
-| Breakpoint | Target |
-|-----------|--------|
-| `max-width: 600px` | Small mobile card sizing |
-| `max-width: 900px` | Footer 2-column grid |
+| Breakpoint         | Target                                        |
+| ------------------ | --------------------------------------------- |
+| `max-width: 600px` | Small mobile card sizing                      |
+| `max-width: 900px` | Footer 2-column grid                          |
 | `max-width: 480px` | Footer 1-column, filter bar horizontal scroll |
 
 ---
@@ -278,14 +292,14 @@ From `css/portal.css` (Portal only):
 
 ### Approved Alternatives for Creating Depth
 
-| Effect | Method | Example |
-|--------|--------|---------|
-| **Card/button elevation on hover** | `border-color` change + `transform: translateY()` | See `.dom-card--interactive` in `game-dom.css` |
-| **Floating/lifted effect** | `transform: translateY(-2px)` | Buttons on hover/active |
-| **Depth on dark backgrounds** | `border: 1px solid rgba(255,255,255,0.15)` | Modal overlays |
-| **SVG icon depth** | `filter: drop-shadow()` (filter only, not box-shadow) | SVG zone highlights (body-map) |
-| **Modal prominence** | `backdrop-filter: blur()` + thin border | Modals over page background |
-| **Focus/selection indication** | `border-color` change | Form inputs, game cards |
+| Effect                             | Method                                                | Example                                        |
+| ---------------------------------- | ----------------------------------------------------- | ---------------------------------------------- |
+| **Card/button elevation on hover** | `border-color` change + `transform: translateY()`     | See `.dom-card--interactive` in `game-dom.css` |
+| **Floating/lifted effect**         | `transform: translateY(-2px)`                         | Buttons on hover/active                        |
+| **Depth on dark backgrounds**      | `border: 1px solid rgba(255,255,255,0.15)`            | Modal overlays                                 |
+| **SVG icon depth**                 | `filter: drop-shadow()` (filter only, not box-shadow) | SVG zone highlights (body-map)                 |
+| **Modal prominence**               | `backdrop-filter: blur()` + thin border               | Modals over page background                    |
+| **Focus/selection indication**     | `border-color` change                                 | Form inputs, game cards                        |
 
 ### Why No Box-Shadows?
 
@@ -301,6 +315,7 @@ From `css/portal.css` (Portal only):
 ## 10. Framework Standards & Consistency Tools
 
 **See [FRAMEWORK_STANDARDS.md](FRAMEWORK_STANDARDS.md) for:**
+
 - Navigation Architecture Standard (back button always goes to logical parent)
 - Shared Navigation Component (`shared/navigation.js`)
 - Game Structure Standard (HTML/JS patterns)
@@ -322,12 +337,12 @@ The portal is entirely driven by two global objects: `CATEGORIES` and `GAMES` (d
 
 Each category object has:
 
-| Field | Type | Example |
-|-------|------|---------|
-| `id` | string | `'math'` |
-| `label` | string | `'Math & Numbers'` |
-| `color` | hex color | `'#BF360C'` |
-| `footerHeading` | string | `'Math & Numbers'` |
+| Field           | Type      | Example            |
+| --------------- | --------- | ------------------ |
+| `id`            | string    | `'math'`           |
+| `label`         | string    | `'Math & Numbers'` |
+| `color`         | hex color | `'#BF360C'`        |
+| `footerHeading` | string    | `'Math & Numbers'` |
 
 The portal renders one filter pill per category (plus an "All Games" pill), and one footer column per category.
 
@@ -335,23 +350,24 @@ The portal renders one filter pill per category (plus an "All Games" pill), and 
 
 Each game object has:
 
-| Field | Type | Description | Example |
-|-------|------|-------------|---------|
-| `id` | string | **Unique.** Must match folder name and HTML id. | `'math-ladder'` |
-| `name` | string | Display name on card and footer. | `'Math Ladder'` |
-| `category` | string | Must match a category `id` from CATEGORIES. | `'math'` |
-| `desc` | string | Card description (HTML entities OK). | `'Climb rung by rung...'` |
-| `icon` | string | Tabler icon class. | `'ti-stairs'` |
-| `iconColor` | string or null | Icon color (hex). Null = white. | `'#F5C518'` or `null` |
-| `gradient` | string | Full CSS linear-gradient for thumbnail. | `'linear-gradient(150deg, #FF7043 0%, #BF360C 100%)'` |
-| `pattern` | string or null | Optional CSS background pattern (::before pseudo-element). | `'repeating-linear-gradient(...)'` or `null` |
-| `patternSize` | string or null | `background-size` if needed. | `'20px 20px'` or `null` |
-| `patternPosition` | string or null | `background-position` if needed. | `'0 0, 10px 15px'` or `null` |
-| `thumbClass` | string or null | CSS class for .thumb (null = use inline gradient). | `'ninja'` or `null` |
-| `newUntil` | ISO date string or null | Show "New" badge until this date (checked at render time). | `'2026-04-01'` or `null` |
-| `footerName` | string | Link text in footer (may differ from `name`). | `'Planet Quest'` |
+| Field             | Type                    | Description                                                | Example                                               |
+| ----------------- | ----------------------- | ---------------------------------------------------------- | ----------------------------------------------------- |
+| `id`              | string                  | **Unique.** Must match folder name and HTML id.            | `'math-ladder'`                                       |
+| `name`            | string                  | Display name on card and footer.                           | `'Math Ladder'`                                       |
+| `category`        | string                  | Must match a category `id` from CATEGORIES.                | `'math'`                                              |
+| `desc`            | string                  | Card description (HTML entities OK).                       | `'Climb rung by rung...'`                             |
+| `icon`            | string                  | Tabler icon class.                                         | `'ti-stairs'`                                         |
+| `iconColor`       | string or null          | Icon color (hex). Null = white.                            | `'#F5C518'` or `null`                                 |
+| `gradient`        | string                  | Full CSS linear-gradient for thumbnail.                    | `'linear-gradient(150deg, #FF7043 0%, #BF360C 100%)'` |
+| `pattern`         | string or null          | Optional CSS background pattern (::before pseudo-element). | `'repeating-linear-gradient(...)'` or `null`          |
+| `patternSize`     | string or null          | `background-size` if needed.                               | `'20px 20px'` or `null`                               |
+| `patternPosition` | string or null          | `background-position` if needed.                           | `'0 0, 10px 15px'` or `null`                          |
+| `thumbClass`      | string or null          | CSS class for .thumb (null = use inline gradient).         | `'ninja'` or `null`                                   |
+| `newUntil`        | ISO date string or null | Show "New" badge until this date (checked at render time). | `'2026-04-01'` or `null`                              |
+| `footerName`      | string                  | Link text in footer (may differ from `name`).              | `'Planet Quest'`                                      |
 
 **Notes:**
+
 - If `thumbClass` is null (e.g. Body Map), the gradient is applied inline to the `.thumb` div.
 - If `thumbClass` is set, `portal.js` injects CSS rules for `.thumb.{thumbClass}` and (if pattern exists) `.thumb.{thumbClass}::before`.
 - `newUntil` is compared to the current date on render. Example: if today is 2026-02-24 and `newUntil: '2026-04-01'`, the badge shows.
@@ -359,14 +375,14 @@ Each game object has:
 
 ### portal.js Functions
 
-| Function | Purpose |
-|----------|---------|
-| `injectThumbStyles()` | Generates CSS rules for all games with `thumbClass` |
-| `renderCards()` | Populates `.cards-row` divs with game card HTML |
-| `updateNavCount()` | Sets nav counter to "N games · M subjects" |
-| `updateSectionCounts()` | Updates each `.sec-count` span with category game count |
-| `renderFilterPills()` | Builds filter pill buttons and attaches listeners |
-| `renderFooter()` | Builds footer columns from CATEGORIES |
-| `attachFilterListeners()` | Handles pill clicks to show/hide sections |
+| Function                  | Purpose                                                 |
+| ------------------------- | ------------------------------------------------------- |
+| `injectThumbStyles()`     | Generates CSS rules for all games with `thumbClass`     |
+| `renderCards()`           | Populates `.cards-row` divs with game card HTML         |
+| `updateNavCount()`        | Sets nav counter to "N games · M subjects"              |
+| `updateSectionCounts()`   | Updates each `.sec-count` span with category game count |
+| `renderFilterPills()`     | Builds filter pill buttons and attaches listeners       |
+| `renderFooter()`          | Builds footer columns from CATEGORIES                   |
+| `attachFilterListeners()` | Handles pill clicks to show/hide sections               |
 
 All functions run on `DOMContentLoaded`.

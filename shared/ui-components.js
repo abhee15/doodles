@@ -16,20 +16,20 @@
  * Button Variants (Design System)
  */
 const ButtonVariants = {
-  PRIMARY: 'primary',      // Main actions (Start, Play, Continue)
-  SECONDARY: 'secondary',  // Secondary actions (Settings, Info)
-  SUCCESS: 'success',      // Positive actions (Submit, Confirm)
-  DANGER: 'danger',        // Destructive actions (Delete, Reset)
-  GHOST: 'ghost'           // Minimal style (Back, Cancel)
+  PRIMARY: 'primary', // Main actions (Start, Play, Continue)
+  SECONDARY: 'secondary', // Secondary actions (Settings, Info)
+  SUCCESS: 'success', // Positive actions (Submit, Confirm)
+  DANGER: 'danger', // Destructive actions (Delete, Reset)
+  GHOST: 'ghost' // Minimal style (Back, Cancel)
 };
 
 /**
  * Button Sizes
  */
 const ButtonSizes = {
-  SMALL: 'small',      // 120x40
-  MEDIUM: 'medium',    // 180x55
-  LARGE: 'large'       // 240x70
+  SMALL: 'small', // 120x40
+  MEDIUM: 'medium', // 180x55
+  LARGE: 'large' // 240x70
 };
 
 /**
@@ -39,41 +39,41 @@ const ButtonSizes = {
 function getButtonStyle(variant) {
   const styles = {
     primary: {
-      bgColor: 0x1CB0F6,           // Dodger Blue (from design-colors.css)
-      bgColorHover: 0x0B8FDE,
-      bgColorPressed: 0x0870B8,
+      bgColor: 0x1cb0f6, // Dodger Blue (from design-colors.css)
+      bgColorHover: 0x0b8fde,
+      bgColorPressed: 0x0870b8,
       textColor: '#FFFFFF',
       shadowColor: 0x000000,
       shadowAlpha: 0.25
     },
     secondary: {
-      bgColor: 0xFF7D00,           // Bright Orange (from design-colors.css)
-      bgColorHover: 0xE67300,
-      bgColorPressed: 0xCC6900,
+      bgColor: 0xff7d00, // Bright Orange (from design-colors.css)
+      bgColorHover: 0xe67300,
+      bgColorPressed: 0xcc6900,
       textColor: '#FFFFFF',
       shadowColor: 0x000000,
       shadowAlpha: 0.2
     },
     success: {
-      bgColor: 0x58CC02,           // Bright Green (from design-colors.css)
-      bgColorHover: 0x4BA502,
-      bgColorPressed: 0x3F8802,
+      bgColor: 0x58cc02, // Bright Green (from design-colors.css)
+      bgColorHover: 0x4ba502,
+      bgColorPressed: 0x3f8802,
       textColor: '#FFFFFF',
       shadowColor: 0x000000,
       shadowAlpha: 0.25
     },
     danger: {
-      bgColor: 0xFF4444,           // Bright Red (from design-colors.css)
-      bgColorHover: 0xCC2222,
+      bgColor: 0xff4444, // Bright Red (from design-colors.css)
+      bgColorHover: 0xcc2222,
       bgColorPressed: 0x991111,
       textColor: '#FFFFFF',
       shadowColor: 0x000000,
       shadowAlpha: 0.3
     },
     ghost: {
-      bgColor: 0x1CB0F6,           // Dodger Blue, semi-transparent
-      bgColorHover: 0x0B8FDE,
-      bgColorPressed: 0x0870B8,
+      bgColor: 0x1cb0f6, // Dodger Blue, semi-transparent
+      bgColorHover: 0x0b8fde,
+      bgColorPressed: 0x0870b8,
       textColor: '#FFFFFF',
       shadowColor: 0x000000,
       shadowAlpha: 0.15,
@@ -115,11 +115,7 @@ function getButtonSize(size) {
  * @returns {Object} Button object with {container, bg, text, destroy()}
  */
 function createButton(scene, x, y, label, callback, options = {}) {
-  const {
-    variant = ButtonVariants.PRIMARY,
-    size = ButtonSizes.MEDIUM,
-    icon = null
-  } = options;
+  const { variant = ButtonVariants.PRIMARY, size = ButtonSizes.MEDIUM, icon = null } = options;
 
   const style = getButtonStyle(variant);
   const dimensions = getButtonSize(size);
@@ -147,8 +143,9 @@ function createButton(scene, x, y, label, callback, options = {}) {
   text.setOrigin(0.5);
 
   // Scale both objects together (replaces container.setScale)
-  const setScale = (s) => {
-    bg.setScale(s); text.setScale(s);
+  const setScale = s => {
+    bg.setScale(s);
+    text.setScale(s);
   };
 
   // Interaction states
@@ -199,12 +196,12 @@ function createButton(scene, x, y, label, callback, options = {}) {
   //   btn.container.setScrollFactor(0).setDepth(N)
   const containerShim = {
     setScrollFactor: (sfx, sfy) => {
-      const sy = (sfy !== undefined) ? sfy : sfx;
+      const sy = sfy !== undefined ? sfy : sfx;
       bg.setScrollFactor(sfx, sy);
       text.setScrollFactor(sfx, sy);
       return containerShim;
     },
-    setDepth: (d) => {
+    setDepth: d => {
       bg.setDepth(d);
       text.setDepth(d + 1); // text always one layer above bg
       return containerShim;
@@ -214,23 +211,27 @@ function createButton(scene, x, y, label, callback, options = {}) {
       text.setPosition(nx, ny);
       return containerShim;
     },
-    setVisible: (v) => {
+    setVisible: v => {
       bg.setVisible(v);
       text.setVisible(v);
       return containerShim;
     },
-    setScale: (s) => {
-      setScale(s); return containerShim;
+    setScale: s => {
+      setScale(s);
+      return containerShim;
     },
-    setAlpha: (a) => {
-      bg.setAlpha(a); text.setAlpha(a); return containerShim;
+    setAlpha: a => {
+      bg.setAlpha(a);
+      text.setAlpha(a);
+      return containerShim;
     },
-    setName: (n) => {
+    setName: n => {
       bg.setName(n);
       return containerShim;
     },
     destroy: () => {
-      bg.destroy(); text.destroy();
+      bg.destroy();
+      text.destroy();
     }
   };
 
@@ -239,15 +240,17 @@ function createButton(scene, x, y, label, callback, options = {}) {
     background: bg,
     text: text,
     setPosition: (newX, newY) => {
-      bg.setPosition(newX, newY); text.setPosition(newX, newY);
+      bg.setPosition(newX, newY);
+      text.setPosition(newX, newY);
     },
-    setVisible: (visible) => {
-      bg.setVisible(visible); text.setVisible(visible);
+    setVisible: visible => {
+      bg.setVisible(visible);
+      text.setVisible(visible);
     },
-    setText: (newText) => {
+    setText: newText => {
       text.setText(icon ? `${icon} ${newText}` : newText);
     },
-    setEnabled: (enabled) => {
+    setEnabled: enabled => {
       if (enabled) {
         bg.setInteractive({ useHandCursor: true });
         bg.setAlpha(style.alpha || 1);
@@ -257,7 +260,8 @@ function createButton(scene, x, y, label, callback, options = {}) {
       }
     },
     destroy: () => {
-      bg.destroy(); text.destroy();
+      bg.destroy();
+      text.destroy();
     }
   };
 }
@@ -274,12 +278,7 @@ function createButton(scene, x, y, label, callback, options = {}) {
  * @returns {Object} Card object with {container, bg, destroy()}
  */
 function createCard(scene, x, y, width, height, options = {}) {
-  const {
-    bgColor = 0xFFFFFF,
-    borderColor = 0xE5E7EB,
-    borderWidth = 2,
-    shadowDepth = 3
-  } = options;
+  const { bgColor = 0xffffff, borderColor = 0xe5e7eb, borderWidth = 2, shadowDepth = 3 } = options;
 
   const container = scene.add.container(x, y);
 
@@ -297,7 +296,7 @@ function createCard(scene, x, y, width, height, options = {}) {
   return {
     container: container,
     background: bg,
-    addChild: (child) => container.add(child),
+    addChild: child => container.add(child),
     setPosition: (newX, newY) => container.setPosition(newX, newY),
     destroy: () => container.destroy()
   };
@@ -316,9 +315,9 @@ function createCard(scene, x, y, width, height, options = {}) {
  */
 function createProgressBar(scene, x, y, width, height, options = {}) {
   const {
-    bgColor = 0xE5E7EB,
-    fillColor = 0x10B981,
-    borderColor = 0x9CA3AF,
+    bgColor = 0xe5e7eb,
+    fillColor = 0x10b981,
+    borderColor = 0x9ca3af,
     borderWidth = 2,
     initialProgress = 0
   } = options;
@@ -332,7 +331,8 @@ function createProgressBar(scene, x, y, width, height, options = {}) {
 
   // Fill (progress indicator)
   const fill = scene.add.rectangle(
-    borderWidth, borderWidth,
+    borderWidth,
+    borderWidth,
     (width - borderWidth * 2) * initialProgress,
     height - borderWidth * 2,
     fillColor
@@ -343,7 +343,7 @@ function createProgressBar(scene, x, y, width, height, options = {}) {
 
   return {
     container: container,
-    update: (progress) => {
+    update: progress => {
       // Clamp progress between 0 and 1
       const clampedProgress = Math.max(0, Math.min(1, progress));
       fill.width = (width - borderWidth * 2) * clampedProgress;
@@ -390,7 +390,7 @@ function createScoreDisplay(scene, x, y, label, initialValue = 0) {
 
   return {
     container: container,
-    updateValue: (newValue) => valueText.setText(newValue.toString()),
+    updateValue: newValue => valueText.setText(newValue.toString()),
     setPosition: (newX, newY) => container.setPosition(newX, newY),
     destroy: () => container.destroy()
   };
@@ -429,9 +429,9 @@ function createModal(scene, title, message, buttons = []) {
     scene.scale.height / 2,
     dialogWidth,
     dialogHeight,
-    0xFFFFFF
+    0xffffff
   );
-  dialog.setStrokeStyle(2, 0xE5E7EB);
+  dialog.setStrokeStyle(2, 0xe5e7eb);
 
   // Title
   const titleText = scene.add.text(

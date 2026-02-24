@@ -25,7 +25,7 @@
 
 .stat-item i {
   font-size: 24px;
-  color: var(--color-primary, #1CB0F6);
+  color: var(--color-primary, #1cb0f6);
 }
 
 .stat-item:hover {
@@ -40,7 +40,11 @@
 
 /* Level indicator badge */
 #level-display {
-  background: linear-gradient(135deg, var(--color-primary, #1CB0F6), var(--color-secondary, #7c3aed));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary, #1cb0f6),
+    var(--color-secondary, #7c3aed)
+  );
   color: white;
   padding: 4px 10px;
   border-radius: 20px;
@@ -62,7 +66,11 @@
 
 .progress-bar-fill {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary, #1CB0F6), var(--color-secondary, #7c3aed));
+  background: linear-gradient(
+    90deg,
+    var(--color-primary, #1cb0f6),
+    var(--color-secondary, #7c3aed)
+  );
   transition: width 0.3s ease;
   border-radius: 10px;
 }
@@ -114,7 +122,7 @@
 
 .badge:hover {
   transform: translateY(-5px);
-  border-color: var(--color-primary, #1CB0F6);
+  border-color: var(--color-primary, #1cb0f6);
   border-width: 2px;
 }
 
@@ -139,7 +147,7 @@
 
 .badge.earned {
   background: linear-gradient(135deg, rgba(124, 58, 237, 0.15), rgba(28, 176, 246, 0.15));
-  border-color: var(--color-primary, #1CB0F6);
+  border-color: var(--color-primary, #1cb0f6);
 }
 
 .badge.locked {
@@ -149,12 +157,17 @@
 
 /* Animations */
 @keyframes badge-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 @keyframes celebration-pop {
-  0% { 
+  0% {
     transform: scale(0) rotate(-45deg);
     opacity: 0;
   }
@@ -190,7 +203,7 @@
   position: fixed;
   font-weight: 700;
   font-size: 24px;
-  color: var(--color-primary, #1CB0F6);
+  color: var(--color-primary, #1cb0f6);
   pointer-events: none;
   animation: float-up 1s ease-out forwards;
   z-index: 10000;
@@ -209,8 +222,8 @@
 .streak-message {
   font-size: 48px;
   font-weight: 700;
-  color: var(--color-primary, #1CB0F6);
-  text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+  color: var(--color-primary, #1cb0f6);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   animation: celebration-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
@@ -221,7 +234,7 @@
   right: 30px;
   background: white;
   border-left: 5px solid var(--color-secondary, #7c3aed);
-  border: 1px solid rgba(0,0,0,0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 20px 25px;
   border-radius: 8px;
   z-index: 9998;
@@ -288,11 +301,15 @@
 .level-up-text {
   font-size: 72px;
   font-weight: 900;
-  background: linear-gradient(135deg, var(--color-primary, #1CB0F6), var(--color-secondary, #7c3aed));
+  background: linear-gradient(
+    135deg,
+    var(--color-primary, #1cb0f6),
+    var(--color-secondary, #7c3aed)
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: zoom-in-out 1s ease-out;
-  text-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 @keyframes zoom-in-out {
@@ -315,16 +332,26 @@
   position: fixed;
   width: 10px;
   height: 10px;
-  background: var(--color-primary, #1CB0F6);
+  background: var(--color-primary, #1cb0f6);
   pointer-events: none;
   z-index: 9997;
 }
 
-.confetti.type-1 { background: #1CB0F6; }
-.confetti.type-2 { background: #7c3aed; }
-.confetti.type-3 { background: #00d084; }
-.confetti.type-4 { background: #fbbf24; }
-.confetti.type-5 { background: #f87171; }
+.confetti.type-1 {
+  background: #1cb0f6;
+}
+.confetti.type-2 {
+  background: #7c3aed;
+}
+.confetti.type-3 {
+  background: #00d084;
+}
+.confetti.type-4 {
+  background: #fbbf24;
+}
+.confetti.type-5 {
+  background: #f87171;
+}
 
 /* Stats panel */
 .stats-panel {
@@ -347,13 +374,13 @@
   padding: 15px;
   border-radius: 8px;
   text-align: center;
-  border-left: 3px solid var(--color-primary, #1CB0F6);
+  border-left: 3px solid var(--color-primary, #1cb0f6);
 }
 
 .stat-box-value {
   font-size: 28px;
   font-weight: 700;
-  color: var(--color-primary, #1CB0F6);
+  color: var(--color-primary, #1cb0f6);
 }
 
 .stat-box-label {

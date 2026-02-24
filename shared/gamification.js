@@ -189,7 +189,9 @@ class GamificationSystem {
     // First correct answer
     if (this.sessionState.correctAnswers === 1 && !this.state.milestones.firstCorrect) {
       this.state.milestones.firstCorrect = true;
-      newBadges.push(this.createBadge('first_correct', 'First Step!', 'You got your first correct answer!'));
+      newBadges.push(
+        this.createBadge('first_correct', 'First Step!', 'You got your first correct answer!')
+      );
     }
 
     // 5 in a row
@@ -201,19 +203,25 @@ class GamificationSystem {
     // 10 in a row
     if (this.sessionState.currentStreak === 10 && !this.state.milestones.ten_in_a_row) {
       this.state.milestones.ten_in_a_row = true;
-      newBadges.push(this.createBadge('ten_in_a_row', 'Unstoppable!', '10 correct answers in a row!'));
+      newBadges.push(
+        this.createBadge('ten_in_a_row', 'Unstoppable!', '10 correct answers in a row!')
+      );
     }
 
     // Mastered all elements (20 learned)
     if (this.state.elementsLearned.length >= 20 && !this.state.milestones.all_elements) {
       this.state.milestones.all_elements = true;
-      newBadges.push(this.createBadge('all_elements', 'Element Master!', 'You\'ve learned all 20 elements!'));
+      newBadges.push(
+        this.createBadge('all_elements', 'Element Master!', "You've learned all 20 elements!")
+      );
     }
 
     // Master level (level 3+)
     if (this.state.level >= 3 && !this.state.milestones.master_level) {
       this.state.milestones.master_level = true;
-      newBadges.push(this.createBadge('master_level', 'Memory Master!', 'You\'ve reached Master Level!'));
+      newBadges.push(
+        this.createBadge('master_level', 'Memory Master!', "You've reached Master Level!")
+      );
     }
 
     // Add new badges to the collection
@@ -244,11 +252,11 @@ class GamificationSystem {
    */
   getBadgeIcon(badgeId) {
     const icons = {
-      'first_correct': '<i class="ti ti-crown-2"></i>',
-      'five_in_a_row': '<i class="ti ti-flame"></i>',
-      'ten_in_a_row': '<i class="ti ti-lightning-2"></i>',
-      'all_elements': '<i class="ti ti-crown"></i>',
-      'master_level': '<i class="ti ti-brain"></i>'
+      first_correct: '<i class="ti ti-crown-2"></i>',
+      five_in_a_row: '<i class="ti ti-flame"></i>',
+      ten_in_a_row: '<i class="ti ti-lightning-2"></i>',
+      all_elements: '<i class="ti ti-crown"></i>',
+      master_level: '<i class="ti ti-brain"></i>'
     };
     return icons[badgeId] || '<i class="ti ti-star"></i>';
   }
@@ -266,9 +274,14 @@ class GamificationSystem {
       correctAnswers: this.sessionState.correctAnswers,
       incorrectAnswers: this.sessionState.incorrectAnswers,
       totalAttempts: this.sessionState.correctAnswers + this.sessionState.incorrectAnswers,
-      accuracy: this.sessionState.correctAnswers + this.sessionState.incorrectAnswers > 0
-        ? Math.round((this.sessionState.correctAnswers / (this.sessionState.correctAnswers + this.sessionState.incorrectAnswers)) * 100)
-        : 0,
+      accuracy:
+        this.sessionState.correctAnswers + this.sessionState.incorrectAnswers > 0
+          ? Math.round(
+              (this.sessionState.correctAnswers /
+                (this.sessionState.correctAnswers + this.sessionState.incorrectAnswers)) *
+                100
+            )
+          : 0,
       elementsLearned: this.state.elementsLearned.length,
       badges: this.state.badges,
       technique: this.getTechniqueStats()

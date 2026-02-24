@@ -1,789 +1,806 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
 
     <!-- Primary Meta Tags -->
     <title>Quick Math - Learn Vedic Math Tricks for Kids | Doodles Games</title>
-    <meta name="title" content="Quick Math - Learn Vedic Math Tricks for Kids">
-    <meta name="description" content="Learn fast math tricks like the ×11 trick! Interactive Vedic math practice game for kids. Master mental math shortcuts. Free browser game.">
-    <meta name="keywords" content="quick math, vedic math, math tricks, mental math, times 11 trick, fast math, math shortcuts, kids math learning">
+    <meta name="title" content="Quick Math - Learn Vedic Math Tricks for Kids" />
+    <meta
+      name="description"
+      content="Learn fast math tricks like the ×11 trick! Interactive Vedic math practice game for kids. Master mental math shortcuts. Free browser game."
+    />
+    <meta
+      name="keywords"
+      content="quick math, vedic math, math tricks, mental math, times 11 trick, fast math, math shortcuts, kids math learning"
+    />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="game">
-    <meta property="og:url" content="https://abhee15.github.io/doodles/games/quick-math/">
-    <meta property="og:title" content="Quick Math - Learn Vedic Math Tricks">
-    <meta property="og:description" content="Learn fast math tricks like the ×11 trick! Interactive Vedic math practice game.">
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/quick-math/" />
+    <meta property="og:title" content="Quick Math - Learn Vedic Math Tricks" />
+    <meta
+      property="og:description"
+      content="Learn fast math tricks like the ×11 trick! Interactive Vedic math practice game."
+    />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/quick-math/">
-    <meta property="twitter:title" content="Quick Math - Vedic Math Tricks">
-    <meta property="twitter:description" content="Learn fast math tricks and mental math shortcuts for kids!">
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/quick-math/" />
+    <meta property="twitter:title" content="Quick Math - Vedic Math Tricks" />
+    <meta property="twitter:description" content="Learn fast math tricks and mental math shortcuts for kids!" />
 
-    <link rel="canonical" href="https://abhee15.github.io/doodles/games/quick-math/">
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/quick-math/" />
 
     <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet" />
 
     <!-- Tabler Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
 
     <!-- Shared Design System -->
-    <link rel="stylesheet" href="../../shared/tokens.css">
-    <link rel="stylesheet" href="../../shared/game-dom.css">
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
 
     <style>
-        :root {
-            --dom-nav-bg:      #0B2545;
-            --dom-accent:      #1CB0F6;
-            --dom-accent-dark: #0B8FDE;
-            --dom-accent2:     #FF7D00;
-            --dom-bg:          #F8F9FA;
-            --dom-bg-card:     #FFFFFF;
-            --dom-border:      #E5E7EB;
-            --dom-text:        #1A1A1A;
-            --dom-text-muted:  #6B7280;
-            --qm-green:        #58CC02;
-            --qm-red:          #FF4444;
+      :root {
+        --dom-nav-bg: #0b2545;
+        --dom-accent: #1cb0f6;
+        --dom-accent-dark: #0b8fde;
+        --dom-accent2: #ff7d00;
+        --dom-bg: #f8f9fa;
+        --dom-bg-card: #ffffff;
+        --dom-border: #e5e7eb;
+        --dom-text: #1a1a1a;
+        --dom-text-muted: #6b7280;
+        --qm-green: #58cc02;
+        --qm-red: #ff4444;
 
-            /* Color System for CPA Method */
-            --qm-blue:         #3B82F6;   /* Groups, Sets */
-            --qm-orange:       #FF7D00;   /* Key Numbers, Operations */
-            --qm-green-light:  #10B981;   /* Steps Completed */
-            --qm-purple:       #8B5CF6;   /* Challenge, Patterns */
-            --qm-yellow:       #FBBF24;   /* Highlights, Attention */
-        }
+        /* Color System for CPA Method */
+        --qm-blue: #3b82f6; /* Groups, Sets */
+        --qm-orange: #ff7d00; /* Key Numbers, Operations */
+        --qm-green-light: #10b981; /* Steps Completed */
+        --qm-purple: #8b5cf6; /* Challenge, Patterns */
+        --qm-yellow: #fbbf24; /* Highlights, Attention */
+      }
 
-        /* Level Grid */
+      /* Level Grid */
+      .qm-level-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        padding: 20px;
+        padding-left: max(20px, calc((100% - 1400px) / 2));
+        padding-right: max(20px, calc((100% - 1400px) / 2));
+        width: 100%;
+      }
+
+      @media (min-width: 1200px) {
         .qm-level-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-            padding: 20px;
-            padding-left: max(20px, calc((100% - 1400px) / 2));
-            padding-right: max(20px, calc((100% - 1400px) / 2));
-            width: 100%;
+          grid-template-columns: repeat(4, 1fr);
         }
+      }
 
-        @media (min-width: 1200px) {
-            .qm-level-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
+      @media (min-width: 1600px) {
+        .qm-level-grid {
+          grid-template-columns: repeat(5, 1fr);
         }
+      }
 
-        @media (min-width: 1600px) {
-            .qm-level-grid {
-                grid-template-columns: repeat(5, 1fr);
-            }
+      .qm-level-card {
+        background: white;
+        border: 1px solid var(--dom-border);
+        border-left: 4px solid var(--card-color, #3b82f6);
+        border-radius: 8px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .qm-level-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--card-color, #3b82f6);
+        border-left-width: 6px;
+      }
+
+      .qm-level-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 6px;
+        background-color: color-mix(in srgb, var(--card-color, #3b82f6) 15%, white);
+        color: var(--card-color, #3b82f6);
+        font-size: 24px;
+        font-weight: bold;
+        margin-right: 12px;
+      }
+
+      .qm-level-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .qm-level-info {
+        flex: 1;
+      }
+
+      .qm-level-name {
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--dom-text);
+        margin: 0;
+      }
+
+      .qm-level-desc {
+        font-size: 14px;
+        color: var(--dom-text-muted);
+        margin: 2px 0 0 0;
+      }
+
+      .qm-stars {
+        display: flex;
+        gap: 4px;
+        margin-top: 12px;
+      }
+
+      .qm-star--empty::before,
+      .qm-star--filled::before {
+        font-size: 16px;
+      }
+
+      .qm-star--empty::before {
+        content: '☆';
+        color: #d1d5db;
+      }
+
+      .qm-star--filled::before {
+        content: '★';
+        color: var(--card-color, #3b82f6);
+      }
+
+      /* Tutorial */
+      .qm-tutorial-card {
+        max-width: 700px;
+        margin: 30px auto;
+        text-align: center;
+      }
+
+      .qm-tutorial-mnemonic {
+        background: color-mix(in srgb, var(--qm-yellow) 20%, white);
+        border-left: 4px solid var(--qm-yellow);
+        border-radius: 6px;
+        padding: 12px 16px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--qm-orange);
+      }
+
+      .qm-tutorial-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--dom-accent);
+        margin-bottom: 10px;
+      }
+
+      .qm-tutorial-text {
+        font-size: 16px;
+        color: var(--dom-text);
+        line-height: 1.6;
+        margin-bottom: 25px;
+        white-space: pre-wrap;
+      }
+
+      /* Visual Stages (CPA Method) */
+      .qm-visual-stages {
+        margin: 30px 0;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .qm-stage-btn {
+        padding: 8px 14px;
+        font-size: 14px;
+        font-weight: 700;
+        border: 2px solid var(--dom-border);
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .qm-stage-btn:hover {
+        border-color: var(--dom-accent);
+        color: var(--dom-accent);
+      }
+
+      .qm-stage-btn.active {
+        background: var(--dom-accent);
+        color: white;
+        border-color: var(--dom-accent);
+      }
+
+      /* Visual Breakdown Container */
+      .qm-visual-breakdown {
+        background: color-mix(in srgb, var(--dom-accent) 8%, white);
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        min-height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+
+      /* Step-by-step breakdown */
+      .qm-step-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 20px 0;
+        text-align: left;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .qm-step {
+        background: white;
+        border: 1px solid var(--dom-border);
+        border-radius: 6px;
+        padding: 12px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .qm-step.completed {
+        background: color-mix(in srgb, var(--qm-green) 15%, white);
+        border-color: var(--qm-green);
+      }
+
+      .qm-step.current {
+        background: color-mix(in srgb, var(--dom-accent) 15%, white);
+        border-color: var(--dom-accent);
+        border-width: 2px;
+      }
+
+      .qm-step-number {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: var(--dom-accent);
+        color: white;
+        font-weight: 700;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+
+      .qm-step.completed .qm-step-number {
+        background: var(--qm-green);
+      }
+
+      .qm-step-content {
+        flex: 1;
+        font-size: 15px;
+        color: var(--dom-text);
+      }
+
+      .qm-step-highlight {
+        background: color-mix(in srgb, var(--qm-orange) 30%, white);
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-weight: 700;
+        color: var(--qm-orange);
+      }
+
+      .qm-tutorial-example {
+        font-size: clamp(32px, 8vw, 48px);
+        font-weight: 700;
+        color: var(--dom-accent);
+        margin: 20px 0;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .qm-tutorial-progress {
+        font-size: 14px;
+        color: var(--dom-text-muted);
+        margin-top: 20px;
+      }
+
+      .qm-tutorial-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        margin-top: 40px;
+        flex-wrap: wrap;
+      }
+
+      /* Tip Box */
+      .qm-tip-box {
+        background: color-mix(in srgb, var(--qm-blue) 15%, white);
+        border-left: 4px solid var(--qm-blue);
+        border-radius: 6px;
+        padding: 12px 16px;
+        margin: 15px 0;
+        font-size: 14px;
+        color: var(--dom-text);
+      }
+
+      .qm-tip-box strong {
+        color: var(--qm-blue);
+      }
+
+      /* Practice Mode */
+      .qm-practice-container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+      }
+
+      .qm-question {
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--dom-text);
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .qm-answer-box {
+        background: #1a1a2e;
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 16px;
+        text-align: center;
+        margin: 20px 0;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+        font-weight: 700;
+        color: #ffe66d;
+      }
+
+      .qm-answer-box.correct {
+        border-color: var(--qm-green);
+        background-color: color-mix(in srgb, var(--qm-green) 10%, #1a1a2e);
+      }
+
+      .qm-answer-box.wrong {
+        border-color: var(--qm-red);
+        background-color: color-mix(in srgb, var(--qm-red) 10%, #1a1a2e);
+      }
+
+      .qm-feedback {
+        font-size: 18px;
+        font-weight: 700;
+        text-align: center;
+        min-height: 24px;
+        margin: 12px 0;
+      }
+
+      .qm-numpad {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        max-width: 300px;
+        margin: 20px auto;
+      }
+
+      .qm-numpad-btn {
+        padding: 12px;
+        font-size: 18px;
+        font-weight: 700;
+        border: 1px solid var(--dom-border);
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        min-height: 48px;
+      }
+
+      .qm-numpad-btn:hover {
+        transform: translateY(-1px);
+        background: #f3f4f6;
+      }
+
+      .qm-numpad-btn.qm-clear {
+        grid-column: 1 / 3;
+        border-color: var(--qm-red);
+        color: var(--qm-red);
+      }
+
+      .qm-numpad-btn.qm-submit {
+        grid-column: 3 / 6;
+        background: var(--qm-green);
+        border-color: var(--qm-green);
+        color: white;
+      }
+
+      /* Results */
+      .qm-results-card {
+        max-width: 500px;
+        margin: 40px auto;
+        background: white;
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 30px;
+        text-align: center;
+      }
+
+      .qm-results-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--dom-accent);
+        margin-bottom: 20px;
+      }
+
+      .qm-stars-row {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin: 20px 0;
+        font-size: 40px;
+      }
+
+      .qm-result-star--empty::before,
+      .qm-result-star--filled::before {
+        font-size: 40px;
+      }
+
+      .qm-result-star--empty::before {
+        content: '☆';
+        color: #d1d5db;
+      }
+
+      .qm-result-star--filled::before {
+        content: '★';
+        color: #f59e0b;
+      }
+
+      .qm-score {
+        font-size: 32px;
+        font-weight: 700;
+        color: var(--dom-text);
+        margin: 20px 0 10px 0;
+      }
+
+      .qm-percentage {
+        font-size: 18px;
+        color: var(--dom-text-muted);
+      }
+
+      /* Progress Screen */
+      .qm-stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+        margin: 20px;
+        padding-left: max(20px, calc((100% - 900px) / 2));
+        padding-right: max(20px, calc((100% - 900px) / 2));
+        width: 100%;
+      }
+
+      @media (max-width: 900px) {
+        .qm-stats-grid {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          padding-left: 20px;
+          padding-right: 20px;
         }
+      }
 
-        .qm-level-card {
-            background: white;
-            border: 1px solid var(--dom-border);
-            border-left: 4px solid var(--card-color, #3B82F6);
-            border-radius: 8px;
-            padding: 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+      .qm-stat-card {
+        background: white;
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .qm-stat-icon {
+        font-size: 32px;
+        margin-bottom: 10px;
+      }
+
+      .qm-stat-label {
+        font-size: 14px;
+        color: var(--dom-text-muted);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .qm-stat-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--dom-text);
+      }
+
+      .qm-achievements-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+        margin: 20px;
+        padding-left: max(20px, calc((100% - 900px) / 2));
+        padding-right: max(20px, calc((100% - 900px) / 2));
+        width: 100%;
+      }
+
+      .qm-achievement-card {
+        background: white;
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 16px;
+        text-align: center;
+      }
+
+      .qm-achievement-card.locked {
+        background: #f9fafb;
+        opacity: 0.6;
+      }
+
+      .qm-achievement-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+      }
+
+      .qm-achievement-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--dom-text);
+        margin-bottom: 4px;
+      }
+
+      .qm-achievement-desc {
+        font-size: 14px;
+        color: var(--dom-text-muted);
+        line-height: 1.3;
+      }
+
+      /* Toast Notifications */
+      .qm-toast {
+        position: fixed;
+        top: -120px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--dom-accent);
+        color: white;
+        padding: 16px 24px;
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        z-index: 1000;
+        transition: top 0.3s ease;
+        max-width: 90%;
+        text-align: center;
+      }
+
+      .qm-toast.visible {
+        top: 80px;
+      }
+
+      /* Sound button */
+      .qm-sound-btn {
+        background: none;
+        border: none;
+        font-size: 24px;
+        cursor: pointer;
+        padding: 8px;
+        color: white;
+        transition: all 0.2s ease;
+      }
+
+      .qm-sound-btn:hover {
+        transform: scale(1.1);
+      }
+
+      /* Screen container */
+      .dom-screens-container {
+        position: relative;
+        width: 100%;
+        min-height: calc(100vh - var(--nav-height, 56px));
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .qm-level-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 12px;
         }
+      }
 
-        .qm-level-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--card-color, #3B82F6);
-            border-left-width: 6px;
-        }
-
-        .qm-level-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 48px;
-            border-radius: 6px;
-            background-color: color-mix(in srgb, var(--card-color, #3B82F6) 15%, white);
-            color: var(--card-color, #3B82F6);
-            font-size: 24px;
-            font-weight: bold;
-            margin-right: 12px;
-        }
-
-        .qm-level-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .qm-level-info {
-            flex: 1;
-        }
-
-        .qm-level-name {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--dom-text);
-            margin: 0;
-        }
-
-        .qm-level-desc {
-            font-size: 14px;
-            color: var(--dom-text-muted);
-            margin: 2px 0 0 0;
-        }
-
-        .qm-stars {
-            display: flex;
-            gap: 4px;
-            margin-top: 12px;
-        }
-
-        .qm-star--empty::before,
-        .qm-star--filled::before {
-            font-size: 16px;
-        }
-
-        .qm-star--empty::before {
-            content: "☆";
-            color: #D1D5DB;
-        }
-
-        .qm-star--filled::before {
-            content: "★";
-            color: var(--card-color, #3B82F6);
-        }
-
-        /* Tutorial */
-        .qm-tutorial-card {
-            max-width: 700px;
-            margin: 30px auto;
-            text-align: center;
-        }
-
-        .qm-tutorial-mnemonic {
-            background: color-mix(in srgb, var(--qm-yellow) 20%, white);
-            border-left: 4px solid var(--qm-yellow);
-            border-radius: 6px;
-            padding: 12px 16px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--qm-orange);
-        }
-
-        .qm-tutorial-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--dom-accent);
-            margin-bottom: 10px;
-        }
-
-        .qm-tutorial-text {
-            font-size: 16px;
-            color: var(--dom-text);
-            line-height: 1.6;
-            margin-bottom: 25px;
-            white-space: pre-wrap;
-        }
-
-        /* Visual Stages (CPA Method) */
-        .qm-visual-stages {
-            margin: 30px 0;
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .qm-stage-btn {
-            padding: 8px 14px;
-            font-size: 14px;
-            font-weight: 700;
-            border: 2px solid var(--dom-border);
-            border-radius: 6px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .qm-stage-btn:hover {
-            border-color: var(--dom-accent);
-            color: var(--dom-accent);
-        }
-
-        .qm-stage-btn.active {
-            background: var(--dom-accent);
-            color: white;
-            border-color: var(--dom-accent);
-        }
-
-        /* Visual Breakdown Container */
-        .qm-visual-breakdown {
-            background: color-mix(in srgb, var(--dom-accent) 8%, white);
-            border: 1px solid var(--dom-border);
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            min-height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-        }
-
-        /* Step-by-step breakdown */
-        .qm-step-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 20px 0;
-            text-align: left;
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .qm-step {
-            background: white;
-            border: 1px solid var(--dom-border);
-            border-radius: 6px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            transition: all 0.3s ease;
-        }
-
-        .qm-step.completed {
-            background: color-mix(in srgb, var(--qm-green) 15%, white);
-            border-color: var(--qm-green);
-        }
-
-        .qm-step.current {
-            background: color-mix(in srgb, var(--dom-accent) 15%, white);
-            border-color: var(--dom-accent);
-            border-width: 2px;
-        }
-
-        .qm-step-number {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--dom-accent);
-            color: white;
-            font-weight: 700;
-            font-size: 14px;
-            flex-shrink: 0;
-        }
-
-        .qm-step.completed .qm-step-number {
-            background: var(--qm-green);
-        }
-
-        .qm-step-content {
-            flex: 1;
-            font-size: 15px;
-            color: var(--dom-text);
-        }
-
-        .qm-step-highlight {
-            background: color-mix(in srgb, var(--qm-orange) 30%, white);
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-weight: 700;
-            color: var(--qm-orange);
-        }
-
-        .qm-tutorial-example {
-            font-size: clamp(32px, 8vw, 48px);
-            font-weight: 700;
-            color: var(--dom-accent);
-            margin: 20px 0;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .qm-tutorial-progress {
-            font-size: 14px;
-            color: var(--dom-text-muted);
-            margin-top: 20px;
-        }
-
-        .qm-tutorial-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 40px;
-            flex-wrap: wrap;
-        }
-
-        /* Tip Box */
-        .qm-tip-box {
-            background: color-mix(in srgb, var(--qm-blue) 15%, white);
-            border-left: 4px solid var(--qm-blue);
-            border-radius: 6px;
-            padding: 12px 16px;
-            margin: 15px 0;
-            font-size: 14px;
-            color: var(--dom-text);
-        }
-
-        .qm-tip-box strong {
-            color: var(--qm-blue);
-        }
-
-        /* Practice Mode */
-        .qm-practice-container {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
-        }
-
-        .qm-question {
-            font-size: 36px;
-            font-weight: 700;
-            color: var(--dom-text);
-            text-align: center;
-            margin: 20px 0;
-        }
-
-        .qm-answer-box {
-            background: #1A1A2E;
-            border: 2px solid var(--dom-border);
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
-            margin: 20px 0;
-            min-height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 32px;
-            font-weight: 700;
-            color: #FFE66D;
-        }
-
-        .qm-answer-box.correct {
-            border-color: var(--qm-green);
-            background-color: color-mix(in srgb, var(--qm-green) 10%, #1A1A2E);
-        }
-
-        .qm-answer-box.wrong {
-            border-color: var(--qm-red);
-            background-color: color-mix(in srgb, var(--qm-red) 10%, #1A1A2E);
-        }
-
-        .qm-feedback {
-            font-size: 18px;
-            font-weight: 700;
-            text-align: center;
-            min-height: 24px;
-            margin: 12px 0;
-        }
-
-        .qm-numpad {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 8px;
-            max-width: 300px;
-            margin: 20px auto;
+      @media (max-width: 768px) {
+        .qm-level-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          padding: 12px;
+          padding-left: 12px;
+          padding-right: 12px;
         }
 
         .qm-numpad-btn {
-            padding: 12px;
-            font-size: 18px;
-            font-weight: 700;
-            border: 1px solid var(--dom-border);
-            border-radius: 6px;
-            background: white;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            min-height: 48px;
+          min-height: 40px;
+          font-size: 16px;
         }
 
-        .qm-numpad-btn:hover {
-            transform: translateY(-1px);
-            background: #F3F4F6;
+        .qm-question {
+          font-size: 28px;
         }
 
-        .qm-numpad-btn.qm-clear {
-            grid-column: 1 / 3;
-            border-color: var(--qm-red);
-            color: var(--qm-red);
-        }
-
-        .qm-numpad-btn.qm-submit {
-            grid-column: 3 / 6;
-            background: var(--qm-green);
-            border-color: var(--qm-green);
-            color: white;
-        }
-
-        /* Results */
-        .qm-results-card {
-            max-width: 500px;
-            margin: 40px auto;
-            background: white;
-            border: 1px solid var(--dom-border);
-            border-radius: 8px;
-            padding: 30px;
-            text-align: center;
-        }
-
-        .qm-results-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--dom-accent);
-            margin-bottom: 20px;
-        }
-
-        .qm-stars-row {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin: 20px 0;
-            font-size: 40px;
-        }
-
-        .qm-result-star--empty::before,
-        .qm-result-star--filled::before {
-            font-size: 40px;
-        }
-
-        .qm-result-star--empty::before {
-            content: "☆";
-            color: #D1D5DB;
-        }
-
-        .qm-result-star--filled::before {
-            content: "★";
-            color: #F59E0B;
-        }
-
-        .qm-score {
-            font-size: 32px;
-            font-weight: 700;
-            color: var(--dom-text);
-            margin: 20px 0 10px 0;
-        }
-
-        .qm-percentage {
-            font-size: 18px;
-            color: var(--dom-text-muted);
-        }
-
-        /* Progress Screen */
         .qm-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            margin: 20px;
-            padding-left: max(20px, calc((100% - 900px) / 2));
-            padding-right: max(20px, calc((100% - 900px) / 2));
-            width: 100%;
-        }
-
-        @media (max-width: 900px) {
-            .qm-stats-grid {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                padding-left: 20px;
-                padding-right: 20px;
-            }
-        }
-
-        .qm-stat-card {
-            background: white;
-            border: 1px solid var(--dom-border);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .qm-stat-icon {
-            font-size: 32px;
-            margin-bottom: 10px;
-        }
-
-        .qm-stat-label {
-            font-size: 14px;
-            color: var(--dom-text-muted);
-            text-transform: uppercase;
-            margin-bottom: 8px;
-        }
-
-        .qm-stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--dom-text);
+          grid-template-columns: 1fr;
         }
 
         .qm-achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-            margin: 20px;
-            padding-left: max(20px, calc((100% - 900px) / 2));
-            padding-right: max(20px, calc((100% - 900px) / 2));
-            width: 100%;
+          grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        }
+      }
+
+      @media (max-width: 480px) {
+        .qm-level-grid {
+          grid-template-columns: 1fr;
         }
 
-        .qm-achievement-card {
-            background: white;
-            border: 1px solid var(--dom-border);
-            border-radius: 8px;
-            padding: 16px;
-            text-align: center;
+        .qm-stats-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+          margin: 12px;
         }
 
-        .qm-achievement-card.locked {
-            background: #F9FAFB;
-            opacity: 0.6;
+        .qm-achievements-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 8px;
+          margin: 12px;
         }
 
-        .qm-achievement-icon {
-            font-size: 32px;
-            margin-bottom: 8px;
+        .qm-question {
+          font-size: 24px;
         }
 
-        .qm-achievement-name {
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--dom-text);
-            margin-bottom: 4px;
+        .qm-tutorial-title {
+          font-size: 20px;
         }
-
-        .qm-achievement-desc {
-            font-size: 14px;
-            color: var(--dom-text-muted);
-            line-height: 1.3;
-        }
-
-        /* Toast Notifications */
-        .qm-toast {
-            position: fixed;
-            top: -120px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--dom-accent);
-            color: white;
-            padding: 16px 24px;
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            z-index: 1000;
-            transition: top 0.3s ease;
-            max-width: 90%;
-            text-align: center;
-        }
-
-        .qm-toast.visible {
-            top: 80px;
-        }
-
-        /* Sound button */
-        .qm-sound-btn {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            padding: 8px;
-            color: white;
-            transition: all 0.2s ease;
-        }
-
-        .qm-sound-btn:hover {
-            transform: scale(1.1);
-        }
-
-        /* Screen container */
-        .dom-screens-container {
-            position: relative;
-            width: 100%;
-            min-height: calc(100vh - var(--nav-height, 56px));
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .qm-level-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .qm-level-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 12px;
-                padding: 12px;
-                padding-left: 12px;
-                padding-right: 12px;
-            }
-
-            .qm-numpad-btn {
-                min-height: 40px;
-                font-size: 16px;
-            }
-
-            .qm-question {
-                font-size: 28px;
-            }
-
-            .qm-stats-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .qm-achievements-grid {
-                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            }
-        }
-
-        @media (max-width: 480px) {
-            .qm-level-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .qm-stats-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                margin: 12px;
-            }
-
-            .qm-achievements-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
-                margin: 12px;
-            }
-
-            .qm-question {
-                font-size: 24px;
-            }
-
-            .qm-tutorial-title {
-                font-size: 20px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="dom-nav">
-        <a id="game-back-btn" href="../../index.html#quick-math"><i class="ti ti-arrow-left"></i> Back</a>
-        <span id="nav-title" class="dom-nav-title">Quick Math</span>
-        <span id="nav-meta"></span>
+      <a id="game-back-btn" href="../../index.html#quick-math"><i class="ti ti-arrow-left"></i> Back</a>
+      <span id="nav-title" class="dom-nav-title">Quick Math</span>
+      <span id="nav-meta"></span>
     </nav>
 
     <div class="dom-screens-container">
-        <!-- Level Select Screen -->
-        <div data-screen="landing" class="dom-screen active">
-            <div style="padding: 20px; text-align: center;">
-                <h1 style="font-size: 28px; color: var(--dom-text); margin: 0 0 10px 0;">⚡ Quick Math Tricks</h1>
-                <p style="color: var(--dom-text-muted); margin: 0;">Learn Vedic math shortcuts</p>
-                <button id="btn-progress" class="dom-btn dom-btn--primary" style="margin-top: 12px;">🏆 Progress</button>
-            </div>
-            <div id="level-grid" class="qm-level-grid"></div>
+      <!-- Level Select Screen -->
+      <div data-screen="landing" class="dom-screen active">
+        <div style="padding: 20px; text-align: center">
+          <h1 style="font-size: 28px; color: var(--dom-text); margin: 0 0 10px 0">⚡ Quick Math Tricks</h1>
+          <p style="color: var(--dom-text-muted); margin: 0">Learn Vedic math shortcuts</p>
+          <button id="btn-progress" class="dom-btn dom-btn--primary" style="margin-top: 12px">🏆 Progress</button>
+        </div>
+        <div id="level-grid" class="qm-level-grid"></div>
+      </div>
+
+      <!-- Tutorial Screen -->
+      <div data-screen="tutorial" class="dom-screen">
+        <div class="qm-tutorial-card">
+          <div id="tut-mnemonic" class="qm-tutorial-mnemonic" style="display: none"></div>
+          <h2 id="tut-title" class="qm-tutorial-title"></h2>
+          <p id="tut-text" class="qm-tutorial-text"></p>
+
+          <!-- Visual Stages Buttons -->
+          <div id="tut-stages" class="qm-visual-stages" style="display: none">
+            <button class="qm-stage-btn active" data-stage="explanation">📖 Explanation</button>
+            <button class="qm-stage-btn" data-stage="visual">🎨 Show Visually</button>
+            <button class="qm-stage-btn" data-stage="steps">📋 Step by Step</button>
+          </div>
+
+          <!-- Visual Breakdown Area -->
+          <div id="tut-visual-breakdown" class="qm-visual-breakdown" style="display: none"></div>
+
+          <!-- Step-by-step Container -->
+          <div id="tut-step-container" class="qm-step-container" style="display: none"></div>
+
+          <div id="tut-example" class="qm-tutorial-example"></div>
+          <div id="tut-tip" class="qm-tip-box" style="display: none"></div>
+          <p id="tut-progress" class="qm-tutorial-progress"></p>
+        </div>
+        <div class="qm-tutorial-buttons">
+          <button id="tut-prev" class="dom-btn dom-btn--secondary" style="display: none">← Previous</button>
+          <button id="tut-next" class="dom-btn dom-btn--primary">Next →</button>
+          <button id="btn-back-from-tutorial" class="dom-btn dom-btn--secondary" style="display: none">
+            Back to Menu
+          </button>
+        </div>
+      </div>
+
+      <!-- Practice Screen -->
+      <div data-screen="practice" class="dom-screen">
+        <div class="qm-practice-container">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px">
+            <h2 style="font-size: 24px; font-weight: 700; color: #fdcb6e; margin: 0">⚡ Practice Time!</h2>
+            <div id="score-display" style="font-size: 18px; font-weight: 700; color: white">Score: 0/5</div>
+          </div>
+
+          <div id="question-display" class="qm-question"></div>
+          <div id="answer-box" class="qm-answer-box"></div>
+          <div id="feedback-display" class="qm-feedback"></div>
+
+          <div class="qm-numpad" id="numpad"></div>
+        </div>
+      </div>
+
+      <!-- Results Screen -->
+      <div data-screen="results" class="dom-screen">
+        <div class="qm-results-card">
+          <h2 id="results-title" class="qm-results-title"></h2>
+          <div class="qm-stars-row" id="results-stars"></div>
+          <div
+            id="results-rating"
+            style="font-size: 16px; font-weight: 700; color: var(--dom-text-muted); margin-bottom: 20px"
+          ></div>
+          <div class="qm-score" id="results-score"></div>
+          <div class="qm-percentage" id="results-percentage"></div>
+          <div style="display: flex; gap: 12px; justify-content: center; margin-top: 30px; flex-wrap: wrap">
+            <button id="btn-try-again" class="dom-btn dom-btn--primary">Try Again</button>
+            <button id="btn-level-select" class="dom-btn dom-btn--secondary">Level Select</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress Screen -->
+      <div data-screen="progress" class="dom-screen">
+        <div style="padding: 20px; text-align: center">
+          <h1 style="font-size: 28px; color: var(--dom-text); margin: 0 0 20px 0">🏆 Your Progress</h1>
         </div>
 
-        <!-- Tutorial Screen -->
-        <div data-screen="tutorial" class="dom-screen">
-            <div class="qm-tutorial-card">
-                <div id="tut-mnemonic" class="qm-tutorial-mnemonic" style="display: none;"></div>
-                <h2 id="tut-title" class="qm-tutorial-title"></h2>
-                <p id="tut-text" class="qm-tutorial-text"></p>
-
-                <!-- Visual Stages Buttons -->
-                <div id="tut-stages" class="qm-visual-stages" style="display: none;">
-                    <button class="qm-stage-btn active" data-stage="explanation">📖 Explanation</button>
-                    <button class="qm-stage-btn" data-stage="visual">🎨 Show Visually</button>
-                    <button class="qm-stage-btn" data-stage="steps">📋 Step by Step</button>
-                </div>
-
-                <!-- Visual Breakdown Area -->
-                <div id="tut-visual-breakdown" class="qm-visual-breakdown" style="display: none;"></div>
-
-                <!-- Step-by-step Container -->
-                <div id="tut-step-container" class="qm-step-container" style="display: none;"></div>
-
-                <div id="tut-example" class="qm-tutorial-example"></div>
-                <div id="tut-tip" class="qm-tip-box" style="display: none;"></div>
-                <p id="tut-progress" class="qm-tutorial-progress"></p>
-            </div>
-            <div class="qm-tutorial-buttons">
-                <button id="tut-prev" class="dom-btn dom-btn--secondary" style="display: none;">← Previous</button>
-                <button id="tut-next" class="dom-btn dom-btn--primary">Next →</button>
-                <button id="btn-back-from-tutorial" class="dom-btn dom-btn--secondary" style="display: none;">Back to Menu</button>
-            </div>
+        <div class="qm-stats-grid">
+          <div class="qm-stat-card">
+            <div class="qm-stat-icon">⭐</div>
+            <div class="qm-stat-label">Total Stars</div>
+            <div class="qm-stat-value" id="stat-stars">0</div>
+          </div>
+          <div class="qm-stat-card">
+            <div class="qm-stat-icon">🎮</div>
+            <div class="qm-stat-label">Games Played</div>
+            <div class="qm-stat-value" id="stat-games">0</div>
+          </div>
+          <div class="qm-stat-card">
+            <div class="qm-stat-icon">💯</div>
+            <div class="qm-stat-label">Total Score</div>
+            <div class="qm-stat-value" id="stat-score">0</div>
+          </div>
         </div>
 
-        <!-- Practice Screen -->
-        <div data-screen="practice" class="dom-screen">
-            <div class="qm-practice-container">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                    <h2 style="font-size: 24px; font-weight: 700; color: #FDCB6E; margin: 0;">⚡ Practice Time!</h2>
-                    <div id="score-display" style="font-size: 18px; font-weight: 700; color: white;">Score: 0/5</div>
-                </div>
-
-                <div id="question-display" class="qm-question"></div>
-                <div id="answer-box" class="qm-answer-box"></div>
-                <div id="feedback-display" class="qm-feedback"></div>
-
-                <div class="qm-numpad" id="numpad"></div>
-            </div>
+        <div style="padding: 20px; text-align: center">
+          <h2 style="font-size: 20px; color: var(--dom-text); margin: 20px 0 10px 0">Achievements</h2>
         </div>
 
-        <!-- Results Screen -->
-        <div data-screen="results" class="dom-screen">
-            <div class="qm-results-card">
-                <h2 id="results-title" class="qm-results-title"></h2>
-                <div class="qm-stars-row" id="results-stars"></div>
-                <div id="results-rating" style="font-size: 16px; font-weight: 700; color: var(--dom-text-muted); margin-bottom: 20px;"></div>
-                <div class="qm-score" id="results-score"></div>
-                <div class="qm-percentage" id="results-percentage"></div>
-                <div style="display: flex; gap: 12px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
-                    <button id="btn-try-again" class="dom-btn dom-btn--primary">Try Again</button>
-                    <button id="btn-level-select" class="dom-btn dom-btn--secondary">Level Select</button>
-                </div>
-            </div>
+        <div class="qm-achievements-grid" id="achievements-grid"></div>
+
+        <div style="text-align: center; padding: 20px">
+          <button id="btn-back-from-progress" class="dom-btn dom-btn--secondary">← Back to Menu</button>
         </div>
-
-        <!-- Progress Screen -->
-        <div data-screen="progress" class="dom-screen">
-            <div style="padding: 20px; text-align: center;">
-                <h1 style="font-size: 28px; color: var(--dom-text); margin: 0 0 20px 0;">🏆 Your Progress</h1>
-            </div>
-
-            <div class="qm-stats-grid">
-                <div class="qm-stat-card">
-                    <div class="qm-stat-icon">⭐</div>
-                    <div class="qm-stat-label">Total Stars</div>
-                    <div class="qm-stat-value" id="stat-stars">0</div>
-                </div>
-                <div class="qm-stat-card">
-                    <div class="qm-stat-icon">🎮</div>
-                    <div class="qm-stat-label">Games Played</div>
-                    <div class="qm-stat-value" id="stat-games">0</div>
-                </div>
-                <div class="qm-stat-card">
-                    <div class="qm-stat-icon">💯</div>
-                    <div class="qm-stat-label">Total Score</div>
-                    <div class="qm-stat-value" id="stat-score">0</div>
-                </div>
-            </div>
-
-            <div style="padding: 20px; text-align: center;">
-                <h2 style="font-size: 20px; color: var(--dom-text); margin: 20px 0 10px 0;">Achievements</h2>
-            </div>
-
-            <div class="qm-achievements-grid" id="achievements-grid"></div>
-
-            <div style="text-align: center; padding: 20px;">
-                <button id="btn-back-from-progress" class="dom-btn dom-btn--secondary">← Back to Menu</button>
-            </div>
-        </div>
+      </div>
     </div>
 
     <!-- Toast notification -->
@@ -794,5 +811,5 @@
     <script src="../../shared/analytics.js"></script>
     <div id="ad-container"></div>
     <script src="../../shared/ads.js"></script>
-</body>
+  </body>
 </html>

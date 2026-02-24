@@ -1,94 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
     <!-- Primary Meta Tags -->
     <title>Dino Hunter - Learn About Dinosaurs | Doodles Games</title>
-    <meta name="title" content="Dino Hunter - Learn About Dinosaurs for Kids">
-    <meta name="description" content="Pick your target dinosaur and shoot! Miss and discover amazing facts about other dinosaurs.">
-    <meta name="keywords" content="dino hunter, dinosaur game, learn dinosaurs, kids dinosaur game, educational dinosaur, dino facts, prehistoric game, fun dino game">
+    <meta name="title" content="Dino Hunter - Learn About Dinosaurs for Kids" />
+    <meta
+      name="description"
+      content="Pick your target dinosaur and shoot! Miss and discover amazing facts about other dinosaurs."
+    />
+    <meta
+      name="keywords"
+      content="dino hunter, dinosaur game, learn dinosaurs, kids dinosaur game, educational dinosaur, dino facts, prehistoric game, fun dino game"
+    />
 
     <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="game">
-    <meta property="og:url" content="https://abhee15.github.io/doodles/games/dino-hunter/">
-    <meta property="og:title" content="Dino Hunter - Learn About Dinosaurs">
-    <meta property="og:description" content="Pick your target dinosaur and shoot! Miss and discover amazing facts about other dinosaurs.">
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/dino-hunter/" />
+    <meta property="og:title" content="Dino Hunter - Learn About Dinosaurs" />
+    <meta
+      property="og:description"
+      content="Pick your target dinosaur and shoot! Miss and discover amazing facts about other dinosaurs."
+    />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/dino-hunter/">
-    <meta property="twitter:title" content="Dino Hunter - Dinosaur Game for Kids">
-    <meta property="twitter:description" content="Pick your target dino — miss and learn incredible facts about the one you hit!">
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/dino-hunter/" />
+    <meta property="twitter:title" content="Dino Hunter - Dinosaur Game for Kids" />
+    <meta
+      property="twitter:description"
+      content="Pick your target dino — miss and learn incredible facts about the one you hit!"
+    />
 
-    <link rel="canonical" href="https://abhee15.github.io/doodles/games/dino-hunter/">
-    <link rel="stylesheet" href="../../shared/game-page-v2.css">
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/dino-hunter/" />
+    <link rel="stylesheet" href="../../shared/game-page-v2.css" />
     <style>
-        #game-container canvas { cursor: none; }
+      #game-container canvas {
+        cursor: none;
+      }
 
-        /* Select screen sits INSIDE game-container, above the canvas */
-        #select-screen {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            z-index: 100;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(160deg, #1a0a3e 0%, #2d1b69 55%, #0a1628 100%);
-            padding: 24px;
-            box-sizing: border-box;
-            font-family: 'Arial Black', Arial, sans-serif;
-        }
-        #select-screen h1 {
-            color: #FFEE00;
-            font-size: clamp(20px, 3.5vw, 34px);
-            text-shadow: 2px 2px 0 #7B2D00;
-            margin: 0 0 6px;
-            text-align: center;
-        }
-        #select-screen p {
-            color: #c8dcf8;
-            font: 14px Arial, sans-serif;
-            margin: 0 0 20px;
-            text-align: center;
-        }
-        .dino-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            width: 100%;
-            max-width: 800px;
-        }
-        .dino-btn {
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
-            color: #fff;
-            font: bold 13px 'Arial Black', Arial, sans-serif;
-            cursor: pointer;
-            padding: 12px 4px 8px;
-            text-shadow: 1px 1px 0 rgba(0,0,0,0.8);
-            transition: transform 0.12s, border-color 0.12s;
-            line-height: 1.6;
-        }
-        .dino-btn:hover { transform: scale(1.08); border-color: #FFD700; }
-        .dino-btn:active { transform: scale(0.94); }
+      /* Select screen sits INSIDE game-container, above the canvas */
+      #select-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(160deg, #1a0a3e 0%, #2d1b69 55%, #0a1628 100%);
+        padding: 24px;
+        box-sizing: border-box;
+        font-family: 'Arial Black', Arial, sans-serif;
+      }
+      #select-screen h1 {
+        color: #ffee00;
+        font-size: clamp(20px, 3.5vw, 34px);
+        text-shadow: 2px 2px 0 #7b2d00;
+        margin: 0 0 6px;
+        text-align: center;
+      }
+      #select-screen p {
+        color: #c8dcf8;
+        font:
+          14px Arial,
+          sans-serif;
+        margin: 0 0 20px;
+        text-align: center;
+      }
+      .dino-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        width: 100%;
+        max-width: 800px;
+      }
+      .dino-btn {
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 10px;
+        color: #fff;
+        font:
+          bold 13px 'Arial Black',
+          Arial,
+          sans-serif;
+        cursor: pointer;
+        padding: 12px 4px 8px;
+        text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
+        transition:
+          transform 0.12s,
+          border-color 0.12s;
+        line-height: 1.6;
+      }
+      .dino-btn:hover {
+        transform: scale(1.08);
+        border-color: #ffd700;
+      }
+      .dino-btn:active {
+        transform: scale(0.94);
+      }
 
-        @media (max-width: 768px) {
-            canvas { touch-action: none; }
+      @media (max-width: 768px) {
+        canvas {
+          touch-action: none;
         }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <a href="../../index.html#dino-hunter" id="game-back-btn" class="back-link">← Back</a>
 
     <div id="game-container">
-        <!-- Select screen overlays the canvas until a dino is chosen -->
-        <div id="select-screen">
-            <h1>🦖 DINO HUNTER 🦕</h1>
-            <p>Pick your target — shoot it to score! Hit others and learn amazing facts.</p>
-            <div class="dino-grid" id="dino-grid"></div>
-        </div>
+      <!-- Select screen overlays the canvas until a dino is chosen -->
+      <div id="select-screen">
+        <h1>🦖 DINO HUNTER 🦕</h1>
+        <p>Pick your target — shoot it to score! Hit others and learn amazing facts.</p>
+        <div class="dino-grid" id="dino-grid"></div>
+      </div>
     </div>
 
     <script src="../../shared/analytics.js"></script>
@@ -96,5 +130,5 @@
     <script src="../../shared/ads.js"></script>
     <script src="../../shared/navigation.js"></script>
     <script src="game.js"></script>
-</body>
+  </body>
 </html>

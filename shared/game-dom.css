@@ -13,26 +13,26 @@
    ============================================================ */
 :root {
   /* Typography */
-  --dom-font: var(--tok-font, 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif);
+  --dom-font: var(--tok-font, "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif);
 
   /* Layout */
   --dom-nav-height: 60px;
 
   /* Colors */
-  --dom-nav-bg: #5C3D8F;                   /* overridden per game */
-  --dom-nav-color: #FFFFFF;
+  --dom-nav-bg: #5c3d8f; /* overridden per game */
+  --dom-nav-color: #ffffff;
   --dom-nav-border: rgba(255, 255, 255, 0.1);
 
-  --dom-bg: #FFF8F0;
-  --dom-bg-card: #FFFFFF;
-  --dom-border: #E8E0F0;
-  --dom-text: #2D2D2D;
-  --dom-text-muted: #8A7A9B;
+  --dom-bg: #fff8f0;
+  --dom-bg-card: #ffffff;
+  --dom-border: #e8e0f0;
+  --dom-text: #2d2d2d;
+  --dom-text-muted: #8a7a9b;
 
   /* Accent colors */
-  --dom-accent: var(--tok-color-primary, #1CB0F6);
-  --dom-accent-dark: var(--tok-blue-dark, #0B8FDE);
-  --dom-accent2: var(--tok-color-secondary, #FF7D00);
+  --dom-accent: var(--tok-color-primary, #1cb0f6);
+  --dom-accent-dark: var(--tok-blue-dark, #0b8fde);
+  --dom-accent2: var(--tok-color-secondary, #ff7d00);
 
   /* Component defaults */
   --dom-btn-radius: var(--tok-radius-lg, 12px);
@@ -162,7 +162,7 @@ body {
   font-weight: 600;
   cursor: pointer;
 
-  transition: all var(--tok-transition-normal, 0.20s ease);
+  transition: all var(--tok-transition-normal, 0.2s ease);
 
   /* NO box-shadow */
 }
@@ -183,7 +183,7 @@ body {
 /* PRIMARY: filled accent color */
 .dom-btn--primary {
   background: var(--dom-accent);
-  color: #FFFFFF;
+  color: #ffffff;
   border-color: var(--dom-accent-dark);
 }
 
@@ -194,7 +194,7 @@ body {
 /* SECONDARY: filled accent2 color */
 .dom-btn--secondary {
   background: var(--dom-accent2);
-  color: #FFFFFF;
+  color: #ffffff;
   border-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -216,13 +216,13 @@ body {
 
 /* GOLD: special action color */
 .dom-btn--gold {
-  background: #F5C518;
+  background: #f5c518;
   color: #000000;
-  border-color: #E6B010;
+  border-color: #e6b010;
 }
 
 .dom-btn--gold:hover:not(:disabled) {
-  background: #E6B010;
+  background: #e6b010;
 }
 
 /* ============================================================
@@ -234,7 +234,7 @@ body {
   border-radius: var(--dom-card-radius);
   padding: var(--tok-space-4, 16px);
 
-  transition: all var(--tok-transition-normal, 0.20s ease);
+  transition: all var(--tok-transition-normal, 0.2s ease);
 
   /* NO box-shadow */
 }
@@ -267,7 +267,7 @@ body {
   height: 100%;
   background: var(--dom-accent);
   border-radius: var(--tok-radius-pill, 999px);
-  transition: width var(--tok-transition-normal, 0.20s ease);
+  transition: width var(--tok-transition-normal, 0.2s ease);
 }
 
 /* ============================================================

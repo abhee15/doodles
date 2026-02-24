@@ -8,15 +8,13 @@
   "arrowParens": "avoid",
   "bracketSpacing": true,
   "endOfLine": "lf",
-  "html": {
-    "whitespaceSensitivity": "css"
-  },
   "overrides": [
     {
       "files": "*.html",
       "options": {
         "parser": "html",
-        "printWidth": 120
+        "printWidth": 120,
+        "whitespaceSensitivity": "css"
       }
     },
     {

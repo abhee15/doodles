@@ -16,15 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Number Ninja Colors - Coral & Turquoise (from design-colors.css)
 const NINJA_COLORS = {
-  primary: '#FF6B6B',       // Coral Red - vibrant, energetic
-  primaryHex: 0xFF6B6B,
-  secondary: '#4ECDC4',     // Turquoise - balance, cool accent
-  secondaryHex: 0x4ECDC4,
-  accent: '#FFE66D',        // Gold - highlights, warmth
-  accentHex: 0xFFE66D,
-  text: '#1A1A1A',          // Dark text
-  textHex: 0x1A1A1A,
-  background: 0xF8F9FA      // Soft gray-white background
+  primary: '#FF6B6B', // Coral Red - vibrant, energetic
+  primaryHex: 0xff6b6b,
+  secondary: '#4ECDC4', // Turquoise - balance, cool accent
+  secondaryHex: 0x4ecdc4,
+  accent: '#FFE66D', // Gold - highlights, warmth
+  accentHex: 0xffe66d,
+  text: '#1A1A1A', // Dark text
+  textHex: 0x1a1a1a,
+  background: 0xf8f9fa // Soft gray-white background
 };
 
 const config = createGameConfig({
@@ -49,12 +49,12 @@ const game = new Phaser.Game(config);
 
 // ==================== PATTERNS ====================
 const PATTERNS = [
-  { name: 'Count by 1s',  step: 1,  start: 1,  count: 15 },
-  { name: 'Even Numbers', step: 2,  start: 2,  count: 10 },
-  { name: 'Odd Numbers',  step: 2,  start: 1,  count: 10 },
-  { name: 'Count by 3s',  step: 3,  start: 3,  count: 8  },
-  { name: 'Count by 5s',  step: 5,  start: 5,  count: 8  },
-  { name: 'Count by 10s', step: 10, start: 10, count: 8  }
+  { name: 'Count by 1s', step: 1, start: 1, count: 15 },
+  { name: 'Even Numbers', step: 2, start: 2, count: 10 },
+  { name: 'Odd Numbers', step: 2, start: 1, count: 10 },
+  { name: 'Count by 3s', step: 3, start: 3, count: 8 },
+  { name: 'Count by 5s', step: 5, start: 5, count: 8 },
+  { name: 'Count by 10s', step: 10, start: 10, count: 8 }
 ];
 
 // ==================== GAME STATE ====================
@@ -89,14 +89,16 @@ function create() {
   const center = getCenterPosition(this);
 
   // Title
-  this.add.text(center.x, 30, '🥷 Number Ninja', {
-    fontSize: '36px',
-    fill: NINJA_COLORS.primary,
-    fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold',
-    stroke: '#FFFFFF',
-    strokeThickness: 3
-  }).setOrigin(0.5);
+  this.add
+    .text(center.x, 30, '🥷 Number Ninja', {
+      fontSize: '36px',
+      fill: NINJA_COLORS.primary,
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      stroke: '#FFFFFF',
+      strokeThickness: 3
+    })
+    .setOrigin(0.5);
 
   // Pause button (hidden until game starts)
   const pauseBtn = createButton(
@@ -121,44 +123,56 @@ function create() {
   });
 
   // Lives
-  livesText = this.add.text(this.scale.width - 16, 68, 'Lives: 3', {
-    fontSize: '22px',
-    fill: '#FFFFFF',
-    fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold',
-    backgroundColor: NINJA_COLORS.secondary,
-    padding: { x: 10, y: 5 }
-  }).setOrigin(1, 0);
+  livesText = this.add
+    .text(this.scale.width - 16, 68, 'Lives: 3', {
+      fontSize: '22px',
+      fill: '#FFFFFF',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      backgroundColor: NINJA_COLORS.secondary,
+      padding: { x: 10, y: 5 }
+    })
+    .setOrigin(1, 0);
 
   // Pattern label (shown during play)
-  patternLabel = this.add.text(center.x, 68, '', {
-    fontSize: '18px',
-    fill: NINJA_COLORS.text,
-    fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold',
-    backgroundColor: NINJA_COLORS.accent,
-    padding: { x: 10, y: 5 }
-  }).setOrigin(0.5, 0);
-
-  // Next number indicator
-  nextNumberText = this.add.text(center.x, 110, 'Click: 1', {
-    fontSize: '28px',
-    fill: '#FFFFFF',
-    fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold',
-    backgroundColor: NINJA_COLORS.primary,
-    padding: { x: 14, y: 7 }
-  }).setOrigin(0.5);
-
-  // Menu instructions
-  const instructions = this.add.text(center.x, center.y - 30,
-    '🥷 Click numbers in the right order!\nA random pattern will be chosen.', {
-      fontSize: '24px',
+  patternLabel = this.add
+    .text(center.x, 68, '', {
+      fontSize: '18px',
       fill: NINJA_COLORS.text,
       fontFamily: 'Arial, sans-serif',
       fontStyle: 'bold',
-      align: 'center'
-    }).setOrigin(0.5);
+      backgroundColor: NINJA_COLORS.accent,
+      padding: { x: 10, y: 5 }
+    })
+    .setOrigin(0.5, 0);
+
+  // Next number indicator
+  nextNumberText = this.add
+    .text(center.x, 110, 'Click: 1', {
+      fontSize: '28px',
+      fill: '#FFFFFF',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      backgroundColor: NINJA_COLORS.primary,
+      padding: { x: 14, y: 7 }
+    })
+    .setOrigin(0.5);
+
+  // Menu instructions
+  const instructions = this.add
+    .text(
+      center.x,
+      center.y - 30,
+      '🥷 Click numbers in the right order!\nA random pattern will be chosen.',
+      {
+        fontSize: '24px',
+        fill: NINJA_COLORS.text,
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        align: 'center'
+      }
+    )
+    .setOrigin(0.5);
 
   // Start button
   const startButton = createButton(
@@ -268,12 +282,14 @@ function spawnNumber(scene) {
   const bubble = scene.add.circle(x, -50, 40, NINJA_COLORS.primaryHex);
   bubble.setStrokeStyle(4, NINJA_COLORS.textHex);
 
-  const text = scene.add.text(x, -50, numValue, {
-    fontSize: '28px',
-    fill: '#FFFFFF',
-    fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  const text = scene.add
+    .text(x, -50, numValue, {
+      fontSize: '28px',
+      fill: '#FFFFFF',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   bubble.setInteractive({ useHandCursor: true });
   bubble.on('pointerdown', () => handleNumberClick(scene, numValue, bubble, text));
@@ -305,16 +321,19 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
       alpha: 0,
       duration: 300,
       onComplete: () => {
-        bubble.destroy(); text.destroy();
+        bubble.destroy();
+        text.destroy();
       }
     });
 
-    const success = scene.add.text(bubble.x, bubble.y, '✓ +10', {
-      fontSize: '24px',
-      fill: NINJA_COLORS.primary,
-      fontFamily: 'Arial, sans-serif',
-      fontStyle: 'bold'
-    }).setOrigin(0.5);
+    const success = scene.add
+      .text(bubble.x, bubble.y, '✓ +10', {
+        fontSize: '24px',
+        fill: NINJA_COLORS.primary,
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0.5);
     scene.tweens.add({
       targets: success,
       y: success.y - 50,
@@ -341,17 +360,18 @@ function handleNumberClick(scene, clickedNumber, bubble, text) {
         spawnTimer.delay = spawnDelay;
       }
     }
-
   } else {
     // Wrong!
     bubble.setFillStyle(NINJA_COLORS.secondaryHex);
 
-    const wrong = scene.add.text(bubble.x, bubble.y, '✗', {
-      fontSize: '36px',
-      fill: NINJA_COLORS.primary,
-      fontFamily: 'Arial, sans-serif',
-      fontStyle: 'bold'
-    }).setOrigin(0.5);
+    const wrong = scene.add
+      .text(bubble.x, bubble.y, '✗', {
+        fontSize: '36px',
+        fill: NINJA_COLORS.primary,
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0.5);
     scene.tweens.add({
       targets: wrong,
       alpha: 0,
@@ -390,9 +410,13 @@ function showPauseMenu(scene) {
   }
 
   createModal(scene, 'Paused', 'Take a break!', [
-    { label: 'RESUME',  callback: () => resumeGame(scene),                               variant: ButtonVariants.SUCCESS   },
-    { label: 'RESTART', callback: () => scene.scene.restart(),                           variant: ButtonVariants.SECONDARY },
-    { label: 'EXIT',    callback: () => window.location.href = '../../index.html',       variant: ButtonVariants.GHOST     }
+    { label: 'RESUME', callback: () => resumeGame(scene), variant: ButtonVariants.SUCCESS },
+    { label: 'RESTART', callback: () => scene.scene.restart(), variant: ButtonVariants.SECONDARY },
+    {
+      label: 'EXIT',
+      callback: () => (window.location.href = '../../index.html'),
+      variant: ButtonVariants.GHOST
+    }
   ]);
 }
 
@@ -413,15 +437,28 @@ function gameOver(scene) {
   }
 
   numbers.forEach(n => {
-    n.sprite.destroy(); n.text.destroy();
+    n.sprite.destroy();
+    n.text.destroy();
   });
   numbers = [];
 
-  createModal(scene, '💀 Game Over!',
-    `Pattern: ${currentPattern ? currentPattern.name : ''}\nFinal Score: ${score}`, [
-      { label: 'PLAY AGAIN', callback: () => scene.scene.restart(), variant: ButtonVariants.SUCCESS },
-      { label: 'EXIT',       callback: () => window.location.href = '../../index.html', variant: ButtonVariants.GHOST }
-    ]);
+  createModal(
+    scene,
+    '💀 Game Over!',
+    `Pattern: ${currentPattern ? currentPattern.name : ''}\nFinal Score: ${score}`,
+    [
+      {
+        label: 'PLAY AGAIN',
+        callback: () => scene.scene.restart(),
+        variant: ButtonVariants.SUCCESS
+      },
+      {
+        label: 'EXIT',
+        callback: () => (window.location.href = '../../index.html'),
+        variant: ButtonVariants.GHOST
+      }
+    ]
+  );
 }
 
 function winGame(scene) {
@@ -432,13 +469,26 @@ function winGame(scene) {
   }
 
   numbers.forEach(n => {
-    n.sprite.destroy(); n.text.destroy();
+    n.sprite.destroy();
+    n.text.destroy();
   });
   numbers = [];
 
-  createModal(scene, '🎉 You Win!',
-    `Pattern: ${currentPattern.name}\nSequence: ${sequence.join(', ')}\nFinal Score: ${score}`, [
-      { label: 'PLAY AGAIN', callback: () => scene.scene.restart(), variant: ButtonVariants.SUCCESS },
-      { label: 'EXIT',       callback: () => window.location.href = '../../index.html', variant: ButtonVariants.GHOST }
-    ]);
+  createModal(
+    scene,
+    '🎉 You Win!',
+    `Pattern: ${currentPattern.name}\nSequence: ${sequence.join(', ')}\nFinal Score: ${score}`,
+    [
+      {
+        label: 'PLAY AGAIN',
+        callback: () => scene.scene.restart(),
+        variant: ButtonVariants.SUCCESS
+      },
+      {
+        label: 'EXIT',
+        callback: () => (window.location.href = '../../index.html'),
+        variant: ButtonVariants.GHOST
+      }
+    ]
+  );
 }

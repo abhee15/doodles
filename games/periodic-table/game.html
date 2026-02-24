@@ -1,194 +1,194 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <!-- Primary Meta Tags -->
-  <title>Periodic Table Memory Master - Game | Doodles Games</title>
-  <meta name="title" content="Periodic Table Memory Master - Interactive Learning">
-  <meta name="description" content="Master the periodic table using proven memory techniques. Learn elements interactively with Story Chain, Memory Palace, and more!">
-  
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
-  
-  <!-- Design System -->
-  <link rel="stylesheet" href="../../shared/design-colors.css">
-  
-  <link rel="stylesheet" href="css/periodic-table.css">
-  <link rel="stylesheet" href="css/game.css">
-  <link rel="stylesheet" href="css/gamification.css">
-  <link rel="stylesheet" href="css/visual-enhancements.css">
-  <link rel="stylesheet" href="css/visual-simplified.css">
-</head>
-<body>
-  <div class="app-container">
-    
-    <!-- Header -->
-    <header class="game-header">
-      <div class="header-left">
-        <button class="btn-back" onclick="goBack()">← Back</button>
-        <div class="game-info">
-          <h1 id="game-title">Story Chain - Elements 1-20</h1>
-          <p id="game-subtitle">Learn the periodic table</p>
-        </div>
-      </div>
-      <div class="header-right">
-        <div class="stats-display" id="stats-display">
-          <div class="stat-item">
-            <i class="ti ti-star"></i>
-            <span id="score-display">0</span>
-          </div>
-          <div class="stat-item">
-            <i class="ti ti-flame"></i>
-            <span id="streak-display">0</span>
-          </div>
-          <div class="stat-item">
-            <i class="ti ti-chart-line"></i>
-            <span id="level-display">1</span>
-          </div>
-        </div>
-        <div class="progress-info">
-          <span id="progress-text">Chunk 1</span>
-          <div class="technique-badge" id="technique-badge">Story Chain</div>
-        </div>
-      </div>
-    </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Game Content -->
-    <main class="game-main">
-      <div id="game-container">
-        <!-- Story Chain UI -->
-        <div id="story-chain-ui" class="game-ui story-chain-ui" style="display:none;">
-          <div class="story-phase" id="story-phase">
-            <h2><i class="ti ti-book-2"></i> The Periodic Story</h2>
-            <div class="story-narrative" id="story-text"></div>
-            <div class="story-panels" id="story-panels"></div>
-            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+    <!-- Primary Meta Tags -->
+    <title>Periodic Table Memory Master - Game | Doodles Games</title>
+    <meta name="title" content="Periodic Table Memory Master - Interactive Learning" />
+    <meta
+      name="description"
+      content="Master the periodic table using proven memory techniques. Learn elements interactively with Story Chain, Memory Palace, and more!"
+    />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../../shared/design-colors.css" />
+
+    <link rel="stylesheet" href="css/periodic-table.css" />
+    <link rel="stylesheet" href="css/game.css" />
+    <link rel="stylesheet" href="css/gamification.css" />
+    <link rel="stylesheet" href="css/visual-enhancements.css" />
+    <link rel="stylesheet" href="css/visual-simplified.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <!-- Header -->
+      <header class="game-header">
+        <div class="header-left">
+          <button class="btn-back" onclick="goBack()">← Back</button>
+          <div class="game-info">
+            <h1 id="game-title">Story Chain - Elements 1-20</h1>
+            <p id="game-subtitle">Learn the periodic table</p>
           </div>
-          
-          <div class="recall-phase" id="recall-phase" style="display:none;">
-            <h2><i class="ti ti-brain"></i> Can you remember?</h2>
-            <p>Tap or click on the missing elements:</p>
-            <div class="recall-grid" id="recall-grid"></div>
-            <div id="recall-results" style="display:none;">
-              <div class="results-box">
-                <h3>Great job! <i class="ti ti-confetti"></i></h3>
-                <p id="results-text"></p>
-                <div id="badges-display" class="badges-container" style="display:none;"></div>
-                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+        </div>
+        <div class="header-right">
+          <div class="stats-display" id="stats-display">
+            <div class="stat-item">
+              <i class="ti ti-star"></i>
+              <span id="score-display">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="ti ti-flame"></i>
+              <span id="streak-display">0</span>
+            </div>
+            <div class="stat-item">
+              <i class="ti ti-chart-line"></i>
+              <span id="level-display">1</span>
+            </div>
+          </div>
+          <div class="progress-info">
+            <span id="progress-text">Chunk 1</span>
+            <div class="technique-badge" id="technique-badge">Story Chain</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Game Content -->
+      <main class="game-main">
+        <div id="game-container">
+          <!-- Story Chain UI -->
+          <div id="story-chain-ui" class="game-ui story-chain-ui" style="display: none">
+            <div class="story-phase" id="story-phase">
+              <h2><i class="ti ti-book-2"></i> The Periodic Story</h2>
+              <div class="story-narrative" id="story-text"></div>
+              <div class="story-panels" id="story-panels"></div>
+              <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+            </div>
+
+            <div class="recall-phase" id="recall-phase" style="display: none">
+              <h2><i class="ti ti-brain"></i> Can you remember?</h2>
+              <p>Tap or click on the missing elements:</p>
+              <div class="recall-grid" id="recall-grid"></div>
+              <div id="recall-results" style="display: none">
+                <div class="results-box">
+                  <h3>Great job! <i class="ti ti-confetti"></i></h3>
+                  <p id="results-text"></p>
+                  <div id="badges-display" class="badges-container" style="display: none"></div>
+                  <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Memory Palace UI -->
+          <div id="memory-palace-ui" class="game-ui memory-palace-ui" style="display: none">
+            <div class="palace-phase" id="palace-phase">
+              <div class="palace-container">
+                <h2><i class="ti ti-building-mansion"></i> Your Memory Palace</h2>
+                <div class="room-view" id="room-view"></div>
+                <div class="element-list" id="element-list"></div>
+              </div>
+              <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+            </div>
+            <div class="recall-phase" id="palace-recall" style="display: none">
+              <h2><i class="ti ti-brain"></i> Navigate Your Palace</h2>
+              <p>Can you remember which room each element was in?</p>
+              <div class="recall-grid" id="palace-recall-grid"></div>
+              <div id="palace-recall-results" style="display: none">
+                <div class="results-box">
+                  <h3>Amazing! <i class="ti ti-confetti"></i></h3>
+                  <p id="palace-results-text"></p>
+                  <div id="palace-badges-display" class="badges-container" style="display: none"></div>
+                  <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Body Map UI -->
+          <div id="body-map-ui" class="game-ui body-map-ui" style="display: none">
+            <div class="body-phase" id="body-phase">
+              <div class="body-map-container">
+                <h2><i class="ti ti-body"></i> Body Map Anchors</h2>
+                <div class="body-illustration" id="body-illustration"></div>
+                <div class="body-info" id="body-info"></div>
+              </div>
+              <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+            </div>
+            <div class="recall-phase" id="body-recall" style="display: none">
+              <h2><i class="ti ti-brain"></i> Where Were They?</h2>
+              <p>Can you remember which body part each element was anchored to?</p>
+              <div class="recall-grid" id="body-recall-grid"></div>
+              <div id="body-recall-results" style="display: none">
+                <div class="results-box">
+                  <h3>Excellent! <i class="ti ti-confetti"></i></h3>
+                  <p id="body-results-text"></p>
+                  <div id="body-badges-display" class="badges-container" style="display: none"></div>
+                  <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Keyword Image UI -->
+          <div id="keyword-ui" class="game-ui keyword-ui" style="display: none">
+            <div class="keyword-phase" id="keyword-phase">
+              <div class="keyword-container">
+                <h2><i class="ti ti-palette"></i> Keyword Associations</h2>
+                <div class="keywords-grid" id="keywords-grid"></div>
+              </div>
+              <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+            </div>
+            <div class="recall-phase" id="keyword-recall" style="display: none">
+              <h2><i class="ti ti-brain"></i> Match the Elements</h2>
+              <p>Can you match each element to its keyword association?</p>
+              <div class="recall-grid" id="keyword-recall-grid"></div>
+              <div id="keyword-recall-results" style="display: none">
+                <div class="results-box">
+                  <h3>Perfect! <i class="ti ti-confetti"></i></h3>
+                  <p id="keyword-results-text"></p>
+                  <div id="keyword-badges-display" class="badges-container" style="display: none"></div>
+                  <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rhyme Pegs UI -->
+          <div id="rhyme-pegs-ui" class="game-ui rhyme-pegs-ui" style="display: none">
+            <div class="rhyme-phase" id="rhyme-phase">
+              <div class="rhyme-container">
+                <h2><i class="ti ti-music"></i> Rhyme Peg System</h2>
+                <div class="rhymes-grid" id="rhymes-grid"></div>
+              </div>
+              <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
+            </div>
+            <div class="recall-phase" id="rhyme-recall" style="display: none">
+              <h2><i class="ti ti-brain"></i> Match by Number</h2>
+              <p>Can you remember which element goes with each rhyme peg?</p>
+              <div class="recall-grid" id="rhyme-recall-grid"></div>
+              <div id="rhyme-recall-results" style="display: none">
+                <div class="results-box">
+                  <h3>Fantastic! <i class="ti ti-confetti"></i></h3>
+                  <p id="rhyme-results-text"></p>
+                  <div id="rhyme-badges-display" class="badges-container" style="display: none"></div>
+                  <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </main>
+    </div>
 
-        <!-- Memory Palace UI -->
-        <div id="memory-palace-ui" class="game-ui memory-palace-ui" style="display:none;">
-          <div class="palace-phase" id="palace-phase">
-            <div class="palace-container">
-              <h2><i class="ti ti-building-mansion"></i> Your Memory Palace</h2>
-              <div class="room-view" id="room-view"></div>
-              <div class="element-list" id="element-list"></div>
-            </div>
-            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
-          </div>
-          <div class="recall-phase" id="palace-recall" style="display:none;">
-            <h2><i class="ti ti-brain"></i> Navigate Your Palace</h2>
-            <p>Can you remember which room each element was in?</p>
-            <div class="recall-grid" id="palace-recall-grid"></div>
-            <div id="palace-recall-results" style="display:none;">
-              <div class="results-box">
-                <h3>Amazing! <i class="ti ti-confetti"></i></h3>
-                <p id="palace-results-text"></p>
-                <div id="palace-badges-display" class="badges-container" style="display:none;"></div>
-                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Body Map UI -->
-        <div id="body-map-ui" class="game-ui body-map-ui" style="display:none;">
-          <div class="body-phase" id="body-phase">
-            <div class="body-map-container">
-              <h2><i class="ti ti-body"></i> Body Map Anchors</h2>
-              <div class="body-illustration" id="body-illustration"></div>
-              <div class="body-info" id="body-info"></div>
-            </div>
-            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
-          </div>
-          <div class="recall-phase" id="body-recall" style="display:none;">
-            <h2><i class="ti ti-brain"></i> Where Were They?</h2>
-            <p>Can you remember which body part each element was anchored to?</p>
-            <div class="recall-grid" id="body-recall-grid"></div>
-            <div id="body-recall-results" style="display:none;">
-              <div class="results-box">
-                <h3>Excellent! <i class="ti ti-confetti"></i></h3>
-                <p id="body-results-text"></p>
-                <div id="body-badges-display" class="badges-container" style="display:none;"></div>
-                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Keyword Image UI -->
-        <div id="keyword-ui" class="game-ui keyword-ui" style="display:none;">
-          <div class="keyword-phase" id="keyword-phase">
-            <div class="keyword-container">
-              <h2><i class="ti ti-palette"></i> Keyword Associations</h2>
-              <div class="keywords-grid" id="keywords-grid"></div>
-            </div>
-            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
-          </div>
-          <div class="recall-phase" id="keyword-recall" style="display:none;">
-            <h2><i class="ti ti-brain"></i> Match the Elements</h2>
-            <p>Can you match each element to its keyword association?</p>
-            <div class="recall-grid" id="keyword-recall-grid"></div>
-            <div id="keyword-recall-results" style="display:none;">
-              <div class="results-box">
-                <h3>Perfect! <i class="ti ti-confetti"></i></h3>
-                <p id="keyword-results-text"></p>
-                <div id="keyword-badges-display" class="badges-container" style="display:none;"></div>
-                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Rhyme Pegs UI -->
-        <div id="rhyme-pegs-ui" class="game-ui rhyme-pegs-ui" style="display:none;">
-          <div class="rhyme-phase" id="rhyme-phase">
-            <div class="rhyme-container">
-              <h2><i class="ti ti-music"></i> Rhyme Peg System</h2>
-              <div class="rhymes-grid" id="rhymes-grid"></div>
-            </div>
-            <button class="btn btn-primary" onclick="startRecall()">Got it! Quiz me →</button>
-          </div>
-          <div class="recall-phase" id="rhyme-recall" style="display:none;">
-            <h2><i class="ti ti-brain"></i> Match by Number</h2>
-            <p>Can you remember which element goes with each rhyme peg?</p>
-            <div class="recall-grid" id="rhyme-recall-grid"></div>
-            <div id="rhyme-recall-results" style="display:none;">
-              <div class="results-box">
-                <h3>Fantastic! <i class="ti ti-confetti"></i></h3>
-                <p id="rhyme-results-text"></p>
-                <div id="rhyme-badges-display" class="badges-container" style="display:none;"></div>
-                <button class="btn btn-primary" onclick="nextChunk()">Ready for more?</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </main>
-
-  </div>
-
-  <script src="../../shared/gamification.js"></script>
-  <script src="../../shared/visual-enhancements.js"></script>
-  <script src="../../shared/visual-simplified.js"></script>
-  <script src="js/periodic-table-engine.js"></script>
-  <script src="js/game.js"></script>
-</body>
+    <script src="../../shared/gamification.js"></script>
+    <script src="../../shared/visual-enhancements.js"></script>
+    <script src="../../shared/visual-simplified.js"></script>
+    <script src="js/periodic-table-engine.js"></script>
+    <script src="js/game.js"></script>
+  </body>
 </html>

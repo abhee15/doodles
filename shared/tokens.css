@@ -8,31 +8,31 @@
   /* ============================================================
      PRIMITIVE COLORS
      ============================================================ */
-  --tok-blue: #1CB0F6;
-  --tok-blue-dark: #0B8FDE;
-  --tok-blue-light: #5EC5F8;
+  --tok-blue: #1cb0f6;
+  --tok-blue-dark: #0b8fde;
+  --tok-blue-light: #5ec5f8;
 
-  --tok-orange: #FF7D00;
-  --tok-orange-dark: #E67300;
+  --tok-orange: #ff7d00;
+  --tok-orange-dark: #e67300;
 
-  --tok-green: #58CC02;
-  --tok-green-dark: #4BA502;
+  --tok-green: #58cc02;
+  --tok-green-dark: #4ba502;
 
-  --tok-red: #FF4444;
-  --tok-red-dark: #CC2222;
+  --tok-red: #ff4444;
+  --tok-red-dark: #cc2222;
 
   /* ============================================================
      NEUTRAL COLORS
      ============================================================ */
-  --tok-white: #FFFFFF;
+  --tok-white: #ffffff;
 
-  --tok-gray-50: #F9FAFB;
-  --tok-gray-100: #F3F4F6;
-  --tok-gray-200: #E5E7EB;
-  --tok-gray-400: #9CA3AF;
-  --tok-gray-500: #6B7280;
+  --tok-gray-50: #f9fafb;
+  --tok-gray-100: #f3f4f6;
+  --tok-gray-200: #e5e7eb;
+  --tok-gray-400: #9ca3af;
+  --tok-gray-500: #6b7280;
   --tok-gray-700: #374151;
-  --tok-gray-800: #1F2937;
+  --tok-gray-800: #1f2937;
   --tok-gray-900: #111827;
 
   /* ============================================================
@@ -55,7 +55,7 @@
   /* ============================================================
      TYPOGRAPHY
      ============================================================ */
-  --tok-font: 'Nunito', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  --tok-font: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
 
   /* ============================================================
      SPACING (4px base scale)
@@ -85,8 +85,8 @@
      TRANSITIONS
      ============================================================ */
   --tok-transition-fast: 0.15s ease;
-  --tok-transition-normal: 0.20s ease;
-  --tok-transition-slow: 0.30s cubic-bezier(0.4, 0, 0.2, 1);
+  --tok-transition-normal: 0.2s ease;
+  --tok-transition-slow: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   /* ============================================================
      TOUCH TARGET (iOS HIG minimum)

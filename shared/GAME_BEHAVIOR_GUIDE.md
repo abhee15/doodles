@@ -25,6 +25,7 @@ All games should follow this basic flow (with documented exceptions):
 **Purpose:** Welcome player, show instructions, set expectations
 
 **Must Include:**
+
 - Game title with icon/emoji
 - Brief instructions (1-3 lines)
 - START button (large, prominent)
@@ -32,29 +33,28 @@ All games should follow this basic flow (with documented exceptions):
 - Optional: High score display
 
 **Example:**
+
 ```javascript
 function showStartScreen(scene) {
-    const center = getCenterPosition(scene);
+  const center = getCenterPosition(scene);
 
-    // Title
-    scene.add.text(center.x, 100, '🎮 Game Title',
-        TYPOGRAPHY.phaserStyles.heading
-    ).setOrigin(0.5);
+  // Title
+  scene.add.text(center.x, 100, '🎮 Game Title', TYPOGRAPHY.phaserStyles.heading).setOrigin(0.5);
 
-    // Instructions
-    scene.add.text(center.x, 200, 'Brief instructions here', {
-        fontSize: '20px',
-        fill: COLORS.neutral.darkText.hex,
-        align: 'center'
-    }).setOrigin(0.5);
+  // Instructions
+  scene.add
+    .text(center.x, 200, 'Brief instructions here', {
+      fontSize: '20px',
+      fill: COLORS.neutral.darkText.hex,
+      align: 'center'
+    })
+    .setOrigin(0.5);
 
-    // Start button
-    createButton(
-        scene, center.x, center.y + 100,
-        'START',
-        () => startGameplay(scene),
-        { variant: ButtonVariants.PRIMARY, size: ButtonSizes.LARGE }
-    );
+  // Start button
+  createButton(scene, center.x, center.y + 100, 'START', () => startGameplay(scene), {
+    variant: ButtonVariants.PRIMARY,
+    size: ButtonSizes.LARGE
+  });
 }
 ```
 
@@ -63,6 +63,7 @@ function showStartScreen(scene) {
 ### 2. **Gameplay Screen** (Mandatory)
 
 **Must Include:**
+
 - Score display (consistent position: top-left or top-center)
 - Timer (if timed game) - top-right
 - Clear game area
@@ -70,22 +71,23 @@ function showStartScreen(scene) {
 - Pause button (optional but recommended)
 
 **UI Layout Standards:**
+
 ```javascript
 // Standard UI positions
 const UI_POSITIONS = {
-    score: { x: 20, y: 20 },           // Top-left
-    timer: { x: width - 150, y: 20 },  // Top-right
-    lives: { x: width - 100, y: 70 }   // Below timer
+  score: { x: 20, y: 20 }, // Top-left
+  timer: { x: width - 150, y: 20 }, // Top-right
+  lives: { x: width - 100, y: 70 } // Below timer
 };
 
 // Score display
 scoreText = scene.add.text(20, 20, 'Score: 0', {
-    fontSize: '24px',
-    fill: COLORS.neutral.darkText.hex,
-    fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold',
-    backgroundColor: COLORS.neutral.lightBg.hex,
-    padding: { x: 10, y: 5 }
+  fontSize: '24px',
+  fill: COLORS.neutral.darkText.hex,
+  fontFamily: 'Arial, sans-serif',
+  fontStyle: 'bold',
+  backgroundColor: COLORS.neutral.lightBg.hex,
+  padding: { x: 10, y: 5 }
 });
 ```
 
@@ -96,6 +98,7 @@ scoreText = scene.add.text(20, 20, 'Score: 0', {
 **Purpose:** Show results, encourage replay
 
 **Must Include:**
+
 - Clear "Game Over" or "You Win" message
 - Final score display
 - PLAY AGAIN button (prominent)
@@ -103,28 +106,24 @@ scoreText = scene.add.text(20, 20, 'Score: 0', {
 - Optional: EXIT button
 
 **Example:**
+
 ```javascript
 function showGameOver(scene, finalScore, didWin) {
-    const center = getCenterPosition(scene);
+  const center = getCenterPosition(scene);
 
-    // Modal overlay
-    createModal(
-        scene,
-        didWin ? '🎉 You Win!' : '💀 Game Over!',
-        `Final Score: ${finalScore}`,
-        [
-            {
-                label: 'PLAY AGAIN',
-                callback: () => scene.scene.restart(),
-                variant: ButtonVariants.SUCCESS
-            },
-            {
-                label: 'EXIT',
-                callback: () => window.location.href = '../../index.html',
-                variant: ButtonVariants.GHOST
-            }
-        ]
-    );
+  // Modal overlay
+  createModal(scene, didWin ? '🎉 You Win!' : '💀 Game Over!', `Final Score: ${finalScore}`, [
+    {
+      label: 'PLAY AGAIN',
+      callback: () => scene.scene.restart(),
+      variant: ButtonVariants.SUCCESS
+    },
+    {
+      label: 'EXIT',
+      callback: () => (window.location.href = '../../index.html'),
+      variant: ButtonVariants.GHOST
+    }
+  ]);
 }
 ```
 
@@ -135,11 +134,13 @@ function showGameOver(scene, finalScore, didWin) {
 ### Control Consistency
 
 **For Click/Touch Games:**
+
 - Click/tap targets should be at least 44x44px for mobile accessibility
 - Use `setInteractive({ useHandCursor: true })` for all interactive elements
 - Provide visual feedback on hover/press
 
 **For Keyboard Games:**
+
 - Display keyboard controls prominently
 - Use standard keys (arrow keys, WASD, spacebar)
 - Allow key remapping if possible
@@ -149,6 +150,7 @@ function showGameOver(scene, finalScore, didWin) {
 ### Feedback Patterns
 
 **Success Feedback:**
+
 ```javascript
 // ✅ Correct answer
 feedbackText.setText('✓ Correct!');
@@ -156,14 +158,15 @@ feedbackText.setColor(COLORS.success.hex);
 
 // Particle effect or animation
 scene.tweens.add({
-    targets: element,
-    scale: 1.2,
-    alpha: 0,
-    duration: 500
+  targets: element,
+  scale: 1.2,
+  alpha: 0,
+  duration: 500
 });
 ```
 
 **Error Feedback:**
+
 ```javascript
 // ❌ Wrong answer
 feedbackText.setText('✗ Try again');
@@ -171,11 +174,11 @@ feedbackText.setColor(COLORS.error.hex);
 
 // Shake animation
 scene.tweens.add({
-    targets: element,
-    x: element.x + 10,
-    yoyo: true,
-    repeat: 2,
-    duration: 100
+  targets: element,
+  x: element.x + 10,
+  yoyo: true,
+  repeat: 2,
+  duration: 100
 });
 ```
 
@@ -184,12 +187,14 @@ scene.tweens.add({
 ### Score & Progress Display
 
 **Standard Score Display:**
+
 - Always visible during gameplay
 - Top-left or top-center position
 - Clear, large font (24px+)
 - Format: "Score: 1234" or "⭐ 1234"
 
 **Progress Indicators:**
+
 - Use progress bars for levels/time
 - Show current level/stage clearly
 - Display milestones (e.g., "Level 3/10")
@@ -199,17 +204,19 @@ scene.tweens.add({
 ### Difficulty Progression
 
 **Standard Patterns:**
+
 - Start easy, gradually increase difficulty
 - Increase difficulty every N points/levels
 - Show difficulty indicators (Easy/Medium/Hard)
 - Provide visual/color cues for difficulty
 
 **Example:**
+
 ```javascript
 // Increase difficulty every 50 points
 if (score % 50 === 0 && score > 0) {
-    increaseDifficulty();
-    showDifficultyMessage(scene, 'Speed increased!');
+  increaseDifficulty();
+  showDifficultyMessage(scene, 'Speed increased!');
 }
 ```
 
@@ -220,11 +227,13 @@ if (score % 50 === 0 && score > 0) {
 ### Standard Navigation
 
 **Back to Menu:**
+
 - Always accessible via back button (top-left)
 - Or EXIT button in end screens
 - Confirm before exiting during gameplay (optional)
 
 **Restart:**
+
 - Available in Game Over screen
 - Optional: Pause menu restart option
 - Use `scene.scene.restart()` for full reset
@@ -234,44 +243,41 @@ if (score % 50 === 0 && score > 0) {
 ## ⚙️ Optional Features (Recommended)
 
 ### Pause Functionality
+
 ```javascript
 function createPauseButton(scene) {
-    const pauseBtn = createButton(
-        scene, scene.scale.width - 60, 20,
-        '⏸️',
-        () => showPauseMenu(scene),
-        { variant: ButtonVariants.GHOST, size: ButtonSizes.SMALL }
-    );
+  const pauseBtn = createButton(
+    scene,
+    scene.scale.width - 60,
+    20,
+    '⏸️',
+    () => showPauseMenu(scene),
+    { variant: ButtonVariants.GHOST, size: ButtonSizes.SMALL }
+  );
 }
 
 function showPauseMenu(scene) {
-    scene.scene.pause();
-    createModal(
-        scene,
-        'Paused',
-        'Take a break!',
-        [
-            { label: 'RESUME', callback: () => scene.scene.resume() },
-            { label: 'RESTART', callback: () => scene.scene.restart() },
-            { label: 'EXIT', callback: () => goToMenu() }
-        ]
-    );
+  scene.scene.pause();
+  createModal(scene, 'Paused', 'Take a break!', [
+    { label: 'RESUME', callback: () => scene.scene.resume() },
+    { label: 'RESTART', callback: () => scene.scene.restart() },
+    { label: 'EXIT', callback: () => goToMenu() }
+  ]);
 }
 ```
 
 ### Sound Toggle
+
 ```javascript
 // Global sound state
 let soundEnabled = true;
 
 function createSoundToggle(scene) {
-    const soundBtn = scene.add.text(
-        scene.scale.width - 60, 60,
-        soundEnabled ? '🔊' : '🔇',
-        { fontSize: '24px' }
-    );
-    soundBtn.setInteractive({ useHandCursor: true });
-    soundBtn.on('pointerdown', () => toggleSound(soundBtn));
+  const soundBtn = scene.add.text(scene.scale.width - 60, 60, soundEnabled ? '🔊' : '🔇', {
+    fontSize: '24px'
+  });
+  soundBtn.setInteractive({ useHandCursor: true });
+  soundBtn.on('pointerdown', () => toggleSound(soundBtn));
 }
 ```
 
@@ -283,11 +289,11 @@ All games should maintain these states:
 
 ```javascript
 const GameState = {
-    MENU: 'menu',           // Start screen
-    PLAYING: 'playing',     // Active gameplay
-    PAUSED: 'paused',       // Paused (optional)
-    GAME_OVER: 'gameOver',  // Lost/failed
-    VICTORY: 'victory'      // Won/completed
+  MENU: 'menu', // Start screen
+  PLAYING: 'playing', // Active gameplay
+  PAUSED: 'paused', // Paused (optional)
+  GAME_OVER: 'gameOver', // Lost/failed
+  VICTORY: 'victory' // Won/completed
 };
 
 let currentState = GameState.MENU;
@@ -326,12 +332,14 @@ let currentState = GameState.MENU;
 Some games may deviate from standards when necessary:
 
 **Example Exceptions:**
+
 - **Quick tutorial games**: May skip start screen if self-explanatory
 - **Endless games**: No victory screen, only high score tracking
 - **Arcade-style games**: May auto-start after brief countdown
 - **Educational games**: May require more detailed instructions
 
 **When creating exceptions:**
+
 1. Document the reason in code comments
 2. Ensure it improves user experience
 3. Maintain visual consistency regardless
@@ -367,37 +375,32 @@ When migrating/creating games:
 ```javascript
 // 1. Start Screen
 function create() {
-    showStartScreen(this);
+  showStartScreen(this);
 }
 
 function showStartScreen(scene) {
-    // Title, instructions, start button
-    createButton(scene, x, y, 'START', () => startGame(scene));
+  // Title, instructions, start button
+  createButton(scene, x, y, 'START', () => startGame(scene));
 }
 
 // 2. Gameplay
 function startGame(scene) {
-    currentState = GameState.PLAYING;
-    setupUI(scene);
-    startGameLoop(scene);
+  currentState = GameState.PLAYING;
+  setupUI(scene);
+  startGameLoop(scene);
 }
 
 // 3. End Screen
 function endGame(scene, didWin) {
-    currentState = didWin ? GameState.VICTORY : GameState.GAME_OVER;
-    showEndScreen(scene, finalScore, didWin);
+  currentState = didWin ? GameState.VICTORY : GameState.GAME_OVER;
+  showEndScreen(scene, finalScore, didWin);
 }
 
 function showEndScreen(scene, score, won) {
-    createModal(
-        scene,
-        won ? '🎉 Victory!' : '💀 Game Over',
-        `Score: ${score}`,
-        [
-            { label: 'PLAY AGAIN', callback: () => scene.scene.restart() },
-            { label: 'EXIT', callback: () => goToMenu() }
-        ]
-    );
+  createModal(scene, won ? '🎉 Victory!' : '💀 Game Over', `Score: ${score}`, [
+    { label: 'PLAY AGAIN', callback: () => scene.scene.restart() },
+    { label: 'EXIT', callback: () => goToMenu() }
+  ]);
 }
 ```
 

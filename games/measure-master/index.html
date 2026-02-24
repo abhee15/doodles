@@ -1,880 +1,895 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
 
     <title>Measure Master - Learn Measurements for Kids | Doodles Games</title>
-    <meta name="title" content="Measure Master - Learn Measurements for Kids | Doodles Games">
-    <meta name="description" content="Learn inches, feet, yards, centimeters, meters and more with real-world examples! Fun measurement game for kids.">
-    <meta name="keywords" content="measurement game, kids learn measurements, inches feet yards, centimeters meters, educational game">
+    <meta name="title" content="Measure Master - Learn Measurements for Kids | Doodles Games" />
+    <meta
+      name="description"
+      content="Learn inches, feet, yards, centimeters, meters and more with real-world examples! Fun measurement game for kids."
+    />
+    <meta
+      name="keywords"
+      content="measurement game, kids learn measurements, inches feet yards, centimeters meters, educational game"
+    />
 
-    <meta property="og:type" content="game">
-    <meta property="og:url" content="https://abhee15.github.io/doodles/games/measure-master/">
-    <meta property="og:title" content="Measure Master - Learn Measurements for Kids">
-    <meta property="og:description" content="Learn what each unit of measurement means with real-world examples, then quiz yourself!">
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/measure-master/" />
+    <meta property="og:title" content="Measure Master - Learn Measurements for Kids" />
+    <meta
+      property="og:description"
+      content="Learn what each unit of measurement means with real-world examples, then quiz yourself!"
+    />
 
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/measure-master/">
-    <meta property="twitter:title" content="Measure Master - Measurement Game for Kids">
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/measure-master/" />
+    <meta property="twitter:title" content="Measure Master - Measurement Game for Kids" />
 
-    <link rel="canonical" href="https://abhee15.github.io/doodles/games/measure-master/">
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/measure-master/" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
-    <link rel="stylesheet" href="../../shared/tokens.css">
-    <link rel="stylesheet" href="../../shared/game-dom.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
 
     <style>
-        :root {
-            --dom-nav-bg:      #1A2744;
-            --dom-accent:      #2980B9;
-            --dom-accent-dark: #1F618D;
-            --dom-accent2:     #3498DB;
-            --dom-bg:          #F6F4D2;
-            --dom-bg-card:     #FFFFFF;
-            --dom-border:      #E0D8C0;
-            --dom-text:        #1A1A1A;
-            --dom-text-muted:  #6B7280;
-            --mm-green:        #27AE60;
-            --mm-red-wrong:    #E74C3C;
-        }
+      :root {
+        --dom-nav-bg: #1a2744;
+        --dom-accent: #2980b9;
+        --dom-accent-dark: #1f618d;
+        --dom-accent2: #3498db;
+        --dom-bg: #f6f4d2;
+        --dom-bg-card: #ffffff;
+        --dom-border: #e0d8c0;
+        --dom-text: #1a1a1a;
+        --dom-text-muted: #6b7280;
+        --mm-green: #27ae60;
+        --mm-red-wrong: #e74c3c;
+      }
 
-        /* === MODE MENU === */
+      /* === MODE MENU === */
+      .mm-mode-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+        padding: 24px;
+      }
+
+      .mm-mode-card {
+        background: white;
+        border: 1px solid var(--dom-border);
+        border-left: 4px solid var(--card-color);
+        border-radius: 8px;
+        padding: 20px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .mm-mode-card:hover {
+        transform: translateY(-2px);
+        border-left-width: 6px;
+      }
+
+      .mm-mode-emoji {
+        font-size: 2.5rem;
+        margin-bottom: 8px;
+      }
+
+      .mm-mode-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+        color: var(--dom-text);
+      }
+
+      .mm-mode-subtitle {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+        line-height: 1.4;
+      }
+
+      .mm-unit-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        padding: 16px;
+        background: var(--dom-bg);
+        border-top: 1px solid var(--dom-border);
+      }
+
+      .mm-unit-chip {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: white;
+        border: 1px solid var(--dom-border);
+        color: var(--chip-color);
+      }
+
+      /* === UNIT GRID === */
+      .mm-unit-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+        padding: 20px;
+      }
+
+      .mm-unit-card {
+        background: white;
+        border: 1px solid var(--dom-border);
+        border-left: 4px solid var(--unit-color);
+        border-radius: 8px;
+        padding: 16px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+      }
+
+      .mm-unit-card:hover {
+        transform: translateY(-2px);
+        border-left-width: 6px;
+      }
+
+      .mm-unit-emoji {
+        font-size: 2rem;
+        margin-bottom: 8px;
+      }
+
+      .mm-unit-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        margin-bottom: 4px;
+        color: var(--dom-text);
+      }
+
+      .mm-unit-abbr {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+        font-weight: 700;
+      }
+
+      .mm-unit-tagline {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+        margin-top: 8px;
+        line-height: 1.3;
+      }
+
+      /* === UNIT DETAIL VIEW === */
+      .mm-unit-header {
+        background: var(--unit-color);
+        color: white;
+        padding: 20px;
+        border-radius: 8px;
+        margin: 16px;
+        text-align: center;
+      }
+
+      .mm-unit-header-emoji {
+        font-size: 2.5rem;
+        margin-bottom: 8px;
+      }
+
+      .mm-unit-header-name {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .mm-unit-header-abbr {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        margin-bottom: 8px;
+      }
+
+      .mm-unit-header-tagline {
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .mm-tab-bar {
+        display: flex;
+        gap: 8px;
+        padding: 12px 16px;
+        background: white;
+        border-bottom: 1px solid var(--dom-border);
+      }
+
+      .mm-tab {
+        flex: 1;
+        padding: 10px 16px;
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+        font-weight: 700;
+        transition: all 0.2s ease;
+        background: white;
+        color: var(--dom-text);
+      }
+
+      .mm-tab:hover {
+        border-color: var(--unit-color);
+      }
+
+      .mm-tab.active {
+        background: var(--unit-color);
+        color: white;
+        border-color: var(--unit-color);
+      }
+
+      .mm-tab-content {
+        padding: 20px;
+      }
+
+      .mm-size-context {
+        background: rgba(0, 0, 0, 0.05);
+        border-left: 4px solid var(--unit-color);
+        padding: 12px 16px;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        color: var(--dom-text);
+        font-weight: 500;
+        margin-top: 12px;
+      }
+
+      .mm-story-text {
+        line-height: 1.6;
+        color: var(--dom-text);
+        white-space: pre-wrap;
+      }
+
+      .mm-items-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      .mm-item-card {
+        background: var(--dom-bg);
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 12px;
+        text-align: center;
+      }
+
+      .mm-item-emoji {
+        font-size: 2rem;
+        margin-bottom: 4px;
+      }
+
+      .mm-item-name {
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: var(--dom-text);
+        margin-bottom: 4px;
+      }
+
+      .mm-item-detail {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+      }
+
+      .mm-detail-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 16px;
+        border-top: 1px solid var(--dom-border);
+        background: var(--dom-bg);
+      }
+
+      .mm-detail-counter {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+        font-weight: 700;
+      }
+
+      .mm-detail-btn {
+        padding: 10px 16px;
+        background: var(--unit-color);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 700;
+        transition: all 0.2s ease;
+      }
+
+      .mm-detail-btn:hover:not(:disabled) {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+
+      .mm-detail-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* === SORT CHALLENGE === */
+      .mm-sort-instructions {
+        padding: 16px;
+        background: var(--dom-bg);
+        border-bottom: 1px solid var(--dom-border);
+        font-size: 0.95rem;
+        color: var(--dom-text);
+        line-height: 1.5;
+      }
+
+      .mm-sort-container {
+        padding: 20px;
+      }
+
+      .mm-sort-slots {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        gap: 8px;
+        margin-bottom: 24px;
+        padding: 16px;
+        background: var(--dom-bg);
+        border-radius: 8px;
+      }
+
+      .mm-slot {
+        aspect-ratio: 1 / 1;
+        border: 2px dashed var(--dom-border);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: white;
+      }
+
+      .mm-slot:hover {
+        border-color: var(--dom-accent);
+      }
+
+      .mm-slot.filled {
+        border-style: solid;
+        border-color: var(--slot-color);
+        background: rgba(0, 0, 0, 0.02);
+      }
+
+      .mm-slot.selected {
+        border-color: var(--dom-accent);
+        border-width: 3px;
+        background: rgba(164, 74, 63, 0.1);
+      }
+
+      .mm-slot-emoji {
+        font-size: 1.8rem;
+        margin-bottom: 4px;
+      }
+
+      .mm-slot-abbr {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--slot-color);
+      }
+
+      .mm-bank-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--dom-text);
+        margin-bottom: 12px;
+      }
+
+      .mm-bank {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        padding: 12px;
+        background: var(--dom-bg);
+        border-radius: 8px;
+        margin-bottom: 16px;
+      }
+
+      .mm-bank-card {
+        border: 2px solid var(--unit-color);
+        border-radius: 8px;
+        padding: 10px 14px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        background: white;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+
+      .mm-bank-card:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-1px);
+      }
+
+      .mm-bank-card.selected {
+        border-color: var(--dom-accent);
+        border-width: 3px;
+        background: rgba(164, 74, 63, 0.1);
+      }
+
+      .mm-sort-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .mm-check-btn {
+        padding: 12px 24px;
+        background: var(--dom-accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .mm-check-btn:hover:not(:disabled) {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      .mm-check-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* === QUIZ / CONVERSION / SCENARIOS === */
+      .mm-progress-bar {
+        height: 8px;
+        background: var(--dom-border);
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 12px;
+      }
+
+      .mm-progress-fill {
+        height: 100%;
+        background: var(--dom-accent);
+        transition: width 0.3s ease;
+      }
+
+      .mm-question-header {
+        padding: 16px;
+        background: white;
+        border-bottom: 1px solid var(--dom-border);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .mm-score-chip {
+        background: var(--dom-accent);
+        color: white;
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+
+      .mm-question-counter {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+        font-weight: 700;
+      }
+
+      .mm-question-card {
+        padding: 24px;
+        text-align: center;
+      }
+
+      .mm-question-emoji {
+        font-size: 3rem;
+        margin-bottom: 12px;
+      }
+
+      .mm-question-text {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--dom-text);
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .mm-choices-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .mm-choice-btn {
+        padding: 16px;
+        border: 2px solid var(--btn-color, var(--dom-border));
+        border-radius: 8px;
+        background: white;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: var(--dom-text);
+      }
+
+      .mm-choice-btn:hover:not(:disabled) {
+        border-color: var(--btn-color, var(--dom-accent));
+        transform: translateY(-2px);
+      }
+
+      .mm-choice-btn:disabled {
+        cursor: default;
+      }
+
+      .mm-choice-btn.correct {
+        background: var(--mm-green);
+        color: white;
+        border-color: var(--mm-green);
+      }
+
+      .mm-choice-btn.wrong {
+        background: var(--mm-red-wrong);
+        color: white;
+        border-color: var(--mm-red-wrong);
+      }
+
+      .mm-formula {
+        padding: 12px;
+        background: rgba(0, 0, 0, 0.05);
+        border-left: 4px solid var(--dom-accent);
+        border-radius: 4px;
+        font-weight: 700;
+        color: var(--dom-text);
+        font-size: 0.95rem;
+        margin-bottom: 16px;
+        min-height: 20px;
+      }
+
+      .mm-hint-section {
+        padding: 16px;
+        background: var(--dom-bg);
+        border-radius: 8px;
+        margin-top: 16px;
+      }
+
+      .mm-hint-btn {
+        width: 100%;
+        padding: 12px;
+        background: var(--dom-accent2);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .mm-hint-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-1px);
+      }
+
+      .mm-hint-text {
+        margin-top: 12px;
+        padding: 12px;
+        background: white;
+        border-radius: 4px;
+        color: var(--dom-text);
+        line-height: 1.5;
+      }
+
+      /* === RESULT SCREENS === */
+      .mm-result-container {
+        padding: 24px;
+        text-align: center;
+      }
+
+      .mm-medal {
+        font-size: 4rem;
+        margin-bottom: 16px;
+      }
+
+      .mm-result-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dom-text);
+        margin-bottom: 8px;
+      }
+
+      .mm-result-score {
+        font-size: 1.2rem;
+        color: var(--dom-text-muted);
+        margin-bottom: 20px;
+      }
+
+      .mm-result-progress {
+        margin: 20px 0;
+      }
+
+      .mm-result-items {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 20px 0;
+      }
+
+      .mm-result-item {
+        padding: 8px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        border: 2px solid var(--item-color);
+        color: white;
+      }
+
+      .mm-result-item.correct {
+        background: var(--mm-green);
+        border-color: var(--mm-green);
+      }
+
+      .mm-result-item.wrong {
+        background: var(--mm-red-wrong);
+        border-color: var(--mm-red-wrong);
+      }
+
+      .mm-conv-ref-card {
+        background: white;
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 16px;
+        margin: 20px 0;
+        text-align: left;
+      }
+
+      .mm-conv-ref-title {
+        font-weight: 700;
+        color: var(--dom-text);
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .mm-conv-ref-item {
+        padding: 8px;
+        color: var(--dom-text);
+        font-size: 0.95rem;
+        border-bottom: 1px solid var(--dom-border);
+      }
+
+      .mm-conv-ref-item:last-child {
+        border-bottom: none;
+      }
+
+      .mm-result-buttons {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .mm-result-btn {
+        padding: 12px 24px;
+        background: var(--dom-accent);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .mm-result-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      .mm-result-btn.secondary {
+        background: var(--dom-accent2);
+      }
+
+      /* === MOBILE ADJUSTMENTS === */
+      @media (max-width: 768px) {
         .mm-mode-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 16px;
-            padding: 24px;
+          grid-template-columns: 1fr;
+          gap: 12px;
+          padding: 16px;
         }
 
-        .mm-mode-card {
-            background: white;
-            border: 1px solid var(--dom-border);
-            border-left: 4px solid var(--card-color);
-            border-radius: 8px;
-            padding: 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .mm-mode-card:hover {
-            transform: translateY(-2px);
-            border-left-width: 6px;
-        }
-
-        .mm-mode-emoji {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-        }
-
-        .mm-mode-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: var(--dom-text);
-        }
-
-        .mm-mode-subtitle {
-            font-size: 0.9rem;
-            color: var(--dom-text-muted);
-            line-height: 1.4;
-        }
-
-        .mm-unit-chips {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            justify-content: center;
-            padding: 16px;
-            background: var(--dom-bg);
-            border-top: 1px solid var(--dom-border);
-        }
-
-        .mm-unit-chip {
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            background: white;
-            border: 1px solid var(--dom-border);
-            color: var(--chip-color);
-        }
-
-        /* === UNIT GRID === */
         .mm-unit-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
-            padding: 20px;
-        }
-
-        .mm-unit-card {
-            background: white;
-            border: 1px solid var(--dom-border);
-            border-left: 4px solid var(--unit-color);
-            border-radius: 8px;
-            padding: 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-        }
-
-        .mm-unit-card:hover {
-            transform: translateY(-2px);
-            border-left-width: 6px;
-        }
-
-        .mm-unit-emoji {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-
-        .mm-unit-name {
-            font-weight: 700;
-            font-size: 0.95rem;
-            margin-bottom: 4px;
-            color: var(--dom-text);
-        }
-
-        .mm-unit-abbr {
-            font-size: 0.9rem;
-            color: var(--dom-text-muted);
-            font-weight: 700;
-        }
-
-        .mm-unit-tagline {
-            font-size: 0.9rem;
-            color: var(--dom-text-muted);
-            margin-top: 8px;
-            line-height: 1.3;
-        }
-
-        /* === UNIT DETAIL VIEW === */
-        .mm-unit-header {
-            background: var(--unit-color);
-            color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 16px;
-            text-align: center;
-        }
-
-        .mm-unit-header-emoji {
-            font-size: 2.5rem;
-            margin-bottom: 8px;
-        }
-
-        .mm-unit-header-name {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .mm-unit-header-abbr {
-            font-size: 0.9rem;
-            opacity: 0.9;
-            margin-bottom: 8px;
-        }
-
-        .mm-unit-header-tagline {
-            font-size: 0.95rem;
-            font-weight: 500;
+          grid-template-columns: repeat(2, 1fr);
         }
 
         .mm-tab-bar {
-            display: flex;
-            gap: 8px;
-            padding: 12px 16px;
-            background: white;
-            border-bottom: 1px solid var(--dom-border);
+          gap: 6px;
+          padding: 8px 12px;
         }
 
         .mm-tab {
-            flex: 1;
-            padding: 10px 16px;
-            border: 2px solid var(--dom-border);
-            border-radius: 8px;
-            cursor: pointer;
-            text-align: center;
-            font-weight: 700;
-            transition: all 0.2s ease;
-            background: white;
-            color: var(--dom-text);
-        }
-
-        .mm-tab:hover {
-            border-color: var(--unit-color);
-        }
-
-        .mm-tab.active {
-            background: var(--unit-color);
-            color: white;
-            border-color: var(--unit-color);
-        }
-
-        .mm-tab-content {
-            padding: 20px;
-        }
-
-        .mm-size-context {
-            background: rgba(0, 0, 0, 0.05);
-            border-left: 4px solid var(--unit-color);
-            padding: 12px 16px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            color: var(--dom-text);
-            font-weight: 500;
-            margin-top: 12px;
-        }
-
-        .mm-story-text {
-            line-height: 1.6;
-            color: var(--dom-text);
-            white-space: pre-wrap;
+          padding: 8px 12px;
+          font-size: 0.9rem;
         }
 
         .mm-items-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 16px;
-        }
-
-        .mm-item-card {
-            background: var(--dom-bg);
-            border: 1px solid var(--dom-border);
-            border-radius: 8px;
-            padding: 12px;
-            text-align: center;
-        }
-
-        .mm-item-emoji {
-            font-size: 2rem;
-            margin-bottom: 4px;
-        }
-
-        .mm-item-name {
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--dom-text);
-            margin-bottom: 4px;
-        }
-
-        .mm-item-detail {
-            font-size: 0.9rem;
-            color: var(--dom-text-muted);
-        }
-
-        .mm-detail-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-            border-top: 1px solid var(--dom-border);
-            background: var(--dom-bg);
-        }
-
-        .mm-detail-counter {
-            font-size: 0.9rem;
-            color: var(--dom-text-muted);
-            font-weight: 700;
-        }
-
-        .mm-detail-btn {
-            padding: 10px 16px;
-            background: var(--unit-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 700;
-            transition: all 0.2s ease;
-        }
-
-        .mm-detail-btn:hover:not(:disabled) {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .mm-detail-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* === SORT CHALLENGE === */
-        .mm-sort-instructions {
-            padding: 16px;
-            background: var(--dom-bg);
-            border-bottom: 1px solid var(--dom-border);
-            font-size: 0.95rem;
-            color: var(--dom-text);
-            line-height: 1.5;
-        }
-
-        .mm-sort-container {
-            padding: 20px;
-        }
-
-        .mm-sort-slots {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-            gap: 8px;
-            margin-bottom: 24px;
-            padding: 16px;
-            background: var(--dom-bg);
-            border-radius: 8px;
-        }
-
-        .mm-slot {
-            aspect-ratio: 1 / 1;
-            border: 2px dashed var(--dom-border);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background: white;
-        }
-
-        .mm-slot:hover {
-            border-color: var(--dom-accent);
-        }
-
-        .mm-slot.filled {
-            border-style: solid;
-            border-color: var(--slot-color);
-            background: rgba(0, 0, 0, 0.02);
-        }
-
-        .mm-slot.selected {
-            border-color: var(--dom-accent);
-            border-width: 3px;
-            background: rgba(164, 74, 63, 0.1);
-        }
-
-        .mm-slot-emoji {
-            font-size: 1.8rem;
-            margin-bottom: 4px;
-        }
-
-        .mm-slot-abbr {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: var(--slot-color);
-        }
-
-        .mm-bank-title {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--dom-text);
-            margin-bottom: 12px;
-        }
-
-        .mm-bank {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            padding: 12px;
-            background: var(--dom-bg);
-            border-radius: 8px;
-            margin-bottom: 16px;
-        }
-
-        .mm-bank-card {
-            border: 2px solid var(--unit-color);
-            border-radius: 8px;
-            padding: 10px 14px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background: white;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .mm-bank-card:hover {
-            border-color: var(--dom-accent);
-            transform: translateY(-1px);
-        }
-
-        .mm-bank-card.selected {
-            border-color: var(--dom-accent);
-            border-width: 3px;
-            background: rgba(164, 74, 63, 0.1);
-        }
-
-        .mm-sort-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .mm-check-btn {
-            padding: 12px 24px;
-            background: var(--dom-accent);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .mm-check-btn:hover:not(:disabled) {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        .mm-check-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* === QUIZ / CONVERSION / SCENARIOS === */
-        .mm-progress-bar {
-            height: 8px;
-            background: var(--dom-border);
-            border-radius: 4px;
-            overflow: hidden;
-            margin-bottom: 12px;
-        }
-
-        .mm-progress-fill {
-            height: 100%;
-            background: var(--dom-accent);
-            transition: width 0.3s ease;
-        }
-
-        .mm-question-header {
-            padding: 16px;
-            background: white;
-            border-bottom: 1px solid var(--dom-border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .mm-score-chip {
-            background: var(--dom-accent);
-            color: white;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .mm-question-counter {
-            font-size: 0.9rem;
-            color: var(--dom-text-muted);
-            font-weight: 700;
-        }
-
-        .mm-question-card {
-            padding: 24px;
-            text-align: center;
-        }
-
-        .mm-question-emoji {
-            font-size: 3rem;
-            margin-bottom: 12px;
-        }
-
-        .mm-question-text {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--dom-text);
-            margin-bottom: 20px;
-            line-height: 1.5;
+          grid-template-columns: 1fr;
         }
 
         .mm-choices-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
+          gap: 10px;
         }
 
         .mm-choice-btn {
-            padding: 16px;
-            border: 2px solid var(--btn-color, var(--dom-border));
-            border-radius: 8px;
-            background: white;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            color: var(--dom-text);
+          padding: 14px 12px;
+          font-size: 0.95rem;
         }
 
-        .mm-choice-btn:hover:not(:disabled) {
-            border-color: var(--btn-color, var(--dom-accent));
-            transform: translateY(-2px);
+        .mm-detail-nav {
+          flex-direction: column;
+          gap: 12px;
         }
 
-        .mm-choice-btn:disabled {
-            cursor: default;
+        .mm-sort-buttons {
+          flex-direction: column;
         }
 
-        .mm-choice-btn.correct {
-            background: var(--mm-green);
-            color: white;
-            border-color: var(--mm-green);
-        }
-
-        .mm-choice-btn.wrong {
-            background: var(--mm-red-wrong);
-            color: white;
-            border-color: var(--mm-red-wrong);
-        }
-
-        .mm-formula {
-            padding: 12px;
-            background: rgba(0, 0, 0, 0.05);
-            border-left: 4px solid var(--dom-accent);
-            border-radius: 4px;
-            font-weight: 700;
-            color: var(--dom-text);
-            font-size: 0.95rem;
-            margin-bottom: 16px;
-            min-height: 20px;
-        }
-
-        .mm-hint-section {
-            padding: 16px;
-            background: var(--dom-bg);
-            border-radius: 8px;
-            margin-top: 16px;
-        }
-
-        .mm-hint-btn {
-            width: 100%;
-            padding: 12px;
-            background: var(--dom-accent2);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .mm-hint-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .mm-hint-text {
-            margin-top: 12px;
-            padding: 12px;
-            background: white;
-            border-radius: 4px;
-            color: var(--dom-text);
-            line-height: 1.5;
-        }
-
-        /* === RESULT SCREENS === */
-        .mm-result-container {
-            padding: 24px;
-            text-align: center;
-        }
-
-        .mm-medal {
-            font-size: 4rem;
-            margin-bottom: 16px;
-        }
-
-        .mm-result-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--dom-text);
-            margin-bottom: 8px;
-        }
-
-        .mm-result-score {
-            font-size: 1.2rem;
-            color: var(--dom-text-muted);
-            margin-bottom: 20px;
-        }
-
-        .mm-result-progress {
-            margin: 20px 0;
-        }
-
-        .mm-result-items {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 20px 0;
-        }
-
-        .mm-result-item {
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            border: 2px solid var(--item-color);
-            color: white;
-        }
-
-        .mm-result-item.correct {
-            background: var(--mm-green);
-            border-color: var(--mm-green);
-        }
-
-        .mm-result-item.wrong {
-            background: var(--mm-red-wrong);
-            border-color: var(--mm-red-wrong);
-        }
-
-        .mm-conv-ref-card {
-            background: white;
-            border: 1px solid var(--dom-border);
-            border-radius: 8px;
-            padding: 16px;
-            margin: 20px 0;
-            text-align: left;
-        }
-
-        .mm-conv-ref-title {
-            font-weight: 700;
-            color: var(--dom-text);
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .mm-conv-ref-item {
-            padding: 8px;
-            color: var(--dom-text);
-            font-size: 0.95rem;
-            border-bottom: 1px solid var(--dom-border);
-        }
-
-        .mm-conv-ref-item:last-child {
-            border-bottom: none;
+        .mm-check-btn,
+        .mm-result-btn {
+          width: 100%;
         }
 
         .mm-result-buttons {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
+          flex-direction: column;
         }
-
-        .mm-result-btn {
-            padding: 12px 24px;
-            background: var(--dom-accent);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .mm-result-btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        .mm-result-btn.secondary {
-            background: var(--dom-accent2);
-        }
-
-        /* === MOBILE ADJUSTMENTS === */
-        @media (max-width: 768px) {
-            .mm-mode-grid {
-                grid-template-columns: 1fr;
-                gap: 12px;
-                padding: 16px;
-            }
-
-            .mm-unit-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .mm-tab-bar {
-                gap: 6px;
-                padding: 8px 12px;
-            }
-
-            .mm-tab {
-                padding: 8px 12px;
-                font-size: 0.9rem;
-            }
-
-            .mm-items-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .mm-choices-grid {
-                gap: 10px;
-            }
-
-            .mm-choice-btn {
-                padding: 14px 12px;
-                font-size: 0.95rem;
-            }
-
-            .mm-detail-nav {
-                flex-direction: column;
-                gap: 12px;
-            }
-
-            .mm-sort-buttons {
-                flex-direction: column;
-            }
-
-            .mm-check-btn,
-            .mm-result-btn {
-                width: 100%;
-            }
-
-            .mm-result-buttons {
-                flex-direction: column;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="dom-nav">
-        <a id="game-back-btn" href="../../index.html#measure-master"><i class="ti ti-arrow-left"></i> Back</a>
-        <span class="dom-nav-title" id="nav-title">Measure Master</span>
-        <span class="dom-nav-meta" id="nav-meta"></span>
+      <a id="game-back-btn" href="../../index.html#measure-master"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Measure Master</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
     </nav>
 
     <div class="dom-screens-container">
-        <!-- Screen: Main Menu -->
-        <div data-screen="landing" class="dom-screen active">
-            <div style="padding: 20px; text-align: center;">
-                <h1 style="font-size: 2.5rem; margin-bottom: 8px; color: #1A1A1A;">📏 Measure Master</h1>
-                <p style="font-size: 1rem; color: #6B7280; margin-bottom: 20px;">Learn what each unit of measurement really means!</p>
-            </div>
-            <div class="mm-mode-grid" id="mode-grid"></div>
-            <div class="mm-unit-chips" id="unit-chips"></div>
+      <!-- Screen: Main Menu -->
+      <div data-screen="landing" class="dom-screen active">
+        <div style="padding: 20px; text-align: center">
+          <h1 style="font-size: 2.5rem; margin-bottom: 8px; color: #1a1a1a">📏 Measure Master</h1>
+          <p style="font-size: 1rem; color: #6b7280; margin-bottom: 20px">
+            Learn what each unit of measurement really means!
+          </p>
         </div>
+        <div class="mm-mode-grid" id="mode-grid"></div>
+        <div class="mm-unit-chips" id="unit-chips"></div>
+      </div>
 
-        <!-- Screen: Unit Detail (Explore/History) -->
-        <div data-screen="unit-detail" class="dom-screen">
-            <div id="unit-detail-content"></div>
-        </div>
+      <!-- Screen: Unit Detail (Explore/History) -->
+      <div data-screen="unit-detail" class="dom-screen">
+        <div id="unit-detail-content"></div>
+      </div>
 
-        <!-- Screen: Sort Challenge -->
-        <div data-screen="sort" class="dom-screen">
-            <div class="mm-sort-instructions">
-                <strong>Sort Challenge:</strong> Order the units from smallest to largest! Click a card from the bank, then click an empty slot to place it. Click "Check Order!" when you're done.
-            </div>
-            <div class="mm-sort-container">
-                <div id="sort-slots"></div>
-                <div class="mm-bank-title">Available Units:</div>
-                <div id="sort-bank" class="mm-bank"></div>
-                <div class="mm-sort-buttons">
-                    <button class="mm-check-btn" id="check-sort-btn" disabled>Check Order!</button>
-                    <button class="mm-check-btn" style="background: var(--dom-accent2);" id="reset-sort-btn">Reset</button>
-                    <button class="mm-check-btn" style="background: var(--dom-text-muted);" id="menu-from-sort-btn">Menu</button>
-                </div>
-            </div>
+      <!-- Screen: Sort Challenge -->
+      <div data-screen="sort" class="dom-screen">
+        <div class="mm-sort-instructions">
+          <strong>Sort Challenge:</strong> Order the units from smallest to largest! Click a card from the bank, then
+          click an empty slot to place it. Click "Check Order!" when you're done.
         </div>
+        <div class="mm-sort-container">
+          <div id="sort-slots"></div>
+          <div class="mm-bank-title">Available Units:</div>
+          <div id="sort-bank" class="mm-bank"></div>
+          <div class="mm-sort-buttons">
+            <button class="mm-check-btn" id="check-sort-btn" disabled>Check Order!</button>
+            <button class="mm-check-btn" style="background: var(--dom-accent2)" id="reset-sort-btn">Reset</button>
+            <button class="mm-check-btn" style="background: var(--dom-text-muted)" id="menu-from-sort-btn">Menu</button>
+          </div>
+        </div>
+      </div>
 
-        <!-- Screen: Sort Result -->
-        <div data-screen="sort-result" class="dom-screen">
-            <div class="mm-result-container" id="sort-result-content"></div>
-        </div>
+      <!-- Screen: Sort Result -->
+      <div data-screen="sort-result" class="dom-screen">
+        <div class="mm-result-container" id="sort-result-content"></div>
+      </div>
 
-        <!-- Screen: Quiz -->
-        <div data-screen="quiz" class="dom-screen">
-            <div class="mm-question-header">
-                <div class="mm-progress-bar">
-                    <div class="mm-progress-fill" id="quiz-progress"></div>
-                </div>
-                <div style="flex: 0; margin-left: 16px;">
-                    <div class="mm-score-chip" id="quiz-score">⭐ 0</div>
-                </div>
-            </div>
-            <div class="mm-question-header" style="border-bottom: none; justify-content: center;">
-                <div class="mm-question-counter" id="quiz-counter">1 / 10</div>
-            </div>
-            <div class="mm-question-card">
-                <div class="mm-question-emoji" id="quiz-emoji"></div>
-                <div class="mm-question-text" id="quiz-question"></div>
-                <div class="mm-choices-grid" id="quiz-choices"></div>
-                <div class="mm-formula" id="quiz-formula"></div>
-                <div class="mm-hint-section">
-                    <button class="mm-hint-btn" id="quiz-hint-btn">💡 Show Hint</button>
-                    <div class="mm-hint-text" id="quiz-hint" style="display: none;"></div>
-                </div>
-            </div>
+      <!-- Screen: Quiz -->
+      <div data-screen="quiz" class="dom-screen">
+        <div class="mm-question-header">
+          <div class="mm-progress-bar">
+            <div class="mm-progress-fill" id="quiz-progress"></div>
+          </div>
+          <div style="flex: 0; margin-left: 16px">
+            <div class="mm-score-chip" id="quiz-score">⭐ 0</div>
+          </div>
         </div>
+        <div class="mm-question-header" style="border-bottom: none; justify-content: center">
+          <div class="mm-question-counter" id="quiz-counter">1 / 10</div>
+        </div>
+        <div class="mm-question-card">
+          <div class="mm-question-emoji" id="quiz-emoji"></div>
+          <div class="mm-question-text" id="quiz-question"></div>
+          <div class="mm-choices-grid" id="quiz-choices"></div>
+          <div class="mm-formula" id="quiz-formula"></div>
+          <div class="mm-hint-section">
+            <button class="mm-hint-btn" id="quiz-hint-btn">💡 Show Hint</button>
+            <div class="mm-hint-text" id="quiz-hint" style="display: none"></div>
+          </div>
+        </div>
+      </div>
 
-        <!-- Screen: Quiz Result -->
-        <div data-screen="quiz-result" class="dom-screen">
-            <div class="mm-result-container" id="quiz-result-content"></div>
-        </div>
+      <!-- Screen: Quiz Result -->
+      <div data-screen="quiz-result" class="dom-screen">
+        <div class="mm-result-container" id="quiz-result-content"></div>
+      </div>
 
-        <!-- Screen: Conversions -->
-        <div data-screen="conversions" class="dom-screen">
-            <div class="mm-question-header">
-                <div class="mm-progress-bar">
-                    <div class="mm-progress-fill" id="conv-progress"></div>
-                </div>
-                <div style="flex: 0; margin-left: 16px;">
-                    <div class="mm-score-chip" id="conv-score">⭐ 0</div>
-                </div>
-            </div>
-            <div class="mm-question-header" style="border-bottom: none; justify-content: center;">
-                <div class="mm-question-counter" id="conv-counter">1 / 10</div>
-            </div>
-            <div class="mm-question-card">
-                <div class="mm-question-emoji" id="conv-emoji"></div>
-                <div class="mm-question-text" id="conv-question"></div>
-                <div class="mm-choices-grid" id="conv-choices"></div>
-                <div class="mm-formula" id="conv-formula"></div>
-                <div class="mm-hint-section">
-                    <button class="mm-hint-btn" id="conv-hint-btn">💡 Show Hint</button>
-                    <div class="mm-hint-text" id="conv-hint" style="display: none;"></div>
-                </div>
-            </div>
+      <!-- Screen: Conversions -->
+      <div data-screen="conversions" class="dom-screen">
+        <div class="mm-question-header">
+          <div class="mm-progress-bar">
+            <div class="mm-progress-fill" id="conv-progress"></div>
+          </div>
+          <div style="flex: 0; margin-left: 16px">
+            <div class="mm-score-chip" id="conv-score">⭐ 0</div>
+          </div>
         </div>
+        <div class="mm-question-header" style="border-bottom: none; justify-content: center">
+          <div class="mm-question-counter" id="conv-counter">1 / 10</div>
+        </div>
+        <div class="mm-question-card">
+          <div class="mm-question-emoji" id="conv-emoji"></div>
+          <div class="mm-question-text" id="conv-question"></div>
+          <div class="mm-choices-grid" id="conv-choices"></div>
+          <div class="mm-formula" id="conv-formula"></div>
+          <div class="mm-hint-section">
+            <button class="mm-hint-btn" id="conv-hint-btn">💡 Show Hint</button>
+            <div class="mm-hint-text" id="conv-hint" style="display: none"></div>
+          </div>
+        </div>
+      </div>
 
-        <!-- Screen: Conversion Result -->
-        <div data-screen="conv-result" class="dom-screen">
-            <div class="mm-result-container" id="conv-result-content"></div>
-        </div>
+      <!-- Screen: Conversion Result -->
+      <div data-screen="conv-result" class="dom-screen">
+        <div class="mm-result-container" id="conv-result-content"></div>
+      </div>
 
-        <!-- Screen: Scenarios -->
-        <div data-screen="scenarios" class="dom-screen">
-            <div class="mm-question-header">
-                <div class="mm-progress-bar">
-                    <div class="mm-progress-fill" id="scen-progress"></div>
-                </div>
-                <div style="flex: 0; margin-left: 16px;">
-                    <div class="mm-score-chip" id="scen-score">⭐ 0</div>
-                </div>
-            </div>
-            <div class="mm-question-header" style="border-bottom: none; justify-content: center;">
-                <div class="mm-question-counter" id="scen-counter">1 / 10</div>
-            </div>
-            <div class="mm-question-card">
-                <div class="mm-question-emoji" id="scen-emoji"></div>
-                <div class="mm-question-text" id="scen-question"></div>
-                <div class="mm-choices-grid" id="scen-choices"></div>
-                <div class="mm-formula" id="scen-formula"></div>
-                <div class="mm-hint-section">
-                    <button class="mm-hint-btn" id="scen-hint-btn">💡 Show Hint</button>
-                    <div class="mm-hint-text" id="scen-hint" style="display: none;"></div>
-                </div>
-            </div>
+      <!-- Screen: Scenarios -->
+      <div data-screen="scenarios" class="dom-screen">
+        <div class="mm-question-header">
+          <div class="mm-progress-bar">
+            <div class="mm-progress-fill" id="scen-progress"></div>
+          </div>
+          <div style="flex: 0; margin-left: 16px">
+            <div class="mm-score-chip" id="scen-score">⭐ 0</div>
+          </div>
         </div>
+        <div class="mm-question-header" style="border-bottom: none; justify-content: center">
+          <div class="mm-question-counter" id="scen-counter">1 / 10</div>
+        </div>
+        <div class="mm-question-card">
+          <div class="mm-question-emoji" id="scen-emoji"></div>
+          <div class="mm-question-text" id="scen-question"></div>
+          <div class="mm-choices-grid" id="scen-choices"></div>
+          <div class="mm-formula" id="scen-formula"></div>
+          <div class="mm-hint-section">
+            <button class="mm-hint-btn" id="scen-hint-btn">💡 Show Hint</button>
+            <div class="mm-hint-text" id="scen-hint" style="display: none"></div>
+          </div>
+        </div>
+      </div>
 
-        <!-- Screen: Scenarios Result -->
-        <div data-screen="scen-result" class="dom-screen">
-            <div class="mm-result-container" id="scen-result-content"></div>
-        </div>
+      <!-- Screen: Scenarios Result -->
+      <div data-screen="scen-result" class="dom-screen">
+        <div class="mm-result-container" id="scen-result-content"></div>
+      </div>
     </div>
 
     <script src="../../shared/navigation.js"></script>
@@ -882,5 +897,5 @@
     <script src="../../shared/analytics.js"></script>
     <div id="ad-container"></div>
     <script src="../../shared/ads.js"></script>
-</body>
+  </body>
 </html>

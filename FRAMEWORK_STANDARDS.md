@@ -24,12 +24,12 @@ Game Play/Content Screen (e.g., practice problem, tutorial)
 
 **The back button ALWAYS goes to the immediate logical parent, never skip levels.**
 
-| Current Screen | Back Button Should Go To | Reason |
-|---|---|---|
-| Game landing | Portal category (`../../index.html#game-id`) | Direct parent |
-| Module selection screen | Game landing (same page, different state) | Immediate parent |
-| Tutorial/content screen | Module selection | User started here |
-| Practice/quiz screen | Module selection (preserve progress) | Return to picker |
+| Current Screen          | Back Button Should Go To                     | Reason            |
+| ----------------------- | -------------------------------------------- | ----------------- |
+| Game landing            | Portal category (`../../index.html#game-id`) | Direct parent     |
+| Module selection screen | Game landing (same page, different state)    | Immediate parent  |
+| Tutorial/content screen | Module selection                             | User started here |
+| Practice/quiz screen    | Module selection (preserve progress)         | Return to picker  |
 
 ### Implementation Pattern
 
@@ -82,16 +82,16 @@ initNavigation('quick-math', {
 });
 
 // When user taps a technique
-goToScreen('tutorial');  // Module selected
+goToScreen('tutorial'); // Module selected
 
 // When user clicks back in tutorial
-navigateBack();  // Goes to 'technique-picker' (not portal!)
+navigateBack(); // Goes to 'technique-picker' (not portal!)
 
 // When user clicks back in technique-picker
-navigateBack();  // Goes to 'landing'
+navigateBack(); // Goes to 'landing'
 
 // When user clicks back in landing
-navigateBack();  // Goes to portal: ../../index.html#quick-math
+navigateBack(); // Goes to portal: ../../index.html#quick-math
 ```
 
 ---
@@ -148,7 +148,7 @@ games/game-id/
 // State machine
 const gameState = {
   currentScreen: 'landing',
-  screenStack: ['landing'],  // Track navigation history
+  screenStack: ['landing'], // Track navigation history
   moduleId: null,
   progress: {}
 };
@@ -161,8 +161,7 @@ function showScreen(screenName) {
   });
 
   // Show target screen
-  document.querySelector(`[data-screen="${screenName}"]`)
-    .classList.add('active');
+  document.querySelector(`[data-screen="${screenName}"]`).classList.add('active');
 
   // Update state
   gameState.currentScreen = screenName;
@@ -173,25 +172,25 @@ function showScreen(screenName) {
 }
 
 // Back button handler
-document.getElementById('game-back-btn').addEventListener('click', (e) => {
+document.getElementById('game-back-btn').addEventListener('click', e => {
   if (!handleInternalBack()) {
     // No internal back, use default (go to portal)
     // Link href will handle it
   } else {
-    e.preventDefault();  // Prevent default link behavior
+    e.preventDefault(); // Prevent default link behavior
   }
 });
 
 function handleInternalBack() {
   if (gameState.currentScreen === 'landing') {
-    return false;  // Let default link work
+    return false; // Let default link work
   }
 
   // Pop current screen, return to previous
   gameState.screenStack.pop();
   const previousScreen = gameState.screenStack[gameState.screenStack.length - 1];
   showScreen(previousScreen);
-  return true;  // Handled internally
+  return true; // Handled internally
 }
 ```
 
@@ -202,6 +201,7 @@ function handleInternalBack() {
 Run this checklist on EVERY game before committing:
 
 ### Navigation
+
 - [ ] Game landing page has back link to `../../index.html#game-id`
 - [ ] All screens use `.dom-screen` with unique `data-screen` attribute
 - [ ] Back button logic prevents skipping levels
@@ -209,6 +209,7 @@ Run this checklist on EVERY game before committing:
 - [ ] No hardcoded portal links inside game modules (except game landing)
 
 ### UX for Kids
+
 - [ ] Font size ≥14px for body text (readability)
 - [ ] Buttons ≥44px tall (mobile touch targets)
 - [ ] Icons are clear and self-explanatory
@@ -218,6 +219,7 @@ Run this checklist on EVERY game before committing:
 - [ ] No dark UX patterns (misleading buttons, hidden controls)
 
 ### Performance
+
 - [ ] Game loads in <2s on slow 3G
 - [ ] Smooth 60fps animations (use `transform`, not `left`/`top`)
 - [ ] No console errors or warnings
@@ -225,12 +227,14 @@ Run this checklist on EVERY game before committing:
 - [ ] No layout shift during load
 
 ### Accessibility
+
 - [ ] Keyboard navigation works (Tab, Arrow keys, Enter)
 - [ ] Screen reader friendly (alt text, aria-labels)
 - [ ] Focus indicators visible
 - [ ] Mobile: tap targets ≥44×44px
 
 ### Code Quality
+
 - [ ] No hardcoded strings (use constants)
 - [ ] Comments explain complex logic
 - [ ] No console.log left behind
@@ -252,7 +256,7 @@ Run this checklist on EVERY game before committing:
 class GameNavigation {
   constructor(gameId, config) {
     this.gameId = gameId;
-    this.config = config;  // { screens: [...], initialScreen: 'landing' }
+    this.config = config; // { screens: [...], initialScreen: 'landing' }
     this.currentScreen = config.initialScreen || 'landing';
     this.screenStack = [this.currentScreen];
   }
@@ -282,8 +286,7 @@ class GameNavigation {
     document.querySelectorAll('.dom-screen').forEach(el => {
       el.classList.remove('active');
     });
-    document.querySelector(`[data-screen="${this.currentScreen}"]`)
-      ?.classList.add('active');
+    document.querySelector(`[data-screen="${this.currentScreen}"]`)?.classList.add('active');
     this.updateNavBar();
   }
 
@@ -330,7 +333,7 @@ document.querySelectorAll('.technique-btn').forEach(btn => {
 });
 
 // Back button handler
-document.getElementById('game-back-btn').addEventListener('click', (e) => {
+document.getElementById('game-back-btn').addEventListener('click', e => {
   e.preventDefault();
   window.gameNav.goBack();
 });
@@ -342,43 +345,63 @@ document.getElementById('game-back-btn').addEventListener('click', (e) => {
 
 ### Color Palette for Kid-Friendly Apps
 
-| Purpose | Colors | Usage |
-|---------|--------|-------|
-| **Primary Action** | `--dom-accent` | Buttons, highlight |
-| **Secondary Action** | `--dom-accent2` | Alternative buttons |
-| **Success** | `#10B981` (green) | Correct answer, progress |
-| **Error** | `#EF4444` (red) | Wrong answer, danger |
-| **Warning** | `#F59E0B` (amber) | Caution, attention |
-| **Info** | `--dom-accent` (blue) | Hints, tips |
-| **Background** | `--dom-bg` | Safe, light |
-| **Cards** | `--dom-bg-card` | Content containers |
+| Purpose              | Colors                | Usage                    |
+| -------------------- | --------------------- | ------------------------ |
+| **Primary Action**   | `--dom-accent`        | Buttons, highlight       |
+| **Secondary Action** | `--dom-accent2`       | Alternative buttons      |
+| **Success**          | `#10B981` (green)     | Correct answer, progress |
+| **Error**            | `#EF4444` (red)       | Wrong answer, danger     |
+| **Warning**          | `#F59E0B` (amber)     | Caution, attention       |
+| **Info**             | `--dom-accent` (blue) | Hints, tips              |
+| **Background**       | `--dom-bg`            | Safe, light              |
+| **Cards**            | `--dom-bg-card`       | Content containers       |
 
 ### Typography
 
 ```css
 /* Body text */
-body { font-size: 16px; line-height: 1.6; }
+body {
+  font-size: 16px;
+  line-height: 1.6;
+}
 
 /* Headings */
-h1 { font-size: 28px; font-weight: 900; }
-h2 { font-size: 22px; font-weight: 800; }
-h3 { font-size: 18px; font-weight: 700; }
+h1 {
+  font-size: 28px;
+  font-weight: 900;
+}
+h2 {
+  font-size: 22px;
+  font-weight: 800;
+}
+h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
 
 /* Minimum for kids */
-p, label, button { font-size: ≥14px; }
+p,
+label,
+button {
+  font-size: ≥14px;
+}
 
 /* Interactive */
-button, a { min-height: 44px; min-width: 44px; }
+button,
+a {
+  min-height: 44px;
+  min-width: 44px;
+}
 ```
 
 ### Spacing (8px grid)
 
 ```css
---gap-xs: 4px;    /* Icon gaps */
---gap-sm: 8px;    /* Button padding, small margins */
---gap-md: 16px;   /* Section margins, card padding */
---gap-lg: 24px;   /* Major section spacing */
---gap-xl: 32px;   /* Page padding */
+--gap-xs: 4px; /* Icon gaps */
+--gap-sm: 8px; /* Button padding, small margins */
+--gap-md: 16px; /* Section margins, card padding */
+--gap-lg: 24px; /* Major section spacing */
+--gap-xl: 32px; /* Page padding */
 ```
 
 ---
@@ -389,12 +412,20 @@ button, a { min-height: 44px; min-width: 44px; }
 
 ```css
 /* ✅ GOOD - GPU accelerated */
-.button:active { transform: scale(0.95); }
-.card:hover { transform: translateY(-2px); }
+.button:active {
+  transform: scale(0.95);
+}
+.card:hover {
+  transform: translateY(-2px);
+}
 
 /* ❌ BAD - Causes reflow */
-.button:active { height: 42px; } /* Don't animate height */
-.card:hover { left: 10px; }      /* Don't animate left/top */
+.button:active {
+  height: 42px;
+} /* Don't animate height */
+.card:hover {
+  left: 10px;
+} /* Don't animate left/top */
 ```
 
 ### Kid-Friendly Feedback
@@ -404,23 +435,23 @@ Every interactive element should give immediate feedback:
 ```javascript
 // Tap feedback
 button.addEventListener('mousedown', () => {
-  button.style.transform = 'scale(0.95)';  // Immediate visual feedback
+  button.style.transform = 'scale(0.95)'; // Immediate visual feedback
 });
 
 button.addEventListener('mouseup', () => {
-  button.style.transform = 'scale(1)';     // Restore
+  button.style.transform = 'scale(1)'; // Restore
 });
 
 // Selection feedback
 option.addEventListener('click', () => {
-  option.classList.add('selected');        // Show it's selected
-  option.disabled = true;                   // Prevent re-selection
-  playSound('select.mp3');                  // Audio feedback (optional)
+  option.classList.add('selected'); // Show it's selected
+  option.disabled = true; // Prevent re-selection
+  playSound('select.mp3'); // Audio feedback (optional)
 });
 
 // Progress feedback
-updateProgressBar();  // Show progress visually
-showConfetti();       // Celebrate progress
+updateProgressBar(); // Show progress visually
+showConfetti(); // Celebrate progress
 ```
 
 ---
@@ -437,11 +468,7 @@ const path = require('path');
 
 const REQUIRED_FILES = ['index.html', 'game.js'];
 const REQUIRED_SCREENS = ['landing'];
-const REQUIRED_HTML = [
-  '<nav class="dom-nav">',
-  'data-screen="landing"',
-  'id="game-back-btn"'
-];
+const REQUIRED_HTML = ['<nav class="dom-nav">', 'data-screen="landing"', 'id="game-back-btn"'];
 
 function auditGame(gameDir) {
   const errors = [];
@@ -498,7 +525,9 @@ games.forEach(game => {
   }
 });
 
-console.log(`\n${totalErrors === 0 ? '✓ All games pass audit!' : `⚠️  ${totalErrors} issues found`}`);
+console.log(
+  `\n${totalErrors === 0 ? '✓ All games pass audit!' : `⚠️  ${totalErrors} issues found`}`
+);
 process.exit(totalErrors > 0 ? 1 : 0);
 ```
 
@@ -508,15 +537,18 @@ Run with: `npm run audit` (add to package.json scripts)
 
 ```markdown
 # Game: [Name]
+
 Date: [Date]
 Auditor: [Name]
 
 ## Navigation
+
 - [ ] Back button goes to correct parent screen
 - [ ] No hardcoded portal links in modules
 - [ ] Screen data attributes consistent
 
 ## UX
+
 - [ ] Button size ≥44px
 - [ ] Text size ≥14px
 - [ ] Color contrast ≥4.5:1
@@ -524,17 +556,20 @@ Auditor: [Name]
 - [ ] No dark patterns
 
 ## Performance
+
 - [ ] <2s load time on 3G
 - [ ] 60fps animations
 - [ ] No console errors
 
 ## Code
+
 - [ ] No box-shadows
 - [ ] No inline onclick
 - [ ] Comments on complex logic
 - [ ] Follows navigation standard
 
 ## Notes
+
 [Any additional observations]
 ```
 
@@ -545,12 +580,14 @@ Auditor: [Name]
 ### Before Launching Any Game
 
 **Readability**
+
 - [ ] Font size 16px+ for body text
 - [ ] Line height 1.5-1.8
 - [ ] Max line width 60-75 characters
 - [ ] Clear, simple language (no jargon)
 
 **Interaction**
+
 - [ ] Buttons clearly show what they do
 - [ ] Hover/active states obvious (≥20% color change)
 - [ ] No surprising or confusing behavior
@@ -558,12 +595,14 @@ Auditor: [Name]
 - [ ] No accidental taps possible
 
 **Feedback**
+
 - [ ] Every action gets immediate visual feedback
 - [ ] Success/error states clear
 - [ ] Progress clearly shown
 - [ ] Loading states indicate waiting
 
 **Safety**
+
 - [ ] No time limits that stress kids
 - [ ] No ads or external links
 - [ ] No data collection without consent
@@ -571,6 +610,7 @@ Auditor: [Name]
 - [ ] "Are you sure?" for destructive actions
 
 **Enjoyment**
+
 - [ ] Clear goal/objective
 - [ ] Achievable difficulty curve
 - [ ] Celebration for progress/wins
@@ -587,11 +627,14 @@ Every new game should include a README:
 # [Game Name]
 
 ## Overview
+
 Brief description of what the game teaches and how.
 
 ## Navigation Flow
 ```
+
 Landing → Module Selection → Tutorial → Practice → Results
+
 ```
 
 ## Screens & States
@@ -634,6 +677,7 @@ Landing → Module Selection → Tutorial → Practice → Results
 5. **For polish**: Apply section 9 (kid-friendly UX)
 
 This framework ensures:
+
 - ✅ Consistent navigation across all games
 - ✅ Faster bug detection (automated audit)
 - ✅ Refined, polished UX for kids

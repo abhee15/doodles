@@ -8,8 +8,8 @@ const elementTypeColors = {
   'Alkaline Earth Metals': { color: '#FF8C42', lightColor: '#FFE4CC', icon: 'ti-tools' },
   'Transition Metals': { color: '#4ECDC4', lightColor: '#D4F6F4', icon: 'ti-shield-check' },
   'Post-transition Metals': { color: '#95E1D3', lightColor: '#E8F7F3', icon: 'ti-stone' },
-  'Nonmetals': { color: '#FFD93D', lightColor: '#FFF5CC', icon: 'ti-wind' },
-  'Halogens': { color: '#6BCB77', lightColor: '#E8F7E8', icon: 'ti-flask-2' },
+  Nonmetals: { color: '#FFD93D', lightColor: '#FFF5CC', icon: 'ti-wind' },
+  Halogens: { color: '#6BCB77', lightColor: '#E8F7E8', icon: 'ti-flask-2' },
   'Noble Gases': { color: '#4D96FF', lightColor: '#E5F0FF', icon: 'ti-sparkles' }
 };
 
@@ -65,7 +65,7 @@ function getElementTypeInfo(element) {
 
   return {
     type,
-    ...elementTypeColors[type] || elementTypeColors['Other']
+    ...(elementTypeColors[type] || elementTypeColors['Other'])
   };
 }
 
@@ -118,10 +118,26 @@ function createKeywordCard(element, index) {
 
   // Create a visual symbol representation
   const symbols = {
-    'H': 'ti-droplet', 'He': 'ti-balloon-2', 'Li': 'ti-battery', 'Be': 'ti-tools', 'B': 'ti-flask-2',
-    'C': 'ti-gem', 'N': 'ti-wind', 'O': 'ti-flame', 'F': 'ti-lightning-2', 'Ne': 'ti-sparkles',
-    'Na': 'ti-seasoning', 'Mg': 'ti-biceps-2', 'Al': 'ti-circle', 'Si': 'ti-beach', 'P': 'ti-bomb',
-    'S': 'ti-volcano', 'Cl': 'ti-soap', 'Ar': 'ti-moon', 'K': 'ti-plant-2', 'Ca': 'ti-bone-off'
+    H: 'ti-droplet',
+    He: 'ti-balloon-2',
+    Li: 'ti-battery',
+    Be: 'ti-tools',
+    B: 'ti-flask-2',
+    C: 'ti-gem',
+    N: 'ti-wind',
+    O: 'ti-flame',
+    F: 'ti-lightning-2',
+    Ne: 'ti-sparkles',
+    Na: 'ti-seasoning',
+    Mg: 'ti-biceps-2',
+    Al: 'ti-circle',
+    Si: 'ti-beach',
+    P: 'ti-bomb',
+    S: 'ti-volcano',
+    Cl: 'ti-soap',
+    Ar: 'ti-moon',
+    K: 'ti-plant-2',
+    Ca: 'ti-bone-off'
   };
 
   const iconClass = symbols[element.symbol] || 'ti-atom-2';
@@ -202,26 +218,26 @@ function createRhymePegCard(element, pegNumber) {
  */
 function getQuickMemoryTip(element) {
   const tips = {
-    'H': 'H = Hero starting the story! Lightest element, floats balloons',
-    'He': 'He = Helium makes funny voice! Second lightest, party balloons',
-    'Li': 'Li = Light as air! First metal, super reactive with water',
-    'Be': 'Be = Be careful! Toxic metal, used in aerospace',
-    'B': 'B = Boron is tough! Used in fiberglass and ceramics',
-    'C': 'C = Carbon is King! Diamond, graphite, all life is based on it',
-    'N': 'N = Nitrogen fills air! 78% of atmosphere, makes proteins',
-    'O': 'O = Oxygen we breathe! Essential for life and fire',
-    'F': 'F = Fluorine is scary! Most reactive non-metal, toothpaste',
-    'Ne': 'Ne = Neon glows! Red signs in the night, noble gas',
-    'Na': 'Na = Sodium is salty! Table salt, reactive with water',
-    'Mg': 'Mg = Magnesium sparks! Bright white flames, metal alloys',
-    'Al': 'Al = Aluminum is light! Cans, foil, used everywhere',
-    'Si': 'Si = Silicon makes sand! Computer chips, glass, sand',
-    'P': 'P = Phosphorus glows! Matches, fertilizer, our bones',
-    'S': 'S = Sulfur stinks! Matches, gunpowder, rotten egg smell',
-    'Cl': 'Cl = Chlorine cleans! Swimming pool chemical, bleach',
-    'Ar': 'Ar = Argon is lazy! Noble gas, light bulbs, welding',
-    'K': 'K = Potassium is bouncy! Explodes in water, very reactive',
-    'Ca': 'Ca = Calcium is bones! Milk, bones, teeth, limestone'
+    H: 'H = Hero starting the story! Lightest element, floats balloons',
+    He: 'He = Helium makes funny voice! Second lightest, party balloons',
+    Li: 'Li = Light as air! First metal, super reactive with water',
+    Be: 'Be = Be careful! Toxic metal, used in aerospace',
+    B: 'B = Boron is tough! Used in fiberglass and ceramics',
+    C: 'C = Carbon is King! Diamond, graphite, all life is based on it',
+    N: 'N = Nitrogen fills air! 78% of atmosphere, makes proteins',
+    O: 'O = Oxygen we breathe! Essential for life and fire',
+    F: 'F = Fluorine is scary! Most reactive non-metal, toothpaste',
+    Ne: 'Ne = Neon glows! Red signs in the night, noble gas',
+    Na: 'Na = Sodium is salty! Table salt, reactive with water',
+    Mg: 'Mg = Magnesium sparks! Bright white flames, metal alloys',
+    Al: 'Al = Aluminum is light! Cans, foil, used everywhere',
+    Si: 'Si = Silicon makes sand! Computer chips, glass, sand',
+    P: 'P = Phosphorus glows! Matches, fertilizer, our bones',
+    S: 'S = Sulfur stinks! Matches, gunpowder, rotten egg smell',
+    Cl: 'Cl = Chlorine cleans! Swimming pool chemical, bleach',
+    Ar: 'Ar = Argon is lazy! Noble gas, light bulbs, welding',
+    K: 'K = Potassium is bouncy! Explodes in water, very reactive',
+    Ca: 'Ca = Calcium is bones! Milk, bones, teeth, limestone'
   };
 
   return tips[element.symbol] || `Remember ${element.symbol} = ${element.name}!`;

@@ -13,54 +13,54 @@
      PRIMARY PALETTE
      Use for main actions, primary content, trust-building
      ════════════════════════════════════════════════════ */
-  --color-primary: #1CB0F6;           /* Dodger Blue - calm, accessible, trustworthy */
-  --color-primary-dark: #0B8FDE;      /* Darker shade for hover/focus */
-  --color-primary-light: #5EC5F8;     /* Lighter shade for backgrounds */
+  --color-primary: #1cb0f6; /* Dodger Blue - calm, accessible, trustworthy */
+  --color-primary-dark: #0b8fde; /* Darker shade for hover/focus */
+  --color-primary-light: #5ec5f8; /* Lighter shade for backgrounds */
 
   /* ════════════════════════════════════════════════════
      SECONDARY PALETTE
      Use for secondary actions, warmth, energy
      ════════════════════════════════════════════════════ */
-  --color-secondary: #FF7D00;         /* Bright Orange - action, enthusiasm */
-  --color-secondary-dark: #D97306;    /* Darker for hover/focus */
-  --color-secondary-light: #FFAA4D;   /* Lighter for backgrounds */
+  --color-secondary: #ff7d00; /* Bright Orange - action, enthusiasm */
+  --color-secondary-dark: #d97306; /* Darker for hover/focus */
+  --color-secondary-light: #ffaa4d; /* Lighter for backgrounds */
 
   /* ════════════════════════════════════════════════════
      SUCCESS PALETTE
      Use for achievements, progress, positive feedback
      ════════════════════════════════════════════════════ */
-  --color-success: #58CC02;           /* Bright Green - growth, achievement */
-  --color-success-dark: #4BA502;      /* Darker shade */
-  --color-success-light: #8FD926;     /* Lighter shade */
+  --color-success: #58cc02; /* Bright Green - growth, achievement */
+  --color-success-dark: #4ba502; /* Darker shade */
+  --color-success-light: #8fd926; /* Lighter shade */
 
   /* ════════════════════════════════════════════════════
      ERROR PALETTE
      Use for warnings, errors, failures
      ════════════════════════════════════════════════════ */
-  --color-error: #FF4444;             /* Bright Red - urgent attention */
-  --color-error-dark: #CC2222;        /* Darker shade */
-  --color-error-light: #FF7777;       /* Lighter shade */
+  --color-error: #ff4444; /* Bright Red - urgent attention */
+  --color-error-dark: #cc2222; /* Darker shade */
+  --color-error-light: #ff7777; /* Lighter shade */
 
   /* ════════════════════════════════════════════════════
      ACCENT PALETTE
      Use for special UI elements, highlights, variety
      ════════════════════════════════════════════════════ */
-  --color-accent-gold: #FFE66D;       /* Soft Gold - warmth, highlights */
-  --color-accent-teal: #4ECDC4;       /* Turquoise - balance, cool accent */
-  --color-accent-purple: #A855F7;     /* Purple - creativity, special elements */
+  --color-accent-gold: #ffe66d; /* Soft Gold - warmth, highlights */
+  --color-accent-teal: #4ecdc4; /* Turquoise - balance, cool accent */
+  --color-accent-purple: #a855f7; /* Purple - creativity, special elements */
 
   /* ════════════════════════════════════════════════════
      NEUTRAL PALETTE
      Use for backgrounds, text, UI structure
      ════════════════════════════════════════════════════ */
-  --color-bg-white: #FFFFFF;          /* Pure white - clean, minimal */
-  --color-bg-soft: #F8F9FA;           /* Soft gray-white - subtle background */
-  --color-bg-light: #F0F2F5;          /* Light gray - secondary background */
+  --color-bg-white: #ffffff; /* Pure white - clean, minimal */
+  --color-bg-soft: #f8f9fa; /* Soft gray-white - subtle background */
+  --color-bg-light: #f0f2f5; /* Light gray - secondary background */
 
-  --color-text-dark: #1A1A1A;         /* Near black - primary text */
-  --color-text-body: #2C2C2C;         /* Dark gray - body text */
-  --color-text-muted: #6B7280;        /* Medium gray - secondary text, hints */
-  --color-text-light: #9CA3AF;        /* Light gray - disabled text */
+  --color-text-dark: #1a1a1a; /* Near black - primary text */
+  --color-text-body: #2c2c2c; /* Dark gray - body text */
+  --color-text-muted: #6b7280; /* Medium gray - secondary text, hints */
+  --color-text-light: #9ca3af; /* Light gray - disabled text */
 
   /* ════════════════════════════════════════════════════
      SEMANTIC ALIASES (use these for clarity)
@@ -91,27 +91,39 @@
      ════════════════════════════════════════════════════ */
 
   /* Number Ninja - Coral & Turquoise */
-  --game-primary: #FF6B6B;            /* Coral Red */
-  --game-primary-dark: #D24545;
-  --game-secondary: #4ECDC4;          /* Turquoise */
-  --game-accent: #FFE66D;             /* Gold */
+  --game-primary: #ff6b6b; /* Coral Red */
+  --game-primary-dark: #d24545;
+  --game-secondary: #4ecdc4; /* Turquoise */
+  --game-accent: #ffe66d; /* Gold */
 
   /* Quick Math - Blue & Orange */
-  --game-qm-primary: #1CB0F6;         /* Dodger Blue */
-  --game-qm-primary-dark: #0B8FDE;
-  --game-qm-secondary: #FF7D00;       /* Bright Orange */
-  --game-qm-accent: #58CC02;          /* Green for success */
+  --game-qm-primary: #1cb0f6; /* Dodger Blue */
+  --game-qm-primary-dark: #0b8fde;
+  --game-qm-secondary: #ff7d00; /* Bright Orange */
+  --game-qm-accent: #58cc02; /* Green for success */
 
   /* ════════════════════════════════════════════════════
      GRADIENT PRESETS (for card thumbnails)
      ════════════════════════════════════════════════════ */
-  --gradient-primary: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-  --gradient-secondary: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
-  --gradient-success: linear-gradient(135deg, var(--color-success) 0%, var(--color-success-dark) 100%);
+  --gradient-primary: linear-gradient(
+    135deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  --gradient-secondary: linear-gradient(
+    135deg,
+    var(--color-secondary) 0%,
+    var(--color-secondary-dark) 100%
+  );
+  --gradient-success: linear-gradient(
+    135deg,
+    var(--color-success) 0%,
+    var(--color-success-dark) 100%
+  );
 
   /* Game-specific gradients */
-  --gradient-ninja: linear-gradient(135deg, #FF6B6B 0%, #D24545 100%);
-  --gradient-quickmath: linear-gradient(150deg, #1CB0F6 0%, #0891B2 100%);
+  --gradient-ninja: linear-gradient(135deg, #ff6b6b 0%, #d24545 100%);
+  --gradient-quickmath: linear-gradient(150deg, #1cb0f6 0%, #0891b2 100%);
 }
 
 /**

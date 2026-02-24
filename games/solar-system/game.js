@@ -17,22 +17,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ── Colour palette ─────────────────────────────────────────────
 const SS = {
-  bg:         0x0B0E2D,
-  bgDeep:     0x000510,
-  starDim:    0xCCCCDD,
-  starBright: 0xFFFFEE,
-  sun:        0xFDD835,
-  sunGlow:    0xFFB300,
-  orbitLine:  0x334466,
-  panel:      0x0D1B3E,
-  panelBdr:   0x2244AA,
-  correct:    0x00E676,
-  wrong:      0xFF5252,
-  highlight:  0xFFD740,
-  hud:        0x0A1540,
-  hudText:    0x90CAF9,
-  white:      0xFFFFFF,
-  asteroid:   0x998877
+  bg: 0x0b0e2d,
+  bgDeep: 0x000510,
+  starDim: 0xccccdd,
+  starBright: 0xffffee,
+  sun: 0xfdd835,
+  sunGlow: 0xffb300,
+  orbitLine: 0x334466,
+  panel: 0x0d1b3e,
+  panelBdr: 0x2244aa,
+  correct: 0x00e676,
+  wrong: 0xff5252,
+  highlight: 0xffd740,
+  hud: 0x0a1540,
+  hudText: 0x90caf9,
+  white: 0xffffff,
+  asteroid: 0x998877
 };
 
 // ── Game state ──────────────────────────────────────────────────
@@ -49,21 +49,21 @@ let questionIndex = 0;
 const questionsPerLevel = 5;
 let answerLocked = false;
 let totalStars = 0;
-let planetBadges = {};   // { planetId: true }
+let planetBadges = {}; // { planetId: true }
 
 // Solar system animation
-let orbitAngle = {};     // { planetId: angle }
-let moonAngle = {};      // { planetId: angle }
+let orbitAngle = {}; // { planetId: angle }
+let moonAngle = {}; // { planetId: angle }
 let sunPulse = 0;
 let starTwinkle = 0;
 
 // Graphic objects
-let planetObjects = {};  // { planetId: { gfx, label, hitArea, x, y } }
+let planetObjects = {}; // { planetId: { gfx, label, hitArea, x, y } }
 let orbitGraphics = null;
 let sunGfx = null;
 let bgStars = [];
 let particles = [];
-let planetGlows = {};    // { planetId: gfx } for highlight rings
+let planetGlows = {}; // { planetId: gfx } for highlight rings
 
 // UI objects
 let questionPanel = null;
@@ -75,7 +75,7 @@ let feedbackGroup = null;
 let factCardGroup = null;
 let choiceButtons = [];
 let progressDots = [];
-let moonObjects = {};    // { key: { gfx, label } }
+let moonObjects = {}; // { key: { gfx, label } }
 let asteroidDots = [];
 let celebrationGroup = null;
 
@@ -251,7 +251,7 @@ function updateScene() {
       const moonDist = p.radius + 14;
       const mx = planetObjects[p.id].x + Math.cos(mAngle) * moonDist;
       const my = planetObjects[p.id].y + Math.sin(mAngle) * moonDist * 0.5;
-      const key = `${p.id  }_moon0`;
+      const key = `${p.id}_moon0`;
       if (moonObjects[key]) {
         moonObjects[key].gfx.setPosition(mx, my);
         if (moonObjects[key].label) {
@@ -283,13 +283,15 @@ function updateScene() {
   for (let i = particles.length - 1; i >= 0; i--) {
     const p = particles[i];
     if (!p || !p.active) {
-      particles.splice(i, 1); continue;
+      particles.splice(i, 1);
+      continue;
     }
     p.x += p.vx;
     p.y += p.vy;
     p.alpha -= p.fade;
     if (p.alpha <= 0) {
-      p.destroy(); particles.splice(i, 1);
+      p.destroy();
+      particles.splice(i, 1);
     }
   }
 }
@@ -330,17 +332,17 @@ function drawStarField(scene) {
 
 function drawSunGraphic(scene, glowRadius) {
   // Outer soft glow layers
-  sunGfx.fillStyle(0xFFB300, 0.06);
+  sunGfx.fillStyle(0xffb300, 0.06);
   sunGfx.fillCircle(0, 0, glowRadius + 22);
-  sunGfx.fillStyle(0xFFB300, 0.10);
+  sunGfx.fillStyle(0xffb300, 0.1);
   sunGfx.fillCircle(0, 0, glowRadius + 12);
-  sunGfx.fillStyle(0xFDD835, 0.18);
+  sunGfx.fillStyle(0xfdd835, 0.18);
   sunGfx.fillCircle(0, 0, glowRadius + 4);
   // Sun body
-  sunGfx.fillStyle(0xFDD835, 1);
+  sunGfx.fillStyle(0xfdd835, 1);
   sunGfx.fillCircle(0, 0, 36);
   // Bright center
-  sunGfx.fillStyle(0xFFFDE7, 0.7);
+  sunGfx.fillStyle(0xfffde7, 0.7);
   sunGfx.fillCircle(0, 0, 18);
 }
 
@@ -351,16 +353,28 @@ function drawSun(scene) {
   drawSunGraphic(scene, 44);
 
   // Sun label
-  const sunLabel = scene.add.text(SUN_X, SUN_Y + 48, '☀️ Sun', {
-    fontSize: '11px', fill: '#FDD835', fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold', stroke: '#000', strokeThickness: 2, align: 'center'
-  }).setOrigin(0.5).setDepth(6);
+  const sunLabel = scene.add
+    .text(SUN_X, SUN_Y + 48, '☀️ Sun', {
+      fontSize: '11px',
+      fill: '#FDD835',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      stroke: '#000',
+      strokeThickness: 2,
+      align: 'center'
+    })
+    .setOrigin(0.5)
+    .setDepth(6);
 
   // Sun is clickable in explore mode
-  const sunHit = scene.add.circle(SUN_X, SUN_Y, 44, 0xFFFFFF, 0);
+  const sunHit = scene.add.circle(SUN_X, SUN_Y, 44, 0xffffff, 0);
   sunHit.setDepth(7).setInteractive({ useHandCursor: true });
-  sunHit.on('pointerover', () => scene.tweens.add({ targets: sunGfx, scaleX: 1.08, scaleY: 1.08, duration: 200 }));
-  sunHit.on('pointerout', () => scene.tweens.add({ targets: sunGfx, scaleX: 1, scaleY: 1, duration: 200 }));
+  sunHit.on('pointerover', () =>
+    scene.tweens.add({ targets: sunGfx, scaleX: 1.08, scaleY: 1.08, duration: 200 })
+  );
+  sunHit.on('pointerout', () =>
+    scene.tweens.add({ targets: sunGfx, scaleX: 1, scaleY: 1, duration: 200 })
+  );
   sunHit.on('pointerup', () => showFactCard(scene, SUN, SUN_X, SUN_Y));
 }
 
@@ -392,12 +406,27 @@ function drawAsteroidBelt(scene) {
     asteroidDots.push({ x, y });
   }
   // Clickable asteroid belt label area
-  const beltHit = scene.add.ellipse(SUN_X, SUN_Y, belt.orbitRadius * 2 + 24, belt.orbitRadius * 0.76 + 10, 0xFFFFFF, 0);
+  const beltHit = scene.add.ellipse(
+    SUN_X,
+    SUN_Y,
+    belt.orbitRadius * 2 + 24,
+    belt.orbitRadius * 0.76 + 10,
+    0xffffff,
+    0
+  );
   beltHit.setDepth(3).setInteractive({ useHandCursor: true });
-  beltHit.on('pointerup', () => showFactCard(scene, belt, SUN_X + belt.orbitRadius * 0.5, SUN_Y - belt.orbitRadius * 0.19 - 20));
-  const bLabel = scene.add.text(SUN_X + 52, SUN_Y - 50, 'Asteroid Belt', {
-    fontSize: '9px', fill: '#A09080', fontFamily: 'Arial, sans-serif', alpha: 0.7
-  }).setDepth(4).setOrigin(0.5);
+  beltHit.on('pointerup', () =>
+    showFactCard(scene, belt, SUN_X + belt.orbitRadius * 0.5, SUN_Y - belt.orbitRadius * 0.19 - 20)
+  );
+  const bLabel = scene.add
+    .text(SUN_X + 52, SUN_Y - 50, 'Asteroid Belt', {
+      fontSize: '9px',
+      fill: '#A09080',
+      fontFamily: 'Arial, sans-serif',
+      alpha: 0.7
+    })
+    .setDepth(4)
+    .setOrigin(0.5);
 }
 
 function drawPlanets(scene) {
@@ -421,16 +450,22 @@ function drawPlanets(scene) {
     drawPlanetBody(gfx, p);
 
     // Label
-    const label = scene.add.text(px, py + p.radius + 9, p.name, {
-      fontSize: '10px', fill: '#C5D8FF',
-      fontFamily: 'Arial, sans-serif', fontStyle: 'bold',
-      stroke: '#000820', strokeThickness: 2,
-      align: 'center'
-    }).setOrigin(0.5).setDepth(depth + 1);
+    const label = scene.add
+      .text(px, py + p.radius + 9, p.name, {
+        fontSize: '10px',
+        fill: '#C5D8FF',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        stroke: '#000820',
+        strokeThickness: 2,
+        align: 'center'
+      })
+      .setOrigin(0.5)
+      .setDepth(depth + 1);
 
     // Invisible hit area (bigger than planet for easy clicking)
     const hitR = Math.max(p.radius + 10, 24);
-    const hitArea = scene.add.circle(px, py, hitR, 0xFFFFFF, 0);
+    const hitArea = scene.add.circle(px, py, hitR, 0xffffff, 0);
     hitArea.setDepth(depth + 2).setInteractive({ useHandCursor: true });
 
     hitArea.on('pointerover', () => {
@@ -463,11 +498,11 @@ function drawPlanetBody(gfx, p) {
 
   if (p.id === 'saturn') {
     // Draw rings first (behind planet)
-    gfx.lineStyle(3, 0xD4C490, 0.5);
+    gfx.lineStyle(3, 0xd4c490, 0.5);
     gfx.strokeEllipse(0, 0, r * 3.2, r * 0.6);
-    gfx.lineStyle(2, 0xBFAE80, 0.35);
+    gfx.lineStyle(2, 0xbfae80, 0.35);
     gfx.strokeEllipse(0, 0, r * 2.7, r * 0.48);
-    gfx.lineStyle(4, 0xE8D5A3, 0.55);
+    gfx.lineStyle(4, 0xe8d5a3, 0.55);
     gfx.strokeEllipse(0, 0, r * 3.6, r * 0.7);
   }
 
@@ -478,48 +513,48 @@ function drawPlanetBody(gfx, p) {
   // Planet surface details
   if (p.id === 'earth') {
     // Ocean base already drawn; add land patches
-    gfx.fillStyle(0x2E7D32, 0.85);
+    gfx.fillStyle(0x2e7d32, 0.85);
     gfx.fillCircle(-r * 0.2, -r * 0.1, r * 0.45);
-    gfx.fillStyle(0x388E3C, 0.7);
+    gfx.fillStyle(0x388e3c, 0.7);
     gfx.fillCircle(r * 0.25, r * 0.15, r * 0.32);
-    gfx.fillStyle(0xFFFFFF, 0.2);
+    gfx.fillStyle(0xffffff, 0.2);
     gfx.fillCircle(-r * 0.05, -r * 0.35, r * 0.22);
   } else if (p.id === 'jupiter') {
     // Bands
-    gfx.fillStyle(0xD4956A, 0.4);
+    gfx.fillStyle(0xd4956a, 0.4);
     gfx.fillRect(-r, -r * 0.55, r * 2, r * 0.22);
-    gfx.fillStyle(0xC4813B, 0.3);
+    gfx.fillStyle(0xc4813b, 0.3);
     gfx.fillRect(-r, r * 0.1, r * 2, r * 0.28);
-    gfx.fillStyle(0xBB7040, 0.35);
+    gfx.fillStyle(0xbb7040, 0.35);
     gfx.fillRect(-r, -r * 0.15, r * 2, r * 0.18);
     // Great Red Spot
-    gfx.fillStyle(0xC62828, 0.75);
+    gfx.fillStyle(0xc62828, 0.75);
     gfx.fillEllipse(r * 0.3, r * 0.2, r * 0.42, r * 0.28);
   } else if (p.id === 'mars') {
-    gfx.fillStyle(0xBF360C, 0.5);
+    gfx.fillStyle(0xbf360c, 0.5);
     gfx.fillCircle(-r * 0.2, r * 0.1, r * 0.35);
-    gfx.fillStyle(0xFFCCBC, 0.3);
+    gfx.fillStyle(0xffccbc, 0.3);
     gfx.fillCircle(r * 0.1, -r * 0.25, r * 0.25);
   } else if (p.id === 'venus') {
-    gfx.fillStyle(0xF9A825, 0.4);
+    gfx.fillStyle(0xf9a825, 0.4);
     gfx.fillCircle(-r * 0.1, 0, r * 0.7);
-    gfx.fillStyle(0xFFF9C4, 0.25);
+    gfx.fillStyle(0xfff9c4, 0.25);
     gfx.fillCircle(r * 0.15, -r * 0.15, r * 0.5);
   } else if (p.id === 'neptune') {
-    gfx.fillStyle(0x0D47A1, 0.5);
+    gfx.fillStyle(0x0d47a1, 0.5);
     gfx.fillCircle(0, r * 0.1, r * 0.6);
-    gfx.fillStyle(0x42A5F5, 0.3);
+    gfx.fillStyle(0x42a5f5, 0.3);
     gfx.fillCircle(-r * 0.2, -r * 0.2, r * 0.4);
   } else if (p.id === 'uranus') {
-    gfx.fillStyle(0x4DD0E1, 0.35);
+    gfx.fillStyle(0x4dd0e1, 0.35);
     gfx.fillCircle(0, 0, r * 0.7);
   } else if (p.id === 'saturn') {
-    gfx.fillStyle(0xD4B896, 0.4);
+    gfx.fillStyle(0xd4b896, 0.4);
     gfx.fillRect(-r, -r * 0.35, r * 2, r * 0.22);
   }
 
   // Shading (top-left highlight)
-  gfx.fillStyle(0xFFFFFF, 0.15);
+  gfx.fillStyle(0xffffff, 0.15);
   gfx.fillCircle(-r * 0.28, -r * 0.28, r * 0.5);
   // Bottom-right shadow
   gfx.fillStyle(0x000000, 0.2);
@@ -535,34 +570,39 @@ function drawMoon(scene, planet, moonIdx, px, py, depth) {
   const mgfx = scene.add.graphics();
   mgfx.setPosition(mx, my);
   mgfx.setDepth(depth + 3);
-  mgfx.fillStyle(0xBBBBCC, 1);
+  mgfx.fillStyle(0xbbbbcc, 1);
   mgfx.fillCircle(0, 0, 4);
-  mgfx.fillStyle(0x999AAA, 0.5);
+  mgfx.fillStyle(0x999aaa, 0.5);
   mgfx.fillCircle(-1, -1, 2);
 
-  const key = `${planet.id  }_moon0`;
+  const key = `${planet.id}_moon0`;
   moonObjects[key] = { gfx: mgfx, label: null };
 
   // Moon hit area — position kept in sync by updateScene
-  const mHit = scene.add.circle(mx, my, 12, 0xFFFFFF, 0);
+  const mHit = scene.add.circle(mx, my, 12, 0xffffff, 0);
   mHit.setDepth(depth + 4).setInteractive({ useHandCursor: true });
   mHit.on('pointerover', () => {
     mgfx.setScale(1.5);
   });
-  mHit.on('pointerout',  () => {
+  mHit.on('pointerout', () => {
     mgfx.setScale(1);
   });
   mHit.on('pointerup', () => {
     const moonData = planet.moonsList[moonIdx];
     // Read current position from the hit area itself (kept up to date by updateScene)
-    showFactCard(scene, {
-      id: key,
-      name: moonData.name,
-      subtitle: `Moon of ${  planet.name}`,
-      emoji: moonData.emoji,
-      facts: moonData.facts || [moonData.fact],
-      funFact: moonData.funFact || moonData.fact
-    }, mHit.x, mHit.y);
+    showFactCard(
+      scene,
+      {
+        id: key,
+        name: moonData.name,
+        subtitle: `Moon of ${planet.name}`,
+        emoji: moonData.emoji,
+        facts: moonData.facts || [moonData.fact],
+        funFact: moonData.funFact || moonData.fact
+      },
+      mHit.x,
+      mHit.y
+    );
   });
   moonObjects[key].hit = mHit;
 }
@@ -593,48 +633,79 @@ function isPlanetTarget(planetId) {
 function drawHUD(scene) {
   // Top bar background
   const topBar = scene.add.rectangle(W / 2, 22, W, 44, SS.hud, 0.92).setDepth(50);
-  scene.add.text(12, 22, '🪐 Planet Quest', {
-    fontSize: '15px', fill: '#FDD835', fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold', stroke: '#000', strokeThickness: 2
-  }).setOrigin(0, 0.5).setDepth(51);
+  scene.add
+    .text(12, 22, '🪐 Planet Quest', {
+      fontSize: '15px',
+      fill: '#FDD835',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      stroke: '#000',
+      strokeThickness: 2
+    })
+    .setOrigin(0, 0.5)
+    .setDepth(51);
 
   if (gameMode === 'quiz') {
     // Score
-    scoreText = scene.add.text(W - 14, 14, '⭐ 0', {
-      fontSize: '14px', fill: '#FFD740', fontFamily: 'Arial, sans-serif', fontStyle: 'bold'
-    }).setOrigin(1, 0).setDepth(51);
+    scoreText = scene.add
+      .text(W - 14, 14, '⭐ 0', {
+        fontSize: '14px',
+        fill: '#FFD740',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold'
+      })
+      .setOrigin(1, 0)
+      .setDepth(51);
 
     // Lives
-    livesText = scene.add.text(W - 14, 30, 'Lives: 3', {
-      fontSize: '12px', fill: '#FF8A80', fontFamily: 'Arial, sans-serif'
-    }).setOrigin(1, 0).setDepth(51);
+    livesText = scene.add
+      .text(W - 14, 30, 'Lives: 3', {
+        fontSize: '12px',
+        fill: '#FF8A80',
+        fontFamily: 'Arial, sans-serif'
+      })
+      .setOrigin(1, 0)
+      .setDepth(51);
 
     // Level
-    levelText = scene.add.text(W / 2, 22, '', {
-      fontSize: '13px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif', fontStyle: 'bold'
-    }).setOrigin(0.5).setDepth(51);
+    levelText = scene.add
+      .text(W / 2, 22, '', {
+        fontSize: '13px',
+        fill: '#90CAF9',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0.5)
+      .setDepth(51);
 
     updateHUD(scene);
   } else {
-    scene.add.text(W / 2, 22, 'Click any planet or moon to explore!', {
-      fontSize: '13px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif'
-    }).setOrigin(0.5).setDepth(51);
+    scene.add
+      .text(W / 2, 22, 'Click any planet or moon to explore!', {
+        fontSize: '13px',
+        fill: '#90CAF9',
+        fontFamily: 'Arial, sans-serif'
+      })
+      .setOrigin(0.5)
+      .setDepth(51);
   }
 }
 
 function updateHUD(scene) {
   if (scoreText) {
-    scoreText.setText(`${quizScore  } points`);
+    scoreText.setText(`${quizScore} points`);
   }
   if (livesText) {
-    livesText.setText(`Lives: ${  Math.max(0, quizLives)}`);
+    livesText.setText(`Lives: ${Math.max(0, quizLives)}`);
   }
   if (levelText) {
     levelText.setText(LEVEL_NAMES[quizLevel] || '');
   }
   if (progressDots.length > 0) {
     progressDots.forEach((dot, i) => {
-      dot.setFillStyle(i < questionIndex ? SS.correct : i === questionIndex ? SS.highlight : 0x334466);
+      dot.setFillStyle(
+        i < questionIndex ? SS.correct : i === questionIndex ? SS.highlight : 0x334466
+      );
     });
   }
 }
@@ -642,10 +713,16 @@ function updateHUD(scene) {
 // ── Explore mode ───────────────────────────────────────────────
 function showExploreHint(scene) {
   // Small floating hint
-  const hint = scene.add.text(W / 2, H - 22, '👆 Tap any planet to discover its secrets!', {
-    fontSize: '13px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif',
-    stroke: '#000', strokeThickness: 2
-  }).setOrigin(0.5).setDepth(60);
+  const hint = scene.add
+    .text(W / 2, H - 22, '👆 Tap any planet to discover its secrets!', {
+      fontSize: '13px',
+      fill: '#90CAF9',
+      fontFamily: 'Arial, sans-serif',
+      stroke: '#000',
+      strokeThickness: 2
+    })
+    .setOrigin(0.5)
+    .setDepth(60);
 
   scene.tweens.add({
     targets: hint,
@@ -659,7 +736,8 @@ function showExploreHint(scene) {
 // ── Fact card (shared between explore and quiz) ────────────────
 function showFactCard(scene, obj, targetX, targetY) {
   if (factCardGroup) {
-    factCardGroup.destroy(true); factCardGroup = null;
+    factCardGroup.destroy(true);
+    factCardGroup = null;
   }
 
   const cardW = 360;
@@ -672,32 +750,43 @@ function showFactCard(scene, obj, targetX, targetY) {
 
   // Card background
   const cardBg = scene.add.graphics();
-  cardBg.fillStyle(0x0D1B3E, 0.97);
+  cardBg.fillStyle(0x0d1b3e, 0.97);
   cardBg.fillRoundedRect(-cardW / 2, -cardH / 2, cardW, cardH, 14);
-  cardBg.lineStyle(2, 0x3A6FD8, 1);
+  cardBg.lineStyle(2, 0x3a6fd8, 1);
   cardBg.strokeRoundedRect(-cardW / 2, -cardH / 2, cardW, cardH, 14);
   factCardGroup.add(cardBg);
 
   // Title row
-  const emoji = scene.add.text(-cardW / 2 + 16, -cardH / 2 + 14, obj.emoji || '🌌', {
-    fontSize: '26px'
-  }).setOrigin(0, 0);
-  const title = scene.add.text(-cardW / 2 + 54, -cardH / 2 + 16, obj.name, {
-    fontSize: '15px', fill: '#FFD740', fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold', wordWrap: { width: cardW - 80 }
-  }).setOrigin(0, 0);
+  const emoji = scene.add
+    .text(-cardW / 2 + 16, -cardH / 2 + 14, obj.emoji || '🌌', {
+      fontSize: '26px'
+    })
+    .setOrigin(0, 0);
+  const title = scene.add
+    .text(-cardW / 2 + 54, -cardH / 2 + 16, obj.name, {
+      fontSize: '15px',
+      fill: '#FFD740',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      wordWrap: { width: cardW - 80 }
+    })
+    .setOrigin(0, 0);
   factCardGroup.add([emoji, title]);
   // Optional subtitle (e.g. "Moon of Saturn")
   if (obj.subtitle) {
-    const sub = scene.add.text(-cardW / 2 + 54, -cardH / 2 + 34, obj.subtitle, {
-      fontSize: '10px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif'
-    }).setOrigin(0, 0);
+    const sub = scene.add
+      .text(-cardW / 2 + 54, -cardH / 2 + 34, obj.subtitle, {
+        fontSize: '10px',
+        fill: '#90CAF9',
+        fontFamily: 'Arial, sans-serif'
+      })
+      .setOrigin(0, 0);
     factCardGroup.add(sub);
   }
 
   // Divider
   const div = scene.add.graphics();
-  div.lineStyle(1, 0x3A6FD8, 0.5);
+  div.lineStyle(1, 0x3a6fd8, 0.5);
   div.lineBetween(-cardW / 2 + 12, -cardH / 2 + 54, cardW / 2 - 12, -cardH / 2 + 54);
   factCardGroup.add(div);
 
@@ -706,25 +795,36 @@ function showFactCard(scene, obj, targetX, targetY) {
   const shuffled = facts.slice().sort(() => Math.random() - 0.5);
   const displayFacts = shuffled.slice(0, 2);
   displayFacts.forEach((fact, i) => {
-    const ft = scene.add.text(-cardW / 2 + 14, -cardH / 2 + 66 + i * 46, fact, {
-      fontSize: '13px', fill: '#C5D8FF', fontFamily: 'Arial, sans-serif',
-      wordWrap: { width: cardW - 28 }, lineSpacing: 3
-    }).setOrigin(0, 0);
+    const ft = scene.add
+      .text(-cardW / 2 + 14, -cardH / 2 + 66 + i * 46, fact, {
+        fontSize: '13px',
+        fill: '#C5D8FF',
+        fontFamily: 'Arial, sans-serif',
+        wordWrap: { width: cardW - 28 },
+        lineSpacing: 3
+      })
+      .setOrigin(0, 0);
     factCardGroup.add(ft);
   });
 
   // Fun fact strip — pick a random funFact if it's an array
-  const funFacts = Array.isArray(obj.funFact) ? obj.funFact : (obj.funFact ? [obj.funFact] : []);
-  const funFact = funFacts.length > 0 ? funFacts[Math.floor(Math.random() * funFacts.length)] : null;
+  const funFacts = Array.isArray(obj.funFact) ? obj.funFact : obj.funFact ? [obj.funFact] : [];
+  const funFact =
+    funFacts.length > 0 ? funFacts[Math.floor(Math.random() * funFacts.length)] : null;
   if (funFact) {
     const ffBg = scene.add.graphics();
-    ffBg.fillStyle(0x1A3A6E, 0.8);
+    ffBg.fillStyle(0x1a3a6e, 0.8);
     ffBg.fillRoundedRect(-cardW / 2 + 8, cardH / 2 - 62, cardW - 16, 46, 8);
     factCardGroup.add(ffBg);
-    const ff = scene.add.text(0, cardH / 2 - 54, `💡 ${  funFact}`, {
-      fontSize: '12px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif',
-      wordWrap: { width: cardW - 36 }, align: 'center'
-    }).setOrigin(0.5, 0);
+    const ff = scene.add
+      .text(0, cardH / 2 - 54, `💡 ${funFact}`, {
+        fontSize: '12px',
+        fill: '#90CAF9',
+        fontFamily: 'Arial, sans-serif',
+        wordWrap: { width: cardW - 36 },
+        align: 'center'
+      })
+      .setOrigin(0.5, 0);
     factCardGroup.add(ff);
   }
 
@@ -737,25 +837,41 @@ function showFactCard(scene, obj, targetX, targetY) {
       const nextObj = exploreSeq[nextIdx];
 
       const nextBg = scene.add.graphics();
-      nextBg.fillStyle(0x1A3A8A, 0.9);
+      nextBg.fillStyle(0x1a3a8a, 0.9);
       nextBg.fillRoundedRect(-90, -14, 90, 28, 7);
-      nextBg.lineStyle(1, 0x5A90FF, 0.8);
+      nextBg.lineStyle(1, 0x5a90ff, 0.8);
       nextBg.strokeRoundedRect(-90, -14, 90, 28, 7);
       nextBg.setPosition(cardW / 2 - 10, cardH / 2 - 12);
       factCardGroup.add(nextBg);
 
-      const nextBtn = scene.add.text(cardW / 2 - 16, cardH / 2 - 12, `${nextObj.emoji  } ${  nextObj.name  } →`, {
-        fontSize: '11.5px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif', fontStyle: 'bold'
-      }).setOrigin(1, 0.5).setInteractive({ useHandCursor: true });
+      const nextBtn = scene.add
+        .text(cardW / 2 - 16, cardH / 2 - 12, `${nextObj.emoji} ${nextObj.name} →`, {
+          fontSize: '11.5px',
+          fill: '#90CAF9',
+          fontFamily: 'Arial, sans-serif',
+          fontStyle: 'bold'
+        })
+        .setOrigin(1, 0.5)
+        .setInteractive({ useHandCursor: true });
       nextBtn.on('pointerover', () => {
-        nextBtn.setStyle({ fill: '#FFD740' }); nextBg.clear(); nextBg.fillStyle(0x2A5ABE, 1); nextBg.fillRoundedRect(-90, -14, 90, 28, 7); nextBg.lineStyle(1, 0x80B8FF, 1); nextBg.strokeRoundedRect(-90, -14, 90, 28, 7);
+        nextBtn.setStyle({ fill: '#FFD740' });
+        nextBg.clear();
+        nextBg.fillStyle(0x2a5abe, 1);
+        nextBg.fillRoundedRect(-90, -14, 90, 28, 7);
+        nextBg.lineStyle(1, 0x80b8ff, 1);
+        nextBg.strokeRoundedRect(-90, -14, 90, 28, 7);
       });
-      nextBtn.on('pointerout',  () => {
-        nextBtn.setStyle({ fill: '#90CAF9' }); nextBg.clear(); nextBg.fillStyle(0x1A3A8A, 0.9); nextBg.fillRoundedRect(-90, -14, 90, 28, 7); nextBg.lineStyle(1, 0x5A90FF, 0.8); nextBg.strokeRoundedRect(-90, -14, 90, 28, 7);
+      nextBtn.on('pointerout', () => {
+        nextBtn.setStyle({ fill: '#90CAF9' });
+        nextBg.clear();
+        nextBg.fillStyle(0x1a3a8a, 0.9);
+        nextBg.fillRoundedRect(-90, -14, 90, 28, 7);
+        nextBg.lineStyle(1, 0x5a90ff, 0.8);
+        nextBg.strokeRoundedRect(-90, -14, 90, 28, 7);
       });
       nextBtn.on('pointerup', () => {
-        const nx = nextObj.id === 'sun' ? SUN_X : (planetObjects[nextObj.id]?.x || W / 2);
-        const ny = nextObj.id === 'sun' ? SUN_Y : (planetObjects[nextObj.id]?.y || H / 2);
+        const nx = nextObj.id === 'sun' ? SUN_X : planetObjects[nextObj.id]?.x || W / 2;
+        const ny = nextObj.id === 'sun' ? SUN_Y : planetObjects[nextObj.id]?.y || H / 2;
         showFactCard(scene, nextObj, nx, ny);
       });
       factCardGroup.add(nextBtn);
@@ -763,11 +879,17 @@ function showFactCard(scene, obj, targetX, targetY) {
   }
 
   // Close button
-  const closeBtn = scene.add.text(cardW / 2 - 12, -cardH / 2 + 10, '✕', {
-    fontSize: '16px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif'
-  }).setOrigin(1, 0).setInteractive({ useHandCursor: true });
+  const closeBtn = scene.add
+    .text(cardW / 2 - 12, -cardH / 2 + 10, '✕', {
+      fontSize: '16px',
+      fill: '#90CAF9',
+      fontFamily: 'Arial, sans-serif'
+    })
+    .setOrigin(1, 0)
+    .setInteractive({ useHandCursor: true });
   closeBtn.on('pointerup', () => {
-    factCardGroup && factCardGroup.destroy(true); factCardGroup = null;
+    factCardGroup && factCardGroup.destroy(true);
+    factCardGroup = null;
   });
   closeBtn.on('pointerover', () => closeBtn.setStyle({ fill: '#FF8A80' }));
   closeBtn.on('pointerout', () => closeBtn.setStyle({ fill: '#90CAF9' }));
@@ -778,8 +900,11 @@ function showFactCard(scene, obj, targetX, targetY) {
   factCardGroup.setAlpha(0);
   scene.tweens.add({
     targets: factCardGroup,
-    scaleX: 1, scaleY: 1, alpha: 1,
-    duration: 250, ease: 'Back.easeOut'
+    scaleX: 1,
+    scaleY: 1,
+    alpha: 1,
+    duration: 250,
+    ease: 'Back.easeOut'
   });
 
   playSound(scene, 'info');
@@ -830,12 +955,17 @@ function nextQuestion(scene) {
 
 function showQuestion(scene, q) {
   if (questionPanel) {
-    questionPanel.destroy(true); questionPanel = null;
+    questionPanel.destroy(true);
+    questionPanel = null;
   }
   choiceButtons.forEach(b => b.destroy && b.destroy(true));
   choiceButtons = [];
 
-  const catColor = CATEGORY_COLORS[q.category] || { bg: 0x1A2456, text: '#90CAF9', label: q.category };
+  const catColor = CATEGORY_COLORS[q.category] || {
+    bg: 0x1a2456,
+    text: '#90CAF9',
+    label: q.category
+  };
   const panelH = q.panelH || (q.type === 'choice' ? 140 : 110);
   const panelY = 58 + panelH / 2;
 
@@ -850,24 +980,39 @@ function showQuestion(scene, q) {
   questionPanel.add(bg);
 
   // Category badge
-  const badge = scene.add.text(-W / 2 + 20, -panelH / 2 + 8, catColor.label, {
-    fontSize: '10px', fill: catColor.text,
-    fontFamily: 'Arial, sans-serif', fontStyle: 'bold',
-    backgroundColor: 'rgba(0,0,0,0.3)', padding: { x: 6, y: 2 }
-  }).setOrigin(0, 0);
+  const badge = scene.add
+    .text(-W / 2 + 20, -panelH / 2 + 8, catColor.label, {
+      fontSize: '10px',
+      fill: catColor.text,
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      backgroundColor: 'rgba(0,0,0,0.3)',
+      padding: { x: 6, y: 2 }
+    })
+    .setOrigin(0, 0);
   questionPanel.add(badge);
 
   // Question number
-  const qNum = scene.add.text(W / 2 - 20, -panelH / 2 + 8, `${questionIndex + 1  }/${  questionQueue.length}`, {
-    fontSize: '10px', fill: 'rgba(255,255,255,0.5)', fontFamily: 'Arial, sans-serif'
-  }).setOrigin(1, 0);
+  const qNum = scene.add
+    .text(W / 2 - 20, -panelH / 2 + 8, `${questionIndex + 1}/${questionQueue.length}`, {
+      fontSize: '10px',
+      fill: 'rgba(255,255,255,0.5)',
+      fontFamily: 'Arial, sans-serif'
+    })
+    .setOrigin(1, 0);
   questionPanel.add(qNum);
 
   // Question text
-  const qText = scene.add.text(0, q.type === 'choice' ? -panelH / 2 + 34 : -panelH / 2 + 28, q.text, {
-    fontSize: '14px', fill: '#FFFFFF', fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold', wordWrap: { width: W - 60 }, align: 'center'
-  }).setOrigin(0.5, 0);
+  const qText = scene.add
+    .text(0, q.type === 'choice' ? -panelH / 2 + 34 : -panelH / 2 + 28, q.text, {
+      fontSize: '14px',
+      fill: '#FFFFFF',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      wordWrap: { width: W - 60 },
+      align: 'center'
+    })
+    .setOrigin(0.5, 0);
   questionPanel.add(qText);
 
   // Choice buttons
@@ -881,42 +1026,48 @@ function showQuestion(scene, q) {
     choices.forEach((choice, i) => {
       // Find planet name if it's a planet id
       const planet = PLANETS.find(p => p.id === choice);
-      const label = planet ? `${planet.emoji  } ${  planet.name}` : choice;
+      const label = planet ? `${planet.emoji} ${planet.name}` : choice;
       const bx = startX + i * (btnW + 8) + btnW / 2;
 
       const btn = scene.add.container(bx, btnY);
 
       const bbg = scene.add.graphics();
-      bbg.fillStyle(0x1E3A7A, 0.9);
+      bbg.fillStyle(0x1e3a7a, 0.9);
       bbg.fillRoundedRect(-btnW / 2, -18, btnW, 36, 8);
-      bbg.lineStyle(1.5, 0x3A6FD8, 0.7);
+      bbg.lineStyle(1.5, 0x3a6fd8, 0.7);
       bbg.strokeRoundedRect(-btnW / 2, -18, btnW, 36, 8);
       btn.add(bbg);
 
-      const btxt = scene.add.text(0, 0, label, {
-        fontSize: '11.5px', fill: '#DDEEFF', fontFamily: 'Arial, sans-serif',
-        fontStyle: 'bold', align: 'center', wordWrap: { width: btnW - 10 }
-      }).setOrigin(0.5);
+      const btxt = scene.add
+        .text(0, 0, label, {
+          fontSize: '11.5px',
+          fill: '#DDEEFF',
+          fontFamily: 'Arial, sans-serif',
+          fontStyle: 'bold',
+          align: 'center',
+          wordWrap: { width: btnW - 10 }
+        })
+        .setOrigin(0.5);
       btn.add(btxt);
 
       // Hit zone
-      const hit = scene.add.rectangle(0, 0, btnW, 36, 0xFFFFFF, 0);
+      const hit = scene.add.rectangle(0, 0, btnW, 36, 0xffffff, 0);
       hit.setInteractive({ useHandCursor: true });
       btn.add(hit);
 
       hit.on('pointerover', () => {
         bbg.clear();
-        bbg.fillStyle(0x2A4E9A, 1);
+        bbg.fillStyle(0x2a4e9a, 1);
         bbg.fillRoundedRect(-btnW / 2, -18, btnW, 36, 8);
-        bbg.lineStyle(2, 0x5A90FF, 1);
+        bbg.lineStyle(2, 0x5a90ff, 1);
         bbg.strokeRoundedRect(-btnW / 2, -18, btnW, 36, 8);
         btn.setScale(1.04);
       });
       hit.on('pointerout', () => {
         bbg.clear();
-        bbg.fillStyle(0x1E3A7A, 0.9);
+        bbg.fillStyle(0x1e3a7a, 0.9);
         bbg.fillRoundedRect(-btnW / 2, -18, btnW, 36, 8);
-        bbg.lineStyle(1.5, 0x3A6FD8, 0.7);
+        bbg.lineStyle(1.5, 0x3a6fd8, 0.7);
         bbg.strokeRoundedRect(-btnW / 2, -18, btnW, 36, 8);
         btn.setScale(1);
       });
@@ -929,10 +1080,14 @@ function showQuestion(scene, q) {
     });
   } else {
     // Click-mode instruction
-    const inst = scene.add.text(0, panelH / 2 - 18, '👆 Click the correct planet in the solar system!', {
-      fontSize: '11px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif',
-      align: 'center'
-    }).setOrigin(0.5, 1);
+    const inst = scene.add
+      .text(0, panelH / 2 - 18, '👆 Click the correct planet in the solar system!', {
+        fontSize: '11px',
+        fill: '#90CAF9',
+        fontFamily: 'Arial, sans-serif',
+        align: 'center'
+      })
+      .setOrigin(0.5, 1);
     questionPanel.add(inst);
   }
 
@@ -941,8 +1096,10 @@ function showQuestion(scene, q) {
   questionPanel.alpha = 0;
   scene.tweens.add({
     targets: questionPanel,
-    y: panelY, alpha: 1,
-    duration: 300, ease: 'Cubic.easeOut'
+    y: panelY,
+    alpha: 1,
+    duration: 300,
+    ease: 'Cubic.easeOut'
   });
 }
 
@@ -973,11 +1130,17 @@ function pulseTargetPlanet(scene, planetId) {
 // ── Answer handling ─────────────────────────────────────────────
 function handlePlanetClick(scene, planet) {
   if (factCardGroup) {
-    factCardGroup.destroy(true); factCardGroup = null;
+    factCardGroup.destroy(true);
+    factCardGroup = null;
   }
 
   if (gameMode === 'explore') {
-    showFactCard(scene, planet, planetObjects[planet.id]?.x || W / 2, planetObjects[planet.id]?.y || H / 2);
+    showFactCard(
+      scene,
+      planet,
+      planetObjects[planet.id]?.x || W / 2,
+      planetObjects[planet.id]?.y || H / 2
+    );
     return;
   }
 
@@ -1018,7 +1181,7 @@ function handleChoiceAnswer(scene, choice, btn, bbg, allChoices, btnW) {
     const bg2 = b.getAt(0);
     if (bg2 && bg2.clear) {
       bg2.clear();
-      const fillCol = isCorrect ? 0x00873A : isChosen && !isCorrect ? 0x8B0000 : 0x0D2050;
+      const fillCol = isCorrect ? 0x00873a : isChosen && !isCorrect ? 0x8b0000 : 0x0d2050;
       const borderCol = isCorrect ? SS.correct : isChosen && !isCorrect ? SS.wrong : 0x334466;
       bg2.fillStyle(fillCol, 1);
       bg2.fillRoundedRect(-btnW / 2, -18, btnW, 36, 8);
@@ -1032,14 +1195,21 @@ function handleChoiceAnswer(scene, choice, btn, bbg, allChoices, btnW) {
 
 function resolveAnswer(scene, correct, planet, choice) {
   if (correct) {
-    quizScore += (quizLives === 3 ? 100 : quizLives === 2 ? 70 : 40);
+    quizScore += quizLives === 3 ? 100 : quizLives === 2 ? 70 : 40;
     totalStars++;
 
     // Flash correct planet
     const targetId = currentQuestion.answer;
     const obj = planetObjects[targetId];
     if (obj) {
-      scene.tweens.add({ targets: obj.gfx, scaleX: 1.4, scaleY: 1.4, duration: 150, yoyo: true, repeat: 1 });
+      scene.tweens.add({
+        targets: obj.gfx,
+        scaleX: 1.4,
+        scaleY: 1.4,
+        duration: 150,
+        yoyo: true,
+        repeat: 1
+      });
       spawnParticles(scene, obj.x, obj.y, SS.correct, 14);
     }
 
@@ -1078,9 +1248,10 @@ function resolveAnswer(scene, correct, planet, choice) {
       spawnParticles(scene, obj.x, obj.y, SS.wrong, 8);
     }
 
-    const msg = quizLives <= 0
-      ? `💔 The answer was ${  getPlanetName(targetId)  }!`
-      : `🤔 Not quite! The answer is ${  getPlanetName(targetId)  }. Try to remember for next time!`;
+    const msg =
+      quizLives <= 0
+        ? `💔 The answer was ${getPlanetName(targetId)}!`
+        : `🤔 Not quite! The answer is ${getPlanetName(targetId)}. Try to remember for next time!`;
 
     showFeedback(scene, false, msg);
     updateHUD(scene);
@@ -1101,7 +1272,7 @@ function resolveAnswer(scene, correct, planet, choice) {
 
 function getPlanetName(id) {
   const p = PLANETS.find(pl => pl.id === id);
-  return p ? `${p.emoji  } ${  p.name}` : id;
+  return p ? `${p.emoji} ${p.name}` : id;
 }
 
 function stopAllPlanetGlows(scene) {
@@ -1119,7 +1290,7 @@ function stopAllPlanetGlows(scene) {
 function showFeedback(scene, correct, msg) {
   clearFeedback(scene);
   const col = correct ? SS.correct : SS.wrong;
-  const bgCol = correct ? 0x003D1E : 0x3D0000;
+  const bgCol = correct ? 0x003d1e : 0x3d0000;
   const icon = correct ? '✅' : '❌';
 
   feedbackGroup = scene.add.container(W / 2, H - 52);
@@ -1132,10 +1303,16 @@ function showFeedback(scene, correct, msg) {
   fbBg.strokeRoundedRect(-W / 2 + 10, -24, W - 20, 48, 10);
   feedbackGroup.add(fbBg);
 
-  const fbText = scene.add.text(0, 0, `${icon  } ${  msg}`, {
-    fontSize: '12.5px', fill: '#FFFFFF', fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold', wordWrap: { width: W - 60 }, align: 'center'
-  }).setOrigin(0.5);
+  const fbText = scene.add
+    .text(0, 0, `${icon} ${msg}`, {
+      fontSize: '12.5px',
+      fill: '#FFFFFF',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      wordWrap: { width: W - 60 },
+      align: 'center'
+    })
+    .setOrigin(0.5);
   feedbackGroup.add(fbText);
 
   feedbackGroup.alpha = 0;
@@ -1145,21 +1322,24 @@ function showFeedback(scene, correct, msg) {
 
 function clearFeedback(scene) {
   if (feedbackGroup) {
-    feedbackGroup.destroy(true); feedbackGroup = null;
+    feedbackGroup.destroy(true);
+    feedbackGroup = null;
   }
 }
 
 function clearQuizUI(scene) {
   clearFeedback(scene);
   if (questionPanel) {
-    questionPanel.destroy(true); questionPanel = null;
+    questionPanel.destroy(true);
+    questionPanel = null;
   }
   choiceButtons.forEach(b => b.destroy && b.destroy(true));
   choiceButtons = [];
   progressDots.forEach(d => d.destroy());
   progressDots = [];
   if (celebrationGroup) {
-    celebrationGroup.destroy(true); celebrationGroup = null;
+    celebrationGroup.destroy(true);
+    celebrationGroup = null;
   }
 }
 
@@ -1177,43 +1357,86 @@ function showLevelComplete(scene) {
   celebrationGroup.add(overlay);
 
   const cardBg = scene.add.graphics();
-  cardBg.fillStyle(0x0D1B3E, 1);
+  cardBg.fillStyle(0x0d1b3e, 1);
   cardBg.fillRoundedRect(-200, -160, 400, 320, 16);
-  cardBg.lineStyle(3, 0xFFD740, 0.9);
+  cardBg.lineStyle(3, 0xffd740, 0.9);
   cardBg.strokeRoundedRect(-200, -160, 400, 320, 16);
   celebrationGroup.add(cardBg);
 
   const maxLevel = 6;
   const isLast = quizLevel >= maxLevel;
 
-  celebrationGroup.add(scene.add.text(0, -130, isLast ? '🏆 SOLAR MASTER!' : '🌟 LEVEL COMPLETE!', {
-    fontSize: '22px', fill: '#FFD740', fontFamily: 'Arial, sans-serif',
-    fontStyle: 'bold', stroke: '#000', strokeThickness: 2, align: 'center'
-  }).setOrigin(0.5));
+  celebrationGroup.add(
+    scene.add
+      .text(0, -130, isLast ? '🏆 SOLAR MASTER!' : '🌟 LEVEL COMPLETE!', {
+        fontSize: '22px',
+        fill: '#FFD740',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        stroke: '#000',
+        strokeThickness: 2,
+        align: 'center'
+      })
+      .setOrigin(0.5)
+  );
 
-  celebrationGroup.add(scene.add.text(0, -90, `${LEVEL_NAMES[quizLevel]  } ✓`, {
-    fontSize: '14px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif', align: 'center'
-  }).setOrigin(0.5));
+  celebrationGroup.add(
+    scene.add
+      .text(0, -90, `${LEVEL_NAMES[quizLevel]} ✓`, {
+        fontSize: '14px',
+        fill: '#90CAF9',
+        fontFamily: 'Arial, sans-serif',
+        align: 'center'
+      })
+      .setOrigin(0.5)
+  );
 
   // Star display
   const stars = Math.min(totalStars, questionQueue.length);
   const starStr = '⭐'.repeat(stars) + '☆'.repeat(Math.max(0, questionQueue.length - stars));
-  celebrationGroup.add(scene.add.text(0, -55, starStr, {
-    fontSize: '22px', align: 'center'
-  }).setOrigin(0.5));
+  celebrationGroup.add(
+    scene.add
+      .text(0, -55, starStr, {
+        fontSize: '22px',
+        align: 'center'
+      })
+      .setOrigin(0.5)
+  );
 
-  celebrationGroup.add(scene.add.text(0, -15, `Score: ${  quizScore}`, {
-    fontSize: '18px', fill: '#FDD835', fontFamily: 'Arial, sans-serif', fontStyle: 'bold', align: 'center'
-  }).setOrigin(0.5));
+  celebrationGroup.add(
+    scene.add
+      .text(0, -15, `Score: ${quizScore}`, {
+        fontSize: '18px',
+        fill: '#FDD835',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        align: 'center'
+      })
+      .setOrigin(0.5)
+  );
 
   if (!isLast) {
-    celebrationGroup.add(scene.add.text(0, 20, `Next: ${  LEVEL_NAMES[quizLevel + 1]}`, {
-      fontSize: '12px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif', align: 'center'
-    }).setOrigin(0.5));
+    celebrationGroup.add(
+      scene.add
+        .text(0, 20, `Next: ${LEVEL_NAMES[quizLevel + 1]}`, {
+          fontSize: '12px',
+          fill: '#90CAF9',
+          fontFamily: 'Arial, sans-serif',
+          align: 'center'
+        })
+        .setOrigin(0.5)
+    );
   } else {
-    celebrationGroup.add(scene.add.text(0, 20, '🎓 You know the Solar System!', {
-      fontSize: '13px', fill: '#A5D6A7', fontFamily: 'Arial, sans-serif', align: 'center'
-    }).setOrigin(0.5));
+    celebrationGroup.add(
+      scene.add
+        .text(0, 20, '🎓 You know the Solar System!', {
+          fontSize: '13px',
+          fill: '#A5D6A7',
+          fontFamily: 'Arial, sans-serif',
+          align: 'center'
+        })
+        .setOrigin(0.5)
+    );
   }
 
   // Buttons
@@ -1223,7 +1446,8 @@ function showLevelComplete(scene) {
       totalStars = 0;
       quizLives = 3;
       if (celebrationGroup) {
-        celebrationGroup.destroy(true); celebrationGroup = null;
+        celebrationGroup.destroy(true);
+        celebrationGroup = null;
       }
       drawProgressDots(scene);
       startQuizLevel(scene);
@@ -1232,7 +1456,8 @@ function showLevelComplete(scene) {
 
   addCelebBtn(scene, isLast ? 0 : 60, 80, '🔄 Replay', () => {
     if (celebrationGroup) {
-      celebrationGroup.destroy(true); celebrationGroup = null;
+      celebrationGroup.destroy(true);
+      celebrationGroup = null;
     }
     quizScore = 0;
     quizLives = 3;
@@ -1251,13 +1476,26 @@ function showLevelComplete(scene) {
     scene.time.delayedCall(i * 60, () => {
       const px2 = Phaser.Math.Between(100, W - 100);
       const py2 = Phaser.Math.Between(80, H - 100);
-      spawnParticles(scene, px2, py2, [SS.correct, SS.highlight, 0xFF80AB, 0x80D8FF][Math.floor(Math.random() * 4)], 6);
+      spawnParticles(
+        scene,
+        px2,
+        py2,
+        [SS.correct, SS.highlight, 0xff80ab, 0x80d8ff][Math.floor(Math.random() * 4)],
+        6
+      );
     });
   }
 
   celebrationGroup.setScale(0.7);
   celebrationGroup.alpha = 0;
-  scene.tweens.add({ targets: celebrationGroup, scaleX: 1, scaleY: 1, alpha: 1, duration: 350, ease: 'Back.easeOut' });
+  scene.tweens.add({
+    targets: celebrationGroup,
+    scaleX: 1,
+    scaleY: 1,
+    alpha: 1,
+    duration: 350,
+    ease: 'Back.easeOut'
+  });
   playSound(scene, 'celebrate');
 }
 
@@ -1265,22 +1503,40 @@ function addCelebBtn(scene, x, y, label, cb) {
   const btn = scene.add.container(x, y);
   btn.setDepth(1);
   const bg = scene.add.graphics();
-  bg.fillStyle(0x1A3A8A, 1);
+  bg.fillStyle(0x1a3a8a, 1);
   bg.fillRoundedRect(-72, -18, 144, 36, 10);
-  bg.lineStyle(2, 0x5A90FF, 1);
+  bg.lineStyle(2, 0x5a90ff, 1);
   bg.strokeRoundedRect(-72, -18, 144, 36, 10);
   btn.add(bg);
-  const txt = scene.add.text(0, 0, label, {
-    fontSize: '13px', fill: '#FFFFFF', fontFamily: 'Arial, sans-serif', fontStyle: 'bold', align: 'center'
-  }).setOrigin(0.5);
+  const txt = scene.add
+    .text(0, 0, label, {
+      fontSize: '13px',
+      fill: '#FFFFFF',
+      fontFamily: 'Arial, sans-serif',
+      fontStyle: 'bold',
+      align: 'center'
+    })
+    .setOrigin(0.5);
   btn.add(txt);
-  const hit = scene.add.rectangle(0, 0, 144, 36, 0xFFFFFF, 0).setInteractive({ useHandCursor: true });
+  const hit = scene.add
+    .rectangle(0, 0, 144, 36, 0xffffff, 0)
+    .setInteractive({ useHandCursor: true });
   btn.add(hit);
   hit.on('pointerover', () => {
-    btn.setScale(1.06); bg.clear(); bg.fillStyle(0x2A5ABA, 1); bg.fillRoundedRect(-72, -18, 144, 36, 10); bg.lineStyle(2, 0x80B8FF, 1); bg.strokeRoundedRect(-72, -18, 144, 36, 10);
+    btn.setScale(1.06);
+    bg.clear();
+    bg.fillStyle(0x2a5aba, 1);
+    bg.fillRoundedRect(-72, -18, 144, 36, 10);
+    bg.lineStyle(2, 0x80b8ff, 1);
+    bg.strokeRoundedRect(-72, -18, 144, 36, 10);
   });
   hit.on('pointerout', () => {
-    btn.setScale(1); bg.clear(); bg.fillStyle(0x1A3A8A, 1); bg.fillRoundedRect(-72, -18, 144, 36, 10); bg.lineStyle(2, 0x5A90FF, 1); bg.strokeRoundedRect(-72, -18, 144, 36, 10);
+    btn.setScale(1);
+    bg.clear();
+    bg.fillStyle(0x1a3a8a, 1);
+    bg.fillRoundedRect(-72, -18, 144, 36, 10);
+    bg.lineStyle(2, 0x5a90ff, 1);
+    bg.strokeRoundedRect(-72, -18, 144, 36, 10);
   });
   hit.on('pointerup', cb);
   celebrationGroup.add(btn);
@@ -1300,31 +1556,62 @@ function showGameOver(scene) {
   celebrationGroup.add(overlay);
 
   const cardBg = scene.add.graphics();
-  cardBg.fillStyle(0x1A0008, 1);
+  cardBg.fillStyle(0x1a0008, 1);
   cardBg.fillRoundedRect(-190, -130, 380, 260, 16);
   cardBg.lineStyle(3, SS.wrong, 0.8);
   cardBg.strokeRoundedRect(-190, -130, 380, 260, 16);
   celebrationGroup.add(cardBg);
 
-  celebrationGroup.add(scene.add.text(0, -100, '💔 Out of Lives!', {
-    fontSize: '22px', fill: '#FF8A80', fontFamily: 'Arial, sans-serif', fontStyle: 'bold', align: 'center'
-  }).setOrigin(0.5));
+  celebrationGroup.add(
+    scene.add
+      .text(0, -100, '💔 Out of Lives!', {
+        fontSize: '22px',
+        fill: '#FF8A80',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        align: 'center'
+      })
+      .setOrigin(0.5)
+  );
 
-  celebrationGroup.add(scene.add.text(0, -60, `Score: ${  quizScore}`, {
-    fontSize: '18px', fill: '#FDD835', fontFamily: 'Arial, sans-serif', fontStyle: 'bold', align: 'center'
-  }).setOrigin(0.5));
+  celebrationGroup.add(
+    scene.add
+      .text(0, -60, `Score: ${quizScore}`, {
+        fontSize: '18px',
+        fill: '#FDD835',
+        fontFamily: 'Arial, sans-serif',
+        fontStyle: 'bold',
+        align: 'center'
+      })
+      .setOrigin(0.5)
+  );
 
-  celebrationGroup.add(scene.add.text(0, -25, `You reached ${  LEVEL_NAMES[quizLevel]}`, {
-    fontSize: '13px', fill: '#90CAF9', fontFamily: 'Arial, sans-serif', align: 'center'
-  }).setOrigin(0.5));
+  celebrationGroup.add(
+    scene.add
+      .text(0, -25, `You reached ${LEVEL_NAMES[quizLevel]}`, {
+        fontSize: '13px',
+        fill: '#90CAF9',
+        fontFamily: 'Arial, sans-serif',
+        align: 'center'
+      })
+      .setOrigin(0.5)
+  );
 
-  celebrationGroup.add(scene.add.text(0, 15, 'Keep exploring — you\'ll ace it next time!', {
-    fontSize: '12px', fill: '#A5D6A7', fontFamily: 'Arial, sans-serif', align: 'center'
-  }).setOrigin(0.5));
+  celebrationGroup.add(
+    scene.add
+      .text(0, 15, "Keep exploring — you'll ace it next time!", {
+        fontSize: '12px',
+        fill: '#A5D6A7',
+        fontFamily: 'Arial, sans-serif',
+        align: 'center'
+      })
+      .setOrigin(0.5)
+  );
 
   addCelebBtn(scene, -70, 70, '🔄 Try Again', () => {
     if (celebrationGroup) {
-      celebrationGroup.destroy(true); celebrationGroup = null;
+      celebrationGroup.destroy(true);
+      celebrationGroup = null;
     }
     quizScore = 0;
     quizLives = 3;
@@ -1340,7 +1627,14 @@ function showGameOver(scene) {
 
   celebrationGroup.setScale(0.7);
   celebrationGroup.alpha = 0;
-  scene.tweens.add({ targets: celebrationGroup, scaleX: 1, scaleY: 1, alpha: 1, duration: 350, ease: 'Back.easeOut' });
+  scene.tweens.add({
+    targets: celebrationGroup,
+    scaleX: 1,
+    scaleY: 1,
+    alpha: 1,
+    duration: 350,
+    ease: 'Back.easeOut'
+  });
   playSound(scene, 'wrong');
 }
 
@@ -1369,7 +1663,7 @@ function playSound(scene, type) {
 
     if (type === 'correct') {
       osc.type = 'sine';
-      osc.frequency.setValueAtTime(523, ctx.currentTime);      // C5
+      osc.frequency.setValueAtTime(523, ctx.currentTime); // C5
       osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1); // E5
       osc.frequency.setValueAtTime(784, ctx.currentTime + 0.2); // G5
       gain.gain.setValueAtTime(0.18, ctx.currentTime);
@@ -1388,7 +1682,7 @@ function playSound(scene, type) {
       osc.type = 'sine';
       osc.frequency.setValueAtTime(440, ctx.currentTime);
       osc.frequency.setValueAtTime(550, ctx.currentTime + 0.08);
-      gain.gain.setValueAtTime(0.10, ctx.currentTime);
+      gain.gain.setValueAtTime(0.1, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + 0.3);
@@ -1397,7 +1691,8 @@ function playSound(scene, type) {
       notes.forEach((freq, i) => {
         const o2 = ctx.createOscillator();
         const g2 = ctx.createGain();
-        o2.connect(g2); g2.connect(ctx.destination);
+        o2.connect(g2);
+        g2.connect(ctx.destination);
         o2.type = 'sine';
         o2.frequency.setValueAtTime(freq, ctx.currentTime + i * 0.1);
         g2.gain.setValueAtTime(0.15, ctx.currentTime + i * 0.1);
@@ -1406,5 +1701,7 @@ function playSound(scene, type) {
         o2.stop(ctx.currentTime + i * 0.1 + 0.3);
       });
     }
-  } catch (e) { /* audio not available */ }
+  } catch (e) {
+    /* audio not available */
+  }
 }

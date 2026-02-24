@@ -33,18 +33,18 @@
     GAMES.forEach(function (game) {
       if (game.thumbClass) {
         // Game has a CSS class, generate styles
-        css += `.thumb.${  game.thumbClass  } { background: ${  game.gradient  }; }\n`;
+        css += `.thumb.${game.thumbClass} { background: ${game.gradient}; }\n`;
 
         if (game.pattern) {
-          css += `.thumb.${  game.thumbClass  }::before { `;
-          css += 'content: \'\'; ';
+          css += `.thumb.${game.thumbClass}::before { `;
+          css += "content: ''; ";
           css += 'position: absolute; inset: 0; ';
-          css += `background: ${  game.pattern  }; `;
+          css += `background: ${game.pattern}; `;
           if (game.patternSize) {
-            css += `background-size: ${  game.patternSize  }; `;
+            css += `background-size: ${game.patternSize}; `;
           }
           if (game.patternPosition) {
-            css += `background-position: ${  game.patternPosition  }; `;
+            css += `background-position: ${game.patternPosition}; `;
           }
           css += '}\n';
         }
@@ -60,7 +60,7 @@
    */
   function renderCards() {
     CATEGORIES.forEach(function (cat) {
-      const container = document.querySelector(`[data-cat="${  cat.id  }"] .cards-row`);
+      const container = document.querySelector(`[data-cat="${cat.id}"] .cards-row`);
       if (!container) {
         return;
       }
@@ -72,23 +72,23 @@
       gamesInCat.forEach(function (game) {
         const card = document.createElement('a');
         card.className = 'game-card';
-        card.href = `games/${  game.id  }/index.html`;
+        card.href = `games/${game.id}/index.html`;
         card.id = game.id;
 
-        const thumbClass = game.thumbClass ? ` ${  game.thumbClass}` : '';
-        const thumbStyle = game.thumbClass ? '' : ` style="background: ${  game.gradient  }"`;
+        const thumbClass = game.thumbClass ? ` ${game.thumbClass}` : '';
+        const thumbStyle = game.thumbClass ? '' : ` style="background: ${game.gradient}"`;
 
         const newBadge = isNew(game) ? '<span class="badge-new">New</span>' : '';
-        const iconStyle = game.iconColor ? ` style="color: ${  game.iconColor  };"` : '';
+        const iconStyle = game.iconColor ? ` style="color: ${game.iconColor};"` : '';
 
         card.innerHTML =
-          `<div class="thumb${  thumbClass  }"${  thumbStyle  }>${
+          `<div class="thumb${thumbClass}"${thumbStyle}>${
             newBadge
-          }<i class="ti ${  game.icon  }"${  iconStyle  }></i>` +
+          }<i class="ti ${game.icon}"${iconStyle}></i>` +
           '</div>' +
           '<div class="card-overlay">' +
-          `<div class="card-title">${  game.name  }</div>` +
-          `<div class="card-desc">${  game.desc  }</div>` +
+          `<div class="card-title">${game.name}</div>` +
+          `<div class="card-desc">${game.desc}</div>` +
           '<span class="card-play"><i class="ti ti-player-play"></i> Play</span>' +
           '</div>';
 
@@ -103,7 +103,7 @@
   function updateNavCount() {
     const navCount = document.getElementById('nav-count');
     if (navCount) {
-      navCount.textContent = `${GAMES.length  } games · ${  CATEGORIES.length  } subjects`;
+      navCount.textContent = `${GAMES.length} games · ${CATEGORIES.length} subjects`;
     }
   }
 
@@ -112,7 +112,7 @@
    */
   function updateSectionCounts() {
     CATEGORIES.forEach(function (cat) {
-      const section = document.querySelector(`[data-cat="${  cat.id  }"]`);
+      const section = document.querySelector(`[data-cat="${cat.id}"]`);
       if (!section) {
         return;
       }
@@ -125,7 +125,7 @@
       const count = GAMES.filter(function (g) {
         return g.category === cat.id;
       }).length;
-      const text = `${count  } game${  count !== 1 ? 's' : ''}`;
+      const text = `${count} game${count !== 1 ? 's' : ''}`;
       countSpan.textContent = text;
     });
   }
@@ -159,15 +159,27 @@
 
       let icon = '';
       switch (cat.id) {
-      case 'math': icon = 'ti-calculator'; break;
-      case 'geo': icon = 'ti-world'; break;
-      case 'words': icon = 'ti-book'; break;
-      case 'science': icon = 'ti-leaf'; break;
-      case 'memory': icon = 'ti-brain'; break;
-      case 'art': icon = 'ti-palette'; break;
+        case 'math':
+          icon = 'ti-calculator';
+          break;
+        case 'geo':
+          icon = 'ti-world';
+          break;
+        case 'words':
+          icon = 'ti-book';
+          break;
+        case 'science':
+          icon = 'ti-leaf';
+          break;
+        case 'memory':
+          icon = 'ti-brain';
+          break;
+        case 'art':
+          icon = 'ti-palette';
+          break;
       }
 
-      btn.innerHTML = `<i class="ti ${  icon  }"></i> <span class="pill-text">${  cat.label  }</span>`;
+      btn.innerHTML = `<i class="ti ${icon}"></i> <span class="pill-text">${cat.label}</span>`;
       filterBar.appendChild(btn);
     });
 
@@ -246,7 +258,7 @@
       gamesInCat.forEach(function (game) {
         const li = document.createElement('li');
         const link = document.createElement('a');
-        link.href = `games/${  game.id  }/index.html`;
+        link.href = `games/${game.id}/index.html`;
         link.textContent = game.footerName;
         li.appendChild(link);
         ul.appendChild(li);

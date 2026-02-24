@@ -10,7 +10,7 @@
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-  border-left: 5px solid var(--element-color, #1CB0F6);
+  border-left: 5px solid var(--element-color, #1cb0f6);
 }
 
 .story-card:hover {
@@ -19,7 +19,7 @@
 }
 
 .story-card-number {
-  background: linear-gradient(90deg, var(--element-color, #1CB0F6), var(--element-light, #E5F0FF));
+  background: linear-gradient(90deg, var(--element-color, #1cb0f6), var(--element-light, #e5f0ff));
   padding: 10px 15px;
   display: flex;
   justify-content: space-between;
@@ -83,10 +83,10 @@
 }
 
 .story-narrative-box {
-  background: var(--element-light, #E5F0FF);
+  background: var(--element-light, #e5f0ff);
   padding: 12px 15px;
   border-radius: 8px;
-  border-left: 3px solid var(--element-color, #1CB0F6);
+  border-left: 3px solid var(--element-color, #1cb0f6);
   margin-bottom: 12px;
   font-size: 14px;
   line-height: 1.6;
@@ -98,22 +98,22 @@
   align-items: flex-start;
   gap: 10px;
   padding: 10px 12px;
-  background: #FFF8E1;
+  background: #fff8e1;
   border-radius: 6px;
-  border-left: 3px solid #FFC107;
+  border-left: 3px solid #ffc107;
   font-size: 13px;
   color: var(--color-text-dark, #333);
 }
 
 .story-fun-fact i {
-  color: #FFC107;
+  color: #ffc107;
   flex-shrink: 0;
   margin-top: 2px;
 }
 
 .story-card-footer {
   padding: 12px 15px;
-  background: var(--element-light, #E5F0FF);
+  background: var(--element-light, #e5f0ff);
   border-top: 1px solid rgba(0, 0, 0, 0.05);
   font-size: 12px;
   color: var(--color-text-light, #666);
@@ -130,7 +130,7 @@
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-  border-bottom: 3px solid var(--element-color, #1CB0F6);
+  border-bottom: 3px solid var(--element-color, #1cb0f6);
 }
 
 .keyword-card-enhanced:hover {
@@ -165,7 +165,7 @@
 .keyword-symbol-large {
   font-size: 48px;
   font-weight: 700;
-  color: var(--element-color, #1CB0F6);
+  color: var(--element-color, #1cb0f6);
   margin-bottom: 8px;
 }
 
@@ -180,9 +180,9 @@
 .keyword-mnemonic {
   margin-bottom: 15px;
   padding: 12px 15px;
-  background: var(--element-light, #E5F0FF);
+  background: var(--element-light, #e5f0ff);
   border-radius: 8px;
-  border-left: 3px solid var(--element-color, #1CB0F6);
+  border-left: 3px solid var(--element-color, #1cb0f6);
 }
 
 .keyword-association strong,
@@ -204,16 +204,16 @@
   display: flex;
   gap: 10px;
   padding: 12px 15px;
-  background: #FFF8E1;
+  background: #fff8e1;
   border-radius: 8px;
-  border-left: 3px solid #FFC107;
+  border-left: 3px solid #ffc107;
   font-size: 13px;
   color: var(--color-text-dark, #333);
   line-height: 1.5;
 }
 
 .keyword-fact i {
-  color: #FFC107;
+  color: #ffc107;
   flex-shrink: 0;
 }
 
@@ -224,7 +224,7 @@
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
-  border: 2px solid var(--element-color, #1CB0F6);
+  border: 2px solid var(--element-color, #1cb0f6);
 }
 
 .rhyme-peg-card:hover {
@@ -262,7 +262,7 @@
 .element-badge {
   font-size: 40px;
   font-weight: 700;
-  color: var(--element-color, #1CB0F6);
+  color: var(--element-color, #1cb0f6);
   text-align: center;
   margin-bottom: 10px;
 }
@@ -280,13 +280,13 @@
   padding: 15px;
   background: linear-gradient(135deg, rgba(28, 176, 246, 0.05), rgba(124, 58, 237, 0.05));
   border-radius: 8px;
-  border-left: 3px solid var(--element-color, #1CB0F6);
+  border-left: 3px solid var(--element-color, #1cb0f6);
   margin-bottom: 12px;
 }
 
 .rhyme-visualization strong,
 .memory-anchor strong {
-  color: var(--element-color, #1CB0F6);
+  color: var(--element-color, #1cb0f6);
   display: block;
   margin-bottom: 8px;
 }
@@ -330,7 +330,7 @@
 .tips-symbol {
   font-size: 32px;
   font-weight: 700;
-  color: var(--element-color, #1CB0F6);
+  color: var(--element-color, #1cb0f6);
   min-width: 40px;
   text-align: center;
 }
@@ -363,7 +363,7 @@
 }
 
 .tip-section strong {
-  color: var(--element-color, #1CB0F6);
+  color: var(--element-color, #1cb0f6);
   display: block;
   margin-bottom: 8px;
   font-size: 13px;

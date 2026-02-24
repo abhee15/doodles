@@ -54,7 +54,7 @@ class GameNavigation {
     // Set up back button handler
     const backBtn = document.getElementById('game-back-btn');
     if (backBtn) {
-      backBtn.addEventListener('click', (e) => {
+      backBtn.addEventListener('click', e => {
         // Only prevent default if we're NOT at the landing screen
         // At landing, we want the link to work and go to portal
         if (this.currentScreen !== 'landing') {

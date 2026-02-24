@@ -22,7 +22,8 @@ class DesignSystemLinter {
 
   // Get all game folders
   getGames() {
-    return fs.readdirSync(this.gamesDir)
+    return fs
+      .readdirSync(this.gamesDir)
       .filter(name => fs.statSync(path.join(this.gamesDir, name)).isDirectory())
       .filter(name => !name.startsWith('_')); // Skip templates
   }
@@ -60,7 +61,8 @@ class DesignSystemLinter {
             rule: 'No box-shadow',
             file: relPath,
             line: num,
-            message: 'box-shadow is banned by design system. Use transform, border-color, or backdrop-filter instead.',
+            message:
+              'box-shadow is banned by design system. Use transform, border-color, or backdrop-filter instead.',
             code: line.trim()
           });
         }
@@ -172,7 +174,8 @@ class DesignSystemLinter {
     const hasDomNav = content.includes('class="dom-nav"');
     const hasBackClass = content.includes('class="back-link"');
     const hasBackText = content.includes('>← Back</a>') || content.includes('> Back</a>');
-    const hasCorrectLink = content.includes(`../../index.html#${gameId}`) || content.includes('../../index.html#');
+    const hasCorrectLink =
+      content.includes(`../../index.html#${gameId}`) || content.includes('../../index.html#');
 
     if ((hasDomNav || hasBackClass) && hasBackText) {
       hasBackLink = true;
@@ -201,7 +204,10 @@ class DesignSystemLinter {
         rule: 'Missing back link',
         file: relPath,
         line: 0,
-        message: 'Game must have back link to portal: <a href="../../index.html#' + gameId + '" class="back-link">← Back</a>'
+        message:
+          'Game must have back link to portal: <a href="../../index.html#' +
+          gameId +
+          '" class="back-link">← Back</a>'
       });
     } else if (!hasCorrectHref) {
       const relPath = path.relative(this.gamesDir, indexPath);
@@ -233,7 +239,8 @@ class DesignSystemLinter {
         rule: 'CSS files are mutually exclusive',
         file: relPath,
         line: 0,
-        message: 'Cannot load both game-page-v2.css (Archetype A) and game-dom.css (Archetype B). Choose one.'
+        message:
+          'Cannot load both game-page-v2.css (Archetype A) and game-dom.css (Archetype B). Choose one.'
       });
     }
 
@@ -256,11 +263,7 @@ class DesignSystemLinter {
     const content = this.loadFile(indexPath);
     if (!content) return;
 
-    const nonStandardFiles = [
-      'design-colors.css',
-      'design-tokens.js',
-      'colors.css'
-    ];
+    const nonStandardFiles = ['design-colors.css', 'design-tokens.js', 'colors.css'];
 
     const lines = this.getLines(content);
     lines.forEach(({ line, num }) => {
@@ -291,8 +294,16 @@ class DesignSystemLinter {
       { name: 'charset', pattern: 'charset', message: 'Missing charset meta tag' },
       { name: 'viewport', pattern: 'viewport', message: 'Missing viewport meta tag' },
       { name: 'title', pattern: '<title>', message: 'Missing title tag' },
-      { name: 'description', pattern: 'name="description"', message: 'Missing description meta tag' },
-      { name: 'og:type', pattern: 'property="og:type"', message: 'Missing og:type meta tag for SEO' }
+      {
+        name: 'description',
+        pattern: 'name="description"',
+        message: 'Missing description meta tag'
+      },
+      {
+        name: 'og:type',
+        pattern: 'property="og:type"',
+        message: 'Missing og:type meta tag for SEO'
+      }
     ];
 
     requiredTags.forEach(tag => {
@@ -319,7 +330,8 @@ class DesignSystemLinter {
           rule: 'Title format incorrect',
           file: relPath,
           line: 0,
-          message: 'Title should end with "| Doodles Games". Format: "Game Name - Description for Kids | Doodles Games"'
+          message:
+            'Title should end with "| Doodles Games". Format: "Game Name - Description for Kids | Doodles Games"'
         });
       }
     }
@@ -334,12 +346,7 @@ class DesignSystemLinter {
     if (!isPhaser) return; // Skip non-Phaser games
 
     const relPath = path.relative(this.gamesDir, indexPath);
-    const requiredFiles = [
-      'analytics.js',
-      'ads.js',
-      'game-config.js',
-      'game.js'
-    ];
+    const requiredFiles = ['analytics.js', 'ads.js', 'game-config.js', 'game.js'];
 
     requiredFiles.forEach(file => {
       if (!content.includes(file)) {
@@ -358,7 +365,7 @@ class DesignSystemLinter {
   // Find files by extension
   findFiles(dir, ext) {
     const files = [];
-    const walk = (currentPath) => {
+    const walk = currentPath => {
       if (!fs.existsSync(currentPath)) return;
       const items = fs.readdirSync(currentPath);
       items.forEach(item => {

@@ -1,576 +1,1074 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
 
-  <!-- Primary Meta Tags -->
-  <title>Body Map - Learn All US Presidents for Kids | Doodles Games</title>
-  <meta name="title" content="Body Map - Learn US Presidents with Memory Techniques">
-  <meta name="description" content="Learn all 47 US Presidents using the Body Peg memory system. Practice facts, dates, and historical details with interactive quizzes.">
-  <meta name="keywords" content="US Presidents, memory techniques, educational game, body peg system, history">
+    <!-- Primary Meta Tags -->
+    <title>Body Map - Learn All US Presidents for Kids | Doodles Games</title>
+    <meta name="title" content="Body Map - Learn US Presidents with Memory Techniques" />
+    <meta
+      name="description"
+      content="Learn all 47 US Presidents using the Body Peg memory system. Practice facts, dates, and historical details with interactive quizzes."
+    />
+    <meta name="keywords" content="US Presidents, memory techniques, educational game, body peg system, history" />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="game">
-  <meta property="og:url" content="https://abhee15.github.io/doodles/games/body-map/">
-  <meta property="og:title" content="Body Map - Learn US Presidents with Memory Techniques">
-  <meta property="og:description" content="Learn all 47 US Presidents using the Body Peg memory system. Practice facts, dates, and historical details with interactive quizzes.">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/body-map/" />
+    <meta property="og:title" content="Body Map - Learn US Presidents with Memory Techniques" />
+    <meta
+      property="og:description"
+      content="Learn all 47 US Presidents using the Body Peg memory system. Practice facts, dates, and historical details with interactive quizzes."
+    />
 
-  <!-- Twitter -->
-  <meta property="twitter:card" content="summary">
-  <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/body-map/">
-  <meta property="twitter:title" content="Body Map - Learn US Presidents with Memory Techniques">
-  <meta property="twitter:description" content="Learn all 47 US Presidents using the Body Peg memory system. Practice facts, dates, and historical details with interactive quizzes.">
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/body-map/" />
+    <meta property="twitter:title" content="Body Map - Learn US Presidents with Memory Techniques" />
+    <meta
+      property="twitter:description"
+      content="Learn all 47 US Presidents using the Body Peg memory system. Practice facts, dates, and historical details with interactive quizzes."
+    />
 
-  <link rel="canonical" href="https://abhee15.github.io/doodles/games/body-map/">
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/body-map/" />
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
-  <!-- Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
 
-  <!-- Design System -->
-  <link rel="stylesheet" href="../../shared/tokens.css">
-  <link rel="stylesheet" href="../../shared/game-dom.css">
-  <style>
-    :root {
-      /* Game-specific theme overrides */
-      --dom-nav-bg: #0A2424;
-      --dom-nav-border: rgba(255, 255, 255, 0.07);
-      --dom-bg: #0D1B2A;
-      --dom-bg-card: rgba(255, 255, 255, 0.05);
-      --dom-border: rgba(255, 255, 255, 0.12);
-      --dom-text: #E8EDF5;
-      --dom-text-muted: rgba(255, 255, 255, 0.5);
-      --dom-accent: #F5C518;     /* gold */
-      --dom-accent-dark: #E6B010;
-      --dom-accent2: #4CAF50;     /* correct answer green */
+    <!-- Design System -->
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        /* Game-specific theme overrides */
+        --dom-nav-bg: #0a2424;
+        --dom-nav-border: rgba(255, 255, 255, 0.07);
+        --dom-bg: #0d1b2a;
+        --dom-bg-card: rgba(255, 255, 255, 0.05);
+        --dom-border: rgba(255, 255, 255, 0.12);
+        --dom-text: #e8edf5;
+        --dom-text-muted: rgba(255, 255, 255, 0.5);
+        --dom-accent: #f5c518; /* gold */
+        --dom-accent-dark: #e6b010;
+        --dom-accent2: #4caf50; /* correct answer green */
 
-      /* Game-specific legacy variables (for existing game styles) */
-      --navy:    #0D1B2A;
-      --navy2:   #152336;
-      --navy3:   #1E3350;
-      --gold:    #F5C518;
-      --gold2:   #C9A000;
-      --red:     #D32F2F;
-      --blue:    #1565C0;
-      --green:   #2E7D32;
-      --white:   #FFFFFF;
-      --text:    #E8EDF5;
-      --dim:     #7A93B0;
-      --card:    #1A2E47;
-      --border:  #2A4565;
-      --r:  #D32F2F;
-      --d:  #1565C0;
-      --w:  #6A1B9A;
-      --f:  #4E342E;
-      --dr: #37474F;
-      --np: #37474F;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { height: auto; }
-    body {
-      font-family: 'Nunito', 'Segoe UI', sans-serif;
-      background: var(--navy);
-      color: var(--text);
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-    }
-
-    /* ══════════════════ START SCREEN ══════════════════ */
-    #screen-start {
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 24px 20px;
-      gap: 20px;
-      overflow-y: auto;
-    }
-    .start-hero { text-align: center; }
-    .start-hero h1 { font-size: clamp(32px,6vw,52px); font-weight: 900; color: var(--gold); letter-spacing: -1px; }
-    .start-hero p  { font-size: 16px; color: var(--dim); margin-top: 8px; max-width: 480px; margin-inline: auto; }
-
-    .technique-box {
-      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
-      padding: 20px 24px; max-width: 520px; width: 100%;
-    }
-    .technique-box h3 { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 10px; }
-    .technique-box p  { font-size: 14px; color: var(--dim); line-height: 1.65; }
-
-    .batch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; max-width: 600px; width: 100%; }
-    .batch-btn {
-      background: var(--card); border: 2px solid var(--border); border-radius: 14px;
-      padding: 18px 16px; cursor: pointer; text-align: center;
-      transition: border-color .2s, transform .15s, background .2s;
-      color: var(--text);
-    }
-    .batch-btn:hover { border-color: var(--gold); background: var(--navy3); transform: translateY(-2px); }
-    .batch-btn .bnum { font-size: 22px; font-weight: 900; color: var(--gold); }
-    .batch-btn .brange { font-size: 13px; color: var(--dim); margin-top: 4px; }
-    .batch-btn .bnames { font-size: 11px; color: #4A6A8A; margin-top: 6px; }
-
-    /* ══════════════════ LEARN SCREEN ══════════════════ */
-    #screen-learn {
-      flex-direction: column;
-    }
-    .progress-bar-wrap {
-      height: 5px; background: var(--navy3); flex-shrink: 0;
-    }
-    .progress-bar-fill {
-      height: 100%; background: var(--gold); transition: width .4s ease;
-    }
-
-    .learn-main {
-      flex: 1; display: flex; gap: 0; overflow: hidden;
-    }
-
-    /* LEFT: body panel */
-    .body-panel {
-      width: 260px; flex-shrink: 0;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      background: var(--navy2);
-      padding: 16px 8px;
-      border-right: 1px solid var(--border);
-    }
-    .body-label {
-      font-size: 11px; font-weight: 800; letter-spacing: 1.5px; text-transform: uppercase;
-      color: var(--gold); margin-bottom: 10px;
-    }
-
-    #body-svg { width: 180px; max-width: 100%; }
-
-    /* SVG body zones */
-    .body-zone { fill: #C4956A; stroke: #A07040; stroke-width: 1.5; transition: fill .35s, stroke .35s; }
-    .face-feature { transition: none; }
-    .arm-decor    { fill: #B88050; opacity: 0.7; }
-
-    .body-zone.visited { fill: #9DB88A; stroke: #7A9060; }
-    .body-zone.active  {
-      fill: #FFD700; stroke: #C89000; stroke-width: 2.5;
-      filter: drop-shadow(0 0 10px rgba(255,215,0,0.8));
-      animation: zone-pulse 1.5s ease-in-out infinite;
-    }
-    @keyframes zone-pulse {
-      0%,100% { filter: drop-shadow(0 0 10px rgba(255,215,0,0.8)); }
-      50%      { filter: drop-shadow(0 0 20px rgba(255,215,0,1)); }
-    }
-
-    /* RIGHT: info panel */
-    .info-panel {
-      flex: 1; overflow-y: auto; padding: 28px 32px;
-      display: flex; flex-direction: column; gap: 20px;
-    }
-
-    .zone-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(245,197,24,0.12); border: 1.5px solid var(--gold2);
-      border-radius: 8px; padding: 6px 14px;
-      font-size: 13px; font-weight: 800; color: var(--gold); letter-spacing: 1px;
-      text-transform: uppercase; align-self: flex-start;
-    }
-
-    .pres-num  { font-size: 14px; font-weight: 700; color: var(--dim); }
-    .pres-name { font-size: clamp(26px,4vw,40px); font-weight: 900; color: var(--white); line-height: 1.1; margin: 4px 0; }
-    .pres-term { font-size: 15px; color: var(--dim); }
-
-    .party-badge {
-      display: inline-block; padding: 3px 12px; border-radius: 20px;
-      font-size: 12px; font-weight: 800; letter-spacing: .5px;
-      margin-top: 8px;
-    }
-    .party-R  { background: rgba(211,47,47,.2);  color: #EF9A9A; border: 1px solid rgba(211,47,47,.4); }
-    .party-D  { background: rgba(21,101,192,.2); color: #90CAF9; border: 1px solid rgba(21,101,192,.4); }
-    .party-W  { background: rgba(106,27,154,.2); color: #CE93D8; border: 1px solid rgba(106,27,154,.4); }
-    .party-F  { background: rgba(78,52,46,.4);   color: #BCAAA4; border: 1px solid rgba(78,52,46,.6); }
-    .party-DR { background: rgba(55,71,79,.4);   color: #B0BEC5; border: 1px solid rgba(55,71,79,.6); }
-    .party-NP { background: rgba(55,71,79,.4);   color: #B0BEC5; border: 1px solid rgba(55,71,79,.6); }
-
-    .fact-card {
-      background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px;
-    }
-    .fact-card h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--dim); margin-bottom: 8px; }
-    .fact-card p  { font-size: 15px; color: var(--text); line-height: 1.65; }
-
-    .tip-card {
-      background: rgba(245,197,24,.07); border: 1.5px solid rgba(245,197,24,.3); border-radius: 14px; padding: 16px 20px;
-    }
-    .tip-card h4 { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--gold); margin-bottom: 8px; }
-    .tip-card p  { font-size: 15px; color: var(--text); line-height: 1.65; }
-
-    /* ── BOTTOM CONTROLS ── */
-    .learn-footer {
-      padding: 16px 32px; background: var(--navy2); border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
-    }
-    .step-indicator { font-size: 14px; color: var(--dim); }
-    .step-dots { display: flex; gap: 6px; }
-    .step-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background .3s; }
-    .step-dot.done   { background: #9DB88A; }
-    .step-dot.active { background: var(--gold); transform: scale(1.3); }
-
-    .btn-next {
-      background: var(--gold); color: #1A1000; font-family: inherit;
-      font-size: 16px; font-weight: 900; padding: 12px 28px; border: none;
-      border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 8px;
-      transition: background .2s, transform .15s;
-    }
-    .btn-next:hover { background: #FFE033; transform: translateY(-1px); }
-    .btn-next.quiz-mode { background: #4CAF50; color: #fff; }
-    .btn-next.quiz-mode:hover { background: #66BB6A; }
-
-    /* ══════════════════ QUIZ SCREEN ══════════════════ */
-    #screen-quiz { flex-direction: column; }
-
-    .quiz-main {
-      flex: 1; display: flex; gap: 0; overflow: hidden;
-    }
-
-    .quiz-q-panel {
-      flex: 1; padding: 32px; display: flex; flex-direction: column; gap: 20px; overflow-y: auto;
-    }
-
-    .quiz-prompt {
-      font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: var(--dim);
-    }
-    .quiz-question {
-      font-size: clamp(22px,4vw,34px); font-weight: 900; color: var(--white); line-height: 1.2;
-    }
-    .quiz-question span { color: var(--gold); }
-
-    .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
-
-    .opt-btn {
-      background: var(--card); border: 2px solid var(--border); border-radius: 14px;
-      padding: 16px 18px; font-family: inherit; font-size: 15px; font-weight: 700;
-      color: var(--text); cursor: pointer; text-align: left;
-      transition: border-color .15s, background .15s, transform .1s;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .opt-btn:hover:not(:disabled) { border-color: var(--gold); background: var(--navy3); transform: translateY(-1px); }
-    .opt-btn:disabled { cursor: default; }
-    .opt-btn.correct  { border-color: #4CAF50 !important; background: rgba(76,175,80,.15) !important; color: #A5D6A7; }
-    .opt-btn.wrong    { border-color: var(--red) !important; background: rgba(211,47,47,.15) !important; color: #EF9A9A; }
-
-    .opt-letter {
-      width: 28px; height: 28px; border-radius: 8px; background: var(--navy3);
-      display: grid; place-items: center; font-size: 13px; font-weight: 900; flex-shrink: 0;
-      border: 1.5px solid var(--border);
-    }
-    .correct .opt-letter { background: rgba(76,175,80,.3); border-color: #4CAF50; }
-    .wrong   .opt-letter { background: rgba(211,47,47,.3);  border-color: var(--red); }
-
-    .quiz-footer {
-      padding: 14px 32px; background: var(--navy2); border-top: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: space-between; flex-shrink: 0;
-    }
-    .quiz-score-live { font-size: 14px; color: var(--dim); }
-    .quiz-score-live b { color: var(--gold); }
-
-    /* ══════════════════ SCORE SCREEN ══════════════════ */
-    #screen-score {
-      flex-direction: column; align-items: center; justify-content: center;
-      padding: 32px 20px; gap: 24px; text-align: center;
-    }
-    .score-emoji { font-size: 64px; }
-    .score-title { font-size: clamp(28px,5vw,44px); font-weight: 900; color: var(--gold); }
-    .score-sub   { font-size: 16px; color: var(--dim); max-width: 400px; }
-    .score-num   { font-size: clamp(52px,10vw,80px); font-weight: 900; color: var(--white); }
-    .score-out   { font-size: 20px; color: var(--dim); }
-    .score-btns  { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
-
-    .btn-outline {
-      background: transparent; border: 2px solid var(--border); border-radius: 12px;
-      padding: 12px 22px; font-family: inherit; font-size: 15px; font-weight: 800;
-      color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 7px;
-      transition: border-color .2s, color .2s;
-    }
-    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-    .btn-gold {
-      background: var(--gold); border: 2px solid var(--gold); border-radius: 12px;
-      padding: 12px 22px; font-family: inherit; font-size: 15px; font-weight: 900;
-      color: #1A1000; cursor: pointer; display: flex; align-items: center; gap: 7px;
-      transition: background .2s, transform .15s;
-    }
-    .btn-gold:hover { background: #FFE033; transform: translateY(-1px); }
-
-    /* ── PORTRAIT ── */
-    .pres-header {
-      display: flex; gap: 16px; align-items: flex-start;
-    }
-    .pres-portrait-wrap {
-      width: 96px; flex-shrink: 0; border-radius: 10px; overflow: hidden;
-      background: var(--navy3); border: 1.5px solid var(--border);
-      aspect-ratio: 4/5;
-      display: flex; align-items: center; justify-content: center;
-    }
-    .pres-portrait-wrap img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block;
-    }
-    .portrait-num { font-size: 28px; font-weight: 900; color: var(--border); }
-    .pres-details  { flex: 1; min-width: 0; }
-
-    /* ── BACK BUTTON ── */
-    .btn-prev {
-      background: transparent; border: 2px solid var(--border); border-radius: 12px;
-      color: var(--dim); font-family: inherit; font-size: 15px; font-weight: 700;
-      padding: 10px 18px; cursor: pointer; display: flex; align-items: center; gap: 8px;
-      transition: border-color .2s, color .2s; white-space: nowrap;
-    }
-    .btn-prev:hover:not(:disabled) { border-color: var(--gold); color: var(--gold); }
-    .btn-prev:disabled { opacity: 0.25; cursor: default; pointer-events: none; }
-
-    /* ── NAV BACK LINK (hidden during focused learning) ── */
-    #nav-back-link.hidden { display: none; }
-
-    /* ── FOOTER CENTRE ── */
-    .learn-footer-center { flex: 1; min-width: 0; text-align: center; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      /* Learn main: stack vertically */
-      .learn-main { flex-direction: column !important; }
-
-      /* Body panel → horizontal strip at top */
-      .body-panel {
-        width: 100% !important; height: auto !important; min-height: 60px;
-        border-right: none !important; border-bottom: 1px solid var(--border);
-        flex-direction: row; padding: 8px 12px;
-        justify-content: flex-start; gap: 12px; align-items: center; flex-shrink: 0;
+        /* Game-specific legacy variables (for existing game styles) */
+        --navy: #0d1b2a;
+        --navy2: #152336;
+        --navy3: #1e3350;
+        --gold: #f5c518;
+        --gold2: #c9a000;
+        --red: #d32f2f;
+        --blue: #1565c0;
+        --green: #2e7d32;
+        --white: #ffffff;
+        --text: #e8edf5;
+        --dim: #7a93b0;
+        --card: #1a2e47;
+        --border: #2a4565;
+        --r: #d32f2f;
+        --d: #1565c0;
+        --w: #6a1b9a;
+        --f: #4e342e;
+        --dr: #37474f;
+        --np: #37474f;
       }
-      .body-label { margin-bottom: 0; font-size: 11px; }
-      #body-svg, #quiz-body-svg { width: 50px !important; flex-shrink: 0; height: auto; }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        height: auto;
+      }
+      body {
+        font-family: 'Nunito', 'Segoe UI', sans-serif;
+        background: var(--navy);
+        color: var(--text);
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
 
-      /* Info panel */
-      .info-panel { padding: 12px 12px 16px; gap: 12px; overflow-y: auto; flex: 1; }
-      .pres-portrait-wrap { width: 64px; }
-      .portrait-num { font-size: 18px; }
-      .pres-name  { font-size: 18px !important; }
-      .pres-term { font-size: 13px; }
+      /* ══════════════════ START SCREEN ══════════════════ */
+      #screen-start {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 24px 20px;
+        gap: 20px;
+        overflow-y: auto;
+      }
+      .start-hero {
+        text-align: center;
+      }
+      .start-hero h1 {
+        font-size: clamp(32px, 6vw, 52px);
+        font-weight: 900;
+        color: var(--gold);
+        letter-spacing: -1px;
+      }
+      .start-hero p {
+        font-size: 16px;
+        color: var(--dim);
+        margin-top: 8px;
+        max-width: 480px;
+        margin-inline: auto;
+      }
 
-      /* Footer: keep back | center | next in one row */
-      .learn-footer { padding: 10px 12px; gap: 8px; flex-shrink: 0; }
-      .learn-footer-center { min-width: 0; }
-      .learn-footer-center .step-indicator { font-size: 11px; }
-      .step-dots { display: none; }
-      .btn-prev, .btn-next { padding: 8px 10px; font-size: 12px; }
+      .technique-box {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px 24px;
+        max-width: 520px;
+        width: 100%;
+      }
+      .technique-box h3 {
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--gold);
+        margin-bottom: 10px;
+      }
+      .technique-box p {
+        font-size: 14px;
+        color: var(--dim);
+        line-height: 1.65;
+      }
 
-      /* Quiz */
-      .quiz-main  { flex-direction: column !important; }
-      .quiz-q-panel { padding: 12px; gap: 10px; overflow-y: auto; flex: 1; }
-      .quiz-question { font-size: 20px !important; }
-      .options-grid { grid-template-columns: 1fr; gap: 8px; }
-      .opt-btn { padding: 10px 12px; font-size: 13px; }
-      .quiz-footer { padding: 8px 12px; flex-shrink: 0; }
+      .batch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 12px;
+        max-width: 600px;
+        width: 100%;
+      }
+      .batch-btn {
+        background: var(--card);
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 18px 16px;
+        cursor: pointer;
+        text-align: center;
+        transition:
+          border-color 0.2s,
+          transform 0.15s,
+          background 0.2s;
+        color: var(--text);
+      }
+      .batch-btn:hover {
+        border-color: var(--gold);
+        background: var(--navy3);
+        transform: translateY(-2px);
+      }
+      .batch-btn .bnum {
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--gold);
+      }
+      .batch-btn .brange {
+        font-size: 13px;
+        color: var(--dim);
+        margin-top: 4px;
+      }
+      .batch-btn .bnames {
+        font-size: 11px;
+        color: #4a6a8a;
+        margin-top: 6px;
+      }
 
-      /* Start screen */
-      #screen-start { padding: 16px 12px; gap: 16px; }
-      .start-hero h1 { font-size: 28px; }
-      .start-hero p { font-size: 14px; }
-      .technique-box { padding: 14px 16px; }
-      .batch-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-      .batch-btn { padding: 12px 10px; }
+      /* ══════════════════ LEARN SCREEN ══════════════════ */
+      #screen-learn {
+        flex-direction: column;
+      }
+      .progress-bar-wrap {
+        height: 5px;
+        background: var(--navy3);
+        flex-shrink: 0;
+      }
+      .progress-bar-fill {
+        height: 100%;
+        background: var(--gold);
+        transition: width 0.4s ease;
+      }
 
-      /* Score screen */
-      #screen-score { padding: 20px 12px; gap: 14px; overflow-y: auto; }
-      .score-num { font-size: clamp(40px,8vw,60px); }
-      .score-btns { flex-direction: column; align-items: stretch; gap: 8px; }
-      .score-btns button { justify-content: center; }
-    }
-  </style>
-</head>
-<body>
+      .learn-main {
+        flex: 1;
+        display: flex;
+        gap: 0;
+        overflow: hidden;
+      }
 
-<!-- ══ NAV ══ -->
-<nav class="dom-nav">
-  <a id="game-back-btn" href="../../index.html#body-map"><i class="ti ti-arrow-left"></i> Back</a>
-  <span class="dom-nav-title" id="nav-title">Body Map</span>
-  <span class="dom-nav-meta" id="nav-progress"></span>
-</nav>
+      /* LEFT: body panel */
+      .body-panel {
+        width: 260px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: var(--navy2);
+        padding: 16px 8px;
+        border-right: 1px solid var(--border);
+      }
+      .body-label {
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 10px;
+      }
 
-<!-- ══════════════════════════════════════
+      #body-svg {
+        width: 180px;
+        max-width: 100%;
+      }
+
+      /* SVG body zones */
+      .body-zone {
+        fill: #c4956a;
+        stroke: #a07040;
+        stroke-width: 1.5;
+        transition:
+          fill 0.35s,
+          stroke 0.35s;
+      }
+      .face-feature {
+        transition: none;
+      }
+      .arm-decor {
+        fill: #b88050;
+        opacity: 0.7;
+      }
+
+      .body-zone.visited {
+        fill: #9db88a;
+        stroke: #7a9060;
+      }
+      .body-zone.active {
+        fill: #ffd700;
+        stroke: #c89000;
+        stroke-width: 2.5;
+        filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+        animation: zone-pulse 1.5s ease-in-out infinite;
+      }
+      @keyframes zone-pulse {
+        0%,
+        100% {
+          filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
+        }
+        50% {
+          filter: drop-shadow(0 0 20px rgba(255, 215, 0, 1));
+        }
+      }
+
+      /* RIGHT: info panel */
+      .info-panel {
+        flex: 1;
+        overflow-y: auto;
+        padding: 28px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .zone-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(245, 197, 24, 0.12);
+        border: 1.5px solid var(--gold2);
+        border-radius: 8px;
+        padding: 6px 14px;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--gold);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        align-self: flex-start;
+      }
+
+      .pres-num {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--dim);
+      }
+      .pres-name {
+        font-size: clamp(26px, 4vw, 40px);
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.1;
+        margin: 4px 0;
+      }
+      .pres-term {
+        font-size: 15px;
+        color: var(--dim);
+      }
+
+      .party-badge {
+        display: inline-block;
+        padding: 3px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.5px;
+        margin-top: 8px;
+      }
+      .party-R {
+        background: rgba(211, 47, 47, 0.2);
+        color: #ef9a9a;
+        border: 1px solid rgba(211, 47, 47, 0.4);
+      }
+      .party-D {
+        background: rgba(21, 101, 192, 0.2);
+        color: #90caf9;
+        border: 1px solid rgba(21, 101, 192, 0.4);
+      }
+      .party-W {
+        background: rgba(106, 27, 154, 0.2);
+        color: #ce93d8;
+        border: 1px solid rgba(106, 27, 154, 0.4);
+      }
+      .party-F {
+        background: rgba(78, 52, 46, 0.4);
+        color: #bcaaa4;
+        border: 1px solid rgba(78, 52, 46, 0.6);
+      }
+      .party-DR {
+        background: rgba(55, 71, 79, 0.4);
+        color: #b0bec5;
+        border: 1px solid rgba(55, 71, 79, 0.6);
+      }
+      .party-NP {
+        background: rgba(55, 71, 79, 0.4);
+        color: #b0bec5;
+        border: 1px solid rgba(55, 71, 79, 0.6);
+      }
+
+      .fact-card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 16px 20px;
+      }
+      .fact-card h4 {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--dim);
+        margin-bottom: 8px;
+      }
+      .fact-card p {
+        font-size: 15px;
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      .tip-card {
+        background: rgba(245, 197, 24, 0.07);
+        border: 1.5px solid rgba(245, 197, 24, 0.3);
+        border-radius: 14px;
+        padding: 16px 20px;
+      }
+      .tip-card h4 {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+      .tip-card p {
+        font-size: 15px;
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      /* ── BOTTOM CONTROLS ── */
+      .learn-footer {
+        padding: 16px 32px;
+        background: var(--navy2);
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+      }
+      .step-indicator {
+        font-size: 14px;
+        color: var(--dim);
+      }
+      .step-dots {
+        display: flex;
+        gap: 6px;
+      }
+      .step-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border);
+        transition: background 0.3s;
+      }
+      .step-dot.done {
+        background: #9db88a;
+      }
+      .step-dot.active {
+        background: var(--gold);
+        transform: scale(1.3);
+      }
+
+      .btn-next {
+        background: var(--gold);
+        color: #1a1000;
+        font-family: inherit;
+        font-size: 16px;
+        font-weight: 900;
+        padding: 12px 28px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn-next:hover {
+        background: #ffe033;
+        transform: translateY(-1px);
+      }
+      .btn-next.quiz-mode {
+        background: #4caf50;
+        color: #fff;
+      }
+      .btn-next.quiz-mode:hover {
+        background: #66bb6a;
+      }
+
+      /* ══════════════════ QUIZ SCREEN ══════════════════ */
+      #screen-quiz {
+        flex-direction: column;
+      }
+
+      .quiz-main {
+        flex: 1;
+        display: flex;
+        gap: 0;
+        overflow: hidden;
+      }
+
+      .quiz-q-panel {
+        flex: 1;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow-y: auto;
+      }
+
+      .quiz-prompt {
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--dim);
+      }
+      .quiz-question {
+        font-size: clamp(22px, 4vw, 34px);
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.2;
+      }
+      .quiz-question span {
+        color: var(--gold);
+      }
+
+      .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .opt-btn {
+        background: var(--card);
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 16px 18px;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        cursor: pointer;
+        text-align: left;
+        transition:
+          border-color 0.15s,
+          background 0.15s,
+          transform 0.1s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .opt-btn:hover:not(:disabled) {
+        border-color: var(--gold);
+        background: var(--navy3);
+        transform: translateY(-1px);
+      }
+      .opt-btn:disabled {
+        cursor: default;
+      }
+      .opt-btn.correct {
+        border-color: #4caf50 !important;
+        background: rgba(76, 175, 80, 0.15) !important;
+        color: #a5d6a7;
+      }
+      .opt-btn.wrong {
+        border-color: var(--red) !important;
+        background: rgba(211, 47, 47, 0.15) !important;
+        color: #ef9a9a;
+      }
+
+      .opt-letter {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: var(--navy3);
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        font-weight: 900;
+        flex-shrink: 0;
+        border: 1.5px solid var(--border);
+      }
+      .correct .opt-letter {
+        background: rgba(76, 175, 80, 0.3);
+        border-color: #4caf50;
+      }
+      .wrong .opt-letter {
+        background: rgba(211, 47, 47, 0.3);
+        border-color: var(--red);
+      }
+
+      .quiz-footer {
+        padding: 14px 32px;
+        background: var(--navy2);
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+      }
+      .quiz-score-live {
+        font-size: 14px;
+        color: var(--dim);
+      }
+      .quiz-score-live b {
+        color: var(--gold);
+      }
+
+      /* ══════════════════ SCORE SCREEN ══════════════════ */
+      #screen-score {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 20px;
+        gap: 24px;
+        text-align: center;
+      }
+      .score-emoji {
+        font-size: 64px;
+      }
+      .score-title {
+        font-size: clamp(28px, 5vw, 44px);
+        font-weight: 900;
+        color: var(--gold);
+      }
+      .score-sub {
+        font-size: 16px;
+        color: var(--dim);
+        max-width: 400px;
+      }
+      .score-num {
+        font-size: clamp(52px, 10vw, 80px);
+        font-weight: 900;
+        color: var(--white);
+      }
+      .score-out {
+        font-size: 20px;
+        color: var(--dim);
+      }
+      .score-btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 8px;
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        padding: 12px 22px;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--text);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+      }
+      .btn-outline:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .btn-gold {
+        background: var(--gold);
+        border: 2px solid var(--gold);
+        border-radius: 12px;
+        padding: 12px 22px;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 900;
+        color: #1a1000;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        transition:
+          background 0.2s,
+          transform 0.15s;
+      }
+      .btn-gold:hover {
+        background: #ffe033;
+        transform: translateY(-1px);
+      }
+
+      /* ── PORTRAIT ── */
+      .pres-header {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+      .pres-portrait-wrap {
+        width: 96px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--navy3);
+        border: 1.5px solid var(--border);
+        aspect-ratio: 4/5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .pres-portrait-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        display: block;
+      }
+      .portrait-num {
+        font-size: 28px;
+        font-weight: 900;
+        color: var(--border);
+      }
+      .pres-details {
+        flex: 1;
+        min-width: 0;
+      }
+
+      /* ── BACK BUTTON ── */
+      .btn-prev {
+        background: transparent;
+        border: 2px solid var(--border);
+        border-radius: 12px;
+        color: var(--dim);
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        padding: 10px 18px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition:
+          border-color 0.2s,
+          color 0.2s;
+        white-space: nowrap;
+      }
+      .btn-prev:hover:not(:disabled) {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .btn-prev:disabled {
+        opacity: 0.25;
+        cursor: default;
+        pointer-events: none;
+      }
+
+      /* ── NAV BACK LINK (hidden during focused learning) ── */
+      #nav-back-link.hidden {
+        display: none;
+      }
+
+      /* ── FOOTER CENTRE ── */
+      .learn-footer-center {
+        flex: 1;
+        min-width: 0;
+        text-align: center;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        /* Learn main: stack vertically */
+        .learn-main {
+          flex-direction: column !important;
+        }
+
+        /* Body panel → horizontal strip at top */
+        .body-panel {
+          width: 100% !important;
+          height: auto !important;
+          min-height: 60px;
+          border-right: none !important;
+          border-bottom: 1px solid var(--border);
+          flex-direction: row;
+          padding: 8px 12px;
+          justify-content: flex-start;
+          gap: 12px;
+          align-items: center;
+          flex-shrink: 0;
+        }
+        .body-label {
+          margin-bottom: 0;
+          font-size: 11px;
+        }
+        #body-svg,
+        #quiz-body-svg {
+          width: 50px !important;
+          flex-shrink: 0;
+          height: auto;
+        }
+
+        /* Info panel */
+        .info-panel {
+          padding: 12px 12px 16px;
+          gap: 12px;
+          overflow-y: auto;
+          flex: 1;
+        }
+        .pres-portrait-wrap {
+          width: 64px;
+        }
+        .portrait-num {
+          font-size: 18px;
+        }
+        .pres-name {
+          font-size: 18px !important;
+        }
+        .pres-term {
+          font-size: 13px;
+        }
+
+        /* Footer: keep back | center | next in one row */
+        .learn-footer {
+          padding: 10px 12px;
+          gap: 8px;
+          flex-shrink: 0;
+        }
+        .learn-footer-center {
+          min-width: 0;
+        }
+        .learn-footer-center .step-indicator {
+          font-size: 11px;
+        }
+        .step-dots {
+          display: none;
+        }
+        .btn-prev,
+        .btn-next {
+          padding: 8px 10px;
+          font-size: 12px;
+        }
+
+        /* Quiz */
+        .quiz-main {
+          flex-direction: column !important;
+        }
+        .quiz-q-panel {
+          padding: 12px;
+          gap: 10px;
+          overflow-y: auto;
+          flex: 1;
+        }
+        .quiz-question {
+          font-size: 20px !important;
+        }
+        .options-grid {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+        .opt-btn {
+          padding: 10px 12px;
+          font-size: 13px;
+        }
+        .quiz-footer {
+          padding: 8px 12px;
+          flex-shrink: 0;
+        }
+
+        /* Start screen */
+        #screen-start {
+          padding: 16px 12px;
+          gap: 16px;
+        }
+        .start-hero h1 {
+          font-size: 28px;
+        }
+        .start-hero p {
+          font-size: 14px;
+        }
+        .technique-box {
+          padding: 14px 16px;
+        }
+        .batch-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        .batch-btn {
+          padding: 12px 10px;
+        }
+
+        /* Score screen */
+        #screen-score {
+          padding: 20px 12px;
+          gap: 14px;
+          overflow-y: auto;
+        }
+        .score-num {
+          font-size: clamp(40px, 8vw, 60px);
+        }
+        .score-btns {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+        }
+        .score-btns button {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- ══ NAV ══ -->
+    <nav class="dom-nav">
+      <a id="game-back-btn" href="../../index.html#body-map"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Body Map</span>
+      <span class="dom-nav-meta" id="nav-progress"></span>
+    </nav>
+
+    <!-- ══════════════════════════════════════
      START SCREEN
 ══════════════════════════════════════ -->
-<div data-screen="landing" class="dom-screen active">
-  <div class="start-hero">
-    <h1>🧠 Body Map</h1>
-    <p>Learn all 47 US Presidents using your own body as a memory map!</p>
-  </div>
+    <div data-screen="landing" class="dom-screen active">
+      <div class="start-hero">
+        <h1>🧠 Body Map</h1>
+        <p>Learn all 47 US Presidents using your own body as a memory map!</p>
+      </div>
 
-  <div class="technique-box">
-    <h3>🔑 The Technique: Body Peg System</h3>
-    <p>
-      Your body has 10 stations — from <b>Toes</b> at the bottom to the <b>Top of your Head</b>.
-      Each president gets assigned to one station. To remember them, imagine a
-      <b>silly, vivid scene</b> with that president doing something funny on that body part.
-      The crazier the image, the better your brain remembers it!
-    </p>
-  </div>
+      <div class="technique-box">
+        <h3>🔑 The Technique: Body Peg System</h3>
+        <p>
+          Your body has 10 stations — from <b>Toes</b> at the bottom to the <b>Top of your Head</b>. Each president gets
+          assigned to one station. To remember them, imagine a <b>silly, vivid scene</b> with that president doing
+          something funny on that body part. The crazier the image, the better your brain remembers it!
+        </p>
+      </div>
 
-  <div class="batch-grid" id="batch-grid"></div>
-</div>
+      <div class="batch-grid" id="batch-grid"></div>
+    </div>
 
-<!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
      LEARN SCREEN
 ══════════════════════════════════════ -->
-<div data-screen="learn" class="dom-screen" style="flex-direction:column;">
-  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="learn-bar"></div></div>
+    <div data-screen="learn" class="dom-screen" style="flex-direction: column">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="learn-bar"></div></div>
 
-  <div class="learn-main">
-    <!-- Body -->
-    <div class="body-panel">
-      <div class="body-label" id="zone-label">Toes</div>
-      <svg id="body-svg" viewBox="0 0 200 540" xmlns="http://www.w3.org/2000/svg">
-        <!-- Arms (decorative, not zones) -->
-        <rect class="arm-decor" x="32" y="120" width="28" height="58" rx="12"/>
-        <rect class="arm-decor" x="140" y="120" width="28" height="58" rx="12"/>
-        <rect class="arm-decor" x="24"  y="175" width="22" height="55" rx="10"/>
-        <rect class="arm-decor" x="154" y="175" width="22" height="55" rx="10"/>
-        <ellipse class="arm-decor" cx="35"  cy="238" rx="17" ry="13"/>
-        <ellipse class="arm-decor" cx="165" cy="238" rx="17" ry="13"/>
+      <div class="learn-main">
+        <!-- Body -->
+        <div class="body-panel">
+          <div class="body-label" id="zone-label">Toes</div>
+          <svg id="body-svg" viewBox="0 0 200 540" xmlns="http://www.w3.org/2000/svg">
+            <!-- Arms (decorative, not zones) -->
+            <rect class="arm-decor" x="32" y="120" width="28" height="58" rx="12" />
+            <rect class="arm-decor" x="140" y="120" width="28" height="58" rx="12" />
+            <rect class="arm-decor" x="24" y="175" width="22" height="55" rx="10" />
+            <rect class="arm-decor" x="154" y="175" width="22" height="55" rx="10" />
+            <ellipse class="arm-decor" cx="35" cy="238" rx="17" ry="13" />
+            <ellipse class="arm-decor" cx="165" cy="238" rx="17" ry="13" />
 
-        <!-- Zone 10: HEAD -->
-        <g id="zone-head" class="body-zone" data-zone="head">
-          <ellipse cx="100" cy="48" rx="40" ry="44"/>
-        </g>
-        <!-- Face (always on top, no zone coloring) -->
-        <g id="face" pointer-events="none">
-          <circle cx="87"  cy="40" r="4"   fill="#3D2B1F"/>
-          <circle cx="113" cy="40" r="4"   fill="#3D2B1F"/>
-          <path d="M86 58 Q100 70 114 58" stroke="#3D2B1F" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <path d="M83 32 Q88 28 93 32" stroke="#3D2B1F" stroke-width="1.8" fill="none"/>
-          <path d="M107 32 Q112 28 117 32" stroke="#3D2B1F" stroke-width="1.8" fill="none"/>
-        </g>
+            <!-- Zone 10: HEAD -->
+            <g id="zone-head" class="body-zone" data-zone="head">
+              <ellipse cx="100" cy="48" rx="40" ry="44" />
+            </g>
+            <!-- Face (always on top, no zone coloring) -->
+            <g id="face" pointer-events="none">
+              <circle cx="87" cy="40" r="4" fill="#3D2B1F" />
+              <circle cx="113" cy="40" r="4" fill="#3D2B1F" />
+              <path d="M86 58 Q100 70 114 58" stroke="#3D2B1F" stroke-width="2.5" fill="none" stroke-linecap="round" />
+              <path d="M83 32 Q88 28 93 32" stroke="#3D2B1F" stroke-width="1.8" fill="none" />
+              <path d="M107 32 Q112 28 117 32" stroke="#3D2B1F" stroke-width="1.8" fill="none" />
+            </g>
 
-        <!-- Zone 9: NECK -->
-        <g id="zone-neck" class="body-zone" data-zone="neck">
-          <rect x="82" y="91" width="36" height="30" rx="8"/>
-        </g>
+            <!-- Zone 9: NECK -->
+            <g id="zone-neck" class="body-zone" data-zone="neck">
+              <rect x="82" y="91" width="36" height="30" rx="8" />
+            </g>
 
-        <!-- Zone 8: SHOULDERS -->
-        <g id="zone-shoulders" class="body-zone" data-zone="shoulders">
-          <ellipse cx="56"  cy="120" rx="28" ry="20"/>
-          <ellipse cx="144" cy="120" rx="28" ry="20"/>
-        </g>
+            <!-- Zone 8: SHOULDERS -->
+            <g id="zone-shoulders" class="body-zone" data-zone="shoulders">
+              <ellipse cx="56" cy="120" rx="28" ry="20" />
+              <ellipse cx="144" cy="120" rx="28" ry="20" />
+            </g>
 
-        <!-- Zone 7: CHEST -->
-        <g id="zone-chest" class="body-zone" data-zone="chest">
-          <rect x="60" y="118" width="80" height="68" rx="14"/>
-        </g>
+            <!-- Zone 7: CHEST -->
+            <g id="zone-chest" class="body-zone" data-zone="chest">
+              <rect x="60" y="118" width="80" height="68" rx="14" />
+            </g>
 
-        <!-- Zone 6: BELLY -->
-        <g id="zone-belly" class="body-zone" data-zone="belly">
-          <rect x="64" y="186" width="72" height="58" rx="10"/>
-        </g>
+            <!-- Zone 6: BELLY -->
+            <g id="zone-belly" class="body-zone" data-zone="belly">
+              <rect x="64" y="186" width="72" height="58" rx="10" />
+            </g>
 
-        <!-- Zone 5: THIGHS -->
-        <g id="zone-thighs" class="body-zone" data-zone="thighs">
-          <rect x="64"  y="244" width="30" height="68" rx="12"/>
-          <rect x="106" y="244" width="30" height="68" rx="12"/>
-        </g>
+            <!-- Zone 5: THIGHS -->
+            <g id="zone-thighs" class="body-zone" data-zone="thighs">
+              <rect x="64" y="244" width="30" height="68" rx="12" />
+              <rect x="106" y="244" width="30" height="68" rx="12" />
+            </g>
 
-        <!-- Zone 4: KNEES -->
-        <g id="zone-knees" class="body-zone" data-zone="knees">
-          <ellipse cx="79"  cy="320" rx="22" ry="15"/>
-          <ellipse cx="121" cy="320" rx="22" ry="15"/>
-        </g>
+            <!-- Zone 4: KNEES -->
+            <g id="zone-knees" class="body-zone" data-zone="knees">
+              <ellipse cx="79" cy="320" rx="22" ry="15" />
+              <ellipse cx="121" cy="320" rx="22" ry="15" />
+            </g>
 
-        <!-- Zone 3: SHINS -->
-        <g id="zone-shins" class="body-zone" data-zone="shins">
-          <rect x="62"  y="334" width="30" height="66" rx="10"/>
-          <rect x="108" y="334" width="30" height="66" rx="10"/>
-        </g>
+            <!-- Zone 3: SHINS -->
+            <g id="zone-shins" class="body-zone" data-zone="shins">
+              <rect x="62" y="334" width="30" height="66" rx="10" />
+              <rect x="108" y="334" width="30" height="66" rx="10" />
+            </g>
 
-        <!-- Zone 2: FEET -->
-        <g id="zone-feet" class="body-zone" data-zone="feet">
-          <ellipse cx="77"  cy="410" rx="30" ry="14"/>
-          <ellipse cx="123" cy="410" rx="30" ry="14"/>
-        </g>
+            <!-- Zone 2: FEET -->
+            <g id="zone-feet" class="body-zone" data-zone="feet">
+              <ellipse cx="77" cy="410" rx="30" ry="14" />
+              <ellipse cx="123" cy="410" rx="30" ry="14" />
+            </g>
 
-        <!-- Zone 1: TOES -->
-        <g id="zone-toes" class="body-zone" data-zone="toes">
-          <circle cx="52"  cy="423" r="7"/>
-          <circle cx="64"  cy="427" r="7"/>
-          <circle cx="77"  cy="429" r="7"/>
-          <circle cx="89"  cy="427" r="7"/>
-          <circle cx="100" cy="423" r="6"/>
-          <circle cx="100" cy="423" r="6"/>
-          <circle cx="111" cy="427" r="7"/>
-          <circle cx="124" cy="429" r="7"/>
-          <circle cx="136" cy="427" r="7"/>
-          <circle cx="148" cy="423" r="6"/>
-        </g>
-      </svg>
+            <!-- Zone 1: TOES -->
+            <g id="zone-toes" class="body-zone" data-zone="toes">
+              <circle cx="52" cy="423" r="7" />
+              <circle cx="64" cy="427" r="7" />
+              <circle cx="77" cy="429" r="7" />
+              <circle cx="89" cy="427" r="7" />
+              <circle cx="100" cy="423" r="6" />
+              <circle cx="100" cy="423" r="6" />
+              <circle cx="111" cy="427" r="7" />
+              <circle cx="124" cy="429" r="7" />
+              <circle cx="136" cy="427" r="7" />
+              <circle cx="148" cy="423" r="6" />
+            </g>
+          </svg>
+        </div>
+
+        <!-- Info Card -->
+        <div class="info-panel" id="learn-info"></div>
+      </div>
+
+      <div class="learn-footer">
+        <button class="dom-btn dom-btn--ghost" id="btn-prev"><i class="ti ti-arrow-left"></i> Back</button>
+        <div class="learn-footer-center">
+          <div class="step-indicator" id="step-indicator">President 1 of 10</div>
+          <div class="step-dots" id="step-dots"></div>
+        </div>
+        <button class="dom-btn dom-btn--primary" id="btn-next">Next <i class="ti ti-arrow-right"></i></button>
+      </div>
     </div>
 
-    <!-- Info Card -->
-    <div class="info-panel" id="learn-info"></div>
-  </div>
-
-  <div class="learn-footer">
-    <button class="dom-btn dom-btn--ghost" id="btn-prev">
-      <i class="ti ti-arrow-left"></i> Back
-    </button>
-    <div class="learn-footer-center">
-      <div class="step-indicator" id="step-indicator">President 1 of 10</div>
-      <div class="step-dots" id="step-dots"></div>
-    </div>
-    <button class="dom-btn dom-btn--primary" id="btn-next">
-      Next <i class="ti ti-arrow-right"></i>
-    </button>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
      QUIZ SCREEN
 ══════════════════════════════════════ -->
-<div data-screen="quiz" class="dom-screen" style="flex-direction:column;">
-  <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-bar"></div></div>
+    <div data-screen="quiz" class="dom-screen" style="flex-direction: column">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-bar"></div></div>
 
-  <div class="quiz-main">
-    <!-- Body (same SVG cloned via JS) -->
-    <div class="body-panel" id="quiz-body-panel">
-      <div class="body-label" id="quiz-zone-label">Toes</div>
+      <div class="quiz-main">
+        <!-- Body (same SVG cloned via JS) -->
+        <div class="body-panel" id="quiz-body-panel">
+          <div class="body-label" id="quiz-zone-label">Toes</div>
+        </div>
+
+        <div class="quiz-q-panel">
+          <div class="quiz-prompt" id="quiz-prompt">Who is at the…</div>
+          <div class="quiz-question" id="quiz-question">TOES?</div>
+          <div class="options-grid" id="quiz-options"></div>
+        </div>
+      </div>
+
+      <div class="quiz-footer">
+        <div class="quiz-score-live">Score: <b id="quiz-score-live">0</b></div>
+        <div class="step-dots" id="quiz-dots"></div>
+      </div>
     </div>
 
-    <div class="quiz-q-panel">
-      <div class="quiz-prompt" id="quiz-prompt">Who is at the…</div>
-      <div class="quiz-question" id="quiz-question">TOES?</div>
-      <div class="options-grid" id="quiz-options"></div>
-    </div>
-  </div>
-
-  <div class="quiz-footer">
-    <div class="quiz-score-live">Score: <b id="quiz-score-live">0</b></div>
-    <div class="step-dots" id="quiz-dots"></div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════
+    <!-- ══════════════════════════════════════
      SCORE SCREEN
 ══════════════════════════════════════ -->
-<div data-screen="score" class="dom-screen">
-  <div class="score-emoji" id="score-emoji">🌟</div>
-  <div class="score-title" id="score-title">Quiz Complete!</div>
-  <div class="score-num" id="score-num">8</div>
-  <div class="score-out" id="score-out">out of 10 correct</div>
-  <div class="score-sub" id="score-sub">Keep practicing the body map!</div>
-  <div class="score-btns">
-    <button class="dom-btn dom-btn--ghost" id="btn-replay"><i class="ti ti-arrow-back-up"></i> Try Again</button>
-    <button class="dom-btn dom-btn--ghost" id="btn-all-batches"><i class="ti ti-layout-list"></i> All Batches</button>
-    <button class="dom-btn dom-btn--gold"  id="btn-next-batch"><i class="ti ti-arrow-right"></i> Next Batch</button>
-  </div>
-</div>
+    <div data-screen="score" class="dom-screen">
+      <div class="score-emoji" id="score-emoji">🌟</div>
+      <div class="score-title" id="score-title">Quiz Complete!</div>
+      <div class="score-num" id="score-num">8</div>
+      <div class="score-out" id="score-out">out of 10 correct</div>
+      <div class="score-sub" id="score-sub">Keep practicing the body map!</div>
+      <div class="score-btns">
+        <button class="dom-btn dom-btn--ghost" id="btn-replay"><i class="ti ti-arrow-back-up"></i> Try Again</button>
+        <button class="dom-btn dom-btn--ghost" id="btn-all-batches">
+          <i class="ti ti-layout-list"></i> All Batches
+        </button>
+        <button class="dom-btn dom-btn--gold" id="btn-next-batch"><i class="ti ti-arrow-right"></i> Next Batch</button>
+      </div>
+    </div>
 
-<script src="../../shared/navigation.js"></script>
-<script src="game.js"></script>
+    <script src="../../shared/navigation.js"></script>
+    <script src="game.js"></script>
 
-<script src="../../shared/analytics.js"></script>
-<div id="ad-container"></div>
-<script src="../../shared/ads.js"></script>
-</body>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
 </html>

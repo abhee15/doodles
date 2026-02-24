@@ -21,11 +21,11 @@ const colors = {
 };
 
 const log = {
-  error: (msg) => console.log(`${colors.red}❌ ${msg}${colors.reset}`),
-  warn: (msg) => console.log(`${colors.yellow}⚠️  ${msg}${colors.reset}`),
-  ok: (msg) => console.log(`${colors.green}✅ ${msg}${colors.reset}`),
-  info: (msg) => console.log(`${colors.cyan}ℹ️  ${msg}${colors.reset}`),
-  header: (msg) => console.log(`\n${colors.blue}${msg}${colors.reset}`)
+  error: msg => console.log(`${colors.red}❌ ${msg}${colors.reset}`),
+  warn: msg => console.log(`${colors.yellow}⚠️  ${msg}${colors.reset}`),
+  ok: msg => console.log(`${colors.green}✅ ${msg}${colors.reset}`),
+  info: msg => console.log(`${colors.cyan}ℹ️  ${msg}${colors.reset}`),
+  header: msg => console.log(`\n${colors.blue}${msg}${colors.reset}`)
 };
 
 /**
@@ -42,7 +42,7 @@ function auditGame(gameDir, gameName) {
   // ============ REQUIRED FILES ============
   if (!fs.existsSync(indexPath)) {
     errors.push('Missing index.html');
-    return { errors, warnings };  // Can't continue without HTML
+    return { errors, warnings }; // Can't continue without HTML
   }
 
   if (!fs.existsSync(gamePath)) {
@@ -55,8 +55,10 @@ function auditGame(gameDir, gameName) {
   // ============ NAVIGATION STRUCTURE ============
 
   // Check for nav bar
-  if (!indexContent.includes('<nav class="dom-nav">') &&
-      !indexContent.includes('<nav class="navbar">')) {
+  if (
+    !indexContent.includes('<nav class="dom-nav">') &&
+    !indexContent.includes('<nav class="navbar">')
+  ) {
     errors.push('Missing proper nav bar (should be <nav class="dom-nav">)');
   }
 
@@ -71,7 +73,9 @@ function auditGame(gameDir, gameName) {
     if (match) {
       const href = match[1];
       if (!href.includes('../../index.html#')) {
-        errors.push(`Invalid back button href: "${href}" (should link to ../../index.html#${gameName})`);
+        errors.push(
+          `Invalid back button href: "${href}" (should link to ../../index.html#${gameName})`
+        );
       }
     }
   }
@@ -165,7 +169,8 @@ function auditGame(gameDir, gameName) {
 
   // Check for external links (should be minimal)
   const externalLinks = (indexContent.match(/href="https?:\/\//g) || []).length;
-  if (externalLinks > 2) {  // Allow analytics and cdn
+  if (externalLinks > 2) {
+    // Allow analytics and cdn
     warnings.push(`Found ${externalLinks} external links (minimize external dependencies)`);
   }
 
@@ -190,7 +195,8 @@ function runAudit() {
     process.exit(1);
   }
 
-  const games = fs.readdirSync(gamesDir)
+  const games = fs
+    .readdirSync(gamesDir)
     .filter(f => fs.statSync(path.join(gamesDir, f)).isDirectory());
 
   if (games.length === 0) {

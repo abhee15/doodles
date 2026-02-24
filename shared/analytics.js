@@ -8,7 +8,7 @@ const GA_MEASUREMENT_ID = 'G-GMLMMLZB3Y'; // Doodles Analytics
 (function () {
   // Initialize dataLayer first
   window.dataLayer = window.dataLayer || [];
-  function gtag(){
+  function gtag() {
     dataLayer.push(arguments);
   }
   window.gtag = gtag;
@@ -30,7 +30,7 @@ const GA_MEASUREMENT_ID = 'G-GMLMMLZB3Y'; // Doodles Analytics
 function trackGameStart(gameName) {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'game_start', {
-      'game_name': gameName
+      game_name: gameName
     });
   }
 }
@@ -38,9 +38,9 @@ function trackGameStart(gameName) {
 function trackGameEnd(gameName, score, duration) {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'game_end', {
-      'game_name': gameName,
-      'score': score,
-      'duration_seconds': duration
+      game_name: gameName,
+      score: score,
+      duration_seconds: duration
     });
   }
 }
@@ -48,9 +48,9 @@ function trackGameEnd(gameName, score, duration) {
 function trackLevelComplete(gameName, level, score) {
   if (typeof gtag !== 'undefined') {
     gtag('event', 'level_complete', {
-      'game_name': gameName,
-      'level': level,
-      'score': score
+      game_name: gameName,
+      level: level,
+      score: score
     });
   }
 }

@@ -26,15 +26,15 @@
  */
 function createInteractiveMap(scene, regions, options = {}) {
   const defaults = {
-    backgroundColor: 0x87CEEB,     // Sky blue
-    oceanColor: 0x4A90E2,          // Ocean blue
-    highlightColor: 0xFFFF00,      // Yellow highlight
-    borderColor: 0x000000,         // Black borders
+    backgroundColor: 0x87ceeb, // Sky blue
+    oceanColor: 0x4a90e2, // Ocean blue
+    highlightColor: 0xffff00, // Yellow highlight
+    borderColor: 0x000000, // Black borders
     borderWidth: 2,
     borderAlpha: 0.4,
-    onRegionClick: null,           // Callback when region clicked
-    onRegionHover: null,           // Callback when region hovered
-    showLabelsOnAnswer: true,      // Auto-label when answered
+    onRegionClick: null, // Callback when region clicked
+    onRegionHover: null, // Callback when region hovered
+    showLabelsOnAnswer: true, // Auto-label when answered
     labelStyle: {
       fontSize: '16px',
       fill: '#000000',
@@ -66,8 +66,8 @@ function createInteractiveMap(scene, regions, options = {}) {
   // Public API
   return {
     /**
-         * Mark a region as answered (highlight and label it)
-         */
+     * Mark a region as answered (highlight and label it)
+     */
     answerRegion(regionId) {
       if (answeredRegions.has(regionId)) {
         return false;
@@ -104,22 +104,22 @@ function createInteractiveMap(scene, regions, options = {}) {
     },
 
     /**
-         * Check if region is already answered
-         */
+     * Check if region is already answered
+     */
     isAnswered(regionId) {
       return answeredRegions.has(regionId);
     },
 
     /**
-         * Get region object for custom manipulation
-         */
+     * Get region object for custom manipulation
+     */
     getRegion(regionId) {
       return mapObjects[regionId];
     },
 
     /**
-         * Shake a region (for wrong answers)
-         */
+     * Shake a region (for wrong answers)
+     */
     shakeRegion(regionId) {
       const obj = mapObjects[regionId];
       if (!obj) {
@@ -138,15 +138,15 @@ function createInteractiveMap(scene, regions, options = {}) {
     },
 
     /**
-         * Get all region IDs
-         */
+     * Get all region IDs
+     */
     getAllRegionIds() {
       return Object.keys(regions);
     },
 
     /**
-         * Reset the map (clear all answers)
-         */
+     * Reset the map (clear all answers)
+     */
     reset() {
       answeredRegions.clear();
       Object.values(mapObjects).forEach(obj => {
@@ -169,10 +169,7 @@ function renderLandRegion(scene, id, region, mapObjects, config) {
   const polygon = scene.add.polygon(0, 0, region.points, region.color, 1);
   polygon.setOrigin(0);
   polygon.setStrokeStyle(config.borderWidth, config.borderColor, config.borderAlpha);
-  polygon.setInteractive(
-    new Phaser.Geom.Polygon(region.points),
-    Phaser.Geom.Polygon.Contains
-  );
+  polygon.setInteractive(new Phaser.Geom.Polygon(region.points), Phaser.Geom.Polygon.Contains);
 
   mapObjects[id] = {
     polygons: [polygon],
@@ -211,11 +208,8 @@ function renderOceanRegion(scene, id, region, mapObjects, config) {
   const polygons = [];
 
   region.areas.forEach(area => {
-    const rect = scene.add.rectangle(
-      area.x, area.y, area.width, area.height,
-      config.oceanColor, 0
-    );
-    rect.setStrokeStyle(3, 0xFFFFFF, 0.5);
+    const rect = scene.add.rectangle(area.x, area.y, area.width, area.height, config.oceanColor, 0);
+    rect.setStrokeStyle(3, 0xffffff, 0.5);
     rect.setInteractive({ useHandCursor: true });
 
     rect.on('pointerover', () => {
@@ -237,15 +231,18 @@ function renderOceanRegion(scene, id, region, mapObjects, config) {
 
   // Create label (hidden initially)
   const firstArea = region.areas[0];
-  const label = scene.add.text(firstArea.labelX || firstArea.x, firstArea.labelY || firstArea.y, region.name, {
-    fontSize: '16px',
-    fill: '#FFFFFF',
-    fontFamily: 'Arial',
-    align: 'center',
-    fontStyle: 'bold',
-    stroke: '#000000',
-    strokeThickness: 3
-  }).setOrigin(0.5).setVisible(false);
+  const label = scene.add
+    .text(firstArea.labelX || firstArea.x, firstArea.labelY || firstArea.y, region.name, {
+      fontSize: '16px',
+      fill: '#FFFFFF',
+      fontFamily: 'Arial',
+      align: 'center',
+      fontStyle: 'bold',
+      stroke: '#000000',
+      strokeThickness: 3
+    })
+    .setOrigin(0.5)
+    .setVisible(false);
 
   mapObjects[id] = {
     polygons: polygons,
@@ -269,12 +266,9 @@ function showRegionLabel(scene, obj, region, config) {
 
   // Land region - create new label
   const bounds = obj.polygons[0].getBounds();
-  const labelText = scene.add.text(
-    bounds.centerX,
-    bounds.centerY,
-    region.name,
-    config.labelStyle
-  ).setOrigin(0.5);
+  const labelText = scene.add
+    .text(bounds.centerX, bounds.centerY, region.name, config.labelStyle)
+    .setOrigin(0.5);
   labelText.setDepth(1500);
   obj.text = labelText;
 }

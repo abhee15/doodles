@@ -1,50 +1,180 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Element SVG Preview — H to Ca</title>
-<style>
-  :root{--card-size:320px;--gap:18px}
-  body{font-family:Inter, system-ui, Arial; margin:24px; background:#f6f8fb}
-  h1{font-size:20px;margin:0 0 18px}
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(var(--card-size),1fr));gap:var(--gap)}
-  .card{background:#fff;border-radius:12px;padding:12px;box-shadow:0 6px 18px rgba(22,36,66,0.06);display:flex;flex-direction:column;align-items:center}
-  .card img{width:100%;height:auto;max-height:320px;border-radius:8px}
-  .label{margin-top:10px;font-weight:600;font-size:14px;color:#0f1b2b}
-  .sub{font-size:12px;color:#516074}
-  @media print{
-    body{margin:6mm}
-    .grid{gap:6mm}
-    .card{box-shadow:none;border:1px solid #eee;break-inside:avoid;page-break-inside:avoid}
-    .card img{max-height:180mm;width:180mm}
-  }
-</style>
-</head>
-<body>
-  <h1>Element SVG Preview — Hydrogen (H 1) to Calcium (Ca 20)</h1>
-  <div class="grid">
-    <div class="card"><img src="01_H_Hydrogen.svg" alt="Hydrogen"><div class="label">Hydrogen — H (1)</div><div class="sub">The tiny spark that starts the sea.</div></div>
-    <div class="card"><img src="02_He_Helium.svg" alt="Helium"><div class="label">Helium — He (2)</div><div class="sub">The bubble carries the spark up.</div></div>
-    <div class="card"><img src="03_Li_Lithium.svg" alt="Lithium"><div class="label">Lithium — Li (3)</div><div class="sub">The fox strikes a little spark.</div></div>
-    <div class="card"><img src="04_Be_Beryllium.svg" alt="Beryllium"><div class="label">Beryllium — Be (4)</div><div class="sub">The humming silver shield.</div></div>
-    <div class="card"><img src="05_B_Boron.svg" alt="Boron"><div class="label">Boron — B (5)</div><div class="sub">The angular gate opens.</div></div>
-    <div class="card"><img src="06_C_Carbon.svg" alt="Carbon"><div class="label">Carbon — C (6)</div><div class="sub">The blacksmith with a coal heart.</div></div>
-    <div class="card"><img src="07_N_Nitrogen.svg" alt="Nitrogen"><div class="label">Nitrogen — N (7)</div><div class="sub">The drifting blue rain-mist.</div></div>
-    <div class="card"><img src="08_O_Oxygen.svg" alt="Oxygen"><div class="label">Oxygen — O (8)</div><div class="sub">The winged breath that wakes seeds.</div></div>
-    <div class="card"><img src="09_F_Fluorine.svg" alt="Fluorine"><div class="label">Fluorine — F (9)</div><div class="sub">The cleaning turquoise falcon.</div></div>
-    <div class="card"><img src="10_Ne_Neon.svg" alt="Neon"><div class="label">Neon — Ne (10)</div><div class="sub">The lantern that draws neon signs.</div></div>
-    <div class="card"><img src="11_Na_Sodium.svg" alt="Sodium"><div class="label">Sodium — Na (11)</div><div class="sub">The salt-sprite dancing on the river.</div></div>
-    <div class="card"><img src="12_Mg_Magnesium.svg" alt="Magnesium"><div class="label">Magnesium — Mg (12)</div><div class="sub">The drummer that lights the bank.</div></div>
-    <div class="card"><img src="13_Al_Aluminum.svg" alt="Aluminum"><div class="label">Aluminum — Al (13)</div><div class="sub">The folding shiny bridge.</div></div>
-    <div class="card"><img src="14_Si_Silicon.svg" alt="Silicon"><div class="label">Silicon — Si (14)</div><div class="sub">The carver chiseling the map.</div></div>
-    <div class="card"><img src="15_P_Phosphorus.svg" alt="Phosphorus"><div class="label">Phosphorus — P (15)</div><div class="sub">The inner-glow lantern.</div></div>
-    <div class="card"><img src="16_S_Sulfur.svg" alt="Sulfur"><div class="label">Sulfur — S (16)</div><div class="sub">The peddler trailing golden dust.</div></div>
-    <div class="card"><img src="17_Cl_Chlorine.svg" alt="Chlorine"><div class="label">Chlorine — Cl (17)</div><div class="sub">The tide-witch swirling the river.</div></div>
-    <div class="card"><img src="18_Ar_Argon.svg" alt="Argon"><div class="label">Argon — Ar (18)</div><div class="sub">The glass watchman — still and calm.</div></div>
-    <div class="card"><img src="19_K_Potassium.svg" alt="Potassium"><div class="label">Potassium — K (19)</div><div class="sub">The gardener's green ladder-staff.</div></div>
-    <div class="card"><img src="20_Ca_Calcium.svg" alt="Calcium"><div class="label">Calcium — Ca (20)</div><div class="sub">The giant holding the horizon.</div></div>
-  </div>
-  <p style="margin-top:20px;font-size:13px;color:#4b5968">Tip: open this file in a browser and use print-to-PDF at 100% scale for printable flashcards. For image export, right-click each SVG and save, or use vector tools for batch export.</p>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Element SVG Preview — H to Ca</title>
+    <style>
+      :root {
+        --card-size: 320px;
+        --gap: 18px;
+      }
+      body {
+        font-family: Inter, system-ui, Arial;
+        margin: 24px;
+        background: #f6f8fb;
+      }
+      h1 {
+        font-size: 20px;
+        margin: 0 0 18px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(var(--card-size), 1fr));
+        gap: var(--gap);
+      }
+      .card {
+        background: #fff;
+        border-radius: 12px;
+        padding: 12px;
+        box-shadow: 0 6px 18px rgba(22, 36, 66, 0.06);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .card img {
+        width: 100%;
+        height: auto;
+        max-height: 320px;
+        border-radius: 8px;
+      }
+      .label {
+        margin-top: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #0f1b2b;
+      }
+      .sub {
+        font-size: 12px;
+        color: #516074;
+      }
+      @media print {
+        body {
+          margin: 6mm;
+        }
+        .grid {
+          gap: 6mm;
+        }
+        .card {
+          box-shadow: none;
+          border: 1px solid #eee;
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+        .card img {
+          max-height: 180mm;
+          width: 180mm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Element SVG Preview — Hydrogen (H 1) to Calcium (Ca 20)</h1>
+    <div class="grid">
+      <div class="card">
+        <img src="01_H_Hydrogen.svg" alt="Hydrogen" />
+        <div class="label">Hydrogen — H (1)</div>
+        <div class="sub">The tiny spark that starts the sea.</div>
+      </div>
+      <div class="card">
+        <img src="02_He_Helium.svg" alt="Helium" />
+        <div class="label">Helium — He (2)</div>
+        <div class="sub">The bubble carries the spark up.</div>
+      </div>
+      <div class="card">
+        <img src="03_Li_Lithium.svg" alt="Lithium" />
+        <div class="label">Lithium — Li (3)</div>
+        <div class="sub">The fox strikes a little spark.</div>
+      </div>
+      <div class="card">
+        <img src="04_Be_Beryllium.svg" alt="Beryllium" />
+        <div class="label">Beryllium — Be (4)</div>
+        <div class="sub">The humming silver shield.</div>
+      </div>
+      <div class="card">
+        <img src="05_B_Boron.svg" alt="Boron" />
+        <div class="label">Boron — B (5)</div>
+        <div class="sub">The angular gate opens.</div>
+      </div>
+      <div class="card">
+        <img src="06_C_Carbon.svg" alt="Carbon" />
+        <div class="label">Carbon — C (6)</div>
+        <div class="sub">The blacksmith with a coal heart.</div>
+      </div>
+      <div class="card">
+        <img src="07_N_Nitrogen.svg" alt="Nitrogen" />
+        <div class="label">Nitrogen — N (7)</div>
+        <div class="sub">The drifting blue rain-mist.</div>
+      </div>
+      <div class="card">
+        <img src="08_O_Oxygen.svg" alt="Oxygen" />
+        <div class="label">Oxygen — O (8)</div>
+        <div class="sub">The winged breath that wakes seeds.</div>
+      </div>
+      <div class="card">
+        <img src="09_F_Fluorine.svg" alt="Fluorine" />
+        <div class="label">Fluorine — F (9)</div>
+        <div class="sub">The cleaning turquoise falcon.</div>
+      </div>
+      <div class="card">
+        <img src="10_Ne_Neon.svg" alt="Neon" />
+        <div class="label">Neon — Ne (10)</div>
+        <div class="sub">The lantern that draws neon signs.</div>
+      </div>
+      <div class="card">
+        <img src="11_Na_Sodium.svg" alt="Sodium" />
+        <div class="label">Sodium — Na (11)</div>
+        <div class="sub">The salt-sprite dancing on the river.</div>
+      </div>
+      <div class="card">
+        <img src="12_Mg_Magnesium.svg" alt="Magnesium" />
+        <div class="label">Magnesium — Mg (12)</div>
+        <div class="sub">The drummer that lights the bank.</div>
+      </div>
+      <div class="card">
+        <img src="13_Al_Aluminum.svg" alt="Aluminum" />
+        <div class="label">Aluminum — Al (13)</div>
+        <div class="sub">The folding shiny bridge.</div>
+      </div>
+      <div class="card">
+        <img src="14_Si_Silicon.svg" alt="Silicon" />
+        <div class="label">Silicon — Si (14)</div>
+        <div class="sub">The carver chiseling the map.</div>
+      </div>
+      <div class="card">
+        <img src="15_P_Phosphorus.svg" alt="Phosphorus" />
+        <div class="label">Phosphorus — P (15)</div>
+        <div class="sub">The inner-glow lantern.</div>
+      </div>
+      <div class="card">
+        <img src="16_S_Sulfur.svg" alt="Sulfur" />
+        <div class="label">Sulfur — S (16)</div>
+        <div class="sub">The peddler trailing golden dust.</div>
+      </div>
+      <div class="card">
+        <img src="17_Cl_Chlorine.svg" alt="Chlorine" />
+        <div class="label">Chlorine — Cl (17)</div>
+        <div class="sub">The tide-witch swirling the river.</div>
+      </div>
+      <div class="card">
+        <img src="18_Ar_Argon.svg" alt="Argon" />
+        <div class="label">Argon — Ar (18)</div>
+        <div class="sub">The glass watchman — still and calm.</div>
+      </div>
+      <div class="card">
+        <img src="19_K_Potassium.svg" alt="Potassium" />
+        <div class="label">Potassium — K (19)</div>
+        <div class="sub">The gardener's green ladder-staff.</div>
+      </div>
+      <div class="card">
+        <img src="20_Ca_Calcium.svg" alt="Calcium" />
+        <div class="label">Calcium — Ca (20)</div>
+        <div class="sub">The giant holding the horizon.</div>
+      </div>
+    </div>
+    <p style="margin-top: 20px; font-size: 13px; color: #4b5968">
+      Tip: open this file in a browser and use print-to-PDF at 100% scale for printable flashcards. For image export,
+      right-click each SVG and save, or use vector tools for batch export.
+    </p>
+  </body>
 </html>

@@ -46,11 +46,13 @@ The **Map Engine** is a reusable foundation for creating interactive geography g
 ## 📖 Quick Start: Build USA States Explorer
 
 ### **Step 1: Create Game Directory**
+
 ```bash
 mkdir games/usa-states-explorer
 ```
 
 ### **Step 2: Copy Template Files**
+
 ```bash
 # Copy index.html from Earth Explorer
 cp games/earth-explorer/index.html games/usa-states-explorer/
@@ -66,39 +68,36 @@ Create `games/usa-states-explorer/map-data.js`:
 ```javascript
 // USA States map data
 const STATE_COLORS = {
-    california: 0xFFD700,
-    texas: 0xFF6B6B,
-    florida: 0x87CEEB,
-    // ... etc
+  california: 0xffd700,
+  texas: 0xff6b6b,
+  florida: 0x87ceeb
+  // ... etc
 };
 
 const STATES = {
-    california: {
-        name: 'California',
-        color: STATE_COLORS.california,
-        funFact: 'California has the most people of any US state!',
-        points: [
-            // Polygon coordinates for California shape
-            120, 200,
-            140, 250,
-            160, 300,
-            // ... more points
-        ]
-    },
+  california: {
+    name: 'California',
+    color: STATE_COLORS.california,
+    funFact: 'California has the most people of any US state!',
+    points: [
+      // Polygon coordinates for California shape
+      120, 200, 140, 250, 160, 300
+      // ... more points
+    ]
+  },
 
-    texas: {
-        name: 'Texas',
-        color: STATE_COLORS.texas,
-        funFact: 'Texas is the second biggest state!',
-        points: [
-            // Polygon coordinates for Texas shape
-            300, 350,
-            350, 380,
-            // ... more points
-        ]
-    }
+  texas: {
+    name: 'Texas',
+    color: STATE_COLORS.texas,
+    funFact: 'Texas is the second biggest state!',
+    points: [
+      // Polygon coordinates for Texas shape
+      300, 350, 350, 380
+      // ... more points
+    ]
+  }
 
-    // ... 48 more states!
+  // ... 48 more states!
 };
 
 const ALL_REGIONS = { ...STATES };
@@ -119,12 +118,13 @@ Just change the game title and analytics:
 ### **Step 5: Add to Main Menu**
 
 Update `index.html`:
+
 ```html
 <div class="game-card">
-    <div class="game-icon">🗺️</div>
-    <h2>USA States</h2>
-    <p>Click on all 50 states!</p>
-    <a href="games/usa-states-explorer/index.html" class="play-btn">Play Now</a>
+  <div class="game-icon">🗺️</div>
+  <h2>USA States</h2>
+  <p>Click on all 50 states!</p>
+  <a href="games/usa-states-explorer/index.html" class="play-btn">Play Now</a>
 </div>
 ```
 
@@ -139,11 +139,13 @@ Update `index.html`:
 Creates an interactive clickable map.
 
 **Parameters:**
+
 - `scene` - Phaser scene object
 - `regions` - Object with region definitions
 - `options` - Configuration options
 
 **Options:**
+
 ```javascript
 {
     backgroundColor: 0x87CEEB,     // Sky blue
@@ -229,24 +231,28 @@ oceanId: {
 ## 🎯 Tips for Creating Polygon Coordinates
 
 ### **Method 1: Draw on Paper**
+
 1. Print a blank world map (900x650 pixels)
 2. Mark key points of the region
 3. Measure pixel coordinates
 4. Enter into points array
 
 ### **Method 2: Use Image Editor**
+
 1. Open world map in Photoshop/GIMP
 2. Use pen tool to trace region
 3. Export path coordinates
 4. Convert to array format
 
 ### **Method 3: Simplify Existing Data**
+
 1. Find SVG world maps online
 2. Extract path data
 3. Simplify to 15-25 key points
 4. Convert to our format
 
 ### **Method 4: Trial & Error**
+
 1. Start with rough approximation
 2. Test in game
 3. Adjust points until it looks right
@@ -257,22 +263,24 @@ oceanId: {
 ## 🌈 Color Recommendations
 
 ### **Kid-Friendly Color Palette:**
+
 ```javascript
 const COLORS = {
-    red: 0xFF6B6B,
-    orange: 0xFFB347,
-    yellow: 0xFFD93D,
-    green: 0xA8E6CF,
-    mint: 0x95E1D3,
-    blue: 0x87CEEB,
-    pink: 0xFF6B9D,
-    purple: 0xB19CD9,
-    coral: 0xFFAA85,
-    gray: 0xE0E0E0
+  red: 0xff6b6b,
+  orange: 0xffb347,
+  yellow: 0xffd93d,
+  green: 0xa8e6cf,
+  mint: 0x95e1d3,
+  blue: 0x87ceeb,
+  pink: 0xff6b9d,
+  purple: 0xb19cd9,
+  coral: 0xffaa85,
+  gray: 0xe0e0e0
 };
 ```
 
 **Tips:**
+
 - Use distinct colors for neighboring regions
 - Bright colors = more engaging for kids
 - Keep good contrast with labels
@@ -285,11 +293,13 @@ const COLORS = {
 **Standard:** 900px wide × 650px tall
 
 **Coordinate System:**
+
 - X: 0 (left) to 900 (right)
 - Y: 0 (top) to 650 (bottom)
 - Origin: Top-left corner
 
 **Safe Zones:**
+
 - Top: Reserve 60px for question text
 - Bottom: Reserve 50px for buttons
 - Sides: Leave 20px padding
@@ -301,21 +311,25 @@ const COLORS = {
 ## 🔧 Troubleshooting
 
 ### **Problem: Regions don't look accurate**
+
 - Add more polygon points (15-25 is good)
 - Test and adjust coordinates
 - Simplify complex shapes
 
 ### **Problem: Click detection not working**
+
 - Ensure polygon is closed (first point = last point OR let Phaser close it)
 - Check points are in clockwise or counter-clockwise order
 - Use `setInteractive()` with polygon geometry
 
 ### **Problem: Labels overlap**
+
 - Adjust label positions manually
 - Use smaller font sizes
 - Abbreviate long names
 
 ### **Problem: Colors look bad**
+
 - Test on actual device (not just desktop)
 - Use kid-friendly bright colors
 - Ensure good contrast
@@ -325,31 +339,34 @@ const COLORS = {
 ## 📚 Examples
 
 ### **Earth Explorer**
+
 - File: `games/earth-explorer/map-data.js`
 - Regions: 7 continents + 5 oceans
 - Shows both polygon (continents) and rectangular (oceans) regions
 
 ### **USA States (Template)**
+
 ```javascript
 const STATES = {
-    california: {
-        name: 'California',
-        color: 0xFFD700,
-        funFact: 'Hollywood is in California!',
-        points: [120,200, 140,250, 160,300, 140,340, 110,320, 100,260]
-    }
+  california: {
+    name: 'California',
+    color: 0xffd700,
+    funFact: 'Hollywood is in California!',
+    points: [120, 200, 140, 250, 160, 300, 140, 340, 110, 320, 100, 260]
+  }
 };
 ```
 
 ### **Europe Countries (Template)**
+
 ```javascript
 const COUNTRIES = {
-    france: {
-        name: 'France',
-        color: 0x0055A4,
-        funFact: 'The Eiffel Tower is in Paris, France!',
-        points: [450,220, 470,240, 460,260, 440,250, 430,230]
-    }
+  france: {
+    name: 'France',
+    color: 0x0055a4,
+    funFact: 'The Eiffel Tower is in Paris, France!',
+    points: [450, 220, 470, 240, 460, 260, 440, 250, 430, 230]
+  }
 };
 ```
 
@@ -376,6 +393,7 @@ const COUNTRIES = {
 ## 🚀 Future Enhancements
 
 **Planned Features:**
+
 - [ ] SVG map import tool
 - [ ] Visual polygon editor
 - [ ] Auto-generate coordinates from images

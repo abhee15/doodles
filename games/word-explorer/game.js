@@ -15,25 +15,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Color Palette - Coolors palette #D4E09B / #F6F4D2 / #CBDFBD / #F19C79 / #A44A3F
 const WORD_COLORS = {
-  primary: 0xA44A3F,        // Brick red
-  secondary: 0xF19C79,      // Peach
-  success: 0xA44A3F,        // Brick red
-  error: 0xA44A3F,          // Brick red
-  background: 0xF6F4D2,     // Cream
-  cardBg: 0xFFFFFF,         // White cards
+  primary: 0xa44a3f, // Brick red
+  secondary: 0xf19c79, // Peach
+  success: 0xa44a3f, // Brick red
+  error: 0xa44a3f, // Brick red
+  background: 0xf6f4d2, // Cream
+  cardBg: 0xffffff, // White cards
   text: COLORS.neutral.darkText.phaser,
-  textLight: 0x8B6456,      // Muted brick
-  accent: 0xF19C79,         // Peach
+  textLight: 0x8b6456, // Muted brick
+  accent: 0xf19c79, // Peach
   // Difficulty colors
-  difficulty1: 0xCBDFBD,    // Soft green - Easy
-  difficulty2: 0xD4E09B,    // Yellow-green - Medium
-  difficulty3: 0xA44A3F,    // Brick red - Hard
+  difficulty1: 0xcbdfbd, // Soft green - Easy
+  difficulty2: 0xd4e09b, // Yellow-green - Medium
+  difficulty3: 0xa44a3f, // Brick red - Hard
   // Category colors (one palette color each)
-  emotion: 0xF19C79,        // Peach
-  size: 0xA44A3F,           // Brick red
-  time: 0xD4E09B,           // Yellow-green
-  action: 0xCBDFBD,         // Soft green
-  concept: 0xF19C79         // Peach
+  emotion: 0xf19c79, // Peach
+  size: 0xa44a3f, // Brick red
+  time: 0xd4e09b, // Yellow-green
+  action: 0xcbdfbd, // Soft green
+  concept: 0xf19c79 // Peach
 };
 
 // ==================== CONFIGURATION ====================
@@ -322,37 +322,52 @@ function showMainMenu(scene) {
   currentScene = 'menu';
 
   // Background gradient effect
-  const bg = scene.add.rectangle(450, 325, 900, 650, 0xF6F4D2);
+  const bg = scene.add.rectangle(450, 325, 900, 650, 0xf6f4d2);
 
   // Title
-  scene.add.text(450, 100, '📖 Word Explorer', {
-    fontSize: '56px',
-    fill: '#A44A3F',
-    fontStyle: 'bold',
-    fontFamily: 'Arial'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 100, '📖 Word Explorer', {
+      fontSize: '56px',
+      fill: '#A44A3F',
+      fontStyle: 'bold',
+      fontFamily: 'Arial'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 160, 'Build Your Vocabulary!', {
-    fontSize: '24px',
-    fill: '#636E72',
-    fontFamily: 'Arial'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 160, 'Build Your Vocabulary!', {
+      fontSize: '24px',
+      fill: '#636E72',
+      fontFamily: 'Arial'
+    })
+    .setOrigin(0.5);
 
   // Progress summary
   const masteredWords = Object.values(wordProgress).filter(p => p.stars >= 2).length;
   const totalWords = WORD_DATABASE.easy.length;
 
-  scene.add.text(450, 220, `${masteredWords}/${totalWords} words mastered`, {
-    fontSize: '20px',
-    fill: '#A44A3F',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 220, `${masteredWords}/${totalWords} words mastered`, {
+      fontSize: '20px',
+      fill: '#A44A3F',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Start button
-  createButton(scene, 450, 300, 'Start Learning', WORD_COLORS.primary, () => {
-    showWordMap(scene);
-  }, 280, 70);
+  createButton(
+    scene,
+    450,
+    300,
+    'Start Learning',
+    WORD_COLORS.primary,
+    () => {
+      showWordMap(scene);
+    },
+    280,
+    70
+  );
 
   // Instructions
   const instructions = [
@@ -362,11 +377,13 @@ function showMainMenu(scene) {
   ];
 
   instructions.forEach((text, i) => {
-    scene.add.text(450, 400 + (i * 45), text, {
-      fontSize: '18px',
-      fill: '#1E293B',
-      fontFamily: 'Arial'
-    }).setOrigin(0.5);
+    scene.add
+      .text(450, 400 + i * 45, text, {
+        fontSize: '18px',
+        fill: '#1E293B',
+        fontFamily: 'Arial'
+      })
+      .setOrigin(0.5);
   });
 }
 
@@ -376,27 +393,31 @@ function showWordMap(scene) {
   currentScene = 'word-map';
 
   // Title
-  scene.add.text(450, 30, 'Choose a Word to Learn', {
-    fontSize: '36px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 30, 'Choose a Word to Learn', {
+      fontSize: '36px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Progress counter
   const words = WORD_DATABASE.easy;
   const learnedCount = Object.keys(wordProgress).filter(id => wordProgress[id].stars > 0).length;
   const totalWords = words.length;
 
-  const progressBg = scene.add.rectangle(450, 70, 350, 40, 0xFFFFFF);
-  progressBg.setStrokeStyle(2, 0xE9ECEF);
+  const progressBg = scene.add.rectangle(450, 70, 350, 40, 0xffffff);
+  progressBg.setStrokeStyle(2, 0xe9ecef);
 
-  scene.add.text(450, 70, `Words Mastered: ${learnedCount}/${totalWords} 📚`, {
-    fontSize: '18px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 70, `Words Mastered: ${learnedCount}/${totalWords} 📚`, {
+      fontSize: '18px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Legend - Category colors
   const legendY = 70;
@@ -444,16 +465,29 @@ function showWordMap(scene) {
   });
 
   // Back button
-  createButton(scene, 100, 605, '← Menu', WORD_COLORS.textLight, () => {
-    showMainMenu(scene);
-  }, 140, 50);
+  createButton(
+    scene,
+    100,
+    605,
+    '← Menu',
+    WORD_COLORS.textLight,
+    () => {
+      showMainMenu(scene);
+    },
+    140,
+    50
+  );
 }
 
 function createWordCard(scene, x, y, wordData, width, height) {
   const progress = wordProgress[wordData.id] || { stars: 0, attempts: 0 };
   const categoryInfo = CATEGORY_INFO[wordData.category];
-  const difficultyColor = wordData.difficulty === 1 ? WORD_COLORS.difficulty1 :
-    wordData.difficulty === 2 ? WORD_COLORS.difficulty2 : WORD_COLORS.difficulty3;
+  const difficultyColor =
+    wordData.difficulty === 1
+      ? WORD_COLORS.difficulty1
+      : wordData.difficulty === 2
+        ? WORD_COLORS.difficulty2
+        : WORD_COLORS.difficulty3;
 
   // Card shadow
   const shadow = scene.add.rectangle(x, y + 3, width, height, 0x000000, 0.1);
@@ -468,42 +502,52 @@ function createWordCard(scene, x, y, wordData, width, height) {
   accentBar.setOrigin(0.5);
 
   // Category icon (top right)
-  const categoryIcon = scene.add.text(x + width / 2 - 20, y - height / 2 + 15, categoryInfo.icon, {
-    fontSize: '20px'
-  }).setOrigin(0.5);
+  const categoryIcon = scene.add
+    .text(x + width / 2 - 20, y - height / 2 + 15, categoryInfo.icon, {
+      fontSize: '20px'
+    })
+    .setOrigin(0.5);
 
   // Word text
-  const wordText = scene.add.text(x, y - 25, wordData.word, {
-    fontSize: '18px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    fontStyle: 'bold',
-    align: 'center',
-    wordWrap: { width: width - 20 }
-  }).setOrigin(0.5);
+  const wordText = scene.add
+    .text(x, y - 25, wordData.word, {
+      fontSize: '18px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      fontStyle: 'bold',
+      align: 'center',
+      wordWrap: { width: width - 20 }
+    })
+    .setOrigin(0.5);
 
   // Phonetic
-  const phoneticText = scene.add.text(x, y, wordData.phonetic, {
-    fontSize: '14px',
-    fill: '#475569',
-    fontFamily: 'Arial',
-    align: 'center'
-  }).setOrigin(0.5);
+  const phoneticText = scene.add
+    .text(x, y, wordData.phonetic, {
+      fontSize: '14px',
+      fill: '#475569',
+      fontFamily: 'Arial',
+      align: 'center'
+    })
+    .setOrigin(0.5);
 
   // Stars
   const starsText = getStarDisplay(progress.stars);
-  const stars = scene.add.text(x, y + 30, starsText, {
-    fontSize: '18px',
-    fill: '#F19C79'
-  }).setOrigin(0.5);
+  const stars = scene.add
+    .text(x, y + 30, starsText, {
+      fontSize: '18px',
+      fill: '#F19C79'
+    })
+    .setOrigin(0.5);
 
   // Mastered badge
   if (progress.stars === 3) {
-    scene.add.text(x + width / 2 - 15, y + height / 2 - 15, '✓', {
-      fontSize: '20px',
-      fill: '#A44A3F',
-      fontStyle: 'bold'
-    }).setOrigin(0.5);
+    scene.add
+      .text(x + width / 2 - 15, y + height / 2 - 15, '✓', {
+        fontSize: '20px',
+        fill: '#A44A3F',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0.5);
   }
 
   // Hover tooltip variables
@@ -522,27 +566,44 @@ function createWordCard(scene, x, y, wordData, width, height) {
     const tooltipX = x > 450 ? x - tooltipWidth / 2 - 100 : x + tooltipWidth / 2 + 100;
     const tooltipY = y;
 
-    tooltipBg = scene.add.rectangle(tooltipX, tooltipY, tooltipWidth, tooltipHeight, 0x1E293B, 0.95);
+    tooltipBg = scene.add.rectangle(
+      tooltipX,
+      tooltipY,
+      tooltipWidth,
+      tooltipHeight,
+      0x1e293b,
+      0.95
+    );
     tooltipBg.setStrokeStyle(2, categoryInfo.color);
     tooltipBg.setDepth(100);
 
-    tooltip = scene.add.text(tooltipX, tooltipY + 10, wordData.definition, {
-      fontSize: '13px',
-      fill: '#FFFFFF',
-      fontFamily: 'Arial',
-      align: 'center',
-      wordWrap: { width: tooltipWidth - 20 },
-      lineSpacing: 4
-    }).setOrigin(0.5).setDepth(101);
-
-    // Category label
-    categoryLabel = scene.add.text(tooltipX, tooltipY - tooltipHeight / 2 + 15,
-      `${categoryInfo.icon} ${categoryInfo.label}`, {
-        fontSize: '11px',
+    tooltip = scene.add
+      .text(tooltipX, tooltipY + 10, wordData.definition, {
+        fontSize: '13px',
         fill: '#FFFFFF',
         fontFamily: 'Arial',
-        fontStyle: 'bold'
-      }).setOrigin(0.5).setDepth(101);
+        align: 'center',
+        wordWrap: { width: tooltipWidth - 20 },
+        lineSpacing: 4
+      })
+      .setOrigin(0.5)
+      .setDepth(101);
+
+    // Category label
+    categoryLabel = scene.add
+      .text(
+        tooltipX,
+        tooltipY - tooltipHeight / 2 + 15,
+        `${categoryInfo.icon} ${categoryInfo.label}`,
+        {
+          fontSize: '11px',
+          fill: '#FFFFFF',
+          fontFamily: 'Arial',
+          fontStyle: 'bold'
+        }
+      )
+      .setOrigin(0.5)
+      .setDepth(101);
   });
 
   card.on('pointerout', () => {
@@ -582,87 +643,137 @@ function showWordDetail(scene) {
   const progress = wordProgress[currentWord.id] || { stars: 0, attempts: 0 };
 
   // Title
-  scene.add.text(450, 60, currentWord.word, {
-    fontSize: '48px',
-    fill: '#A44A3F',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 60, currentWord.word, {
+      fontSize: '48px',
+      fill: '#A44A3F',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Phonetic
-  scene.add.text(450, 115, `(${currentWord.phonetic})`, {
-    fontSize: '20px',
-    fill: '#636E72',
-    fontFamily: 'Arial',
-    fontStyle: 'italic'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 115, `(${currentWord.phonetic})`, {
+      fontSize: '20px',
+      fill: '#636E72',
+      fontFamily: 'Arial',
+      fontStyle: 'italic'
+    })
+    .setOrigin(0.5);
 
   // Definition box
-  const defBox = scene.add.rectangle(450, 200, 800, 100, 0xFFFFFF);
-  defBox.setStrokeStyle(2, 0xE9ECEF);
+  const defBox = scene.add.rectangle(450, 200, 800, 100, 0xffffff);
+  defBox.setStrokeStyle(2, 0xe9ecef);
 
-  scene.add.text(450, 200, currentWord.definition, {
-    fontSize: '20px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    align: 'center',
-    wordWrap: { width: 750 }
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 200, currentWord.definition, {
+      fontSize: '20px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      align: 'center',
+      wordWrap: { width: 750 }
+    })
+    .setOrigin(0.5);
 
   // Example sentence
-  scene.add.text(450, 280, 'Example:', {
-    fontSize: '18px',
-    fill: '#636E72',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 280, 'Example:', {
+      fontSize: '18px',
+      fill: '#636E72',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 310, currentWord.exampleSentence, {
-    fontSize: '18px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    align: 'center',
-    fontStyle: 'italic',
-    wordWrap: { width: 750 }
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 310, currentWord.exampleSentence, {
+      fontSize: '18px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      align: 'center',
+      fontStyle: 'italic',
+      wordWrap: { width: 750 }
+    })
+    .setOrigin(0.5);
 
   // Stars earned
   const starsText = getStarDisplay(progress.stars);
-  scene.add.text(450, 370, `Your Progress: ${starsText}`, {
-    fontSize: '24px',
-    fill: '#F19C79',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 370, `Your Progress: ${starsText}`, {
+      fontSize: '24px',
+      fill: '#F19C79',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Mode selection
-  scene.add.text(450, 420, 'Choose a Game Mode:', {
-    fontSize: '20px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 420, 'Choose a Game Mode:', {
+      fontSize: '20px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Mode buttons
-  createButton(scene, 200, 500, '🎯 Meaning Match', WORD_COLORS.primary, () => {
-    currentMode = 'meaning-match';
-    showMeaningMatch(scene);
-  }, 220, 60);
+  createButton(
+    scene,
+    200,
+    500,
+    '🎯 Meaning Match',
+    WORD_COLORS.primary,
+    () => {
+      currentMode = 'meaning-match';
+      showMeaningMatch(scene);
+    },
+    220,
+    60
+  );
 
-  createButton(scene, 450, 500, '📝 Sentence Builder', WORD_COLORS.accent, () => {
-    currentMode = 'sentence-builder';
-    showSentenceBuilder(scene);
-  }, 220, 60);
+  createButton(
+    scene,
+    450,
+    500,
+    '📝 Sentence Builder',
+    WORD_COLORS.accent,
+    () => {
+      currentMode = 'sentence-builder';
+      showSentenceBuilder(scene);
+    },
+    220,
+    60
+  );
 
-  createButton(scene, 700, 500, '✏️ Spelling Quest', WORD_COLORS.success, () => {
-    currentMode = 'spelling-quest';
-    showSpellingQuest(scene);
-  }, 220, 60);
+  createButton(
+    scene,
+    700,
+    500,
+    '✏️ Spelling Quest',
+    WORD_COLORS.success,
+    () => {
+      currentMode = 'spelling-quest';
+      showSpellingQuest(scene);
+    },
+    220,
+    60
+  );
 
   // Back button
-  createButton(scene, 100, 600, '← Back', WORD_COLORS.textLight, () => {
-    showWordMap(scene);
-  }, 140, 50);
+  createButton(
+    scene,
+    100,
+    600,
+    '← Back',
+    WORD_COLORS.textLight,
+    () => {
+      showWordMap(scene);
+    },
+    140,
+    50
+  );
 }
 
 // ==================== SCENE 4: MEANING MATCH ====================
@@ -684,7 +795,8 @@ function generateMeaningMatchQuestions() {
 
   for (let i = 0; i < totalQuestions; i++) {
     // Select a random word (prioritize current word for first question)
-    const questionWord = i === 0 ? currentWord : allWords[Phaser.Math.Between(0, allWords.length - 1)];
+    const questionWord =
+      i === 0 ? currentWord : allWords[Phaser.Math.Between(0, allWords.length - 1)];
 
     // Get 3 wrong definitions from other words
     const wrongOptions = allWords
@@ -694,8 +806,7 @@ function generateMeaningMatchQuestions() {
       .map(w => w.definition);
 
     // Combine and shuffle
-    const options = [questionWord.definition, ...wrongOptions]
-      .sort(() => Math.random() - 0.5);
+    const options = [questionWord.definition, ...wrongOptions].sort(() => Math.random() - 0.5);
 
     questions.push({
       word: questionWord.word,
@@ -719,48 +830,60 @@ function displayMeaningMatchQuestion(scene) {
   const question = currentQuestions[currentQuestionIndex];
 
   // Header
-  scene.add.text(450, 40, '🎯 Meaning Match', {
-    fontSize: '32px',
-    fill: '#A44A3F',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 40, '🎯 Meaning Match', {
+      fontSize: '32px',
+      fill: '#A44A3F',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Progress
-  scene.add.text(450, 85, `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`, {
-    fontSize: '18px',
-    fill: '#636E72',
-    fontFamily: 'Arial'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 85, `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`, {
+      fontSize: '18px',
+      fill: '#636E72',
+      fontFamily: 'Arial'
+    })
+    .setOrigin(0.5);
 
   // Score
-  scene.add.text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
-    fontSize: '20px',
-    fill: '#A44A3F',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
+      fontSize: '20px',
+      fill: '#A44A3F',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Word
-  scene.add.text(450, 150, question.word, {
-    fontSize: '42px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 150, question.word, {
+      fontSize: '42px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 195, `(${question.phonetic})`, {
-    fontSize: '18px',
-    fill: '#636E72',
-    fontFamily: 'Arial',
-    fontStyle: 'italic'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 195, `(${question.phonetic})`, {
+      fontSize: '18px',
+      fill: '#636E72',
+      fontFamily: 'Arial',
+      fontStyle: 'italic'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 240, 'Which definition matches this word?', {
-    fontSize: '20px',
-    fill: '#1E293B',
-    fontFamily: 'Arial'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 240, 'Which definition matches this word?', {
+      fontSize: '20px',
+      fill: '#1E293B',
+      fontFamily: 'Arial'
+    })
+    .setOrigin(0.5);
 
   // Options
   question.options.forEach((option, index) => {
@@ -769,23 +892,34 @@ function displayMeaningMatchQuestion(scene) {
   });
 
   // Back button
-  createButton(scene, 100, 600, '← Back', WORD_COLORS.textLight, () => {
-    showWordDetail(scene);
-  }, 140, 50);
+  createButton(
+    scene,
+    100,
+    600,
+    '← Back',
+    WORD_COLORS.textLight,
+    () => {
+      showWordDetail(scene);
+    },
+    140,
+    50
+  );
 }
 
 function createDefinitionOption(scene, x, y, text, isCorrect, question) {
   const optionBox = scene.add.rectangle(x, y, 800, 60, WORD_COLORS.cardBg);
-  optionBox.setStrokeStyle(2, 0xE9ECEF);
+  optionBox.setStrokeStyle(2, 0xe9ecef);
   optionBox.setInteractive({ useHandCursor: true });
 
-  const optionText = scene.add.text(x, y, text, {
-    fontSize: '18px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    align: 'center',
-    wordWrap: { width: 750 }
-  }).setOrigin(0.5);
+  const optionText = scene.add
+    .text(x, y, text, {
+      fontSize: '18px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      align: 'center',
+      wordWrap: { width: 750 }
+    })
+    .setOrigin(0.5);
 
   optionBox.on('pointerdown', () => {
     // Disable all options
@@ -801,21 +935,25 @@ function createDefinitionOption(scene, x, y, text, isCorrect, question) {
       sessionScore++;
 
       // Show checkmark
-      scene.add.text(x + 360, y, '✓', {
-        fontSize: '32px',
-        fill: '#A44A3F',
-        fontStyle: 'bold'
-      }).setOrigin(0.5);
+      scene.add
+        .text(x + 360, y, '✓', {
+          fontSize: '32px',
+          fill: '#A44A3F',
+          fontStyle: 'bold'
+        })
+        .setOrigin(0.5);
     } else {
       optionBox.setFillStyle(WORD_COLORS.error, 0.3);
       optionBox.setStrokeStyle(3, WORD_COLORS.error);
 
       // Show X
-      scene.add.text(x + 360, y, '✗', {
-        fontSize: '32px',
-        fill: '#FF6B6B',
-        fontStyle: 'bold'
-      }).setOrigin(0.5);
+      scene.add
+        .text(x + 360, y, '✗', {
+          fontSize: '32px',
+          fill: '#FF6B6B',
+          fontStyle: 'bold'
+        })
+        .setOrigin(0.5);
     }
 
     // Move to next question after delay
@@ -852,7 +990,8 @@ function generateSentenceBuilderQuestions() {
   const totalQuestions = 5;
 
   for (let i = 0; i < totalQuestions; i++) {
-    const questionWord = i === 0 ? currentWord : allWords[Phaser.Math.Between(0, allWords.length - 1)];
+    const questionWord =
+      i === 0 ? currentWord : allWords[Phaser.Math.Between(0, allWords.length - 1)];
 
     // Create sentence with blank
     const sentence = questionWord.exampleSentence.replace(questionWord.word, '______');
@@ -865,8 +1004,7 @@ function generateSentenceBuilderQuestions() {
       .map(w => w.word);
 
     // Combine and shuffle
-    const options = [questionWord.word, ...wrongOptions]
-      .sort(() => Math.random() - 0.5);
+    const options = [questionWord.word, ...wrongOptions].sort(() => Math.random() - 0.5);
 
     questions.push({
       sentence: sentence,
@@ -890,54 +1028,66 @@ function displaySentenceBuilderQuestion(scene) {
   const question = currentQuestions[currentQuestionIndex];
 
   // Header
-  scene.add.text(450, 40, '📝 Sentence Builder', {
-    fontSize: '32px',
-    fill: '#74B9FF',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 40, '📝 Sentence Builder', {
+      fontSize: '32px',
+      fill: '#74B9FF',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Progress
-  scene.add.text(450, 85, `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`, {
-    fontSize: '18px',
-    fill: '#636E72',
-    fontFamily: 'Arial'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 85, `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`, {
+      fontSize: '18px',
+      fill: '#636E72',
+      fontFamily: 'Arial'
+    })
+    .setOrigin(0.5);
 
   // Score
-  scene.add.text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
-    fontSize: '20px',
-    fill: '#A44A3F',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
+      fontSize: '20px',
+      fill: '#A44A3F',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Instructions
-  scene.add.text(450, 140, 'Fill in the blank with the correct word:', {
-    fontSize: '20px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 140, 'Fill in the blank with the correct word:', {
+      fontSize: '20px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Sentence with blank
-  scene.add.text(450, 210, question.sentence, {
-    fontSize: '20px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    align: 'center',
-    fontStyle: 'italic',
-    wordWrap: { width: 800 }
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 210, question.sentence, {
+      fontSize: '20px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      align: 'center',
+      fontStyle: 'italic',
+      wordWrap: { width: 800 }
+    })
+    .setOrigin(0.5);
 
   // Hint
-  scene.add.text(450, 280, `Hint: ${question.definition}`, {
-    fontSize: '18px',
-    fill: '#636E72',
-    fontFamily: 'Arial',
-    align: 'center',
-    wordWrap: { width: 750 }
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 280, `Hint: ${question.definition}`, {
+      fontSize: '18px',
+      fill: '#636E72',
+      fontFamily: 'Arial',
+      align: 'center',
+      wordWrap: { width: 750 }
+    })
+    .setOrigin(0.5);
 
   // Word options
   const startY = 350;
@@ -947,22 +1097,33 @@ function displaySentenceBuilderQuestion(scene) {
   });
 
   // Back button
-  createButton(scene, 100, 600, '← Back', WORD_COLORS.textLight, () => {
-    showWordDetail(scene);
-  }, 140, 50);
+  createButton(
+    scene,
+    100,
+    600,
+    '← Back',
+    WORD_COLORS.textLight,
+    () => {
+      showWordDetail(scene);
+    },
+    140,
+    50
+  );
 }
 
 function createWordOption(scene, x, y, word, isCorrect, question) {
   const optionBox = scene.add.rectangle(x, y, 400, 45, WORD_COLORS.cardBg);
-  optionBox.setStrokeStyle(2, 0xE9ECEF);
+  optionBox.setStrokeStyle(2, 0xe9ecef);
   optionBox.setInteractive({ useHandCursor: true });
 
-  const optionText = scene.add.text(x, y, word, {
-    fontSize: '18px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  const optionText = scene.add
+    .text(x, y, word, {
+      fontSize: '18px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   optionBox.on('pointerdown', () => {
     // Disable all options
@@ -977,20 +1138,24 @@ function createWordOption(scene, x, y, word, isCorrect, question) {
       optionBox.setStrokeStyle(3, WORD_COLORS.success);
       sessionScore++;
 
-      scene.add.text(x + 180, y, '✓', {
-        fontSize: '28px',
-        fill: '#A44A3F',
-        fontStyle: 'bold'
-      }).setOrigin(0.5);
+      scene.add
+        .text(x + 180, y, '✓', {
+          fontSize: '28px',
+          fill: '#A44A3F',
+          fontStyle: 'bold'
+        })
+        .setOrigin(0.5);
     } else {
       optionBox.setFillStyle(WORD_COLORS.error, 0.3);
       optionBox.setStrokeStyle(3, WORD_COLORS.error);
 
-      scene.add.text(x + 180, y, '✗', {
-        fontSize: '28px',
-        fill: '#FF6B6B',
-        fontStyle: 'bold'
-      }).setOrigin(0.5);
+      scene.add
+        .text(x + 180, y, '✗', {
+          fontSize: '28px',
+          fill: '#FF6B6B',
+          fontStyle: 'bold'
+        })
+        .setOrigin(0.5);
     }
 
     scene.time.delayedCall(1500, () => {
@@ -1026,7 +1191,8 @@ function generateSpellingQuestions() {
   const totalQuestions = 5;
 
   for (let i = 0; i < totalQuestions; i++) {
-    const questionWord = i === 0 ? currentWord : allWords[Phaser.Math.Between(0, allWords.length - 1)];
+    const questionWord =
+      i === 0 ? currentWord : allWords[Phaser.Math.Between(0, allWords.length - 1)];
 
     questions.push({
       word: questionWord.word,
@@ -1051,90 +1217,133 @@ function displaySpellingQuestion(scene) {
   userAnswer = '';
 
   // Header
-  scene.add.text(450, 40, '✏️ Spelling Quest', {
-    fontSize: '32px',
-    fill: '#A44A3F',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 40, '✏️ Spelling Quest', {
+      fontSize: '32px',
+      fill: '#A44A3F',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Progress
-  scene.add.text(450, 85, `Word ${currentQuestionIndex + 1} of ${currentQuestions.length}`, {
-    fontSize: '18px',
-    fill: '#636E72',
-    fontFamily: 'Arial'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 85, `Word ${currentQuestionIndex + 1} of ${currentQuestions.length}`, {
+      fontSize: '18px',
+      fill: '#636E72',
+      fontFamily: 'Arial'
+    })
+    .setOrigin(0.5);
 
   // Score
-  scene.add.text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
-    fontSize: '20px',
-    fill: '#A44A3F',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
+      fontSize: '20px',
+      fill: '#A44A3F',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Definition
-  scene.add.text(450, 140, 'Spell the word that means:', {
-    fontSize: '20px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 140, 'Spell the word that means:', {
+      fontSize: '20px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 180, question.definition, {
-    fontSize: '18px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    align: 'center',
-    wordWrap: { width: 750 }
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 180, question.definition, {
+      fontSize: '18px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      align: 'center',
+      wordWrap: { width: 750 }
+    })
+    .setOrigin(0.5);
 
   // Phonetic hint
-  scene.add.text(450, 230, `Pronunciation: ${question.phonetic}`, {
-    fontSize: '18px',
-    fill: '#636E72',
-    fontFamily: 'Arial',
-    fontStyle: 'italic'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 230, `Pronunciation: ${question.phonetic}`, {
+      fontSize: '18px',
+      fill: '#636E72',
+      fontFamily: 'Arial',
+      fontStyle: 'italic'
+    })
+    .setOrigin(0.5);
 
   // Answer area
-  const answerBox = scene.add.rectangle(450, 290, 600, 60, 0x2D3436);
+  const answerBox = scene.add.rectangle(450, 290, 600, 60, 0x2d3436);
   answerBox.setStrokeStyle(3, WORD_COLORS.accent);
 
-  const answerText = scene.add.text(450, 290, '', {
-    fontSize: '32px',
-    fill: '#F19C79',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  const answerText = scene.add
+    .text(450, 290, '', {
+      fontSize: '32px',
+      fill: '#F19C79',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Feedback text
-  const feedbackText = scene.add.text(450, 340, '', {
-    fontSize: '20px',
-    fill: '#2D3436',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  const feedbackText = scene.add
+    .text(450, 340, '', {
+      fontSize: '20px',
+      fill: '#2D3436',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Letter bank
   createLetterBank(scene, answerText, question);
 
   // Action buttons
-  createButton(scene, 300, 580, 'Clear', WORD_COLORS.error, () => {
-    selectedLetters = [];
-    userAnswer = '';
-    answerText.setText('');
-    feedbackText.setText('');
-  }, 140, 50);
+  createButton(
+    scene,
+    300,
+    580,
+    'Clear',
+    WORD_COLORS.error,
+    () => {
+      selectedLetters = [];
+      userAnswer = '';
+      answerText.setText('');
+      feedbackText.setText('');
+    },
+    140,
+    50
+  );
 
-  createButton(scene, 600, 580, 'Submit', WORD_COLORS.success, () => {
-    checkSpelling(scene, question, feedbackText, answerText);
-  }, 140, 50);
+  createButton(
+    scene,
+    600,
+    580,
+    'Submit',
+    WORD_COLORS.success,
+    () => {
+      checkSpelling(scene, question, feedbackText, answerText);
+    },
+    140,
+    50
+  );
 
   // Back button
-  createButton(scene, 100, 600, '← Back', WORD_COLORS.textLight, () => {
-    showWordDetail(scene);
-  }, 140, 50);
+  createButton(
+    scene,
+    100,
+    600,
+    '← Back',
+    WORD_COLORS.textLight,
+    () => {
+      showWordDetail(scene);
+    },
+    140,
+    50
+  );
 }
 
 function createLetterBank(scene, answerText, question) {
@@ -1153,14 +1362,16 @@ function createLetterBank(scene, answerText, question) {
 
     const btn = scene.add.rectangle(x, y, buttonSize, buttonSize, WORD_COLORS.primary);
     btn.setInteractive({ useHandCursor: true });
-    btn.setStrokeStyle(2, 0xFFFFFF);
+    btn.setStrokeStyle(2, 0xffffff);
 
-    const text = scene.add.text(x, y, letter, {
-      fontSize: '20px',
-      fill: '#FFFFFF',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    }).setOrigin(0.5);
+    const text = scene.add
+      .text(x, y, letter, {
+        fontSize: '20px',
+        fill: '#FFFFFF',
+        fontFamily: 'Arial',
+        fontStyle: 'bold'
+      })
+      .setOrigin(0.5);
 
     btn.on('pointerdown', () => {
       selectedLetters.push(letter);
@@ -1252,39 +1463,49 @@ function showResults(scene) {
     titleColor = '#FF6B6B';
   }
 
-  scene.add.text(450, 100, title, {
-    fontSize: '48px',
-    fill: titleColor,
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 100, title, {
+      fontSize: '48px',
+      fill: titleColor,
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   // Score
-  scene.add.text(450, 180, `Score: ${sessionScore}/${totalQuestions}`, {
-    fontSize: '36px',
-    fill: '#1E293B',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 180, `Score: ${sessionScore}/${totalQuestions}`, {
+      fontSize: '36px',
+      fill: '#1E293B',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 230, `${percentage}%`, {
-    fontSize: '32px',
-    fill: '#636E72',
-    fontFamily: 'Arial'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 230, `${percentage}%`, {
+      fontSize: '32px',
+      fill: '#636E72',
+      fontFamily: 'Arial'
+    })
+    .setOrigin(0.5);
 
   // Stars display
   const starsDisplay = getStarDisplay(stars);
-  scene.add.text(450, 290, starsDisplay, {
-    fontSize: '56px',
-    fill: '#F19C79'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 290, starsDisplay, {
+      fontSize: '56px',
+      fill: '#F19C79'
+    })
+    .setOrigin(0.5);
 
-  scene.add.text(450, 350, `You earned ${stars} star${stars !== 1 ? 's' : ''}!`, {
-    fontSize: '24px',
-    fill: '#1E293B',
-    fontFamily: 'Arial'
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 350, `You earned ${stars} star${stars !== 1 ? 's' : ''}!`, {
+      fontSize: '24px',
+      fill: '#1E293B',
+      fontFamily: 'Arial'
+    })
+    .setOrigin(0.5);
 
   // Encouraging message
   let message = '';
@@ -1295,29 +1516,58 @@ function showResults(scene) {
   } else if (stars === 1) {
     message = 'Good start! Practice more to improve!';
   } else {
-    message = 'Keep trying! You\'ll get better with practice!';
+    message = "Keep trying! You'll get better with practice!";
   }
 
-  scene.add.text(450, 400, message, {
-    fontSize: '18px',
-    fill: '#636E72',
-    fontFamily: 'Arial',
-    align: 'center',
-    wordWrap: { width: 700 }
-  }).setOrigin(0.5);
+  scene.add
+    .text(450, 400, message, {
+      fontSize: '18px',
+      fill: '#636E72',
+      fontFamily: 'Arial',
+      align: 'center',
+      wordWrap: { width: 700 }
+    })
+    .setOrigin(0.5);
 
   // Buttons
-  createButton(scene, 300, 500, 'Word Detail', WORD_COLORS.accent, () => {
-    showWordDetail(scene);
-  }, 180, 60);
+  createButton(
+    scene,
+    300,
+    500,
+    'Word Detail',
+    WORD_COLORS.accent,
+    () => {
+      showWordDetail(scene);
+    },
+    180,
+    60
+  );
 
-  createButton(scene, 600, 500, 'Word Map', WORD_COLORS.primary, () => {
-    showWordMap(scene);
-  }, 180, 60);
+  createButton(
+    scene,
+    600,
+    500,
+    'Word Map',
+    WORD_COLORS.primary,
+    () => {
+      showWordMap(scene);
+    },
+    180,
+    60
+  );
 
-  createButton(scene, 450, 590, '← Main Menu', WORD_COLORS.textLight, () => {
-    showMainMenu(scene);
-  }, 180, 50);
+  createButton(
+    scene,
+    450,
+    590,
+    '← Main Menu',
+    WORD_COLORS.textLight,
+    () => {
+      showMainMenu(scene);
+    },
+    180,
+    50
+  );
 }
 
 // ==================== HELPER FUNCTIONS ====================
@@ -1325,12 +1575,14 @@ function createButton(scene, x, y, label, color, callback, width = 200, height =
   const button = scene.add.rectangle(x, y, width, height, color);
   button.setInteractive({ useHandCursor: true });
 
-  const text = scene.add.text(x, y, label, {
-    fontSize: '18px',
-    fill: '#FFFFFF',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  }).setOrigin(0.5);
+  const text = scene.add
+    .text(x, y, label, {
+      fontSize: '18px',
+      fill: '#FFFFFF',
+      fontFamily: 'Arial',
+      fontStyle: 'bold'
+    })
+    .setOrigin(0.5);
 
   button.on('pointerdown', callback);
 
