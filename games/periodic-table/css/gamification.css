@@ -115,7 +115,7 @@
 .badge:hover {
   transform: translateY(-5px);
   border-color: var(--color-primary, #1CB0F6);
-  box-shadow: 0 8px 16px rgba(28, 176, 246, 0.2);
+  border-width: 2px;
 }
 
 .badge-icon {
@@ -221,9 +221,9 @@
   right: 30px;
   background: white;
   border-left: 5px solid var(--color-secondary, #7c3aed);
+  border: 1px solid rgba(0,0,0,0.1);
   padding: 20px 25px;
   border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   z-index: 9998;
   max-width: 400px;
   animation: slide-in-right 0.4s ease-out;
