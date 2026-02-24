@@ -8,14 +8,14 @@
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border-left: 5px solid var(--element-color, #1CB0F6);
 }
 
 .story-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-width: 1px;
 }
 
 .story-card-number {
@@ -128,14 +128,14 @@
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border-bottom: 3px solid var(--element-color, #1CB0F6);
 }
 
 .keyword-card-enhanced:hover {
   transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  border-width: 1px;
 }
 
 .keyword-top-bar {
@@ -222,14 +222,13 @@
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   border: 2px solid var(--element-color, #1CB0F6);
 }
 
 .rhyme-peg-card:hover {
   transform: scale(1.05) rotateY(2deg);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
 }
 
 .rhyme-peg-header {
@@ -312,12 +311,12 @@
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
 }
 
 .memory-tips-card:hover {
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  border-width: 1px;
 }
 
 .tips-header {

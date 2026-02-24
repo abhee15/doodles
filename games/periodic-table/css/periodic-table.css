@@ -98,7 +98,7 @@ body {
   background: white;
   border-radius: 12px;
   padding: 40px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
 .screen-content h2 {
@@ -151,7 +151,7 @@ body {
 
 .chunk-card:hover {
   border-color: var(--color-primary, #1CB0F6);
-  box-shadow: 0 4px 16px rgba(28, 176, 246, 0.2);
+  border-width: 2px;
   transform: translateY(-4px);
 }
 
@@ -264,8 +264,8 @@ body {
 
 .technique-option:hover {
   border-color: var(--color-primary, #1CB0F6);
+  border-width: 2px;
   background: #f8f9ff;
-  box-shadow: 0 4px 12px rgba(28, 176, 246, 0.15);
 }
 
 .technique-option.recommended {
@@ -320,7 +320,7 @@ body {
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(28, 176, 246, 0.3);
+  border-color: rgba(28, 176, 246, 0.5);
 }
 
 .btn-primary:active {
