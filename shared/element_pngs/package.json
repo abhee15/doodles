@@ -1,0 +1,13 @@
+{
+  "name": "element-png-generator",
+  "version": "1.0.0",
+  "description": "Generate SVG placeholders for element mnemonic illustrations and convert to PNG.",
+  "scripts": {
+    "generate": "node generate_svgs.js",
+    "convert": "node convert_svgs_to_pngs.js",
+    "all": "npm run generate && npm run convert"
+  },
+  "dependencies": {
+    "sharp": "^0.32.0"
+  }
+}

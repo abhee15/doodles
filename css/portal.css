@@ -17,23 +17,11 @@
     --brand:      #A44A3F;
     --brand-dark: #7E352B;
 
-    /* One gradient per game */
-    --grad-math-ladder:  linear-gradient(150deg, #FF7043 0%, #BF360C 100%);
-    --grad-ninja:        linear-gradient(135deg, #FF6B6B 0%, #D24545 100%);
-    --grad-quickmath:    linear-gradient(150deg, #1CB0F6 0%, #0891B2 100%);
-    --grad-measure:      linear-gradient(140deg, #A44A3F 0%, #6D1F1F 100%);
-    --grad-word:         linear-gradient(145deg, #AB47BC 0%, #4527A0 100%);
-    --grad-world:        linear-gradient(145deg, #1E88E5 0%, #0D47A1 100%);
-    --grad-earth:        linear-gradient(140deg, #00ACC1 0%, #006064 100%);
-    --grad-dino:         linear-gradient(145deg, #43A047 0%, #1B5E20 100%);
-    --grad-solar:        linear-gradient(145deg, #0B0E2D 0%, #1a1060 55%, #0D2060 100%);
-    --grad-periodic:     linear-gradient(145deg, #7C3AED 0%, #5B21B6 100%);
-    --grad-draw-it: linear-gradient(145deg, #F472B6 0%, #818CF8 100%);
-
     /* Category dot colors (for section headers) */
     --c-math:    #BF360C;
     --c-geo:     #0277BD;
     --c-words:   #6A1B9A;
+    --c-memory:  #8B5CF6;
     --c-science: #2E7D32;
     --c-art:     #EC4899;
 }
@@ -144,6 +132,7 @@ body {
 .pill[data-cat="math"].active    { color: var(--c-math); }
 .pill[data-cat="geo"].active     { color: var(--c-geo);  }
 .pill[data-cat="words"].active   { color: var(--c-words);}
+.pill[data-cat="memory"].active  { color: var(--c-memory); }
 .pill[data-cat="science"].active { color: var(--c-science); }
 .pill[data-cat="art"].active     { color: var(--c-art); }
 
@@ -176,6 +165,7 @@ body {
 .sec-bar.math    { background: var(--c-math); }
 .sec-bar.geo     { background: var(--c-geo);  }
 .sec-bar.words   { background: var(--c-words);}
+.sec-bar.memory  { background: var(--c-memory); }
 .sec-bar.science { background: var(--c-science); }
 .sec-bar.art     { background: var(--c-art); }
 
@@ -240,18 +230,7 @@ body {
     border-radius: 20px;
 }
 
-/* Per-game gradients */
-.thumb.math-ladder { background: var(--grad-math-ladder); }
-.thumb.ninja       { background: var(--grad-ninja); }
-.thumb.quickmath   { background: var(--grad-quickmath); }
-.thumb.measure     { background: var(--grad-measure); }
-.thumb.word        { background: var(--grad-word); }
-.thumb.world       { background: var(--grad-world); }
-.thumb.earth       { background: var(--grad-earth); }
-.thumb.dino        { background: var(--grad-dino); }
-.thumb.solar       { background: var(--grad-solar); }
-.thumb.periodic    { background: var(--grad-periodic); }
-.thumb.draw-it { background: var(--grad-draw-it); }
+/* Game-specific gradients and patterns are injected dynamically by portal.js */
 
 /* ── Unique background patterns per game ── */
 
@@ -349,17 +328,6 @@ body {
         radial-gradient(circle, rgba(255,255,180,0.8) 1.5px, transparent 1.5px);
     background-size: 40px 40px, 27px 27px, 63px 63px;
     background-position: 5px 8px, 18px 22px, 32px 12px;
-}
-
-/* Doodle School — paint dot pattern */
-.thumb.doodle-school::before {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-        radial-gradient(circle, rgba(255,255,255,0.25) 2px, transparent 2px),
-        radial-gradient(circle, rgba(255,255,255,0.15) 3px, transparent 3px);
-    background-size: 22px 22px, 37px 37px;
-    background-position: 3px 5px, 12px 18px;
 }
 
 /* Main icon */

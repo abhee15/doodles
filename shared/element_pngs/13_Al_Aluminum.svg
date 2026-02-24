@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000" viewBox="0 0 2000 2000">
+  <rect width="100%" height="100%" fill="#dfeff6"/>
+  <g transform="translate(1000,900)">
+    <!-- folding panels -->
+    <g transform="rotate(-8)">
+      <rect x="-820" y="-220" width="600" height="240" rx="28" fill="#9fbcd6"/>
+      <rect x="-220" y="-220" width="600" height="240" rx="28" fill="#cfe6f6"/>
+      <rect x="380" y="-220" width="600" height="240" rx="28" fill="#ffffff"/>
+    </g>
+    <!-- highlights -->
+    <path d="M-820,-220 L-420,-220" stroke="#ffffff" stroke-width="8" opacity="0.5"/>
+  </g>
+</svg>

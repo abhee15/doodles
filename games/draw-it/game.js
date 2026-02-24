@@ -405,220 +405,245 @@ const SUBJECTS = [
 
 // CAT
 function drawCat_step1(ctx) {
+  // Head - simple circle
   ctx.beginPath();
-  ctx.arc(200, 170, 80, 0, Math.PI * 2);
+  ctx.arc(200, 160, 60, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawCat_step2(ctx) {
+  // Two ears - simple triangles
   ctx.beginPath();
-  ctx.moveTo(140, 85);
-  ctx.lineTo(110, 40);
-  ctx.lineTo(135, 95);
+  ctx.moveTo(160, 110);
+  ctx.lineTo(145, 50);
+  ctx.lineTo(175, 115);
   ctx.closePath();
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(260, 85);
-  ctx.lineTo(290, 40);
-  ctx.lineTo(265, 95);
+  ctx.moveTo(240, 110);
+  ctx.lineTo(255, 50);
+  ctx.lineTo(225, 115);
   ctx.closePath();
   ctx.stroke();
 }
 function drawCat_step3(ctx) {
+  // Two eyes - circles with pupils
   ctx.beginPath();
-  ctx.ellipse(165, 160, 15, 25, -0.3, 0, Math.PI * 2);
+  ctx.arc(170, 150, 12, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.ellipse(235, 160, 15, 25, 0.3, 0, Math.PI * 2);
+  ctx.arc(230, 150, 12, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(170, 150, 5, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(230, 150, 5, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawCat_step4(ctx) {
+  // Nose and mouth
   ctx.beginPath();
-  ctx.arc(165, 160, 8, 0, Math.PI * 2);
+  ctx.arc(200, 175, 6, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.arc(235, 160, 8, 0, Math.PI * 2);
+  ctx.moveTo(200, 180);
+  ctx.quadraticCurveTo(185, 190, 175, 185);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(200, 185);
-  ctx.lineTo(195, 200);
-  ctx.lineTo(205, 200);
-  ctx.closePath();
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(185, 210);
-  ctx.quadraticCurveTo(200, 220, 215, 210);
+  ctx.moveTo(200, 180);
+  ctx.quadraticCurveTo(215, 190, 225, 185);
   ctx.stroke();
 }
 function drawCat_step5(ctx) {
-  for (let i = -1; i <= 1; i++) {
-    ctx.beginPath();
-    ctx.moveTo(110, 165 + i * 18);
-    ctx.lineTo(50, 165 + i * 18);
-    ctx.stroke();
-  }
-  for (let i = -1; i <= 1; i++) {
-    ctx.beginPath();
-    ctx.moveTo(290, 165 + i * 18);
-    ctx.lineTo(350, 165 + i * 18);
-    ctx.stroke();
-  }
+  // Body - larger oval below head
+  ctx.beginPath();
+  ctx.ellipse(200, 260, 70, 65, 0, 0, Math.PI * 2);
+  ctx.stroke();
 }
 function drawCat_step6(ctx) {
+  // Four legs - simple vertical lines from body
   ctx.beginPath();
-  ctx.moveTo(160, 240);
-  ctx.lineTo(160, 300);
+  ctx.moveTo(160, 315);
+  ctx.lineTo(160, 370);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(240, 240);
-  ctx.lineTo(240, 300);
+  ctx.moveTo(200, 320);
+  ctx.lineTo(200, 375);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(260, 220);
-  ctx.quadraticCurveTo(300, 200, 320, 150);
+  ctx.moveTo(240, 320);
+  ctx.lineTo(240, 375);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(280, 315);
+  ctx.lineTo(280, 370);
   ctx.stroke();
 }
 
 // BIRD
 function drawBird_step1(ctx) {
+  // Body - horizontal oval
   ctx.beginPath();
-  ctx.ellipse(200, 200, 85, 55, 0, 0, Math.PI * 2);
+  ctx.ellipse(200, 210, 80, 50, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawBird_step2(ctx) {
+  // Head - circle to the left/front
   ctx.beginPath();
-  ctx.arc(120, 140, 45, 0, Math.PI * 2);
+  ctx.arc(110, 180, 40, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawBird_step3(ctx) {
+  // Beak - small triangle pointing left
   ctx.beginPath();
-  ctx.moveTo(80, 140);
-  ctx.lineTo(40, 130);
-  ctx.lineTo(75, 155);
+  ctx.moveTo(75, 180);
+  ctx.lineTo(40, 170);
+  ctx.lineTo(50, 190);
   ctx.closePath();
   ctx.stroke();
 }
 function drawBird_step4(ctx) {
+  // Eye - small circle on head
   ctx.beginPath();
-  ctx.arc(100, 130, 8, 0, Math.PI * 2);
+  ctx.arc(95, 170, 7, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawBird_step5(ctx) {
+  // Wings - two ellipses on body sides
   ctx.beginPath();
-  ctx.ellipse(80, 180, 50, 60, -0.3, 0, Math.PI * 2);
+  ctx.ellipse(140, 200, 45, 55, -0.2, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.ellipse(280, 190, 50, 65, 0.3, 0, Math.PI * 2);
+  ctx.ellipse(260, 220, 50, 60, 0.2, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawBird_step6(ctx) {
+  // Tail feathers - lines from back
   for (let i = 0; i < 4; i++) {
-    const angle = (i * Math.PI / 3) - 0.3;
-    const x = 285 + Math.cos(angle) * 50;
-    const y = 200 + Math.sin(angle) * 50;
+    const angle = (i / 3) * Math.PI * 0.6 - Math.PI * 0.3;
+    const x = 280 + Math.cos(angle) * 40;
+    const y = 210 + Math.sin(angle) * 40;
     ctx.beginPath();
-    ctx.moveTo(285, 200);
+    ctx.moveTo(280, 210);
     ctx.lineTo(x, y);
     ctx.stroke();
   }
 }
 function drawBird_step7(ctx) {
+  // Two legs - vertical lines
   ctx.beginPath();
-  ctx.moveTo(110, 240);
-  ctx.lineTo(110, 280);
+  ctx.moveTo(180, 260);
+  ctx.lineTo(180, 300);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(140, 240);
-  ctx.lineTo(140, 280);
+  ctx.moveTo(220, 260);
+  ctx.lineTo(220, 300);
   ctx.stroke();
 }
 
 // DOG
 function drawDog_step1(ctx) {
+  // Head - circle
   ctx.beginPath();
-  ctx.arc(200, 170, 85, 0, Math.PI * 2);
+  ctx.arc(200, 150, 50, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawDog_step2(ctx) {
+  // Two floppy ears - rounded shapes on sides
   ctx.beginPath();
-  ctx.ellipse(100, 60, 35, 70, 0, 0, Math.PI * 2);
+  ctx.ellipse(120, 140, 35, 60, -0.3, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.ellipse(300, 60, 35, 70, 0, 0, Math.PI * 2);
+  ctx.ellipse(280, 140, 35, 60, 0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawDog_step3(ctx) {
+  // Snout area - rectangle
   ctx.beginPath();
-  ctx.moveTo(170, 220);
-  ctx.lineTo(170, 270);
-  ctx.lineTo(230, 270);
-  ctx.lineTo(230, 220);
+  ctx.moveTo(160, 180);
+  ctx.lineTo(240, 180);
+  ctx.lineTo(240, 210);
+  ctx.lineTo(160, 210);
+  ctx.closePath();
   ctx.stroke();
 }
 function drawDog_step4(ctx) {
+  // Two eyes
   ctx.beginPath();
-  ctx.arc(165, 155, 18, 0, Math.PI * 2);
+  ctx.arc(170, 140, 10, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.arc(235, 155, 18, 0, Math.PI * 2);
+  ctx.arc(230, 140, 10, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawDog_step5(ctx) {
+  // Nose and mouth
   ctx.beginPath();
-  ctx.arc(200, 210, 12, 0, Math.PI * 2);
+  ctx.arc(200, 190, 8, 0, Math.PI * 2);
   ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(185, 225);
-  ctx.quadraticCurveTo(200, 235, 215, 225);
+  ctx.moveTo(200, 198);
+  ctx.lineTo(200, 210);
   ctx.stroke();
 }
 function drawDog_step6(ctx) {
+  // Body - large oval below head
   ctx.beginPath();
-  ctx.ellipse(200, 280, 95, 70, 0, 0, Math.PI * 2);
+  ctx.ellipse(200, 280, 80, 70, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawDog_step7(ctx) {
-  for (let i = 0; i < 4; i++) {
-    const x = 130 + i * 50;
-    ctx.beginPath();
-    ctx.moveTo(x, 340);
-    ctx.lineTo(x, 380);
-    ctx.stroke();
-  }
+  // Four legs - vertical lines from body
   ctx.beginPath();
-  ctx.moveTo(260, 280);
-  ctx.quadraticCurveTo(300, 260, 320, 220);
+  ctx.moveTo(150, 330);
+  ctx.lineTo(150, 380);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(190, 335);
+  ctx.lineTo(190, 385);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(210, 335);
+  ctx.lineTo(210, 385);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(250, 330);
+  ctx.lineTo(250, 380);
   ctx.stroke();
 }
 
 // FISH
 function drawFish_step1(ctx) {
+  // Body - horizontal oval
   ctx.beginPath();
-  ctx.ellipse(200, 200, 90, 50, 0, 0, Math.PI * 2);
+  ctx.ellipse(200, 200, 90, 55, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step2(ctx) {
+  // Tail fin - large triangle pointing right
   ctx.beginPath();
   ctx.moveTo(290, 200);
-  ctx.lineTo(360, 160);
-  ctx.lineTo(360, 240);
+  ctx.lineTo(360, 150);
+  ctx.lineTo(360, 250);
   ctx.closePath();
   ctx.stroke();
 }
 function drawFish_step3(ctx) {
-  // Top fin - positioned on body
+  // Top fin - oval on top of body
   ctx.beginPath();
-  ctx.ellipse(210, 145, 28, 40, 0, 0, Math.PI * 2);
+  ctx.ellipse(200, 140, 35, 50, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step4(ctx) {
-  // Bottom fin - positioned on body
+  // Bottom fin - oval below body
   ctx.beginPath();
-  ctx.ellipse(210, 255, 28, 40, 0, 0, Math.PI * 2);
+  ctx.ellipse(200, 260, 35, 50, 0, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step5(ctx) {
+  // Eye - small circle near front
   ctx.beginPath();
-  ctx.arc(270, 190, 12, 0, Math.PI * 2);
+  ctx.arc(260, 190, 10, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawFish_step6(ctx) {
@@ -635,39 +660,45 @@ function drawFish_step6(ctx) {
 
 // BUTTERFLY
 function drawButterfly_step1(ctx) {
+  // Body - vertical line
   ctx.beginPath();
   ctx.moveTo(200, 80);
   ctx.lineTo(200, 320);
   ctx.stroke();
 }
 function drawButterfly_step2(ctx) {
+  // Upper left wing - large ellipse
   ctx.beginPath();
-  ctx.ellipse(100, 140, 60, 85, -0.3, 0, Math.PI * 2);
+  ctx.ellipse(100, 140, 65, 90, -0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawButterfly_step3(ctx) {
+  // Upper right wing - large ellipse
   ctx.beginPath();
-  ctx.ellipse(300, 140, 60, 85, 0.3, 0, Math.PI * 2);
+  ctx.ellipse(300, 140, 65, 90, 0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawButterfly_step4(ctx) {
+  // Lower left wing - smaller ellipse
   ctx.beginPath();
-  ctx.ellipse(100, 270, 50, 70, -0.3, 0, Math.PI * 2);
+  ctx.ellipse(100, 270, 50, 75, -0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawButterfly_step5(ctx) {
+  // Lower right wing - smaller ellipse
   ctx.beginPath();
-  ctx.ellipse(300, 270, 50, 70, 0.3, 0, Math.PI * 2);
+  ctx.ellipse(300, 270, 50, 75, 0.3, 0, Math.PI * 2);
   ctx.stroke();
 }
 function drawButterfly_step6(ctx) {
+  // Antennae - two curved lines from top
   ctx.beginPath();
   ctx.moveTo(200, 80);
-  ctx.quadraticCurveTo(170, 30, 150, 10);
+  ctx.quadraticCurveTo(175, 40, 160, 20);
   ctx.stroke();
   ctx.beginPath();
   ctx.moveTo(200, 80);
-  ctx.quadraticCurveTo(230, 30, 250, 10);
+  ctx.quadraticCurveTo(225, 40, 240, 20);
   ctx.stroke();
 }
 function drawButterfly_step7(ctx) {

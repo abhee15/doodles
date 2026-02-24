@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000" viewBox="0 0 2000 2000">
+  <rect width="100%" height="100%" fill="#08303a"/>
+  <g transform="translate(1000,900)">
+    <!-- fox body -->
+    <g transform="scale(1.4)">
+      <ellipse cx="-120" cy="40" rx="260" ry="140" fill="#C0C6C8"/>
+      <circle cx="90" cy="-20" r="110" fill="#C0C6C8"/>
+      <!-- tail -->
+      <path d="M-360,20 Q-520,-40 -420,120 Q-360,80 -300,60" fill="#9fa3a5"/>
+      <!-- ear -->
+      <path d="M40,-130 L80,-220 L120,-120 Z" fill="#9fa3a5"/>
+      <!-- eye -->
+      <circle cx="70" cy="-30" r="10" fill="#042025"/>
+      <!-- paw spark -->
+      <g transform="translate(-80,160)">
+        <circle cx="0" cy="0" r="28" fill="#FF9B48"/>
+        <path d="M0,-18 L6,-6 L18,0 L6,6 L0,18 L-6,6 L-18,0 L-6,-6 Z" fill="#FFD9A6"/>
+      </g>
+    </g>
+  </g>
+</svg>

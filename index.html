@@ -50,7 +50,7 @@
                 </div>
                 <span class="brand-name">Doodles</span>
             </a>
-            <span class="nav-count">13 games · 6 subjects</span> <!-- UPDATE THIS when adding games -->
+            <span class="nav-count" id="nav-count"></span>
         </div>
     </nav>
 
@@ -58,29 +58,7 @@
         <h1>Learn Through Play</h1>
         <p>Free educational games for curious kids — no download needed!</p>
 
-        <div class="filter-bar">
-            <button class="pill active" data-cat="all" onclick="filter('all', this)">
-                <i class="ti ti-layout-grid"></i> All Games
-            </button>
-            <button class="pill" data-cat="math" onclick="filter('math', this)">
-                <i class="ti ti-calculator"></i> Math
-            </button>
-            <button class="pill" data-cat="geo" onclick="filter('geo', this)">
-                <i class="ti ti-world"></i> Geography
-            </button>
-            <button class="pill" data-cat="words" onclick="filter('words', this)">
-                <i class="ti ti-book"></i> Words
-            </button>
-            <button class="pill" data-cat="science" onclick="filter('science', this)">
-                <i class="ti ti-leaf"></i> Science
-            </button>
-            <button class="pill" data-cat="memory" onclick="filter('memory', this)">
-                <i class="ti ti-brain"></i> Memory
-            </button>
-            <button class="pill" data-cat="art" onclick="filter('art', this)">
-                <i class="ti ti-palette"></i> Art
-            </button>
-        </div>
+        <div id="filter-bar"></div>
     </div>
 </header>
 
@@ -93,66 +71,11 @@
             <div class="sec-title">
                 <div class="sec-bar math"></div>
                 <h2>Math &amp; Numbers</h2>
-                <span class="sec-count">4 games</span>
+                <span class="sec-count"></span>
             </div>
         </div>
         <div class="row-wrap">
-            <div class="cards-row">
-
-                <a class="game-card" href="games/math-ladder/index.html" id="math-ladder">
-                    <div class="thumb math-ladder">
-                        <i class="ti ti-stairs"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Math Ladder</div>
-                        <div class="card-desc">Climb rung by rung by solving addition &amp; subtraction problems against the clock.</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-                <a class="game-card" href="games/number-ninja/index.html" id="number-ninja">
-                    <div class="thumb ninja">
-                        <i class="ti ti-target"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Number Ninja</div>
-                        <div class="card-desc">Tap falling numbers in the right sequence before they hit the ground!</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-                <a class="game-card" href="games/quick-math/index.html" id="quick-math">
-                    <div class="thumb quickmath">
-                        <i class="ti ti-bolt"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Quick Math</div>
-                        <div class="card-desc">Master fast mental math tricks — add, subtract, and multiply at lightning speed.</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-                <a class="game-card" href="games/measure-master/index.html" id="measure-master">
-                    <div class="thumb measure">
-                        <span class="badge-new">New</span>
-                        <i class="ti ti-ruler-2"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Measure Master</div>
-                        <div class="card-desc">Explore inches, feet, meters, km — with origin stories, conversions &amp; real-world puzzles.</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-            </div>
+            <div class="cards-row"></div>
         </div>
     </section>
 
@@ -160,29 +83,13 @@
     <section class="cat-section" data-cat="memory">
         <div class="sec-header">
             <div class="sec-title">
-                <div class="sec-bar" style="background:#8B5CF6"></div>
+                <div class="sec-bar memory"></div>
                 <h2>Memory &amp; Learning</h2>
-                <span class="sec-count">1 game</span>
+                <span class="sec-count"></span>
             </div>
         </div>
         <div class="row-wrap">
-            <div class="cards-row">
-
-                <a class="game-card" href="games/body-map/index.html" id="body-map">
-                    <div class="thumb" style="background:linear-gradient(135deg,#1E1060,#4A1090)">
-                        <span class="badge-new">New</span>
-                        <i class="ti ti-user" style="color:#F5C518;"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Body Map</div>
-                        <div class="card-desc">Learn all 47 US Presidents using your body as a memory map — toes to head!</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-            </div>
+            <div class="cards-row"></div>
         </div>
     </section>
 
@@ -192,39 +99,11 @@
             <div class="sec-title">
                 <div class="sec-bar geo"></div>
                 <h2>Geography</h2>
-                <span class="sec-count">2 games</span>
+                <span class="sec-count"></span>
             </div>
         </div>
         <div class="row-wrap">
-            <div class="cards-row">
-
-                <a class="game-card" href="games/world-explorer/index.html" id="world-explorer">
-                    <div class="thumb world">
-                        <i class="ti ti-world"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">World Explorer</div>
-                        <div class="card-desc">Discover countries, capitals, flags, and amazing facts about every corner of Earth.</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-                <a class="game-card" href="games/earth-explorer/index.html" id="earth-explorer">
-                    <div class="thumb earth">
-                        <i class="ti ti-map"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Earth Explorer</div>
-                        <div class="card-desc">Click on the world map to find and name every continent and ocean!</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-            </div>
+            <div class="cards-row"></div>
         </div>
     </section>
 
@@ -234,26 +113,11 @@
             <div class="sec-title">
                 <div class="sec-bar words"></div>
                 <h2>Words &amp; Language</h2>
-                <span class="sec-count">1 game</span>
+                <span class="sec-count"></span>
             </div>
         </div>
         <div class="row-wrap">
-            <div class="cards-row">
-
-                <a class="game-card" href="games/word-explorer/index.html" id="word-explorer">
-                    <div class="thumb word">
-                        <i class="ti ti-book-2"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Word Explorer</div>
-                        <div class="card-desc">Build a powerful vocabulary — learn new words with definitions, examples, and quizzes.</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-            </div>
+            <div class="cards-row"></div>
         </div>
     </section>
 
@@ -263,54 +127,11 @@
             <div class="sec-title">
                 <div class="sec-bar science"></div>
                 <h2>Science &amp; Nature</h2>
-                <span class="sec-count">3 games</span>
+                <span class="sec-count"></span>
             </div>
         </div>
         <div class="row-wrap">
-            <div class="cards-row">
-
-                <a class="game-card" href="games/solar-system/index.html" id="solar-system">
-                    <div class="thumb solar">
-                        <span class="badge-new">New</span>
-                        <i class="ti ti-sun" style="color: #FDD835;"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Planet Quest</div>
-                        <div class="card-desc">Explore the solar system — click planets to learn facts, then ace the quiz across 6 levels!</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-                <a class="game-card" href="games/dino-hunter/index.html" id="dino-hunter">
-                    <div class="thumb dino">
-                        <i class="ti ti-skull"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Dino Hunter</div>
-                        <div class="card-desc">Hunt your target dino — miss and learn incredible facts about the one you hit!</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-                <a class="game-card" href="games/periodic-table/index.html" id="periodic-table">
-                    <div class="thumb periodic">
-                        <span class="badge-new">New</span>
-                        <i class="ti ti-flask-2"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Periodic Table Master</div>
-                        <div class="card-desc">Learn chemistry with 5 memory techniques! Master elements through Story Chain, Memory Palace, Body Map, and more.</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-
-            </div>
+            <div class="cards-row"></div>
         </div>
     </section>
 
@@ -320,25 +141,11 @@
             <div class="sec-title">
                 <div class="sec-bar art"></div>
                 <h2>Art &amp; Creativity</h2>
-                <span class="sec-count">1 game</span>
+                <span class="sec-count"></span>
             </div>
         </div>
         <div class="row-wrap">
-            <div class="cards-row">
-                <a class="game-card" href="games/draw-it/index.html" id="draw-it">
-                    <div class="thumb draw-it">
-                        <span class="badge-new">New</span>
-                        <i class="ti ti-palette"></i>
-                    </div>
-                    <div class="card-overlay">
-                        <div class="card-title">Draw It</div>
-                        <div class="card-desc">Follow step-by-step guides to draw animals, vehicles, characters, and more!</div>
-                        <span class="card-play">
-                            <i class="ti ti-player-play"></i> Play
-                        </span>
-                    </div>
-                </a>
-            </div>
+            <div class="cards-row"></div>
         </div>
     </section>
 
@@ -361,43 +168,7 @@
             </div>
             <p>Free browser-based educational games for curious kids. No download, no login — just play and learn.</p>
         </div>
-        <div class="footer-col">
-            <h3>Math &amp; Numbers</h3>
-            <ul>
-                <li><a href="games/math-ladder/index.html">Math Ladder</a></li>
-                <li><a href="games/number-ninja/index.html">Number Ninja</a></li>
-                <li><a href="games/quick-math/index.html">Quick Math</a></li>
-                <li><a href="games/measure-master/index.html">Measure Master</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h3>Geography</h3>
-            <ul>
-                <li><a href="games/world-explorer/index.html">World Explorer</a></li>
-                <li><a href="games/earth-explorer/index.html">Earth Explorer</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h3>Words</h3>
-            <ul>
-                <li><a href="games/word-explorer/index.html">Word Explorer</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h3>Science &amp; Memory</h3>
-            <ul>
-                <li><a href="games/solar-system/index.html">Planet Quest</a></li>
-                <li><a href="games/dino-hunter/index.html">Dino Hunter</a></li>
-                <li><a href="games/periodic-table/index.html">Periodic Table Master</a></li>
-                <li><a href="games/body-map/index.html">Body Map</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h3>Art &amp; Creativity</h3>
-            <ul>
-                <li><a href="games/draw-it/index.html">Draw It</a></li>
-            </ul>
-        </div>
+        <div id="footer-games"></div>
     </div>
     <div class="footer-bottom">
         <p>© 2026 Doodles · Built with care for learning</p>
@@ -406,6 +177,7 @@
             <div class="swatch" style="background:var(--c-math)"></div>
             <div class="swatch" style="background:var(--c-geo)"></div>
             <div class="swatch" style="background:var(--c-words)"></div>
+            <div class="swatch" style="background:var(--c-memory)"></div>
             <div class="swatch" style="background:var(--c-science)"></div>
             <div class="swatch" style="background:var(--c-art)"></div>
         </div>
@@ -433,27 +205,6 @@
 
 
 <script>
-    const sections = document.querySelectorAll('.cat-section');
-    const empty    = document.getElementById('empty');
-
-    function filter(cat, btn) {
-        document.querySelectorAll('.pill').forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-
-        if (cat === 'all') {
-            sections.forEach(s => s.classList.remove('hidden'));
-            empty.style.display = 'none';
-            return;
-        }
-
-        let found = false;
-        sections.forEach(s => {
-            if (s.dataset.cat === cat) { s.classList.remove('hidden'); found = true; }
-            else                       { s.classList.add('hidden'); }
-        });
-        empty.style.display = found ? 'none' : 'block';
-    }
-
     // Feedback modal
     function openFeedbackModal() {
         document.getElementById('feedbackModal').style.display = 'flex';
@@ -473,6 +224,9 @@
         setTimeout(() => closeFeedbackModal(), 500);
     });
 </script>
+
+<script src="games-manifest.js"></script>
+<script src="portal.js"></script>
 
 <!-- Analytics -->
 <script src="shared/analytics.js"></script>

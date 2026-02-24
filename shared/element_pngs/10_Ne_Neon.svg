@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000" viewBox="0 0 2000 2000">
+  <rect width="100%" height="100%" fill="#00000a"/>
+  <g transform="translate(1000,900)">
+    <!-- lantern -->
+    <g>
+      <rect x="-160" y="-240" width="320" height="420" rx="36" fill="#FF2DCB" opacity="0.16"/>
+      <rect x="-120" y="-200" width="240" height="340" rx="24" fill="#FF2DCB"/>
+      <rect x="-80" y="-40" width="160" height="160" rx="20" fill="#00D2FF" opacity="0.16"/>
+    </g>
+    <!-- neon script -->
+    <path d="M-780,-320 C-500,-200 -200,-160 0,-120 C200,-80 500,-40 780,20" stroke="#00D2FF" stroke-width="26" fill="none" stroke-linecap="round" opacity="0.95"/>
+    <path d="M-720,-200 C-380,-120 -40,-80 320,-20" stroke="#FF2DCB" stroke-width="18" fill="none" stroke-linecap="round" opacity="0.9"/>
+  </g>
+</svg>

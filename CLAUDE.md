@@ -190,12 +190,12 @@ Used by: Body Map, Doodle School
 1. **Create the folder:** `games/<game-id>/`
 2. **Create `index.html`** following the full head + body checklist above.
 3. **Create `game.js`** — no inline scripts in HTML.
-4. **Add a game card** to `index.html` (portal):
-   - Add an `<a class="game-card" href="games/<game-id>/index.html" id="<game-id>">` in the correct `<section data-cat="...">`.
-   - Add a CSS gradient variable `--grad-<id>` and a `.thumb.<id>` rule in `css/portal.css`.
-5. **Add to the footer** in the appropriate column.
-6. **Add to `sitemap.xml`** with `<lastmod>` = today, `<changefreq>monthly`, `<priority>0.8`.
-7. **Update the nav counter** in `index.html`: `<span class="nav-count">N games · M subjects</span>` — see the `<!-- UPDATE THIS when adding games -->` comment.
+4. **Add to the manifest:** Add a `GAMES` entry to `games-manifest.js`:
+   - The portal automatically renders game cards, filter pill counts, footer links, and section counters from this entry.
+   - See Section 10 for the full schema.
+5. **Add to `sitemap.xml`** with `<lastmod>` = today, `<changefreq>monthly`, `<priority>0.8`.
+
+**That's it!** The portal, filter pills, footer, and counters all update automatically. No HTML or CSS changes needed.
 
 ---
 
@@ -293,3 +293,62 @@ From `css/portal.css` (Portal only):
 - Backdrop filters provide modal hierarchy without visual clutter
 
 **Enforcement:** Grep for `box-shadow` in all `.css` files — should return zero results.
+
+---
+
+## 10. Games Manifest Schema
+
+The portal is entirely driven by two global objects: `CATEGORIES` and `GAMES` (defined in `games-manifest.js`).
+
+### CATEGORIES Array
+
+Each category object has:
+
+| Field | Type | Example |
+|-------|------|---------|
+| `id` | string | `'math'` |
+| `label` | string | `'Math & Numbers'` |
+| `color` | hex color | `'#BF360C'` |
+| `footerHeading` | string | `'Math & Numbers'` |
+
+The portal renders one filter pill per category (plus an "All Games" pill), and one footer column per category.
+
+### GAMES Array
+
+Each game object has:
+
+| Field | Type | Description | Example |
+|-------|------|-------------|---------|
+| `id` | string | **Unique.** Must match folder name and HTML id. | `'math-ladder'` |
+| `name` | string | Display name on card and footer. | `'Math Ladder'` |
+| `category` | string | Must match a category `id` from CATEGORIES. | `'math'` |
+| `desc` | string | Card description (HTML entities OK). | `'Climb rung by rung...'` |
+| `icon` | string | Tabler icon class. | `'ti-stairs'` |
+| `iconColor` | string or null | Icon color (hex). Null = white. | `'#F5C518'` or `null` |
+| `gradient` | string | Full CSS linear-gradient for thumbnail. | `'linear-gradient(150deg, #FF7043 0%, #BF360C 100%)'` |
+| `pattern` | string or null | Optional CSS background pattern (::before pseudo-element). | `'repeating-linear-gradient(...)'` or `null` |
+| `patternSize` | string or null | `background-size` if needed. | `'20px 20px'` or `null` |
+| `patternPosition` | string or null | `background-position` if needed. | `'0 0, 10px 15px'` or `null` |
+| `thumbClass` | string or null | CSS class for .thumb (null = use inline gradient). | `'ninja'` or `null` |
+| `newUntil` | ISO date string or null | Show "New" badge until this date (checked at render time). | `'2026-04-01'` or `null` |
+| `footerName` | string | Link text in footer (may differ from `name`). | `'Planet Quest'` |
+
+**Notes:**
+- If `thumbClass` is null (e.g. Body Map), the gradient is applied inline to the `.thumb` div.
+- If `thumbClass` is set, `portal.js` injects CSS rules for `.thumb.{thumbClass}` and (if pattern exists) `.thumb.{thumbClass}::before`.
+- `newUntil` is compared to the current date on render. Example: if today is 2026-02-24 and `newUntil: '2026-04-01'`, the badge shows.
+- All game links in the portal anchor to `games/{id}/index.html`.
+
+### portal.js Functions
+
+| Function | Purpose |
+|----------|---------|
+| `injectThumbStyles()` | Generates CSS rules for all games with `thumbClass` |
+| `renderCards()` | Populates `.cards-row` divs with game card HTML |
+| `updateNavCount()` | Sets nav counter to "N games · M subjects" |
+| `updateSectionCounts()` | Updates each `.sec-count` span with category game count |
+| `renderFilterPills()` | Builds filter pill buttons and attaches listeners |
+| `renderFooter()` | Builds footer columns from CATEGORIES |
+| `attachFilterListeners()` | Handles pill clicks to show/hide sections |
+
+All functions run on `DOMContentLoaded`.

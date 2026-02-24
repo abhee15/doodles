@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000" viewBox="0 0 2000 2000">
+  <rect width="100%" height="100%" fill="#071833"/>
+  <g transform="translate(1000,700)">
+    <!-- bubble -->
+    <circle cx="0" cy="0" r="420" fill="rgba(207,247,255,0.14)" stroke="#CFF7FF" stroke-width="12"/>
+    <circle cx="-110" cy="-60" r="90" fill="#FFFFFF" opacity="0.12"/>
+    <!-- spark inside -->
+    <g transform="translate(0,40)">
+      <path d="M0,-60 L12,-12 L60,0 L12,12 L0,60 L-12,12 L-60,0 L-12,-12 Z" fill="#FFF5E6"/>
+    </g>
+    <!-- stars -->
+    <g fill="#FFD9A6" opacity="0.9">
+      <circle cx="420" cy="-420" r="10"/>
+      <circle cx="480" cy="-300" r="6"/>
+      <circle cx="360" cy="-320" r="8"/>
+    </g>
+  </g>
+</svg>

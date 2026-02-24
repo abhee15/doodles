@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000" viewBox="0 0 2000 2000">
+  <rect width="100%" height="100%" fill="#0b120a"/>
+  <g transform="translate(1000,900)">
+    <!-- lantern -->
+    <g>
+      <circle cx="0" cy="-40" r="160" fill="#bff7c9" opacity="0.95"/>
+      <circle cx="0" cy="-40" r="80" fill="#eaffef" opacity="0.95"/>
+      <rect x="-36" y="120" width="72" height="120" rx="16" fill="#6b4f2a" opacity="0.6"/>
+    </g>
+    <!-- rings -->
+    <g fill="none" stroke="#bff7c9" stroke-width="10" opacity="0.18">
+      <circle cx="0" cy="140" r="260"/>
+      <circle cx="0" cy="140" r="360"/>
+    </g>
+  </g>
+</svg>

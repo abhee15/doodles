@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="2000" height="2000" viewBox="0 0 2000 2000">
+  <rect width="100%" height="100%" fill="#0b2b12"/>
+  <g transform="translate(1000,900)">
+    <!-- staff sprouting ladder rungs -->
+    <rect x="-28" y="-300" width="56" height="800" rx="28" fill="#7de27d"/>
+    <g fill="#b7ffb7">
+      <rect x="-120" y="-120" width="240" height="28" rx="12"/>
+      <rect x="-120" y="-20" width="240" height="28" rx="12"/>
+      <rect x="-120" y="80" width="240" height="28" rx="12"/>
+      <rect x="-120" y="180" width="240" height="28" rx="12"/>
+    </g>
+    <circle cx="0" cy="420" r="180" fill="#b7ffb7" opacity="0.06"/>
+  </g>
+</svg>
