@@ -90,6 +90,230 @@ const LEVELS = [
 const TUTORIAL_STEPS = {
   1: [
     {
+      title: 'Multiply by 4',
+      text: 'The SIMPLEST trick: just double twice!',
+      example: '',
+      mnemonic: 'Double, Then Double Again! 2️⃣2️⃣'
+    },
+    {
+      title: 'The Secret',
+      text: '4 = 2 × 2\n\nSo ×4 is the same as ×2 twice!\n\nExample: 5 × 4\nFirst double: 5 × 2 = 10\nSecond double: 10 × 2 = 20',
+      example: '5 × 4 = 20',
+      steps: [
+        '📍 <span class="qm-step-highlight">First double</span>: 5 × 2 = 10',
+        '📍 <span class="qm-step-highlight">Second double</span>: 10 × 2 = 20'
+      ]
+    },
+    {
+      title: 'More Examples',
+      text: '8 × 4:\nFirst: 8 × 2 = 16\nSecond: 16 × 2 = 32\n\nPerfect!\n\nAlways the same pattern!',
+      example: '✨ Double Twice! ✨',
+      mnemonic: '×2 then ×2 = ×4'
+    }
+  ],
+  2: [
+    {
+      title: 'Multiply by 5',
+      text: 'Learn the easiest trick: multiply by 10, then divide by 2!',
+      example: '',
+      mnemonic: '×10 Then ÷2 = ×5'
+    },
+    {
+      title: 'The Secret Formula',
+      text: '×5 is the same as ×10 ÷ 2\n\nBecause: 5 = 10 ÷ 2\n\nExample with 8:',
+      example: '8 × 5 = ?',
+      steps: [
+        '1️⃣ Multiply by <span class="qm-step-highlight">10</span>: 8 × 10 = 80',
+        '2️⃣ Divide by <span class="qm-step-highlight">2</span> (cut in half): 80 ÷ 2 = 40',
+        '✅ Answer: 8 × 5 = 40'
+      ],
+      tip: 'Always multiply by 10 first (just add a 0), then cut the result in half!'
+    },
+    {
+      title: 'Even Faster for EVEN Numbers!',
+      text: 'When the number is even, you can do it backwards:\nHalf first, then add the 0!\n\nExample with 12:',
+      example: '12 × 5 = ?',
+      steps: [
+        '1️⃣ <span class="qm-step-highlight">Half</span> the number: 12 ÷ 2 = 6',
+        '2️⃣ Add a <span class="qm-step-highlight">0</span>: 60',
+        '✅ Answer: 12 × 5 = 60'
+      ],
+      visual: {
+        html: `
+                    <div style="background: color-mix(in srgb, var(--qm-blue) 20%, white); padding: 15px; border-radius: 6px; text-align: center;">
+                        <div style="font-size: 14px; color: var(--dom-text-muted); margin-bottom: 10px;">Even Numbers Get This Bonus Trick:</div>
+                        <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                            <div style="background: white; padding: 10px 15px; border-radius: 4px; border: 2px solid var(--qm-blue);">
+                                <div style="font-size: 12px; color: var(--qm-blue);">÷2</div>
+                                <div style="font-size: 18px; font-weight: bold;">12</div>
+                            </div>
+                            <div style="font-size: 20px; color: var(--qm-orange);">→</div>
+                            <div style="background: white; padding: 10px 15px; border-radius: 4px; border: 2px solid var(--qm-orange);">
+                                <div style="font-size: 12px; color: var(--qm-orange);">+0</div>
+                                <div style="font-size: 18px; font-weight: bold;">60</div>
+                            </div>
+                        </div>
+                    </div>
+                `
+      },
+      mnemonic: 'Half the number, add a zero! 🎯'
+    },
+    {
+      title: 'More Examples!',
+      text: 'Practice the pattern with different numbers:\n\n16 × 5: Half of 16 = 8, add 0 → 80\n24 × 5: Half of 24 = 12, add 0 → 120\n14 × 5: (14×10)÷2 = 140÷2 = 70',
+      example: '✨ See the Pattern? ✨',
+      tip: "Use the even number trick when possible—it's faster!"
+    }
+  ],
+  3: [
+    {
+      title: 'Multiply by 3',
+      text: 'Learn the triple trick!',
+      example: '',
+      mnemonic: '×3 = ×2 + ×1'
+    },
+    {
+      title: 'The Secret',
+      text: '3 = 2 + 1\n\nSo ×3 = ×2 + ×1\n\nDouble the number, then add it once more!',
+      example: '5 × 3 = ?',
+      steps: ['📍 Double: 5 × 2 = 10', '➕ Add once: 10 + 5 = 15']
+    },
+    {
+      title: 'More Examples',
+      text: '7 × 3 = 14 + 7 = 21\n8 × 3 = 16 + 8 = 24\n12 × 3 = 24 + 12 = 36',
+      example: '✨ Double & Add! ✨',
+      tip: 'Super simple: just double it, then add the original!'
+    }
+  ],
+  4: [
+    { title: 'Divide by 5', text: 'The Reverse of ×5!', example: '', mnemonic: '×2 then ÷10 = ÷5' },
+    {
+      title: 'The Trick',
+      text: '÷5 = ×2 ÷10\n\nDouble the number, then remove a 0!\n\n20 ÷ 5 = ?',
+      example: '20 ÷ 5 = 4',
+      steps: ['📍 Double: 20 × 2 = 40', '📍 Remove a zero: 40 ÷ 10 = 4']
+    },
+    {
+      title: 'Examples',
+      text: '30 ÷ 5 = 60 ÷ 10 = 6\n50 ÷ 5 = 100 ÷ 10 = 10\n80 ÷ 5 = 160 ÷ 10 = 16',
+      example: '✨ Double & Divide! ✨',
+      tip: 'This is the reverse of the ×5 trick!'
+    }
+  ],
+  5: [
+    {
+      title: 'Multiply by 20',
+      text: 'Double the number, then ×10!',
+      example: '',
+      mnemonic: '(×2) then (×10) = ×20'
+    },
+    {
+      title: 'The Strategy',
+      text: '20 = 2 × 10\n\nSo ×20 = ×2 then ×10\nWhich means: Double, then add a 0!',
+      example: '7 × 20 = ?',
+      steps: ['📍 Double: 7 × 2 = 14', '📍 Add a zero: 140']
+    },
+    {
+      title: 'Quick Examples',
+      text: '5 × 20 = 10 × 10 = 100\n8 × 20 = 16 × 10 = 160\n12 × 20 = 24 × 10 = 240',
+      example: '✨ Double & Zero! ✨'
+    }
+  ],
+  6: [
+    {
+      title: 'Multiply by 30',
+      text: 'Triple the number, then ×10!',
+      example: '',
+      mnemonic: '(×3) then (×10) = ×30'
+    },
+    {
+      title: 'The Strategy',
+      text: '30 = 3 × 10\n\nSo ×30 = ×3 then ×10\nWhich means: Triple, then add a 0!',
+      example: '4 × 30 = ?',
+      steps: ['📍 Triple (×3): 4 × 3 = 12', '📍 Add a zero: 120']
+    },
+    {
+      title: 'Examples',
+      text: '5 × 30 = 15 × 10 = 150\n6 × 30 = 18 × 10 = 180\n7 × 30 = 21 × 10 = 210',
+      example: '✨ Triple & Zero! ✨'
+    }
+  ],
+  7: [
+    {
+      title: 'Multiply by 9',
+      text: 'Discover the MAGICAL ×9 pattern!',
+      example: '',
+      mnemonic: 'Go Down 1, Up 9! ✨'
+    },
+    {
+      title: 'The Amazing Pattern',
+      text: 'Look at these ×9 results:\n\n1×9 = 09 (digits sum: 0+9=9)\n2×9 = 18 (digits sum: 1+8=9)\n3×9 = 27 (digits sum: 2+7=9)\n4×9 = 36 (digits sum: 3+6=9)\n5×9 = 45 (digits sum: 4+5=9)\n\nALL digits add to 9! Why?',
+      example: '🎯 Magic Pattern!',
+      visual: {
+        html: `
+                    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 250px; margin: 0 auto;">
+                        ${[1, 2, 3, 4, 5]
+                          .map(
+                            n => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: color-mix(in srgb, var(--qm-orange) 15%, white); border-radius: 4px;">
+                                <span style="font-weight: bold;">${n}×9 = ${n * 9}</span>
+                                <span style="color: var(--qm-orange); font-weight: bold;">${n - 1}${10 - n}</span>
+                            </div>
+                        `
+                          )
+                          .join('')}
+                    </div>
+                `
+      },
+      tip: 'The digits form a pattern: first increases, second decreases!'
+    },
+    {
+      title: 'The Quick Method',
+      text: 'For any single digit × 9:\n\nGo DOWN by 1 for first digit\nGo UP by 9 for second digit (or to make sum = 9)',
+      example: '5 × 9 = ?',
+      steps: [
+        '📉 First digit: 5 − 1 = <span class="qm-step-highlight">4</span>',
+        '📈 Second digit: 9 − 4 = <span class="qm-step-highlight">5</span>',
+        '✅ Answer: <span class="qm-step-highlight">45</span>'
+      ],
+      mnemonic: '(n−1) | (9−(n−1))'
+    },
+    {
+      title: 'The FINGER Trick! 🖐️',
+      text: 'Hold up 10 fingers. To multiply 5×9:\n\n1. Bend your 5th finger down\n2. Count fingers on left: 4\n3. Count fingers on right: 5\n4. Answer: 45!',
+      example: '5 × 9 = 45',
+      visual: {
+        html: `
+                    <div style="text-align: center;">
+                        <div style="font-size: 48px; margin: 10px 0;">🖐️</div>
+                        <div style="font-size: 14px; color: var(--dom-text-muted); margin-bottom: 10px;">Hold 10 fingers, bend the 5th</div>
+                        <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">Left</div>
+                                <div style="font-size: 32px; font-weight: bold; color: var(--qm-blue);">4</div>
+                            </div>
+                            <div style="font-size: 20px; color: var(--qm-orange);">|</div>
+                            <div style="text-align: center;">
+                                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">Right</div>
+                                <div style="font-size: 32px; font-weight: bold; color: var(--qm-orange);">5</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 16px; font-weight: bold; margin-top: 15px; color: var(--qm-green);">Answer: 45</div>
+                    </div>
+                `
+      },
+      tip: 'This finger trick works for ALL ×9: just bend the finger for that number!'
+    },
+    {
+      title: 'Master the Magic!',
+      text: 'Try it with other numbers:\n\n7×9: Bend 7th finger → 6 left, 3 right = 63\n9×9: Bend 9th finger → 8 left, 1 right = 81\n2×9: Bend 2nd finger → 1 left, 8 right = 18',
+      example: "✨ You've Got It! ✨",
+      mnemonic: 'Fingers Never Lie! 🖐️',
+      tip: 'Use the finger trick when you forget the pattern—it always works!'
+    }
+  ],
+  8: [
+    {
       title: 'The ×11 Trick',
       text: 'Learn the fastest way to multiply any 2-digit number by 11!',
       example: '',
@@ -145,7 +369,118 @@ const TUTORIAL_STEPS = {
       mnemonic: 'Split 👉 Add Middle 👉 Answer!'
     }
   ],
-  2: [
+  9: [
+    {
+      title: 'Multiply by 6',
+      text: 'Break it into ×5 + ×1!',
+      example: '',
+      mnemonic: '(×5) + (×1) = ×6'
+    },
+    {
+      title: 'The Trick',
+      text: '6 = 5 + 1\nSo: ×6 = ×5 + ×1\n\n7 × 6 = (7×5) + (7×1) = 35 + 7 = 42',
+      example: '7 × 6 = 42',
+      steps: ['🔹 Multiply by 5: 7 × 5 = 35', '🔹 Add the number once: 35 + 7 = 42']
+    }
+  ],
+  10: [
+    {
+      title: 'Multiply by 7',
+      text: 'The Cross Multiplication Magic!',
+      example: '',
+      mnemonic: '×7 = ×5 + ×2'
+    },
+    {
+      title: 'Break It Down',
+      text: '7 = 5 + 2\n\nSo ×7 = ×5 + ×2\n\nMultiply by 5, then add twice!',
+      example: '6 × 7 = ?',
+      steps: ['📍 Multiply by 5: 6 × 5 = 30', '📍 Double: 6 × 2 = 12', '✅ Add: 30 + 12 = 42']
+    },
+    {
+      title: 'Pattern Recognition',
+      text: '4 × 7 = 20 + 8 = 28\n8 × 7 = 40 + 16 = 56\n9 × 7 = 45 + 18 = 63',
+      example: '✨ 5 + 2 = 7! ✨',
+      tip: 'Using 5 makes multiplication easier since we can halve!'
+    }
+  ],
+  11: [
+    {
+      title: 'Multiply by 8',
+      text: 'Triple-double: Three doublings!',
+      example: '',
+      mnemonic: 'Double 3 Times = ×8'
+    },
+    {
+      title: 'The Secret',
+      text: '8 = 2 × 2 × 2\n\nSo ×8 = triple double!\n\n3 × 8:\nDouble: 3 × 2 = 6\nDouble: 6 × 2 = 12\nDouble: 12 × 2 = 24',
+      example: '3 × 8 = 24',
+      steps: [
+        '📍 First double: 3 × 2 = 6',
+        '📍 Second double: 6 × 2 = 12',
+        '📍 Third double: 12 × 2 = 24'
+      ]
+    }
+  ],
+  12: [
+    {
+      title: 'Multiply by 12',
+      text: 'Split: ×10 and ×2!',
+      example: '',
+      mnemonic: '(×10) + (×2) = ×12'
+    },
+    {
+      title: 'The Trick',
+      text: '12 = 10 + 2\nSo: ×12 = ×10 + ×2\n\n5 × 12 = (5×10) + (5×2) = 50 + 10 = 60',
+      example: '5 × 12 = 60',
+      steps: ['➕ Multiply by 10 (add 0): 50', '➕ Multiply by 2: 10', '✅ Add them: 50 + 10 = 60']
+    }
+  ],
+  13: [
+    {
+      title: 'Multiply by 15',
+      text: 'The Magic: ×10 + Half!',
+      example: '',
+      mnemonic: '(×10) + (÷2 of ×10) = ×15'
+    },
+    {
+      title: 'The Secret',
+      text: '15 = 10 + 5 = 10 + (10÷2)\n\n4 × 15 = (4×10) + half of (4×10)\n= 40 + 20 = 60',
+      example: '4 × 15 = 60',
+      steps: ['➕ Multiply by 10: 40', '➕ Half of 40: 20', '✅ Add: 40 + 20 = 60']
+    }
+  ],
+  14: [
+    {
+      title: 'Multiply by 25',
+      text: 'The Quarter Trick!',
+      example: '',
+      mnemonic: '÷4 then ×100 = ×25'
+    },
+    {
+      title: 'The Secret',
+      text: '25 = 100 ÷ 4\n\n8 × 25 = (8÷4) × 100 = 2 × 100 = 200\n\nOr: Half twice, add 00',
+      example: '8 × 25 = 200',
+      steps: [
+        '📍 Method 1: Quarter (÷4) = 2, then ×100',
+        '📍 Method 2: Half (÷2) = 4, Half again = 2, then ×100'
+      ]
+    }
+  ],
+  15: [
+    {
+      title: 'Multiply by 99',
+      text: 'The Shortcut: ×100 − ×1!',
+      example: '',
+      mnemonic: '(×100) − (×1) = ×99'
+    },
+    {
+      title: 'The Trick',
+      text: '99 = 100 − 1\n\n23 × 99:\n= (23 × 100) − (23 × 1)\n= 2300 − 23 = 2277',
+      example: '23 × 99 = 2277',
+      steps: ['➕ Multiply by 100: 2300', '➖ Subtract once: −23', '✅ Answer: 2277']
+    }
+  ],
+  16: [
     {
       title: 'Square Numbers Ending in 5',
       text: 'Learn the FASTEST way to square numbers like 25, 35, 45!',
@@ -229,84 +564,65 @@ const TUTORIAL_STEPS = {
       tip: 'Write it down a few times to lock in the pattern!'
     }
   ],
-  3: [
+  17: [
     {
-      title: 'Double & Half',
-      text: 'Master the EASIEST shortcut for multiplying by 25!',
+      title: 'Square Numbers Ending in 1',
+      text: 'Pattern for 21, 31, 41, etc.!',
       example: '',
-      mnemonic: 'Half the number, ×100 = ×25! 🎯'
+      mnemonic: '(N-1)² + 2N'
     },
     {
-      title: 'Understanding ×25',
-      text: '25 is a special number because:\n25 = 100 ÷ 4\n\nSo multiplying by 25 = ÷4 then ×100\n\nOr: ÷2 twice, then ×100',
-      example: '8 × 25 = ?',
-      steps: [
-        '💡 Recognize: 25 = 100 ÷ 4',
-        '📊 We can divide by 4 by halving twice',
-        '✅ Then multiply by 100 (add two zeros)'
-      ],
-      tip: 'Breaking a problem into smaller steps makes it easier!'
+      title: 'The Formula',
+      text: 'Numbers ending in 1 square using:\nN1² = (N×10+1)² = 100N² + 20N + 1',
+      example: '21² = ?',
+      steps: ['📍 Use pattern: 20² + 2(20×1) + 1', '📍 = 400 + 40 + 1 = 441']
     },
     {
-      title: 'The Quick Way for EVEN Numbers',
-      text: 'When the number is even, use this shortcut:\n\nHalf the number, then add "00"',
-      example: '12 × 25 = ?',
-      steps: [
-        '1️⃣ Half of <span class="qm-step-highlight">12</span> = <span class="qm-step-highlight">6</span>',
-        '2️⃣ Add <span class="qm-step-highlight">00</span>: <span class="qm-step-highlight">600</span>',
-        '✅ 12 × 25 = 600'
-      ],
-      visual: {
-        html: `
-                    <div style="display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                        <div style="text-align: center;">
-                            <div style="background: var(--qm-blue); color: white; padding: 12px 16px; border-radius: 6px; font-weight: bold; font-size: 16px;">12</div>
-                            <div style="font-size: 12px; margin-top: 4px;">÷2</div>
-                        </div>
-                        <div style="color: var(--qm-orange); font-size: 20px; font-weight: bold;">→</div>
-                        <div style="text-align: center;">
-                            <div style="background: var(--qm-orange); color: white; padding: 12px 16px; border-radius: 6px; font-weight: bold; font-size: 16px;">6</div>
-                            <div style="font-size: 12px; margin-top: 4px;">+00</div>
-                        </div>
-                        <div style="color: var(--qm-orange); font-size: 20px; font-weight: bold;">→</div>
-                        <div style="text-align: center;">
-                            <div style="background: var(--qm-green); color: white; padding: 12px 16px; border-radius: 6px; font-weight: bold; font-size: 16px;">600</div>
-                            <div style="font-size: 12px; margin-top: 4px;">Answer!</div>
-                        </div>
-                    </div>
-                `
-      },
-      mnemonic: 'Half the number, add zeros! ✨'
-    },
-    {
-      title: 'More Examples!',
-      text: 'This works for all even numbers:',
-      example: 'Master ×25! ✅',
-      visual: {
-        html: `
-                    <div style="display: flex; flex-direction: column; gap: 10px;">
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <span style="background: var(--qm-blue); color: white; padding: 6px 12px; border-radius: 4px; font-weight: bold;">16 × 25</span>
-                            <span style="color: var(--dom-text-muted);">=</span>
-                            <span style="color: var(--qm-orange);">8 × 100 = 400</span>
-                        </div>
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <span style="background: var(--qm-blue); color: white; padding: 6px 12px; border-radius: 4px; font-weight: bold;">20 × 25</span>
-                            <span style="color: var(--dom-text-muted);">=</span>
-                            <span style="color: var(--qm-orange);">10 × 100 = 1000</span>
-                        </div>
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <span style="background: var(--qm-blue); color: white; padding: 6px 12px; border-radius: 4px; font-weight: bold;">24 × 25</span>
-                            <span style="color: var(--dom-text-muted);">=</span>
-                            <span style="color: var(--qm-orange);">12 × 100 = 1200</span>
-                        </div>
-                    </div>
-                `
-      },
-      tip: 'The pattern is consistent: always half, then add 00!'
+      title: 'More Examples',
+      text: '31² = 30² + 2(30) + 1 = 900 + 60 + 1 = 961\n41² = 40² + 2(40) + 1 = 1600 + 80 + 1 = 1681',
+      example: '✨ Ending in 1 Magic! ✨'
     }
   ],
-  4: [
+  18: [
+    {
+      title: 'Square Numbers Ending in 6',
+      text: 'The Complementary Pattern!',
+      example: '',
+      mnemonic: '6² always ends in 6!'
+    },
+    {
+      title: 'Magic Property',
+      text: 'Numbers ending in 6 have a special property:\nWhen you square them, they ALWAYS end in 6!\n\n6² = 36 (ends in 6)\n16² = 256 (ends in 6)\n26² = 676 (ends in 6)',
+      example: '26² = ?',
+      steps: ['🎯 Last digit: Always 6', '📍 Use formula: (20+6)² = 400 + 240 + 36 = 676']
+    },
+    {
+      title: 'Why This Happens',
+      text: 'Because 6 × 6 = 36, which ends in 6!\n\nAny number ending in 6 × 6 will end in 6!',
+      example: '✨ 6 is Magic! ✨'
+    }
+  ],
+  19: [
+    {
+      title: 'Divisibility by 9',
+      text: 'The Digital Root Trick!',
+      example: '',
+      mnemonic: 'Sum digits = 9? Divisible! ✓'
+    },
+    {
+      title: 'The Rule',
+      text: 'A number is divisible by 9 if the sum of its digits equals 9 (or a multiple of 9)!\n\nExample: 27\n2 + 7 = 9 ✓ Divisible!\n\nExample: 45\n4 + 5 = 9 ✓ Divisible!',
+      example: '✨ Digital Magic! ✨',
+      steps: ['📍 Check: Is 36 divisible by 9?', '📍 Sum digits: 3 + 6 = 9 ✓', '📍 YES! 36 ÷ 9 = 4']
+    },
+    {
+      title: 'Test Your Knowledge',
+      text: 'Is 72 divisible by 9?\n7 + 2 = 9 ✓ YES!\n\nIs 81 divisible by 9?\n8 + 1 = 9 ✓ YES!\n\nIs 50 divisible by 9?\n5 + 0 = 5 ✗ NO!',
+      example: '✨ Check Any Number! ✨',
+      tip: 'This also works for divisibility by 3 (digits sum to 3, 6, or 9)!'
+    }
+  ],
+  20: [
     {
       title: 'Base Method',
       text: 'Multiply numbers CLOSE to 10!',
@@ -360,272 +676,31 @@ const TUTORIAL_STEPS = {
       tip: "Negative times negative = positive! That's why it works!"
     }
   ],
-  5: [
+  21: [
     {
-      title: 'Multiply by 9',
-      text: 'Discover the MAGICAL ×9 pattern!',
+      title: 'Numbers Near 50',
+      text: 'The Base 50 Method!',
       example: '',
-      mnemonic: 'Go Down 1, Up 9! ✨'
+      mnemonic: 'Base 50: Close to middle'
     },
     {
-      title: 'The Amazing Pattern',
-      text: 'Look at these ×9 results:\n\n1×9 = 09 (digits sum: 0+9=9)\n2×9 = 18 (digits sum: 1+8=9)\n3×9 = 27 (digits sum: 2+7=9)\n4×9 = 36 (digits sum: 3+6=9)\n5×9 = 45 (digits sum: 4+5=9)\n\nALL digits add to 9! Why?',
-      example: '🎯 Magic Pattern!',
-      visual: {
-        html: `
-                    <div style="display: flex; flex-direction: column; gap: 10px; max-width: 250px; margin: 0 auto;">
-                        ${[1, 2, 3, 4, 5]
-                          .map(
-                            n => `
-                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px; background: color-mix(in srgb, var(--qm-orange) 15%, white); border-radius: 4px;">
-                                <span style="font-weight: bold;">${n}×9 = ${n * 9}</span>
-                                <span style="color: var(--qm-orange); font-weight: bold;">${n - 1}${10 - n}</span>
-                            </div>
-                        `
-                          )
-                          .join('')}
-                    </div>
-                `
-      },
-      tip: 'The digits form a pattern: first increases, second decreases!'
-    },
-    {
-      title: 'The Quick Method',
-      text: 'For any single digit × 9:\n\nGo DOWN by 1 for first digit\nGo UP by 9 for second digit (or to make sum = 9)',
-      example: '5 × 9 = ?',
+      title: 'The Strategy',
+      text: '50 is a great base number!\n\nFor 48 × 52:\n48 = 50 - 2\n52 = 50 + 2\n\nUse the formula: (50-2)(50+2) = 50² - 2² = 2500 - 4 = 2496',
+      example: '48 × 52 = 2496',
       steps: [
-        '📉 First digit: 5 − 1 = <span class="qm-step-highlight">4</span>',
-        '📈 Second digit: 9 − 4 = <span class="qm-step-highlight">5</span>',
-        '✅ Answer: <span class="qm-step-highlight">45</span>'
-      ],
-      mnemonic: '(n−1) | (9−(n−1))'
-    },
-    {
-      title: 'The FINGER Trick! 🖐️',
-      text: 'Hold up 10 fingers. To multiply 5×9:\n\n1. Bend your 5th finger down\n2. Count fingers on left: 4\n3. Count fingers on right: 5\n4. Answer: 45!',
-      example: '5 × 9 = 45',
-      visual: {
-        html: `
-                    <div style="text-align: center;">
-                        <div style="font-size: 48px; margin: 10px 0;">🖐️</div>
-                        <div style="font-size: 14px; color: var(--dom-text-muted); margin-bottom: 10px;">Hold 10 fingers, bend the 5th</div>
-                        <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">
-                            <div style="text-align: center;">
-                                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">Left</div>
-                                <div style="font-size: 32px; font-weight: bold; color: var(--qm-blue);">4</div>
-                            </div>
-                            <div style="font-size: 20px; color: var(--qm-orange);">|</div>
-                            <div style="text-align: center;">
-                                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">Right</div>
-                                <div style="font-size: 32px; font-weight: bold; color: var(--qm-orange);">5</div>
-                            </div>
-                        </div>
-                        <div style="font-size: 16px; font-weight: bold; margin-top: 15px; color: var(--qm-green);">Answer: 45</div>
-                    </div>
-                `
-      },
-      tip: 'This finger trick works for ALL ×9: just bend the finger for that number!'
-    },
-    {
-      title: 'Master the Magic!',
-      text: 'Try it with other numbers:\n\n7×9: Bend 7th finger → 6 left, 3 right = 63\n9×9: Bend 9th finger → 8 left, 1 right = 81\n2×9: Bend 2nd finger → 1 left, 8 right = 18',
-      example: "✨ You've Got It! ✨",
-      mnemonic: 'Fingers Never Lie! 🖐️',
-      tip: 'Use the finger trick when you forget the pattern—it always works!'
-    }
-  ],
-  6: [
-    {
-      title: 'Multiply by 5',
-      text: 'Learn the easiest trick: multiply by 10, then divide by 2!',
-      example: '',
-      mnemonic: '×10 Then ÷2 = ×5'
-    },
-    {
-      title: 'The Secret Formula',
-      text: '×5 is the same as ×10 ÷ 2\n\nBecause: 5 = 10 ÷ 2\n\nExample with 8:',
-      example: '8 × 5 = ?',
-      steps: [
-        '1️⃣ Multiply by <span class="qm-step-highlight">10</span>: 8 × 10 = 80',
-        '2️⃣ Divide by <span class="qm-step-highlight">2</span> (cut in half): 80 ÷ 2 = 40',
-        '✅ Answer: 8 × 5 = 40'
-      ],
-      tip: 'Always multiply by 10 first (just add a 0), then cut the result in half!'
-    },
-    {
-      title: 'Even Faster for EVEN Numbers!',
-      text: 'When the number is even, you can do it backwards:\nHalf first, then add the 0!\n\nExample with 12:',
-      example: '12 × 5 = ?',
-      steps: [
-        '1️⃣ <span class="qm-step-highlight">Half</span> the number: 12 ÷ 2 = 6',
-        '2️⃣ Add a <span class="qm-step-highlight">0</span>: 60',
-        '✅ Answer: 12 × 5 = 60'
-      ],
-      visual: {
-        html: `
-                    <div style="background: color-mix(in srgb, var(--qm-blue) 20%, white); padding: 15px; border-radius: 6px; text-align: center;">
-                        <div style="font-size: 14px; color: var(--dom-text-muted); margin-bottom: 10px;">Even Numbers Get This Bonus Trick:</div>
-                        <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                            <div style="background: white; padding: 10px 15px; border-radius: 4px; border: 2px solid var(--qm-blue);">
-                                <div style="font-size: 12px; color: var(--qm-blue);">÷2</div>
-                                <div style="font-size: 18px; font-weight: bold;">12</div>
-                            </div>
-                            <div style="font-size: 20px; color: var(--qm-orange);">→</div>
-                            <div style="background: white; padding: 10px 15px; border-radius: 4px; border: 2px solid var(--qm-orange);">
-                                <div style="font-size: 12px; color: var(--qm-orange);">+0</div>
-                                <div style="font-size: 18px; font-weight: bold;">60</div>
-                            </div>
-                        </div>
-                    </div>
-                `
-      },
-      mnemonic: 'Half the number, add a zero! 🎯'
-    },
-    {
-      title: 'More Examples!',
-      text: 'Practice the pattern with different numbers:\n\n16 × 5: Half of 16 = 8, add 0 → 80\n24 × 5: Half of 24 = 12, add 0 → 120\n14 × 5: (14×10)÷2 = 140÷2 = 70',
-      example: '✨ See the Pattern? ✨',
-      tip: "Use the even number trick when possible—it's faster!"
-    }
-  ],
-  7: [
-    {
-      title: 'Multiply by 4',
-      text: 'The SIMPLEST trick: just double twice!',
-      example: '',
-      mnemonic: 'Double, Then Double Again! 2️⃣2️⃣'
-    },
-    {
-      title: 'The Secret',
-      text: '4 = 2 × 2\n\nSo ×4 is the same as ×2 twice!\n\nExample: 5 × 4\nFirst double: 5 × 2 = 10\nSecond double: 10 × 2 = 20',
-      example: '5 × 4 = 20',
-      steps: [
-        '📍 <span class="qm-step-highlight">First double</span>: 5 × 2 = 10',
-        '📍 <span class="qm-step-highlight">Second double</span>: 10 × 2 = 20'
+        '📍 Distance from 50: -2 and +2',
+        '📍 (50)² = 2500',
+        '📍 2² = 4',
+        '📍 2500 - 4 = 2496'
       ]
     },
     {
       title: 'More Examples',
-      text: '8 × 4:\nFirst: 8 × 2 = 16\nSecond: 16 × 2 = 32\n\nPerfect!\n\nAlways the same pattern!',
-      example: '✨ Double Twice! ✨',
-      mnemonic: '×2 then ×2 = ×4'
+      text: '49 × 51 = 50² - 1² = 2500 - 1 = 2499\n47 × 53 = 50² - 3² = 2500 - 9 = 2491',
+      example: '✨ Base 50 Works! ✨'
     }
   ],
-  8: [
-    {
-      title: 'Multiply by 6',
-      text: 'Break it into ×5 + ×1!',
-      example: '',
-      mnemonic: '(×5) + (×1) = ×6'
-    },
-    {
-      title: 'The Trick',
-      text: '6 = 5 + 1\nSo: ×6 = ×5 + ×1\n\n7 × 6 = (7×5) + (7×1) = 35 + 7 = 42',
-      example: '7 × 6 = 42',
-      steps: ['🔹 Multiply by 5: 7 × 5 = 35', '🔹 Add the number once: 35 + 7 = 42']
-    }
-  ],
-  9: [
-    {
-      title: 'Multiply by 8',
-      text: 'Triple-double: Three doublings!',
-      example: '',
-      mnemonic: 'Double 3 Times = ×8'
-    },
-    {
-      title: 'The Secret',
-      text: '8 = 2 × 2 × 2\n\nSo ×8 = triple double!\n\n3 × 8:\nDouble: 3 × 2 = 6\nDouble: 6 × 2 = 12\nDouble: 12 × 2 = 24',
-      example: '3 × 8 = 24',
-      steps: [
-        '📍 First double: 3 × 2 = 6',
-        '📍 Second double: 6 × 2 = 12',
-        '📍 Third double: 12 × 2 = 24'
-      ]
-    }
-  ],
-  10: [
-    {
-      title: 'Multiply by 12',
-      text: 'Split: ×10 and ×2!',
-      example: '',
-      mnemonic: '(×10) + (×2) = ×12'
-    },
-    {
-      title: 'The Trick',
-      text: '12 = 10 + 2\nSo: ×12 = ×10 + ×2\n\n5 × 12 = (5×10) + (5×2) = 50 + 10 = 60',
-      example: '5 × 12 = 60',
-      steps: ['➕ Multiply by 10 (add 0): 50', '➕ Multiply by 2: 10', '✅ Add them: 50 + 10 = 60']
-    }
-  ],
-  11: [
-    {
-      title: 'Multiply by 15',
-      text: 'The Magic: ×10 + Half!',
-      example: '',
-      mnemonic: '(×10) + (÷2 of ×10) = ×15'
-    },
-    {
-      title: 'The Secret',
-      text: '15 = 10 + 5 = 10 + (10÷2)\n\n4 × 15 = (4×10) + half of (4×10)\n= 40 + 20 = 60',
-      example: '4 × 15 = 60',
-      steps: ['➕ Multiply by 10: 40', '➕ Half of 40: 20', '✅ Add: 40 + 20 = 60']
-    }
-  ],
-  12: [
-    {
-      title: 'Multiply by 25',
-      text: 'The Quarter Trick!',
-      example: '',
-      mnemonic: '÷4 then ×100 = ×25'
-    },
-    {
-      title: 'The Secret',
-      text: '25 = 100 ÷ 4\n\n8 × 25 = (8÷4) × 100 = 2 × 100 = 200\n\nOr: Half twice, add 00',
-      example: '8 × 25 = 200',
-      steps: [
-        '📍 Method 1: Quarter (÷4) = 2, then ×100',
-        '📍 Method 2: Half (÷2) = 4, Half again = 2, then ×100'
-      ]
-    }
-  ],
-  13: [
-    {
-      title: 'Multiply by 99',
-      text: 'The Shortcut: ×100 − ×1!',
-      example: '',
-      mnemonic: '(×100) − (×1) = ×99'
-    },
-    {
-      title: 'The Trick',
-      text: '99 = 100 − 1\n\n23 × 99:\n= (23 × 100) − (23 × 1)\n= 2300 − 23 = 2277',
-      example: '23 × 99 = 2277',
-      steps: ['➕ Multiply by 100: 2300', '➖ Subtract once: −23', '✅ Answer: 2277']
-    }
-  ],
-  14: [
-    {
-      title: '×11 Extended',
-      text: 'The ×11 Trick WITH Carry!',
-      example: '',
-      mnemonic: 'Split 👉 Add 👉 Carry if needed!'
-    },
-    {
-      title: 'Review Basic ×11',
-      text: '23 × 11 = 253\nDigits: 2 [2+3] 3 = 253\n\nNo carry needed (2+3=5)',
-      example: '23 × 11 = 253'
-    },
-    {
-      title: 'When It Carries',
-      text: '76 × 11: Middle = 7+6 = 13\n\nWrite 3 in middle, carry 1 to first:\n7+1 = 8 in hundreds\nAnswer: 836',
-      example: '76 × 11 = 836',
-      steps: [
-        '🔹 First digit: 7',
-        '🔹 Middle sum: 7+6=13 (write 3, carry 1)',
-        '🔹 Final: (7+1) 3 6 = 836'
-      ]
-    }
-  ],
-  15: [
+  23: [
     {
       title: 'Differ by 2',
       text: 'Sandwich Squares!',
@@ -644,7 +719,7 @@ const TUTORIAL_STEPS = {
       ]
     }
   ],
-  16: [
+  24: [
     {
       title: 'Same Tens',
       text: 'Ones Sum to 10!',
@@ -669,207 +744,147 @@ const TUTORIAL_STEPS = {
       example: '✨ Master Pattern! ✨',
       tip: 'This works because the ones digits "complete each other" to 10!'
     }
-  ],
-  17: [
-    {
-      title: 'Multiply by 3',
-      text: 'Learn the triple trick!',
-      example: '',
-      mnemonic: '×3 = ×2 + ×1'
-    },
-    {
-      title: 'The Secret',
-      text: '3 = 2 + 1\n\nSo ×3 = ×2 + ×1\n\nDouble the number, then add it once more!',
-      example: '5 × 3 = ?',
-      steps: ['📍 Double: 5 × 2 = 10', '➕ Add once: 10 + 5 = 15']
-    },
-    {
-      title: 'More Examples',
-      text: '7 × 3 = 14 + 7 = 21\n8 × 3 = 16 + 8 = 24\n12 × 3 = 24 + 12 = 36',
-      example: '✨ Double & Add! ✨',
-      tip: 'Super simple: just double it, then add the original!'
-    }
-  ],
-  18: [
-    {
-      title: 'Multiply by 7',
-      text: 'The Cross Multiplication Magic!',
-      example: '',
-      mnemonic: '×7 = ×5 + ×2'
-    },
-    {
-      title: 'Break It Down',
-      text: '7 = 5 + 2\n\nSo ×7 = ×5 + ×2\n\nMultiply by 5, then add twice!',
-      example: '6 × 7 = ?',
-      steps: ['📍 Multiply by 5: 6 × 5 = 30', '📍 Double: 6 × 2 = 12', '✅ Add: 30 + 12 = 42']
-    },
-    {
-      title: 'Pattern Recognition',
-      text: '4 × 7 = 20 + 8 = 28\n8 × 7 = 40 + 16 = 56\n9 × 7 = 45 + 18 = 63',
-      example: '✨ 5 + 2 = 7! ✨',
-      tip: 'Using 5 makes multiplication easier since we can halve!'
-    }
-  ],
-  19: [
-    {
-      title: 'Multiply by 20',
-      text: 'Double the number, then ×10!',
-      example: '',
-      mnemonic: '(×2) then (×10) = ×20'
-    },
-    {
-      title: 'The Strategy',
-      text: '20 = 2 × 10\n\nSo ×20 = ×2 then ×10\nWhich means: Double, then add a 0!',
-      example: '7 × 20 = ?',
-      steps: ['📍 Double: 7 × 2 = 14', '📍 Add a zero: 140']
-    },
-    {
-      title: 'Quick Examples',
-      text: '5 × 20 = 10 × 10 = 100\n8 × 20 = 16 × 10 = 160\n12 × 20 = 24 × 10 = 240',
-      example: '✨ Double & Zero! ✨'
-    }
-  ],
-  20: [
-    {
-      title: 'Multiply by 30',
-      text: 'Triple the number, then ×10!',
-      example: '',
-      mnemonic: '(×3) then (×10) = ×30'
-    },
-    {
-      title: 'The Strategy',
-      text: '30 = 3 × 10\n\nSo ×30 = ×3 then ×10\nWhich means: Triple, then add a 0!',
-      example: '4 × 30 = ?',
-      steps: ['📍 Triple (×3): 4 × 3 = 12', '📍 Add a zero: 120']
-    },
-    {
-      title: 'Examples',
-      text: '5 × 30 = 15 × 10 = 150\n6 × 30 = 18 × 10 = 180\n7 × 30 = 21 × 10 = 210',
-      example: '✨ Triple & Zero! ✨'
-    }
-  ],
-  21: [
-    {
-      title: 'Square Numbers Ending in 1',
-      text: 'Pattern for 21, 31, 41, etc.!',
-      example: '',
-      mnemonic: '(N-1)² + 2N'
-    },
-    {
-      title: 'The Formula',
-      text: 'Numbers ending in 1 square using:\nN1² = (N×10+1)² = 100N² + 20N + 1',
-      example: '21² = ?',
-      steps: ['📍 Use pattern: 20² + 2(20×1) + 1', '📍 = 400 + 40 + 1 = 441']
-    },
-    {
-      title: 'More Examples',
-      text: '31² = 30² + 2(30) + 1 = 900 + 60 + 1 = 961\n41² = 40² + 2(40) + 1 = 1600 + 80 + 1 = 1681',
-      example: '✨ Ending in 1 Magic! ✨'
-    }
-  ],
-  22: [
-    {
-      title: 'Square Numbers Ending in 6',
-      text: 'The Complementary Pattern!',
-      example: '',
-      mnemonic: '6² always ends in 6!'
-    },
-    {
-      title: 'Magic Property',
-      text: 'Numbers ending in 6 have a special property:\nWhen you square them, they ALWAYS end in 6!\n\n6² = 36 (ends in 6)\n16² = 256 (ends in 6)\n26² = 676 (ends in 6)',
-      example: '26² = ?',
-      steps: ['🎯 Last digit: Always 6', '📍 Use formula: (20+6)² = 400 + 240 + 36 = 676']
-    },
-    {
-      title: 'Why This Happens',
-      text: 'Because 6 × 6 = 36, which ends in 6!\n\nAny number ending in 6 × 6 will end in 6!',
-      example: '✨ 6 is Magic! ✨'
-    }
-  ],
-  23: [
-    {
-      title: 'Numbers Near 50',
-      text: 'The Base 50 Method!',
-      example: '',
-      mnemonic: 'Base 50: Close to middle'
-    },
-    {
-      title: 'The Strategy',
-      text: '50 is a great base number!\n\nFor 48 × 52:\n48 = 50 - 2\n52 = 50 + 2\n\nUse the formula: (50-2)(50+2) = 50² - 2² = 2500 - 4 = 2496',
-      example: '48 × 52 = 2496',
-      steps: [
-        '📍 Distance from 50: -2 and +2',
-        '📍 (50)² = 2500',
-        '📍 2² = 4',
-        '📍 2500 - 4 = 2496'
-      ]
-    },
-    {
-      title: 'More Examples',
-      text: '49 × 51 = 50² - 1² = 2500 - 1 = 2499\n47 × 53 = 50² - 3² = 2500 - 9 = 2491',
-      example: '✨ Base 50 Works! ✨'
-    }
-  ],
-  24: [
-    { title: 'Divide by 5', text: 'The Reverse of ×5!', example: '', mnemonic: '×2 then ÷10 = ÷5' },
-    {
-      title: 'The Trick',
-      text: '÷5 = ×2 ÷10\n\nDouble the number, then remove a 0!\n\n20 ÷ 5 = ?',
-      example: '20 ÷ 5 = 4',
-      steps: ['📍 Double: 20 × 2 = 40', '📍 Remove a zero: 40 ÷ 10 = 4']
-    },
-    {
-      title: 'Examples',
-      text: '30 ÷ 5 = 60 ÷ 10 = 6\n50 ÷ 5 = 100 ÷ 10 = 10\n80 ÷ 5 = 160 ÷ 10 = 16',
-      example: '✨ Double & Divide! ✨',
-      tip: 'This is the reverse of the ×5 trick!'
-    }
-  ],
-  25: [
-    {
-      title: 'Cross Multiplication',
-      text: 'Two-Digit × Two-Digit Magic!',
-      example: '',
-      mnemonic: 'Left | Middle | Right'
-    },
-    {
-      title: 'The Pattern',
-      text: 'For 23 × 14:\nStep 1: Right side: 3 × 4 = 12 (write 2, carry 1)\nStep 2: Cross: (2×4) + (3×1) = 11 + carry 1 = 12 (write 2, carry 1)\nStep 3: Left: 2 × 1 = 2 + carry 1 = 3\nAnswer: 322',
-      example: '23 × 14 = 322',
-      steps: [
-        '🔹 Right (ones): 3 × 4 = 12 → 2, carry 1',
-        '🔹 Cross (mixed): 2×4 + 3×1 = 11, + 1 = 12 → 2, carry 1',
-        '🔹 Left (tens): 2 × 1 = 2, + 1 = 3',
-        '✅ Answer: 322'
-      ]
-    },
-    {
-      title: 'More Practice',
-      text: '12 × 13 = 156\n24 × 15 = 360\n31 × 22 = 682',
-      example: '✨ Cross Multiply! ✨'
-    }
-  ],
-  26: [
-    {
-      title: 'Divisibility by 9',
-      text: 'The Digital Root Trick!',
-      example: '',
-      mnemonic: 'Sum digits = 9? Divisible! ✓'
-    },
-    {
-      title: 'The Rule',
-      text: 'A number is divisible by 9 if the sum of its digits equals 9 (or a multiple of 9)!\n\nExample: 27\n2 + 7 = 9 ✓ Divisible!\n\nExample: 45\n4 + 5 = 9 ✓ Divisible!',
-      example: '✨ Digital Magic! ✨',
-      steps: ['📍 Check: Is 36 divisible by 9?', '📍 Sum digits: 3 + 6 = 9 ✓', '📍 YES! 36 ÷ 9 = 4']
-    },
-    {
-      title: 'Test Your Knowledge',
-      text: 'Is 72 divisible by 9?\n7 + 2 = 9 ✓ YES!\n\nIs 81 divisible by 9?\n8 + 1 = 9 ✓ YES!\n\nIs 50 divisible by 9?\n5 + 0 = 5 ✗ NO!',
-      example: '✨ Check Any Number! ✨',
-      tip: 'This also works for divisibility by 3 (digits sum to 3, 6, or 9)!'
-    }
   ]
 };
+
+// ==================== DATA VALIDATION & AUTO-REPAIR ====================
+// Extract keywords from a trick name for matching with tutorials
+function getTrickKeywords(trickName) {
+  const lower = trickName.toLowerCase();
+  const keywords = [];
+
+  // Extract numbers
+  const numbers = lower.match(/\d+/g) || [];
+  keywords.push(...numbers);
+
+  // Extract operation type
+  if (lower.includes('multiply')) {
+    keywords.push('multiply');
+  }
+  if (lower.includes('divide')) {
+    keywords.push('divide');
+  }
+  if (lower.includes('square')) {
+    keywords.push('square');
+  }
+  if (lower.includes('base')) {
+    keywords.push('base');
+  }
+  if (lower.includes('divisibility')) {
+    keywords.push('divisibility');
+  }
+  if (lower.includes('differ')) {
+    keywords.push('differ');
+  }
+  if (lower.includes('same tens')) {
+    keywords.push('same');
+  }
+
+  return keywords;
+}
+
+// Build a map of tutorial ID → correct level ID by matching trick names
+function buildTutorialMapping() {
+  const mapping = {};
+
+  for (const tutorialId of Object.keys(TUTORIAL_STEPS)) {
+    const tutorial = TUTORIAL_STEPS[tutorialId];
+    if (!tutorial || tutorial.length === 0) {
+      continue;
+    }
+
+    // Get the main title from the first step
+    const tutorialTitle = tutorial[0].title?.toLowerCase() || '';
+    const tutorialKeywords = getTrickKeywords(tutorialTitle);
+
+    // Find the level with matching keywords
+    let bestMatch = null;
+    let bestScore = 0;
+
+    for (const level of LEVELS) {
+      const levelKeywords = getTrickKeywords(level.name);
+      const matchScore = tutorialKeywords.filter(kw => levelKeywords.includes(kw)).length;
+
+      if (matchScore > bestScore) {
+        bestScore = matchScore;
+        bestMatch = level.id;
+      }
+    }
+
+    if (bestMatch && bestScore > 0) {
+      mapping[parseInt(tutorialId)] = bestMatch;
+    }
+  }
+
+  return mapping;
+}
+
+// Rebuild TUTORIAL_STEPS in the correct order based on LEVELS
+function repairTutorialMapping() {
+  const mapping = buildTutorialMapping();
+  const repaired = {};
+
+  // Rebuild TUTORIAL_STEPS with correct IDs
+  Object.entries(mapping).forEach(([oldId, correctId]) => {
+    repaired[correctId] = TUTORIAL_STEPS[oldId];
+  });
+
+  // Log changes
+  const changes = Object.entries(mapping)
+    .filter(([oldId, newId]) => parseInt(oldId) !== newId)
+    .map(([oldId, newId]) => `${oldId}→${newId}`);
+
+  if (changes.length > 0) {
+    console.warn(
+      `⚙️  Auto-repaired tutorial mapping (${changes.length} changes): ${changes.join(', ')}`
+    );
+  }
+
+  return repaired;
+}
+
+// Validate that LEVELS and TUTORIAL_STEPS are in sync
+function validateGameData() {
+  const levelIds = new Set(LEVELS.map(l => l.id));
+  const tutorialIds = new Set(Object.keys(TUTORIAL_STEPS).map(Number));
+
+  const issues = [];
+
+  // Check structural mismatches
+  for (const tutId of tutorialIds) {
+    if (!levelIds.has(tutId)) {
+      issues.push(`Tutorial ${tutId} has no corresponding level`);
+    }
+  }
+
+  for (const levelId of levelIds) {
+    if (!tutorialIds.has(levelId)) {
+      issues.push(`Level ${levelId} (${LEVELS.find(l => l.id === levelId).name}) has no tutorial`);
+    }
+  }
+
+  // Check content mismatches
+  const mapping = buildTutorialMapping();
+  for (const [tutId, correctId] of Object.entries(mapping)) {
+    if (parseInt(tutId) !== correctId) {
+      const tutTitle = TUTORIAL_STEPS[tutId]?.[0]?.title || 'Unknown';
+      const levelName = LEVELS.find(l => l.id === correctId)?.name || 'Unknown';
+      issues.push(
+        `Tutorial "${tutTitle}" is at ID ${tutId} but should be ${correctId} (${levelName})`
+      );
+    }
+  }
+
+  if (issues.length > 0) {
+    console.error('🚨 TUTORIAL MAPPING ERRORS:');
+    issues.forEach(issue => console.error(`  • ${issue}`));
+    console.log('\n💡 Run `TUTORIAL_STEPS = repairTutorialMapping()` in console to auto-fix.');
+    return false;
+  }
+
+  console.log('✅ Game data validation passed!');
+  return true;
+}
 
 // ==================== ACHIEVEMENTS ====================
 const ACHIEVEMENTS = {
@@ -1620,6 +1635,9 @@ function showLevelSelect() {
 
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', () => {
+  // Validate game data before doing anything else
+  validateGameData();
+
   // Initialize navigation system (handles back button and screen transitions)
   initNavigation();
 
