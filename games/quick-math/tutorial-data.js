@@ -17,7 +17,28 @@ const TUTORIAL_STEPS = {
       steps: [
         '📍 <span class="qm-step-highlight">First double</span>: 5 × 2 = 10',
         '📍 <span class="qm-step-highlight">Second double</span>: 10 × 2 = 20'
-      ]
+      ],
+      visual: {
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 280px; margin: 0 auto;">
+            <div style="text-align: center; font-size: 18px; font-weight: bold; color: var(--qm-blue);">5 × 4</div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Double</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">×2</div>
+                <div style="font-size: 18px; font-weight: bold;">10</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Double Again</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-orange) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">×2</div>
+                <div style="font-size: 18px; font-weight: bold;">20</div>
+              </div>
+            </div>
+          </div>
+        `
+      }
     },
     {
       title: 'More Examples',
@@ -42,7 +63,28 @@ const TUTORIAL_STEPS = {
         '2️⃣ Divide by <span class="qm-step-highlight">2</span> (cut in half): 80 ÷ 2 = 40',
         '✅ Answer: 8 × 5 = 40'
       ],
-      tip: 'Always multiply by 10 first (just add a 0), then cut the result in half!'
+      tip: 'Always multiply by 10 first (just add a 0), then cut the result in half!',
+      visual: {
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 280px; margin: 0 auto;">
+            <div style="text-align: center; font-size: 18px; font-weight: bold; color: var(--qm-blue);">8 × 5</div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Multiply by 10 (add 0)</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">×10</div>
+                <div style="font-size: 18px; font-weight: bold;">80</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Cut in half (÷2)</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-orange) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">÷2</div>
+                <div style="font-size: 18px; font-weight: bold;">40</div>
+              </div>
+            </div>
+          </div>
+        `
+      }
     },
     {
       title: 'Even Faster for EVEN Numbers!',
@@ -91,7 +133,34 @@ const TUTORIAL_STEPS = {
       title: 'The Secret',
       text: '3 = 2 + 1\n\nSo ×3 = ×2 + ×1\n\nDouble the number, then add it once more!',
       example: '5 × 3 = ?',
-      steps: ['📍 Double: 5 × 2 = 10', '➕ Add once: 10 + 5 = 15']
+      steps: ['📍 Double: 5 × 2 = 10', '➕ Add once: 10 + 5 = 15'],
+      visual: {
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 280px; margin: 0 auto;">
+            <div style="text-align: center; font-size: 18px; font-weight: bold; color: var(--qm-blue);">5 × 3</div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Double first</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">×2</div>
+                <div style="font-size: 18px; font-weight: bold;">10</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Then add the original</div>
+            <div style="display: flex; justify-content: center; gap: 8px; align-items: center;">
+              <div style="background: white; padding: 10px 15px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">+5</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-green) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-green);">
+                <div style="font-size: 12px; color: var(--qm-green); font-weight: bold;">Total</div>
+                <div style="font-size: 18px; font-weight: bold;">15</div>
+              </div>
+            </div>
+          </div>
+        `
+      }
     },
     {
       title: 'More Examples',
@@ -295,7 +364,33 @@ const TUTORIAL_STEPS = {
       title: 'The Trick',
       text: '6 = 5 + 1\nSo: ×6 = ×5 + ×1\n\n7 × 6 = (7×5) + (7×1) = 35 + 7 = 42',
       example: '7 × 6 = 42',
-      steps: ['🔹 Multiply by 5: 7 × 5 = 35', '🔹 Add the number once: 35 + 7 = 42']
+      steps: ['🔹 Multiply by 5: 7 × 5 = 35', '🔹 Add the number once: 35 + 7 = 42'],
+      visual: {
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 280px; margin: 0 auto;">
+            <div style="text-align: center; font-size: 18px; font-weight: bold; color: var(--qm-blue);">7 × 6</div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">Break into: ×5 and ×1</div>
+            <div style="display: flex; gap: 10px; justify-content: center;">
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-blue); text-align: center;">
+                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">×5</div>
+                <div style="font-size: 16px; font-weight: bold;">35</div>
+              </div>
+              <div style="display: flex; align-items: center; font-size: 20px; color: var(--qm-orange); font-weight: bold;">+</div>
+              <div style="background: color-mix(in srgb, var(--qm-orange) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-orange); text-align: center;">
+                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">×1</div>
+                <div style="font-size: 16px; font-weight: bold;">7</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">= 35 + 7</div>
+            <div style="display: flex; justify-content: center;">
+              <div style="background: color-mix(in srgb, var(--qm-green) 15%, white); padding: 12px 20px; border-radius: 6px; border: 2px solid var(--qm-green); text-align: center;">
+                <div style="font-size: 12px; color: var(--qm-green); font-weight: bold;">Answer</div>
+                <div style="font-size: 18px; font-weight: bold;">42</div>
+              </div>
+            </div>
+          </div>
+        `
+      }
     }
   ],
   10: [
