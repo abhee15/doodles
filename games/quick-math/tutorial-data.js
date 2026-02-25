@@ -260,7 +260,44 @@ const TUTORIAL_STEPS = {
         '📈 Second digit: 9 − 4 = <span class="qm-step-highlight">5</span>',
         '✅ Answer: <span class="qm-step-highlight">45</span>'
       ],
-      mnemonic: '(n−1) | (9−(n−1))'
+      mnemonic: '(n−1) | (9−(n−1))',
+      visual: {
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 260px; margin: 0 auto;">
+            <div style="text-align: center; font-size: 18px; font-weight: bold; color: var(--qm-blue);">5 × 9</div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Go DOWN by 1</div>
+            <div style="display: flex; justify-content: center; gap: 10px; align-items: center;">
+              <div style="background: white; padding: 10px 14px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">5 − 1</div>
+              </div>
+              <div style="font-size: 16px; color: var(--qm-blue);">→</div>
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 10px 14px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 18px; font-weight: bold;">4</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Make sum = 9</div>
+            <div style="display: flex; justify-content: center; gap: 10px; align-items: center;">
+              <div style="background: white; padding: 10px 14px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">9 − 4</div>
+              </div>
+              <div style="font-size: 16px; color: var(--qm-orange);">→</div>
+              <div style="background: color-mix(in srgb, var(--qm-orange) 15%, white); padding: 10px 14px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 18px; font-weight: bold;">5</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">= Answer</div>
+            <div style="display: flex; gap: 8px; justify-content: center;">
+              <div style="background: color-mix(in srgb, var(--qm-green) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-green);">
+                <div style="font-size: 16px; font-weight: bold;">4</div>
+              </div>
+              <div style="background: color-mix(in srgb, var(--qm-green) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-green);">
+                <div style="font-size: 16px; font-weight: bold;">5</div>
+              </div>
+            </div>
+            <div style="text-align: center; font-size: 16px; font-weight: bold; color: var(--qm-green);">= 45</div>
+          </div>
+        `
+      }
     },
     {
       title: 'The FINGER Trick! 🖐️',
@@ -318,7 +355,53 @@ const TUTORIAL_STEPS = {
         '➕ <span class="qm-step-highlight">Add</span> the digits: 2 + 3 = 5',
         '✍️ Put the 5 in the <span class="qm-step-highlight">middle</span>: 253'
       ],
-      mnemonic: 'First Digit | Sum | Last Digit'
+      mnemonic: 'First Digit | Sum | Last Digit',
+      visual: {
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 300px; margin: 0 auto;">
+            <div style="text-align: center; font-size: 18px; font-weight: bold; color: var(--qm-blue);">23 × 11</div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Split the digits</div>
+            <div style="display: flex; gap: 15px; justify-content: center; align-items: center;">
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 10px 12px; border-radius: 6px; border: 2px solid var(--qm-blue); text-align: center;">
+                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">First</div>
+                <div style="font-size: 16px; font-weight: bold;">2</div>
+              </div>
+              <div style="font-size: 18px; color: var(--dom-text-muted);">|</div>
+              <div style="background: color-mix(in srgb, var(--qm-orange) 15%, white); padding: 10px 12px; border-radius: 6px; border: 2px solid var(--qm-orange); text-align: center;">
+                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">Last</div>
+                <div style="font-size: 16px; font-weight: bold;">3</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Add middle digits</div>
+            <div style="display: flex; gap: 10px; justify-content: center; align-items: center;">
+              <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 14px; font-weight: bold;">2</div>
+              </div>
+              <div style="font-size: 16px; color: var(--qm-green); font-weight: bold;">+</div>
+              <div style="background: white; padding: 8px 10px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 14px; font-weight: bold;">3</div>
+              </div>
+              <div style="font-size: 16px; color: var(--qm-green); font-weight: bold;">=</div>
+              <div style="background: color-mix(in srgb, var(--qm-green) 15%, white); padding: 8px 10px; border-radius: 6px; border: 2px solid var(--qm-green);">
+                <div style="font-size: 14px; font-weight: bold; color: var(--qm-green);">5</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Answer: First | Sum | Last</div>
+            <div style="display: flex; gap: 8px; justify-content: center;">
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 10px 12px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 14px; font-weight: bold;">2</div>
+              </div>
+              <div style="background: color-mix(in srgb, var(--qm-green) 15%, white); padding: 10px 12px; border-radius: 6px; border: 2px solid var(--qm-green);">
+                <div style="font-size: 14px; font-weight: bold;">5</div>
+              </div>
+              <div style="background: color-mix(in srgb, var(--qm-orange) 15%, white); padding: 10px 12px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 14px; font-weight: bold;">3</div>
+              </div>
+            </div>
+            <div style="text-align: center; font-size: 16px; font-weight: bold; color: var(--qm-green); margin-top: 8px;">=  253</div>
+          </div>
+        `
+      }
     },
     {
       title: 'Why Does This Work?',
