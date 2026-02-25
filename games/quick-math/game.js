@@ -707,15 +707,27 @@ function renderStepByStep(steps) {
 
 function showVisualStages() {
   const stagesContainer = document.getElementById('tut-stages');
-  stagesContainer.style.display = 'flex';
+  const step = TUTORIAL_STEPS[currentLevelId][tutStep];
 
+  // Show/hide buttons based on content availability
+  const visualBtn = document.querySelector('[data-stage="visual"]');
+  const stepsBtn = document.querySelector('[data-stage="steps"]');
+
+  visualBtn.style.display = step.visual ? 'block' : 'none';
+  stepsBtn.style.display = step.steps ? 'block' : 'none';
+
+  stagesContainer.style.display = 'flex';
+}
+
+// Initialize stage button handlers (called once on page load)
+function initStageButtons() {
   document.querySelectorAll('.qm-stage-btn').forEach(btn => {
     btn.addEventListener('click', e => {
-      document.querySelectorAll('.qm-stage-btn').forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-
       const stage = e.target.dataset.stage;
       const step = TUTORIAL_STEPS[currentLevelId][tutStep];
+
+      document.querySelectorAll('.qm-stage-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
 
       if (stage === 'explanation') {
         document.getElementById('tut-visual-breakdown').style.display = 'none';
@@ -1036,6 +1048,9 @@ function showLevelSelect() {
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize navigation system (handles back button and screen transitions)
   initNavigation();
+
+  // Initialize tutorial stage buttons
+  initStageButtons();
 
   loadProgress();
   renderLevelGrid();
