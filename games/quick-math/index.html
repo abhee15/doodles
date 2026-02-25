@@ -637,6 +637,44 @@
         min-height: calc(100vh - var(--nav-height, 56px));
       }
 
+      /* Desktop Tutorial Optimization */
+      @media (min-width: 1025px) {
+        .qm-visual-stages {
+          margin: 20px 0 10px 0;
+          gap: 6px;
+        }
+
+        .qm-stage-btn {
+          padding: 6px 10px;
+          font-size: 12px;
+          min-height: 32px;
+          border-radius: 4px 4px 0 0;
+          border-bottom: none;
+        }
+
+        .qm-stage-btn.active {
+          border-bottom: 2px solid var(--dom-accent);
+        }
+
+        /* Fixed-height content area that scrolls internally */
+        .qm-visual-breakdown {
+          margin: 0 0 20px 0;
+          max-height: 280px;
+          overflow-y: auto;
+          border-radius: 0 8px 8px 8px;
+        }
+
+        .qm-step-container {
+          margin: 0 auto 20px auto;
+          max-height: 280px;
+          overflow-y: auto;
+          padding: 12px 16px;
+          border: 1px solid var(--dom-border);
+          border-radius: 0 8px 8px 8px;
+          background: white;
+        }
+      }
+
       /* Responsive */
       @media (max-width: 1024px) {
         .qm-level-grid {
@@ -930,6 +968,7 @@
     <div id="achievement-toast" class="qm-toast"></div>
 
     <script src="../../shared/navigation.js"></script>
+    <script src="tutorial-data.js"></script>
     <script src="game.js"></script>
     <script src="../../shared/analytics.js"></script>
     <div id="ad-container"></div>
