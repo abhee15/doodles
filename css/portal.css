@@ -24,6 +24,7 @@
   --c-memory: #8b5cf6;
   --c-science: #2e7d32;
   --c-art: #ec4899;
+  --c-logic: #6d28d9;
 }
 
 *,
@@ -315,6 +316,9 @@ body {
 }
 .sec-bar.art {
   background: var(--c-art);
+}
+.sec-bar.logic {
+  background: var(--c-logic);
 }
 
 .sec-title h2 {

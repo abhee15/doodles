@@ -16,7 +16,8 @@ const CATEGORIES = [
   { id: 'geo', label: 'Geography', color: '#0277BD', footerHeading: 'Geography' },
   { id: 'words', label: 'Words & Language', color: '#6A1B9A', footerHeading: 'Words' },
   { id: 'science', label: 'Science & Nature', color: '#2E7D32', footerHeading: 'Science & Memory' },
-  { id: 'art', label: 'Art & Creativity', color: '#EC4899', footerHeading: 'Art & Creativity' }
+  { id: 'art', label: 'Art & Creativity', color: '#EC4899', footerHeading: 'Art & Creativity' },
+  { id: 'logic', label: 'Logic & Puzzles', color: '#6D28D9', footerHeading: 'Logic & Puzzles' }
 ];
 
 const GAMES = [
@@ -205,5 +206,20 @@ const GAMES = [
     patternPosition: null,
     newUntil: '2026-04-01',
     footerName: 'Draw It'
+  },
+  {
+    id: 'brain-spark',
+    name: 'Brain Spark',
+    thumbClass: 'brain-spark',
+    category: 'logic',
+    desc: 'Train your brain with number patterns, logic riddles, odd-one-out puzzles, and math tricks!',
+    icon: 'ti-brain',
+    iconColor: '#fbbf24',
+    gradient: 'linear-gradient(145deg, #1a0a2e 0%, #2d1b69 100%)',
+    pattern: 'radial-gradient(circle, rgba(251,191,36,.3) 1px, transparent 1px)',
+    patternSize: '24px 24px',
+    patternPosition: '0 0',
+    newUntil: '2026-08-01',
+    footerName: 'Brain Spark'
   }
 ];

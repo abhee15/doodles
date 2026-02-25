@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <title>Brain Spark - Logic Puzzles for Kids | Doodles Games</title>
+    <meta name="title" content="Brain Spark - Logic Puzzles for Kids" />
+    <meta
+      name="description"
+      content="Train your brain with number patterns, logic riddles, odd-one-out puzzles, and math tricks!"
+    />
+    <meta name="keywords" content="logic, puzzles, brain teasers, riddles, math tricks, kids games" />
+
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/brain-spark/" />
+    <meta property="og:title" content="Brain Spark - Logic Puzzles for Kids" />
+    <meta
+      property="og:description"
+      content="Train your brain with number patterns, logic riddles, odd-one-out puzzles, and math tricks!"
+    />
+
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/brain-spark/" />
+    <meta property="twitter:title" content="Brain Spark - Logic Puzzles for Kids" />
+    <meta
+      property="twitter:description"
+      content="Train your brain with number patterns, logic riddles, odd-one-out puzzles, and math tricks!"
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/brain-spark/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #0f0720;
+        --dom-accent: #fbbf24;
+        --dom-accent-dark: #d97706;
+        --dom-accent2: #818cf8;
+        --dom-bg: #1a0a2e;
+        --dom-bg-card: #2d1b69;
+        --dom-border: rgba(251, 191, 36, 0.2);
+        --dom-text: #f1f5f9;
+        --dom-text-muted: #94a3b8;
+      }
+
+      body {
+        background: linear-gradient(135deg, #0f0720 0%, #1a0a2e 50%, #2d1b69 100%);
+        color: var(--dom-text);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Landing Screen */
+      .landing-header {
+        text-align: center;
+        padding: 40px 20px 20px;
+      }
+
+      .landing-title {
+        font-size: 3.5rem;
+        font-weight: bold;
+        margin: 0 0 10px 0;
+        background: linear-gradient(135deg, #fbbf24 0%, #818cf8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .landing-subtitle {
+        font-size: 1.1rem;
+        color: var(--dom-text-muted);
+        margin-bottom: 30px;
+      }
+
+      .sparkle-animation {
+        display: inline-block;
+        animation: sparkle 1.5s ease-in-out infinite;
+      }
+
+      @keyframes sparkle {
+        0%,
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        50% {
+          opacity: 0.6;
+          transform: scale(1.1);
+        }
+      }
+
+      .landing-cta {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .landing-btn {
+        background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+        color: #1a0a2e;
+        border: none;
+        padding: 16px 40px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        min-height: 48px;
+      }
+
+      .landing-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .landing-btn:active {
+        transform: translateY(0);
+      }
+
+      /* Category Selection Screen */
+      .category-header {
+        text-align: center;
+        padding: 30px 20px 20px;
+      }
+
+      .category-title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .difficulty-toggle {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 20px;
+        padding: 0 20px;
+      }
+
+      .difficulty-btn {
+        padding: 10px 20px;
+        border: 2px solid var(--dom-border);
+        background: transparent;
+        color: var(--dom-text-muted);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+      }
+
+      .difficulty-btn.active {
+        background: var(--dom-accent);
+        color: #1a0a2e;
+        border-color: var(--dom-accent);
+      }
+
+      .difficulty-btn:hover:not(.active) {
+        border-color: var(--dom-accent);
+        color: var(--dom-accent);
+      }
+
+      .category-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 15px;
+        padding: 20px;
+      }
+
+      .category-card {
+        background: rgba(45, 27, 105, 0.6);
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+
+      .category-card:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-4px);
+        background: rgba(45, 27, 105, 0.9);
+      }
+
+      .category-icon {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+      }
+
+      .category-label {
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+      }
+
+      .category-count {
+        font-size: 0.8rem;
+        color: var(--dom-text-muted);
+      }
+
+      /* Play Screen */
+      .play-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        border-bottom: 1px solid var(--dom-border);
+      }
+
+      .progress-info {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+      }
+
+      .streak-badge {
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: var(--dom-accent);
+      }
+
+      .timer-bar {
+        height: 4px;
+        background: rgba(251, 191, 36, 0.2);
+        margin: 10px 20px 0 20px;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+
+      .timer-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--dom-accent) 0%, var(--dom-accent-dark) 100%);
+        width: 100%;
+        transition: width 0.1s linear;
+      }
+
+      .timer-fill.danger {
+        background: linear-gradient(90deg, #ef4444 0%, #dc2626 100%);
+      }
+
+      .play-content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .visual-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        min-height: 120px;
+      }
+
+      /* Visual Renderers */
+      .visual-sequence {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        overflow-x: auto;
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(251, 191, 36, 0.05);
+      }
+
+      .seq-tile {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 56px;
+        height: 56px;
+        border-radius: 12px;
+        background: rgba(251, 191, 36, 0.15);
+        border: 2px solid currentColor;
+        font-weight: bold;
+        font-size: 1.2rem;
+        flex-shrink: 0;
+      }
+
+      .seq-tile--unknown {
+        animation: pulse-border 1.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse-border {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      .seq-arrow {
+        color: var(--dom-text-muted);
+        font-weight: bold;
+        font-size: 1.5rem;
+      }
+
+      .visual-scene {
+        text-align: center;
+        padding: 20px;
+        background: rgba(45, 27, 105, 0.6);
+        border-radius: 12px;
+      }
+
+      .scene-emoji {
+        font-size: 4rem;
+        margin-bottom: 15px;
+      }
+
+      .scene-caption {
+        color: var(--dom-text-muted);
+        font-style: italic;
+        margin: 0;
+      }
+
+      .visual-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        gap: 12px;
+        max-width: 300px;
+      }
+
+      .grid-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 60px;
+        height: 60px;
+        background: rgba(45, 27, 105, 0.6);
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        font-size: 2rem;
+      }
+
+      .visual-equation {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        padding: 20px;
+        background: rgba(251, 191, 36, 0.1);
+        border-radius: 8px;
+        font-size: 1.5rem;
+      }
+
+      .eq-token {
+        font-size: 2rem;
+      }
+
+      .eq-op {
+        color: var(--dom-text-muted);
+      }
+
+      .eq-value {
+        font-weight: bold;
+        color: var(--dom-accent);
+        padding: 8px 12px;
+        background: rgba(251, 191, 36, 0.2);
+        border-radius: 6px;
+      }
+
+      .question-text {
+        text-align: center;
+        font-size: 1.1rem;
+        margin-bottom: 25px;
+        line-height: 1.5;
+      }
+
+      .answer-buttons {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .answer-btn {
+        background: rgba(45, 27, 105, 0.8);
+        border: 2px solid var(--dom-border);
+        color: var(--dom-text);
+        padding: 16px;
+        font-size: 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+        min-height: 48px;
+      }
+
+      .answer-btn:hover:not(:disabled) {
+        background: rgba(45, 27, 105, 0.95);
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .answer-btn:disabled {
+        cursor: not-allowed;
+      }
+
+      .answer-btn.correct {
+        background: rgba(34, 197, 94, 0.2);
+        border-color: #22c55e;
+        color: #22c55e;
+      }
+
+      .answer-btn.wrong {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: #ef4444;
+        color: #ef4444;
+      }
+
+      /* Explain Screen */
+      .explain-container {
+        padding: 20px;
+        max-width: 500px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .explain-header {
+        text-align: center;
+      }
+
+      .explain-emoji {
+        font-size: 3rem;
+        margin-bottom: 10px;
+      }
+
+      .explain-title {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .explain-answer {
+        background: rgba(34, 197, 94, 0.15);
+        border: 2px solid #22c55e;
+        padding: 15px;
+        border-radius: 8px;
+        text-align: center;
+        font-weight: bold;
+        color: #22c55e;
+      }
+
+      .explain-text {
+        background: rgba(45, 27, 105, 0.6);
+        padding: 20px;
+        border-radius: 8px;
+        line-height: 1.6;
+        text-align: center;
+      }
+
+      .explain-continue {
+        background: var(--dom-accent);
+        color: #1a0a2e;
+        border: none;
+        padding: 16px;
+        font-size: 1rem;
+        font-weight: bold;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-height: 48px;
+      }
+
+      .explain-continue:hover {
+        background: var(--dom-accent-dark);
+        transform: translateY(-2px);
+      }
+
+      /* Results Screen */
+      .results-container {
+        padding: 20px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .stars-display {
+        font-size: 4rem;
+        margin: 20px 0;
+      }
+
+      .score-info {
+        background: rgba(45, 27, 105, 0.6);
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px solid var(--dom-border);
+      }
+
+      .score-label {
+        color: var(--dom-text-muted);
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+      }
+
+      .score-value {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: var(--dom-accent);
+      }
+
+      .streak-display {
+        font-size: 1.2rem;
+        color: var(--dom-accent);
+      }
+
+      .results-buttons {
+        display: flex;
+        gap: 12px;
+        flex-direction: column;
+      }
+
+      .results-btn {
+        padding: 16px;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        min-height: 48px;
+        font-size: 1rem;
+      }
+
+      .results-btn--primary {
+        background: var(--dom-accent);
+        color: #1a0a2e;
+      }
+
+      .results-btn--primary:hover {
+        background: var(--dom-accent-dark);
+        transform: translateY(-2px);
+      }
+
+      .results-btn--secondary {
+        background: rgba(45, 27, 105, 0.8);
+        color: var(--dom-text);
+        border: 2px solid var(--dom-border);
+      }
+
+      .results-btn--secondary:hover {
+        border-color: var(--dom-accent);
+        color: var(--dom-accent);
+      }
+
+      /* Mobile responsive */
+      @media (max-width: 768px) {
+        .landing-title {
+          font-size: 2.5rem;
+        }
+
+        .category-cards {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          padding: 15px;
+        }
+
+        .category-card {
+          padding: 15px;
+        }
+
+        .category-icon {
+          font-size: 2rem;
+        }
+
+        .answer-buttons {
+          gap: 10px;
+        }
+
+        .answer-btn {
+          padding: 14px;
+          font-size: 0.95rem;
+        }
+
+        .play-content {
+          padding: 15px;
+        }
+
+        .results-buttons {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .landing-title {
+          font-size: 2rem;
+        }
+
+        .landing-subtitle {
+          font-size: 1rem;
+        }
+
+        .landing-btn {
+          padding: 14px 32px;
+          font-size: 1rem;
+        }
+
+        .category-title {
+          font-size: 1.5rem;
+        }
+
+        .difficulty-btn {
+          padding: 8px 16px;
+          font-size: 0.9rem;
+        }
+
+        .play-content {
+          padding: 12px;
+        }
+
+        .visual-container {
+          min-height: 100px;
+        }
+
+        .question-text {
+          font-size: 1rem;
+          margin-bottom: 20px;
+        }
+
+        .answer-btn {
+          padding: 12px;
+          font-size: 0.9rem;
+        }
+
+        .explain-container {
+          padding: 15px;
+        }
+
+        .results-container {
+          padding: 15px;
+        }
+
+        .stars-display {
+          font-size: 3rem;
+        }
+
+        .score-value {
+          font-size: 2rem;
+        }
+
+        .results-btn {
+          padding: 14px;
+          font-size: 0.95rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#brain-spark" id="game-back-btn"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Brain Spark</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Landing Screen -->
+    <div class="dom-screen active" data-screen="landing">
+      <div class="landing-header">
+        <div class="landing-title">Brain Spark <span class="sparkle-animation">⚡</span></div>
+        <p class="landing-subtitle">Train your brain with riddles, patterns, puzzles & tricks!</p>
+      </div>
+
+      <div class="landing-cta">
+        <button class="landing-btn" id="start-btn">Start Playing</button>
+      </div>
+    </div>
+
+    <!-- Category Selection Screen -->
+    <div class="dom-screen" data-screen="category">
+      <div class="category-header">
+        <h2 class="category-title">Choose a Category</h2>
+
+        <div class="difficulty-toggle">
+          <button class="difficulty-btn active" data-difficulty="normal">Normal</button>
+          <button class="difficulty-btn" data-difficulty="challenge">Challenge</button>
+        </div>
+      </div>
+
+      <div class="category-cards">
+        <div class="category-card" data-category="number-patterns">
+          <div class="category-icon">🔢</div>
+          <div class="category-label">Number Patterns</div>
+          <div class="category-count"><span id="count-number-patterns">11</span> puzzles</div>
+        </div>
+
+        <div class="category-card" data-category="logic-riddles">
+          <div class="category-icon">🧠</div>
+          <div class="category-label">Logic Riddles</div>
+          <div class="category-count"><span id="count-logic-riddles">11</span> puzzles</div>
+        </div>
+
+        <div class="category-card" data-category="odd-one-out">
+          <div class="category-icon">🎯</div>
+          <div class="category-label">Odd One Out</div>
+          <div class="category-count"><span id="count-odd-one-out">11</span> puzzles</div>
+        </div>
+
+        <div class="category-card" data-category="math-tricks">
+          <div class="category-icon">✨</div>
+          <div class="category-label">Math Tricks</div>
+          <div class="category-count"><span id="count-math-tricks">11</span> puzzles</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Play Screen -->
+    <div class="dom-screen" data-screen="play">
+      <div class="play-header">
+        <div class="progress-info">
+          <span id="progress-text">1 / 8</span>
+        </div>
+        <div class="streak-badge" id="streak-display"></div>
+      </div>
+      <div class="timer-bar" id="timer-bar" style="display: none">
+        <div class="timer-fill" id="timer-fill"></div>
+      </div>
+
+      <div class="play-content">
+        <div class="visual-container" id="visual-container"></div>
+
+        <div class="question-text" id="question-text"></div>
+
+        <div class="answer-buttons" id="answer-buttons"></div>
+      </div>
+    </div>
+
+    <!-- Explain Screen -->
+    <div class="dom-screen" data-screen="explain">
+      <div class="explain-container">
+        <div class="explain-header">
+          <div class="explain-emoji" id="explain-emoji">✨</div>
+          <h2 class="explain-title" id="explain-title">Well done!</h2>
+        </div>
+
+        <div class="explain-answer" id="explain-answer"></div>
+        <div class="explain-text" id="explain-text"></div>
+
+        <button class="explain-continue" id="continue-btn">Continue</button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="dom-screen" data-screen="results">
+      <div class="results-container">
+        <h2>Quiz Complete! 🎉</h2>
+
+        <div class="stars-display" id="stars-display">⭐⭐⭐</div>
+
+        <div class="score-info">
+          <div class="score-label">Your Score</div>
+          <div class="score-value" id="final-score">8 / 8</div>
+        </div>
+
+        <div class="streak-display" id="final-streak"></div>
+
+        <div class="results-buttons">
+          <button class="results-btn results-btn--primary" id="try-again-btn">Try Again</button>
+          <button class="results-btn results-btn--secondary" id="categories-btn">Choose Category</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../shared/navigation.js"></script>
+    <script src="game.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
