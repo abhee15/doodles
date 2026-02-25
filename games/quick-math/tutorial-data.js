@@ -175,7 +175,28 @@ const TUTORIAL_STEPS = {
       title: 'The Trick',
       text: '÷5 = ×2 ÷10\n\nDouble the number, then remove a 0!\n\n20 ÷ 5 = ?',
       example: '20 ÷ 5 = 4',
-      steps: ['📍 Double: 20 × 2 = 40', '📍 Remove a zero: 40 ÷ 10 = 4']
+      steps: ['📍 Double: 20 × 2 = 40', '📍 Remove a zero: 40 ÷ 10 = 4'],
+      visual: {
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 280px; margin: 0 auto;">
+            <div style="text-align: center; font-size: 18px; font-weight: bold; color: var(--qm-blue);">20 ÷ 5</div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Double</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">×2</div>
+                <div style="font-size: 18px; font-weight: bold;">40</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Remove zero (÷10)</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-orange) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">÷10</div>
+                <div style="font-size: 18px; font-weight: bold;">4</div>
+              </div>
+            </div>
+          </div>
+        `
+      }
     },
     {
       title: 'Examples',
@@ -195,7 +216,28 @@ const TUTORIAL_STEPS = {
       title: 'The Strategy',
       text: '20 = 2 × 10\n\nSo ×20 = ×2 then ×10\nWhich means: Double, then add a 0!',
       example: '7 × 20 = ?',
-      steps: ['📍 Double: 7 × 2 = 14', '📍 Add a zero: 140']
+      steps: ['📍 Double: 7 × 2 = 14', '📍 Add a zero: 140'],
+      visual: {
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 280px; margin: 0 auto;">
+            <div style="text-align: center; font-size: 18px; font-weight: bold; color: var(--qm-blue);">7 × 20</div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Double (×2)</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">×2</div>
+                <div style="font-size: 18px; font-weight: bold;">14</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Add a zero (×10)</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-orange) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">+0</div>
+                <div style="font-size: 18px; font-weight: bold;">140</div>
+              </div>
+            </div>
+          </div>
+        `
+      }
     },
     {
       title: 'Quick Examples',
@@ -214,7 +256,28 @@ const TUTORIAL_STEPS = {
       title: 'The Strategy',
       text: '30 = 3 × 10\n\nSo ×30 = ×3 then ×10\nWhich means: Triple, then add a 0!',
       example: '4 × 30 = ?',
-      steps: ['📍 Triple (×3): 4 × 3 = 12', '📍 Add a zero: 120']
+      steps: ['📍 Triple (×3): 4 × 3 = 12', '📍 Add a zero: 120'],
+      visual: {
+        html: `
+          <div style="display: flex; flex-direction: column; gap: 12px; max-width: 280px; margin: 0 auto;">
+            <div style="text-align: center; font-size: 18px; font-weight: bold; color: var(--qm-blue);">4 × 30</div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Triple (×3)</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-blue) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-blue);">
+                <div style="font-size: 12px; color: var(--qm-blue); font-weight: bold;">×3</div>
+                <div style="font-size: 18px; font-weight: bold;">12</div>
+              </div>
+            </div>
+            <div style="text-align: center; color: var(--dom-text-muted); font-size: 12px;">↓ Add a zero (×10)</div>
+            <div style="display: flex; justify-content: center; gap: 8px;">
+              <div style="background: color-mix(in srgb, var(--qm-orange) 15%, white); padding: 12px 16px; border-radius: 6px; border: 2px solid var(--qm-orange);">
+                <div style="font-size: 12px; color: var(--qm-orange); font-weight: bold;">+0</div>
+                <div style="font-size: 18px; font-weight: bold;">120</div>
+              </div>
+            </div>
+          </div>
+        `
+      }
     },
     {
       title: 'Examples',
