@@ -347,10 +347,10 @@
 
       .mm-sort-slots {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
         gap: 8px;
         margin-bottom: 24px;
-        padding: 16px;
+        padding: 12px 8px;
         background: var(--dom-bg);
         border-radius: 8px;
       }
@@ -762,13 +762,56 @@
           gap: 12px;
         }
 
+        .mm-sort-container {
+          padding: 12px;
+        }
+
+        .mm-sort-slots {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 6px;
+          padding: 8px;
+          margin-bottom: 16px;
+        }
+
+        .mm-slot {
+          aspect-ratio: 1 / 1;
+        }
+
+        .mm-slot-emoji {
+          font-size: 1.4rem;
+          margin-bottom: 2px;
+        }
+
+        .mm-slot-abbr {
+          font-size: 0.75rem;
+        }
+
+        .mm-bank {
+          padding: 8px;
+          gap: 6px;
+          margin-bottom: 12px;
+        }
+
+        .mm-bank-card {
+          padding: 8px 10px;
+          font-size: 0.85rem;
+        }
+
+        .mm-bank-title {
+          margin-bottom: 8px;
+          font-size: 0.9rem;
+        }
+
         .mm-sort-buttons {
           flex-direction: column;
+          gap: 8px;
         }
 
         .mm-check-btn,
         .mm-result-btn {
           width: 100%;
+          padding: 10px 16px;
+          font-size: 0.9rem;
         }
 
         .mm-result-buttons {
