@@ -261,6 +261,24 @@ body {
   .pill:hover::after {
     opacity: 1;
   }
+
+  /* Section title responsive */
+  .sec-title {
+    gap: 8px;
+  }
+
+  .sec-title i {
+    font-size: 1em;
+  }
+
+  .sec-title h2 {
+    font-size: clamp(0.95rem, 2vw, 1.2rem);
+  }
+
+  .sec-count {
+    font-size: 11px;
+    padding: 2px 8px;
+  }
 }
 
 /* ══════════════════════════════════════════════════
@@ -334,6 +352,14 @@ body {
   background: rgba(0, 0, 0, 0.06);
   padding: 2px 10px;
   border-radius: 12px;
+  margin-left: auto;
+}
+
+/* Section title icon */
+.sec-title i {
+  font-size: 1.2em;
+  color: var(--muted);
+  flex-shrink: 0;
 }
 
 /* ── Horizontal scroll row ── */
@@ -940,5 +966,23 @@ footer {
     flex-direction: column;
     gap: 10px;
     text-align: center;
+  }
+
+  /* Extra small screens: optimize section title */
+  .sec-title {
+    gap: 6px;
+  }
+
+  .sec-title i {
+    font-size: 0.95em;
+  }
+
+  .sec-title h2 {
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+  }
+
+  .sec-bar {
+    width: 3px;
+    height: 20px;
   }
 }

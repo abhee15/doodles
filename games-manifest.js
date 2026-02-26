@@ -19,7 +19,13 @@ const CATEGORIES = [
   { id: 'words', label: 'Words & Language', color: '#6A1B9A', footerHeading: 'Words' },
   { id: 'science', label: 'Science & Nature', color: '#2E7D32', footerHeading: 'Science & Memory' },
   { id: 'art', label: 'Art & Creativity', color: '#EC4899', footerHeading: 'Art & Creativity' },
-  { id: 'logic', label: 'Logic & Puzzles', color: '#6D28D9', footerHeading: 'Logic & Puzzles' }
+  {
+    id: 'logic',
+    label: 'Logic & Puzzles',
+    color: '#6D28D9',
+    footerHeading: 'Logic & Puzzles',
+    icon: 'ti-puzzle'
+  }
 ];
 
 // eslint-disable-next-line no-unused-vars
