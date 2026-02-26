@@ -45,6 +45,7 @@ const config = createGameConfig({
   }
 });
 
+// eslint-disable-next-line no-unused-vars
 const game = new Phaser.Game(config);
 
 // ==================== PATTERNS ====================
@@ -66,6 +67,7 @@ const GameState = {
   VICTORY: 'victory'
 };
 
+// eslint-disable-next-line no-unused-vars
 let currentState = GameState.MENU;
 let numbers = [];
 let currentPattern = null;

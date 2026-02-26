@@ -24,9 +24,11 @@ const config = createGameConfig({
   }
 });
 
+// eslint-disable-next-line no-unused-vars
 const game = new Phaser.Game(config);
 
 // Game state
+// eslint-disable-next-line no-unused-vars
 let currentScene = 'menu';
 let questionsAsked = [];
 let currentQuestion = null;

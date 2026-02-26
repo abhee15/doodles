@@ -6,6 +6,7 @@ const ADSENSE_CLIENT_ID = 'ca-pub-XXXXXXXXXXXXXXXX'; // TODO: Replace with your 
 const ADS_ENABLED = false; // Set to true when ready to show ads
 
 // Ad slots configuration
+// eslint-disable-next-line no-unused-vars
 const AD_SLOTS = {
   BANNER_TOP: 'slot-1',
   BANNER_BOTTOM: 'slot-2',

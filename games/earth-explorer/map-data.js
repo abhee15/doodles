@@ -449,4 +449,5 @@ const OCEANS = {
 /**
  * Combine all regions for easy access
  */
+// eslint-disable-next-line no-unused-vars
 const ALL_REGIONS = { ...CONTINENTS, ...OCEANS };

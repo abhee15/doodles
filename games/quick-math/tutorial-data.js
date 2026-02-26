@@ -2,6 +2,7 @@
 // Quick Math - Tutorial data
 // Keyed by level ID for proper organization
 
+// eslint-disable-next-line no-unused-vars
 const TUTORIAL_STEPS = {
   1: [
     {

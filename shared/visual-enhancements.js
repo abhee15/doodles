@@ -113,7 +113,7 @@ function createStoryCard(element, index, totalElements) {
 /**
  * Create enhanced keyword card with visual associations
  */
-function createKeywordCard(element, index) {
+function createKeywordCard(element, _index) {
   const typeInfo = getElementTypeInfo(element);
 
   // Create a visual symbol representation

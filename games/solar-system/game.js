@@ -49,6 +49,7 @@ let questionIndex = 0;
 const questionsPerLevel = 5;
 let answerLocked = false;
 let totalStars = 0;
+// eslint-disable-next-line no-unused-vars
 let planetBadges = {}; // { planetId: true }
 
 // Solar system animation
@@ -67,6 +68,7 @@ let planetGlows = {}; // { planetId: gfx } for highlight rings
 
 // UI objects
 let questionPanel = null;
+// eslint-disable-next-line no-unused-vars
 let hudGroup = [];
 let livesText = null;
 let scoreText = null;
@@ -353,6 +355,7 @@ function drawSun(scene) {
   drawSunGraphic(scene, 44);
 
   // Sun label
+  // eslint-disable-next-line no-unused-vars
   const sunLabel = scene.add
     .text(SUN_X, SUN_Y + 48, '☀️ Sun', {
       fontSize: '11px',
@@ -632,6 +635,7 @@ function isPlanetTarget(planetId) {
 // ── HUD ────────────────────────────────────────────────────────
 function drawHUD(scene) {
   // Top bar background
+  // eslint-disable-next-line no-unused-vars
   const topBar = scene.add.rectangle(W / 2, 22, W, 44, SS.hud, 0.92).setDepth(50);
   scene.add
     .text(12, 22, '🪐 Planet Quest', {

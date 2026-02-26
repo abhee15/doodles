@@ -3,8 +3,10 @@
  *
  * Central registry for all games, categories, and metadata.
  * Loaded globally as window.CATEGORIES and window.GAMES
+ * Used by portal.js for rendering game cards and navigation
  */
 
+// eslint-disable-next-line no-unused-vars
 const CATEGORIES = [
   { id: 'math', label: 'Math & Numbers', color: '#BF360C', footerHeading: 'Math & Numbers' },
   {
@@ -20,6 +22,7 @@ const CATEGORIES = [
   { id: 'logic', label: 'Logic & Puzzles', color: '#6D28D9', footerHeading: 'Logic & Puzzles' }
 ];
 
+// eslint-disable-next-line no-unused-vars
 const GAMES = [
   {
     id: 'math-ladder',

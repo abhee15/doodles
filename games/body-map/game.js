@@ -612,7 +612,6 @@ function renderQuiz() {
   const B = BATCHES[batch];
   const total = B.count;
   const qi = quizOrder[quizStep]; // index into batch
-  const p = PRESIDENTS[B.start + qi];
   const part = BODY_PARTS[qi];
 
   // Progress bar
@@ -661,9 +660,6 @@ function checkAnswer(selected, correct, clickedBtn) {
   // Disable all buttons
   document.querySelectorAll('#quiz-options .opt-btn').forEach(b => {
     b.disabled = true;
-    const idx = PRESIDENTS.indexOf(
-      PRESIDENTS.find(pr => pr.name === b.textContent.replace(/^[ABCD]/, ''))
-    );
   });
   // Show correct/wrong
   document.querySelectorAll('#quiz-options .opt-btn').forEach(b => {

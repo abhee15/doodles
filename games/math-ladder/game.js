@@ -126,6 +126,7 @@ const config = createGameConfig({
   scene: { preload, create, update }
 });
 
+// eslint-disable-next-line no-unused-vars
 const game = new Phaser.Game(config);
 
 // ==================== LIFECYCLE ====================

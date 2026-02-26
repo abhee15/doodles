@@ -24,6 +24,7 @@
  * @param {Object} options - Configuration options
  * @returns {Object} Map controller with helper methods
  */
+// eslint-disable-next-line no-unused-vars
 function createInteractiveMap(scene, regions, options = {}) {
   const defaults = {
     backgroundColor: 0x87ceeb, // Sky blue
@@ -277,6 +278,7 @@ function showRegionLabel(scene, obj, region, config) {
  * Helper: Create clickable region from image map coordinates
  * (For future: if we use image maps with coordinate data)
  */
+// eslint-disable-next-line no-unused-vars
 function createRegionFromImageMap(imageMapCoords) {
   // Convert image map coords to Phaser polygon
   // Implementation for future image-based maps

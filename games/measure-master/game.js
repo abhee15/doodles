@@ -1213,7 +1213,7 @@ function showQuizQuestion() {
 
   const choicesDiv = document.getElementById('quiz-choices');
   choicesDiv.innerHTML = '';
-  choices.forEach((uid, idx) => {
+  choices.forEach(uid => {
     const unit = UNITS.find(u => u.id === uid);
     const btn = document.createElement('button');
     btn.className = 'mm-choice-btn';
@@ -1323,7 +1323,7 @@ function showConvQuestion() {
 
   const choicesDiv = document.getElementById('conv-choices');
   choicesDiv.innerHTML = '';
-  choices.forEach((choice, idx) => {
+  choices.forEach(choice => {
     const btn = document.createElement('button');
     btn.className = 'mm-choice-btn';
     btn.textContent = String(choice);
@@ -1443,7 +1443,7 @@ function showScenQuestion() {
 
   const choicesDiv = document.getElementById('scen-choices');
   choicesDiv.innerHTML = '';
-  choices.forEach((choice, idx) => {
+  choices.forEach(choice => {
     const btn = document.createElement('button');
     btn.className = 'mm-choice-btn';
     btn.textContent = String(choice);

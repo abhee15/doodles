@@ -73,7 +73,7 @@ const LEVELS = [
     icon: '2²',
     desc: 'Double, double!',
     color: '#7C3AED',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 20);
       const answer = num * 4;
       const questionStr = `${num} × 4 = ?`;
@@ -86,7 +86,7 @@ const LEVELS = [
     icon: '×5',
     desc: 'Half of ×10',
     color: '#059669',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(4, 24) * 2;
       const answer = num * 5;
       const questionStr = `${num} × 5 = ?`;
@@ -99,7 +99,7 @@ const LEVELS = [
     icon: '×3',
     desc: 'Double + number',
     color: '#EC4899',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 20);
       const answer = num * 3;
       const questionStr = `${num} × 3 = ?`;
@@ -112,7 +112,7 @@ const LEVELS = [
     icon: '÷5',
     desc: '×2 then ÷10',
     color: '#10B981',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(2, 20) * 5;
       const answer = num / 5;
       const questionStr = `${num} ÷ 5 = ?`;
@@ -125,7 +125,7 @@ const LEVELS = [
     icon: '×20',
     desc: '×2 then ×10',
     color: '#F59E0B',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 20);
       const answer = num * 20;
       const questionStr = `${num} × 20 = ?`;
@@ -138,7 +138,7 @@ const LEVELS = [
     icon: '×30',
     desc: '×3 then ×10',
     color: '#14B8A6',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 15);
       const answer = num * 30;
       const questionStr = `${num} × 30 = ?`;
@@ -153,7 +153,7 @@ const LEVELS = [
     icon: '×9',
     desc: 'Finger trick magic',
     color: '#10B981',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 10);
       const answer = num * 9;
       const questionStr = `${num} × 9 = ?`;
@@ -166,7 +166,7 @@ const LEVELS = [
     icon: '×11',
     desc: 'Split, add, done!',
     color: '#3B82F6',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(12, 99);
       const answer = num * 11;
       const questionStr = `${num} × 11 = ?`;
@@ -179,7 +179,7 @@ const LEVELS = [
     icon: '×6',
     desc: '(×5) + (×1)',
     color: '#DB2777',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(2, 15);
       const answer = num * 6;
       const questionStr = `${num} × 6 = ?`;
@@ -192,7 +192,7 @@ const LEVELS = [
     icon: '×7',
     desc: '(×5) + (×2)',
     color: '#8B5CF6',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 15);
       const answer = num * 7;
       const questionStr = `${num} × 7 = ?`;
@@ -205,7 +205,7 @@ const LEVELS = [
     icon: '×8',
     desc: 'Triple double',
     color: '#EA580C',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 15);
       const answer = num * 8;
       const questionStr = `${num} × 8 = ?`;
@@ -218,7 +218,7 @@ const LEVELS = [
     icon: '×12',
     desc: '(×10) + (×2)',
     color: '#DC2626',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 15);
       const answer = num * 12;
       const questionStr = `${num} × 12 = ?`;
@@ -231,7 +231,7 @@ const LEVELS = [
     icon: '×15',
     desc: '×10 + half',
     color: '#0891B2',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 14);
       const answer = num * 15;
       const questionStr = `${num} × 15 = ?`;
@@ -244,7 +244,7 @@ const LEVELS = [
     icon: '×25',
     desc: 'Quarter trick',
     color: '#1D4ED8',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(1, 20);
       const answer = num * 25;
       const questionStr = `${num} × 25 = ?`;
@@ -257,7 +257,7 @@ const LEVELS = [
     icon: '×99',
     desc: '(×100) − (×1)',
     color: '#6D28D9',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(12, 60);
       const answer = num * 99;
       const questionStr = `${num} × 99 = ?`;
@@ -270,7 +270,7 @@ const LEVELS = [
     icon: '5²',
     desc: 'N(N+1) + 25',
     color: '#06B6D4',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const tens = randInt(1, 9);
       const num = tens * 10 + 5;
       const firstDigit = Math.floor(num / 10);
@@ -285,7 +285,7 @@ const LEVELS = [
     icon: '1²',
     desc: 'Pattern magic',
     color: '#06B6D4',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const tens = randInt(1, 8);
       const num = tens * 10 + 1;
       const answer = num * num;
@@ -299,7 +299,7 @@ const LEVELS = [
     icon: '6²',
     desc: 'Always ends in 6',
     color: '#F97316',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const tens = randInt(1, 8);
       const num = tens * 10 + 6;
       const answer = num * num;
@@ -332,7 +332,7 @@ const LEVELS = [
     icon: '~10',
     desc: 'Near 10, 100...',
     color: '#2563EB',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num1 = randInt(7, 13);
       const num2 = randInt(7, 13);
       const answer = num1 * num2;
@@ -346,7 +346,7 @@ const LEVELS = [
     icon: '~50',
     desc: 'Near 50 method',
     color: '#3B82F6',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const offset = randInt(1, 10);
       const num1 = 50 - offset;
       const num2 = 50 + offset;
@@ -361,7 +361,7 @@ const LEVELS = [
     icon: '11++',
     desc: 'With carry logic',
     color: '#2563EB',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num = randInt(57, 99);
       const answer = num * 11;
       const questionStr = `${num} × 11 = ?`;
@@ -374,7 +374,7 @@ const LEVELS = [
     icon: 'n±1',
     desc: 'Sandwich squares',
     color: '#D97706',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const m = randInt(5, 20);
       const num1 = m - 1;
       const num2 = m + 1;
@@ -389,7 +389,7 @@ const LEVELS = [
     icon: 'ab',
     desc: 'Ones sum to 10',
     color: '#0D9488',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const T = randInt(2, 8);
       const A = randInt(1, 4);
       const num1 = T * 10 + A;
@@ -405,7 +405,7 @@ const LEVELS = [
     icon: '2×2',
     desc: 'Two-digit magic',
     color: '#DC2626',
-    generate(randInt, randFrom) {
+    generate(randInt) {
       const num1 = randInt(10, 30);
       const num2 = randInt(10, 30);
       const answer = num1 * num2;
