@@ -8,30 +8,30 @@
     />
 
     <!-- Primary Meta Tags -->
-    <title>Quick Math - Learn Vedic Math Tricks for Kids | Doodles Games</title>
-    <meta name="title" content="Quick Math - Learn Vedic Math Tricks for Kids" />
+    <title>Quick Math - Learn Math Tricks for Kids | Doodles Games</title>
+    <meta name="title" content="Quick Math - Learn Fast Math Tricks for Kids" />
     <meta
       name="description"
-      content="Learn fast math tricks like the ×11 trick! Interactive Vedic math practice game for kids. Master mental math shortcuts. Free browser game."
+      content="Learn fast math tricks like the ×11 trick! Interactive mental math practice game for kids. Master math shortcuts. Free browser game."
     />
     <meta
       name="keywords"
-      content="quick math, vedic math, math tricks, mental math, times 11 trick, fast math, math shortcuts, kids math learning"
+      content="quick math, math tricks, mental math, times 11 trick, fast math, math shortcuts, kids math learning"
     />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="game" />
     <meta property="og:url" content="https://abhee15.github.io/doodles/games/quick-math/" />
-    <meta property="og:title" content="Quick Math - Learn Vedic Math Tricks" />
+    <meta property="og:title" content="Quick Math - Learn Math Tricks" />
     <meta
       property="og:description"
-      content="Learn fast math tricks like the ×11 trick! Interactive Vedic math practice game."
+      content="Learn fast math tricks like the ×11 trick! Interactive mental math practice game."
     />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/quick-math/" />
-    <meta property="twitter:title" content="Quick Math - Vedic Math Tricks" />
+    <meta property="twitter:title" content="Quick Math - Learn Math Tricks" />
     <meta property="twitter:description" content="Learn fast math tricks and mental math shortcuts for kids!" />
 
     <link rel="canonical" href="https://abhee15.github.io/doodles/games/quick-math/" />
@@ -70,12 +70,44 @@
         --qm-yellow: #fbbf24; /* Highlights, Attention */
       }
 
+      /* Landing page header with flexbox optimization */
+      .qm-landing-header {
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+        min-height: auto;
+      }
+
+      .qm-landing-header > div:first-child {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .qm-landing-header h1 {
+        font-size: clamp(24px, 5vw, 28px);
+        margin: 0 0 8px 0;
+      }
+
+      .qm-landing-header p {
+        margin: 0;
+        font-size: clamp(14px, 3vw, 16px);
+      }
+
+      .qm-landing-header .dom-btn {
+        white-space: nowrap;
+        padding: 10px 16px;
+        font-size: 14px;
+      }
+
       /* Level Grid */
       .qm-level-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
         gap: 16px;
-        padding: 20px;
+        padding: 16px 20px;
         padding-left: max(20px, calc((100% - 1400px) / 2));
         padding-right: max(20px, calc((100% - 1400px) / 2));
         width: 100%;
@@ -694,6 +726,15 @@
       }
 
       @media (max-width: 768px) {
+        .qm-landing-header {
+          padding: 12px 16px;
+          gap: 12px;
+        }
+
+        .qm-landing-header h1 {
+          margin-bottom: 4px;
+        }
+
         .qm-level-grid {
           grid-template-columns: repeat(2, 1fr);
           gap: 12px;
@@ -746,6 +787,21 @@
       }
 
       @media (max-width: 480px) {
+        .qm-landing-header {
+          flex-direction: column;
+          align-items: stretch;
+          padding: 12px 12px;
+          gap: 10px;
+        }
+
+        .qm-landing-header > div:first-child {
+          flex-basis: auto;
+        }
+
+        .qm-landing-header .dom-btn {
+          width: 100%;
+        }
+
         .qm-level-grid {
           grid-template-columns: 1fr;
         }
@@ -865,10 +921,12 @@
     <div class="dom-screens-container">
       <!-- Level Select Screen -->
       <div data-screen="landing" class="dom-screen active">
-        <div style="padding: 20px; text-align: center">
-          <h1 style="font-size: 28px; color: var(--dom-text); margin: 0 0 10px 0">⚡ Quick Math Tricks</h1>
-          <p style="color: var(--dom-text-muted); margin: 0">Learn Vedic math shortcuts</p>
-          <button id="btn-progress" class="dom-btn dom-btn--primary" style="margin-top: 12px">🏆 Progress</button>
+        <div class="qm-landing-header">
+          <div>
+            <h1 style="color: var(--dom-text)">⚡ Quick Math Tricks</h1>
+            <p style="color: var(--dom-text-muted)">Learn math shortcuts</p>
+          </div>
+          <button id="btn-progress" class="dom-btn dom-btn--primary">🏆 Progress</button>
         </div>
         <div id="level-grid" class="qm-level-grid"></div>
       </div>
