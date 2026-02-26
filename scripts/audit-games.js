@@ -185,6 +185,118 @@ function auditGame(gameDir, gameName) {
 }
 
 /**
+ * Audit the games manifest for consistency
+ */
+function auditManifest() {
+  const manifestPath = path.join(__dirname, '..', 'games-manifest.js');
+  const errors = [];
+  const warnings = [];
+
+  if (!fs.existsSync(manifestPath)) {
+    errors.push('Could not find games-manifest.js');
+    return { errors, warnings };
+  }
+
+  const manifestContent = fs.readFileSync(manifestPath, 'utf8');
+
+  // Parse CATEGORIES and GAMES from manifest
+  let categories = [];
+  let games = [];
+
+  try {
+    // Extract CATEGORIES array
+    const categoriesMatch = manifestContent.match(/const CATEGORIES = \[([\s\S]*?)\];/);
+    if (categoriesMatch) {
+      // Simple extraction - count category objects
+      const catContent = categoriesMatch[1];
+      const catMatches = catContent.match(/{\s*id:\s*'([^']+)'/g);
+      if (catMatches) {
+        categories = catMatches.map(m => m.match(/'([^']+)'/)[1]);
+      }
+    }
+
+    // Extract GAMES array
+    const gamesMatch = manifestContent.match(/const GAMES = \[([\s\S]*?)\];/);
+    if (gamesMatch) {
+      const gameContent = gamesMatch[1];
+      const gameMatches = gameContent.match(/{\s*id:\s*'([^']+)'/g);
+      if (gameMatches) {
+        games = gameMatches.map(m => m.match(/'([^']+)'/)[1]);
+      }
+    }
+  } catch (e) {
+    errors.push(`Could not parse manifest: ${e.message}`);
+    return { errors, warnings };
+  }
+
+  // ============ CATEGORIES VALIDATION ============
+
+  // Check for duplicate category IDs
+  const catDuplicates = categories.filter((c, i) => categories.indexOf(c) !== i);
+  if (catDuplicates.length > 0) {
+    errors.push(`Duplicate category IDs: ${catDuplicates.join(', ')}`);
+  }
+
+  // Check that all categories have required fields (especially icon)
+  // Extract CATEGORIES section for easier checking
+  const categoriesSection = manifestContent.substring(
+    manifestContent.indexOf('const CATEGORIES'),
+    manifestContent.indexOf('const GAMES')
+  );
+
+  categories.forEach(catId => {
+    // Create pattern to find this specific category
+    const catPattern = new RegExp(`id:\\s*['"]${catId}['"][\\s\\S]*?(?=},|]\\s*;)`, '');
+    const catMatch = categoriesSection.match(catPattern);
+
+    if (catMatch) {
+      const catBlock = catMatch[0];
+
+      const hasIcon = /icon:\s*['"][^'"]*['"]/.test(catBlock);
+      const hasLabel = /label:\s*['"][^'"]*['"]/.test(catBlock);
+      const hasColor = /color:\s*['"][^'"]*['"]/.test(catBlock);
+      const hasFooter = /footerHeading:\s*['"][^'"]*['"]/.test(catBlock);
+
+      if (!hasIcon) {
+        errors.push(`Category '${catId}' missing icon field (required for filter pills)`);
+      }
+      if (!hasLabel) {
+        errors.push(`Category '${catId}' missing label field`);
+      }
+      if (!hasColor) {
+        errors.push(`Category '${catId}' missing color field`);
+      }
+      if (!hasFooter) {
+        errors.push(`Category '${catId}' missing footerHeading field`);
+      }
+    }
+  });
+
+  // ============ GAMES VALIDATION ============
+
+  // Check for duplicate game IDs
+  const gameDuplicates = games.filter((g, i) => games.indexOf(g) !== i);
+  if (gameDuplicates.length > 0) {
+    errors.push(`Duplicate game IDs: ${gameDuplicates.join(', ')}`);
+  }
+
+  // Check that all games reference valid categories
+  const gameRegex = /{\s*id:\s*'([^']+)'[^}]*?category:\s*'([^']+)'/g;
+  let gameMatch;
+
+  while ((gameMatch = gameRegex.exec(manifestContent)) !== null) {
+    const gameId = gameMatch[1];
+    const catRef = gameMatch[2];
+
+    if (!categories.includes(catRef)) {
+      errors.push(`Game '${gameId}' references non-existent category '${catRef}'`);
+    }
+  }
+
+  return { errors, warnings };
+}
+
+/**
  * Main audit function
  */
 function runAudit() {
@@ -205,10 +317,27 @@ function runAudit() {
   }
 
   log.header('🔍 GAME CONSISTENCY AUDIT');
-  log.info(`Auditing ${games.length} games\n`);
 
-  let totalErrors = 0;
-  let totalWarnings = 0;
+  // ============ MANIFEST AUDIT ============
+  log.info('Checking manifest consistency...\n');
+  const manifestAudit = auditManifest();
+
+  if (manifestAudit.errors.length === 0 && manifestAudit.warnings.length === 0) {
+    log.ok('Manifest (games-manifest.js)');
+  } else {
+    console.log(`${colors.cyan}Manifest (games-manifest.js):${colors.reset}`);
+    manifestAudit.errors.forEach(err => {
+      log.error(`  ${err}`);
+    });
+    manifestAudit.warnings.forEach(warn => {
+      log.warn(`  ${warn}`);
+    });
+  }
+
+  log.info(`\nAuditing ${games.length} games\n`);
+
+  let totalErrors = manifestAudit.errors.length;
+  let totalWarnings = manifestAudit.warnings.length;
   const results = {};
 
   games.forEach(game => {
@@ -238,6 +367,7 @@ function runAudit() {
   log.header('📊 SUMMARY');
 
   console.log(`
+Manifest validation:  ${manifestAudit.errors.length === 0 ? '✅' : '❌'}
 Games audited:        ${games.length}
 Errors found:         ${totalErrors} ${totalErrors > 0 ? '❌' : '✅'}
 Warnings found:       ${totalWarnings} ${totalWarnings > 0 ? '⚠️ ' : '✅'}

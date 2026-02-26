@@ -8,23 +8,54 @@
 
 // eslint-disable-next-line no-unused-vars
 const CATEGORIES = [
-  { id: 'math', label: 'Math & Numbers', color: '#BF360C', footerHeading: 'Math & Numbers' },
+  {
+    id: 'math',
+    label: 'Math & Numbers',
+    icon: 'ti-calculator',
+    color: '#BF360C',
+    footerHeading: 'Math & Numbers'
+  },
   {
     id: 'memory',
     label: 'Memory & Learning',
+    icon: 'ti-brain',
     color: '#8B5CF6',
     footerHeading: 'Memory & Learning'
   },
-  { id: 'geo', label: 'Geography', color: '#0277BD', footerHeading: 'Geography' },
-  { id: 'words', label: 'Words & Language', color: '#6A1B9A', footerHeading: 'Words' },
-  { id: 'science', label: 'Science & Nature', color: '#2E7D32', footerHeading: 'Science & Memory' },
-  { id: 'art', label: 'Art & Creativity', color: '#EC4899', footerHeading: 'Art & Creativity' },
+  {
+    id: 'geo',
+    label: 'Geography',
+    icon: 'ti-world',
+    color: '#0277BD',
+    footerHeading: 'Geography'
+  },
+  {
+    id: 'words',
+    label: 'Words & Language',
+    icon: 'ti-book',
+    color: '#6A1B9A',
+    footerHeading: 'Words'
+  },
+  {
+    id: 'science',
+    label: 'Science & Nature',
+    icon: 'ti-leaf',
+    color: '#2E7D32',
+    footerHeading: 'Science & Memory'
+  },
+  {
+    id: 'art',
+    label: 'Art & Creativity',
+    icon: 'ti-palette',
+    color: '#EC4899',
+    footerHeading: 'Art & Creativity'
+  },
   {
     id: 'logic',
     label: 'Logic & Puzzles',
+    icon: 'ti-puzzle',
     color: '#6D28D9',
-    footerHeading: 'Logic & Puzzles',
-    icon: 'ti-puzzle'
+    footerHeading: 'Logic & Puzzles'
   }
 ];
 

@@ -150,38 +150,15 @@
     allBtn.innerHTML = '<i class="ti ti-layout-grid"></i> <span class="pill-text">All Games</span>';
     filterBar.appendChild(allBtn);
 
-    // Category pills
+    // Category pills - use icon from manifest (single source of truth)
     CATEGORIES.forEach(function (cat) {
       const btn = document.createElement('button');
       btn.className = 'pill';
       btn.setAttribute('data-cat', cat.id);
       btn.setAttribute('data-label', cat.label);
 
-      let icon = '';
-      switch (cat.id) {
-        case 'math':
-          icon = 'ti-calculator';
-          break;
-        case 'geo':
-          icon = 'ti-world';
-          break;
-        case 'words':
-          icon = 'ti-book';
-          break;
-        case 'science':
-          icon = 'ti-leaf';
-          break;
-        case 'memory':
-          icon = 'ti-brain';
-          break;
-        case 'art':
-          icon = 'ti-palette';
-          break;
-        case 'logic':
-          icon = 'ti-puzzle';
-          break;
-      }
-
+      // Use icon from manifest - no hardcoding needed!
+      const icon = cat.icon || 'ti-tag'; // Fallback icon if not specified in manifest
       btn.innerHTML = `<i class="ti ${icon}"></i> <span class="pill-text">${cat.label}</span>`;
       filterBar.appendChild(btn);
     });
