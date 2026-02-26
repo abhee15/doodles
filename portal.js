@@ -177,6 +177,9 @@
         case 'art':
           icon = 'ti-palette';
           break;
+        case 'logic':
+          icon = 'ti-puzzle';
+          break;
       }
 
       btn.innerHTML = `<i class="ti ${icon}"></i> <span class="pill-text">${cat.label}</span>`;
