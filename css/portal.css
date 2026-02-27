@@ -435,6 +435,16 @@ body {
   transform: translateY(-6px) scale(1.015);
 }
 
+.game-card:active {
+  transform: scale(0.97);
+  transition: transform 0.1s;
+}
+
+.game-card:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.5);
+  outline-offset: 2px;
+}
+
 /* ── Thumbnail — fills the entire card ── */
 .thumb {
   position: absolute;
@@ -675,6 +685,23 @@ body {
 }
 .card-play i {
   font-size: 12px;
+}
+
+/* Touch devices: disable hover lift effect */
+@media (hover: none) {
+  .game-card:hover {
+    transform: none;
+  }
+}
+
+/* Respect prefers-reduced-motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .game-card {
+    transition: none;
+  }
+  .game-card:active {
+    transition: none;
+  }
 }
 
 /* ══════════════════════════════════════════════════
