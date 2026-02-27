@@ -831,6 +831,98 @@ function renderDetailTabs(country) {
 }
 
 /**
+ * Get continent color for map styling
+ */
+function getContinentColor(continent) {
+  const colors = {
+    africa: '#f19c79',
+    asia: '#a44a3f',
+    europe: '#d4e09b',
+    americas: '#cbdfbd',
+    oceania: '#a8dada'
+  };
+  return colors[continent] || '#E8F4F8';
+}
+
+/**
+ * Generate simplified SVG map for any country (fallback for non-showcase countries)
+ */
+function generateSimplifiedMap(country) {
+  const bgColor = getContinentColor(country.continent);
+  const hasRivers = country.geography?.rivers && country.geography.rivers.length > 0;
+  const hasMountains = country.geography?.mountains && country.geography.mountains.length > 0;
+  const hasForests =
+    (country.geography?.forests && country.geography.forests.length > 0) ||
+    (country.geography?.rainforests && country.geography.rainforests.length > 0);
+
+  // Create unique shape based on country ID (deterministic but varied)
+  const hash = country.id.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+  const shapeType = hash % 5; // 5 different shape types
+
+  let outline = '';
+  const width = 300;
+  const height = 300;
+  const centerX = width / 2;
+  const centerY = height / 2;
+
+  // Generate different shapes for variety
+  switch (shapeType) {
+    case 0: // Rectangular with rounded corners (typical continental country)
+      outline = `<rect x="50" y="50" width="200" height="200" fill="${bgColor}" stroke="#1E88E5" stroke-width="2" rx="8"/>`;
+      break;
+    case 1: // Ellipse (island or compact country)
+      outline = `<ellipse cx="${centerX}" cy="${centerY}" rx="90" ry="100" fill="${bgColor}" stroke="#1E88E5" stroke-width="2"/>`;
+      break;
+    case 2: // Irregular polygon (varied shape)
+      outline = `<polygon points="80,60 220,50 240,150 230,250 100,260 50,180" fill="${bgColor}" stroke="#1E88E5" stroke-width="2"/>`;
+      break;
+    case 3: // Vertical rectangle (tall country)
+      outline = `<rect x="100" y="30" width="100" height="240" fill="${bgColor}" stroke="#1E88E5" stroke-width="2" rx="6"/>`;
+      break;
+    case 4: // Horizontal rectangle (wide country)
+      outline = `<rect x="30" y="100" width="240" height="100" fill="${bgColor}" stroke="#1E88E5" stroke-width="2" rx="6"/>`;
+      break;
+  }
+
+  let features = '';
+
+  // Add rivers if data exists
+  if (hasRivers && country.geography.rivers.length > 0) {
+    const riverPath = `M ${50 + Math.random() * 100} 60 Q ${centerX} ${centerY} ${150 + Math.random() * 100} 250`;
+    features += `<path d="${riverPath}" stroke="#1E88E5" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.7"/>`;
+  }
+
+  // Add mountains if data exists
+  if (hasMountains && country.geography.mountains.length > 0) {
+    const numPeaks = Math.min(3, country.geography.mountains.length);
+    for (let i = 0; i < numPeaks; i++) {
+      const x = 80 + i * 60;
+      const y = 100 + Math.sin(i) * 40;
+      features += `<path d="M ${x} ${y} L ${x + 15} ${y - 30} L ${x + 30} ${y}" fill="#8B7355" opacity="0.6"/>`;
+    }
+  }
+
+  // Add forest indicator
+  if (hasForests) {
+    const forestX = 150 + Math.random() * 80;
+    const forestY = 120 + Math.random() * 80;
+    features += `<circle cx="${forestX}" cy="${forestY}" r="30" fill="#2ECC71" opacity="0.3"/>`;
+    features += `<text x="${forestX - 15}" y="${forestY + 3}" font-size="10" fill="#27AE60" font-weight="600">🌲</text>`;
+  }
+
+  // Add country name label
+  const label = `<text x="${centerX}" y="${height - 20}" text-anchor="middle" font-size="11" fill="#0D3D6B" font-weight="600">${country.name}</text>`;
+
+  return `
+    <svg viewBox="0 0 ${width} ${height}" style="max-width: 100%; height: auto; margin: 16px 0">
+      ${outline}
+      ${features}
+      ${label}
+    </svg>
+  `;
+}
+
+/**
  * Generate SVG geographic map for showcase countries
  */
 function getGeographicMapSVG(countryId) {
@@ -1030,7 +1122,18 @@ function getGeographicMapSVG(countryId) {
     `
   };
 
-  return maps[countryId] || '';
+  // Return detailed map if it exists, otherwise generate simplified map
+  if (maps[countryId]) {
+    return maps[countryId];
+  }
+
+  // Generate simplified map for all other countries
+  const country = findCountryById(countryId);
+  if (country) {
+    return generateSimplifiedMap(country);
+  }
+
+  return '';
 }
 
 /**
