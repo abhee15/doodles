@@ -1011,6 +1011,38 @@ footer {
 }
 
 /* ══════════════════════════════════════════════════
+   MOBILE 2-COLUMN GRID LAYOUT
+══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .cards-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    overflow-x: visible;
+    scroll-snap-type: none;
+    padding: 4px 0 16px;
+  }
+
+  .game-card {
+    flex: unset;
+    height: 200px;
+    scroll-snap-align: unset;
+  }
+
+  .thumb i {
+    font-size: 44px;
+  }
+
+  .card-overlay {
+    padding: 12px 12px 12px;
+  }
+
+  .row-wrap::after {
+    content: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════
    RESPONSIVE CARD SIZE
 ══════════════════════════════════════════════════ */
 @media (max-width: 600px) {
@@ -1092,9 +1124,17 @@ footer {
     height: 20px;
   }
 
-  /* Extra small screens: optimize card overlay */
+  /* Extra small screens: optimize card size and overlay */
+  .game-card {
+    height: 180px;
+  }
+
+  .thumb i {
+    font-size: 38px;
+  }
+
   .card-overlay {
-    padding: 14px 12px 12px;
+    padding: 10px 10px 10px;
   }
 
   .card-desc {
