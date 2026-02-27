@@ -576,6 +576,17 @@ function renderDetailTabs(country) {
   // Render geography tab with extended data
   let geographyContent = '';
 
+  // Add geographic map visualization
+  const mapSVG = getGeographicMapSVG(country.id);
+  if (mapSVG) {
+    geographyContent += `
+      <div style="margin-bottom: 20px; padding: 12px; background: #f9fbff; border-radius: 8px; border: 1px solid var(--dom-border)">
+        <h4 style="font-size: 12px; font-weight: 700; color: var(--dom-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0">📍 Geographic Map</h4>
+        ${mapSVG}
+      </div>
+    `;
+  }
+
   // Add categorized facts first
   if (categorizedFacts.geography.length > 0) {
     geographyContent += categorizedFacts.geography
@@ -817,6 +828,209 @@ function renderDetailTabs(country) {
       }
     });
   });
+}
+
+/**
+ * Generate SVG geographic map for showcase countries
+ */
+function getGeographicMapSVG(countryId) {
+  const maps = {
+    usa: `
+      <svg viewBox="0 0 960 600" style="max-width: 100%; height: auto; margin: 16px 0">
+        <!-- USA simplified outline -->
+        <rect x="100" y="100" width="350" height="280" fill="#E8F4F8" stroke="#1E88E5" stroke-width="2" rx="4"/>
+
+        <!-- Rocky Mountains (west) -->
+        <g fill="#8B7355" opacity="0.6">
+          <path d="M 180 120 L 200 180 L 160 180 Z" />
+          <path d="M 210 130 L 230 190 L 190 190 Z" />
+          <path d="M 240 140 L 260 200 L 220 200 Z" />
+        </g>
+
+        <!-- Mississippi River -->
+        <path d="M 280 110 Q 285 200 290 300 Q 292 350 295 380" stroke="#1E88E5" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+        <!-- Colorado River -->
+        <path d="M 160 180 L 150 280" stroke="#1E88E5" stroke-width="3" fill="none" stroke-linecap="round"/>
+
+        <!-- Appalachian Mountains (east) -->
+        <g fill="#8B7355" opacity="0.6">
+          <path d="M 370 130 L 385 170 L 355 170 Z" />
+          <path d="M 390 140 L 405 180 L 375 180 Z" />
+        </g>
+
+        <!-- Great Lakes -->
+        <circle cx="340" cy="160" r="15" fill="#1E88E5" opacity="0.4"/>
+
+        <!-- Coast lines -->
+        <line x1="100" y1="100" x2="100" y2="380" stroke="#1E88E5" stroke-width="2"/>
+        <line x1="450" y1="100" x2="450" y2="380" stroke="#1E88E5" stroke-width="2"/>
+
+        <!-- Labels -->
+        <text x="180" y="250" font-size="12" fill="#0D3D6B" font-weight="600">West Coast</text>
+        <text x="320" y="250" font-size="12" fill="#0D3D6B" font-weight="600">Heartland</text>
+        <text x="380" y="250" font-size="12" fill="#0D3D6B" font-weight="600">East</text>
+        <text x="280" y="410" font-size="11" fill="#5A7A9A">⬇ Mississippi River</text>
+        <text x="150" y="300" font-size="11" fill="#5A7A9A">Colorado ➜</text>
+      </svg>
+    `,
+    japan: `
+      <svg viewBox="0 0 400 500" style="max-width: 100%; height: auto; margin: 16px 0">
+        <!-- Hokkaido (north) -->
+        <ellipse cx="200" cy="80" rx="35" ry="45" fill="#E8F4F8" stroke="#1E88E5" stroke-width="2"/>
+
+        <!-- Honshu (main) -->
+        <path d="M 180 130 L 220 130 L 225 280 L 170 280 Z" fill="#E8F4F8" stroke="#1E88E5" stroke-width="2"/>
+
+        <!-- Shikoku (south) -->
+        <ellipse cx="200" cy="330" rx="25" ry="35" fill="#E8F4F8" stroke="#1E88E5" stroke-width="2"/>
+
+        <!-- Kyushu (southwest) -->
+        <path d="M 160 330 L 180 380 L 160 400 Z" fill="#E8F4F8" stroke="#1E88E5" stroke-width="2"/>
+
+        <!-- Mount Fuji (iconic peak) -->
+        <path d="M 195 180 L 210 240 L 180 240 Z" fill="#E63946" opacity="0.8"/>
+        <path d="M 195 180 L 210 240 L 180 240 Z" fill="#FFFFFF" opacity="0.5" clip-path="polygon(50% 0%, 100% 85%, 0% 85%)"/>
+
+        <!-- Major Rivers -->
+        <path d="M 185 150 Q 190 200 195 250" stroke="#1E88E5" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <path d="M 210 160 Q 205 210 200 260" stroke="#1E88E5" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+        <!-- Tokyo location marker -->
+        <circle cx="215" cy="200" r="4" fill="#FFA726" opacity="0.8"/>
+        <text x="225" y="205" font-size="10" fill="#0D3D6B" font-weight="600">Tokyo</text>
+
+        <!-- Labels -->
+        <text x="190" y="70" font-size="11" fill="#0D3D6B" font-weight="600">Hokkaido</text>
+        <text x="195" y="200" font-size="11" fill="#0D3D6B" font-weight="600">Honshu</text>
+        <text x="200" y="350" font-size="10" fill="#0D3D6B">Shikoku</text>
+        <text x="165" y="390" font-size="10" fill="#0D3D6B">Kyushu</text>
+      </svg>
+    `,
+    egypt: `
+      <svg viewBox="0 0 300 500" style="max-width: 100%; height: auto; margin: 16px 0">
+        <!-- Desert background -->
+        <rect width="300" height="500" fill="#F4D4A8"/>
+
+        <!-- Nile River flowing north -->
+        <path d="M 150 50 Q 140 150 135 250 Q 130 350 140 450" stroke="#1E88E5" stroke-width="6" fill="none" stroke-linecap="round"/>
+
+        <!-- Nile Delta (fan shape) -->
+        <path d="M 135 450 L 120 480 L 140 480 Z" fill="#2ECC71" opacity="0.7"/>
+        <path d="M 140 450 L 125 480 L 160 480 Z" fill="#2ECC71" opacity="0.7"/>
+
+        <!-- Fertile areas along Nile -->
+        <rect x="130" y="100" width="40" height="300" fill="#2ECC71" opacity="0.3"/>
+
+        <!-- Oases marked -->
+        <circle cx="80" cy="200" r="8" fill="#2ECC71" opacity="0.6"/>
+        <text x="50" y="205" font-size="9" fill="#0D3D6B">Siwa</text>
+
+        <circle cx="220" cy="300" r="8" fill="#2ECC71" opacity="0.6"/>
+        <text x="230" y="305" font-size="9" fill="#0D3D6B">Kharga</text>
+
+        <!-- Eastern and Western Deserts -->
+        <text x="80" y="150" font-size="10" fill="#8B6F47" font-weight="600">W. Desert</text>
+        <text x="200" y="150" font-size="10" fill="#8B6F47" font-weight="600">E. Desert</text>
+
+        <!-- Mediterranean coast -->
+        <rect x="0" y="430" width="300" height="70" fill="#87CEEB" opacity="0.5"/>
+        <text x="130" y="460" font-size="10" fill="#0D3D6B" font-weight="600">Mediterranean</text>
+
+        <!-- Suez Canal -->
+        <line x1="200" y1="450" x2="250" y2="350" stroke="#1E88E5" stroke-width="2" stroke-dasharray="4"/>
+        <text x="210" y="400" font-size="9" fill="#0D3D6B">Suez</text>
+      </svg>
+    `,
+    brazil: `
+      <svg viewBox="0 0 400 500" style="max-width: 100%; height: auto; margin: 16px 0">
+        <!-- Country outline -->
+        <rect x="80" y="80" width="240" height="340" fill="#E8F4F8" stroke="#1E88E5" stroke-width="2" rx="8"/>
+
+        <!-- Amazon Rainforest (huge green area in north) -->
+        <ellipse cx="180" cy="150" rx="80" ry="70" fill="#2ECC71" opacity="0.6"/>
+        <text x="140" y="155" font-size="11" fill="#FFF" font-weight="600">Amazon</text>
+
+        <!-- Major Rivers -->
+        <!-- Amazon River -->
+        <path d="M 120 140 Q 150 150 200 180 Q 230 200 280 220" stroke="#1E88E5" stroke-width="5" fill="none" stroke-linecap="round"/>
+
+        <!-- Paraná River (south) -->
+        <path d="M 240 280 L 250 400" stroke="#1E88E5" stroke-width="4" fill="none" stroke-linecap="round"/>
+
+        <!-- Iguazu Falls marker -->
+        <circle cx="250" cy="280" r="6" fill="#FF6B6B"/>
+        <text x="260" y="285" font-size="9" fill="#0D3D6B">Iguazu</text>
+
+        <!-- Atlantic Coast -->
+        <line x1="320" y1="80" x2="320" y2="420" stroke="#1E88E5" stroke-width="3"/>
+
+        <!-- Rio de Janeiro location -->
+        <circle cx="310" cy="260" r="5" fill="#FFA726"/>
+        <text x="270" y="265" font-size="9" fill="#0D3D6B">Rio de Janeiro</text>
+
+        <!-- São Paulo location -->
+        <circle cx="295" cy="300" r="5" fill="#FFA726"/>
+        <text x="260" y="315" font-size="9" fill="#0D3D6B">São Paulo</text>
+
+        <!-- South Atlantic region -->
+        <text x="200" y="450" font-size="10" fill="#5A7A9A">Atlantic Ocean →</text>
+
+        <!-- Regions -->
+        <text x="150" y="380" font-size="10" fill="#0D3D6B" font-weight="600">South</text>
+        <text x="200" y="250" font-size="10" fill="#0D3D6B" font-weight="600">Southeast</text>
+      </svg>
+    `,
+    australia: `
+      <svg viewBox="0 0 450 500" style="max-width: 100%; height: auto; margin: 16px 0">
+        <!-- Country outline -->
+        <ellipse cx="225" cy="250" rx="140" ry="160" fill="#E8F4F8" stroke="#1E88E5" stroke-width="2"/>
+
+        <!-- Deserts (red/brown areas) -->
+        <!-- Great Victoria Desert (southwest) -->
+        <ellipse cx="140" cy="320" rx="60" ry="70" fill="#D2691E" opacity="0.5"/>
+        <text x="110" y="330" font-size="9" fill="#8B4513" font-weight="600">Gt. Victoria</text>
+
+        <!-- Great Sandy Desert (northwest) -->
+        <ellipse cx="160" cy="180" rx="50" ry="60" fill="#D2691E" opacity="0.5"/>
+        <text x="130" y="185" font-size="9" fill="#8B4513" font-weight="600">Gt. Sandy</text>
+
+        <!-- Simpson Desert (center) -->
+        <circle cx="220" cy="280" r="45" fill="#CD853F" opacity="0.5"/>
+        <text x="200" y="285" font-size="9" fill="#8B4513">Simpson</text>
+
+        <!-- Daintree Rainforest (north, green) -->
+        <ellipse cx="250" cy="100" rx="40" ry="50" fill="#2ECC71" opacity="0.6"/>
+        <text x="230" y="105" font-size="8" fill="#FFF">Daintree</text>
+
+        <!-- Great Barrier Reef (northeast coast) -->
+        <path d="M 300 80 Q 320 120 330 160" stroke="#FF6B6B" stroke-width="4" fill="none" opacity="0.8"/>
+        <text x="340" y="120" font-size="9" fill="#FF6B6B" font-weight="600">Great</text>
+        <text x="340" y="133" font-size="9" fill="#FF6B6B" font-weight="600">Barrier Reef</text>
+
+        <!-- Major cities -->
+        <circle cx="200" cy="380" r="4" fill="#FFA726"/>
+        <text x="210" y="385" font-size="9" fill="#0D3D6B">Perth</text>
+
+        <circle cx="290" cy="350" r="4" fill="#FFA726"/>
+        <text x="300" y="355" font-size="9" fill="#0D3D6B">Adelaide</text>
+
+        <circle cx="310" cy="320" r="4" fill="#FFA726"/>
+        <text x="320" y="325" font-size="9" fill="#0D3D6B">Melbourne</text>
+
+        <circle cx="320" cy="240" r="4" fill="#FFA726"/>
+        <text x="330" y="245" font-size="9" fill="#0D3D6B">Sydney</text>
+
+        <circle cx="280" cy="160" r="4" fill="#FFA726"/>
+        <text x="290" y="165" font-size="9" fill="#0D3D6B">Brisbane</text>
+
+        <!-- Legend -->
+        <text x="60" y="480" font-size="10" fill="#5A7A9A">🏜️ Desert  🌲 Rainforest  🪸 Reef</text>
+      </svg>
+    `
+  };
+
+  return maps[countryId] || '';
 }
 
 /**
