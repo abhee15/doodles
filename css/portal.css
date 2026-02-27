@@ -994,6 +994,21 @@ footer {
   .thumb {
     padding-bottom: 70px;
   }
+  .card-title {
+    font-size: 14px;
+  }
+  .card-desc {
+    font-size: 12px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .card-play {
+    min-height: 38px;
+    padding: 8px 14px;
+    font-size: 12px;
+  }
 }
 
 /* ══════════════════════════════════════════════════
@@ -1045,5 +1060,15 @@ footer {
   .sec-bar {
     width: 3px;
     height: 20px;
+  }
+
+  /* Extra small screens: optimize card overlay */
+  .card-overlay {
+    padding: 14px 12px 12px;
+  }
+
+  .card-desc {
+    -webkit-line-clamp: 1;
+    font-size: 11px;
   }
 }
