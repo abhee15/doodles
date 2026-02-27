@@ -707,5 +707,1090 @@ const COUNTRIES = [
     ],
     culture:
       '🏔️ Adventure-loving and outdoor-focused. Independent. Rugby is huge. Indigenous Maori culture.'
+  },
+
+  // ════════════════════════════════════════════════════
+  // ADDITIONAL COUNTRIES (70 More)
+  // ════════════════════════════════════════════════════
+
+  // AFRICA (15 more)
+  {
+    id: 'south-africa',
+    name: 'South Africa',
+    flag: '🇿🇦',
+    continent: 'africa',
+    hooks: {
+      primary: '🦁 Rainbow nation with amazing wildlife and diversity',
+      secondary: 'Home to safari, Table Mountain, and Nelson Mandela'
+    },
+    facts: [
+      '🦁 Kruger National Park has incredible safari wildlife',
+      '🏔️ Table Mountain dominates Cape Town',
+      '📍 Three capital cities (Pretoria, Cape Town, Bloemfontein)',
+      '🌈 11 official languages—most diverse in world',
+      '🏆 Nelson Mandela was from here'
+    ]
+  },
+  {
+    id: 'ethiopia',
+    name: 'Ethiopia',
+    flag: '🇪🇹',
+    continent: 'africa',
+    hooks: {
+      primary: '☕ Ancient empire and birthplace of coffee',
+      secondary: 'Only African country never colonized by Europeans'
+    },
+    facts: [
+      '☕ Coffee originated in Ethiopia',
+      '📜 Ancient civilization with its own alphabet',
+      '🏔️ Simien Mountains are dramatic and beautiful',
+      '⏰ Uses its own calendar (7-8 years behind world)',
+      '🤝 Never colonized—unique African history'
+    ]
+  },
+  {
+    id: 'ghana',
+    name: 'Ghana',
+    flag: '🇬🇭',
+    continent: 'africa',
+    hooks: {
+      primary: '🎭 Vibrant West African culture and music',
+      secondary: 'Gateway to West Africa with modern cities'
+    },
+    facts: [
+      '🎵 Birthplace of Highlife music',
+      '🏛️ Cape Coast Castle—historic slave trade fort',
+      '🌴 Tropical beaches and rainforests',
+      '💰 Named after ancient Ghana Empire',
+      '⚡ Growing tech hub in Africa'
+    ]
+  },
+  {
+    id: 'morocco',
+    name: 'Morocco',
+    flag: '🇲🇦',
+    continent: 'africa',
+    hooks: {
+      primary: '🕌 North African country with deserts, mountains, and medinas',
+      secondary: 'Gateway to Africa with Sahara Desert'
+    },
+    facts: [
+      '🏜️ Sahara Desert covers much of southern region',
+      '🕌 Marrakech medina is a maze of souks and mosques',
+      '⛰️ Atlas Mountains stretch across the country',
+      '🌊 Mediterranean and Atlantic coasts',
+      '🎨 Colorful architecture and tile work everywhere'
+    ]
+  },
+  {
+    id: 'cameroon',
+    name: 'Cameroon',
+    flag: '🇨🇲',
+    continent: 'africa',
+    hooks: {
+      primary: '🌋 Crossroads of Africa with volcanic mountains',
+      secondary: 'Diverse landscapes from coast to jungle to mountains'
+    },
+    facts: [
+      '🌋 Mount Cameroon is an active volcano',
+      '🌴 Rainforests and jungles in south',
+      '🏜️ Sahel grasslands in north',
+      '🎬 Nollywood influences West African film',
+      '🦁 Wildlife including forest elephants and gorillas'
+    ]
+  },
+  {
+    id: 'uganda',
+    name: 'Uganda',
+    flag: '🇺🇬',
+    continent: 'africa',
+    hooks: {
+      primary: '🦍 Pearl of Africa with stunning wildlife and lakes',
+      secondary: 'Home to mountain gorillas and the Nile River'
+    },
+    facts: [
+      '🦍 Mountain gorillas live in the western forests',
+      '🌊 Lake Victoria is the largest tropical lake',
+      '🏞️ Multiple national parks with diverse wildlife',
+      '✈️ Bwindi Impenetrable Forest for gorilla trekking',
+      "🛶 Nile River's source is in Uganda"
+    ]
+  },
+  {
+    id: 'zimbabwe',
+    name: 'Zimbabwe',
+    flag: '🇿🇼',
+    continent: 'africa',
+    hooks: {
+      primary: "🌊 Southern Africa with Victoria Falls—one of world's largest waterfalls",
+      secondary: 'Ancient civilization and incredible natural wonders'
+    },
+    facts: [
+      '🌊 Victoria Falls is 355 feet high—visible from space',
+      '🏛️ Great Zimbabwe ruins from ancient empire',
+      '🦁 Hwange National Park is elephant kingdom',
+      '💎 Diamond mines and mineral-rich country',
+      '🏔️ Scenic mountains and valleys'
+    ]
+  },
+  {
+    id: 'zambia',
+    name: 'Zambia',
+    flag: '🇿🇲',
+    continent: 'africa',
+    hooks: {
+      primary: '💧 Southern Africa with cascading waterfalls and wildlife',
+      secondary: 'Adventure capital with Victoria Falls and safari'
+    },
+    facts: [
+      '🌊 Shares Victoria Falls with Zimbabwe',
+      '🦁 South Luangwa National Park is top safari destination',
+      '⚡ Copper is major export',
+      '🏞️ Pristine wilderness with low tourist numbers',
+      '🛶 Zambezi River is adventure hub'
+    ]
+  },
+  {
+    id: 'botswana',
+    name: 'Botswana',
+    flag: '🇧🇼',
+    continent: 'africa',
+    hooks: {
+      primary: "🐘 Southern Africa's elephant kingdom with pristine safaris",
+      secondary: 'Desert nation with world-class wildlife viewing'
+    },
+    facts: [
+      '🐘 Chobe National Park has most elephants in Africa',
+      '🏜️ Kalahari Desert and Okavango Delta',
+      '💎 Diamonds are major resource',
+      '🦁 Excellent wildlife—low tourist crowds',
+      '✨ Dark skies perfect for stargazing'
+    ]
+  },
+  {
+    id: 'malawi',
+    name: 'Malawi',
+    flag: '🇲🇼',
+    continent: 'africa',
+    hooks: {
+      primary: '🌊 Warm heart of Africa with stunning lake',
+      secondary: 'Lake Malawi dominates this beautiful country'
+    },
+    facts: [
+      '🌊 Lake Malawi is massive freshwater lake',
+      '🐠 Lake has 1,000+ fish species',
+      '🏔️ Mountains and highlands surround the lake',
+      '🌤️ Warm, friendly people',
+      '☀️ Very sunny year-round'
+    ]
+  },
+  {
+    id: 'rwanda',
+    name: 'Rwanda',
+    flag: '🇷🇼',
+    continent: 'africa',
+    hooks: {
+      primary: '🦍 Land of a Thousand Hills with mountain gorillas',
+      secondary: 'Resilient nation with stunning scenery and wildlife'
+    },
+    facts: [
+      '🦍 Mountain gorillas live in misty forests',
+      '🏔️ Very mountainous—called land of thousand hills',
+      '✨ Clean and organized country',
+      '🌿 Reforested and eco-friendly',
+      '⚡ Growing tech hub for Africa'
+    ]
+  },
+  {
+    id: 'senegal',
+    name: 'Senegal',
+    flag: '🇸🇳',
+    continent: 'africa',
+    hooks: {
+      primary: "🥁 West Africa's cultural leader with music and art",
+      secondary: "Stable, creative nation at Africa's westernmost point"
+    },
+    facts: [
+      '🥁 Center of African music and culture',
+      '🏜️ Pink Lake (Lac Rose) is striking color',
+      '🕌 Goree Island has dark history of slavery',
+      '🐘 Niokolo-Koba National Park has wildlife',
+      '🌊 Atlantic coast with fishing villages'
+    ]
+  },
+  {
+    id: 'mozambique',
+    name: 'Mozambique',
+    flag: '🇲🇿',
+    continent: 'africa',
+    hooks: {
+      primary: '🏝️ Southeast African coast with islands and beaches',
+      secondary: 'Indian Ocean nation with emerging tourism'
+    },
+    facts: [
+      '🏝️ Bazaruto Islands have pristine beaches',
+      '🐚 Incredible coral reefs and marine life',
+      '🌊 Mozambique Channel between Africa and Madagascar',
+      '🌴 Coastal tropical paradise',
+      '🦈 World-class diving destinations'
+    ]
+  },
+  {
+    id: 'benin',
+    name: 'Benin',
+    flag: '🇧🇯',
+    continent: 'africa',
+    hooks: {
+      primary: '🎭 Birthplace of Vodou religion and West African culture',
+      secondary: 'Small West African country with vibrant traditions'
+    },
+    facts: [
+      '🎭 Vodou (Voodoo) originated here',
+      '🕯️ Port of Ouidah is spiritual center',
+      '🌍 Where many slaves were shipped from',
+      '🏛️ Abomey palace ruins',
+      '🌴 Lagoon towns built on water'
+    ]
+  },
+
+  // ASIA (20 more)
+  {
+    id: 'south-korea',
+    name: 'South Korea',
+    flag: '🇰🇷',
+    continent: 'asia',
+    hooks: {
+      primary: '📱 Tech superpower with K-pop, games, and innovation',
+      secondary: 'Modern Asian nation with ancient traditions'
+    },
+    facts: [
+      '📱 Created Samsung, LG, and SK Technology',
+      '🎵 K-pop is global phenomenon',
+      '🎮 League of Legends esports capital',
+      '🍜 Instant ramen (Ramyeon) is national food',
+      '⚡ Fastest internet speeds in world'
+    ]
+  },
+  {
+    id: 'thailand',
+    name: 'Thailand',
+    flag: '🇹🇭',
+    continent: 'asia',
+    hooks: {
+      primary: '🏯 Southeast Asian kingdom famous for temples and smiles',
+      secondary: 'Only Southeast Asian country never colonized'
+    },
+    facts: [
+      '🏯 Over 30,000 Buddhist temples',
+      '👑 Theravada Buddhism is dominant religion',
+      '🔴 Muay Thai boxing is national sport',
+      '🌶️ Thai food is world-famous',
+      '🐘 Elephants are national animal'
+    ]
+  },
+  {
+    id: 'vietnam',
+    name: 'Vietnam',
+    flag: '🇻🇳',
+    continent: 'asia',
+    hooks: {
+      primary: '🌴 Southeast Asian country with long coastline and rich culture',
+      secondary: 'Ancient civilization with stunning karst landscapes'
+    },
+    facts: [
+      '🏞️ Ha Long Bay has thousands of limestone islands',
+      '🍲 Pho is beloved Vietnamese soup',
+      '🌾 Rice paddies cover the countryside',
+      '🚴 Still primarily uses bicycles and motorbikes',
+      '⚔️ Successful resistance against powerful invaders'
+    ]
+  },
+  {
+    id: 'indonesia',
+    name: 'Indonesia',
+    flag: '🇮🇩',
+    continent: 'asia',
+    hooks: {
+      primary: "🏝️ World's largest archipelago with 17,000 islands",
+      secondary: 'Diverse Southeast Asian nation with volcanic mountains'
+    },
+    facts: [
+      '🏝️ 17,000 islands spread across equator',
+      '🌋 Ring of Fire with many active volcanoes',
+      '🦁 Komodo dragons live here',
+      '🌴 Bali is famous island destination',
+      '👥 Fourth most populated country in world'
+    ]
+  },
+  {
+    id: 'malaysia',
+    name: 'Malaysia',
+    flag: '🇲🇾',
+    continent: 'asia',
+    hooks: {
+      primary: '🏙️ Modern Southeast Asian nation with twin skyscrapers',
+      secondary: 'Peninsula and Borneo forming diverse country'
+    },
+    facts: [
+      '🏢 Petronas Twin Towers are iconic',
+      '🌴 Rainforests with unique wildlife',
+      '🦁 Orangutans live in Borneo',
+      '🕌 Islamic culture with diverse religions',
+      '💰 Economic hub of Southeast Asia'
+    ]
+  },
+  {
+    id: 'philippines',
+    name: 'Philippines',
+    flag: '🇵🇭',
+    continent: 'asia',
+    hooks: {
+      primary: '🏝️ Island nation with over 7,000 islands',
+      secondary: 'Tropical paradise with vibrant culture'
+    },
+    facts: [
+      '🏝️ 7,641 islands in Southeast Asia',
+      "🌋 Taal Volcano is world's smallest volcano with crater lake",
+      '⛩️ Boracay Beach is white sand paradise',
+      '🎤 Filipino singers are global stars',
+      '🤝 Very hospitable and friendly people'
+    ]
+  },
+  {
+    id: 'singapore',
+    name: 'Singapore',
+    flag: '🇸🇬',
+    continent: 'asia',
+    hooks: {
+      primary: '🏙️ Tiny city-state with futuristic skyline',
+      secondary: 'Financial hub and garden city of Asia'
+    },
+    facts: [
+      '🏙️ Entire country is essentially one city',
+      '🌳 Gardens and greenery throughout',
+      '💰 Incredibly wealthy and developed',
+      '⚡ Major financial center of Asia',
+      '🎭 Mixing Chinese, Malay, Indian cultures'
+    ]
+  },
+  {
+    id: 'pakistan',
+    name: 'Pakistan',
+    flag: '🇵🇰',
+    continent: 'asia',
+    hooks: {
+      primary: '🏔️ South Asian nation with Himalayas and rich history',
+      secondary: 'Home to K2 and ancient Indus Valley civilization'
+    },
+    facts: [
+      "🏔️ K2 mountain is world's second highest",
+      '🌾 Indus River civilization was ancient superpower',
+      '🎬 Bollywood influence is strong',
+      '📿 Islam is dominant religion',
+      '🌊 Arabian Sea coastal country'
+    ]
+  },
+  {
+    id: 'bangladesh',
+    name: 'Bangladesh',
+    flag: '🇧🇩',
+    continent: 'asia',
+    hooks: {
+      primary: '💧 River delta nation with dense population',
+      secondary: 'Home to Ganges Delta and tigers'
+    },
+    facts: [
+      "💧 Ganges-Brahmaputra Delta is world's largest",
+      '🐯 Bengal tigers live in Sundarbans',
+      '👥 Very densely populated',
+      '📝 Bengali language is rich in literature',
+      '🌾 Jute production capital'
+    ]
+  },
+  {
+    id: 'myanmar',
+    name: 'Myanmar',
+    flag: '🇲🇲',
+    continent: 'asia',
+    hooks: {
+      primary: '🏯 Southeast Asia with thousands of Buddhist pagodas',
+      secondary: 'Isolated nation with ancient temples'
+    },
+    facts: [
+      '🏯 Over 4,000 pagodas in Bagan',
+      '🛕 Buddhism is deeply important',
+      '🌾 Mekong River valley for rice farming',
+      '💎 Rubies and jade are precious stones',
+      '🌲 Still has pristine forests'
+    ]
+  },
+  {
+    id: 'nepal',
+    name: 'Nepal',
+    flag: '🇳🇵',
+    continent: 'asia',
+    hooks: {
+      primary: '🏔️ Himalayan nation home to Mount Everest',
+      secondary: 'Spiritual and mountainous Asian treasure'
+    },
+    facts: [
+      "⛰️ Mount Everest is world's tallest mountain",
+      '🧘 Birthplace of Buddhism',
+      '🏛️ Kathmandu has ancient temples',
+      '🌱 Very mountainous with amazing trekking',
+      '🤝 Sherpa guides are world-famous mountaineers'
+    ]
+  },
+  {
+    id: 'sri-lanka',
+    name: 'Sri Lanka',
+    flag: '🇱🇰',
+    continent: 'asia',
+    hooks: {
+      primary: '🏝️ Island nation south of India with tea and gems',
+      secondary: 'Teardrop-shaped island with diverse wildlife'
+    },
+    facts: [
+      '☕ Tea plantations cover the highlands',
+      '💎 Gemstone capital—sapphires and rubies',
+      '🏞️ Sigiriya Rock is ancient fortress',
+      '🐘 Asian elephants and leopards roam',
+      '🌴 Tropical beaches and forests'
+    ]
+  },
+  {
+    id: 'laos',
+    name: 'Laos',
+    flag: '🇱🇦',
+    continent: 'asia',
+    hooks: {
+      primary: '🌾 Landlocked Southeast Asia with French colonial towns',
+      secondary: 'Mekong River nation with relaxed pace'
+    },
+    facts: [
+      '🌊 Mekong River is lifeline',
+      '🇫🇷 French colonial architecture still visible',
+      '🧘 Buddhist temples and monasteries',
+      '🌾 Mainly agricultural rice-farming country',
+      '⚡ Developing with beautiful wilderness'
+    ]
+  },
+  {
+    id: 'cambodia',
+    name: 'Cambodia',
+    flag: '🇰🇭',
+    continent: 'asia',
+    hooks: {
+      primary: "🏛️ Southeast Asia with Angkor Wat—world's largest temple",
+      secondary: 'Ancient Khmer civilization legacy'
+    },
+    facts: [
+      "🏛️ Angkor Wat is world's largest religious monument",
+      '🛕 Khmer architecture is intricate and beautiful',
+      "🌊 Tonle Sap Lake is world's largest freshwater lake",
+      '🌴 Tropical country with jungles',
+      '👥 Recovering from difficult 20th century'
+    ]
+  },
+  {
+    id: 'mongolia',
+    name: 'Mongolia',
+    flag: '🇲🇳',
+    continent: 'asia',
+    hooks: {
+      primary: '🐴 Central Asian steppe nation with nomadic heritage',
+      secondary: 'Large landlocked country with Gobi Desert'
+    },
+    facts: [
+      '🐴 Mongols are famous horsemen',
+      '🏜️ Gobi Desert covers much of country',
+      '⛺ Ger (yurt) is traditional dwelling',
+      '🦅 Eagle hunting is traditional sport',
+      '🛑 Genghis Khan was from Mongolia'
+    ]
+  },
+  {
+    id: 'kazakhstan',
+    name: 'Kazakhstan',
+    flag: '🇰🇿',
+    continent: 'asia',
+    hooks: {
+      primary: '🏔️ Central Asian nation with steppes and oil',
+      secondary: 'Largest landlocked country with Space Center'
+    },
+    facts: [
+      '🚀 Baikonur Cosmodrome launches rockets',
+      '🏜️ Vast steppes and deserts',
+      '💧 Aral Sea ecological disaster area',
+      '⛏️ Rich in oil, gas, and minerals',
+      '🛤️ Silk Road crossroads historically'
+    ]
+  },
+
+  // EUROPE (15 more)
+  {
+    id: 'russia',
+    name: 'Russia',
+    flag: '🇷🇺',
+    continent: 'europe',
+    hooks: {
+      primary: '🏔️ Largest country spanning Europe and Asia',
+      secondary: 'Land of onion domes, Trans-Siberian Railway, and vast wilderness'
+    },
+    facts: [
+      '🌍 Stretches across 11 time zones',
+      "🚂 Trans-Siberian Railway is world's longest train journey",
+      '❄️ Siberia is freezing and remote',
+      '🏛️ Hermitage Museum in St. Petersburg',
+      '⛪ Orthodox churches with onion domes'
+    ]
+  },
+  {
+    id: 'ukraine',
+    name: 'Ukraine',
+    flag: '🇺🇦',
+    continent: 'europe',
+    hooks: {
+      primary: '🌾 Eastern European nation between East and West',
+      secondary: 'Sunflower fields and Black Sea beaches'
+    },
+    facts: [
+      '🌻 Sunflowers are national flower',
+      '🌊 Crimea beaches on Black Sea',
+      '⚔️ Historically fought for independence',
+      '🎨 Vibrant culture and art scene',
+      '🇪🇺 Seeking integration with Europe'
+    ]
+  },
+  {
+    id: 'poland',
+    name: 'Poland',
+    flag: '🇵🇱',
+    continent: 'europe',
+    hooks: {
+      primary: '🏰 Central European nation with castles and history',
+      secondary: "Resilient nation with Krakow's medieval charm"
+    },
+    facts: [
+      '🏰 Wawel Castle in Krakow is iconic',
+      "🌳 Białowieża Forest is Europe's oldest",
+      '💔 Deeply affected by WWII',
+      '⚡ Growing tech and startup scene',
+      '🇪🇺 EU member with strong economy'
+    ]
+  },
+  {
+    id: 'czech-republic',
+    name: 'Czech Republic',
+    flag: '🇨🇿',
+    continent: 'europe',
+    hooks: {
+      primary: '🍺 Central European nation famous for beer',
+      secondary: "Bohemia with Prague's fairy-tale architecture"
+    },
+    facts: [
+      "🍺 Czech beer is world's best",
+      '🏰 Prague Castle is stunning',
+      '🕐 Astronomical Clock is medieval marvel',
+      '⚡ Former Czechoslovakia split into two countries',
+      '🇪🇺 Part of European Union'
+    ]
+  },
+  {
+    id: 'hungary',
+    name: 'Hungary',
+    flag: '🇭🇺',
+    continent: 'europe',
+    hooks: {
+      primary: '🏖️ Central Europe with thermal baths and Danube River',
+      secondary: "Budapest's thermal spas and ruin bars"
+    },
+    facts: [
+      '♨️ Thermal baths in Budapest',
+      '🌊 Danube River flows through capital',
+      '🏛️ Gothic and Baroque architecture',
+      '🎵 Classical composers from Hungary',
+      '🍲 Goulash is traditional stew'
+    ]
+  },
+  {
+    id: 'romania',
+    name: 'Romania',
+    flag: '🇷🇴',
+    continent: 'europe',
+    hooks: {
+      primary: '🦇 Eastern European nation with Carpathian mountains',
+      secondary: 'Transylvania and Dracula legend home'
+    },
+    facts: [
+      '🦇 Transylvania inspired Dracula stories',
+      '🏔️ Carpathian Mountains with mountain villages',
+      '🏰 Medieval castles and fortified towns',
+      '⚡ Oil and natural resources',
+      '🇪🇺 EU member since 2007'
+    ]
+  },
+  {
+    id: 'serbia',
+    name: 'Serbia',
+    flag: '🇷🇸',
+    continent: 'europe',
+    hooks: {
+      primary: '🎵 Balkan nation with vibrant nightlife and culture',
+      secondary: 'Eastern European crossroads with Ottoman heritage'
+    },
+    facts: [
+      '🎪 Danube River flows through',
+      '🎵 Live music and nightlife culture',
+      '⚔️ Complex Balkan history',
+      '🌲 Mountains and national parks',
+      '🇪🇺 Candidate for EU membership'
+    ]
+  },
+  {
+    id: 'greece',
+    name: 'Greece',
+    flag: '🇬🇷',
+    continent: 'europe',
+    hooks: {
+      primary: '🏛️ Birthplace of Western civilization and democracy',
+      secondary: 'Mediterranean islands with ancient ruins'
+    },
+    facts: [
+      '🏛️ Athens gave world democracy',
+      '🏺 Ancient sculptures and philosophy',
+      '🏝️ Over 6,000 islands in Aegean Sea',
+      '🌊 Mediterranean beaches',
+      '⛩️ Monasteries on Meteora rocks'
+    ]
+  },
+  {
+    id: 'portugal',
+    name: 'Portugal',
+    flag: '🇵🇹',
+    continent: 'europe',
+    hooks: {
+      primary: "⛵ Western Europe's oldest nation with Age of Discovery",
+      secondary: "Lisbon's hills and port wine country"
+    },
+    facts: [
+      '⛵ Age of Exploration explorers',
+      '🍷 Port wine from Douro Valley',
+      '⛪ Pastéis de Nata (custard tarts)',
+      '🏖️ Algarve beaches in south',
+      '🇪🇺 Atlantics edge of Europe'
+    ]
+  },
+  {
+    id: 'ireland',
+    name: 'Ireland',
+    flag: '🇮🇪',
+    continent: 'europe',
+    hooks: {
+      primary: '🍀 The Emerald Isle with green hills and Irish spirit',
+      secondary: 'Cliffs of Moher and literary traditions'
+    },
+    facts: [
+      "🍀 St. Patrick's Day celebration",
+      '⛩️ Celtic heritage and mythology',
+      '🏖️ Cliffs of Moher dramatic coastline',
+      '🎵 Irish music and storytelling',
+      '🍺 Guinness beer from Dublin'
+    ]
+  },
+  {
+    id: 'netherlands',
+    name: 'Netherlands',
+    flag: '🇳🇱',
+    continent: 'europe',
+    hooks: {
+      primary: '🚲 Low-lying European country of canals and bikes',
+      secondary: "Amsterdam's waterways and windmills"
+    },
+    facts: [
+      '🚲 Bikes are primary transportation',
+      '🌷 Tulips are iconic flowers',
+      '⛑️ Much below sea level—dikes hold back water',
+      '🏠 Canal houses with step-gable roofs',
+      '⛩️ Anne Frank House in Amsterdam'
+    ]
+  },
+  {
+    id: 'belgium',
+    name: 'Belgium',
+    flag: '🇧🇪',
+    continent: 'europe',
+    hooks: {
+      primary: '🍫 Small European nation famous for chocolate',
+      secondary: 'Medieval towns and medieval architecture'
+    },
+    facts: [
+      "🍫 Belgian chocolate is world's best",
+      '🍺 Belgian beer varieties',
+      '🏰 Bruges (Brugge) is fairy-tale medieval town',
+      '🌭 French fries (frites) originated here',
+      '🇪🇺 Home to EU headquarters'
+    ]
+  },
+  {
+    id: 'switzerland',
+    name: 'Switzerland',
+    flag: '🇨🇭',
+    continent: 'europe',
+    hooks: {
+      primary: '⛰️ Alpine nation famous for mountains and neutrality',
+      secondary: 'Home to Alps, watches, and chocolate'
+    },
+    facts: [
+      '⛰️ Alps cover 60% of country',
+      "⌚ Swiss watches are world's best",
+      '🍫 Chocolate and cheese are excellent',
+      '🏔️ Skiing and alpine sports',
+      "⚖️ Neutral nation hasn't fought in centuries"
+    ]
+  },
+  {
+    id: 'austria',
+    name: 'Austria',
+    flag: '🇦🇹',
+    continent: 'europe',
+    hooks: {
+      primary: '🎻 Alpine nation of music and mountains',
+      secondary: "Mozart and Vienna's imperial palaces"
+    },
+    facts: [
+      '🎵 Mozart and classical music heritage',
+      '🏰 Schönbrunn Palace is magnificent',
+      '⛰️ Alps in western regions',
+      '🎄 Christmas markets are famous',
+      '🍫 Sachertorte (chocolate cake) tradition'
+    ]
+  },
+  {
+    id: 'scotland',
+    name: 'Scotland',
+    flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿',
+    continent: 'europe',
+    hooks: {
+      primary: '🏰 Scottish Highlands with misty lochs and castles',
+      secondary: "Edinburgh's history and Loch Ness mysteries"
+    },
+    facts: [
+      '🏰 Edinburgh Castle on volcanic rock',
+      '👻 Loch Ness monster legend',
+      '🥃 Bagpipes and kilts are traditional',
+      '🏈 Scottish ancestry pride',
+      '⛩️ Stonehenge and ancient history'
+    ]
+  },
+
+  // AMERICAS (15 more)
+  {
+    id: 'canada',
+    name: 'Canada',
+    flag: '🇨🇦',
+    continent: 'americas',
+    hooks: {
+      primary: '🍁 Vast northern country with Niagara Falls and Rocky Mountains',
+      secondary: 'Second-largest country with incredible wilderness'
+    },
+    facts: [
+      '💧 Niagara Falls is natural wonder',
+      '🏔️ Rocky Mountains span western Canada',
+      '🦫 Beavers are national animal',
+      '🥏 Hockey is national sport',
+      '🌲 Vast forests and pristine wilderness'
+    ]
+  },
+  {
+    id: 'chile',
+    name: 'Chile',
+    flag: '🇨🇱',
+    continent: 'americas',
+    hooks: {
+      primary: '📏 Long thin South American country with diverse climates',
+      secondary: "Atacama Desert to Patagonia's ice fields"
+    },
+    facts: [
+      '🏜️ Atacama Desert is driest place on Earth',
+      '❄️ Patagonia has glaciers and peaks',
+      '🌊 Easter Island belongs to Chile',
+      '🍷 Excellent wine regions',
+      '🏔️ Andes Mountains form backbone'
+    ]
+  },
+  {
+    id: 'peru',
+    name: 'Peru',
+    flag: '🇵🇪',
+    continent: 'americas',
+    hooks: {
+      primary: '🏔️ South American nation with Machu Picchu and Amazon',
+      secondary: 'Ancient Incan empire and vast jungles'
+    },
+    facts: [
+      '🏔️ Machu Picchu is Incan citadel',
+      '🌿 Amazon rainforest covers east side',
+      '⛰️ Andes Mountains run north-south',
+      '🦙 Llamas and alpacas roam',
+      '🎭 Quechua indigenous culture'
+    ]
+  },
+  {
+    id: 'colombia',
+    name: 'Colombia',
+    flag: '🇨🇴',
+    continent: 'americas',
+    hooks: {
+      primary: '☕ South American gateway with rainforests and coffee',
+      secondary: 'Magical realism home with vibrant cities'
+    },
+    facts: [
+      "☕ World's top coffee producer",
+      '🌿 Amazon rainforest region',
+      '🏞️ Coffee Triangle region is scenic',
+      '🎵 Salsa dancing and cumbia music',
+      '⚡ Growing tourism and culture'
+    ]
+  },
+  {
+    id: 'venezuela',
+    name: 'Venezuela',
+    flag: '🇻🇪',
+    continent: 'americas',
+    hooks: {
+      primary: '💧 Northern South America with Angel Falls',
+      secondary: "Country with world's largest proven oil reserves"
+    },
+    facts: [
+      "💧 Angel Falls is world's highest uninterrupted waterfall",
+      '⛰️ Tepuis (table-top mountains) are unique geology',
+      '🦅 Rich wildlife and biodiversity',
+      "⚫ Oil reserves are nation's wealth",
+      '⚡ Currently facing economic challenges'
+    ]
+  },
+  {
+    id: 'ecuador',
+    name: 'Ecuador',
+    flag: '🇪🇨',
+    continent: 'americas',
+    hooks: {
+      primary: '🌴 Small South American country on equator with Galápagos',
+      secondary: 'Amazon, Andes, and unique island wildlife'
+    },
+    facts: [
+      "🌍 Sits on the equator (that's what Ecuador means)",
+      '🦎 Galápagos Islands with unique animals',
+      '🌿 Amazon rainforest region',
+      '⛰️ Andes mountains with volcanoes',
+      '🦋 Incredible biodiversity'
+    ]
+  },
+  {
+    id: 'bolivia',
+    name: 'Bolivia',
+    flag: '🇧🇴',
+    continent: 'americas',
+    hooks: {
+      primary: '⛰️ Landlocked South America with Salar de Uyuni salt flat',
+      secondary: 'Andes mountains and ancient indigenous culture'
+    },
+    facts: [
+      "⚪ Salar de Uyuni is world's largest salt flat",
+      "⛰️ La Paz is world's highest capital",
+      '🦙 Llamas are important animals',
+      '🎭 Indigenous Aymara and Quechua cultures',
+      '🌿 Amazon basin to the east'
+    ]
+  },
+  {
+    id: 'paraguay',
+    name: 'Paraguay',
+    flag: '🇵🇾',
+    continent: 'americas',
+    hooks: {
+      primary: '🌾 Landlocked South America with subtropical climate',
+      secondary: 'Bilingual nation with Jesuit heritage'
+    },
+    facts: [
+      '🗣️ Spanish and Guaraní both official languages',
+      '⚡ Hydroelectric dams provide power',
+      '🌾 Agricultural exports of soy and beef',
+      '🎭 Guaraní indigenous culture strong',
+      '🌊 Paraná River is lifeline'
+    ]
+  },
+  {
+    id: 'honduras',
+    name: 'Honduras',
+    flag: '🇭🇳',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Central America with Caribbean islands',
+      secondary: 'Bay Islands and Mesoamerican Reef'
+    },
+    facts: [
+      '🏝️ Roatán Island is diving paradise',
+      '🌊 Second-longest coral reef in world',
+      '🏛️ Mayan ruins at Copán',
+      '🌴 Central American rainforests',
+      '⛰️ Mountainous terrain'
+    ]
+  },
+  {
+    id: 'costa-rica',
+    name: 'Costa Rica',
+    flag: '🇨🇷',
+    continent: 'americas',
+    hooks: {
+      primary: '🌴 Central American paradise with biodiversity',
+      secondary: 'No army and focused on conservation'
+    },
+    facts: [
+      '🦜 Sloths, monkeys, and parrots roam',
+      '🌋 Volcanic mountains throughout',
+      '🌿 25% of land is national parks',
+      '⚖️ No military since 1948',
+      '☮️ Pura Vida (pure life) is national motto'
+    ]
+  },
+  {
+    id: 'panama',
+    name: 'Panama',
+    flag: '🇵🇦',
+    continent: 'americas',
+    hooks: {
+      primary: '🚢 Central American country with world-famous canal',
+      secondary: 'Bridge between North and South America'
+    },
+    facts: [
+      '⛩️ Panama Canal connects Atlantic and Pacific',
+      "⛩️ 5% of world's trade goes through canal",
+      '🌴 Cloud forests and wildlife',
+      '🏘️ Panama City is modern metropolis',
+      '🐠 Bocas del Toro islands'
+    ]
+  },
+  {
+    id: 'cuba',
+    name: 'Cuba',
+    flag: '🇨🇺',
+    continent: 'americas',
+    hooks: {
+      primary: '🚗 Caribbean island with 1950s cars and colorful cities',
+      secondary: "Havana's colonial architecture and cigars"
+    },
+    facts: [
+      '🚗 1950s American cars still drive streets',
+      '🏴󠁶󠁩󠁳󠁫󠁯󠁿 Communist island 90 miles from Florida',
+      '🎺 Salsa music and dance',
+      '🌴 Beautiful beaches and tropical setting',
+      '⚖️ Longest-serving leader (Castro)'
+    ]
+  },
+  {
+    id: 'dominican-republic',
+    name: 'Dominican Republic',
+    flag: '🇩🇴',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean island with beautiful beaches',
+      secondary: 'Hispaniola island with merengue music'
+    },
+    facts: [
+      '🏖️ Caribbean beaches and resorts',
+      '🎵 Merengue and reggaeton music',
+      '⚾ Baseball is national obsession',
+      '🌴 Tropical climate year-round',
+      '⛪ Oldest city in Americas (Santo Domingo)'
+    ]
+  },
+  {
+    id: 'jamaica',
+    name: 'Jamaica',
+    flag: '🇯🇲',
+    continent: 'americas',
+    hooks: {
+      primary: '🎵 Caribbean island famous for reggae music',
+      secondary: 'Bob Marley home and track and field powerhouse'
+    },
+    facts: [
+      '🎵 Reggae music originated here',
+      '👨 Bob Marley is cultural icon',
+      "🏃 Track and field sprinters are world's best",
+      '⛰️ Blue Mountains produce famous coffee',
+      '🌊 Caribbean beaches and water sports'
+    ]
+  },
+  {
+    id: 'haiti',
+    name: 'Haiti',
+    flag: '🇭🇹',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean island—first Black republic',
+      secondary: 'Rich culture and challenging history'
+    },
+    facts: [
+      '🗽 First independent Black nation (1804)',
+      '⛪ Voodoo spirituality mixed with Catholicism',
+      '🥁 Drumming and African heritage',
+      '🌴 Hispaniola island shares with Dom. Republic',
+      '⛰️ Mountainous and poor infrastructure'
+    ]
+  },
+
+  // OCEANIA (5 more)
+  {
+    id: 'fiji',
+    name: 'Fiji',
+    flag: '🇫🇯',
+    continent: 'oceania',
+    hooks: {
+      primary: '🏝️ South Pacific island nation with tropical paradise',
+      secondary: 'Over 300 islands with water sports'
+    },
+    facts: [
+      '🏝️ Over 330 islands in Pacific',
+      '🏖️ Blue lagoons and white sand beaches',
+      '🤿 World-class diving and snorkeling',
+      '🥥 Coconut is important crop',
+      '☺️ Bula—friendly greeting'
+    ]
+  },
+  {
+    id: 'samoa',
+    name: 'Samoa',
+    flag: '🇼🇸',
+    continent: 'oceania',
+    hooks: {
+      primary: '🏝️ South Pacific islands with Polynesian culture',
+      secondary: 'Tropical paradise with unique traditions'
+    },
+    facts: [
+      '🏝️ 9 volcanic islands',
+      '🌴 Tropical rainforests',
+      '🏖️ Pristine beaches',
+      '🎭 Polynesian traditions and dance',
+      '☺️ Relaxed island lifestyle'
+    ]
+  },
+  {
+    id: 'tonga',
+    name: 'Tonga',
+    flag: '🇹🇴',
+    continent: 'oceania',
+    hooks: {
+      primary: '🏝️ Polynesian kingdom with whale watching',
+      secondary: 'Traditional culture preserved island nation'
+    },
+    facts: [
+      '🏝️ 176 islands',
+      '🐋 Humpback whales visit seasonally',
+      '👑 Only Pacific nation never colonized',
+      '🏖️ Beautiful beaches and reefs',
+      '🎭 Traditional Tongan customs'
+    ]
   }
 ];
