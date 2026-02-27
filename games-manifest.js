@@ -80,6 +80,7 @@ const GAMES = [
       'repeating-linear-gradient(-55deg, transparent, transparent 6px, rgba(255,255,255,.06) 6px, rgba(255,255,255,.06) 12px)',
     patternSize: null,
     patternPosition: null,
+    grades: ['kindergarten', '1st-grade', '2nd-grade'],
     newUntil: null,
     footerName: 'Math Ladder'
   },
@@ -96,6 +97,7 @@ const GAMES = [
       'radial-gradient(circle, rgba(255,255,255,.15) 2px, transparent 2px) 50% 50% / 30px 30px, radial-gradient(circle, rgba(255,255,255,.08) 4px, transparent 4px) 50% 50% / 60px 60px, radial-gradient(circle, rgba(255,255,255,.05) 6px, transparent 6px) 50% 50% / 90px 90px',
     patternSize: null,
     patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: null,
     footerName: 'Number Ninja'
   },
@@ -112,6 +114,7 @@ const GAMES = [
       'repeating-conic-gradient(from 0deg at 50% 50%, transparent 0deg, transparent 10deg, rgba(255,255,255,.04) 10deg, rgba(255,255,255,.04) 11deg)',
     patternSize: null,
     patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: null,
     footerName: 'Quick Math'
   },
@@ -128,6 +131,7 @@ const GAMES = [
       'repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0px, rgba(255,255,255,.12) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(255,255,255,.06) 0px, rgba(255,255,255,.06) 1px, transparent 1px, transparent 5px)',
     patternSize: null,
     patternPosition: null,
+    grades: ['3rd-grade', '4th-grade'],
     newUntil: '2026-04-01',
     footerName: 'Measure Master'
   },
@@ -143,6 +147,7 @@ const GAMES = [
     pattern: null,
     patternSize: null,
     patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-04-01',
     footerName: 'Body Map'
   },
@@ -158,6 +163,7 @@ const GAMES = [
     pattern: null,
     patternSize: null,
     patternPosition: null,
+    grades: ['5th-grade'],
     newUntil: '2026-04-01',
     footerName: 'Periodic Table Master'
   },
@@ -174,6 +180,7 @@ const GAMES = [
       'repeating-linear-gradient(0deg, rgba(255,255,255,.07) 0px, rgba(255,255,255,.07) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(255,255,255,.07) 0px, rgba(255,255,255,.07) 1px, transparent 1px, transparent 20px)',
     patternSize: null,
     patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: null,
     footerName: 'World Explorer'
   },
@@ -190,6 +197,7 @@ const GAMES = [
       'repeating-linear-gradient(30deg, transparent, transparent 8px, rgba(255,255,255,.06) 8px, rgba(255,255,255,.06) 16px)',
     patternSize: null,
     patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: null,
     footerName: 'Earth Explorer'
   },
@@ -205,6 +213,7 @@ const GAMES = [
     pattern: 'radial-gradient(circle, rgba(255,255,255,.15) 1px, transparent 1px)',
     patternSize: '20px 20px',
     patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: null,
     footerName: 'Word Explorer'
   },
@@ -221,6 +230,7 @@ const GAMES = [
       'radial-gradient(circle, rgba(255,255,255,.9) 1px, transparent 1px), radial-gradient(circle, rgba(255,255,255,.6) 1px, transparent 1px), radial-gradient(circle, rgba(255,255,255,.3) 1px, transparent 1px)',
     patternSize: '50px 50px, 30px 30px, 20px 20px',
     patternPosition: '0 0, 10px 15px, 25px 5px',
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-04-01',
     footerName: 'Planet Quest'
   },
@@ -236,6 +246,7 @@ const GAMES = [
     pattern: 'radial-gradient(circle, rgba(255,255,255,.15) 2px, transparent 2px)',
     patternSize: '28px 28px',
     patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: null,
     footerName: 'Dino Hunter'
   },
@@ -251,6 +262,7 @@ const GAMES = [
     pattern: null,
     patternSize: null,
     patternPosition: null,
+    grades: ['kindergarten', '1st-grade', '2nd-grade'],
     newUntil: '2026-04-01',
     footerName: 'Draw It'
   },
@@ -266,6 +278,7 @@ const GAMES = [
     pattern: 'radial-gradient(circle, rgba(251,191,36,.3) 1px, transparent 1px)',
     patternSize: '24px 24px',
     patternPosition: '0 0',
+    grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
     footerName: 'Brain Spark'
   }

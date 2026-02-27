@@ -92,23 +92,18 @@
 
   /**
    * Get games for this landing page
-   * If grade is set, filter by gradeEntry.gameIds
+   * If grade is set, filter by game.grades array (single source of truth: GAMES)
    * Otherwise, return all games in category
+   *
+   * SMART: Grades are declared in GAMES entries, not duplicated in landing-content.js
    */
   function getGamesForPage() {
     const config = window.LANDING_CONFIG || {};
-    const content = window.LANDING_CONTENT || {};
     const games = window.GAMES || [];
     const categoryId = config.categoryId;
 
     if (!categoryId) {
       console.error('LANDING_CONFIG.categoryId is required');
-      return [];
-    }
-
-    const categoryContent = content[categoryId];
-    if (!categoryContent) {
-      console.warn(`No content found for category: ${categoryId}`);
       return [];
     }
 
@@ -122,27 +117,17 @@
       return categoryGames;
     }
 
-    // Filter by grade
+    // Filter by grade: games must have this grade in their grades array
     const grade = config.grade;
-    const gradeEntry = categoryContent.grades.find(function (g) {
-      return g.slug === grade;
+    const gradeGames = categoryGames.filter(function (g) {
+      return g.grades && g.grades.includes(grade);
     });
 
-    if (!gradeEntry) {
-      console.warn(`Grade ${grade} not found in content for ${categoryId}`);
-      return categoryGames; // Fallback to all category games
-    }
-
-    const gradeGames = gradeEntry.gameIds
-      .map(function (id) {
-        return games.find(function (g) {
-          return g.id === id;
-        });
-      })
-      .filter(Boolean);
-
+    // If no games for this grade, fall back to all category games
     if (gradeGames.length === 0) {
-      console.warn(`No games found for ${categoryId} grade ${grade}`);
+      console.warn(
+        `No games with grade ${grade} in category ${categoryId}; showing all ${categoryId} games`
+      );
       return categoryGames;
     }
 
