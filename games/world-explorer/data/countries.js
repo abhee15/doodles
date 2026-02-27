@@ -36,6 +36,124 @@ const COUNTRIES = [
       capital: 'Washington D.C.',
       majors: ['New York', 'Los Angeles', 'Chicago']
     },
+    geography: {
+      states: [
+        'California',
+        'Texas',
+        'Florida',
+        'New York',
+        'Pennsylvania',
+        'Illinois',
+        'Ohio',
+        'Georgia',
+        'North Carolina',
+        'Michigan'
+      ],
+      rivers: [
+        {
+          name: 'Mississippi River',
+          length: '2,320 miles',
+          fact: 'Second longest river in North America, flows through 10 states'
+        },
+        {
+          name: 'Missouri River',
+          length: '2,341 miles',
+          fact: 'Longest tributary of Mississippi, flows from Montana to Missouri'
+        },
+        {
+          name: 'Colorado River',
+          length: '1,450 miles',
+          fact: 'Carved the Grand Canyon over millions of years'
+        },
+        { name: 'Rio Grande', length: '1,896 miles', fact: 'Forms border between USA and Mexico' },
+        {
+          name: 'Yukon River',
+          length: '1,979 miles',
+          fact: 'Flows through Alaska, one of the most remote rivers'
+        }
+      ],
+      mountains: [
+        {
+          name: 'Mount Denali',
+          elevation: '20,310 ft',
+          fact: 'Tallest mountain in North America, located in Alaska'
+        },
+        {
+          name: 'Mount Whitney',
+          elevation: '14,505 ft',
+          fact: 'Tallest mountain in continental USA, in California'
+        },
+        {
+          name: 'Rocky Mountains',
+          elevation: 'Up to 14,440 ft',
+          fact: 'Massive mountain range stretching from Canada to New Mexico'
+        },
+        {
+          name: 'Appalachian Mountains',
+          elevation: 'Up to 6,684 ft',
+          fact: 'Ancient mountains on the east coast, 2,190 miles long'
+        },
+        {
+          name: 'Sierra Nevada',
+          elevation: 'Up to 14,505 ft',
+          fact: 'Mountain range in California with giant sequoia trees'
+        }
+      ],
+      forests: [
+        {
+          name: 'Amazon Rainforest (South America)',
+          percent: 'Part of',
+          fact: 'USA has rainforests in Hawaii and Puerto Rico too!'
+        },
+        {
+          name: 'Pacific Northwest Temperate Rainforests',
+          area: '~200,000 sq mi',
+          fact: 'Home to giant Douglas firs, salmon, and grizzly bears'
+        },
+        {
+          name: 'Great Lakes Region Forests',
+          area: 'Huge',
+          fact: 'Mix of deciduous and coniferous forests, provide 25% of USA timber'
+        },
+        {
+          name: 'Appalachian Forests',
+          area: 'Extensive',
+          fact: 'Home to unique Appalachian plants and medicinal herbs'
+        },
+        {
+          name: 'Tongass National Forest (Alaska)',
+          area: '16.7 million acres',
+          fact: 'Largest national forest in USA, temperate rainforest'
+        }
+      ],
+      lakes: [
+        {
+          name: 'Lake Superior',
+          area: '31,700 sq mi',
+          fact: 'Largest freshwater lake in world by surface area'
+        },
+        {
+          name: 'Lake Michigan',
+          area: '22,400 sq mi',
+          fact: 'Only Great Lake entirely within USA'
+        },
+        {
+          name: 'Lake Huron',
+          area: '23,000 sq mi',
+          fact: 'Second largest freshwater lake in world'
+        },
+        {
+          name: 'Great Salt Lake',
+          area: '1,700 sq mi',
+          fact: 'Saltiest lake in USA, located in Utah'
+        },
+        {
+          name: 'Lake Tahoe',
+          area: '191 sq mi',
+          fact: 'Clear alpine lake between California and Nevada'
+        }
+      ]
+    },
     highlights: {
       landmarks: [
         {
@@ -79,6 +197,90 @@ const COUNTRIES = [
     cities: {
       capital: 'Tokyo',
       majors: ['Osaka', 'Kyoto', 'Hiroshima']
+    },
+    geography: {
+      regions: [
+        'Honshu (main island)',
+        'Hokkaido (northern)',
+        'Kyushu (southern)',
+        'Shikoku (smallest)'
+      ],
+      rivers: [
+        {
+          name: 'Shinano River',
+          length: '228 miles',
+          fact: 'Longest river in Japan, flows through Niigata Prefecture'
+        },
+        {
+          name: 'Tone River',
+          length: '202 miles',
+          fact: 'Important for Tokyo water supply and agriculture'
+        },
+        {
+          name: 'Ishikari River',
+          length: '169 miles',
+          fact: 'Flows through Hokkaido, vital for farming'
+        },
+        { name: 'Kitakami River', length: '150 miles', fact: 'One of the fastest rivers in Japan' },
+        { name: 'Abukuma River', length: '140 miles', fact: 'Important hydroelectric power source' }
+      ],
+      mountains: [
+        {
+          name: 'Mount Fuji',
+          elevation: '12,388 ft',
+          fact: 'Sacred volcano, symbol of Japan, dormant but still active'
+        },
+        { name: 'Mount Takao', elevation: '5,908 ft', fact: 'Popular hiking mountain near Tokyo' },
+        {
+          name: 'Japanese Alps',
+          elevation: 'Up to 10,472 ft',
+          fact: 'Mountain range with skiing and hiking'
+        },
+        {
+          name: 'Aso Caldera',
+          elevation: '5,223 ft',
+          fact: "One of world's largest volcanic calderas"
+        },
+        { name: 'Mount Ontake', elevation: '10,062 ft', fact: 'Second highest mountain in Japan' }
+      ],
+      forests: [
+        {
+          name: 'Hinoki Cypress Forests',
+          area: 'Widespread',
+          fact: 'Used to build temples and traditional houses'
+        },
+        {
+          name: 'Bamboo Forests (Arashiyama)',
+          area: 'Famous grove',
+          fact: 'Beautiful bamboo groves near Kyoto, very peaceful'
+        },
+        {
+          name: 'Beech Forests',
+          area: 'Northern regions',
+          fact: 'Ancient primeval forests in Hokkaido'
+        },
+        {
+          name: 'Mangrove Forests',
+          area: 'Subtropical',
+          fact: 'Found in southern Okinawa islands'
+        },
+        { name: 'Cedar Forests', area: 'Throughout', fact: "Provide Japan's famous cedar wood" }
+      ],
+      lakes: [
+        {
+          name: 'Lake Biwa',
+          area: '676 sq mi',
+          fact: 'Largest freshwater lake in Japan, near Kyoto'
+        },
+        { name: 'Lake Towada', area: '59 sq mi', fact: 'Caldera lake with beautiful fall colors' },
+        { name: 'Lake Ashi', area: '17 sq mi', fact: 'Mountain lake with views of Mount Fuji' },
+        {
+          name: 'Lake Akan',
+          area: '16 sq mi',
+          fact: 'Hokkaido lake known for marimo (algae balls)'
+        },
+        { name: 'Lake Mashu', area: '19 sq mi', fact: "One of world's clearest lakes" }
+      ]
     },
     highlights: {
       landmarks: [
@@ -125,6 +327,68 @@ const COUNTRIES = [
     cities: {
       capital: 'Cairo',
       majors: ['Alexandria', 'Giza', 'Luxor']
+    },
+    geography: {
+      regions: [
+        'Upper Egypt (south)',
+        'Lower Egypt (north)',
+        'Sinai Peninsula',
+        'Western Desert',
+        'Eastern Desert'
+      ],
+      rivers: [
+        {
+          name: 'Nile River',
+          length: '4,135 miles',
+          fact: 'Longest river in world, flows north from Sudan to Mediterranean'
+        },
+        {
+          name: 'Suez Canal',
+          length: '120 miles',
+          fact: 'Man-made waterway connecting Mediterranean to Red Sea'
+        },
+        {
+          name: 'Rosetta Branch',
+          length: 'Tributary',
+          fact: 'Where the Rosetta Stone was found (helped decode hieroglyphics)'
+        },
+        { name: 'Damietta Branch', length: 'Tributary', fact: 'Eastern branch of Nile delta' },
+        {
+          name: 'Aswan Low Dam',
+          length: 'Reservoir',
+          fact: 'Creates Lake Nasser for irrigation and power'
+        }
+      ],
+      deserts: [
+        {
+          name: 'Sahara Desert',
+          area: 'Massive',
+          fact: 'Covers 80% of Egypt, hottest desert in the world'
+        },
+        {
+          name: 'Eastern Desert',
+          area: 'Large',
+          fact: 'Between Nile and Red Sea, ancient gold mining region'
+        },
+        {
+          name: 'Western Desert',
+          area: 'Largest',
+          fact: 'Part of Sahara, home to oases and salt lakes'
+        },
+        {
+          name: 'Sinai Desert',
+          area: 'Peninsula',
+          fact: 'Crosses Sinai Peninsula, very sandy and hot'
+        },
+        { name: 'Libyan Desert', area: 'Vast', fact: 'Part of Sahara, extreme temperatures' }
+      ],
+      oases: [
+        { name: 'Siwa Oasis', fact: 'Remote oasis in western desert, home to unique culture' },
+        { name: 'Dakhla Oasis', fact: 'Large oasis with ancient ruins and black desert' },
+        { name: 'Kharga Oasis', fact: 'Largest oasis in Egypt, agricultural center' },
+        { name: 'Bahariya Oasis', fact: 'Known for black desert and golden mummies' },
+        { name: 'Farafra Oasis', fact: 'Smallest main oasis, surrounded by white chalk hills' }
+      ]
     },
     highlights: {
       landmarks: [
@@ -177,6 +441,101 @@ const COUNTRIES = [
     cities: {
       capital: 'Brasília',
       majors: ['São Paulo', 'Rio de Janeiro', 'Salvador']
+    },
+    geography: {
+      states: [
+        'São Paulo',
+        'Minas Gerais',
+        'Rio de Janeiro',
+        'Bahia',
+        'Santa Catarina',
+        'Paraná',
+        'Rio Grande do Sul',
+        'Ceará',
+        'Amazonas',
+        'Pará'
+      ],
+      rivers: [
+        {
+          name: 'Amazon River',
+          length: '4,000 miles',
+          fact: 'Largest river by volume, discharges more water than next 7 rivers combined'
+        },
+        {
+          name: 'Paraná River',
+          length: '2,570 miles',
+          fact: 'Second longest river, forms border with Paraguay and Argentina'
+        },
+        {
+          name: 'Tapajos River',
+          length: '1,200 miles',
+          fact: 'Amazon tributary, flows through rainforest'
+        },
+        {
+          name: 'Rio Negro',
+          length: '1,400 miles',
+          fact: 'Amazon tributary, darkest water due to tannins'
+        },
+        {
+          name: 'Madeira River',
+          length: '2,100 miles',
+          fact: 'Amazon tributary, carries sediment from Andes'
+        }
+      ],
+      rainforests: [
+        {
+          name: 'Amazon Rainforest',
+          area: '2.1 million sq mi',
+          fact: "Largest rainforest, produces 20% of world's oxygen"
+        },
+        {
+          name: 'Atlantic Rainforest',
+          area: '2% remains',
+          fact: 'Lush tropical forest on southeast coast, highly endangered'
+        },
+        {
+          name: 'Pantanal Wetlands',
+          area: '42,000 sq mi',
+          fact: "World's largest wetland, seasonal flooding"
+        },
+        {
+          name: 'Cerrado Savanna',
+          area: 'Vast grassland',
+          fact: 'Tropical savanna with unique plant species'
+        },
+        {
+          name: 'Caatinga Semi-Arid',
+          area: 'Northeast region',
+          fact: 'Dry scrubland with drought-resistant plants'
+        }
+      ],
+      mountains: [
+        {
+          name: 'Pico da Neblina',
+          elevation: '9,823 ft',
+          fact: 'Highest mountain in Brazil, on border with Venezuela'
+        },
+        {
+          name: 'Serra da Mantiqueira',
+          elevation: 'Up to 9,065 ft',
+          fact: 'Mountain range between São Paulo and Rio'
+        },
+        {
+          name: 'Serra do Mar',
+          elevation: 'Up to 4,900 ft',
+          fact: 'Coastal mountain range with waterfalls'
+        },
+        {
+          name: 'Chapada Diamantina',
+          elevation: 'Up to 4,720 ft',
+          fact: 'Plateau region with hiking and canyons'
+        },
+        {
+          name: 'Serra da Canastra',
+          elevation: 'Up to 5,055 ft',
+          fact: 'Mountain range where São Francisco River begins'
+        }
+      ]
     },
     highlights: {
       landmarks: [
@@ -246,6 +605,109 @@ const COUNTRIES = [
     cities: {
       capital: 'Canberra',
       majors: ['Sydney', 'Melbourne', 'Brisbane']
+    },
+    geography: {
+      states: [
+        'New South Wales',
+        'Victoria',
+        'Queensland',
+        'Western Australia',
+        'South Australia',
+        'Tasmania',
+        'Northern Territory'
+      ],
+      deserts: [
+        {
+          name: 'Great Victoria Desert',
+          area: 'Greatest desert',
+          fact: 'Hottest, driest part of Australia, red sand'
+        },
+        {
+          name: 'Great Sandy Desert',
+          area: 'Large',
+          fact: 'Spinifex grass and minimal water sources'
+        },
+        { name: 'Simpson Desert', area: 'Red sand', fact: 'Known for parallel sand dunes' },
+        { name: 'Tanami Desert', area: 'Central', fact: 'Traditional Aboriginal lands' },
+        {
+          name: 'Strzelecki Desert',
+          area: 'Small but harsh',
+          fact: 'One of most inhospitable places'
+        }
+      ],
+      rainforests: [
+        {
+          name: 'Daintree Rainforest',
+          area: 'Queensland',
+          fact: "One of world's oldest rainforests, 135 million years old"
+        },
+        {
+          name: 'Wet Tropics',
+          area: 'Northeast',
+          fact: 'Tropical rainforest with unique wildlife'
+        },
+        {
+          name: 'Tasmanian Rainforest',
+          area: 'Tasmania',
+          fact: 'Cool temperate rainforest with ancient trees'
+        },
+        {
+          name: 'Eucalyptus Forests',
+          area: 'Throughout',
+          fact: 'Unique to Australia, 600+ species'
+        },
+        {
+          name: 'Mangrove Forests',
+          area: 'Coastal',
+          fact: 'Important nursery for fish and crustaceans'
+        }
+      ],
+      mountains: [
+        {
+          name: 'Mount Kosciuszko',
+          elevation: '7,310 ft',
+          fact: 'Highest mountain in Australia, in the Alps'
+        },
+        { name: 'Mount Townsend', elevation: '7,247 ft', fact: 'Second highest, near Kosciuszko' },
+        {
+          name: 'Blue Mountains',
+          elevation: 'Up to 3,600 ft',
+          fact: 'West of Sydney, famous for scenic views'
+        },
+        {
+          name: 'Flinders Ranges',
+          elevation: 'Up to 3,827 ft',
+          fact: 'Ancient mountain range in South Australia'
+        },
+        {
+          name: 'MacDonnell Ranges',
+          elevation: 'Up to 4,000 ft',
+          fact: 'Central Australia, Aboriginal sacred sites'
+        }
+      ],
+      reefs_and_coasts: [
+        {
+          name: 'Great Barrier Reef',
+          length: '2,300 km',
+          fact: 'Largest coral reef, 1,500 fish species'
+        },
+        {
+          name: 'Ningaloo Reef',
+          length: '300 km',
+          fact: 'Western Australia, whale shark encounters'
+        },
+        {
+          name: 'Abalone Farms',
+          area: 'Coastal waters',
+          fact: "World's largest abalone farming region"
+        },
+        { name: 'Bondi Beach', location: 'Sydney', fact: 'Famous for surfing and swimming' },
+        {
+          name: 'Twelve Apostles',
+          location: 'Victoria',
+          fact: 'Dramatic limestone rock formations'
+        }
+      ]
     },
     highlights: {
       landmarks: [

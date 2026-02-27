@@ -573,9 +573,12 @@ function renderDetailTabs(country) {
     factsTab.innerHTML = '<p style="color: var(--dom-text-muted)">No facts available yet.</p>';
   }
 
-  // Render geography tab
+  // Render geography tab with extended data
+  let geographyContent = '';
+
+  // Add categorized facts first
   if (categorizedFacts.geography.length > 0) {
-    geographyTab.innerHTML = categorizedFacts.geography
+    geographyContent += categorizedFacts.geography
       .map(
         fact => `
       <div class="fact">
@@ -585,6 +588,163 @@ function renderDetailTabs(country) {
     `
       )
       .join('');
+  }
+
+  // Add extended geography data
+  if (country.geography) {
+    // States/Regions
+    if (country.geography.states && country.geography.states.length > 0) {
+      geographyContent += `
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">States/Regions</h4>
+          <p style="font-size: 13px; color: var(--dom-text); margin: 0">${country.geography.states.slice(0, 5).join(', ')}</p>
+        </div>
+      `;
+    }
+
+    // Rivers
+    if (country.geography.rivers && country.geography.rivers.length > 0) {
+      geographyContent += `
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌊 Rivers</h4>
+          ${country.geography.rivers
+            .slice(0, 3)
+            .map(
+              r => `
+            <div style="margin-bottom: 8px">
+              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${r.name}</p>
+              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${r.length}: ${r.fact}</p>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+    }
+
+    // Mountains
+    if (country.geography.mountains && country.geography.mountains.length > 0) {
+      geographyContent += `
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">⛰️ Mountains</h4>
+          ${country.geography.mountains
+            .slice(0, 3)
+            .map(
+              m => `
+            <div style="margin-bottom: 8px">
+              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${m.name}</p>
+              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${m.elevation}: ${m.fact}</p>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+    }
+
+    // Forests/Rainforests
+    if (country.geography.forests && country.geography.forests.length > 0) {
+      geographyContent += `
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌲 Forests</h4>
+          ${country.geography.forests
+            .slice(0, 3)
+            .map(
+              f => `
+            <div style="margin-bottom: 8px">
+              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${f.name}</p>
+              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${f.area}: ${f.fact}</p>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+    }
+
+    // Rainforests (special category)
+    if (country.geography.rainforests && country.geography.rainforests.length > 0) {
+      geographyContent += `
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌴 Rainforests</h4>
+          ${country.geography.rainforests
+            .slice(0, 3)
+            .map(
+              r => `
+            <div style="margin-bottom: 8px">
+              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${r.name}</p>
+              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${r.area}: ${r.fact}</p>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+    }
+
+    // Deserts
+    if (country.geography.deserts && country.geography.deserts.length > 0) {
+      geographyContent += `
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🏜️ Deserts</h4>
+          ${country.geography.deserts
+            .slice(0, 3)
+            .map(
+              d => `
+            <div style="margin-bottom: 8px">
+              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${d.name}</p>
+              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${d.area}: ${d.fact}</p>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+    }
+
+    // Lakes
+    if (country.geography.lakes && country.geography.lakes.length > 0) {
+      geographyContent += `
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌊 Lakes</h4>
+          ${country.geography.lakes
+            .slice(0, 3)
+            .map(
+              l => `
+            <div style="margin-bottom: 8px">
+              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${l.name}</p>
+              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${l.area}: ${l.fact}</p>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+    }
+
+    // Oases
+    if (country.geography.oases && country.geography.oases.length > 0) {
+      geographyContent += `
+        <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
+          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">💧 Oases</h4>
+          ${country.geography.oases
+            .slice(0, 3)
+            .map(
+              o => `
+            <div style="margin-bottom: 8px">
+              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${o.name}</p>
+              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${o.fact}</p>
+            </div>
+          `
+            )
+            .join('')}
+        </div>
+      `;
+    }
+  }
+
+  if (geographyContent) {
+    geographyTab.innerHTML = geographyContent;
   } else {
     geographyTab.innerHTML =
       '<p style="color: var(--dom-text-muted)">No geographic information available yet.</p>';
