@@ -258,7 +258,7 @@
       return;
     }
 
-    const article = root.querySelector('.lp-article');
+    const article = root.querySelector('.lp-page');
     if (!article) {
       return;
     }
@@ -494,7 +494,7 @@
    */
   function showError(message) {
     const root = document.documentElement;
-    const article = root.querySelector('.lp-article');
+    const article = root.querySelector('.lp-page');
     if (article) {
       article.innerHTML = `
         <div style="padding: 40px 20px; text-align: center; color: #d32f2f;">
