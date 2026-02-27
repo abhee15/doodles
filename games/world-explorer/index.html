@@ -187,6 +187,50 @@
       }
 
       /* ══════════════════════════════════════════════════
+         CONTINENT SEARCH & FILTER
+      ══════════════════════════════════════════════════ */
+      .continent-search {
+        margin-bottom: 28px;
+        padding: 16px;
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 12px 16px;
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: inherit;
+        color: var(--dom-text);
+        background: #fff;
+        transition: all 0.2s ease;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: var(--dom-accent);
+        box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
+      }
+
+      .search-input::placeholder {
+        color: var(--dom-text-muted);
+      }
+
+      .dom-btn--small {
+        padding: 8px 12px;
+        font-size: 13px;
+        min-width: auto;
+        height: 38px;
+        width: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* ══════════════════════════════════════════════════
          COUNTRY GRID
       ══════════════════════════════════════════════════ */
       .country-grid {
@@ -598,6 +642,24 @@
         <div class="continent-header">
           <h2 id="continent-title">🦁 Africa</h2>
           <p id="continent-progress">Explored 0 of 53 countries</p>
+        </div>
+
+        <div class="continent-search" id="continent-search">
+          <div style="display: flex; gap: 8px; align-items: center">
+            <input
+              type="text"
+              id="search-countries"
+              placeholder="Find a country... (e.g., Egypt, France)"
+              class="search-input"
+            />
+            <button id="search-clear-btn" class="dom-btn dom-btn--small" style="display: none">
+              <i class="ti ti-x"></i>
+            </button>
+          </div>
+          <p
+            id="search-result-count"
+            style="font-size: 12px; color: var(--dom-text-muted); margin-top: 8px; min-height: 16px"
+          ></p>
         </div>
 
         <div class="country-grid" id="country-grid">

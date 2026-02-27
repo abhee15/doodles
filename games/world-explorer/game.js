@@ -18,6 +18,7 @@ const gameState = {
   currentScreen: 'landing',
   currentContinent: null,
   currentCountry: null,
+  searchQuery: '', // Current search filter in continent view
 
   // User progress data
   explored: [], // Array of country IDs visited
@@ -263,6 +264,7 @@ function renderLanding() {
  */
 function renderContinent(continentId) {
   gameState.currentContinent = continentId;
+  gameState.searchQuery = ''; // Reset search when changing continent
 
   const continentInfo = CONTINENT_INFO[continentId];
   const countriesInContinent = COUNTRIES.filter(c => c.continent === continentId);
@@ -279,9 +281,54 @@ function renderContinent(continentId) {
 
   progressEl.textContent = `Explored ${exploredInContinent} of ${countriesInContinent.length} countries`;
 
-  // Render grid
+  // Set up search input
+  const searchInput = document.getElementById('search-countries');
+  const clearBtn = document.getElementById('search-clear-btn');
+  const resultCount = document.getElementById('search-result-count');
+
+  searchInput.value = '';
+  clearBtn.style.display = 'none';
+  resultCount.textContent = '';
+
+  // Search event listener
+  searchInput.addEventListener('input', e => {
+    gameState.searchQuery = e.target.value.trim().toLowerCase();
+    updateContinentGrid(countriesInContinent);
+
+    // Show/hide clear button
+    clearBtn.style.display = gameState.searchQuery ? 'flex' : 'none';
+  });
+
+  // Clear search button
+  clearBtn.addEventListener('click', e => {
+    e.preventDefault();
+    gameState.searchQuery = '';
+    searchInput.value = '';
+    clearBtn.style.display = 'none';
+    resultCount.textContent = '';
+    updateContinentGrid(countriesInContinent);
+    searchInput.focus();
+  });
+
+  // Initial grid render
+  updateContinentGrid(countriesInContinent);
+}
+
+/**
+ * Filter countries and update the grid display
+ */
+function updateContinentGrid(countriesInContinent) {
+  const filtered = filterCountries(countriesInContinent, gameState.searchQuery);
   const grid = document.getElementById('country-grid');
-  grid.innerHTML = countriesInContinent
+  const resultCount = document.getElementById('search-result-count');
+
+  // Update result count
+  if (gameState.searchQuery) {
+    resultCount.textContent = `Found ${filtered.length} of ${countriesInContinent.length} countries`;
+  }
+
+  // Render grid
+  grid.innerHTML = filtered
     .map(country => {
       const isExplored = gameState.explored.includes(country.id);
       return `
@@ -301,6 +348,54 @@ function renderContinent(continentId) {
       const countryId = card.dataset.country;
       goToScreen('country', { countryId });
     });
+  });
+}
+
+/**
+ * Filter countries by search query (name, capital, fact keywords)
+ */
+function filterCountries(countries, query) {
+  if (!query) {
+    return countries;
+  }
+
+  return countries.filter(country => {
+    // Match against country name
+    if (country.name.toLowerCase().includes(query)) {
+      return true;
+    }
+
+    // Match against flag (emoji search)
+    if (query.length === 2 && query.match(/[\uD800-\uDBFF][\uDC00-\uDFFF]/)) {
+      // Skip emoji-based search, focus on text
+      return false;
+    }
+
+    // Match against primary hook
+    if (country.hooks.primary.toLowerCase().includes(query)) {
+      return true;
+    }
+
+    // Match against facts
+    if (country.facts && country.facts.some(fact => fact.toLowerCase().includes(query))) {
+      return true;
+    }
+
+    // For showcase countries, match against capital, cities, landmarks
+    if (country.cities) {
+      const cityMatch = [country.cities.capital, ...(country.cities.majors || [])].some(
+        city => city && city.toLowerCase().includes(query)
+      );
+      if (cityMatch) {
+        return true;
+      }
+    }
+
+    if (country.landmarks && country.landmarks.some(lm => lm.name.toLowerCase().includes(query))) {
+      return true;
+    }
+
+    return false;
   });
 }
 
