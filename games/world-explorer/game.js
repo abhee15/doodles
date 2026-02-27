@@ -394,8 +394,7 @@ function renderLandmarkHunt() {
   const quest = document.getElementById('landmark-quest');
   quest.innerHTML = `
     <div style="margin-bottom: 32px;">
-      <div style="font-size: 48px; margin-bottom: 16px; text-align: center;">${landmark.emoji}</div>
-      <h2 style="text-align: center; margin-bottom: 12px;">${landmark.name}</h2>
+      <h3 style="text-align: center; margin-bottom: 12px;">${landmark.name}</h3>
       <p style="text-align: center; color: var(--dom-text-muted); margin-bottom: 20px;">${landmark.desc}</p>
       <p style="text-align: center; font-size: 13px; color: var(--dom-text-muted);">Which country is this landmark in?</p>
     </div>
@@ -440,14 +439,14 @@ function renderLandmarkHunt() {
       if (isCorrect) {
         resultDiv.innerHTML = `
           <div style="padding: 16px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border-left: 4px solid #4caf50;">
-            <p style="color: #4caf50; font-weight: 600; margin: 0;">✓ Correct! ${resultCountry.flag}</p>
+            <p style="color: #4caf50; font-weight: 600; margin: 0;"><i class="ti ti-check"></i> Correct! ${resultCountry.flag}</p>
             <p style="color: var(--dom-text-muted); font-size: 13px; margin: 8px 0 0 0;">${resultCountry.name}</p>
           </div>
         `;
       } else {
         resultDiv.innerHTML = `
           <div style="padding: 16px; background: rgba(255, 152, 0, 0.1); border-radius: 8px; border-left: 4px solid #ff9800;">
-            <p style="color: #ff9800; font-weight: 600; margin: 0;">The correct answer is ${resultCountry.flag} ${resultCountry.name}</p>
+            <p style="color: #ff9800; font-weight: 600; margin: 0;"><i class="ti ti-info-circle"></i> The correct answer is ${resultCountry.flag} ${resultCountry.name}</p>
             <p style="color: var(--dom-text-muted); font-size: 13px; margin: 8px 0 0 0;">No worries! This is how you learn. The more you explore countries, the easier these quizzes become!</p>
           </div>
         `;
@@ -478,9 +477,18 @@ function renderCollections() {
     ).length;
     const percentage = Math.round((exploredInContinent / countriesInContinent.length) * 100);
 
+    // Map continents to Tabler icons
+    const continentIcons = {
+      africa: 'ti-map-pin-filled',
+      asia: 'ti-map-2',
+      americas: 'ti-world',
+      europe: 'ti-world',
+      oceania: 'ti-wave'
+    };
+
     html += `
       <div class="collection-card" style="padding: 20px; border: 2px solid var(--dom-border); border-radius: 12px; cursor: pointer; transition: all 0.2s;" onclick="goToScreen('continent', { continent: '${continentId}' })">
-        <div style="font-size: 32px; margin-bottom: 12px;">${continentInfo.emoji}</div>
+        <div style="font-size: 28px; margin-bottom: 12px;"><i class="ti ${continentIcons[continentId]}"></i></div>
         <h3 style="margin: 0 0 8px 0; font-size: 18px;">${continentInfo.name}</h3>
         <p style="color: var(--dom-text-muted); font-size: 13px; margin: 0 0 12px 0;">${exploredInContinent} of ${countriesInContinent.length} countries</p>
 
