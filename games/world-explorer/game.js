@@ -22,7 +22,124 @@ const gameState = {
   // User progress data
   explored: [], // Array of country IDs visited
   favorites: [], // Bookmarked countries
-  landmarksFound: [] // Landmark hunt progress (Phase 2)
+  landmarksFound: [], // Landmark hunt progress (Phase 2)
+
+  // Engagement mechanics
+  lastExploreDate: null, // For streak counter
+  streak: 0, // Current exploration streak (days)
+  unlockedAchievements: [] // Achievement IDs unlocked
+};
+
+// ══════════════════════════════════════════════════
+// ACHIEVEMENTS SYSTEM (15+ badges for engagement)
+// ══════════════════════════════════════════════════
+
+const ACHIEVEMENTS = {
+  'first-country': {
+    id: 'first-country',
+    name: '🌍 Globe Trotter',
+    description: 'Explore your first country',
+    requirement: () => gameState.explored.length >= 1
+  },
+  'ten-countries': {
+    id: 'ten-countries',
+    name: '🌎 World Wanderer',
+    description: 'Explore 10 countries',
+    requirement: () => gameState.explored.length >= 10
+  },
+  'fifty-countries': {
+    id: 'fifty-countries',
+    name: '🌏 Continent Explorer',
+    description: 'Explore 50 countries',
+    requirement: () => gameState.explored.length >= 50
+  },
+  'hundred-countries': {
+    id: 'hundred-countries',
+    name: '⭐ Global Scholar',
+    description: 'Explore 100 countries',
+    requirement: () => gameState.explored.length >= 100
+  },
+  'all-countries': {
+    id: 'all-countries',
+    name: '👑 World Master',
+    description: 'Explore all 195 countries',
+    requirement: () => gameState.explored.length >= 195
+  },
+  'africa-complete': {
+    id: 'africa-complete',
+    name: '🦁 African Explorer',
+    description: 'Explore all African countries',
+    requirement: () => {
+      const africaCountries = COUNTRIES.filter(c => c.continent === 'africa');
+      return africaCountries.every(c => gameState.explored.includes(c.id));
+    }
+  },
+  'asia-complete': {
+    id: 'asia-complete',
+    name: '🏯 Asian Explorer',
+    description: 'Explore all Asian countries',
+    requirement: () => {
+      const asiaCountries = COUNTRIES.filter(c => c.continent === 'asia');
+      return asiaCountries.every(c => gameState.explored.includes(c.id));
+    }
+  },
+  'europe-complete': {
+    id: 'europe-complete',
+    name: '🏰 European Explorer',
+    description: 'Explore all European countries',
+    requirement: () => {
+      const europeCountries = COUNTRIES.filter(c => c.continent === 'europe');
+      return europeCountries.every(c => gameState.explored.includes(c.id));
+    }
+  },
+  'americas-complete': {
+    id: 'americas-complete',
+    name: '🗽 American Explorer',
+    description: 'Explore all American countries',
+    requirement: () => {
+      const americasCountries = COUNTRIES.filter(c => c.continent === 'americas');
+      return americasCountries.every(c => gameState.explored.includes(c.id));
+    }
+  },
+  'oceania-complete': {
+    id: 'oceania-complete',
+    name: '🏝️ Pacific Explorer',
+    description: 'Explore all Oceania countries',
+    requirement: () => {
+      const oceaniaCountries = COUNTRIES.filter(c => c.continent === 'oceania');
+      return oceaniaCountries.every(c => gameState.explored.includes(c.id));
+    }
+  },
+  'seven-day-streak': {
+    id: 'seven-day-streak',
+    name: '🔥 Consistent Explorer',
+    description: 'Maintain a 7-day exploration streak',
+    requirement: () => gameState.streak >= 7
+  },
+  'thirty-day-streak': {
+    id: 'thirty-day-streak',
+    name: '💪 Dedicated Explorer',
+    description: 'Maintain a 30-day exploration streak',
+    requirement: () => gameState.streak >= 30
+  },
+  'ten-landmarks': {
+    id: 'ten-landmarks',
+    name: '🏛️ Landmark Hunter',
+    description: 'Find 10 landmarks correctly',
+    requirement: () => gameState.landmarksFound.length >= 10
+  },
+  'landmarks-expert': {
+    id: 'landmarks-expert',
+    name: '🎯 Landmark Expert',
+    description: 'Find 50 landmarks correctly',
+    requirement: () => gameState.landmarksFound.length >= 50
+  },
+  'collection-builder': {
+    id: 'collection-builder',
+    name: '❤️ Collection Curator',
+    description: 'Favorite 25 countries',
+    requirement: () => gameState.favorites.length >= 25
+  }
 };
 
 // ══════════════════════════════════════════════════
@@ -201,6 +318,8 @@ function renderCountryDetail(countryId) {
   // Mark as explored
   if (!gameState.explored.includes(countryId)) {
     gameState.explored.push(countryId);
+    updateStreak();
+    checkAchievements();
     saveProgress();
     updateNavMeta();
   }
@@ -695,12 +814,96 @@ function renderFavorites() {
 }
 
 /**
- * Update navigation metadata (explored count)
+ * Update exploration streak
+ */
+function updateStreak() {
+  const today = new Date().toDateString();
+  const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+  if (gameState.lastExploreDate !== today) {
+    if (gameState.lastExploreDate === yesterday) {
+      gameState.streak += 1;
+    } else {
+      gameState.streak = 1;
+    }
+    gameState.lastExploreDate = today;
+  }
+}
+
+/**
+ * Check for newly unlocked achievements
+ */
+function checkAchievements() {
+  const newAchievements = [];
+
+  Object.values(ACHIEVEMENTS).forEach(achievement => {
+    if (!gameState.unlockedAchievements.includes(achievement.id) && achievement.requirement()) {
+      gameState.unlockedAchievements.push(achievement.id);
+      newAchievements.push(achievement);
+    }
+  });
+
+  // Show notification for new achievements
+  newAchievements.forEach(achievement => {
+    showAchievementNotification(achievement);
+  });
+}
+
+/**
+ * Show achievement unlock notification
+ */
+function showAchievementNotification(achievement) {
+  const notification = document.createElement('div');
+  notification.style.cssText = `
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #000;
+    padding: 16px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    z-index: 9999;
+    animation: slideIn 0.3s ease-out;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  `;
+  notification.innerHTML = `
+    <div style="font-size: 18px; margin-bottom: 4px;">🏆 Achievement Unlocked!</div>
+    <div>${achievement.name}</div>
+    <div style="font-size: 12px; opacity: 0.9; margin-top: 4px;">${achievement.description}</div>
+  `;
+
+  document.body.appendChild(notification);
+
+  // Add animation styles
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes slideIn {
+      from { transform: translateX(400px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+  `;
+  if (!document.querySelector('style[data-achievement-animation]')) {
+    style.setAttribute('data-achievement-animation', 'true');
+    document.head.appendChild(style);
+  }
+
+  // Remove after 4 seconds
+  setTimeout(() => {
+    notification.style.animation = 'slideIn 0.3s ease-out reverse';
+    setTimeout(() => notification.remove(), 300);
+  }, 4000);
+}
+
+/**
+ * Update navigation metadata (explored count + streak)
  */
 function updateNavMeta() {
   const exploredCount = gameState.explored.length;
   const navMeta = document.getElementById('nav-meta');
-  navMeta.textContent = `Explored: ${exploredCount}/195 🌍`;
+  const streakDisplay = gameState.streak > 0 ? ` | 🔥 ${gameState.streak}-day streak` : '';
+  navMeta.textContent = `Explored: ${exploredCount}/195 🌍${streakDisplay}`;
 }
 
 /**
@@ -710,6 +913,9 @@ function saveProgress() {
   localStorage.setItem('we_explored', JSON.stringify(gameState.explored));
   localStorage.setItem('we_favorites', JSON.stringify(gameState.favorites));
   localStorage.setItem('we_landmarks', JSON.stringify(gameState.landmarksFound));
+  localStorage.setItem('we_streak', JSON.stringify(gameState.streak));
+  localStorage.setItem('we_lastExploreDate', gameState.lastExploreDate);
+  localStorage.setItem('we_achievements', JSON.stringify(gameState.unlockedAchievements));
 }
 
 /**
@@ -719,6 +925,9 @@ function loadProgress() {
   const explored = localStorage.getItem('we_explored');
   const favorites = localStorage.getItem('we_favorites');
   const landmarks = localStorage.getItem('we_landmarks');
+  const streak = localStorage.getItem('we_streak');
+  const lastExploreDate = localStorage.getItem('we_lastExploreDate');
+  const achievements = localStorage.getItem('we_achievements');
 
   if (explored) {
     gameState.explored = JSON.parse(explored);
@@ -730,6 +939,18 @@ function loadProgress() {
 
   if (landmarks) {
     gameState.landmarksFound = JSON.parse(landmarks);
+  }
+
+  if (streak) {
+    gameState.streak = JSON.parse(streak);
+  }
+
+  if (lastExploreDate) {
+    gameState.lastExploreDate = lastExploreDate;
+  }
+
+  if (achievements) {
+    gameState.unlockedAchievements = JSON.parse(achievements);
   }
 
   updateNavMeta();
