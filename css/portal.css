@@ -371,6 +371,20 @@ body {
   margin-left: auto;
 }
 
+.sec-see-all {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.15s;
+  white-space: nowrap;
+  margin-left: 16px;
+}
+
+.sec-see-all:hover {
+  color: var(--text);
+}
+
 /* Section title icon */
 .sec-title i {
   font-size: 1.3em;

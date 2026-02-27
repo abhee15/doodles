@@ -13,6 +13,7 @@ const CATEGORIES = [
     label: 'Math & Numbers',
     icon: 'ti-calculator',
     color: '#BF360C',
+    gradient: 'linear-gradient(135deg, #FF7043 0%, #BF360C 100%)',
     footerHeading: 'Math & Numbers'
   },
   {
@@ -20,6 +21,7 @@ const CATEGORIES = [
     label: 'Memory & Learning',
     icon: 'ti-brain',
     color: '#8B5CF6',
+    gradient: 'linear-gradient(145deg, #A78BFA 0%, #4C1D95 100%)',
     footerHeading: 'Memory & Learning'
   },
   {
@@ -27,6 +29,7 @@ const CATEGORIES = [
     label: 'Geography',
     icon: 'ti-world',
     color: '#0277BD',
+    gradient: 'linear-gradient(145deg, #42A5F5 0%, #0D47A1 100%)',
     footerHeading: 'Geography'
   },
   {
@@ -34,6 +37,7 @@ const CATEGORIES = [
     label: 'Words & Language',
     icon: 'ti-book',
     color: '#6A1B9A',
+    gradient: 'linear-gradient(145deg, #CE93D8 0%, #4527A0 100%)',
     footerHeading: 'Words'
   },
   {
@@ -41,6 +45,7 @@ const CATEGORIES = [
     label: 'Science & Nature',
     icon: 'ti-leaf',
     color: '#2E7D32',
+    gradient: 'linear-gradient(145deg, #66BB6A 0%, #1B5E20 100%)',
     footerHeading: 'Science & Memory'
   },
   {
@@ -48,6 +53,7 @@ const CATEGORIES = [
     label: 'Art & Creativity',
     icon: 'ti-palette',
     color: '#EC4899',
+    gradient: 'linear-gradient(145deg, #F472B6 0%, #818CF8 100%)',
     footerHeading: 'Art & Creativity'
   },
   {
@@ -55,6 +61,7 @@ const CATEGORIES = [
     label: 'Logic & Puzzles',
     icon: 'ti-puzzle',
     color: '#6D28D9',
+    gradient: 'linear-gradient(145deg, #A78BFA 0%, #1a0a2e 100%)',
     footerHeading: 'Logic & Puzzles'
   }
 ];

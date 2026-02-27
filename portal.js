@@ -94,6 +94,19 @@
 
         container.appendChild(card);
       });
+
+      // Add "See all →" link to section header
+      const section = container.closest('.cat-section');
+      if (section) {
+        const header = section.querySelector('.sec-header');
+        if (header && !header.querySelector('.sec-see-all')) {
+          const link = document.createElement('a');
+          link.href = `games/${cat.id}/index.html`;
+          link.className = 'sec-see-all';
+          link.textContent = 'See all →';
+          header.appendChild(link);
+        }
+      }
     });
   }
 

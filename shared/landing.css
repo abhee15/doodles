@@ -1,0 +1,561 @@
+/**
+ * SEO Landing Page Styles
+ *
+ * Used by all landing pages (category + grade pages)
+ * Inherits variables from portal.css (loaded first)
+ * No box-shadows — flat design with borders and transforms
+ */
+
+/* ══════════════════════════════════════════════════
+   HERO SECTION
+══════════════════════════════════════════════════ */
+.lp-hero {
+  width: 100%;
+  padding: 60px var(--pad) 80px;
+  color: #fff;
+  text-align: center;
+  background-size: cover;
+  background-position: center;
+}
+
+.lp-hero-content {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.lp-hero h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 20px 0 16px;
+  letter-spacing: -0.02em;
+}
+
+.lp-hero-subtitle {
+  font-size: clamp(16px, 3vw, 20px);
+  font-weight: 400;
+  line-height: 1.6;
+  opacity: 0.95;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ══════════════════════════════════════════════════
+   BREADCRUMB
+══════════════════════════════════════════════════ */
+.lp-breadcrumb {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  opacity: 0.9;
+}
+
+.lp-breadcrumb a {
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.lp-breadcrumb a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+.lp-breadcrumb .sep {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.lp-breadcrumb-current {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ══════════════════════════════════════════════════
+   PAGE CONTAINER
+══════════════════════════════════════════════════ */
+.lp-page {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+
+/* ══════════════════════════════════════════════════
+   INTRO PARAGRAPHS
+══════════════════════════════════════════════════ */
+.lp-intro {
+  margin: 60px 0;
+}
+
+.lp-intro p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 20px;
+  max-width: 800px;
+}
+
+.lp-intro p:last-child {
+  margin-bottom: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   GRADE NAVIGATION PILLS
+══════════════════════════════════════════════════ */
+.lp-grade-nav {
+  margin: 60px 0;
+  padding: 40px 0;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.lp-grade-nav h2 {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.lp-grade-pills {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.lp-grade-pill {
+  display: inline-block;
+  padding: 10px 18px;
+  border: 2px solid var(--brand);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--brand);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.lp-grade-pill:hover {
+  background: var(--brand);
+  color: #fff;
+  transform: translateY(-2px);
+  border-color: var(--brand);
+}
+
+.lp-grade-pill:active {
+  transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════════════
+   GAMES SECTION
+══════════════════════════════════════════════════ */
+.lp-games {
+  margin: 60px 0;
+}
+
+.lp-games h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 32px;
+  color: var(--text);
+  padding-bottom: 16px;
+  border-bottom: 3px solid var(--brand);
+  display: inline-block;
+}
+
+/* Reuse .cards-row from portal.css */
+.lp-games .cards-row {
+  margin-top: 24px;
+}
+
+/* ══════════════════════════════════════════════════
+   DETAIL SECTIONS (Why It Works)
+══════════════════════════════════════════════════ */
+.lp-detail {
+  margin: 60px 0;
+  padding: 40px;
+  background: #f9f9f9;
+  border-left: 4px solid var(--brand);
+  border-radius: 4px;
+}
+
+.lp-detail h2 {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+.lp-detail > p {
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.lp-detail > p:last-of-type {
+  margin-bottom: 24px;
+}
+
+/* ══════════════════════════════════════════════════
+   GAME BLURBS
+══════════════════════════════════════════════════ */
+.lp-game-blurbs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.lp-game-blurb {
+  background: #fff;
+  padding: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.lp-game-blurb:hover {
+  border-color: var(--brand);
+  transform: translateY(-2px);
+}
+
+.lp-game-blurb h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--brand);
+  margin-bottom: 10px;
+}
+
+.lp-game-blurb p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   FAQ SECTION
+══════════════════════════════════════════════════ */
+.lp-faq {
+  margin: 60px 0;
+}
+
+.lp-faq h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 32px;
+  color: var(--text);
+  padding-bottom: 16px;
+  border-bottom: 3px solid var(--brand);
+  display: inline-block;
+}
+
+.lp-faq-item {
+  margin-bottom: 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 4px;
+  transition: all 0.2s;
+}
+
+.lp-faq-item:hover {
+  border-color: var(--brand);
+}
+
+.lp-faq-item[open] {
+  background: #f9f9f9;
+}
+
+.lp-faq-q {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+
+.lp-faq-q::after {
+  content: "+";
+  margin-left: auto;
+  font-size: 20px;
+  font-weight: 300;
+  transition: transform 0.2s;
+}
+
+.lp-faq-item[open] .lp-faq-q::after {
+  content: "−";
+}
+
+.lp-faq-q:hover {
+  background: #f5f5f5;
+}
+
+.lp-faq-a {
+  padding: 0 16px 16px;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════ */
+footer {
+  background: var(--footer-bg);
+  color: #fff;
+  margin-top: 80px;
+  padding: 60px var(--pad) 40px;
+}
+
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.footer-games {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 40px;
+}
+
+.footer-col h3 {
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.footer-col ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.footer-col li {
+  margin-bottom: 10px;
+}
+
+.footer-col a {
+  color: rgba(255, 255, 255, 0.75);
+  text-decoration: none;
+  font-size: 13px;
+  line-height: 1.6;
+  transition: color 0.2s;
+}
+
+.footer-col a:hover {
+  color: #fff;
+}
+
+/* ══════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .lp-hero {
+    padding: 40px var(--pad) 50px;
+  }
+
+  .lp-hero h1 {
+    font-size: 28px;
+  }
+
+  .lp-hero-subtitle {
+    font-size: 15px;
+  }
+
+  .lp-breadcrumb {
+    font-size: 13px;
+  }
+
+  .lp-intro {
+    margin: 40px 0;
+  }
+
+  .lp-intro p {
+    font-size: 15px;
+  }
+
+  .lp-grade-nav {
+    margin: 40px 0;
+    padding: 30px 0;
+  }
+
+  .lp-grade-nav h2 {
+    font-size: 18px;
+  }
+
+  .lp-grade-pills {
+    gap: 10px;
+  }
+
+  .lp-grade-pill {
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .lp-games h2 {
+    font-size: 20px;
+  }
+
+  .lp-detail {
+    margin: 40px 0;
+    padding: 24px;
+  }
+
+  .lp-detail h2 {
+    font-size: 18px;
+  }
+
+  .lp-detail > p {
+    font-size: 14px;
+  }
+
+  .lp-game-blurbs {
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+
+  .lp-game-blurb {
+    padding: 16px;
+  }
+
+  .lp-faq {
+    margin: 40px 0;
+  }
+
+  .lp-faq h2 {
+    font-size: 20px;
+  }
+
+  .lp-faq-q {
+    padding: 14px;
+    font-size: 14px;
+  }
+
+  .lp-faq-a {
+    padding: 0 14px 14px;
+    font-size: 13px;
+  }
+
+  footer {
+    margin-top: 60px;
+    padding: 40px var(--pad) 30px;
+  }
+
+  .footer-games {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 480px) {
+  .lp-hero {
+    padding: 30px 16px 40px;
+  }
+
+  .lp-hero h1 {
+    font-size: 24px;
+    margin: 16px 0 12px;
+  }
+
+  .lp-hero-subtitle {
+    font-size: 14px;
+  }
+
+  .lp-breadcrumb {
+    font-size: 12px;
+    gap: 4px;
+    margin-bottom: 16px;
+  }
+
+  .lp-intro {
+    margin: 30px 0;
+  }
+
+  .lp-intro p {
+    font-size: 14px;
+  }
+
+  .lp-grade-nav {
+    margin: 30px 0;
+    padding: 20px 0;
+  }
+
+  .lp-grade-nav h2 {
+    font-size: 16px;
+  }
+
+  .lp-grade-pills {
+    gap: 8px;
+  }
+
+  .lp-grade-pill {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  .lp-games {
+    margin: 30px 0;
+  }
+
+  .lp-games h2 {
+    font-size: 18px;
+  }
+
+  .lp-detail {
+    margin: 30px 0;
+    padding: 16px;
+  }
+
+  .lp-detail h2 {
+    font-size: 16px;
+  }
+
+  .lp-detail > p {
+    font-size: 13px;
+  }
+
+  .lp-game-blurb h3 {
+    font-size: 14px;
+  }
+
+  .lp-game-blurb p {
+    font-size: 13px;
+  }
+
+  .lp-faq h2 {
+    font-size: 18px;
+  }
+
+  .lp-faq-q {
+    padding: 12px;
+    font-size: 13px;
+  }
+
+  .lp-faq-a {
+    padding: 0 12px 12px;
+    font-size: 12px;
+  }
+
+  footer {
+    margin-top: 40px;
+    padding: 30px 16px 20px;
+  }
+
+  .footer-games {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
