@@ -475,6 +475,11 @@
       return false;
     }
 
+    if (!window.CATEGORIES) {
+      console.error('❌ CATEGORIES manifest not loaded');
+      return false;
+    }
+
     if (!content[config.categoryId]) {
       console.error(`❌ No content found for category: ${config.categoryId}`);
       console.warn('Available categories:', Object.keys(content));
@@ -538,9 +543,9 @@
   document.addEventListener('DOMContentLoaded', function () {
     // Try immediately
     if (!validate()) {
-      // If validation fails, wait up to 2 seconds for scripts to load
+      // If validation fails, wait up to 5 seconds for scripts to load
       let retries = 0;
-      const maxRetries = 20; // 20 * 100ms = 2 seconds
+      const maxRetries = 50; // 50 * 100ms = 5 seconds
 
       const retryInit = setInterval(function () {
         retries++;
