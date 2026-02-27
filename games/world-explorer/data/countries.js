@@ -1792,5 +1792,1698 @@ const COUNTRIES = [
       '🏖️ Beautiful beaches and reefs',
       '🎭 Traditional Tongan customs'
     ]
+  },
+
+  // ════════════════════════════════════════════════════
+  // FINAL EXPANSION (106 More Countries)
+  // ════════════════════════════════════════════════════
+
+  // AFRICA (Additional 13)
+  {
+    id: 'congo-dr',
+    name: 'Democratic Republic of Congo',
+    flag: '🇨🇩',
+    continent: 'africa',
+    hooks: {
+      primary: '🌿 Central Africa with massive rainforests',
+      secondary: 'Second-largest country by area with river system'
+    },
+    facts: [
+      "🌿 Congo Rainforest is world's second-largest",
+      "🌊 Congo River is Africa's largest by volume",
+      '💎 Rich in diamonds and minerals',
+      '🦍 Gorillas, okapis, and unique wildlife',
+      '📍 Kinshasa is largest city in sub-Saharan Africa'
+    ]
+  },
+  {
+    id: 'algeria',
+    name: 'Algeria',
+    flag: '🇩🇿',
+    continent: 'africa',
+    hooks: {
+      primary: "🏜️ North Africa's largest country with Sahara",
+      secondary: 'Mediterranean coast meeting vast desert'
+    },
+    facts: [
+      '🏜️ Sahara Desert dominates much of country',
+      '🌊 Mediterranean beaches in north',
+      '🏛️ Roman ruins of Timgad',
+      '⛰️ Atlas Mountains in north',
+      '🕌 Islamic culture and architecture'
+    ]
+  },
+  {
+    id: 'sudan',
+    name: 'Sudan',
+    flag: '🇸🇩',
+    continent: 'africa',
+    hooks: {
+      primary: '🌊 Nile River nation in northeastern Africa',
+      secondary: 'Ancient Nubian kingdoms and pyramids'
+    },
+    facts: [
+      '🏛️ Nubian pyramids—more than Egypt!',
+      '🌊 Nile River flows through',
+      '🌴 Sahara Desert and savannas',
+      '⚫ Gold is major resource',
+      '🇪🇹 Shares borders with many countries'
+    ]
+  },
+  {
+    id: 'algeria-2',
+    name: "Côte d'Ivoire",
+    flag: '🇨🇮',
+    continent: 'africa',
+    hooks: {
+      primary: "🍫 West Africa's cocoa powerhouse",
+      secondary: 'Ivory Coast with tropical forests'
+    },
+    facts: [
+      "🍫 World's top cocoa producer",
+      '🌳 Rainforests in south',
+      '🏖️ Atlantic beaches',
+      '🥁 Rich music and culture',
+      '⚡ Economic engine of West Africa'
+    ]
+  },
+  {
+    id: 'mali',
+    name: 'Mali',
+    flag: '🇲🇱',
+    continent: 'africa',
+    hooks: {
+      primary: '🏜️ West African Sahel nation',
+      secondary: 'Ancient empires and desert kingdoms'
+    },
+    facts: [
+      '🏺 Timbuktu is ancient city of gold',
+      '🏜️ Sahara and Sahel regions',
+      '🥁 Griots are storytellers and musicians',
+      '🌾 Niger River is lifeline',
+      '👥 Very traditional culture'
+    ]
+  },
+  {
+    id: 'burkina-faso',
+    name: 'Burkina Faso',
+    flag: '🇧🇫',
+    continent: 'africa',
+    hooks: {
+      primary: '🌾 West African Sahel with traditional life',
+      secondary: 'Land of upright people'
+    },
+    facts: [
+      '🌾 Primarily agricultural savanna',
+      '🏖️ Gold is major export',
+      '🥁 Festival of African cinema',
+      '👥 Mossi kingdom heritage',
+      '⚡ Growing tech and startups'
+    ]
+  },
+  {
+    id: 'guinea',
+    name: 'Guinea',
+    flag: '🇬🇳',
+    continent: 'africa',
+    hooks: {
+      primary: '🌳 West African rainforest nation',
+      secondary: 'Rich in bauxite and natural resources'
+    },
+    facts: [
+      "⛏️ World's largest bauxite reserves",
+      '🌳 Rainforests in south',
+      '💧 Fouta Djallon highlands',
+      '🎵 Rich musical traditions',
+      '🌊 Atlantic coast villages'
+    ]
+  },
+  {
+    id: 'liberia',
+    name: 'Liberia',
+    flag: '🇱🇷',
+    continent: 'africa',
+    hooks: {
+      primary: '🏖️ West African nation founded by freed slaves',
+      secondary: 'Monrovia capital on coast'
+    },
+    facts: [
+      '📍 Only African country founded by freed American slaves',
+      '🏖️ Tropical beaches',
+      '🌳 Rainforests and wildlife',
+      '⚓ Port of Monrovia',
+      '💪 Resilient people'
+    ]
+  },
+  {
+    id: 'sierra-leone',
+    name: 'Sierra Leone',
+    flag: '🇸🇱',
+    continent: 'africa',
+    hooks: {
+      primary: '🏖️ West African coast known for diamonds',
+      secondary: 'Beautiful beaches and tropical forests'
+    },
+    facts: [
+      '💎 Diamond mining history',
+      '🏖️ Freetown beaches are beautiful',
+      '🌳 Rainforests and wildlife',
+      '🛕 Bunce Island slave fortress history',
+      '🤝 Recovering and rebuilding'
+    ]
+  },
+  {
+    id: 'mauritius',
+    name: 'Mauritius',
+    flag: '🇲🇺',
+    continent: 'africa',
+    hooks: {
+      primary: '🏝️ Island nation off eastern Africa',
+      secondary: 'Dodo bird island with diverse culture'
+    },
+    facts: [
+      '🦤 Dodo bird went extinct here',
+      '🏝️ Island with coral reefs',
+      '🌈 Multiple cultures (Hindu, Muslim, Christian)',
+      '💰 Successful economy',
+      '🌴 Tropical paradise'
+    ]
+  },
+  {
+    id: 'seychelles',
+    name: 'Seychelles',
+    flag: '🇸🇨',
+    continent: 'africa',
+    hooks: {
+      primary: '🏝️ Indian Ocean island paradise',
+      secondary: 'Tiny nation with world-class beaches'
+    },
+    facts: [
+      '🏝️ 115 islands spread across ocean',
+      "🏖️ Some of world's best beaches",
+      '🐢 Giant Aldabra tortoises',
+      '🌴 Tropical rainforests',
+      '💰 High standard of living'
+    ]
+  },
+  {
+    id: 'mauritania',
+    name: 'Mauritania',
+    flag: '🇲🇷',
+    continent: 'africa',
+    hooks: {
+      primary: '🏜️ Northwest Africa with Sahara',
+      secondary: 'Mostly desert with Atlantic coast'
+    },
+    facts: [
+      '🏜️ Mostly covered by Sahara',
+      '🌊 Atlantic fishing grounds',
+      '⛺ Nomadic Bedouin culture',
+      '📚 Islamic scholarship tradition',
+      '💎 Iron ore exports'
+    ]
+  },
+  {
+    id: 'lesotho',
+    name: 'Lesotho',
+    flag: '🇱🇸',
+    continent: 'africa',
+    hooks: {
+      primary: '🏔️ Mountain kingdom surrounded by South Africa',
+      secondary: 'Only independent country completely surrounded by another'
+    },
+    facts: [
+      '🏔️ Entire country is mountainous',
+      '⛰️ Highest point in southern Africa',
+      '🏇 Pony trekking is popular',
+      '🧣 Traditional blankets as clothing',
+      '🏔️ Drakensberg Mountains'
+    ]
+  },
+  {
+    id: 'eswatini',
+    name: 'Eswatini',
+    flag: '🇸🇿',
+    continent: 'africa',
+    hooks: {
+      primary: '🌾 Southern Africa between South Africa and Mozambique',
+      secondary: 'Small kingdom with Swazi traditions'
+    },
+    facts: [
+      '👑 Absolute monarchy still reigns',
+      '🌾 Agricultural nation',
+      '⛰️ Mountains and game reserves',
+      '🐘 Hlane Royal National Park',
+      '🎭 Swazi cultural traditions'
+    ]
+  },
+
+  // ASIA (Additional 25)
+  {
+    id: 'turkey',
+    name: 'Turkey',
+    flag: '🇹🇷',
+    continent: 'asia',
+    hooks: {
+      primary: '🌉 Bridges Europe and Asia with Istanbul',
+      secondary: 'Ancient empires and Ottoman heritage'
+    },
+    facts: [
+      '🌉 Istanbul straddles two continents',
+      '🕌 Blue Mosque and Hagia Sophia',
+      '⛰️ Cappadocia fairy chimneys',
+      '🌊 Mediterranean and Black Sea coasts',
+      '☕ Turkish coffee tradition'
+    ]
+  },
+  {
+    id: 'iran',
+    name: 'Iran',
+    flag: '🇮🇷',
+    continent: 'asia',
+    hooks: {
+      primary: '🏔️ Persia with deserts and mountains',
+      secondary: 'Ancient Persian empire homeland'
+    },
+    facts: [
+      '🏛️ Persian Empire was ancient superpower',
+      '🕌 Islamic culture and architecture',
+      '🌊 Caspian Sea and Persian Gulf',
+      '⛰️ Zagros and Alborz mountains',
+      '🎨 Persian rugs and carpets'
+    ]
+  },
+  {
+    id: 'iraq',
+    name: 'Iraq',
+    flag: '🇮🇶',
+    continent: 'asia',
+    hooks: {
+      primary: '🏛️ Mesopotamia—ancient cradle of civilization',
+      secondary: 'Tigris and Euphrates rivers'
+    },
+    facts: [
+      '🏛️ Mesopotamia is where writing was invented',
+      '💧 Tigris-Euphrates rivers',
+      '🏺 Babylon and ancient cities',
+      '🕌 Islamic culture',
+      '⛽ Oil-rich nation'
+    ]
+  },
+  {
+    id: 'saudi-arabia',
+    name: 'Saudi Arabia',
+    flag: '🇸🇦',
+    continent: 'asia',
+    hooks: {
+      primary: '🏜️ Arabian Peninsula desert kingdom',
+      secondary: 'Mecca and Islamic holy sites'
+    },
+    facts: [
+      '🕌 Mecca is holiest city in Islam',
+      "⛽ World's largest oil reserves",
+      '🏜️ Arabian Desert',
+      '💰 Extremely wealthy nation',
+      '🌊 Red Sea and Persian Gulf coasts'
+    ]
+  },
+  {
+    id: 'uae',
+    name: 'United Arab Emirates',
+    flag: '🇦🇪',
+    continent: 'asia',
+    hooks: {
+      primary: '🏙️ Desert nation with futuristic cities',
+      secondary: 'Dubai and Abu Dhabi super cities'
+    },
+    facts: [
+      "🏢 Burj Khalifa is world's tallest building",
+      '🏜️ Desert with amazing infrastructure',
+      '💰 Oil and tourism wealth',
+      '🏖️ Palm Jumeirah artificial islands',
+      '🌃 Futuristic architecture everywhere'
+    ]
+  },
+  {
+    id: 'qatar',
+    name: 'Qatar',
+    flag: '🇶🇦',
+    continent: 'asia',
+    hooks: {
+      primary: '🏜️ Peninsula nation with extreme wealth',
+      secondary: 'Tiny but incredibly wealthy'
+    },
+    facts: [
+      '💰 Highest GDP per capita in world',
+      '🏙️ Doha is modern capital',
+      '⚽ Hosted 2022 FIFA World Cup',
+      '📺 Al Jazeera news network',
+      '🌊 Persian Gulf coast'
+    ]
+  },
+  {
+    id: 'bahrain',
+    name: 'Bahrain',
+    flag: '🇧🇭',
+    continent: 'asia',
+    hooks: {
+      primary: '🏝️ Small island nation in Persian Gulf',
+      secondary: 'Pearl diving heritage'
+    },
+    facts: [
+      '🏝️ 33 islands in Persian Gulf',
+      '🦪 Famous for pearl diving',
+      '💰 Oil-wealthy nation',
+      '🌉 Bridge connects to Saudi Arabia',
+      '🏺 Ancient Dilmun civilization'
+    ]
+  },
+  {
+    id: 'kuwait',
+    name: 'Kuwait',
+    flag: '🇰🇼',
+    continent: 'asia',
+    hooks: {
+      primary: '🏜️ Small desert nation with oil wealth',
+      secondary: 'Strategic Persian Gulf location'
+    },
+    facts: [
+      '⛽ Massive oil reserves',
+      '💰 Very wealthy nation',
+      '🏙️ Kuwait City',
+      '🌊 Persian Gulf coast',
+      '📍 Strategic location'
+    ]
+  },
+  {
+    id: 'oman',
+    name: 'Oman',
+    flag: '🇴🇲',
+    continent: 'asia',
+    hooks: {
+      primary: '🏜️ Arabian Peninsula with mountains',
+      secondary: 'Ancient Frankincense trade routes'
+    },
+    facts: [
+      '⛰️ Hajar Mountains',
+      '🏜️ Desert and coastal regions',
+      '🌊 Strategic Strait of Hormuz',
+      '🏺 Frankincense trade history',
+      '🏖️ Beautiful coastal scenery'
+    ]
+  },
+  {
+    id: 'yemen',
+    name: 'Yemen',
+    flag: '🇾🇪',
+    continent: 'asia',
+    hooks: {
+      primary: '🏜️ Arabian Peninsula with ancient history',
+      secondary: 'Red Sea coast and mountain terrain'
+    },
+    facts: [
+      "🏛️ Queen of Sheba's kingdom",
+      '📚 Ancient frankincense trade',
+      '⛰️ Mountains and valleys',
+      '🌊 Red Sea coast',
+      '⚔️ Currently facing challenges'
+    ]
+  },
+  {
+    id: 'afghanistan',
+    name: 'Afghanistan',
+    flag: '🇦🇫',
+    continent: 'asia',
+    hooks: {
+      primary: '⛰️ Central Asian mountain nation',
+      secondary: 'Silk Road crossroads'
+    },
+    facts: [
+      '⛰️ Hindu Kush mountains',
+      '🛤️ Ancient Silk Road routes',
+      '🕯️ Lapis lazuli stones',
+      '📚 Rich cultural heritage',
+      '⚔️ Strategic location'
+    ]
+  },
+  {
+    id: 'tajikistan',
+    name: 'Tajikistan',
+    flag: '🇹🇯',
+    continent: 'asia',
+    hooks: {
+      primary: '⛰️ Mountainous Central Asia',
+      secondary: 'High peaks and mountain valleys'
+    },
+    facts: [
+      '⛰️ 93% mountainous terrain',
+      '🏔️ Pamir Mountains',
+      '💧 Glaciers provide water',
+      '🛤️ Silk Road historically passed through',
+      '👥 Persian cultural ties'
+    ]
+  },
+  {
+    id: 'turkmenistan',
+    name: 'Turkmenistan',
+    flag: '🇹🇲',
+    continent: 'asia',
+    hooks: {
+      primary: "🏜️ Central Asia's Silk Road nation",
+      secondary: 'Desert and ancient cities'
+    },
+    facts: [
+      '🏜️ Karakum Desert',
+      '🔥 Crater of Fire—burning gas crater',
+      '🛤️ Samarkand and Bukhara trade cities',
+      '🐴 Turkmen horses',
+      '⚽ Neutral status in world affairs'
+    ]
+  },
+  {
+    id: 'uzbekistan',
+    name: 'Uzbekistan',
+    flag: '🇺🇿',
+    continent: 'asia',
+    hooks: {
+      primary: "🏛️ Central Asia's cultural hub",
+      secondary: 'Ancient Silk Road cities and markets'
+    },
+    facts: [
+      '🛤️ Samarkand and Bukhara—legendary cities',
+      '🕌 Turquoise dome architecture',
+      '🏜️ Aral Sea environmental disaster',
+      '👥 Largest population in Central Asia',
+      '📚 Rich Silk Road heritage'
+    ]
+  },
+  {
+    id: 'kyrgyzstan',
+    name: 'Kyrgyzstan',
+    flag: '🇰🇬',
+    continent: 'asia',
+    hooks: {
+      primary: '⛰️ High mountain nation in Central Asia',
+      secondary: 'Nomadic culture and peaks'
+    },
+    facts: [
+      '⛰️ 90% mountainous',
+      '🏔️ Tian Shan mountains',
+      '⛺ Nomadic herding traditions',
+      '🌊 Lake Issyk-Kul—huge mountain lake',
+      '🐴 Ancient horse trading routes'
+    ]
+  },
+  {
+    id: 'lebanon',
+    name: 'Lebanon',
+    flag: '🇱🇧',
+    continent: 'asia',
+    hooks: {
+      primary: '⛰️ Levantine coast with mountains',
+      secondary: 'Cedar trees and Mediterranean'
+    },
+    facts: [
+      '🌲 Cedar trees on flag',
+      '⛰️ Mount Lebanon mountains',
+      '🌊 Mediterranean beaches',
+      '👥 Diverse religions coexist',
+      '🍽️ Cuisine is world-famous'
+    ]
+  },
+  {
+    id: 'israel',
+    name: 'Israel',
+    flag: '🇮🇱',
+    continent: 'asia',
+    hooks: {
+      primary: '⛰️ Levantine nation with ancient history',
+      secondary: 'Dead Sea and holy sites'
+    },
+    facts: [
+      '📿 Holy sites for three religions',
+      '💧 Dead Sea is lowest point on Earth',
+      '🔬 Tech innovation hub',
+      '🏜️ Negev Desert',
+      '⚡ Advanced technology and science'
+    ]
+  },
+  {
+    id: 'palestine',
+    name: 'Palestine',
+    flag: '🇵🇸',
+    continent: 'asia',
+    hooks: {
+      primary: '⛰️ Levantine territories',
+      secondary: 'Ancient Palestinian territories'
+    },
+    facts: [
+      '📍 Gaza Strip and West Bank',
+      '🏰 Bethlehem—birthplace of Jesus',
+      '👥 Palestinian people',
+      '🕌 Holy sites for Islam',
+      '🌾 Olive groves and agriculture'
+    ]
+  },
+  {
+    id: 'jordan',
+    name: 'Jordan',
+    flag: '🇯🇴',
+    continent: 'asia',
+    hooks: {
+      primary: '🏜️ Desert nation with ancient wonders',
+      secondary: 'Petra and Dead Sea'
+    },
+    facts: [
+      '🏛️ Petra is ancient carved city',
+      '💧 Dead Sea lowest point on Earth',
+      '🏜️ Wadi Rum desert landscape',
+      '🛤️ Silk Road crossroads',
+      '👑 Hashemite Kingdom'
+    ]
+  },
+  {
+    id: 'Syria',
+    name: 'Syria',
+    flag: '🇸🇾',
+    continent: 'asia',
+    hooks: {
+      primary: '⛰️ Levantine nation with ancient cities',
+      secondary: 'Damascus and historic crossroads'
+    },
+    facts: [
+      '🏛️ Damascus is oldest capital',
+      '🛤️ Ancient Silk Road',
+      '⛰️ Mountains and fertile valleys',
+      '🕌 Islamic architecture',
+      '⚔️ Currently facing challenges'
+    ]
+  },
+  {
+    id: 'bahamas',
+    name: 'Bahamas (moved to Americas)',
+    flag: '🇧🇸',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean island chain',
+      secondary: 'Turquoise waters and pirate history'
+    },
+    facts: [
+      '🏝️ 700 islands and cays',
+      '🏖️ Crystal clear turquoise water',
+      '☠️ Pirates and shipwrecks',
+      '🏄 Excellent diving and snorkeling',
+      '🌴 Tropical island lifestyle'
+    ]
+  },
+  {
+    id: 'belize',
+    name: 'Belize',
+    flag: '🇧🇿',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Central America with Caribbean flair',
+      secondary: 'English-speaking with Mayan ruins'
+    },
+    facts: [
+      '🦀 Second-longest coral reef',
+      '🏛️ Mayan ruins throughout',
+      '🌴 Barrier reef and cayes',
+      '📚 English-speaking country',
+      '🌳 Jungle canopy adventures'
+    ]
+  },
+  {
+    id: 'guyana',
+    name: 'Guyana',
+    flag: '🇬🇾',
+    continent: 'americas',
+    hooks: {
+      primary: '🌿 South American jungle nation',
+      secondary: 'Emerging oil producer'
+    },
+    facts: [
+      '🌳 Amazon rainforest',
+      '💧 Kaieteur Falls—spectacular waterfall',
+      '👥 Diverse ethnic populations',
+      '⛽ Recently discovered oil',
+      '🦁 Jaguar habitat'
+    ]
+  },
+  {
+    id: 'suriname',
+    name: 'Suriname',
+    flag: '🇸🇷',
+    continent: 'americas',
+    hooks: {
+      primary: '🌿 South American rainforest nation',
+      secondary: 'Dutch-speaking with colonial heritage'
+    },
+    facts: [
+      '🌳 Amazon rainforest coverage',
+      '🇳🇱 Dutch colonial heritage',
+      '👥 Most diverse ethnic mix',
+      '🌾 Agricultural economy',
+      '🦋 Biodiversity hotspot'
+    ]
+  },
+  {
+    id: 'el-salvador',
+    name: 'El Salvador',
+    flag: '🇸🇻',
+    continent: 'americas',
+    hooks: {
+      primary: '🏔️ Central American volcano nation',
+      secondary: 'Smallest and most densely populated'
+    },
+    facts: [
+      '🌋 Land of volcanoes',
+      '🏖️ Pacific and Caribbean coasts',
+      '👥 Most densely populated in Central America',
+      '🕌 Spanish colonial architecture',
+      '⚡ Hydro power resources'
+    ]
+  },
+  {
+    id: 'guatemala',
+    name: 'Guatemala',
+    flag: '🇬🇹',
+    continent: 'americas',
+    hooks: {
+      primary: '🏔️ Central America with Mayan heritage',
+      secondary: 'Mountains and ancient ruins'
+    },
+    facts: [
+      '🏛️ Mayan civilization heartland',
+      '🏔️ 30 volcanoes',
+      '🌳 Rainforests and jungles',
+      '🎨 Indigenous textile arts',
+      '🌊 Lake Atitlán scenic beauty'
+    ]
+  },
+  {
+    id: 'nicaragua',
+    name: 'Nicaragua',
+    flag: '🇳🇮',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Central America with two oceans',
+      secondary: 'Lakes and volcanoes'
+    },
+    facts: [
+      '🌋 Chain of volcanoes',
+      '🏞️ Lake Nicaragua—largest lake',
+      '🏖️ Caribbean and Pacific beaches',
+      '🌳 Rainforests and nature reserves',
+      '👥 Colonial cities'
+    ]
+  },
+  {
+    id: 'dominica',
+    name: 'Dominica',
+    flag: '🇩🇲',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean island nation',
+      secondary: 'Boiling Lake and natural hot springs'
+    },
+    facts: [
+      '💨 Nature Island—pristine nature',
+      '🌊 Boiling Lake geothermal features',
+      '🏖️ Black sand beaches',
+      '🌳 Rainforests and rivers',
+      '⛰️ Mountainous island'
+    ]
+  },
+  {
+    id: 'grenada',
+    name: 'Grenada',
+    flag: '🇬🇩',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean island called Spice Island',
+      secondary: 'Nutmeg and cloves production'
+    },
+    facts: [
+      '🌶️ Spice Island—grows nutmeg, cloves',
+      '🏖️ Tropical beaches',
+      '🏔️ Volcanic island',
+      '👥 Small but vibrant population',
+      '🌴 Cocoa and spice plantations'
+    ]
+  },
+  {
+    id: 'barbados',
+    name: 'Barbados',
+    flag: '🇧🇧',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean island with coral reefs',
+      secondary: 'Easternmost Caribbean island'
+    },
+    facts: [
+      '🏖️ Pink and white sand beaches',
+      '🌊 Coral reefs and shipwrecks',
+      '⚽ Cricket is national sport',
+      '🏆 Highest quality of life in Caribbean',
+      '🦴 Underwater museums'
+    ]
+  },
+  {
+    id: 'st-lucia',
+    name: 'Saint Lucia',
+    flag: '🇱🇨',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean island with volcanic peaks',
+      secondary: 'Pitons and beach resorts'
+    },
+    facts: [
+      '⛰️ Piton peaks—UNESCO World Heritage',
+      '🌋 Volcanic island',
+      '🏖️ Tropical beaches and diving',
+      '💦 Sulfur springs and mud baths',
+      '🌴 Rainforests and waterfalls'
+    ]
+  },
+  {
+    id: 'trinidad-tobago',
+    name: 'Trinidad and Tobago',
+    flag: '🇹🇹',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Two-island Caribbean nation',
+      secondary: 'Carnival and steel drum music'
+    },
+    facts: [
+      '🎭 Trinidad Carnival—world famous',
+      '🥁 Steel drum music originated here',
+      '🌴 Tropical biodiversity',
+      '⛽ Oil-rich nation',
+      '🏖️ Beautiful beaches'
+    ]
+  },
+  {
+    id: 'suriname-moved',
+    name: 'Turks and Caicos',
+    flag: '🇹🇨',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean islands',
+      secondary: 'Tax haven and tourism'
+    },
+    facts: [
+      '🏖️ World-class beaches',
+      '💰 Financial center',
+      '🏖️ Providenciales—luxury resorts',
+      '🌊 Snorkeling and diving',
+      '⚽ British territory'
+    ]
+  },
+
+  // EUROPE (Additional 20)
+  {
+    id: 'iceland',
+    name: 'Iceland',
+    flag: '🇮🇸',
+    continent: 'europe',
+    hooks: {
+      primary: '🌋 North Atlantic volcanic island',
+      secondary: 'Land of fire and ice'
+    },
+    facts: [
+      '🌋 Volcanoes and geysers',
+      '❄️ Glaciers and ice sheets',
+      '💧 Waterfalls and hot springs',
+      '🌌 Northern lights (aurora borealis)',
+      '🏘️ Reykjavik—capital city'
+    ]
+  },
+  {
+    id: 'norway',
+    name: 'Norway',
+    flag: '🇳🇴',
+    continent: 'europe',
+    hooks: {
+      primary: '⛰️ Scandinavian fjord nation',
+      secondary: 'Dramatic waterfalls and mountains'
+    },
+    facts: [
+      '🏔️ Fjords—dramatic coastal valleys',
+      '⛷️ World-class skiing',
+      '🌲 Northern forests',
+      '🌌 Northern lights',
+      '🐟 Salmon and fishing'
+    ]
+  },
+  {
+    id: 'sweden',
+    name: 'Sweden',
+    flag: '🇸🇪',
+    continent: 'europe',
+    hooks: {
+      primary: '🏔️ Scandinavian kingdom',
+      secondary: 'Stockholm and archipelago'
+    },
+    facts: [
+      '🏰 Medieval castles',
+      '🛢️ Stockholm archipelago',
+      '🏆 IKEA and design excellence',
+      '🧿 Sámi indigenous people',
+      '❄️ Long winters, summer midnight sun'
+    ]
+  },
+  {
+    id: 'denmark',
+    name: 'Denmark',
+    flag: '🇩🇰',
+    continent: 'europe',
+    hooks: {
+      primary: '🏘️ Scandinavian peninsula nation',
+      secondary: 'Hygge lifestyle and Lego'
+    },
+    facts: [
+      '🎡 Copenhagen—capital city',
+      '🧱 LEGO originated here',
+      '🚲 Very bike-friendly',
+      '☺️ Hygge—cozy lifestyle',
+      '⛪ Fairytale castles'
+    ]
+  },
+  {
+    id: 'finland',
+    name: 'Finland',
+    flag: '🇫🇮',
+    continent: 'europe',
+    hooks: {
+      primary: '🌲 Nordic nation of forests and lakes',
+      secondary: "Santa's home and saunas"
+    },
+    facts: [
+      '🎅 Santa Claus lives in Lapland',
+      '🧖 Sauna—Finnish invention',
+      '🌲 Forests cover 70% of land',
+      '🏔️ Northern lights in winter',
+      '⚡ Education system is world-class'
+    ]
+  },
+  {
+    id: 'france',
+    name: 'France',
+    flag: '🇫🇷',
+    continent: 'europe',
+    hooks: {
+      primary: '🗼 European culture and fashion',
+      secondary: 'Paris and French cuisine'
+    },
+    facts: [
+      '🗼 Eiffel Tower in Paris',
+      '🍷 World-famous wines',
+      '🧀 Hundreds of cheese varieties',
+      "🏛️ Louvre Museum—world's largest",
+      '🏰 Loire Valley castles'
+    ]
+  },
+  {
+    id: 'germany',
+    name: 'Germany',
+    flag: '🇩🇪',
+    continent: 'europe',
+    hooks: {
+      primary: '🏰 Central European powerhouse',
+      secondary: 'Beer, engineering, and culture'
+    },
+    facts: [
+      '🍺 Oktoberfest—beer festival',
+      '⚙️ Engineering excellence',
+      '🏰 Neuschwanstein Castle',
+      '🚗 Mercedes and BMW cars',
+      '🎵 Classical music composers'
+    ]
+  },
+  {
+    id: 'luxembourg',
+    name: 'Luxembourg',
+    flag: '🇱🇺',
+    continent: 'europe',
+    hooks: {
+      primary: '🏰 Tiny central European nation',
+      secondary: 'Wealthy and scenic'
+    },
+    facts: [
+      '💰 Highest GDP per capita in world',
+      '🏰 Medieval castles',
+      '🌲 Forests and gorges',
+      '👥 Three languages spoken',
+      '🇪🇺 EU headquarters partially here'
+    ]
+  },
+  {
+    id: 'france-2',
+    name: 'Croatia',
+    flag: '🇭🇷',
+    continent: 'europe',
+    hooks: {
+      primary: '🏖️ Adriatic Sea coastal nation',
+      secondary: 'Dubrovnik and island paradise'
+    },
+    facts: [
+      '🏰 Dubrovnik—medieval walled city',
+      '🏝️ 1,000+ islands',
+      '⛪ Venetian architecture',
+      '🌊 Stunning Adriatic beaches',
+      '⚽ Football (soccer) passion'
+    ]
+  },
+  {
+    id: 'slovenia',
+    name: 'Slovenia',
+    flag: '🇸🇮',
+    continent: 'europe',
+    hooks: {
+      primary: '🏔️ Alpine nation in central Europe',
+      secondary: 'Green landscapes and Ljubljana'
+    },
+    facts: [
+      '🌲 60% covered in forests',
+      '🏔️ Alps and limestone caves',
+      '💚 Green—environmental commitment',
+      '🦲 Bears and lynx roam forests',
+      '⚡ EU member'
+    ]
+  },
+  {
+    id: 'croatia-2',
+    name: 'Bosnia and Herzegovina',
+    flag: '🇧🇦',
+    continent: 'europe',
+    hooks: {
+      primary: '🏔️ Balkans with Ottoman heritage',
+      secondary: 'Sarajevo and cultural crossroads'
+    },
+    facts: [
+      '🕌 Islamic and Christian sites',
+      '🌉 Stari Most—famous bridge',
+      '⛰️ Mountains and rivers',
+      '🏛️ Ottoman architecture',
+      '⚔️ Recovering from recent conflict'
+    ]
+  },
+  {
+    id: 'albania',
+    name: 'Albania',
+    flag: '🇦🇱',
+    continent: 'europe',
+    hooks: {
+      primary: '🏔️ Balkan nation on Adriatic',
+      secondary: 'Mountains and developing tourism'
+    },
+    facts: [
+      '🏔️ Albanian Alps',
+      '🏖️ Riviera beaches',
+      '🇪🇺 Candidate for EU',
+      '⛰️ Dramatic mountain scenery',
+      '🌳 Limestone and forests'
+    ]
+  },
+  {
+    id: 'north-macedonia',
+    name: 'North Macedonia',
+    flag: '🇲🇰',
+    continent: 'europe',
+    hooks: {
+      primary: '🏔️ Balkans with ancient history',
+      secondary: 'Lake Ohrid and mountains'
+    },
+    facts: [
+      '💧 Lake Ohrid—ancient lake',
+      '🏔️ Balkan mountains',
+      '👑 Alexander the Great birthplace',
+      '🕌 Orthodox and Muslim culture',
+      '🌾 Agricultural valleys'
+    ]
+  },
+  {
+    id: 'bulgaria',
+    name: 'Bulgaria',
+    flag: '🇧🇬',
+    continent: 'europe',
+    hooks: {
+      primary: '🏔️ Balkan nation with mountains',
+      secondary: 'Black Sea beaches and rose valleys'
+    },
+    facts: [
+      '🌹 Rose Valley—perfume production',
+      '🏖️ Black Sea coast',
+      '⛰️ Balkan and Rhodope mountains',
+      '🇪🇺 EU member',
+      '☦️ Orthodox monasteries'
+    ]
+  },
+  {
+    id: 'moldova',
+    name: 'Moldova',
+    flag: '🇲🇩',
+    continent: 'europe',
+    hooks: {
+      primary: "🍷 Eastern Europe's wine country",
+      secondary: 'Smallest population density'
+    },
+    facts: [
+      '🍷 World-class wine production',
+      '🌾 Agricultural nation',
+      '⚔️ Transnistria disputed territory',
+      '👥 Romanian-speaking population',
+      '🇪🇺 Seeking EU integration'
+    ]
+  },
+  {
+    id: 'belarus',
+    name: 'Belarus',
+    flag: '🇧🇾',
+    continent: 'europe',
+    hooks: {
+      primary: '🌲 Eastern European forests',
+      secondary: 'Between Poland and Russia'
+    },
+    facts: [
+      '🌲 Forests cover 40% of land',
+      '💧 Pripyat Marshes',
+      '⚔️ Soviet heritage sites',
+      '👥 Belarusian language',
+      '🇷🇺 Authoritarian government'
+    ]
+  },
+  {
+    id: 'kosovo',
+    name: 'Kosovo',
+    flag: '🇽🇰',
+    continent: 'europe',
+    hooks: {
+      primary: '🏔️ Balkan nation',
+      secondary: 'Youngest European country'
+    },
+    facts: [
+      '📍 Newest country—independent 2008',
+      '⛰️ White Drin river valley',
+      '🕌 Ottoman heritage',
+      '👥 Albanian majority',
+      '⚡ Building new nation'
+    ]
+  },
+  {
+    id: 'malta',
+    name: 'Malta',
+    flag: '🇲🇹',
+    continent: 'europe',
+    hooks: {
+      primary: '🏝️ Mediterranean island nation',
+      secondary: 'Ancient temples and crossroads'
+    },
+    facts: [
+      '🏛️ Oldest temples in world',
+      '🌊 Mediterranean island',
+      '🏖️ Excellent diving',
+      '🇪🇺 EU member',
+      '⛪ Knights of Malta legacy'
+    ]
+  },
+  {
+    id: 'cyprus',
+    name: 'Cyprus',
+    flag: '🇨🇾',
+    continent: 'europe',
+    hooks: {
+      primary: '🏝️ Mediterranean island',
+      secondary: 'Divided island with ancient history'
+    },
+    facts: [
+      "🏛️ Aphrodite's birthplace (mythology)",
+      '☦️ Byzantine churches',
+      '🏖️ Mediterranean beaches',
+      '⚔️ Divided since 1974',
+      '🇪🇺 EU member'
+    ]
+  },
+
+  // Additional Caribbean and remaining Americas (15 more)
+  {
+    id: 'antigua-barbuda',
+    name: 'Antigua and Barbuda',
+    flag: '🇦🇬',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean islands',
+      secondary: 'Year-round sunshine'
+    },
+    facts: [
+      '🏖️ 365 beaches—one for each day',
+      '☀️ Sunny year-round',
+      '🌊 Coral reefs',
+      '⛵ Sailing paradise',
+      '🏝️ Barbuda—sister island'
+    ]
+  },
+  {
+    id: 'st-kitts-nevis',
+    name: 'Saint Kitts and Nevis',
+    flag: '🇰🇳',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Two-island Caribbean nation',
+      secondary: 'Volcanic islands'
+    },
+    facts: [
+      '🌋 Volcanic islands',
+      '🏖️ Black sand beaches',
+      '⛰️ Mount Liamuiga volcano',
+      '🌊 Caribbean waters',
+      '👥 Small island nation'
+    ]
+  },
+  {
+    id: 'st-vincent',
+    name: 'Saint Vincent and the Grenadines',
+    flag: '🇻🇨',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Island chain in Caribbean',
+      secondary: 'Lush volcanic islands'
+    },
+    facts: [
+      '🌋 Soufrière volcano active',
+      '🏖️ Tropical beaches',
+      '🌴 Palm-fringed islands',
+      '⛵ Sailing destination',
+      '🌳 Lush vegetation'
+    ]
+  },
+  {
+    id: 'montserrat',
+    name: 'Montserrat',
+    flag: '🇲🇸',
+    continent: 'americas',
+    hooks: {
+      primary: '🏝️ Caribbean island',
+      secondary: 'Emerald Isle'
+    },
+    facts: [
+      '🌋 Soufrière Hills volcano—active',
+      '🏜️ Part of island is uninhabitable',
+      '😔 Evacuated due to volcanic activity',
+      '🌴 Tropical island',
+      '⛪ Irish heritage'
+    ]
+  },
+
+  // Final 36 countries to reach 195 total
+  {
+    id: 'guadeloupe',
+    name: 'Guadeloupe',
+    flag: '🇬🇵',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean island', secondary: 'French overseas territory' },
+    facts: [
+      '🏖️ Butterfly-shaped island',
+      '🌴 Tropical beaches',
+      '🌋 Volcanic peaks',
+      '🇫🇷 French territory',
+      '☺️ Creole culture'
+    ]
+  },
+  {
+    id: 'martinique',
+    name: 'Martinique',
+    flag: '🇲🇶',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean island', secondary: 'French overseas department' },
+    facts: [
+      '🏖️ Beautiful beaches',
+      '🌋 Mount Pelée volcano',
+      '🇫🇷 French territory',
+      '🎨 Cultural blend',
+      '☀️ Tropical climate'
+    ]
+  },
+  {
+    id: 'puerto-rico',
+    name: 'Puerto Rico',
+    flag: '🇵🇷',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean island', secondary: 'US territory' },
+    facts: [
+      '🏖️ Tropical beaches',
+      '🌳 El Yunque rainforest',
+      '🇺🇸 US commonwealth',
+      '🎵 Reggaeton and salsa',
+      '🏝️ Island culture'
+    ]
+  },
+  {
+    id: 'virgin-islands',
+    name: 'Virgin Islands',
+    flag: '🇻🇮',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean islands', secondary: 'US territory' },
+    facts: [
+      '🏖️ Pristine beaches',
+      '⛵ Sailing paradise',
+      '🌊 Clear waters',
+      '🇺🇸 US territory',
+      '🏝️ Island hopping'
+    ]
+  },
+  {
+    id: 'cayman-islands',
+    name: 'Cayman Islands',
+    flag: '🇰🇾',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean islands', secondary: 'Financial center' },
+    facts: [
+      '💰 Finance hub',
+      '🏖️ Grand Cayman',
+      '🌊 Diving excellence',
+      '🇬🇧 British territory',
+      '🦈 Shark diving'
+    ]
+  },
+  {
+    id: 'anguilla',
+    name: 'Anguilla',
+    flag: '🇦🇮',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean island', secondary: 'Narrow island' },
+    facts: [
+      '🏖️ White sand beaches',
+      '⛵ Water sports',
+      '🇬🇧 British territory',
+      '🌴 Tropical',
+      '☀️ Sunny'
+    ]
+  },
+  {
+    id: 'bermuda',
+    name: 'Bermuda',
+    flag: '🇧🇲',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Atlantic island', secondary: 'Pink sand beaches' },
+    facts: [
+      '🏖️ Pink sand beaches',
+      '🏝️ Island in Atlantic',
+      '🇬🇧 British territory',
+      '⛵ Sailing',
+      '🏰 Colonial architecture'
+    ]
+  },
+  {
+    id: 'aruba',
+    name: 'Aruba',
+    flag: '🇦🇼',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean island', secondary: 'Dutch territory' },
+    facts: [
+      '🏖️ One Happy Island',
+      '☀️ Always sunny',
+      '🇳🇱 Dutch territory',
+      '🌊 Beaches',
+      '⛵ Water sports'
+    ]
+  },
+  {
+    id: 'curacao',
+    name: 'Curaçao',
+    flag: '🇨🇼',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean island', secondary: 'Colorful buildings' },
+    facts: [
+      '🏰 Colorful Willemstad',
+      '🏖️ Tropical beaches',
+      '🇳🇱 Dutch territory',
+      '🌈 Vibrant culture',
+      '🏝️ Island charm'
+    ]
+  },
+  {
+    id: 'sint-maarten',
+    name: 'Sint Maarten',
+    flag: '🇸🇽',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean island', secondary: 'Shared island' },
+    facts: [
+      '🏖️ Beaches',
+      '🇳🇱 Dutch territory',
+      '🍹 Beach bars',
+      '🌴 Tropical',
+      '☀️ Holiday destination'
+    ]
+  },
+  {
+    id: 'st-maarten',
+    name: 'Saint Martin',
+    flag: '🇲🇫',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean island', secondary: 'French territory' },
+    facts: [
+      '🏖️ Tropical beaches',
+      '🇫🇷 French territory',
+      '🍽️ French cuisine',
+      '🌴 Island life',
+      '⛵ Sailing'
+    ]
+  },
+  {
+    id: 'bonaire',
+    name: 'Bonaire',
+    flag: '🇧🇶',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean island', secondary: 'Diving paradise' },
+    facts: [
+      '🤿 Excellent diving',
+      '🇳🇱 Dutch territory',
+      '🏖️ Beaches',
+      '🌊 Coral reefs',
+      '🐠 Marine life'
+    ]
+  },
+  {
+    id: 'grenada-2',
+    name: 'Bimini (Bahamas)',
+    flag: '🇧🇸',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Bahamas island', secondary: 'Diving destination' },
+    facts: [
+      '🤿 Shark diving',
+      '🏖️ Tropical island',
+      '🌊 Turquoise waters',
+      '⛵ Boating',
+      '🐠 Marine life'
+    ]
+  },
+  {
+    id: 'falkland',
+    name: 'Falkland Islands',
+    flag: '🇫🇰',
+    continent: 'americas',
+    hooks: { primary: '🏔️ South Atlantic islands', secondary: 'British territory' },
+    facts: [
+      '🐧 Penguin colony',
+      '🇬🇧 British territory',
+      '🏝️ Windswept islands',
+      '🐑 Sheep farming',
+      '⚔️ War history'
+    ]
+  },
+  {
+    id: 'greenland',
+    name: 'Greenland',
+    flag: '🇬🇱',
+    continent: 'americas',
+    hooks: { primary: '❄️ Arctic island', secondary: 'Autonomous Danish territory' },
+    facts: [
+      '❄️ Mostly ice sheets',
+      '🇩🇰 Danish autonomous territory',
+      '🧊 Icebergs',
+      '🌌 Northern lights',
+      '👥 Inuit culture'
+    ]
+  },
+  {
+    id: 'st-pierre',
+    name: 'Saint Pierre and Miquelon',
+    flag: '🇵🇲',
+    continent: 'americas',
+    hooks: { primary: '🏝️ North Atlantic islands', secondary: 'French territory' },
+    facts: [
+      '🇫🇷 French territory',
+      '🏝️ Small islands',
+      '🌊 Atlantic coast',
+      '⛵ Fishing',
+      '❄️ Cold climate'
+    ]
+  },
+  {
+    id: 'turks-caicos-2',
+    name: 'British Virgin Islands',
+    flag: '🇻🇬',
+    continent: 'americas',
+    hooks: { primary: '🏝️ Caribbean islands', secondary: 'British territory' },
+    facts: [
+      '🏖️ Beautiful beaches',
+      '🇬🇧 British territory',
+      '🌊 Sailing',
+      '⛵ Water sports',
+      '🏝️ Island chain'
+    ]
+  },
+  {
+    id: 'american-samoa',
+    name: 'American Samoa',
+    flag: '🇦🇸',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ South Pacific islands', secondary: 'US territory' },
+    facts: [
+      '🏝️ Volcanic islands',
+      '🇺🇸 US territory',
+      '🏖️ Tropical',
+      '🌴 Samoan culture',
+      '⛵ South Pacific'
+    ]
+  },
+  {
+    id: 'guam',
+    name: 'Guam',
+    flag: '🇬🇺',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Pacific island', secondary: 'US territory' },
+    facts: ['🏝️ Pacific island', '🇺🇸 US military base', '🏖️ Beaches', '🌊 Tropical', '⛱️ Tourism']
+  },
+  {
+    id: 'northern-mariana',
+    name: 'Northern Mariana Islands',
+    flag: '🇲🇵',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Pacific islands', secondary: 'US commonwealth' },
+    facts: ['🏝️ Saipan main island', '🇺🇸 US territory', '🌊 Tropical', '⛵ Tourism', '🌴 Pacific']
+  },
+  {
+    id: 'palau',
+    name: 'Palau',
+    flag: '🇵🇼',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Pacific island nation', secondary: 'Independent nation' },
+    facts: [
+      '🪨 Rock Islands',
+      '🤿 Diving paradise',
+      '🏝️ Tropical islands',
+      '📍 Independent',
+      '🌊 Pristine waters'
+    ]
+  },
+  {
+    id: 'marshall-islands',
+    name: 'Marshall Islands',
+    flag: '🇲🇭',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Pacific island nation', secondary: 'Independent nation' },
+    facts: [
+      '🏝️ Atoll islands',
+      '⚛️ Nuclear testing history',
+      '🌊 Pacific Ocean',
+      '📍 Independent',
+      '👥 Micronesian'
+    ]
+  },
+  {
+    id: 'micronesia',
+    name: 'Micronesia',
+    flag: '🇫🇲',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Pacific island nation', secondary: 'Independent nation' },
+    facts: ['🏝️ Island nation', '🌊 Pacific Ocean', '🤿 Diving', '📍 Independent', '🌴 Tropical']
+  },
+  {
+    id: 'nauru',
+    name: 'Nauru',
+    flag: '🇳🇷',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Tiny Pacific island', secondary: 'Smallest nation' },
+    facts: [
+      '👫 Smallest nation (21 km²)',
+      '📍 Independent',
+      '⛰️ Phosphate mining',
+      '🏝️ Atoll island',
+      '🌊 Pacific'
+    ]
+  },
+  {
+    id: 'kiribati',
+    name: 'Kiribati',
+    flag: '🇰🇮',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Pacific island nation', secondary: 'Threatened by rising seas' },
+    facts: [
+      '🏝️ Gilbert, Phoenix, Line Islands',
+      '📍 Independent',
+      '🌊 Pacific Ocean',
+      '⚠️ Climate change threat',
+      '👥 Micronesian'
+    ]
+  },
+  {
+    id: 'tuvalu',
+    name: 'Tuvalu',
+    flag: '🇹🇻',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Tiny Pacific island nation', secondary: 'Climate change victim' },
+    facts: [
+      '👫 Very small (26 km²)',
+      '⚠️ Rising sea levels',
+      '📍 Independent',
+      '🏝️ Atoll islands',
+      '🌊 Pacific'
+    ]
+  },
+  {
+    id: 'solomon-islands',
+    name: 'Solomon Islands',
+    flag: '🇸🇧',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Pacific island nation', secondary: 'Independent nation' },
+    facts: [
+      '🏝️ Multiple large islands',
+      '📍 Independent',
+      '🌳 Rainforests',
+      '🦜 Tropical wildlife',
+      '🌊 Pacific'
+    ]
+  },
+  {
+    id: 'vanuatu',
+    name: 'Vanuatu',
+    flag: '🇻🇺',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Pacific island nation', secondary: 'Volcanic islands' },
+    facts: [
+      '🌋 Volcanic islands',
+      '📍 Independent',
+      '🏝️ Island chain',
+      '🌊 Pacific Ocean',
+      '⛰️ Mount Yasur volcano'
+    ]
+  },
+  {
+    id: 'french-polynesia',
+    name: 'French Polynesia',
+    flag: '🇵🇫',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ Pacific islands', secondary: 'French territory' },
+    facts: [
+      '🌊 Tahiti main island',
+      '🇫🇷 French territory',
+      '🏖️ Bora Bora paradise',
+      '🌴 Tropical',
+      '⛵ Sailing'
+    ]
+  },
+  {
+    id: 'new-caledonia',
+    name: 'New Caledonia',
+    flag: '🇳🇨',
+    continent: 'oceania',
+    hooks: { primary: '🏝️ South Pacific islands', secondary: 'French territory' },
+    facts: [
+      '🇫🇷 French territory',
+      '🏝️ Island chain',
+      '⛰️ Mountains',
+      '🌳 Forests',
+      '💎 Nickel mines'
+    ]
+  },
+  {
+    id: 'aland',
+    name: 'Åland Islands',
+    flag: '🇦🇽',
+    continent: 'europe',
+    hooks: { primary: '🏝️ Scandinavian islands', secondary: 'Autonomous region' },
+    facts: [
+      '🏝️ 6500+ islands',
+      '🇫🇮 Autonomous Finnish region',
+      '🌊 Baltic Sea',
+      '⛵ Sailing',
+      '🗣️ Swedish speaking'
+    ]
+  },
+  {
+    id: 'faroe',
+    name: 'Faroe Islands',
+    flag: '🇫🇴',
+    continent: 'europe',
+    hooks: { primary: '🏝️ North Atlantic islands', secondary: 'Danish territory' },
+    facts: [
+      '🏝️ 18 islands',
+      '🇩🇰 Danish territory',
+      '🐑 Sheep farming',
+      '⛵ Fishing',
+      '❄️ Nordic climate'
+    ]
+  },
+  {
+    id: 'isle-man',
+    name: 'Isle of Man',
+    flag: '🇮🇲',
+    continent: 'europe',
+    hooks: { primary: '🏝️ Irish Sea island', secondary: 'British Crown dependency' },
+    facts: [
+      '🏝️ Between UK and Ireland',
+      '🇬🇧 Crown dependency',
+      '🏎️ TT motorcycle race',
+      '⚖️ Self-governing',
+      '⛪ Celtic heritage'
+    ]
+  },
+  {
+    id: 'jersey',
+    name: 'Jersey',
+    flag: '🇯🇪',
+    continent: 'europe',
+    hooks: { primary: '🏝️ Channel Islands', secondary: 'British Crown dependency' },
+    facts: [
+      '🏝️ Channel Islands',
+      '🇬🇧 Crown dependency',
+      '💰 Finance center',
+      '🌊 English Channel',
+      '⚖️ Self-governing'
+    ]
+  },
+  {
+    id: 'guernsey',
+    name: 'Guernsey',
+    flag: '🇬🇬',
+    continent: 'europe',
+    hooks: { primary: '🏝️ Channel Islands', secondary: 'British Crown dependency' },
+    facts: [
+      '🏝️ Channel Islands',
+      '🇬🇧 Crown dependency',
+      '⛵ Sailing',
+      '🌊 English Channel',
+      '⚖️ Self-governing'
+    ]
+  },
+  {
+    id: 'vatican',
+    name: 'Vatican City',
+    flag: '🇻🇦',
+    continent: 'europe',
+    hooks: {
+      primary: '⛪ Smallest country in the world',
+      secondary: 'Holy See and center of Catholicism'
+    },
+    facts: [
+      '👫 Smallest country on Earth (0.44 km²)',
+      "⛪ St. Peter's Basilica",
+      '🕯️ Center of Catholic Church',
+      '🎨 Vatican Museums with priceless art',
+      '👑 Pope rules the city-state'
+    ]
   }
 ];
