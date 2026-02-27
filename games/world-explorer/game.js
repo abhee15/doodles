@@ -456,6 +456,15 @@ function renderCountryDetail(countryId) {
     toggleFavorite(countryId);
   };
 
+  // Attach quiz button listener
+  const quizBtn = document.getElementById('quiz-btn');
+  if (quizBtn) {
+    quizBtn.onclick = e => {
+      e.preventDefault();
+      startQuiz(countryId);
+    };
+  }
+
   // Render continent location map
   renderContinentLocationMap(country);
 
@@ -1248,6 +1257,375 @@ function loadProgress() {
   }
 
   updateNavMeta();
+}
+
+/**
+ * Generate quiz questions for a country (Multiple choice, Memory, Fill-in-the-blank)
+ */
+function generateQuizQuestions(countryId) {
+  const country = findCountryById(countryId);
+  if (!country || !country.facts || country.facts.length < 3) {
+    return null;
+  }
+
+  const questions = [];
+
+  // Question 1: Multiple Choice
+  if (country.facts.length >= 3) {
+    const correctFact = country.facts[0];
+    const wrongAnswers = country.facts.slice(1, 3);
+    const otherCountries = COUNTRIES.filter(c => c.id !== countryId && c.facts).slice(0, 2);
+    const allWrong = [...wrongAnswers, ...otherCountries.flatMap(c => c.facts.slice(0, 1))].slice(
+      0,
+      3
+    );
+
+    questions.push({
+      type: 'multiple-choice',
+      question: `Which of these is a fact about ${country.name}?`,
+      correct: correctFact,
+      options: shuffle([correctFact, ...allWrong.slice(0, 3)])
+    });
+  }
+
+  // Question 2: Memory Matching
+  if (country.facts.length >= 4) {
+    const facts = country.facts.slice(0, 4);
+    const descriptions = facts.map(f => `${f.replace(/[\d\s]+/g, '__').substring(0, 40)}...`);
+    questions.push({
+      type: 'memory',
+      question: `Match these facts about ${country.name}`,
+      facts: facts,
+      descriptions: shuffle(descriptions),
+      pairs: facts.map((f, i) => ({
+        fact: f,
+        description:
+          descriptions[
+            descriptions.indexOf(descriptions.find(d => f.includes(d.slice(0, 10)))) || 0
+          ]
+      }))
+    });
+  }
+
+  // Question 3: Fill in the Blank
+  if (country.facts.length >= 2) {
+    const fact = country.facts[1];
+    const words = fact.split(' ');
+    const blankIndex = Math.floor(Math.random() * Math.max(1, words.length - 2)) + 1;
+    const correctWord = words[blankIndex];
+    const blankedFact = [
+      ...words.slice(0, blankIndex),
+      '____',
+      ...words.slice(blankIndex + 1)
+    ].join(' ');
+
+    questions.push({
+      type: 'fill-blank',
+      question: `Fill in the blank about ${country.name}:`,
+      sentence: blankedFact,
+      correct: correctWord,
+      hint: `The word starts with '${correctWord[0]}'`
+    });
+  }
+
+  // Question 4: Multiple Choice (Culture/Cities)
+  if (country.cities || country.culture) {
+    const capital = country.cities?.capital || 'Unknown';
+    const wrongCapitals = COUNTRIES.filter(c => c.id !== countryId && c.cities?.capital)
+      .map(c => c.cities.capital)
+      .slice(0, 3);
+
+    questions.push({
+      type: 'multiple-choice',
+      question: `What is the capital of ${country.name}?`,
+      correct: capital,
+      options: shuffle([capital, ...wrongCapitals])
+    });
+  }
+
+  // Question 5: True/False style Fill-blank
+  if (country.facts.length >= 3) {
+    const fact = country.facts[2];
+    const words = fact.split(' ');
+    const modifiedWord = words[Math.floor(Math.random() * words.length)];
+    const fakeFact = fact.replace(modifiedWord, '🤔');
+
+    questions.push({
+      type: 'fill-blank',
+      question: `What word should replace the 🤔 in this ${country.name} fact?`,
+      sentence: fakeFact,
+      correct: modifiedWord,
+      hint: `The word is '${modifiedWord}'`
+    });
+  }
+
+  return questions.slice(0, 5); // Return up to 5 questions
+}
+
+/**
+ * Start country knowledge quiz
+ */
+function startQuiz(countryId) {
+  const country = findCountryById(countryId);
+  if (!country) {
+    return;
+  }
+
+  const questions = generateQuizQuestions(countryId);
+  if (!questions || questions.length === 0) {
+    alert('Not enough information about this country yet. Try another one!');
+    return;
+  }
+
+  gameState.currentQuiz = {
+    countryId,
+    questions,
+    currentQuestion: 0,
+    answers: [],
+    score: 0
+  };
+
+  goToScreen('quiz', { countryId });
+  renderQuiz();
+}
+
+/**
+ * Render current quiz question
+ */
+function renderQuiz() {
+  const quiz = gameState.currentQuiz;
+  if (!quiz || quiz.currentQuestion >= quiz.questions.length) {
+    showQuizResults();
+    return;
+  }
+
+  const question = quiz.questions[quiz.currentQuestion];
+  const country = findCountryById(quiz.countryId);
+  const progress = quiz.currentQuestion + 1;
+
+  let html = `
+    <div class="quiz-header">
+      <h2>${country.flag} ${country.name} Knowledge Quiz</h2>
+      <p class="quiz-progress">Question ${progress} of ${quiz.questions.length}</p>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" style="width: ${(progress / quiz.questions.length) * 100}%"></div>
+      </div>
+    </div>
+
+    <div class="question-container">
+      <span class="question-type-badge">${question.type === 'multiple-choice' ? '🎯 Multiple Choice' : question.type === 'memory' ? '🧠 Memory Match' : '✏️ Fill in Blank'}</span>
+      <p class="question-text">${question.question}</p>
+  `;
+
+  if (question.type === 'multiple-choice') {
+    html += `
+      <div class="quiz-options">
+        ${question.options
+          .map(
+            (option, idx) => `
+          <label class="quiz-option" data-index="${idx}">
+            <input type="radio" name="answer" value="${idx}" />
+            ${option}
+          </label>
+        `
+          )
+          .join('')}
+      </div>
+    `;
+  } else if (question.type === 'fill-blank') {
+    html += `
+      <p style="font-size: 14px; color: var(--dom-text-muted); margin-bottom: 12px;">${question.sentence}</p>
+      <input type="text" class="fill-blank-input" id="blank-answer" placeholder="Type the missing word..." />
+      <p style="font-size: 12px; color: var(--dom-text-muted); margin-top: 8px;">💡 ${question.hint}</p>
+    `;
+  }
+
+  html += `
+    <div class="quiz-actions">
+      <button class="dom-btn dom-btn--secondary" id="skip-btn"><i class="ti ti-arrow-left"></i> Back</button>
+      <button class="dom-btn dom-btn--primary" id="submit-btn"><i class="ti ti-check"></i> Check Answer</button>
+    </div>
+  `;
+
+  document.getElementById('quiz-container').innerHTML = html;
+
+  // Attach event listeners
+  document.getElementById('skip-btn').addEventListener('click', goBack);
+  document.getElementById('submit-btn').addEventListener('click', submitAnswer);
+
+  if (question.type === 'multiple-choice') {
+    document.querySelectorAll('.quiz-option').forEach(option => {
+      option.addEventListener('click', function () {
+        document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+        this.classList.add('selected');
+        this.querySelector('input').checked = true;
+      });
+    });
+  } else if (question.type === 'fill-blank') {
+    document.getElementById('blank-answer').addEventListener('keypress', e => {
+      if (e.key === 'Enter') {
+        submitAnswer();
+      }
+    });
+  }
+}
+
+/**
+ * Submit quiz answer and check correctness
+ */
+function submitAnswer() {
+  const quiz = gameState.currentQuiz;
+  const question = quiz.questions[quiz.currentQuestion];
+  let isCorrect = false;
+
+  if (question.type === 'multiple-choice') {
+    const selected = document.querySelector('input[name="answer"]:checked');
+    if (!selected) {
+      alert('Please select an answer!');
+      return;
+    }
+    const selectedIndex = parseInt(selected.value);
+    const selectedAnswer = question.options[selectedIndex];
+    isCorrect = selectedAnswer === question.correct;
+    quiz.answers.push({ answer: selectedAnswer, correct: isCorrect });
+  } else if (question.type === 'fill-blank') {
+    const userAnswer = document.getElementById('blank-answer').value.trim().toLowerCase();
+    isCorrect = userAnswer === question.correct.toLowerCase();
+    quiz.answers.push({ answer: userAnswer, correct: isCorrect });
+
+    if (!isCorrect) {
+      alert(`Not quite! The answer is: ${question.correct}`);
+    }
+  }
+
+  if (isCorrect) {
+    quiz.score++;
+    showFeedback('✅ Correct!', 'var(--color-success)');
+  } else {
+    showFeedback('❌ Try again!', '#f44336');
+  }
+
+  setTimeout(() => {
+    quiz.currentQuestion++;
+    renderQuiz();
+  }, 1500);
+}
+
+/**
+ * Show answer feedback
+ */
+function showFeedback(message, color) {
+  const feedback = document.createElement('div');
+  feedback.style.cssText = `
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: ${color};
+    color: white;
+    padding: 20px 40px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    z-index: 9999;
+    animation: popIn 0.3s ease-out;
+  `;
+  feedback.textContent = message;
+
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes popIn {
+      0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+  `;
+  if (!document.querySelector('style[data-quiz-feedback]')) {
+    style.setAttribute('data-quiz-feedback', 'true');
+    document.head.appendChild(style);
+  }
+
+  document.body.appendChild(feedback);
+  setTimeout(() => feedback.remove(), 1200);
+}
+
+/**
+ * Show quiz results
+ */
+function showQuizResults() {
+  const quiz = gameState.currentQuiz;
+  const percentage = Math.round((quiz.score / quiz.questions.length) * 100);
+  const isPerfect = percentage === 100;
+
+  let message = '';
+  let emoji = '';
+  if (percentage === 100) {
+    message = '🏆 Perfect Score!';
+    emoji = '👑';
+  } else if (percentage >= 80) {
+    message = '🌟 Excellent!';
+    emoji = '⭐';
+  } else if (percentage >= 60) {
+    message = '👍 Good Job!';
+    emoji = '😊';
+  } else {
+    message = '💪 Keep Learning!';
+    emoji = '📚';
+  }
+
+  let html = `
+    <div class="quiz-results">
+      <div style="font-size: 64px; margin-bottom: 12px;">${emoji}</div>
+      <div class="results-score">${percentage}%</div>
+      <div class="results-message">${message}</div>
+      <div class="results-details">You got ${quiz.score} out of ${quiz.questions.length} questions correct!</div>
+  `;
+
+  if (isPerfect) {
+    html += '<div class="results-badge">🏆 Quiz Master!</div>';
+  }
+
+  html += `
+      <button class="dom-btn dom-btn--primary" id="finish-quiz-btn" style="margin-top: 20px;">
+        <i class="ti ti-arrow-left"></i> Back to Country
+      </button>
+    </div>
+  `;
+
+  document.getElementById('quiz-container').innerHTML = html;
+  document.getElementById('finish-quiz-btn').addEventListener('click', () => {
+    goToScreen('country', { countryId: quiz.countryId });
+    gameState.currentQuiz = null;
+  });
+
+  // Check for achievement: Perfect quiz score
+  if (isPerfect) {
+    showAchievementNotification({
+      name: '🎓 Quiz Master',
+      description: 'Perfect score on a country knowledge quiz!'
+    });
+  }
+}
+
+/**
+ * Go back from quiz
+ */
+function goBack() {
+  if (gameState.currentQuiz) {
+    goToScreen('country', { countryId: gameState.currentQuiz.countryId });
+    gameState.currentQuiz = null;
+  }
+}
+
+/**
+ * Shuffle array
+ */
+function shuffle(array) {
+  const arr = [...array];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
 }
 
 /**
