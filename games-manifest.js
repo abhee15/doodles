@@ -283,3 +283,9 @@ const GAMES = [
     footerName: 'Brain Spark'
   }
 ];
+
+// Make available to other scripts (landing pages, portal, etc.)
+// eslint-disable-next-line no-undef
+window.CATEGORIES = CATEGORIES;
+// eslint-disable-next-line no-undef
+window.GAMES = GAMES;

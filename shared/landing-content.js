@@ -431,3 +431,7 @@ const LANDING_CONTENT = {
     ]
   }
 };
+
+// Make available to other scripts (landing pages, portal, etc.)
+// eslint-disable-next-line no-undef
+window.LANDING_CONTENT = LANDING_CONTENT;
