@@ -292,12 +292,24 @@
         font-size: 18px;
         font-weight: 700;
         color: var(--dom-text);
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
 
       .country-card-hook {
         font-size: 14px;
         color: var(--dom-text-muted);
         line-height: 1.4;
+        margin: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
 
       /* ══════════════════════════════════════════════════
@@ -466,6 +478,7 @@
 
         .country-card {
           padding: 12px;
+          min-height: 150px;
         }
 
         .country-card-flag {
@@ -474,6 +487,10 @@
 
         .country-card-name {
           font-size: 14px;
+        }
+
+        .country-card-hook {
+          flex-grow: 1;
         }
 
         .fact {
@@ -520,6 +537,7 @@
 
         .country-card {
           padding: 10px;
+          min-height: 140px;
         }
 
         .country-card-flag {
@@ -532,6 +550,7 @@
 
         .country-card-hook {
           font-size: 12px;
+          flex-grow: 1;
         }
 
         .fact {
