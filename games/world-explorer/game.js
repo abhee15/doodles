@@ -346,6 +346,153 @@ function getRecommendations(countryId) {
 }
 
 /**
+ * Get SVG visualization for a landmark
+ */
+function getLandmarkSVG(landmarkName) {
+  const svgs = {
+    'Statue of Liberty': `
+      <svg viewBox="0 0 200 300" style="width: 120px; height: 180px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+        <defs>
+          <linearGradient id="torchGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+            <stop offset="100%" style="stop-color:#FFA500;stop-opacity:1" />
+          </linearGradient>
+        </defs>
+        <!-- Base/Pedestal -->
+        <path d="M 60 200 L 50 240 L 150 240 L 140 200 Z" fill="#8B7355" />
+        <rect x="50" y="240" width="100" height="30" fill="#696969" />
+        <!-- Robe -->
+        <path d="M 70 120 Q 60 140 65 200 L 135 200 Q 140 140 130 120 Z" fill="#4CAF50" />
+        <!-- Body -->
+        <circle cx="100" cy="90" r="20" fill="#D4A574" />
+        <!-- Head -->
+        <circle cx="100" cy="50" r="18" fill="#D4A574" />
+        <!-- Crown -->
+        <path d="M 85 32 L 88 20 L 100 15 L 112 20 L 115 32" fill="#FFD700" />
+        <!-- Torch Arm -->
+        <line x1="115" y1="85" x2="145" y2="60" stroke="#D4A574" stroke-width="8" />
+        <!-- Torch Flame -->
+        <ellipse cx="150" cy="55" rx="12" ry="20" fill="url(#torchGrad)" style="animation: flicker 0.8s infinite;" />
+      </svg>
+    `,
+    'Grand Canyon': `
+      <svg viewBox="0 0 200 200" style="width: 140px; height: 140px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+        <!-- Sky -->
+        <rect width="200" height="80" fill="#87CEEB" />
+        <!-- Canyon layers -->
+        <path d="M 0 80 Q 50 120 100 140 Q 150 120 200 80 L 200 110 L 0 110 Z" fill="#CD7F32" />
+        <path d="M 0 110 Q 50 140 100 160 Q 150 140 200 110 L 200 140 L 0 140 Z" fill="#8B4513" />
+        <path d="M 0 140 Q 50 160 100 180 Q 150 160 200 140 L 200 200 L 0 200 Z" fill="#654321" />
+        <!-- River -->
+        <path d="M 95 140 Q 100 155 105 180" stroke="#4A90E2" stroke-width="3" fill="none" />
+        <!-- Sun -->
+        <circle cx="160" cy="30" r="15" fill="#FFD700" />
+      </svg>
+    `,
+    'Pyramids of Giza': `
+      <svg viewBox="0 0 220 200" style="width: 140px; height: 130px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+        <!-- Sky -->
+        <rect width="220" height="100" fill="#87CEEB" />
+        <!-- Sand -->
+        <rect y="100" width="220" height="100" fill="#F4A460" />
+        <!-- Great Pyramid -->
+        <path d="M 60 180 L 110 60 L 160 180 Z" fill="#DAA520" stroke="#B8860B" stroke-width="1" />
+        <!-- Middle Pyramid -->
+        <path d="M 90 180 L 130 90 L 170 180 Z" fill="#CD853F" stroke="#8B4513" stroke-width="1" />
+        <!-- Small Pyramid -->
+        <path d="M 130 180 L 155 120 L 180 180 Z" fill="#C19A6B" stroke="#8B7355" stroke-width="1" />
+        <!-- Stars hint -->
+        <circle cx="30" cy="30" r="1.5" fill="#FFD700" />
+        <circle cx="50" cy="20" r="1.5" fill="#FFD700" />
+      </svg>
+    `,
+    'Mount Fuji': `
+      <svg viewBox="0 0 200 240" style="width: 100px; height: 140px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+        <!-- Sky -->
+        <rect width="200" height="120" fill="#FFB6C1" />
+        <!-- Clouds -->
+        <ellipse cx="50" cy="60" rx="30" ry="15" fill="#FFF" opacity="0.7" />
+        <ellipse cx="150" cy="80" rx="25" ry="12" fill="#FFF" opacity="0.7" />
+        <!-- Mountain -->
+        <path d="M 40 120 L 100 40 L 160 120 Z" fill="#8B4513" />
+        <!-- Snow cap -->
+        <path d="M 100 40 L 95 60 L 105 60 Z" fill="#FFF" />
+        <!-- Foothills -->
+        <path d="M 20 120 Q 70 140 200 120 L 200 240 L 0 240 Z" fill="#228B22" />
+      </svg>
+    `,
+    Sphinx: `
+      <svg viewBox="0 0 200 150" style="width: 140px; height: 110px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+        <!-- Sand -->
+        <rect y="80" width="200" height="70" fill="#F4A460" />
+        <!-- Body (Lion) -->
+        <ellipse cx="100" cy="95" rx="50" ry="30" fill="#DAA520" stroke="#8B4513" stroke-width="1" />
+        <!-- Head (Human) -->
+        <circle cx="100" cy="60" r="20" fill="#D4A574" />
+        <!-- Headdress -->
+        <path d="M 85 40 L 80 35 L 120 35 L 115 40 Q 100 45 85 40" fill="#FFD700" />
+        <!-- Nose notch (characteristic of Sphinx) -->
+        <rect x="98" y="65" width="4" height="10" fill="#8B4513" />
+        <!-- Beard hint -->
+        <line x1="100" y1="75" x2="100" y2="82" stroke="#8B4513" stroke-width="2" />
+      </svg>
+    `,
+    'Mount Everest': `
+      <svg viewBox="0 0 200 240" style="width: 100px; height: 140px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+        <!-- Sky -->
+        <rect width="200" height="120" fill="#87CEEB" />
+        <!-- Back mountain -->
+        <path d="M 20 150 L 100 80 L 180 150 Z" fill="#696969" />
+        <!-- Main mountain (Everest) -->
+        <path d="M 50 150 L 100 30 L 150 150 Z" fill="#2F4F4F" />
+        <!-- Snow -->
+        <path d="M 100 30 L 92 60 L 108 60 Z" fill="#FFF" />
+        <path d="M 100 30 L 85 100 L 115 100 Z" fill="#F0F8FF" />
+        <!-- Foothills -->
+        <path d="M 0 150 L 200 150 L 200 240 L 0 240 Z" fill="#8B4513" />
+        <!-- Prayer flag -->
+        <rect x="145" y="90" width="2" height="20" fill="#8B4513" />
+        <path d="M 147 90 L 157 88 L 157 100 Z" fill="#FF6B6B" />
+      </svg>
+    `,
+    Colosseum: `
+      <svg viewBox="0 0 200 180" style="width: 140px; height: 130px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+        <!-- Ground -->
+        <rect y="140" width="200" height="40" fill="#8B7355" />
+        <!-- Outer wall (arches) -->
+        <ellipse cx="100" cy="100" rx="60" ry="50" fill="#DAA520" stroke="#8B4513" stroke-width="2" />
+        <!-- Inner arena -->
+        <ellipse cx="100" cy="100" rx="40" ry="35" fill="#654321" />
+        <!-- Arches visualization -->
+        <circle cx="70" cy="70" r="6" fill="#8B4513" />
+        <circle cx="100" cy="60" r="6" fill="#8B4513" />
+        <circle cx="130" cy="70" r="6" fill="#8B4513" />
+        <circle cx="70" cy="110" r="6" fill="#8B4513" />
+        <circle cx="130" cy="110" r="6" fill="#8B4513" />
+        <!-- Damaged section -->
+        <path d="M 155 85 L 175 90 L 170 120" fill="none" stroke="#696969" stroke-width="2" />
+      </svg>
+    `
+  };
+
+  // Return SVG if exists, otherwise return a generic landmark icon
+  if (svgs[landmarkName]) {
+    return svgs[landmarkName];
+  }
+
+  // Fallback generic landmark SVG
+  return `
+    <svg viewBox="0 0 200 200" style="width: 120px; height: 120px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));">
+      <rect width="200" height="200" fill="#f0f0f0" rx="8" />
+      <rect x="40" y="80" width="30" height="80" fill="#8B4513" />
+      <rect x="80" y="60" width="30" height="100" fill="#8B4513" />
+      <rect x="120" y="80" width="30" height="80" fill="#8B4513" />
+      <text x="100" y="180" font-size="24" text-anchor="middle" fill="#666">📍</text>
+    </svg>
+  `;
+}
+
+/**
  * Get all landmarks from all countries (for Landmark Hunt)
  */
 function getAllLandmarks() {
@@ -392,8 +539,15 @@ function renderLandmarkHunt() {
 
   // Render quiz
   const quest = document.getElementById('landmark-quest');
+
+  // Get SVG landmark visualization
+  const landmarkSVG = getLandmarkSVG(landmark.name);
+
   quest.innerHTML = `
     <div style="margin-bottom: 32px;">
+      <div style="text-align: center; margin-bottom: 24px; height: 200px; display: flex; align-items: center; justify-content: center;">
+        ${landmarkSVG}
+      </div>
       <h3 style="text-align: center; margin-bottom: 12px;">${landmark.name}</h3>
       <p style="text-align: center; color: var(--dom-text-muted); margin-bottom: 20px;">${landmark.desc}</p>
       <p style="text-align: center; font-size: 13px; color: var(--dom-text-muted);">Which country is this landmark in?</p>
