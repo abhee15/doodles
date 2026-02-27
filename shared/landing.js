@@ -275,7 +275,7 @@
     // Grade pills (only on category pages, not grade pages)
     if (!gradeLabel && heroContent.grades && heroContent.grades.length > 0) {
       html += '<div class="lp-grade-nav">';
-      html += '<h2>Browse by Grade</h2>';
+      html += '<h2><i class="ti ti-school"></i> Browse by Grade</h2>';
       html += '<div class="lp-grade-pills">';
       heroContent.grades.forEach(function (grade) {
         html += `<a href="${grade.slug}/index.html" class="lp-grade-pill">${grade.label}</a>`;
@@ -286,7 +286,7 @@
 
     // Games section
     html += '<section class="lp-games">';
-    html += `<h2>All ${cat.label} Games</h2>`;
+    html += `<h2><i class="ti ti-gamepad-2"></i> All ${cat.label} Games</h2>`;
     html += '<div class="cards-row">';
     games.forEach(function (game) {
       html += buildGameCard(game);
@@ -297,7 +297,7 @@
     // Why It Works section
     if (heroContent.whyItWorks) {
       html += '<section class="lp-detail">';
-      html += `<h2>${heroContent.whyItWorks.heading}</h2>`;
+      html += `<h2><i class="ti ti-lightbulb"></i> ${heroContent.whyItWorks.heading}</h2>`;
       (heroContent.whyItWorks.paragraphs || []).forEach(function (para) {
         html += `<p>${para}</p>`;
       });
@@ -323,7 +323,7 @@
     // FAQ section
     if (heroContent.faqs && heroContent.faqs.length > 0) {
       html += '<section class="lp-faq">';
-      html += '<h2>Frequently Asked Questions</h2>';
+      html += '<h2><i class="ti ti-help-circle"></i> Frequently Asked Questions</h2>';
       heroContent.faqs.forEach(function (item) {
         html += '<details class="lp-faq-item">';
         html += `<summary class="lp-faq-q">${item.q}</summary>`;
