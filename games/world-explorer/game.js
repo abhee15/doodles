@@ -422,7 +422,8 @@ function renderCountryDetail(countryId) {
   // Render hero section with flag, name, hook, facts
   const heroEl = document.getElementById('detail-hero');
   heroEl.innerHTML = `
-    <h1>${country.flag} ${country.name}</h1>
+    <h1>${country.name}</h1>
+    <div class="country-detail-flag">${country.flag}</div>
     <p class="secondary-hook">${country.hooks.secondary}</p>
 
     <div class="facts-list">
