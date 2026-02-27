@@ -466,12 +466,18 @@
     const content = window.LANDING_CONTENT || {};
 
     if (!config.categoryId) {
-      console.error('LANDING_CONFIG.categoryId is required');
+      console.error('❌ LANDING_CONFIG.categoryId is required');
+      return false;
+    }
+
+    if (!window.GAMES) {
+      console.error('❌ GAMES manifest not loaded');
       return false;
     }
 
     if (!content[config.categoryId]) {
-      console.error(`No content found for category: ${config.categoryId}`);
+      console.error(`❌ No content found for category: ${config.categoryId}`);
+      console.warn('Available categories:', Object.keys(content));
       return false;
     }
 
@@ -479,23 +485,74 @@
   }
 
   /**
-   * Initialize on DOM ready
+   * Show error message if validation fails
    */
-  document.addEventListener('DOMContentLoaded', function () {
+  function showError(message) {
+    const root = document.documentElement;
+    const article = root.querySelector('.lp-article');
+    if (article) {
+      article.innerHTML = `
+        <div style="padding: 40px 20px; text-align: center; color: #d32f2f;">
+          <h2>⚠️ Page Error</h2>
+          <p>${message}</p>
+          <p style="font-size: 13px; color: #666; margin-top: 16px;">
+            Please try refreshing the page or <a href="../../index.html" style="color: #1976d2;">return to home</a>
+          </p>
+        </div>
+      `;
+    }
+  }
+
+  /**
+   * Initialize on DOM ready with retry logic for script loading
+   */
+  function initializeLanding() {
     if (!validate()) {
+      showError(
+        'Content failed to load. Some scripts may not have loaded correctly. ' +
+          'This sometimes happens on slow connections. Try refreshing the page.'
+      );
       return;
     }
 
-    const config = window.LANDING_CONFIG || {};
-    const root = document.documentElement;
+    try {
+      const config = window.LANDING_CONFIG || {};
+      const root = document.documentElement;
 
-    injectThumbStyles();
+      injectThumbStyles();
 
-    const games = getGamesForPage();
-    renderNavbar(root);
-    renderHero(root, config.categoryId, config.gradeLabel || null);
-    renderArticle(root, config.categoryId, config.gradeLabel || null, games);
-    renderFooter(root);
-    injectJsonLd(config.categoryId, config.gradeLabel || null, games);
+      const games = getGamesForPage();
+      renderNavbar(root);
+      renderHero(root, config.categoryId, config.gradeLabel || null);
+      renderArticle(root, config.categoryId, config.gradeLabel || null, games);
+      renderFooter(root);
+      injectJsonLd(config.categoryId, config.gradeLabel || null, games);
+
+      console.log('✅ Landing page initialized successfully');
+    } catch (error) {
+      console.error('❌ Error initializing landing page:', error);
+      showError('An error occurred while loading the page. Please refresh and try again.');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Try immediately
+    if (!validate()) {
+      // If validation fails, wait up to 2 seconds for scripts to load
+      let retries = 0;
+      const maxRetries = 20; // 20 * 100ms = 2 seconds
+
+      const retryInit = setInterval(function () {
+        retries++;
+        console.log(`Retry ${retries}/${maxRetries}: Waiting for scripts to load...`);
+
+        if (validate() || retries >= maxRetries) {
+          clearInterval(retryInit);
+          initializeLanding();
+        }
+      }, 100);
+    } else {
+      initializeLanding();
+    }
   });
 })();
