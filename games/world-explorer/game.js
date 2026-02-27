@@ -456,6 +456,12 @@ function renderCountryDetail(countryId) {
     toggleFavorite(countryId);
   };
 
+  // Render continent location map
+  renderContinentLocationMap(country);
+
+  // Render organized fact tabs
+  renderDetailTabs(country);
+
   // Render recommendations (geographic neighbors)
   const recommendationsEl = document.getElementById('recommendations');
   const recommendations = getRecommendations(countryId);
@@ -487,6 +493,199 @@ function renderCountryDetail(countryId) {
   } else {
     recommendationsEl.innerHTML = '';
   }
+}
+
+/**
+ * Render continent location map showing country position
+ */
+function renderContinentLocationMap(country) {
+  const locationEl = document.getElementById('continent-location');
+  const continentInfo = CONTINENT_INFO[country.continent];
+
+  if (!continentInfo) {
+    locationEl.innerHTML = '';
+    return;
+  }
+
+  // Create a simple SVG continent outline with country highlighted
+  const continentMap = generateContinentMap(country);
+
+  locationEl.innerHTML = `
+    <h3>Location on ${continentInfo.name}</h3>
+    ${continentMap}
+  `;
+}
+
+/**
+ * Generate SVG continent map with country highlighted
+ */
+function generateContinentMap(country) {
+  // Simple continent outline SVG with country highlighted
+  // For now, show continent emoji + country flag + position description
+  const continentInfo = CONTINENT_INFO[country.continent];
+
+  return `
+    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin: 12px 0">
+      <div style="font-size: 48px">${continentInfo.emoji}</div>
+      <div style="text-align: left">
+        <div style="font-size: 14px; color: var(--dom-text-muted); margin-bottom: 4px">📍 ${continentInfo.name}</div>
+        <div style="font-size: 24px">${country.flag} ${country.name}</div>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Render organized fact tabs (Facts, Geography, Wildlife, Culture)
+ */
+function renderDetailTabs(country) {
+  const tabsContainer = document.getElementById('detail-tabs');
+  const factsTab = document.getElementById('tab-facts');
+  const geographyTab = document.getElementById('tab-geography');
+  const wildlifeTab = document.getElementById('tab-wildlife');
+  const cultureTab = document.getElementById('tab-culture');
+
+  // Organize facts into categories
+  const categorizedFacts = categorizeFacts(country);
+
+  // Render facts tab
+  if (country.facts && country.facts.length > 0) {
+    factsTab.innerHTML = country.facts
+      .map(
+        fact => `
+      <div class="fact">
+        <span class="fact-icon">${fact.split(' ')[0]}</span>
+        <p class="fact-text">${fact}</p>
+      </div>
+    `
+      )
+      .join('');
+  } else {
+    factsTab.innerHTML = '<p style="color: var(--dom-text-muted)">No facts available yet.</p>';
+  }
+
+  // Render geography tab
+  if (categorizedFacts.geography.length > 0) {
+    geographyTab.innerHTML = categorizedFacts.geography
+      .map(
+        fact => `
+      <div class="fact">
+        <span class="fact-icon">${fact.split(' ')[0]}</span>
+        <p class="fact-text">${fact}</p>
+      </div>
+    `
+      )
+      .join('');
+  } else {
+    geographyTab.innerHTML =
+      '<p style="color: var(--dom-text-muted)">No geographic information available yet.</p>';
+  }
+
+  // Render wildlife tab
+  if (categorizedFacts.wildlife.length > 0 || country.highlights?.animals) {
+    let wildlifeContent = '';
+    if (country.highlights?.animals) {
+      wildlifeContent += country.highlights.animals
+        .map(
+          animal => `
+        <div class="fact">
+          <span class="fact-icon">${animal.split(' ')[0]}</span>
+          <p class="fact-text">${animal}</p>
+        </div>
+      `
+        )
+        .join('');
+    }
+    wildlifeTab.innerHTML =
+      wildlifeContent ||
+      '<p style="color: var(--dom-text-muted)">No wildlife information available yet.</p>';
+  } else {
+    wildlifeTab.innerHTML =
+      '<p style="color: var(--dom-text-muted)">No wildlife information available yet.</p>';
+  }
+
+  // Render culture tab
+  if (country.culture) {
+    cultureTab.innerHTML = `
+      <div class="fact">
+        <span class="fact-icon">🌍</span>
+        <p class="fact-text">${country.culture}</p>
+      </div>
+    `;
+    if (country.highlights?.coolFacts) {
+      cultureTab.innerHTML += country.highlights.coolFacts
+        .map(
+          fact => `
+        <div class="fact">
+          <span class="fact-icon">✨</span>
+          <p class="fact-text">${fact}</p>
+        </div>
+      `
+        )
+        .join('');
+    }
+  } else {
+    cultureTab.innerHTML =
+      '<p style="color: var(--dom-text-muted)">No cultural information available yet.</p>';
+  }
+
+  // Attach tab button listeners
+  tabsContainer.querySelectorAll('.tab-button').forEach(button => {
+    button.addEventListener('click', () => {
+      const tabName = button.dataset.tab;
+
+      // Remove active class from all buttons and content
+      tabsContainer.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+      tabsContainer
+        .querySelectorAll('.tab-content')
+        .forEach(content => content.classList.remove('active'));
+
+      // Add active class to clicked button and corresponding content
+      button.classList.add('active');
+      const tabContent = tabsContainer.querySelector(`[data-tab-content="${tabName}"]`);
+      if (tabContent) {
+        tabContent.classList.add('active');
+      }
+    });
+  });
+}
+
+/**
+ * Categorize facts into geographic, wildlife, and other categories
+ */
+function categorizeFacts(country) {
+  const geography = [];
+  const wildlife = [];
+
+  if (country.facts) {
+    country.facts.forEach(fact => {
+      const lower = fact.toLowerCase();
+      if (
+        lower.includes('island') ||
+        lower.includes('mountain') ||
+        lower.includes('river') ||
+        lower.includes('ocean') ||
+        lower.includes('desert') ||
+        lower.includes('forest') ||
+        lower.includes('canyon') ||
+        lower.includes('lake') ||
+        lower.includes('sea')
+      ) {
+        geography.push(fact);
+      } else if (
+        lower.includes('animal') ||
+        lower.includes('bird') ||
+        lower.includes('bear') ||
+        lower.includes('panda') ||
+        lower.includes('wildlife') ||
+        lower.includes('species')
+      ) {
+        wildlife.push(fact);
+      }
+    });
+  }
+
+  return { geography, wildlife };
 }
 
 /**

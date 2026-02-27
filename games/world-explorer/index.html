@@ -376,6 +376,118 @@
       }
 
       /* ══════════════════════════════════════════════════
+         CONTINENT LOCATION MAP
+      ══════════════════════════════════════════════════ */
+      .continent-location {
+        margin-bottom: 30px;
+        padding: 16px;
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .continent-location h3 {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin: 0 0 12px 0;
+      }
+
+      #continent-map {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+        margin: 0 auto;
+        display: block;
+      }
+
+      /* ══════════════════════════════════════════════════
+         DETAIL TABS & SECTIONS
+      ══════════════════════════════════════════════════ */
+      .detail-tabs {
+        margin-bottom: 30px;
+      }
+
+      .tab-buttons {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 16px;
+        border-bottom: 2px solid var(--dom-border);
+        overflow-x: auto;
+        padding-bottom: 0;
+      }
+
+      .tab-button {
+        flex-shrink: 0;
+        padding: 12px 16px;
+        background: transparent;
+        border: none;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--dom-text-muted);
+        cursor: pointer;
+        transition: all 0.2s;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .tab-button:hover {
+        color: var(--dom-text);
+      }
+
+      .tab-button.active {
+        color: var(--dom-accent);
+        border-bottom-color: var(--dom-accent);
+      }
+
+      .tab-content {
+        display: none;
+        animation: fadeIn 0.2s ease-out;
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-4px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .section-group {
+        margin-bottom: 20px;
+      }
+
+      .section-group h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--dom-accent);
+        margin: 0 0 12px 0;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .section-group .fact {
+        margin-bottom: 12px;
+      }
+
+      .section-group .fact:last-child {
+        margin-bottom: 0;
+      }
+
+      /* ══════════════════════════════════════════════════
          RECOMMENDATIONS
       ══════════════════════════════════════════════════ */
       .recommendations {
@@ -503,6 +615,15 @@
 
         .fact-text {
           font-size: 14px;
+        }
+
+        .tab-buttons {
+          gap: 4px;
+        }
+
+        .tab-button {
+          padding: 10px 12px;
+          font-size: 12px;
         }
 
         .landing-hero {
@@ -696,6 +817,34 @@
           <button class="dom-btn dom-btn--primary" id="favorite-btn">
             <i class="ti ti-heart"></i> Add to Favorites
           </button>
+        </div>
+
+        <!-- Location Map Section -->
+        <div class="continent-location" id="continent-location">
+          <!-- Injected: mini continent map showing country location -->
+        </div>
+
+        <!-- Tabbed Content Sections -->
+        <div class="detail-tabs" id="detail-tabs">
+          <div class="tab-buttons">
+            <button class="tab-button active" data-tab="facts"><i class="ti ti-bulb-filled"></i> Facts</button>
+            <button class="tab-button" data-tab="geography"><i class="ti ti-mountain"></i> Geography</button>
+            <button class="tab-button" data-tab="wildlife"><i class="ti ti-paw"></i> Wildlife</button>
+            <button class="tab-button" data-tab="culture"><i class="ti ti-users"></i> Culture</button>
+          </div>
+
+          <div class="tab-content active" data-tab-content="facts" id="tab-facts">
+            <!-- Facts injected here -->
+          </div>
+          <div class="tab-content" data-tab-content="geography" id="tab-geography">
+            <!-- Geography facts injected here -->
+          </div>
+          <div class="tab-content" data-tab-content="wildlife" id="tab-wildlife">
+            <!-- Wildlife facts injected here -->
+          </div>
+          <div class="tab-content" data-tab-content="culture" id="tab-culture">
+            <!-- Culture facts injected here -->
+          </div>
         </div>
 
         <div class="recommendations" id="recommendations">
