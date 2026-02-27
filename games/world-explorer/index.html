@@ -560,6 +560,33 @@
           </button>
         </div>
 
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px">
+          <button
+            class="dom-btn dom-btn--primary"
+            onclick="goToScreen('landmark-hunt')"
+            style="padding: 16px; font-size: 14px"
+          >
+            <span style="font-size: 18px">🏆</span><br />
+            Landmark Hunt
+          </button>
+          <button
+            class="dom-btn dom-btn--secondary"
+            onclick="goToScreen('collections')"
+            style="padding: 16px; font-size: 14px"
+          >
+            <span style="font-size: 18px">📚</span><br />
+            Collections
+          </button>
+          <button
+            class="dom-btn dom-btn--secondary"
+            onclick="goToScreen('favorites')"
+            style="padding: 16px; font-size: 14px"
+          >
+            <span style="font-size: 18px">❤️</span><br />
+            My Places
+          </button>
+        </div>
+
         <div class="quick-access">
           <h3>Recently Explored 📍</h3>
           <div id="recent-countries"></div>
@@ -596,18 +623,32 @@
       </div>
 
       <!-- SCREEN 4: Landmark Hunt (Placeholder) -->
+      <!-- SCREEN 4: Landmark Hunt (Quiz Mode) -->
       <div class="dom-screen" data-screen="landmark-hunt">
-        <div style="padding: 40px 20px; text-align: center">
-          <h2>🏆 Landmark Hunt</h2>
-          <p style="color: var(--dom-text-muted)">Coming in Phase 2</p>
+        <div style="padding: 20px">
+          <div id="landmark-quest">
+            <!-- Quiz content injected here -->
+          </div>
         </div>
       </div>
 
-      <!-- SCREEN 5: Collections (Placeholder) -->
+      <!-- SCREEN 5: Collections (Per-Continent Progress) -->
       <div class="dom-screen" data-screen="collections">
-        <div style="padding: 40px 20px; text-align: center">
-          <h2>🎯 Collections</h2>
-          <p style="color: var(--dom-text-muted)">Coming in Phase 2</p>
+        <div style="padding: 20px">
+          <h2 style="margin-bottom: 24px">📚 Collections & Progress</h2>
+          <div id="collections-grid">
+            <!-- Continent cards injected here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN 6: Favorites (My Places) -->
+      <div class="dom-screen" data-screen="favorites">
+        <div style="padding: 20px">
+          <h2 style="margin-bottom: 24px">❤️ My Favorite Places</h2>
+          <div id="favorites-grid">
+            <!-- Favorite countries injected here -->
+          </div>
         </div>
       </div>
     </div>

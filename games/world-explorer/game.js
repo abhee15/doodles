@@ -89,12 +89,9 @@ function goToScreen(screenName, context = {}) {
     landing: renderLanding,
     continent: () => renderContinent(context.continent),
     country: () => renderCountryDetail(context.countryId),
-    'landmark-hunt': () => {
-      /* Phase 2 */
-    },
-    collections: () => {
-      /* Phase 2 */
-    }
+    'landmark-hunt': renderLandmarkHunt,
+    collections: renderCollections,
+    favorites: renderFavorites
   };
 
   const handler = handlers[screenName];
@@ -349,6 +346,193 @@ function getRecommendations(countryId) {
 }
 
 /**
+ * Get all landmarks from all countries (for Landmark Hunt)
+ */
+function getAllLandmarks() {
+  const landmarks = [];
+  COUNTRIES.forEach(country => {
+    if (country.highlights && country.highlights.landmarks) {
+      country.highlights.landmarks.forEach(landmark => {
+        landmarks.push({
+          ...landmark,
+          countryId: country.id,
+          countryName: country.name,
+          countryFlag: country.flag
+        });
+      });
+    }
+  });
+  return landmarks;
+}
+
+/**
+ * Render landmark hunt quiz screen
+ */
+function renderLandmarkHunt() {
+  const allLandmarks = getAllLandmarks();
+
+  if (allLandmarks.length === 0) {
+    const quest = document.getElementById('landmark-quest');
+    quest.innerHTML =
+      '<p style="color: var(--dom-text-muted); text-align: center; padding: 40px 20px;">More landmarks coming soon! Explore countries to learn about their amazing landmarks.</p>';
+    return;
+  }
+
+  // Pick random landmark
+  const landmark = allLandmarks[Math.floor(Math.random() * allLandmarks.length)];
+
+  // Generate 11 decoy countries (different from answer)
+  const decoys = COUNTRIES.filter(c => c.id !== landmark.countryId).slice(0, 11);
+
+  // Mix answer with decoys
+  const options = [landmark.countryId, ...decoys.map(c => c.id)].sort(() => Math.random() - 0.5);
+
+  // Get country objects for options
+  const optionCountries = options.map(id => findCountryById(id));
+
+  // Render quiz
+  const quest = document.getElementById('landmark-quest');
+  quest.innerHTML = `
+    <div style="margin-bottom: 32px;">
+      <div style="font-size: 48px; margin-bottom: 16px; text-align: center;">${landmark.emoji}</div>
+      <h2 style="text-align: center; margin-bottom: 12px;">${landmark.name}</h2>
+      <p style="text-align: center; color: var(--dom-text-muted); margin-bottom: 20px;">${landmark.desc}</p>
+      <p style="text-align: center; font-size: 13px; color: var(--dom-text-muted);">Which country is this landmark in?</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin-bottom: 24px;" id="landmark-options">
+      ${optionCountries
+        .map(
+          country => `
+        <button class="landmark-option-btn" data-country="${country.id}" style="cursor: pointer; padding: 16px; border: 2px solid var(--dom-border); border-radius: 8px; background: var(--dom-bg); color: var(--dom-text); font-size: 14px; font-weight: 600; transition: all 0.2s; text-align: center;">
+          <div style="font-size: 28px; margin-bottom: 8px;">${country.flag}</div>
+          <div>${country.name}</div>
+        </button>
+      `
+        )
+        .join('')}
+    </div>
+
+    <div style="display: flex; gap: 12px;">
+      <button class="dom-btn dom-btn--secondary" onclick="goToScreen('landing')">← Back</button>
+      <button class="dom-btn dom-btn--primary" onclick="renderLandmarkHunt()" style="flex: 1;">🔄 Next Landmark</button>
+    </div>
+
+    <div id="landmark-result" style="margin-top: 24px;"></div>
+  `;
+
+  // Attach click handlers to options
+  document.querySelectorAll('.landmark-option-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const selectedCountryId = btn.dataset.country;
+      const isCorrect = selectedCountryId === landmark.countryId;
+
+      // Mark as found if correct
+      if (isCorrect && !gameState.landmarksFound.includes(landmark.name)) {
+        gameState.landmarksFound.push(landmark.name);
+        saveProgress();
+      }
+
+      // Show result
+      const resultDiv = document.getElementById('landmark-result');
+      const resultCountry = findCountryById(landmark.countryId);
+
+      if (isCorrect) {
+        resultDiv.innerHTML = `
+          <div style="padding: 16px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border-left: 4px solid #4caf50;">
+            <p style="color: #4caf50; font-weight: 600; margin: 0;">✓ Correct! ${resultCountry.flag}</p>
+            <p style="color: var(--dom-text-muted); font-size: 13px; margin: 8px 0 0 0;">${resultCountry.name}</p>
+          </div>
+        `;
+      } else {
+        resultDiv.innerHTML = `
+          <div style="padding: 16px; background: rgba(255, 152, 0, 0.1); border-radius: 8px; border-left: 4px solid #ff9800;">
+            <p style="color: #ff9800; font-weight: 600; margin: 0;">The correct answer is ${resultCountry.flag} ${resultCountry.name}</p>
+            <p style="color: var(--dom-text-muted); font-size: 13px; margin: 8px 0 0 0;">No worries! This is how you learn. The more you explore countries, the easier these quizzes become!</p>
+          </div>
+        `;
+      }
+
+      // Disable all buttons
+      document.querySelectorAll('.landmark-option-btn').forEach(b => {
+        b.style.opacity = '0.5';
+        b.style.cursor = 'not-allowed';
+      });
+    });
+  });
+}
+
+/**
+ * Render collections view with per-continent progress
+ */
+function renderCollections() {
+  const collectionsGrid = document.getElementById('collections-grid');
+
+  let html =
+    '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;">';
+
+  Object.entries(CONTINENT_INFO).forEach(([continentId, continentInfo]) => {
+    const countriesInContinent = COUNTRIES.filter(c => c.continent === continentId);
+    const exploredInContinent = countriesInContinent.filter(c =>
+      gameState.explored.includes(c.id)
+    ).length;
+    const percentage = Math.round((exploredInContinent / countriesInContinent.length) * 100);
+
+    html += `
+      <div class="collection-card" style="padding: 20px; border: 2px solid var(--dom-border); border-radius: 12px; cursor: pointer; transition: all 0.2s;" onclick="goToScreen('continent', { continent: '${continentId}' })">
+        <div style="font-size: 32px; margin-bottom: 12px;">${continentInfo.emoji}</div>
+        <h3 style="margin: 0 0 8px 0; font-size: 18px;">${continentInfo.name}</h3>
+        <p style="color: var(--dom-text-muted); font-size: 13px; margin: 0 0 12px 0;">${exploredInContinent} of ${countriesInContinent.length} countries</p>
+
+        <div style="width: 100%; height: 8px; background: var(--dom-border); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
+          <div style="width: ${percentage}%; height: 100%; background: linear-gradient(90deg, #4caf50, #81c784); transition: width 0.3s;"></div>
+        </div>
+
+        <p style="color: var(--dom-text-muted); font-size: 12px; margin: 0; text-align: center;">${percentage}% Complete</p>
+      </div>
+    `;
+  });
+
+  html += '</div>';
+  collectionsGrid.innerHTML = html;
+}
+
+/**
+ * Render favorites screen with all favorited countries
+ */
+function renderFavorites() {
+  const favoritesGrid = document.getElementById('favorites-grid');
+
+  if (gameState.favorites.length === 0) {
+    favoritesGrid.innerHTML =
+      '<p style="color: var(--dom-text-muted); text-align: center; padding: 40px 20px;">No favorite places yet. Heart a country to add it to your collection!</p>';
+    return;
+  }
+
+  const favoriteCountries = gameState.favorites.map(id => findCountryById(id)).filter(Boolean);
+
+  favoritesGrid.innerHTML = favoriteCountries
+    .map(
+      country => `
+    <div class="country-card" data-country="${country.id}" style="cursor: pointer;">
+      <div class="country-card-flag">${country.flag}</div>
+      <h3 class="country-card-name">${country.name}</h3>
+      <p class="country-card-hook">${country.hooks.primary}</p>
+    </div>
+  `
+    )
+    .join('');
+
+  // Attach click handlers to favorite cards
+  favoritesGrid.querySelectorAll('.country-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const countryId = card.dataset.country;
+      goToScreen('country', { countryId });
+    });
+  });
+}
+
+/**
  * Update navigation metadata (explored count)
  */
 function updateNavMeta() {
@@ -363,6 +547,7 @@ function updateNavMeta() {
 function saveProgress() {
   localStorage.setItem('we_explored', JSON.stringify(gameState.explored));
   localStorage.setItem('we_favorites', JSON.stringify(gameState.favorites));
+  localStorage.setItem('we_landmarks', JSON.stringify(gameState.landmarksFound));
 }
 
 /**
@@ -371,6 +556,7 @@ function saveProgress() {
 function loadProgress() {
   const explored = localStorage.getItem('we_explored');
   const favorites = localStorage.getItem('we_favorites');
+  const landmarks = localStorage.getItem('we_landmarks');
 
   if (explored) {
     gameState.explored = JSON.parse(explored);
@@ -378,6 +564,10 @@ function loadProgress() {
 
   if (favorites) {
     gameState.favorites = JSON.parse(favorites);
+  }
+
+  if (landmarks) {
+    gameState.landmarksFound = JSON.parse(landmarks);
   }
 
   updateNavMeta();
