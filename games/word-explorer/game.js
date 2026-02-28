@@ -1,1649 +1,870 @@
-/* eslint-disable no-undef */
-// ==================== NAVIGATION ====================
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof GameNavigation !== 'undefined') {
-    window.gameNav = new GameNavigation('word-explorer', {
-      screens: ['game'],
-      initialScreen: 'game',
-      gameName: 'Word Explorer'
-    });
-  }
-});
+/**
+ * Word Explorer - Complete DOM Game Implementation
+ * 48 vocabulary words across 6 categories with 4 practice modes
+ * Designed for 3rd-4th graders (ages 8-10)
+ */
 
-// Word Explorer - Vocabulary Learning Game
-// Educational game for 4th graders to improve vocabulary, pronunciation, and comprehension
+/* eslint-disable no-undef, no-unused-vars */
 
-// Color Palette - Coolors palette #D4E09B / #F6F4D2 / #CBDFBD / #F19C79 / #A44A3F
-const WORD_COLORS = {
-  primary: 0xa44a3f, // Brick red
-  secondary: 0xf19c79, // Peach
-  success: 0xa44a3f, // Brick red
-  error: 0xa44a3f, // Brick red
-  background: 0xf6f4d2, // Cream
-  cardBg: 0xffffff, // White cards
-  text: COLORS.neutral.darkText.phaser,
-  textLight: 0x8b6456, // Muted brick
-  accent: 0xf19c79, // Peach
-  // Difficulty colors
-  difficulty1: 0xcbdfbd, // Soft green - Easy
-  difficulty2: 0xd4e09b, // Yellow-green - Medium
-  difficulty3: 0xa44a3f, // Brick red - Hard
-  // Category colors (one palette color each)
-  emotion: 0xf19c79, // Peach
-  size: 0xa44a3f, // Brick red
-  time: 0xd4e09b, // Yellow-green
-  action: 0xcbdfbd, // Soft green
-  concept: 0xf19c79 // Peach
+// ===== SECTION A: CONSTANTS & STATE =====
+
+const STORAGE_KEY = 'word-explorer-progress';
+const SPEECH_RATE = 0.8;
+const PRACTICE_QUESTION_COUNT = 5;
+
+// Game state
+const gameState = {
+  currentScreen: 'landing',
+  currentCategory: null,
+  currentWord: null,
+  currentWordIndex: 0,
+  currentPracticeMode: null,
+  practiceSession: {
+    questions: [],
+    currentQ: 0,
+    correctCount: 0,
+    answers: []
+  },
+  currentMyWordsFilter: 'all'
 };
 
-// ==================== CONFIGURATION ====================
-const config = createGameConfig({
-  width: 900,
-  height: 650,
-  backgroundColor: WORD_COLORS.background,
-  scene: {
-    preload: preload,
-    create: create,
-    update: update
-  }
-});
+// Maps for quick lookup
+let WORD_MAP = {};
+let CATEGORY_MAP = {};
+let WORDS_BY_CATEGORY = {};
 
-const game = new Phaser.Game(config);
-
-// Category icons and labels
-const CATEGORY_INFO = {
-  emotion: { icon: '💭', label: 'Emotion', color: WORD_COLORS.emotion },
-  size: { icon: '📏', label: 'Size', color: WORD_COLORS.size },
-  time: { icon: '⏰', label: 'Time', color: WORD_COLORS.time },
-  action: { icon: '⚡', label: 'Action', color: WORD_COLORS.action },
-  concept: { icon: '💡', label: 'Concept', color: WORD_COLORS.concept }
+// Progress data
+const progress = {
+  wordProgress: {},
+  favorites: [],
+  lastPlayDate: new Date().toDateString(),
+  unlockedCategories: []
 };
 
-// ==================== WORD DATABASE ====================
-const WORD_DATABASE = {
-  easy: [
-    {
-      id: 1,
-      word: 'curious',
-      definition: 'Wanting to know or learn about something',
-      synonyms: ['interested', 'inquisitive'],
-      antonyms: ['uninterested'],
-      exampleSentence: 'The curious cat explored every corner of the house.',
-      phonetic: 'KYUR-ee-us',
-      category: 'emotion',
-      difficulty: 1
-    },
-    {
-      id: 2,
-      word: 'enormous',
-      definition: 'Very large in size or amount',
-      synonyms: ['huge', 'gigantic', 'massive'],
-      antonyms: ['tiny', 'small'],
-      exampleSentence: 'The enormous elephant walked slowly through the forest.',
-      phonetic: 'ih-NOR-mus',
-      category: 'size',
-      difficulty: 1
-    },
-    {
-      id: 3,
-      word: 'ancient',
-      definition: 'Very old, from a long time ago',
-      synonyms: ['old', 'historical'],
-      antonyms: ['modern', 'new'],
-      exampleSentence: 'We visited the ancient pyramids in Egypt.',
-      phonetic: 'AYN-shunt',
-      category: 'time',
-      difficulty: 1
-    },
-    {
-      id: 4,
-      word: 'observe',
-      definition: 'To watch something carefully',
-      synonyms: ['watch', 'notice', 'see'],
-      antonyms: ['ignore'],
-      exampleSentence: 'Scientists observe animals to learn about their behavior.',
-      phonetic: 'ub-ZURV',
-      category: 'action',
-      difficulty: 1
-    },
-    {
-      id: 5,
-      word: 'conclusion',
-      definition: 'The end or final decision about something',
-      synonyms: ['ending', 'result'],
-      antonyms: ['beginning'],
-      exampleSentence: 'After reading all the clues, she reached a conclusion.',
-      phonetic: 'kun-KLOO-zhun',
-      category: 'concept',
-      difficulty: 2
-    },
-    {
-      id: 6,
-      word: 'evidence',
-      definition: 'Facts or signs that show something is true',
-      synonyms: ['proof', 'clues'],
-      antonyms: [],
-      exampleSentence: 'The detective found evidence at the crime scene.',
-      phonetic: 'EV-ih-dents',
-      category: 'concept',
-      difficulty: 2
-    },
-    {
-      id: 7,
-      word: 'persuade',
-      definition: 'To convince someone to do or believe something',
-      synonyms: ['convince', 'influence'],
-      antonyms: ['discourage'],
-      exampleSentence: 'She tried to persuade her friend to join the team.',
-      phonetic: 'per-SWAYD',
-      category: 'action',
-      difficulty: 2
-    },
-    {
-      id: 8,
-      word: 'fortunate',
-      definition: 'Lucky or having good things happen',
-      synonyms: ['lucky', 'blessed'],
-      antonyms: ['unlucky', 'unfortunate'],
-      exampleSentence: 'We were fortunate to find a parking spot right away.',
-      phonetic: 'FOR-chuh-nit',
-      category: 'emotion',
-      difficulty: 1
-    },
-    {
-      id: 9,
-      word: 'courage',
-      definition: 'Bravery in facing something difficult or scary',
-      synonyms: ['bravery', 'boldness'],
-      antonyms: ['fear', 'cowardice'],
-      exampleSentence: 'It took courage for him to speak in front of the class.',
-      phonetic: 'KUR-ij',
-      category: 'trait',
-      difficulty: 1
-    },
-    {
-      id: 10,
-      word: 'brief',
-      definition: 'Short in time or length',
-      synonyms: ['short', 'quick'],
-      antonyms: ['long', 'lengthy'],
-      exampleSentence: 'The teacher gave us a brief explanation of the project.',
-      phonetic: 'BREEF',
-      category: 'time',
-      difficulty: 1
-    },
-    {
-      id: 11,
-      word: 'compassion',
-      definition: 'Caring about others who are suffering or in need',
-      synonyms: ['kindness', 'sympathy'],
-      antonyms: ['cruelty'],
-      exampleSentence: 'She showed compassion by helping the injured bird.',
-      phonetic: 'kum-PASH-un',
-      category: 'trait',
-      difficulty: 2
-    },
-    {
-      id: 12,
-      word: 'cautious',
-      definition: 'Being careful to avoid danger or mistakes',
-      synonyms: ['careful', 'wary'],
-      antonyms: ['careless', 'reckless'],
-      exampleSentence: 'Be cautious when crossing the busy street.',
-      phonetic: 'KAW-shus',
-      category: 'trait',
-      difficulty: 1
-    },
-    {
-      id: 13,
-      word: 'creative',
-      definition: 'Using imagination to make new things',
-      synonyms: ['imaginative', 'artistic'],
-      antonyms: ['uncreative'],
-      exampleSentence: 'The creative artist painted a beautiful picture.',
-      phonetic: 'kree-AY-tiv',
-      category: 'trait',
-      difficulty: 1
-    },
-    {
-      id: 14,
-      word: 'ambitious',
-      definition: 'Having a strong desire to succeed or achieve goals',
-      synonyms: ['driven', 'determined'],
-      antonyms: ['lazy', 'unmotivated'],
-      exampleSentence: 'The ambitious student wanted to become a doctor.',
-      phonetic: 'am-BISH-us',
-      category: 'trait',
-      difficulty: 2
-    },
-    {
-      id: 15,
-      word: 'patient',
-      definition: 'Able to wait calmly without getting upset',
-      synonyms: ['calm', 'tolerant'],
-      antonyms: ['impatient'],
-      exampleSentence: 'The patient teacher explained the math problem again.',
-      phonetic: 'PAY-shunt',
-      category: 'trait',
-      difficulty: 1
-    },
-    {
-      id: 16,
-      word: 'generous',
-      definition: 'Willing to give and share with others',
-      synonyms: ['giving', 'kind'],
-      antonyms: ['selfish', 'stingy'],
-      exampleSentence: 'The generous neighbor shared cookies with everyone.',
-      phonetic: 'JEN-er-us',
-      category: 'trait',
-      difficulty: 1
-    },
-    {
-      id: 17,
-      word: 'confident',
-      definition: 'Believing in yourself and your abilities',
-      synonyms: ['self-assured', 'sure'],
-      antonyms: ['insecure', 'doubtful'],
-      exampleSentence: 'She felt confident before taking the test.',
-      phonetic: 'KON-fih-dent',
-      category: 'emotion',
-      difficulty: 1
-    },
-    {
-      id: 18,
-      word: 'responsible',
-      definition: 'Being trusted to do what you should do',
-      synonyms: ['reliable', 'dependable'],
-      antonyms: ['irresponsible'],
-      exampleSentence: 'A responsible student always does their homework.',
-      phonetic: 'rih-SPON-sih-bul',
-      category: 'trait',
-      difficulty: 2
-    },
-    {
-      id: 19,
-      word: 'thoughtful',
-      definition: 'Thinking about others and their feelings',
-      synonyms: ['considerate', 'caring'],
-      antonyms: ['thoughtless', 'inconsiderate'],
-      exampleSentence: 'It was thoughtful of you to remember my birthday.',
-      phonetic: 'THAWT-ful',
-      category: 'trait',
-      difficulty: 1
-    },
-    {
-      id: 20,
-      word: 'determined',
-      definition: 'Having made a firm decision to do something',
-      synonyms: ['resolved', 'committed'],
-      antonyms: ['uncertain', 'hesitant'],
-      exampleSentence: 'The determined athlete practiced every single day.',
-      phonetic: 'dih-TUR-mind',
-      category: 'trait',
-      difficulty: 2
-    }
-  ]
-};
-
-// ==================== GAME STATE ====================
-let currentScene = 'menu';
-let currentWord = null;
-let currentMode = null;
-let wordProgress = {};
-let currentQuestions = [];
-let currentQuestionIndex = 0;
-let sessionScore = 0;
-let userAnswer = '';
-let selectedLetters = [];
-
-// ==================== PHASER LIFECYCLE ====================
-function preload() {
-  // No external assets needed
-}
-
-function create() {
-  this.scene = this;
-  loadProgress();
-  showMainMenu(this);
-
-  // Track game start
-  if (window.gameAnalytics) {
-    window.gameAnalytics.trackGameStart('word-explorer');
-  }
-}
-
-function update() {
-  // Game loop
-}
-
-// ==================== SCENE 1: MAIN MENU ====================
-function showMainMenu(scene) {
-  scene.children.removeAll();
-  currentScene = 'menu';
-
-  // Background gradient effect
-  const bg = scene.add.rectangle(450, 325, 900, 650, 0xf6f4d2);
-
-  // Title
-  scene.add
-    .text(450, 100, '📖 Word Explorer', {
-      fontSize: '56px',
-      fill: '#A44A3F',
-      fontStyle: 'bold',
-      fontFamily: 'Arial'
-    })
-    .setOrigin(0.5);
-
-  scene.add
-    .text(450, 160, 'Build Your Vocabulary!', {
-      fontSize: '24px',
-      fill: '#636E72',
-      fontFamily: 'Arial'
-    })
-    .setOrigin(0.5);
-
-  // Progress summary
-  const masteredWords = Object.values(wordProgress).filter(p => p.stars >= 2).length;
-  const totalWords = WORD_DATABASE.easy.length;
-
-  scene.add
-    .text(450, 220, `${masteredWords}/${totalWords} words mastered`, {
-      fontSize: '20px',
-      fill: '#A44A3F',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Start button
-  createButton(
-    scene,
-    450,
-    300,
-    'Start Learning',
-    WORD_COLORS.primary,
-    () => {
-      showWordMap(scene);
-    },
-    280,
-    70
-  );
-
-  // Instructions
-  const instructions = [
-    '📚 Learn 20 new vocabulary words',
-    '🎮 Play fun mini-games to practice',
-    '⭐ Earn stars for mastery'
-  ];
-
-  instructions.forEach((text, i) => {
-    scene.add
-      .text(450, 400 + i * 45, text, {
-        fontSize: '18px',
-        fill: '#1E293B',
-        fontFamily: 'Arial'
-      })
-      .setOrigin(0.5);
-  });
-}
-
-// ==================== SCENE 2: WORD MAP ====================
-function showWordMap(scene) {
-  scene.children.removeAll();
-  currentScene = 'word-map';
-
-  // Title
-  scene.add
-    .text(450, 30, 'Choose a Word to Learn', {
-      fontSize: '36px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Progress counter
-  const words = WORD_DATABASE.easy;
-  const learnedCount = Object.keys(wordProgress).filter(id => wordProgress[id].stars > 0).length;
-  const totalWords = words.length;
-
-  const progressBg = scene.add.rectangle(450, 70, 350, 40, 0xffffff);
-  progressBg.setStrokeStyle(2, 0xe9ecef);
-
-  scene.add
-    .text(450, 70, `Words Mastered: ${learnedCount}/${totalWords} 📚`, {
-      fontSize: '18px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Legend - Category colors
-  const legendY = 70;
-  const categories = ['emotion', 'action', 'size', 'time', 'concept'];
-
-  scene.add.text(700, legendY - 20, 'Categories:', {
-    fontSize: '14px',
-    fill: '#475569',
-    fontFamily: 'Arial',
-    fontStyle: 'bold'
-  });
-
-  categories.slice(0, 3).forEach((cat, i) => {
-    const info = CATEGORY_INFO[cat];
-    const x = 700 + i * 65;
-
-    scene.add.text(x, legendY, `${info.icon}`, {
-      fontSize: '16px'
-    });
-
-    scene.add.text(x + 20, legendY, info.label, {
-      fontSize: '11px',
-      fill: '#475569',
-      fontFamily: 'Arial'
-    });
-  });
-
-  // Word grid (4x5 = 20 words)
-  const cols = 5;
-  const rows = 4;
-  const cardWidth = 165;
-  const cardHeight = 120;
-  const startX = 85;
-  const startY = 110;
-  const spacingX = 175;
-  const spacingY = 130;
-
-  words.forEach((wordData, index) => {
-    const col = index % cols;
-    const row = Math.floor(index / cols);
-    const x = startX + col * spacingX;
-    const y = startY + row * spacingY;
-
-    createWordCard(scene, x, y, wordData, cardWidth, cardHeight);
-  });
-
-  // Back button
-  createButton(
-    scene,
-    100,
-    605,
-    '← Menu',
-    WORD_COLORS.textLight,
-    () => {
-      showMainMenu(scene);
-    },
-    140,
-    50
-  );
-}
-
-function createWordCard(scene, x, y, wordData, width, height) {
-  const progress = wordProgress[wordData.id] || { stars: 0, attempts: 0 };
-  const categoryInfo = CATEGORY_INFO[wordData.category];
-  const difficultyColor =
-    wordData.difficulty === 1
-      ? WORD_COLORS.difficulty1
-      : wordData.difficulty === 2
-        ? WORD_COLORS.difficulty2
-        : WORD_COLORS.difficulty3;
-
-  // Card shadow
-  const shadow = scene.add.rectangle(x, y + 3, width, height, 0x000000, 0.1);
-
-  // Card background
-  const card = scene.add.rectangle(x, y, width, height, WORD_COLORS.cardBg);
-  card.setStrokeStyle(3, progress.stars > 0 ? WORD_COLORS.success : categoryInfo.color);
-  card.setInteractive({ useHandCursor: true });
-
-  // Difficulty indicator (left accent bar) - make it wider and properly positioned
-  const accentBar = scene.add.rectangle(x - width / 2 + 4, y, 8, height - 2, difficultyColor);
-  accentBar.setOrigin(0.5);
-
-  // Category icon (top right)
-  const categoryIcon = scene.add
-    .text(x + width / 2 - 20, y - height / 2 + 15, categoryInfo.icon, {
-      fontSize: '20px'
-    })
-    .setOrigin(0.5);
-
-  // Word text
-  const wordText = scene.add
-    .text(x, y - 25, wordData.word, {
-      fontSize: '18px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      fontStyle: 'bold',
-      align: 'center',
-      wordWrap: { width: width - 20 }
-    })
-    .setOrigin(0.5);
-
-  // Phonetic
-  const phoneticText = scene.add
-    .text(x, y, wordData.phonetic, {
-      fontSize: '14px',
-      fill: '#475569',
-      fontFamily: 'Arial',
-      align: 'center'
-    })
-    .setOrigin(0.5);
-
-  // Stars
-  const starsText = getStarDisplay(progress.stars);
-  const stars = scene.add
-    .text(x, y + 30, starsText, {
-      fontSize: '18px',
-      fill: '#F19C79'
-    })
-    .setOrigin(0.5);
-
-  // Mastered badge
-  if (progress.stars === 3) {
-    scene.add
-      .text(x + width / 2 - 15, y + height / 2 - 15, '✓', {
-        fontSize: '20px',
-        fill: '#A44A3F',
-        fontStyle: 'bold'
-      })
-      .setOrigin(0.5);
-  }
-
-  // Hover tooltip variables
-  let tooltip = null;
-  let tooltipBg = null;
-  let categoryLabel = null;
-
-  card.on('pointerover', () => {
-    card.setScale(1.05);
-    shadow.setScale(1.05);
-    accentBar.setScale(1.05);
-
-    // Create tooltip
-    const tooltipWidth = 200;
-    const tooltipHeight = 80;
-    const tooltipX = x > 450 ? x - tooltipWidth / 2 - 100 : x + tooltipWidth / 2 + 100;
-    const tooltipY = y;
-
-    tooltipBg = scene.add.rectangle(
-      tooltipX,
-      tooltipY,
-      tooltipWidth,
-      tooltipHeight,
-      0x1e293b,
-      0.95
+// ===== HELPER: Initialize Data Maps =====
+function initializeData() {
+  WORD_MAP = Object.fromEntries(WORDS.map(w => [w.id, w]));
+  CATEGORY_MAP = Object.fromEntries(WORD_CATEGORIES.map(c => [c.id, c]));
+  WORDS_BY_CATEGORY = WORD_CATEGORIES.reduce((acc, cat) => {
+    acc[cat.id] = WORDS.filter(w => w.category === cat.id).sort(
+      (a, b) => a.difficulty - b.difficulty
     );
-    tooltipBg.setStrokeStyle(2, categoryInfo.color);
-    tooltipBg.setDepth(100);
+    return acc;
+  }, {});
+}
 
-    tooltip = scene.add
-      .text(tooltipX, tooltipY + 10, wordData.definition, {
-        fontSize: '13px',
-        fill: '#FFFFFF',
-        fontFamily: 'Arial',
-        align: 'center',
-        wordWrap: { width: tooltipWidth - 20 },
-        lineSpacing: 4
-      })
-      .setOrigin(0.5)
-      .setDepth(101);
+// ===== SECTION A: localStorage HELPERS =====
 
-    // Category label
-    categoryLabel = scene.add
-      .text(
-        tooltipX,
-        tooltipY - tooltipHeight / 2 + 15,
-        `${categoryInfo.icon} ${categoryInfo.label}`,
-        {
-          fontSize: '11px',
-          fill: '#FFFFFF',
-          fontFamily: 'Arial',
-          fontStyle: 'bold'
-        }
-      )
-      .setOrigin(0.5)
-      .setDepth(101);
-  });
-
-  card.on('pointerout', () => {
-    card.setScale(1);
-    shadow.setScale(1);
-    accentBar.setScale(1);
-
-    // Remove tooltip
-    if (tooltip) {
-      tooltip.destroy();
-      tooltipBg.destroy();
-      categoryLabel.destroy();
-      tooltip = null;
-      tooltipBg = null;
-      categoryLabel = null;
+function loadProgress() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (!saved) {
+      // Initialize with defaults
+      progress.wordProgress = {};
+      WORDS.forEach(w => {
+        progress.wordProgress[w.id] = { stars: 0, attempts: 0, lastPlayed: null };
+      });
+      progress.unlockedCategories = [WORD_CATEGORIES[0].id, WORD_CATEGORIES[1].id];
+      saveProgress();
+      return;
     }
-  });
 
-  // Click handler
-  card.on('pointerdown', () => {
-    // Clean up tooltip before transitioning
-    if (tooltip) {
-      tooltip.destroy();
-      tooltipBg.destroy();
-      categoryLabel.destroy();
-    }
-    currentWord = wordData;
-    showWordDetail(scene);
-  });
-}
+    const data = JSON.parse(saved);
+    Object.assign(progress, data);
 
-// ==================== SCENE 3: WORD DETAIL ====================
-function showWordDetail(scene) {
-  scene.children.removeAll();
-  currentScene = 'word-detail';
-
-  const progress = wordProgress[currentWord.id] || { stars: 0, attempts: 0 };
-
-  // Title
-  scene.add
-    .text(450, 60, currentWord.word, {
-      fontSize: '48px',
-      fill: '#A44A3F',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Phonetic
-  scene.add
-    .text(450, 115, `(${currentWord.phonetic})`, {
-      fontSize: '20px',
-      fill: '#636E72',
-      fontFamily: 'Arial',
-      fontStyle: 'italic'
-    })
-    .setOrigin(0.5);
-
-  // Definition box
-  const defBox = scene.add.rectangle(450, 200, 800, 100, 0xffffff);
-  defBox.setStrokeStyle(2, 0xe9ecef);
-
-  scene.add
-    .text(450, 200, currentWord.definition, {
-      fontSize: '20px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      align: 'center',
-      wordWrap: { width: 750 }
-    })
-    .setOrigin(0.5);
-
-  // Example sentence
-  scene.add
-    .text(450, 280, 'Example:', {
-      fontSize: '18px',
-      fill: '#636E72',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  scene.add
-    .text(450, 310, currentWord.exampleSentence, {
-      fontSize: '18px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      align: 'center',
-      fontStyle: 'italic',
-      wordWrap: { width: 750 }
-    })
-    .setOrigin(0.5);
-
-  // Stars earned
-  const starsText = getStarDisplay(progress.stars);
-  scene.add
-    .text(450, 370, `Your Progress: ${starsText}`, {
-      fontSize: '24px',
-      fill: '#F19C79',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Mode selection
-  scene.add
-    .text(450, 420, 'Choose a Game Mode:', {
-      fontSize: '20px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Mode buttons
-  createButton(
-    scene,
-    200,
-    500,
-    '🎯 Meaning Match',
-    WORD_COLORS.primary,
-    () => {
-      currentMode = 'meaning-match';
-      showMeaningMatch(scene);
-    },
-    220,
-    60
-  );
-
-  createButton(
-    scene,
-    450,
-    500,
-    '📝 Sentence Builder',
-    WORD_COLORS.accent,
-    () => {
-      currentMode = 'sentence-builder';
-      showSentenceBuilder(scene);
-    },
-    220,
-    60
-  );
-
-  createButton(
-    scene,
-    700,
-    500,
-    '✏️ Spelling Quest',
-    WORD_COLORS.success,
-    () => {
-      currentMode = 'spelling-quest';
-      showSpellingQuest(scene);
-    },
-    220,
-    60
-  );
-
-  // Back button
-  createButton(
-    scene,
-    100,
-    600,
-    '← Back',
-    WORD_COLORS.textLight,
-    () => {
-      showWordMap(scene);
-    },
-    140,
-    50
-  );
-}
-
-// ==================== SCENE 4: MEANING MATCH ====================
-function showMeaningMatch(scene) {
-  scene.children.removeAll();
-  currentScene = 'meaning-match';
-
-  sessionScore = 0;
-  currentQuestionIndex = 0;
-  currentQuestions = generateMeaningMatchQuestions();
-
-  displayMeaningMatchQuestion(scene);
-}
-
-function generateMeaningMatchQuestions() {
-  const questions = [];
-  const allWords = WORD_DATABASE.easy;
-  const totalQuestions = 5;
-
-  for (let i = 0; i < totalQuestions; i++) {
-    // Select a random word (prioritize current word for first question)
-    const questionWord =
-      i === 0 ? currentWord : allWords[Phaser.Math.Between(0, allWords.length - 1)];
-
-    // Get 3 wrong definitions from other words
-    const wrongOptions = allWords
-      .filter(w => w.id !== questionWord.id)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 3)
-      .map(w => w.definition);
-
-    // Combine and shuffle
-    const options = [questionWord.definition, ...wrongOptions].sort(() => Math.random() - 0.5);
-
-    questions.push({
-      word: questionWord.word,
-      phonetic: questionWord.phonetic,
-      correctAnswer: questionWord.definition,
-      options: options
-    });
-  }
-
-  return questions;
-}
-
-function displayMeaningMatchQuestion(scene) {
-  scene.children.removeAll();
-
-  if (currentQuestionIndex >= currentQuestions.length) {
-    showResults(scene);
-    return;
-  }
-
-  const question = currentQuestions[currentQuestionIndex];
-
-  // Header
-  scene.add
-    .text(450, 40, '🎯 Meaning Match', {
-      fontSize: '32px',
-      fill: '#A44A3F',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Progress
-  scene.add
-    .text(450, 85, `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`, {
-      fontSize: '18px',
-      fill: '#636E72',
-      fontFamily: 'Arial'
-    })
-    .setOrigin(0.5);
-
-  // Score
-  scene.add
-    .text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
-      fontSize: '20px',
-      fill: '#A44A3F',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Word
-  scene.add
-    .text(450, 150, question.word, {
-      fontSize: '42px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  scene.add
-    .text(450, 195, `(${question.phonetic})`, {
-      fontSize: '18px',
-      fill: '#636E72',
-      fontFamily: 'Arial',
-      fontStyle: 'italic'
-    })
-    .setOrigin(0.5);
-
-  scene.add
-    .text(450, 240, 'Which definition matches this word?', {
-      fontSize: '20px',
-      fill: '#1E293B',
-      fontFamily: 'Arial'
-    })
-    .setOrigin(0.5);
-
-  // Options
-  question.options.forEach((option, index) => {
-    const y = 310 + index * 75;
-    createDefinitionOption(scene, 450, y, option, option === question.correctAnswer, question);
-  });
-
-  // Back button
-  createButton(
-    scene,
-    100,
-    600,
-    '← Back',
-    WORD_COLORS.textLight,
-    () => {
-      showWordDetail(scene);
-    },
-    140,
-    50
-  );
-}
-
-function createDefinitionOption(scene, x, y, text, isCorrect, question) {
-  const optionBox = scene.add.rectangle(x, y, 800, 60, WORD_COLORS.cardBg);
-  optionBox.setStrokeStyle(2, 0xe9ecef);
-  optionBox.setInteractive({ useHandCursor: true });
-
-  const optionText = scene.add
-    .text(x, y, text, {
-      fontSize: '18px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      align: 'center',
-      wordWrap: { width: 750 }
-    })
-    .setOrigin(0.5);
-
-  optionBox.on('pointerdown', () => {
-    // Disable all options
-    scene.children.list.forEach(child => {
-      if (child.input) {
-        child.disableInteractive();
+    // Ensure all words have progress entries
+    WORDS.forEach(w => {
+      if (!progress.wordProgress[w.id]) {
+        progress.wordProgress[w.id] = { stars: 0, attempts: 0, lastPlayed: null };
       }
     });
-
-    if (isCorrect) {
-      optionBox.setFillStyle(WORD_COLORS.success, 0.3);
-      optionBox.setStrokeStyle(3, WORD_COLORS.success);
-      sessionScore++;
-
-      // Show checkmark
-      scene.add
-        .text(x + 360, y, '✓', {
-          fontSize: '32px',
-          fill: '#A44A3F',
-          fontStyle: 'bold'
-        })
-        .setOrigin(0.5);
-    } else {
-      optionBox.setFillStyle(WORD_COLORS.error, 0.3);
-      optionBox.setStrokeStyle(3, WORD_COLORS.error);
-
-      // Show X
-      scene.add
-        .text(x + 360, y, '✗', {
-          fontSize: '32px',
-          fill: '#FF6B6B',
-          fontStyle: 'bold'
-        })
-        .setOrigin(0.5);
-    }
-
-    // Move to next question after delay
-    scene.time.delayedCall(1500, () => {
-      currentQuestionIndex++;
-      displayMeaningMatchQuestion(scene);
-    });
-  });
-
-  optionBox.on('pointerover', () => {
-    optionBox.setFillStyle(WORD_COLORS.accent, 0.1);
-  });
-
-  optionBox.on('pointerout', () => {
-    optionBox.setFillStyle(WORD_COLORS.cardBg);
-  });
-}
-
-// ==================== SCENE 5: SENTENCE BUILDER ====================
-function showSentenceBuilder(scene) {
-  scene.children.removeAll();
-  currentScene = 'sentence-builder';
-
-  sessionScore = 0;
-  currentQuestionIndex = 0;
-  currentQuestions = generateSentenceBuilderQuestions();
-
-  displaySentenceBuilderQuestion(scene);
-}
-
-function generateSentenceBuilderQuestions() {
-  const questions = [];
-  const allWords = WORD_DATABASE.easy;
-  const totalQuestions = 5;
-
-  for (let i = 0; i < totalQuestions; i++) {
-    const questionWord =
-      i === 0 ? currentWord : allWords[Phaser.Math.Between(0, allWords.length - 1)];
-
-    // Create sentence with blank
-    const sentence = questionWord.exampleSentence.replace(questionWord.word, '______');
-
-    // Get wrong word options
-    const wrongOptions = allWords
-      .filter(w => w.id !== questionWord.id)
-      .sort(() => Math.random() - 0.5)
-      .slice(0, 4)
-      .map(w => w.word);
-
-    // Combine and shuffle
-    const options = [questionWord.word, ...wrongOptions].sort(() => Math.random() - 0.5);
-
-    questions.push({
-      sentence: sentence,
-      correctWord: questionWord.word,
-      options: options,
-      definition: questionWord.definition
-    });
+  } catch (err) {
+    console.error('Failed to load progress:', err);
   }
-
-  return questions;
-}
-
-function displaySentenceBuilderQuestion(scene) {
-  scene.children.removeAll();
-
-  if (currentQuestionIndex >= currentQuestions.length) {
-    showResults(scene);
-    return;
-  }
-
-  const question = currentQuestions[currentQuestionIndex];
-
-  // Header
-  scene.add
-    .text(450, 40, '📝 Sentence Builder', {
-      fontSize: '32px',
-      fill: '#74B9FF',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Progress
-  scene.add
-    .text(450, 85, `Question ${currentQuestionIndex + 1} of ${currentQuestions.length}`, {
-      fontSize: '18px',
-      fill: '#636E72',
-      fontFamily: 'Arial'
-    })
-    .setOrigin(0.5);
-
-  // Score
-  scene.add
-    .text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
-      fontSize: '20px',
-      fill: '#A44A3F',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Instructions
-  scene.add
-    .text(450, 140, 'Fill in the blank with the correct word:', {
-      fontSize: '20px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Sentence with blank
-  scene.add
-    .text(450, 210, question.sentence, {
-      fontSize: '20px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      align: 'center',
-      fontStyle: 'italic',
-      wordWrap: { width: 800 }
-    })
-    .setOrigin(0.5);
-
-  // Hint
-  scene.add
-    .text(450, 280, `Hint: ${question.definition}`, {
-      fontSize: '18px',
-      fill: '#636E72',
-      fontFamily: 'Arial',
-      align: 'center',
-      wordWrap: { width: 750 }
-    })
-    .setOrigin(0.5);
-
-  // Word options
-  const startY = 350;
-  question.options.forEach((option, index) => {
-    const y = startY + index * 55;
-    createWordOption(scene, 450, y, option, option === question.correctWord, question);
-  });
-
-  // Back button
-  createButton(
-    scene,
-    100,
-    600,
-    '← Back',
-    WORD_COLORS.textLight,
-    () => {
-      showWordDetail(scene);
-    },
-    140,
-    50
-  );
-}
-
-function createWordOption(scene, x, y, word, isCorrect, question) {
-  const optionBox = scene.add.rectangle(x, y, 400, 45, WORD_COLORS.cardBg);
-  optionBox.setStrokeStyle(2, 0xe9ecef);
-  optionBox.setInteractive({ useHandCursor: true });
-
-  const optionText = scene.add
-    .text(x, y, word, {
-      fontSize: '18px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  optionBox.on('pointerdown', () => {
-    // Disable all options
-    scene.children.list.forEach(child => {
-      if (child.input) {
-        child.disableInteractive();
-      }
-    });
-
-    if (isCorrect) {
-      optionBox.setFillStyle(WORD_COLORS.success, 0.3);
-      optionBox.setStrokeStyle(3, WORD_COLORS.success);
-      sessionScore++;
-
-      scene.add
-        .text(x + 180, y, '✓', {
-          fontSize: '28px',
-          fill: '#A44A3F',
-          fontStyle: 'bold'
-        })
-        .setOrigin(0.5);
-    } else {
-      optionBox.setFillStyle(WORD_COLORS.error, 0.3);
-      optionBox.setStrokeStyle(3, WORD_COLORS.error);
-
-      scene.add
-        .text(x + 180, y, '✗', {
-          fontSize: '28px',
-          fill: '#FF6B6B',
-          fontStyle: 'bold'
-        })
-        .setOrigin(0.5);
-    }
-
-    scene.time.delayedCall(1500, () => {
-      currentQuestionIndex++;
-      displaySentenceBuilderQuestion(scene);
-    });
-  });
-
-  optionBox.on('pointerover', () => {
-    optionBox.setFillStyle(WORD_COLORS.accent, 0.1);
-  });
-
-  optionBox.on('pointerout', () => {
-    optionBox.setFillStyle(WORD_COLORS.cardBg);
-  });
-}
-
-// ==================== SCENE 6: SPELLING QUEST ====================
-function showSpellingQuest(scene) {
-  scene.children.removeAll();
-  currentScene = 'spelling-quest';
-
-  sessionScore = 0;
-  currentQuestionIndex = 0;
-  currentQuestions = generateSpellingQuestions();
-
-  displaySpellingQuestion(scene);
-}
-
-function generateSpellingQuestions() {
-  const questions = [];
-  const allWords = WORD_DATABASE.easy;
-  const totalQuestions = 5;
-
-  for (let i = 0; i < totalQuestions; i++) {
-    const questionWord =
-      i === 0 ? currentWord : allWords[Phaser.Math.Between(0, allWords.length - 1)];
-
-    questions.push({
-      word: questionWord.word,
-      definition: questionWord.definition,
-      phonetic: questionWord.phonetic
-    });
-  }
-
-  return questions;
-}
-
-function displaySpellingQuestion(scene) {
-  scene.children.removeAll();
-
-  if (currentQuestionIndex >= currentQuestions.length) {
-    showResults(scene);
-    return;
-  }
-
-  const question = currentQuestions[currentQuestionIndex];
-  selectedLetters = [];
-  userAnswer = '';
-
-  // Header
-  scene.add
-    .text(450, 40, '✏️ Spelling Quest', {
-      fontSize: '32px',
-      fill: '#A44A3F',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Progress
-  scene.add
-    .text(450, 85, `Word ${currentQuestionIndex + 1} of ${currentQuestions.length}`, {
-      fontSize: '18px',
-      fill: '#636E72',
-      fontFamily: 'Arial'
-    })
-    .setOrigin(0.5);
-
-  // Score
-  scene.add
-    .text(750, 40, `Score: ${sessionScore}/${currentQuestions.length}`, {
-      fontSize: '20px',
-      fill: '#A44A3F',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Definition
-  scene.add
-    .text(450, 140, 'Spell the word that means:', {
-      fontSize: '20px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  scene.add
-    .text(450, 180, question.definition, {
-      fontSize: '18px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      align: 'center',
-      wordWrap: { width: 750 }
-    })
-    .setOrigin(0.5);
-
-  // Phonetic hint
-  scene.add
-    .text(450, 230, `Pronunciation: ${question.phonetic}`, {
-      fontSize: '18px',
-      fill: '#636E72',
-      fontFamily: 'Arial',
-      fontStyle: 'italic'
-    })
-    .setOrigin(0.5);
-
-  // Answer area
-  const answerBox = scene.add.rectangle(450, 290, 600, 60, 0x2d3436);
-  answerBox.setStrokeStyle(3, WORD_COLORS.accent);
-
-  const answerText = scene.add
-    .text(450, 290, '', {
-      fontSize: '32px',
-      fill: '#F19C79',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Feedback text
-  const feedbackText = scene.add
-    .text(450, 340, '', {
-      fontSize: '20px',
-      fill: '#2D3436',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Letter bank
-  createLetterBank(scene, answerText, question);
-
-  // Action buttons
-  createButton(
-    scene,
-    300,
-    580,
-    'Clear',
-    WORD_COLORS.error,
-    () => {
-      selectedLetters = [];
-      userAnswer = '';
-      answerText.setText('');
-      feedbackText.setText('');
-    },
-    140,
-    50
-  );
-
-  createButton(
-    scene,
-    600,
-    580,
-    'Submit',
-    WORD_COLORS.success,
-    () => {
-      checkSpelling(scene, question, feedbackText, answerText);
-    },
-    140,
-    50
-  );
-
-  // Back button
-  createButton(
-    scene,
-    100,
-    600,
-    '← Back',
-    WORD_COLORS.textLight,
-    () => {
-      showWordDetail(scene);
-    },
-    140,
-    50
-  );
-}
-
-function createLetterBank(scene, answerText, question) {
-  const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-  const startX = 100;
-  const startY = 400;
-  const buttonSize = 40;
-  const spacing = 46;
-  const perRow = 13;
-
-  alphabet.forEach((letter, index) => {
-    const col = index % perRow;
-    const row = Math.floor(index / perRow);
-    const x = startX + col * spacing;
-    const y = startY + row * spacing;
-
-    const btn = scene.add.rectangle(x, y, buttonSize, buttonSize, WORD_COLORS.primary);
-    btn.setInteractive({ useHandCursor: true });
-    btn.setStrokeStyle(2, 0xffffff);
-
-    const text = scene.add
-      .text(x, y, letter, {
-        fontSize: '20px',
-        fill: '#FFFFFF',
-        fontFamily: 'Arial',
-        fontStyle: 'bold'
-      })
-      .setOrigin(0.5);
-
-    btn.on('pointerdown', () => {
-      selectedLetters.push(letter);
-      userAnswer = selectedLetters.join('').toLowerCase();
-      answerText.setText(userAnswer);
-    });
-
-    btn.on('pointerover', () => {
-      btn.setAlpha(0.8);
-    });
-
-    btn.on('pointerout', () => {
-      btn.setAlpha(1);
-    });
-  });
-}
-
-function checkSpelling(scene, question, feedbackText, answerText) {
-  const isCorrect = userAnswer.toLowerCase() === question.word.toLowerCase();
-
-  if (isCorrect) {
-    sessionScore++;
-    feedbackText.setText('✓ Perfect spelling!');
-    feedbackText.setColor('#A44A3F');
-    answerText.setColor('#A44A3F');
-  } else {
-    feedbackText.setText(`✗ Correct spelling: ${question.word}`);
-    feedbackText.setColor('#FF6B6B');
-    answerText.setColor('#FF6B6B');
-  }
-
-  // Disable all interactions
-  scene.children.list.forEach(child => {
-    if (child.input) {
-      child.disableInteractive();
-    }
-  });
-
-  scene.time.delayedCall(2500, () => {
-    currentQuestionIndex++;
-    displaySpellingQuestion(scene);
-  });
-}
-
-// ==================== SCENE 7: RESULTS ====================
-function showResults(scene) {
-  scene.children.removeAll();
-  currentScene = 'results';
-
-  const totalQuestions = currentQuestions.length;
-  const percentage = (sessionScore / totalQuestions) * 100;
-  const stars = calculateStars(percentage);
-
-  // Update progress
-  const wordId = currentWord.id;
-  if (!wordProgress[wordId]) {
-    wordProgress[wordId] = { stars: 0, attempts: 0, lastPlayed: '' };
-  }
-
-  wordProgress[wordId].attempts++;
-  wordProgress[wordId].lastPlayed = new Date().toISOString().split('T')[0];
-
-  // Update stars (keep best score)
-  if (stars > wordProgress[wordId].stars) {
-    wordProgress[wordId].stars = stars;
-  }
-
-  saveProgress();
-
-  // Track completion
-  if (window.gameAnalytics) {
-    window.gameAnalytics.trackLevelComplete('word-explorer', wordId, stars);
-  }
-
-  // Celebration title
-  let title = '🎉 Excellent!';
-  let titleColor = '#A44A3F';
-  if (stars === 3) {
-    title = '⭐ Perfect! Amazing!';
-    titleColor = '#F19C79';
-  } else if (stars === 2) {
-    title = '🎉 Great Job!';
-    titleColor = '#A44A3F';
-  } else if (stars === 1) {
-    title = '👍 Good Try!';
-    titleColor = '#74B9FF';
-  } else {
-    title = '📚 Keep Practicing!';
-    titleColor = '#FF6B6B';
-  }
-
-  scene.add
-    .text(450, 100, title, {
-      fontSize: '48px',
-      fill: titleColor,
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  // Score
-  scene.add
-    .text(450, 180, `Score: ${sessionScore}/${totalQuestions}`, {
-      fontSize: '36px',
-      fill: '#1E293B',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  scene.add
-    .text(450, 230, `${percentage}%`, {
-      fontSize: '32px',
-      fill: '#636E72',
-      fontFamily: 'Arial'
-    })
-    .setOrigin(0.5);
-
-  // Stars display
-  const starsDisplay = getStarDisplay(stars);
-  scene.add
-    .text(450, 290, starsDisplay, {
-      fontSize: '56px',
-      fill: '#F19C79'
-    })
-    .setOrigin(0.5);
-
-  scene.add
-    .text(450, 350, `You earned ${stars} star${stars !== 1 ? 's' : ''}!`, {
-      fontSize: '24px',
-      fill: '#1E293B',
-      fontFamily: 'Arial'
-    })
-    .setOrigin(0.5);
-
-  // Encouraging message
-  let message = '';
-  if (stars === 3) {
-    message = 'Perfect score! You mastered this word! 🌟';
-  } else if (stars === 2) {
-    message = 'Great work! You know this word well!';
-  } else if (stars === 1) {
-    message = 'Good start! Practice more to improve!';
-  } else {
-    message = "Keep trying! You'll get better with practice!";
-  }
-
-  scene.add
-    .text(450, 400, message, {
-      fontSize: '18px',
-      fill: '#636E72',
-      fontFamily: 'Arial',
-      align: 'center',
-      wordWrap: { width: 700 }
-    })
-    .setOrigin(0.5);
-
-  // Buttons
-  createButton(
-    scene,
-    300,
-    500,
-    'Word Detail',
-    WORD_COLORS.accent,
-    () => {
-      showWordDetail(scene);
-    },
-    180,
-    60
-  );
-
-  createButton(
-    scene,
-    600,
-    500,
-    'Word Map',
-    WORD_COLORS.primary,
-    () => {
-      showWordMap(scene);
-    },
-    180,
-    60
-  );
-
-  createButton(
-    scene,
-    450,
-    590,
-    '← Main Menu',
-    WORD_COLORS.textLight,
-    () => {
-      showMainMenu(scene);
-    },
-    180,
-    50
-  );
-}
-
-// ==================== HELPER FUNCTIONS ====================
-function createButton(scene, x, y, label, color, callback, width = 200, height = 60) {
-  const button = scene.add.rectangle(x, y, width, height, color);
-  button.setInteractive({ useHandCursor: true });
-
-  const text = scene.add
-    .text(x, y, label, {
-      fontSize: '18px',
-      fill: '#FFFFFF',
-      fontFamily: 'Arial',
-      fontStyle: 'bold'
-    })
-    .setOrigin(0.5);
-
-  button.on('pointerdown', callback);
-
-  button.on('pointerover', () => {
-    button.setAlpha(0.85);
-    button.setScale(1.02);
-  });
-
-  button.on('pointerout', () => {
-    button.setAlpha(1);
-    button.setScale(1);
-  });
-
-  return { button, text };
-}
-
-function getStarDisplay(stars) {
-  if (stars === 0) {
-    return '☆☆☆';
-  }
-  if (stars === 1) {
-    return '⭐☆☆';
-  }
-  if (stars === 2) {
-    return '⭐⭐☆';
-  }
-  if (stars === 3) {
-    return '⭐⭐⭐';
-  }
-  return '☆☆☆';
-}
-
-function calculateStars(percentage) {
-  if (percentage >= 100) {
-    return 3;
-  }
-  if (percentage >= 66) {
-    return 2;
-  }
-  if (percentage >= 50) {
-    return 1;
-  }
-  return 0;
 }
 
 function saveProgress() {
   try {
-    localStorage.setItem('word-explorer-progress', JSON.stringify(wordProgress));
-  } catch (e) {
-    console.error('Failed to save progress:', e);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+  } catch (err) {
+    console.error('Failed to save progress:', err);
   }
 }
 
-function loadProgress() {
-  try {
-    const saved = localStorage.getItem('word-explorer-progress');
-    if (saved) {
-      wordProgress = JSON.parse(saved);
+// ===== HELPER: Calculate Progress Metrics =====
+
+function getTotalStars() {
+  return Object.values(progress.wordProgress).reduce((sum, wp) => sum + wp.stars, 0);
+}
+
+function getWordsLearned() {
+  return Object.values(progress.wordProgress).filter(wp => wp.stars > 0).length;
+}
+
+function getCategoryProgress(categoryId) {
+  const words = WORDS_BY_CATEGORY[categoryId] || [];
+  const learned = words.filter(w => progress.wordProgress[w.id]?.stars > 0).length;
+  return { learned, total: words.length };
+}
+
+function isCategoryUnlocked(categoryId) {
+  if (progress.unlockedCategories.includes(categoryId)) {
+    return true;
+  }
+  const cat = CATEGORY_MAP[categoryId];
+  return getTotalStars() >= cat.unlockRequirement;
+}
+
+function checkAndUnlockCategories() {
+  WORD_CATEGORIES.forEach(cat => {
+    if (!progress.unlockedCategories.includes(cat.id) && isCategoryUnlocked(cat.id)) {
+      progress.unlockedCategories.push(cat.id);
     }
-  } catch (e) {
-    console.error('Failed to load progress:', e);
-    wordProgress = {};
+  });
+}
+
+// ===== HELPER: Speech Synthesis =====
+
+function speakWord(wordText) {
+  if (!('speechSynthesis' in window)) {
+    return;
+  }
+
+  window.speechSynthesis.cancel();
+  const utterance = new SpeechSynthesisUtterance(wordText);
+  utterance.rate = SPEECH_RATE;
+  utterance.pitch = 1;
+  utterance.volume = 1;
+  window.speechSynthesis.speak(utterance);
+}
+
+// ===== HELPER: Quiz Question Generation =====
+
+function generateMeaningCheckQuestions(word) {
+  const questions = [];
+
+  // Q1: What does WORD mean? (Multiple choice definition)
+  const distractors1 = WORDS.filter(w => w.category === word.category && w.id !== word.id)
+    .slice(0, 3)
+    .map(w => w.definition);
+  questions.push({
+    type: 'multiple-choice',
+    text: `What does <strong>${word.word}</strong> mean?`,
+    options: [word.definition, ...distractors1].sort(() => Math.random() - 0.5),
+    correct: word.definition
+  });
+
+  // Q2: Which word means DEFINITION?
+  const candidates = WORDS.filter(w => w.category === word.category && w.id !== word.id);
+  const distractors2 = candidates.slice(0, 3).map(w => w.word);
+  questions.push({
+    type: 'multiple-choice',
+    text: `Which word means: <strong>${word.definition}</strong>`,
+    options: [word.word, ...distractors2].sort(() => Math.random() - 0.5),
+    correct: word.word
+  });
+
+  // Q3: Pick a synonym
+  const synOptions = [word.synonyms[0], ...candidates.slice(0, 3).map(w => w.synonyms[0] || w.word)]
+    .filter(Boolean)
+    .slice(0, 4)
+    .sort(() => Math.random() - 0.5);
+  questions.push({
+    type: 'multiple-choice',
+    text: `Pick a synonym for <strong>${word.word}</strong>:`,
+    options: synOptions,
+    correct: word.synonyms[0]
+  });
+
+  // Q4: Pick an antonym
+  const antOptions = [word.antonyms[0], ...candidates.slice(0, 3).map(w => w.antonyms[0] || w.word)]
+    .filter(Boolean)
+    .slice(0, 4)
+    .sort(() => Math.random() - 0.5);
+  questions.push({
+    type: 'multiple-choice',
+    text: `Pick an antonym for <strong>${word.word}</strong>:`,
+    options: antOptions,
+    correct: word.antonyms[0]
+  });
+
+  // Q5: Fill the blank
+  const example = word.exampleSentences[0];
+  const blank = `[${word.word.toUpperCase()}]`;
+  const beforeWord = example.substring(0, example.indexOf(word.word));
+  const afterWord = example.substring(example.indexOf(word.word) + word.word.length);
+  const fillOptions = [word.word, ...candidates.slice(0, 3).map(w => w.word)]
+    .slice(0, 4)
+    .sort(() => Math.random() - 0.5);
+
+  questions.push({
+    type: 'fill-blank',
+    text: `Fill in: <strong>${beforeWord}${blank}${afterWord}</strong>`,
+    options: fillOptions,
+    correct: word.word
+  });
+
+  return questions;
+}
+
+function generateUsageScenarios(word) {
+  const scenarios = word.whenToUse
+    .map(u => ({
+      scenario: u.split(':')[0],
+      correct: true,
+      explanation: u
+    }))
+    .concat(
+      word.whenNotToUse.map(u => ({
+        scenario: u.split('—')[0],
+        correct: false,
+        explanation: u
+      }))
+    )
+    .sort(() => Math.random() - 0.5);
+
+  return scenarios.slice(0, PRACTICE_QUESTION_COUNT).map((s, i) => ({
+    type: 'yes-no',
+    text: `Would you use <strong>${word.word}</strong> here? "${s.scenario}"`,
+    options: ['Yes', 'No'],
+    correct: s.correct ? 'Yes' : 'No',
+    explanation: s.explanation
+  }));
+}
+
+function generateConnotationSort(word) {
+  const allWords = WORDS.slice(0, 8);
+  return {
+    type: 'sort',
+    text: 'Sort these words by feeling:',
+    words: allWords,
+    correct: {
+      positive: allWords.filter(w => w.connotation === 'positive').map(w => w.id),
+      negative: allWords.filter(w => w.connotation === 'negative').map(w => w.id),
+      neutral: allWords.filter(w => w.connotation === 'neutral').map(w => w.id)
+    }
+  };
+}
+
+// ===== SECTION B: NAVIGATION & SCREEN MANAGEMENT =====
+
+let nav;
+
+function initNavigation() {
+  nav = new GameNavigation('word-explorer', {
+    screens: ['landing', 'category', 'word-card', 'practice', 'results', 'my-words'],
+    initialScreen: 'landing'
+  });
+}
+
+function goToScreen(screenName) {
+  gameState.currentScreen = screenName;
+  nav.goToScreen(screenName);
+
+  // Render the screen
+  switch (screenName) {
+    case 'landing':
+      renderLanding();
+      break;
+    case 'category':
+      renderCategory();
+      break;
+    case 'word-card':
+      renderWordCard();
+      break;
+    case 'practice':
+      renderPractice();
+      break;
+    case 'results':
+      renderResults();
+      break;
+    case 'my-words':
+      renderMyWords();
+      break;
   }
 }
+
+// ===== SECTION C: LANDING SCREEN =====
+
+function renderLanding() {
+  const totalStars = getTotalStars();
+  const wordsLearned = getWordsLearned();
+
+  document.getElementById('stat-total').textContent = wordsLearned;
+  document.getElementById('stat-stars').textContent = totalStars;
+  document.getElementById('stat-streak').textContent = '0'; // TODO: implement streak
+
+  // Word of the Day
+  const wordOfDay = WORDS[Math.floor(Math.random() * WORDS.length)];
+  const wodHtml = `
+    <div class="word-of-day" onclick="goToWordCard('${wordOfDay.id}')">
+      <div class="word-of-day-label">✨ Word of the Day</div>
+      <div class="word-of-day-word">${wordOfDay.word}</div>
+      <div class="word-of-day-def">${wordOfDay.definition}</div>
+    </div>
+  `;
+  document.getElementById('word-of-day-container').innerHTML = wodHtml;
+
+  // Category Grid
+  const categoryGridHtml = WORD_CATEGORIES.sort((a, b) => a.order - b.order)
+    .map(cat => {
+      const prog = getCategoryProgress(cat.id);
+      const isUnlocked = isCategoryUnlocked(cat.id);
+      const progressPercent = (prog.learned / prog.total) * 100;
+
+      if (!isUnlocked) {
+        return `
+          <div class="category-card locked" onclick="alert('Earn ${cat.unlockRequirement - getTotalStars()} more stars to unlock')">
+            <i class="ti ${cat.icon}" style="font-size: 2.5rem;"></i>
+            <div style="flex: 1;">
+              <div class="category-card-name">${cat.name}</div>
+              <div class="category-card-unlock-hint">🔒 ${cat.unlockRequirement} stars needed</div>
+            </div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="category-card" onclick="goToCategory('${cat.id}')">
+          <i class="ti ${cat.icon}" style="font-size: 2.5rem;"></i>
+          <div style="flex: 1;">
+            <div class="category-card-name">${cat.name}</div>
+            <div class="category-card-progress">${prog.learned}/${prog.total} words</div>
+            <div class="dom-progress">
+              <div class="dom-progress-bar" style="width: ${progressPercent}%"></div>
+            </div>
+          </div>
+        </div>
+      `;
+    })
+    .join('');
+
+  document.getElementById('category-grid').innerHTML = categoryGridHtml;
+
+  // My Words button
+  document.getElementById('my-words-btn').addEventListener('click', () => goToScreen('my-words'));
+}
+
+// ===== SECTION D: CATEGORY SCREEN =====
+
+function goToCategory(categoryId) {
+  gameState.currentCategory = categoryId;
+  goToScreen('category');
+}
+
+function renderCategory() {
+  const cat = CATEGORY_MAP[gameState.currentCategory];
+  const words = WORDS_BY_CATEGORY[gameState.currentCategory] || [];
+
+  document.getElementById('nav-title').textContent = cat.name;
+
+  const sortSelect = document.getElementById('sort-select');
+  sortSelect.value = 'all';
+  sortSelect.addEventListener('change', renderCategoryList);
+
+  renderCategoryList();
+}
+
+function renderCategoryList() {
+  const sortValue = document.getElementById('sort-select').value;
+  const words = WORDS_BY_CATEGORY[gameState.currentCategory] || [];
+
+  let filtered = words;
+  if (sortValue === 'not-started') {
+    filtered = words.filter(w => progress.wordProgress[w.id]?.stars === 0);
+  } else if (sortValue === 'in-progress') {
+    filtered = words.filter(w => {
+      const wp = progress.wordProgress[w.id];
+      return wp && wp.stars > 0 && wp.stars < 3;
+    });
+  } else if (sortValue === 'mastered') {
+    filtered = words.filter(w => progress.wordProgress[w.id]?.stars === 3);
+  }
+
+  const wordListHtml = filtered
+    .map(word => {
+      const wp = progress.wordProgress[word.id];
+      const stars = wp?.stars || 0;
+      const starHtml = Array(3)
+        .fill(0)
+        .map((_, i) => `<span class="star ${i < stars ? 'filled' : ''}">★</span>`)
+        .join('');
+
+      const difficultyDots = Array(3)
+        .fill(0)
+        .map(
+          (_, i) => `<span class="difficulty-dot ${i < word.difficulty ? 'filled' : ''}"></span>`
+        )
+        .join('');
+
+      return `
+        <div class="word-item" onclick="goToWordCard('${word.id}')">
+          <div class="word-item-left">
+            <div class="word-item-word">${word.word}</div>
+            <div class="word-item-phonetic">${word.phonetic}</div>
+            <div class="word-item-difficulty">${difficultyDots}</div>
+          </div>
+          <div class="word-item-right">
+            <div class="word-stars">${starHtml}</div>
+          </div>
+        </div>
+      `;
+    })
+    .join('');
+
+  document.getElementById('word-list').innerHTML = wordListHtml;
+}
+
+// ===== SECTION E: WORD CARD SCREEN =====
+
+function goToWordCard(wordId) {
+  gameState.currentWord = WORD_MAP[wordId];
+  if (!gameState.currentWord) {
+    return;
+  }
+
+  gameState.currentWordIndex = (WORDS_BY_CATEGORY[gameState.currentWord.category] || []).findIndex(
+    w => w.id === wordId
+  );
+
+  goToScreen('word-card');
+}
+
+function renderWordCard() {
+  const word = gameState.currentWord;
+  if (!word) {
+    return;
+  }
+
+  document.getElementById('nav-title').textContent = word.word;
+
+  // Header
+  document.getElementById('word-display').textContent = word.word;
+  document.getElementById('phonetic-display').textContent = word.phonetic;
+  document.getElementById('pos-display').textContent = word.partOfSpeech;
+
+  const conBadge = document.getElementById('connotation-display');
+  conBadge.textContent = word.connotation.charAt(0).toUpperCase() + word.connotation.slice(1);
+  conBadge.className = `connotation-badge ${word.connotation}`;
+
+  // Hear button
+  document.getElementById('hear-btn').addEventListener('click', () => speakWord(word.word));
+
+  // Meaning tab
+  document.getElementById('simple-def').textContent = word.definition;
+  document.getElementById('full-def').textContent = word.fullDefinition;
+  document.getElementById('example-1').textContent = word.exampleSentences[0];
+  document.getElementById('example-2').textContent = word.exampleSentences[1];
+
+  // Usage tab
+  const whenUseHtml = word.whenToUse
+    .map(u => `<li class="usage-item"><div class="usage-item-label">✓ USE:</div>${u}</li>`)
+    .join('');
+  document.getElementById('when-use-list').innerHTML = whenUseHtml;
+
+  const whenNotHtml = word.whenNotToUse
+    .map(
+      u =>
+        `<li class="usage-item when-not"><div class="usage-item-label">✗ DON'T USE:</div>${u}</li>`
+    )
+    .join('');
+  document.getElementById('when-not-list').innerHTML = whenNotHtml;
+
+  // Remember tab
+  document.getElementById('memory-tip').textContent = word.memoryTip;
+  document.getElementById('origin').textContent = word.origin;
+
+  const synonymHtml = word.synonyms.map(s => `<span class="chip">${s}</span>`).join('');
+  document.getElementById('synonyms-container').innerHTML = synonymHtml;
+
+  const antonymHtml = word.antonyms.map(a => `<span class="chip">${a}</span>`).join('');
+  document.getElementById('antonyms-container').innerHTML = antonymHtml;
+
+  // Practice tab
+  const practiceModesHtml = `
+    <button class="practice-mode-btn" onclick="startPractice('quick-look')">
+      <span class="practice-mode-icon">👁️</span>
+      Quick Look
+    </button>
+    <button class="practice-mode-btn" onclick="startPractice('meaning-check')">
+      <span class="practice-mode-icon">🧠</span>
+      Meaning Check
+    </button>
+    <button class="practice-mode-btn" onclick="startPractice('use-it-right')">
+      <span class="practice-mode-icon">✓</span>
+      Use It Right
+    </button>
+    <button class="practice-mode-btn" onclick="startPractice('connotation-sort')">
+      <span class="practice-mode-icon">🎨</span>
+      Sort by Feeling
+    </button>
+  `;
+  document.getElementById('practice-modes').innerHTML = practiceModesHtml;
+
+  // Word navigation
+  const categoryWords = WORDS_BY_CATEGORY[word.category] || [];
+  const isFirstWord = gameState.currentWordIndex === 0;
+  const isLastWord = gameState.currentWordIndex === categoryWords.length - 1;
+
+  const prevBtn = document.getElementById('prev-word-btn');
+  const nextBtn = document.getElementById('next-word-btn');
+
+  prevBtn.disabled = isFirstWord;
+  nextBtn.disabled = isLastWord;
+
+  prevBtn.onclick = () => {
+    if (!isFirstWord) {
+      goToWordCard(categoryWords[gameState.currentWordIndex - 1].id);
+    }
+  };
+
+  nextBtn.onclick = () => {
+    if (!isLastWord) {
+      goToWordCard(categoryWords[gameState.currentWordIndex + 1].id);
+    }
+  };
+
+  // Tab switching
+  document.querySelectorAll('.tab-button').forEach(btn => {
+    btn.addEventListener('click', e => {
+      document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      e.target.classList.add('active');
+      const tabName = e.target.dataset.tab;
+      document.getElementById(`tab-${tabName}`).classList.add('active');
+    });
+  });
+}
+
+// ===== SECTION F: PRACTICE SCREEN =====
+
+function startPractice(mode) {
+  gameState.currentPracticeMode = mode;
+  const word = gameState.currentWord;
+
+  gameState.practiceSession = {
+    questions: [],
+    currentQ: 0,
+    correctCount: 0,
+    answers: []
+  };
+
+  if (mode === 'quick-look') {
+    // No quiz, just award 1 star if first time
+    if (progress.wordProgress[word.id].stars === 0) {
+      progress.wordProgress[word.id].stars = 1;
+      progress.wordProgress[word.id].attempts = 1;
+      progress.wordProgress[word.id].lastPlayed = new Date().toDateString();
+      saveProgress();
+      checkAndUnlockCategories();
+    }
+    alert(`✓ You've explored "${word.word}"! Earn stars with practice modes.`);
+    goToScreen('word-card');
+    return;
+  }
+
+  if (mode === 'meaning-check') {
+    gameState.practiceSession.questions = generateMeaningCheckQuestions(word);
+  } else if (mode === 'use-it-right') {
+    gameState.practiceSession.questions = generateUsageScenarios(word);
+  } else if (mode === 'connotation-sort') {
+    gameState.practiceSession.questions = [generateConnotationSort(word)];
+  }
+
+  goToScreen('practice');
+}
+
+function renderPractice() {
+  const session = gameState.practiceSession;
+  const word = gameState.currentWord;
+  const question = session.questions[session.currentQ];
+
+  document.getElementById('nav-title').textContent = `Practice: ${word.word}`;
+
+  // Mode title
+  const modeNames = {
+    'meaning-check': 'Meaning Check',
+    'use-it-right': 'Use It Right',
+    'connotation-sort': 'Sort by Feeling'
+  };
+  document.getElementById('practice-mode-title').textContent =
+    modeNames[gameState.currentPracticeMode] || 'Practice';
+
+  // Progress dots
+  const progressHtml = session.questions
+    .map((_, i) => {
+      let cls = '';
+      if (i < session.currentQ) {
+        cls = 'completed';
+      } else if (i === session.currentQ) {
+        cls = 'current';
+      }
+      return `<div class="progress-dot ${cls}"></div>`;
+    })
+    .join('');
+  document.getElementById('practice-progress').innerHTML = progressHtml;
+
+  document.getElementById('practice-score').textContent =
+    `${session.correctCount}/${session.currentQ} correct`;
+
+  // Question rendering
+  const container = document.getElementById('question-container');
+
+  if (
+    gameState.currentPracticeMode === 'meaning-check' ||
+    gameState.currentPracticeMode === 'use-it-right'
+  ) {
+    renderMultipleChoiceQuestion(question, container);
+  } else if (gameState.currentPracticeMode === 'connotation-sort') {
+    renderConnotationSort(question, container);
+  }
+}
+
+function renderMultipleChoiceQuestion(question, container) {
+  const optionsHtml = question.options
+    .map(
+      opt =>
+        `<button class="option-btn" onclick="answerQuestion('${opt}')"><span>${opt}</span></button>`
+    )
+    .join('');
+
+  container.innerHTML = `
+    <div class="question-area">
+      <div class="question-text">${question.text}</div>
+      <div class="options-grid">${optionsHtml}</div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  `;
+}
+
+function renderConnotationSort(question, container) {
+  const wordChips = question.words
+    .map(w => `<button class="word-chip" onclick="selectWordForSort('${w.id}')">${w.word}</button>`)
+    .join('');
+
+  container.innerHTML = `
+    <div class="question-area">
+      <div class="question-text">${question.text}</div>
+      <div style="margin-bottom: 16px;">
+        <strong>Words to Sort:</strong>
+        <div class="word-chips" style="gap: 6px; padding: 0;">${wordChips}</div>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px;">
+        <div style="border: 2px solid #2e7d32; padding: 12px; border-radius: 6px; text-align: center;">
+          <strong style="color: #2e7d32;">😊 Positive</strong>
+          <div id="positive-bucket" style="min-height: 60px; margin-top: 8px;"></div>
+        </div>
+        <div style="border: 2px solid #5c6bc0; padding: 12px; border-radius: 6px; text-align: center;">
+          <strong style="color: #5c6bc0;">😐 Neutral</strong>
+          <div id="neutral-bucket" style="min-height: 60px; margin-top: 8px;"></div>
+        </div>
+        <div style="border: 2px solid #c62828; padding: 12px; border-radius: 6px; text-align: center;">
+          <strong style="color: #c62828;">😞 Negative</strong>
+          <div id="negative-bucket" style="min-height: 60px; margin-top: 8px;"></div>
+        </div>
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+  `;
+}
+
+function answerQuestion(answer) {
+  const session = gameState.practiceSession;
+  const question = session.questions[session.currentQ];
+  const isCorrect = answer === question.correct;
+
+  session.answers.push({ answer, isCorrect, explanation: question.explanation });
+  if (isCorrect) {
+    session.correctCount++;
+  }
+
+  // Show feedback
+  const feedback = document.getElementById('feedback');
+  feedback.classList.add('show', isCorrect ? 'correct' : 'incorrect');
+  const explanationText =
+    question.explanation ||
+    (isCorrect ? 'Great job!' : `The correct answer is: ${question.correct}`);
+  feedback.innerHTML = `<strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect'}</strong><br>${explanationText}`;
+
+  // Disable options
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.disabled = true;
+    if (btn.textContent.includes(question.correct)) {
+      btn.classList.add('correct');
+    } else if (btn.textContent.includes(answer) && !isCorrect) {
+      btn.classList.add('incorrect');
+    }
+  });
+
+  // Show next button
+  setTimeout(() => {
+    if (session.currentQ < session.questions.length - 1) {
+      document.getElementById('next-question-btn').style.display = 'block';
+      document.getElementById('next-question-btn').onclick = () => {
+        session.currentQ++;
+        renderPractice();
+      };
+    } else {
+      document.getElementById('next-question-btn').textContent = 'See Results';
+      document.getElementById('next-question-btn').onclick = finishPractice;
+    }
+  }, 500);
+}
+
+function selectWordForSort(wordId) {
+  // Placeholder - full implementation would handle bucket placement
+  alert('Word sorting feature in development');
+}
+
+function finishPractice() {
+  const session = gameState.practiceSession;
+  const word = gameState.currentWord;
+  const percentage = Math.round((session.correctCount / session.questions.length) * 100);
+  let stars = 0;
+
+  if (percentage === 100) {
+    stars = 3;
+  } else if (percentage >= 80) {
+    stars = 2;
+  } else if (percentage >= 60) {
+    stars = 1;
+  }
+
+  // Update progress
+  if (stars > progress.wordProgress[word.id].stars) {
+    progress.wordProgress[word.id].stars = stars;
+  }
+  progress.wordProgress[word.id].attempts = (progress.wordProgress[word.id].attempts || 0) + 1;
+  progress.wordProgress[word.id].lastPlayed = new Date().toDateString();
+  saveProgress();
+  checkAndUnlockCategories();
+
+  // Store results for results screen
+  gameState.practiceResults = {
+    stars,
+    percentage,
+    correct: session.correctCount,
+    total: session.questions.length
+  };
+
+  goToScreen('results');
+}
+
+// ===== SECTION G: RESULTS SCREEN =====
+
+function renderResults() {
+  const results = gameState.practiceResults;
+  const word = gameState.currentWord;
+
+  document.getElementById('nav-title').textContent = 'Results';
+
+  // Stars
+  const starHtml = Array(3)
+    .fill(0)
+    .map(
+      (_, i) =>
+        `<span style="color: ${i < results.stars ? '#f5c518' : '#d8c8f0'}; font-size: 2.5rem;">★</span>`
+    )
+    .join('');
+  document.getElementById('results-stars').innerHTML = starHtml;
+
+  // Message based on score
+  const messages = {
+    100: `Perfect! You've truly mastered "${word.word}"!`,
+    80: `Excellent work! You know "${word.word}" very well!`,
+    60: `Good effort! Keep practicing "${word.word}".`,
+    0: "Don't worry! Try again and you'll get it!"
+  };
+
+  let message = messages[0];
+  if (results.percentage === 100) {
+    message = messages[100];
+  } else if (results.percentage >= 80) {
+    message = messages[80];
+  } else if (results.percentage >= 60) {
+    message = messages[60];
+  }
+
+  document.getElementById('results-message').textContent = message;
+  document.getElementById('results-percentage').textContent =
+    `${results.correct}/${results.total} correct (${results.percentage}%)`;
+
+  // Buttons
+  document.getElementById('review-btn').onclick = () => goToScreen('word-card');
+  document.getElementById('try-again-btn').onclick = () =>
+    startPractice(gameState.currentPracticeMode);
+
+  const categoryWords = WORDS_BY_CATEGORY[word.category] || [];
+  const isLastWord = gameState.currentWordIndex === categoryWords.length - 1;
+
+  document.getElementById('next-word-results-btn').disabled = isLastWord;
+  document.getElementById('next-word-results-btn').onclick = () => {
+    if (!isLastWord) {
+      goToWordCard(categoryWords[gameState.currentWordIndex + 1].id);
+      renderWordCard();
+    }
+  };
+
+  document.getElementById('back-category-btn').onclick = () => goToScreen('category');
+}
+
+// ===== SECTION H: MY WORDS SCREEN =====
+
+function renderMyWords() {
+  document.getElementById('nav-title').textContent = 'My Words';
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.classList.remove('active');
+    btn.onclick = e => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      gameState.currentMyWordsFilter = e.target.dataset.filter;
+      renderMyWordsList();
+    };
+    if (btn.dataset.filter === gameState.currentMyWordsFilter) {
+      btn.classList.add('active');
+    }
+  });
+
+  renderMyWordsList();
+}
+
+function renderMyWordsList() {
+  let words = WORDS;
+
+  const filter = gameState.currentMyWordsFilter;
+  if (filter === 'favorites') {
+    words = words.filter(w => progress.favorites.includes(w.id));
+  } else if (filter === 'mastered') {
+    words = words.filter(w => progress.wordProgress[w.id]?.stars === 3);
+  } else if (filter === 'in-progress') {
+    words = words.filter(w => {
+      const wp = progress.wordProgress[w.id];
+      return wp && wp.stars > 0 && wp.stars < 3;
+    });
+  }
+
+  const chipsHtml = words
+    .map(
+      w =>
+        `<div class="word-chip" onclick="goToWordCard('${w.id}')" style="cursor: pointer;">
+        ${w.word}
+        ${progress.favorites.includes(w.id) ? '❤️' : ''}
+      </div>`
+    )
+    .join('');
+
+  document.getElementById('word-chips').innerHTML =
+    chipsHtml ||
+    '<p style="padding: 16px; color: var(--dom-text-muted); text-align: center;">No words yet</p>';
+}
+
+// ===== INITIALIZATION =====
+
+document.addEventListener('DOMContentLoaded', () => {
+  initializeData();
+  loadProgress();
+  initNavigation();
+  goToScreen('landing');
+});

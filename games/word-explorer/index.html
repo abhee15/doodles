@@ -4,67 +4,1216 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+      content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
 
     <!-- Primary Meta Tags -->
-    <title>Word Explorer - Build Vocabulary with Fun Games for Kids | Doodles Games</title>
-    <meta name="title" content="Word Explorer - Vocabulary Building Game for Kids" />
+    <title>Word Explorer - Learn Vocabulary for Kids | Doodles Games</title>
+    <meta name="title" content="Word Explorer - Build Vocabulary Skills for Kids" />
     <meta
       name="description"
-      content="Build your vocabulary with fun word games! Learn new words, improve spelling, and enhance language skills. Free educational game for kids."
+      content="Explore 48 vocabulary words across 6 categories. Learn meanings, usage, etymology, and memory tricks. Master words through interactive practice modes designed for 3rd-4th graders."
     />
-    <meta
-      name="keywords"
-      content="word explorer, vocabulary game, word game, spelling game, language learning, kids vocabulary, educational word game, free word game"
-    />
+    <meta name="keywords" content="vocabulary, learning, words, kids, 3rd grade, 4th grade, education, language" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="game" />
     <meta property="og:url" content="https://abhee15.github.io/doodles/games/word-explorer/" />
-    <meta property="og:title" content="Word Explorer - Vocabulary Building Game for Kids" />
+    <meta property="og:title" content="Word Explorer - Build Vocabulary Skills for Kids" />
     <meta
       property="og:description"
-      content="Build your vocabulary with fun word games! Learn new words and improve spelling."
+      content="Master 48 Tier-2 vocabulary words with meanings, usage, etymology, and memory tricks. Practice with interactive quiz modes designed for ages 8-10."
     />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/word-explorer/" />
-    <meta property="twitter:title" content="Word Explorer - Vocabulary Game" />
-    <meta property="twitter:description" content="Build vocabulary with fun word games for kids!" />
+    <meta property="twitter:title" content="Word Explorer - Build Vocabulary Skills for Kids" />
+    <meta
+      property="twitter:description"
+      content="Master 48 Tier-2 vocabulary words with meanings, usage, etymology, and memory tricks. Practice with interactive quiz modes designed for ages 8-10."
+    />
 
     <link rel="canonical" href="https://abhee15.github.io/doodles/games/word-explorer/" />
 
-    <!-- NEW: Professional Template System -->
-    <link rel="stylesheet" href="../../shared/game-page-v2.css" />
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
+    <!-- Tabler Icons (pinned to major version @3) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+
+    <!-- Shared DOM Game Styles -->
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <!-- Word Explorer Theme Overrides -->
     <style>
+      :root {
+        /* Light purple background for readability */
+        --dom-bg: #f5f0ff;
+        --dom-nav-bg: #3a1c72;
+        --dom-accent: #9c27b0;
+        --dom-accent2: #ff9800;
+        --dom-border: #d8c8f0;
+        --dom-text: #1a0a2e;
+        --dom-text-muted: #7c5f9e;
+
+        /* Connotation colors */
+        --we-positive: #2e7d32;
+        --we-positive-bg: #e8f5e9;
+        --we-negative: #c62828;
+        --we-negative-bg: #ffebee;
+        --we-neutral: #5c6bc0;
+        --we-neutral-bg: #e8eaf6;
+
+        /* Stars */
+        --we-star-filled: #f5c518;
+        --we-star-empty: #d8c8f0;
+      }
+
+      /* Ensure body background applies */
+      body {
+        background-color: var(--dom-bg);
+        color: var(--dom-text);
+      }
+
+      /* Category grid layout */
+      .category-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 16px;
+        padding: 16px;
+      }
+
       @media (max-width: 768px) {
-        canvas {
-          touch-action: none;
+        .category-grid {
+          grid-template-columns: 1fr;
+          gap: 12px;
+          padding: 12px;
+        }
+      }
+
+      /* Category card styling */
+      .category-card {
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 16px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 120px;
+      }
+
+      .category-card:hover:not(.locked) {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+        background: rgba(156, 39, 176, 0.05);
+      }
+
+      .category-card.locked {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .category-card-icon {
+        font-size: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .category-card-content {
+        flex: 1;
+      }
+
+      .category-card-name {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 6px;
+        color: var(--dom-text);
+      }
+
+      .category-card-progress {
+        font-size: 0.85rem;
+        color: var(--dom-text-muted);
+        margin-bottom: 6px;
+      }
+
+      .category-card .dom-progress {
+        height: 6px;
+        border-radius: 3px;
+        background: var(--dom-border);
+        overflow: hidden;
+        margin: 0;
+      }
+
+      .category-card .dom-progress-bar {
+        height: 100%;
+        background: var(--dom-accent);
+        border-radius: 3px;
+        transition: width 0.3s ease;
+      }
+
+      .category-card-lock {
+        font-size: 2rem;
+        color: var(--dom-text-muted);
+      }
+
+      .category-card-unlock-hint {
+        font-size: 0.75rem;
+        color: var(--dom-text-muted);
+        margin-top: 6px;
+      }
+
+      /* Word list */
+      .word-list {
+        padding: 16px;
+      }
+
+      @media (max-width: 768px) {
+        .word-list {
+          padding: 12px;
+        }
+      }
+
+      .word-item {
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .word-item:hover {
+        border-color: var(--dom-accent);
+        background: rgba(156, 39, 176, 0.05);
+        transform: translateX(4px);
+      }
+
+      .word-item.locked {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .word-item-left {
+        flex: 1;
+      }
+
+      .word-item-word {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--dom-text);
+        margin-bottom: 4px;
+      }
+
+      .word-item-phonetic {
+        font-size: 0.85rem;
+        color: var(--dom-text-muted);
+        font-style: italic;
+      }
+
+      .word-item-difficulty {
+        display: flex;
+        gap: 4px;
+        margin-top: 4px;
+      }
+
+      .difficulty-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--dom-text-muted);
+      }
+
+      .difficulty-dot.filled {
+        background: var(--dom-accent);
+      }
+
+      .word-item-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+      }
+
+      .word-stars {
+        display: flex;
+        gap: 2px;
+        font-size: 1rem;
+      }
+
+      .star {
+        color: var(--we-star-empty);
+      }
+
+      .star.filled {
+        color: var(--we-star-filled);
+      }
+
+      /* Tabs */
+      .tab-bar {
+        display: flex;
+        gap: 0;
+        border-bottom: 2px solid var(--dom-border);
+        padding: 0 16px;
+        overflow-x: auto;
+        background: white;
+      }
+
+      @media (max-width: 768px) {
+        .tab-bar {
+          padding: 0 12px;
+        }
+      }
+
+      .tab-button {
+        flex: 1;
+        min-width: 80px;
+        padding: 12px 16px;
+        border: none;
+        background: none;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        border-bottom: 3px solid transparent;
+        margin-bottom: -2px;
+      }
+
+      .tab-button:hover {
+        color: var(--dom-text);
+      }
+
+      .tab-button.active {
+        color: var(--dom-accent);
+        border-bottom-color: var(--dom-accent);
+      }
+
+      .tab-content {
+        display: none;
+        padding: 16px;
+        animation: fadeIn 0.2s ease;
+      }
+
+      @media (max-width: 768px) {
+        .tab-content {
+          padding: 12px;
+        }
+      }
+
+      .tab-content.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      /* Word card header */
+      .word-card-header {
+        padding: 16px;
+        border-bottom: 1px solid var(--dom-border);
+        background: white;
+      }
+
+      .word-card-word {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--dom-text);
+        margin-bottom: 8px;
+      }
+
+      .word-card-meta {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .phonetic-pill {
+        display: inline-block;
+        background: var(--dom-border);
+        color: var(--dom-text);
+        padding: 4px 10px;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .pos-badge {
+        display: inline-block;
+        background: var(--dom-accent);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .connotation-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      .connotation-badge.positive {
+        background: var(--we-positive-bg);
+        color: var(--we-positive);
+      }
+
+      .connotation-badge.negative {
+        background: var(--we-negative-bg);
+        color: var(--we-negative);
+      }
+
+      .connotation-badge.neutral {
+        background: var(--we-neutral-bg);
+        color: var(--we-neutral);
+      }
+
+      .hear-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--dom-accent2);
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .hear-button:hover {
+        transform: scale(1.05);
+      }
+
+      .hear-button:active {
+        transform: scale(0.95);
+      }
+
+      /* Meaning card */
+      .meaning-card {
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 12px;
+      }
+
+      .meaning-card-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+
+      .meaning-card-content {
+        font-size: 0.95rem;
+        color: var(--dom-text);
+        line-height: 1.5;
+      }
+
+      /* Usage lists */
+      .usage-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .usage-item {
+        border-left: 3px solid var(--dom-accent);
+        padding: 12px;
+        margin-bottom: 8px;
+        background: rgba(156, 39, 176, 0.05);
+        border-radius: 4px;
+        font-size: 0.95rem;
+        color: var(--dom-text);
+        line-height: 1.5;
+      }
+
+      .usage-item.when-not {
+        border-left-color: var(--we-negative);
+        background: var(--we-negative-bg);
+      }
+
+      .usage-item-label {
+        font-weight: 600;
+        color: var(--dom-accent);
+        margin-bottom: 4px;
+        font-size: 0.85rem;
+      }
+
+      .usage-item.when-not .usage-item-label {
+        color: var(--we-negative);
+      }
+
+      /* Synonym/antonym chips */
+      .synonym-group,
+      .antonym-group {
+        margin-bottom: 16px;
+      }
+
+      .synonym-group-label,
+      .antonym-group-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+
+      .chip-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        display: inline-block;
+        background: white;
+        border: 1px solid var(--dom-accent);
+        color: var(--dom-accent);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      /* Practice modes */
+      .practice-modes {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 12px;
+        padding: 16px;
+      }
+
+      @media (max-width: 768px) {
+        .practice-modes {
+          grid-template-columns: 1fr;
+          gap: 8px;
+          padding: 12px;
+        }
+      }
+
+      .practice-mode-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 16px 12px;
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-weight: 600;
+        color: var(--dom-text);
+        font-size: 0.9rem;
+      }
+
+      .practice-mode-btn:hover {
+        border-color: var(--dom-accent);
+        background: rgba(156, 39, 176, 0.05);
+        transform: translateY(-2px);
+      }
+
+      .practice-mode-icon {
+        font-size: 1.8rem;
+      }
+
+      /* Practice screen */
+      .practice-container {
+        padding: 16px;
+      }
+
+      .practice-header {
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--dom-border);
+      }
+
+      .practice-mode-name {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--dom-text);
+        margin-bottom: 8px;
+      }
+
+      .practice-progress {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 8px;
+      }
+
+      .progress-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--dom-border);
+      }
+
+      .progress-dot.completed {
+        background: var(--dom-accent);
+      }
+
+      .progress-dot.current {
+        background: var(--dom-accent2);
+        border: 2px solid rgba(255, 152, 0, 0.8);
+        width: 16px;
+        height: 16px;
+        margin-left: -2px;
+        margin-right: -2px;
+      }
+
+      .practice-score {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+      }
+
+      .question-area {
+        background: white;
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 16px;
+      }
+
+      .question-text {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--dom-text);
+        margin-bottom: 16px;
+      }
+
+      .options-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .option-btn {
+        text-align: left;
+        padding: 12px;
+        border: 2px solid var(--dom-border);
+        border-radius: 6px;
+        background: white;
+        color: var(--dom-text);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.95rem;
+      }
+
+      .option-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        background: rgba(156, 39, 176, 0.05);
+      }
+
+      .option-btn:disabled {
+        cursor: not-allowed;
+        opacity: 0.8;
+      }
+
+      .option-btn.correct {
+        border-color: var(--we-positive);
+        background: var(--we-positive-bg);
+        color: var(--we-positive);
+      }
+
+      .option-btn.incorrect {
+        border-color: var(--we-negative);
+        background: var(--we-negative-bg);
+        color: var(--we-negative);
+      }
+
+      .feedback {
+        padding: 12px;
+        border-radius: 6px;
+        margin-bottom: 16px;
+        font-size: 0.95rem;
+        line-height: 1.5;
+        display: none;
+      }
+
+      .feedback.show {
+        display: block;
+      }
+
+      .feedback.correct {
+        background: var(--we-positive-bg);
+        color: var(--we-positive);
+        border-left: 4px solid var(--we-positive);
+      }
+
+      .feedback.incorrect {
+        background: var(--we-negative-bg);
+        color: var(--we-negative);
+        border-left: 4px solid var(--we-negative);
+      }
+
+      .next-btn {
+        width: 100%;
+        padding: 12px;
+        background: var(--dom-accent);
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 1rem;
+      }
+
+      .next-btn:hover {
+        transform: scale(1.02);
+      }
+
+      .next-btn:active {
+        transform: scale(0.98);
+      }
+
+      /* Results screen */
+      .results-container {
+        padding: 16px;
+        text-align: center;
+      }
+
+      .results-stars {
+        font-size: 3rem;
+        margin: 24px 0;
+        min-height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .results-message {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--dom-text);
+        margin-bottom: 8px;
+      }
+
+      .results-percentage {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        margin-bottom: 24px;
+      }
+
+      .results-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+
+      @media (max-width: 768px) {
+        .results-buttons {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .results-btn {
+        padding: 10px;
+        border: 2px solid var(--dom-border);
+        border-radius: 6px;
+        background: white;
+        color: var(--dom-text);
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.9rem;
+      }
+
+      .results-btn:hover {
+        border-color: var(--dom-accent);
+        background: rgba(156, 39, 176, 0.05);
+      }
+
+      .results-btn.primary {
+        background: var(--dom-accent);
+        color: white;
+        border-color: var(--dom-accent);
+      }
+
+      .results-btn.primary:hover {
+        background: #7a1a85;
+      }
+
+      /* My Words screen */
+      .my-words-filters {
+        display: flex;
+        gap: 8px;
+        padding: 16px;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--dom-border);
+      }
+
+      .filter-btn {
+        padding: 8px 16px;
+        border: 2px solid var(--dom-border);
+        background: white;
+        color: var(--dom-text);
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+      }
+
+      .filter-btn:hover {
+        border-color: var(--dom-accent);
+      }
+
+      .filter-btn.active {
+        background: var(--dom-accent);
+        color: white;
+        border-color: var(--dom-accent);
+      }
+
+      .word-chips {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 8px;
+        padding: 16px;
+      }
+
+      @media (max-width: 768px) {
+        .word-chips {
+          grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+          gap: 6px;
+          padding: 12px;
+        }
+      }
+
+      .word-chip {
+        padding: 12px 8px;
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s ease;
+        font-weight: 600;
+        color: var(--dom-text);
+        font-size: 0.9rem;
+      }
+
+      .word-chip:hover {
+        border-color: var(--dom-accent);
+        background: rgba(156, 39, 176, 0.05);
+        transform: translateY(-2px);
+      }
+
+      /* Landing stats */
+      .landing-stats {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 16px;
+        background: white;
+        border-bottom: 1px solid var(--dom-border);
+      }
+
+      @media (max-width: 768px) {
+        .landing-stats {
+          grid-template-columns: 1fr 1fr 1fr;
+          gap: 8px;
+          padding: 12px;
+        }
+      }
+
+      .stat-card {
+        text-align: center;
+        padding: 12px;
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        background: rgba(156, 39, 176, 0.05);
+      }
+
+      .stat-number {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--dom-accent);
+      }
+
+      .stat-label {
+        font-size: 0.75rem;
+        color: var(--dom-text-muted);
+        text-transform: uppercase;
+        font-weight: 600;
+        margin-top: 4px;
+      }
+
+      /* Word of the day */
+      .word-of-day {
+        margin: 16px;
+        padding: 16px;
+        border: 3px solid var(--dom-accent);
+        border-radius: 8px;
+        background: white;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .word-of-day:hover {
+        transform: scale(1.02);
+        border-color: #7a1a85;
+      }
+
+      .word-of-day-label {
+        font-size: 0.75rem;
+        color: var(--dom-accent);
+        text-transform: uppercase;
+        font-weight: 700;
+        margin-bottom: 6px;
+      }
+
+      .word-of-day-word {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--dom-text);
+        margin-bottom: 6px;
+      }
+
+      .word-of-day-def {
+        font-size: 0.95rem;
+        color: var(--dom-text-muted);
+        margin-bottom: 8px;
+        line-height: 1.4;
+      }
+
+      /* Achievement notification */
+      .achievement-notification {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+        color: white;
+        padding: 16px;
+        border-radius: 8px;
+        border: 2px solid rgba(0, 0, 0, 0.3);
+        max-width: 280px;
+        animation: slideIn 0.3s ease;
+        z-index: 1000;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(400px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      .achievement-icon {
+        font-size: 1.5rem;
+        margin-bottom: 6px;
+      }
+
+      .achievement-title {
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+
+      .achievement-desc {
+        font-size: 0.85rem;
+        opacity: 0.95;
+      }
+
+      /* Prev/next word navigation */
+      .word-nav {
+        display: flex;
+        gap: 8px;
+        padding: 16px;
+        border-top: 1px solid var(--dom-border);
+        background: white;
+        justify-content: space-between;
+      }
+
+      .word-nav-btn {
+        padding: 8px 12px;
+        border: 1px solid var(--dom-border);
+        background: white;
+        color: var(--dom-text);
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .word-nav-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        background: rgba(156, 39, 176, 0.05);
+      }
+
+      .word-nav-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+      }
+
+      /* Sort dropdown */
+      .sort-control {
+        padding: 12px 16px;
+        border-bottom: 1px solid var(--dom-border);
+        background: white;
+      }
+
+      .sort-select {
+        padding: 6px 8px;
+        border: 1px solid var(--dom-border);
+        border-radius: 4px;
+        background: white;
+        color: var(--dom-text);
+        cursor: pointer;
+        font-size: 0.9rem;
+      }
+
+      /* Ensure all tap targets are 44px+ on mobile */
+      @media (max-width: 768px) {
+        .dom-btn,
+        .word-item,
+        .category-card,
+        .option-btn,
+        .practice-mode-btn,
+        .word-chip,
+        .word-nav-btn,
+        .filter-btn {
+          min-height: 44px;
+          display: flex;
+          align-items: center;
         }
       }
     </style>
   </head>
-  <body>
-    <a href="../../index.html#word-explorer" id="game-back-btn" class="back-link">← Back</a>
-    <div id="game-container"></div>
 
-    <!-- Analytics -->
+  <body>
+    <!-- Navigation -->
+    <nav class="dom-nav">
+      <a href="../../index.html#word-explorer"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Word Explorer</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Landing Screen -->
+    <div class="dom-screen active" id="screen-landing">
+      <div class="landing-stats">
+        <div class="stat-card">
+          <div class="stat-number" id="stat-total">0</div>
+          <div class="stat-label">Words Learned</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-stars">0</div>
+          <div class="stat-label">Stars Earned</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="stat-streak">0</div>
+          <div class="stat-label">Day Streak</div>
+        </div>
+      </div>
+
+      <div id="word-of-day-container"></div>
+
+      <div class="category-grid" id="category-grid"></div>
+
+      <div style="padding: 16px; border-top: 1px solid var(--dom-border)">
+        <button class="dom-btn dom-btn--secondary" style="width: 100%" id="my-words-btn">
+          <i class="ti ti-bookmark"></i> My Words
+        </button>
+      </div>
+    </div>
+
+    <!-- Category Screen -->
+    <div class="dom-screen" id="screen-category">
+      <div class="sort-control">
+        <label>
+          Filter:
+          <select class="sort-select" id="sort-select">
+            <option value="all">All</option>
+            <option value="not-started">Not Started</option>
+            <option value="in-progress">In Progress</option>
+            <option value="mastered">Mastered</option>
+          </select>
+        </label>
+      </div>
+      <div class="word-list" id="word-list"></div>
+    </div>
+
+    <!-- Word Card Screen -->
+    <div class="dom-screen" id="screen-word-card">
+      <div class="word-card-header">
+        <div class="word-card-word" id="word-display"></div>
+        <div class="word-card-meta">
+          <span class="phonetic-pill" id="phonetic-display"></span>
+          <span class="pos-badge" id="pos-display"></span>
+          <span class="connotation-badge" id="connotation-display"></span>
+          <button class="hear-button" id="hear-btn"><i class="ti ti-volume-2"></i> Hear it</button>
+        </div>
+      </div>
+
+      <div class="tab-bar">
+        <button class="tab-button active" data-tab="meaning"><i class="ti ti-book"></i> Meaning</button>
+        <button class="tab-button" data-tab="usage"><i class="ti ti-bulb"></i> Usage</button>
+        <button class="tab-button" data-tab="remember"><i class="ti ti-brain"></i> Remember</button>
+        <button class="tab-button" data-tab="practice"><i class="ti ti-pencil"></i> Practice</button>
+      </div>
+
+      <!-- Meaning Tab -->
+      <div class="tab-content active" id="tab-meaning">
+        <div class="meaning-card">
+          <div class="meaning-card-label">Simple Definition</div>
+          <div class="meaning-card-content" id="simple-def"></div>
+        </div>
+
+        <div class="meaning-card">
+          <div class="meaning-card-label">Full Definition</div>
+          <div class="meaning-card-content" id="full-def"></div>
+        </div>
+
+        <div class="meaning-card">
+          <div class="meaning-card-label">Example Sentences</div>
+          <ol style="margin: 0; padding-left: 20px">
+            <li style="margin-bottom: 8px; color: var(--dom-text)" id="example-1"></li>
+            <li style="color: var(--dom-text)" id="example-2"></li>
+          </ol>
+        </div>
+      </div>
+
+      <!-- Usage Tab -->
+      <div class="tab-content" id="tab-usage">
+        <div>
+          <h3 style="font-weight: 700; margin-bottom: 12px; color: var(--dom-text)">
+            <i class="ti ti-check"></i> When to USE
+          </h3>
+          <ul class="usage-list" id="when-use-list"></ul>
+        </div>
+
+        <div style="margin-top: 20px">
+          <h3 style="font-weight: 700; margin-bottom: 12px; color: var(--dom-text)">
+            <i class="ti ti-x"></i> When NOT to use
+          </h3>
+          <ul class="usage-list" id="when-not-list"></ul>
+        </div>
+      </div>
+
+      <!-- Remember Tab -->
+      <div class="tab-content" id="tab-remember">
+        <div class="meaning-card">
+          <div class="meaning-card-label">Memory Tip</div>
+          <div class="meaning-card-content" id="memory-tip"></div>
+        </div>
+
+        <div class="meaning-card">
+          <div class="meaning-card-label">Etymology (Word Origin)</div>
+          <div class="meaning-card-content" id="origin"></div>
+        </div>
+
+        <div class="synonym-group">
+          <div class="synonym-group-label">Synonyms (Similar Words)</div>
+          <div class="chip-container" id="synonyms-container"></div>
+        </div>
+
+        <div class="antonym-group">
+          <div class="antonym-group-label">Antonyms (Opposite Words)</div>
+          <div class="chip-container" id="antonyms-container"></div>
+        </div>
+      </div>
+
+      <!-- Practice Tab -->
+      <div class="tab-content" id="tab-practice">
+        <div class="practice-modes" id="practice-modes"></div>
+      </div>
+
+      <div class="word-nav">
+        <button class="word-nav-btn" id="prev-word-btn"><i class="ti ti-arrow-left"></i> Previous</button>
+        <button class="word-nav-btn" id="next-word-btn">Next <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- Practice Screen -->
+    <div class="dom-screen" id="screen-practice">
+      <div class="practice-container">
+        <div class="practice-header">
+          <div class="practice-mode-name" id="practice-mode-title"></div>
+          <div class="practice-progress" id="practice-progress"></div>
+          <div class="practice-score" id="practice-score"></div>
+        </div>
+
+        <div id="question-container"></div>
+
+        <button class="next-btn" id="next-question-btn">Next Question</button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="dom-screen" id="screen-results">
+      <div class="results-container">
+        <h2 style="font-size: 1.4rem; color: var(--dom-text); margin-bottom: 12px">Quiz Complete!</h2>
+        <div class="results-stars" id="results-stars"></div>
+        <div class="results-message" id="results-message"></div>
+        <div class="results-percentage" id="results-percentage"></div>
+
+        <div id="achievement-notification-area"></div>
+
+        <div class="results-buttons">
+          <button class="results-btn" id="review-btn"><i class="ti ti-book"></i> Review Word</button>
+          <button class="results-btn" id="try-again-btn"><i class="ti ti-rotate-clockwise"></i> Try Again</button>
+        </div>
+        <div class="results-buttons">
+          <button class="results-btn primary" id="next-word-results-btn">
+            Next Word <i class="ti ti-arrow-right"></i>
+          </button>
+          <button class="results-btn" id="back-category-btn"><i class="ti ti-arrow-left"></i> Category</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Words Screen -->
+    <div class="dom-screen" id="screen-my-words">
+      <div class="my-words-filters">
+        <button class="filter-btn active" data-filter="all">All Words</button>
+        <button class="filter-btn" data-filter="favorites"><i class="ti ti-heart"></i> Favorites</button>
+        <button class="filter-btn" data-filter="mastered"><i class="ti ti-crown"></i> Mastered</button>
+        <button class="filter-btn" data-filter="in-progress">In Progress</button>
+      </div>
+      <div class="word-chips" id="word-chips"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../../shared/navigation.js"></script>
+    <script src="words-data.js"></script>
+    <script src="game.js"></script>
     <script src="../../shared/analytics.js"></script>
-    <!-- Ad placeholder for future -->
     <div id="ad-container"></div>
     <script src="../../shared/ads.js"></script>
-
-    <!-- NEW: Shared Template System -->
-    <script src="../../shared/game-config.js"></script>
-    <script src="../../shared/design-system.js"></script>
-    <script src="../../shared/ui-components.js"></script>
-
-    <!-- Game -->
-    <script src="../../shared/navigation.js"></script>
-    <script src="game.js"></script>
   </body>
 </html>
