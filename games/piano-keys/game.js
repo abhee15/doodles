@@ -358,7 +358,7 @@ function playMissSound() {
 }
 
 // ─── Phaser Scene ──────────────────────────────────────────
-const config = createGameConfig('piano-keys', {
+const config = createGameConfig({
   scene: {
     preload() {},
     create() {
