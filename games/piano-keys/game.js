@@ -412,6 +412,19 @@ const config = createGameConfig({
   }
 });
 
+// Ensure the game canvas fills the visible viewport in landscape/horizontal mode.
+// Use Phaser.RESIZE to let Phaser resize the game to the container/window dynamically.
+try {
+  if (config && config.scale) {
+    config.scale.mode = Phaser.Scale.RESIZE;
+    // Initialize to current window size so the canvas starts full-bleed
+    config.width = window.innerWidth || config.width;
+    config.height = window.innerHeight || config.height;
+  }
+} catch (e) {
+  // If Phaser isn't available yet, proceed with default config
+}
+
 const game = new Phaser.Game(config);
 
 // ─── Screen Navigation ─────────────────────────────────────
