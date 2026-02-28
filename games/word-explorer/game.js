@@ -258,6 +258,11 @@ function initNavigation() {
 }
 
 function goToScreen(screenName) {
+  if (!nav) {
+    console.error('Navigation not initialized');
+    return;
+  }
+
   gameState.currentScreen = screenName;
   nav.goToScreen(screenName);
 
@@ -281,12 +286,22 @@ function goToScreen(screenName) {
     case 'my-words':
       renderMyWords();
       break;
+    default:
+      console.warn(`Unknown screen: ${screenName}`);
   }
 }
 
 // ===== SECTION C: LANDING SCREEN =====
 
 function renderLanding() {
+  // Verify data is loaded
+  if (!WORDS || !WORD_CATEGORIES || WORDS.length === 0) {
+    console.error('Word Explorer data not loaded');
+    document.getElementById('category-grid').innerHTML =
+      '<p style="color: red; padding: 20px;">Error loading data. Please refresh.</p>';
+    return;
+  }
+
   const totalStars = getTotalStars();
   const wordsLearned = getWordsLearned();
 
@@ -305,8 +320,9 @@ function renderLanding() {
   `;
   document.getElementById('word-of-day-container').innerHTML = wodHtml;
 
-  // Category Grid
-  const categoryGridHtml = WORD_CATEGORIES.sort((a, b) => a.order - b.order)
+  // Category Grid (sort by order without mutating original)
+  const categoryGridHtml = [...WORD_CATEGORIES]
+    .sort((a, b) => a.order - b.order)
     .map(cat => {
       const prog = getCategoryProgress(cat.id);
       const isUnlocked = isCategoryUnlocked(cat.id);
@@ -863,8 +879,26 @@ function renderMyWordsList() {
 // ===== INITIALIZATION =====
 
 document.addEventListener('DOMContentLoaded', () => {
-  initializeData();
-  loadProgress();
-  initNavigation();
-  goToScreen('landing');
+  try {
+    console.log('Word Explorer: Initializing...');
+
+    if (typeof WORDS === 'undefined' || typeof WORD_CATEGORIES === 'undefined') {
+      console.error('Data not loaded. Ensure words-data.js is loaded before game.js');
+      return;
+    }
+
+    initializeData();
+    console.log(`✓ Data initialized: ${WORD_CATEGORIES.length} categories, ${WORDS.length} words`);
+
+    loadProgress();
+    console.log('✓ Progress loaded');
+
+    initNavigation();
+    console.log('✓ Navigation initialized');
+
+    goToScreen('landing');
+    console.log('✓ Landing screen loaded');
+  } catch (error) {
+    console.error('Word Explorer initialization error:', error);
+  }
 });
