@@ -243,7 +243,6 @@ function transposeNote(noteName, semitones) {
     'G#': 8,
     'A#': 10
   };
-  const noteKeys = Object.keys(noteMap);
   const baseNote = noteName.match(/^[A-G]#?/)[0];
   const octave = parseInt(noteName[noteName.length - 1]);
   const baseMidi = (octave + 1) * 12 + noteMap[baseNote];
@@ -395,6 +394,9 @@ const config = createGameConfig({
         }
       });
 
+      // Initialize keyboard mapping for desktop
+      initKeyboardMapping(scene);
+
       // Responsive resize
       window.addEventListener('resize', () => {
         if (gameState.currentScreen === SCREEN.LEARN) {
@@ -425,7 +427,7 @@ try {
   // If Phaser isn't available yet, proceed with default config
 }
 
-const game = new Phaser.Game(config);
+const _game = new Phaser.Game(config);
 
 // ─── Screen Navigation ─────────────────────────────────────
 function goBackScreen(scene) {
@@ -448,6 +450,90 @@ function goBackScreen(scene) {
 function stopSong(scene) {
   gameState.currentSong = null;
   gameState.activeNotes = [];
+}
+
+// ---------------- Keyboard Integration ----------------
+// Map a simple set of physical keys to white piano keys for desktop use.
+// White-key mappings are chosen to be child-friendly (bottom/home row combinations).
+function initKeyboardMapping(scene) {
+  // Desktop only
+  if (gameState.isMobile) {
+    return;
+  }
+
+  // Remove previous listeners if any
+  if (window._pianoKeyListener) {
+    window.removeEventListener('keydown', window._pianoKeyListener.keydown);
+    window.removeEventListener('keyup', window._pianoKeyListener.keyup);
+    window._pianoKeyListener = null;
+  }
+
+  // Choose mapping arrays based on number of white notes
+  const whiteCount = gameState.whiteNotes.length;
+  let whiteKeyChars = [];
+  if (whiteCount === 8) {
+    // 1-octave: home row mapping
+    whiteKeyChars = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k'];
+  } else {
+    // 2-octave: bottom row then home row
+    whiteKeyChars = ['z', 'x', 'c', 'v', 'b', 'n', 'm', 'a', 's', 'd', 'f', 'g', 'h', 'j', 'k'];
+  }
+
+  // Build mapping from char -> noteName for white keys only
+  const keyToNote = {};
+  for (let i = 0; i < Math.min(whiteKeyChars.length, gameState.whiteNotes.length); i++) {
+    keyToNote[whiteKeyChars[i]] = gameState.whiteNotes[i];
+  }
+
+  // Handler functions
+  const onKeyDown = e => {
+    if (e.repeat) {
+      return;
+    }
+    // ignore when focused on input fields
+    const tag = (e.target && e.target.tagName) || '';
+    if (tag.toLowerCase() === 'input' || tag.toLowerCase() === 'textarea') {
+      return;
+    }
+
+    const k = (e.key || '').toLowerCase();
+    const note = keyToNote[k];
+    if (note) {
+      // Prevent page scrolls for space/arrow but here only letters used
+      e.preventDefault();
+      handleKeyPress(scene, note);
+    }
+  };
+
+  const onKeyUp = e => {
+    const k = (e.key || '').toLowerCase();
+    const note = keyToNote[k];
+    if (note) {
+      const keyState = gameState.keyboardState.get(note);
+      if (keyState && keyState.obj) {
+        handleKeyRelease(keyState.obj);
+      }
+    }
+  };
+
+  window.addEventListener('keydown', onKeyDown);
+  window.addEventListener('keyup', onKeyUp);
+  window._pianoKeyListener = { keydown: onKeyDown, keyup: onKeyUp };
+
+  // Optional on-screen hint in top-right corner
+  try {
+    if (!scene.__keyboardHint) {
+      const hintText = 'Tip: Use keyboard to play (home row)';
+      scene.__keyboardHint = scene.add.text(scene.cameras.main.width - 10, 12, hintText, {
+        font: '14px Arial',
+        fill: '#ffffff'
+      });
+      scene.__keyboardHint.setOrigin(1, 0);
+      scene.__keyboardHint.setDepth(9999);
+    }
+  } catch (e) {
+    // ignore errors when adding optional keyboard hint (non-critical)
+  }
 }
 
 // ─── Piano Keyboard Builder ─────────────────────────────────
@@ -650,8 +736,17 @@ function rebuildLearnScreen(scene) {
 
   buildPianoKeyboard(scene);
 
-  // Play Chord button
-  const playBtn = createButton(scene, width / 2, height - 60, 'Play Chord', () => {
+  // Play Chord button — position it above the piano keys to avoid overlap
+  let playBtnY;
+  if (gameState.isMobile) {
+    playBtnY = Math.max(64, Math.min(height - 120, 88));
+  } else {
+    // place above the piano area; fallback to height - 120 if pianoY missing
+    playBtnY = gameState.pianoY ? Math.max(64, gameState.pianoY - 120) : Math.max(64, height - 140);
+    playBtnY = Math.min(playBtnY, height - 110);
+  }
+
+  const playBtn = createButton(scene, width / 2, playBtnY, 'Play Chord', () => {
     if (gameState.currentChord) {
       playChordArpeggio(scene);
       return;
@@ -662,6 +757,10 @@ function rebuildLearnScreen(scene) {
       playSelectedKeys(Array.from(gameState.highlightedKeys));
     }
   });
+  // Keep button above other elements
+  if (playBtn && playBtn.container) {
+    playBtn.container.setDepth(9999);
+  }
 }
 
 function playSelectedKeys(keys = [], arpeggio = true) {
