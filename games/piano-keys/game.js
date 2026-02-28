@@ -43,7 +43,7 @@ const BLACK_NOTE_POSITIONS_1OCT = [
   { note: 'A#4', afterWhiteIdx: 5 }
 ];
 
-const NOTE_COLORS = {
+const _NOTE_COLORS = {
   C: 0xef4444,
   D: 0xf97316,
   E: 0xeab308,
@@ -394,6 +394,9 @@ const config = createGameConfig({
         }
       });
 
+      // Add an in-canvas back button as a fallback if DOM navigation is blocked
+      createInSceneBackButton(scene);
+
       // Initialize keyboard mapping for desktop
       initKeyboardMapping(scene);
 
@@ -484,6 +487,13 @@ function initKeyboardMapping(scene) {
   for (let i = 0; i < Math.min(whiteKeyChars.length, gameState.whiteNotes.length); i++) {
     keyToNote[whiteKeyChars[i]] = gameState.whiteNotes[i];
   }
+
+  // Also build reverse mapping note -> char for on-screen hints in desktop
+  gameState.keyHintMap = new Map();
+  Object.keys(keyToNote).forEach(kc => {
+    const note = keyToNote[kc];
+    gameState.keyHintMap.set(note, kc.toUpperCase());
+  });
 
   // Handler functions
   const onKeyDown = e => {
@@ -594,6 +604,17 @@ function buildPianoKeyboard(scene) {
       }
     });
 
+    // Desktop: show keyboard hint above white key if mapping exists
+    if (!gameState.isMobile && gameState.keyHintMap && gameState.keyHintMap.has(note)) {
+      const hint = gameState.keyHintMap.get(note);
+      const keyHint = scene.add.text(key.x, key.y - Math.floor(whiteKeyHeight / 4), hint, {
+        font: '14px Arial',
+        fill: '#ffffff'
+      });
+      keyHint.setOrigin(0.5, 1);
+      keyHint.setDepth(key.depth + 3);
+    }
+
     gameState.keyboardState.set(note, { obj: key, state: 'normal' });
   });
 
@@ -632,6 +653,16 @@ function buildPianoKeyboard(scene) {
         scene.tweens.add({ targets: key, y: key.y + 4, duration: 90 });
       }
     });
+    // Desktop: show keyboard hint above black key if mapping exists
+    if (!gameState.isMobile && gameState.keyHintMap && gameState.keyHintMap.has(bp.note)) {
+      const bh = gameState.keyHintMap.get(bp.note);
+      const bHint = scene.add.text(key.x, key.y - Math.floor(blackKeyHeight / 4), bh, {
+        font: '12px Arial',
+        fill: '#ffffff'
+      });
+      bHint.setOrigin(0.5, 1);
+      bHint.setDepth(key.depth + 3);
+    }
 
     gameState.keyboardState.set(bp.note, { obj: key, state: 'normal' });
   });
@@ -761,8 +792,50 @@ function rebuildLearnScreen(scene) {
   if (playBtn && playBtn.container) {
     playBtn.container.setDepth(9999);
   }
+
+  // Add a small tips panel in Learn screen
+  addLearnTips(scene);
 }
 
+function addLearnTips(scene) {
+  try {
+    const width = scene.cameras.main.width;
+    const tips =
+      "Tip: Tap keys to select them. Press 'Play Chord' to hear selection. Use keyboard on desktop (see hint).";
+    const tipText = scene.add.text(width / 2, 70, tips, {
+      font: '16px Arial',
+      fill: '#FFFFFF',
+      align: 'center',
+      wordWrap: { width: Math.min(760, width - 80) }
+    });
+    tipText.setOrigin(0.5, 0);
+    tipText.setDepth(9000);
+  } catch (e) {
+    // non-critical
+  }
+}
+
+// create a small in-scene back button in case DOM back-link is unusable
+function createInSceneBackButton(scene) {
+  try {
+    if (scene.__inSceneBack) {
+      return;
+    }
+    const btn = scene.add.text(12, 12, '← Back', {
+      font: '18px Arial',
+      fill: '#ffffff',
+      backgroundColor: 'rgba(0,0,0,0.35)',
+      padding: { x: 8, y: 6 }
+    });
+    btn.setOrigin(0, 0);
+    btn.setInteractive({ useHandCursor: true });
+    btn.setDepth(10001);
+    btn.on('pointerdown', () => goBackScreen(scene));
+    scene.__inSceneBack = btn;
+  } catch (e) {
+    // ignore
+  }
+}
 function playSelectedKeys(keys = [], arpeggio = true) {
   if (!Array.isArray(keys) || keys.length === 0) {
     return;
@@ -788,7 +861,17 @@ function selectChord(scene, chord) {
   const SELECT_FILL = 0xff7a59; // warm coral
   const SELECT_STROKE = 0xff3d00;
   gameState.keyboardState.forEach((keyState, noteName) => {
-    if (gameState.highlightedKeys.has(noteName)) {
+    // Normalize highlighted keys to available keyboard notes
+    let isHighlighted = false;
+    for (const k of Array.from(gameState.highlightedKeys)) {
+      const normalized = normalizeNoteToKeyboard(k);
+      if (normalized === noteName) {
+        isHighlighted = true;
+        break;
+      }
+    }
+
+    if (isHighlighted) {
       keyState.obj.setFillStyle(SELECT_FILL);
       keyState.obj.setStrokeStyle(4, SELECT_STROKE);
     } else {
@@ -812,6 +895,22 @@ function playChordArpeggio(scene) {
   transposedKeys.forEach((key, idx) => {
     setTimeout(() => playPianoNote(key, 0.5), idx * 100);
   });
+}
+
+// Normalize a requested note name to a note available on the current keyboard.
+// If the exact note isn't present, try transposing down by octaves until found.
+function normalizeNoteToKeyboard(noteName) {
+  if (gameState.keyboardState.has(noteName)) {
+    return noteName;
+  }
+  // try transposing down up to 2 octaves
+  for (let i = 1; i <= 2; i++) {
+    const cand = transposeNote(noteName, -12 * i);
+    if (gameState.keyboardState.has(cand)) {
+      return cand;
+    }
+  }
+  return null;
 }
 
 // ─── Song Select Screen ─────────────────────────────────────
