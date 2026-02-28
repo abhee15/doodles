@@ -442,11 +442,12 @@ function buildPianoKeyboard(scene) {
   const width = scene.cameras.main.width;
   const height = scene.cameras.main.height;
   const whiteNotesCount = gameState.whiteNotes.length;
-  const pianoStripWidth = Math.min(860, width - 20);
+  // Make keyboard larger on desktop for a more engaging experience
+  const pianoStripWidth = width > 1000 ? Math.min(1100, width - 40) : Math.min(860, width - 20);
   gameState.whiteKeyWidth = Math.floor(pianoStripWidth / whiteNotesCount);
-  gameState.blackKeyWidth = Math.max(36, Math.floor(gameState.whiteKeyWidth * 0.6));
-  const whiteKeyHeight = 150;
-  const blackKeyHeight = 95;
+  gameState.blackKeyWidth = Math.max(36, Math.floor(gameState.whiteKeyWidth * 0.62));
+  const whiteKeyHeight = gameState.isMobile ? 120 : 200;
+  const blackKeyHeight = Math.max(90, Math.floor(whiteKeyHeight * 0.62));
   const pianoX = (width - pianoStripWidth) / 2;
   gameState.pianoY = height - 160;
 
@@ -458,18 +459,41 @@ function buildPianoKeyboard(scene) {
     const key = scene.add.rectangle(
       x + gameState.whiteKeyWidth / 2,
       gameState.pianoY + whiteKeyHeight / 2,
-      gameState.whiteKeyWidth - 2,
+      gameState.whiteKeyWidth - 4,
       whiteKeyHeight,
       0xffffff
     );
     key.setInteractive();
-    key.setStrokeStyle(2, 0x333333);
+    // softer stroke and subtle drop shadow-like look via darker stroke
+    key.setStrokeStyle(3, 0x2b2b2b);
     key.setName(note);
     key.noteName = note;
     key.keyType = 'white';
 
-    key.on('pointerdown', () => handleKeyPress(scene, note));
+    // Press animation + behavior
+    key.on('pointerdown', () => {
+      handleKeyPress(scene, note);
+      scene.tweens.add({
+        targets: key,
+        scaleX: 0.985,
+        scaleY: 0.985,
+        duration: 90,
+        yoyo: true
+      });
+    });
     key.on('pointerup', () => handleKeyRelease(key));
+
+    // Hover (desktop) subtle lift
+    key.on('pointerover', () => {
+      if (!gameState.isMobile) {
+        scene.tweens.add({ targets: key, y: key.y - 6, duration: 120 });
+      }
+    });
+    key.on('pointerout', () => {
+      if (!gameState.isMobile) {
+        scene.tweens.add({ targets: key, y: key.y + 6, duration: 120 });
+      }
+    });
 
     gameState.keyboardState.set(note, { obj: key, state: 'normal' });
   });
@@ -481,19 +505,34 @@ function buildPianoKeyboard(scene) {
     const key = scene.add.rectangle(
       x + gameState.blackKeyWidth / 2,
       gameState.pianoY + blackKeyHeight / 2,
-      gameState.blackKeyWidth - 2,
+      gameState.blackKeyWidth - 4,
       blackKeyHeight,
-      0x000000
+      0x0b1220
     );
     key.setInteractive();
-    key.setStrokeStyle(2, 0x111111);
+    key.setStrokeStyle(2, 0x081018);
     key.setName(bp.note);
     key.noteName = bp.note;
     key.keyType = 'black';
     key.setDepth(10);
 
-    key.on('pointerdown', () => handleKeyPress(scene, bp.note));
+    // Black key press animation + behavior
+    key.on('pointerdown', () => {
+      handleKeyPress(scene, bp.note);
+      scene.tweens.add({ targets: key, scaleX: 0.98, scaleY: 0.98, duration: 80, yoyo: true });
+    });
     key.on('pointerup', () => handleKeyRelease(key));
+
+    key.on('pointerover', () => {
+      if (!gameState.isMobile) {
+        scene.tweens.add({ targets: key, y: key.y - 4, duration: 90 });
+      }
+    });
+    key.on('pointerout', () => {
+      if (!gameState.isMobile) {
+        scene.tweens.add({ targets: key, y: key.y + 4, duration: 90 });
+      }
+    });
 
     gameState.keyboardState.set(bp.note, { obj: key, state: 'normal' });
   });
@@ -504,7 +543,28 @@ function handleKeyPress(scene, noteName) {
   if (!keyState) {
     return;
   }
+  // Toggle selection when in Learn screen (desktop or mobile)
+  if (gameState.currentScreen === SCREEN.LEARN) {
+    if (gameState.highlightedKeys.has(noteName)) {
+      gameState.highlightedKeys.delete(noteName);
+      // reset to default color
+      if (keyState.obj.keyType === 'white') {
+        keyState.obj.setFillStyle(0xffffff);
+        keyState.obj.setStrokeStyle(2, 0x333333);
+      } else {
+        keyState.obj.setFillStyle(0x000000);
+        keyState.obj.setStrokeStyle(2, 0x111111);
+      }
+    } else {
+      gameState.highlightedKeys.add(noteName);
+      keyState.obj.setFillStyle(0xffd700);
+      keyState.obj.setStrokeStyle(2, 0xffb700);
+    }
+    playPianoNote(noteName, 0.4);
+    return;
+  }
 
+  // Default behavior: press key and play (Play screen / Menu interactions)
   keyState.state = 'pressed';
   keyState.obj.setFillStyle(0xcccccc);
   playPianoNote(noteName, 0.3);
@@ -522,10 +582,19 @@ function handleKeyRelease(keyObj) {
   }
 
   keyState.state = 'normal';
+  // If the key is selected (highlighted) keep the highlight color
+  if (gameState.highlightedKeys.has(keyObj.noteName)) {
+    keyState.obj.setFillStyle(0xffd700);
+    keyState.obj.setStrokeStyle(2, 0xffb700);
+    return;
+  }
+
   if (keyObj.keyType === 'white') {
     keyState.obj.setFillStyle(0xffffff);
+    keyState.obj.setStrokeStyle(2, 0x333333);
   } else {
     keyState.obj.setFillStyle(0x000000);
+    keyState.obj.setStrokeStyle(2, 0x111111);
   }
 }
 
@@ -572,8 +641,25 @@ function rebuildLearnScreen(scene) {
   const playBtn = createButton(scene, width / 2, height - 60, 'Play Chord', () => {
     if (gameState.currentChord) {
       playChordArpeggio(scene);
+      return;
+    }
+
+    // If user manually selected keys in Learn screen, play those
+    if (gameState.highlightedKeys.size > 0) {
+      playSelectedKeys(Array.from(gameState.highlightedKeys));
     }
   });
+}
+
+function playSelectedKeys(keys = [], arpeggio = true) {
+  if (!Array.isArray(keys) || keys.length === 0) {
+    return;
+  }
+  if (arpeggio) {
+    keys.forEach((k, idx) => setTimeout(() => playPianoNote(k, 0.5), idx * 120));
+  } else {
+    keys.forEach(k => playPianoNote(k, 0.6));
+  }
 }
 
 function selectChord(scene, chord) {
@@ -586,14 +672,22 @@ function selectChord(scene, chord) {
 
   transposedKeys.forEach(key => gameState.highlightedKeys.add(key));
 
-  // Update key colors
+  // Update key colors with stronger, kid-friendly highlight
+  const SELECT_FILL = 0xff7a59; // warm coral
+  const SELECT_STROKE = 0xff3d00;
   gameState.keyboardState.forEach((keyState, noteName) => {
     if (gameState.highlightedKeys.has(noteName)) {
-      keyState.obj.setFillStyle(0xffd700);
-      keyState.obj.setStrokeStyle(2, 0xffb700);
+      keyState.obj.setFillStyle(SELECT_FILL);
+      keyState.obj.setStrokeStyle(4, SELECT_STROKE);
     } else {
-      keyState.obj.setFillStyle(keyState.obj.keyType === 'white' ? 0xffffff : 0x000000);
-      keyState.obj.setStrokeStyle(2, keyState.obj.keyType === 'white' ? 0x333333 : 0x111111);
+      // reset to darker default strokes for contrast
+      if (keyState.obj.keyType === 'white') {
+        keyState.obj.setFillStyle(0xffffff);
+        keyState.obj.setStrokeStyle(3, 0x2b2b2b);
+      } else {
+        keyState.obj.setFillStyle(0x0b1220);
+        keyState.obj.setStrokeStyle(2, 0x081018);
+      }
     }
   });
 }
@@ -689,10 +783,37 @@ function rebuildPlayScreen(scene) {
 
   // Fall zone (area where notes appear)
   const fallZoneH = 430;
-  const fallSpeed = 300; // px/s
-  const hitWindow = 150; // ms
+  // Adjust fall speed and hit window by song difficulty for better playability
+  // difficulty: 1 = easy, 2 = normal, 3 = hard
+  let fallSpeed = 300; // px/s default
+  let hitWindow = 150; // ms default
+  if (gameState.selectedSong && typeof gameState.selectedSong.difficulty === 'number') {
+    const d = gameState.selectedSong.difficulty;
+    if (d <= 1) {
+      fallSpeed = 220; // slower approach for beginners
+      hitWindow = 240; // more forgiving
+    } else if (d === 2) {
+      fallSpeed = 300;
+      hitWindow = 160;
+    } else {
+      fallSpeed = 380; // faster for advanced
+      hitWindow = 120; // tighter timing
+    }
+  }
 
   buildPianoKeyboard(scene);
+
+  // Draw a visible hit line so players know where to time their presses
+  const pianoWidth = gameState.whiteKeyWidth * gameState.whiteNotes.length;
+  const hitLine = scene.add.rectangle(
+    scene.cameras.main.width / 2,
+    gameState.pianoY + 10,
+    pianoWidth,
+    6,
+    0xff7a59
+  );
+  hitLine.setOrigin(0.5, 0.5);
+  hitLine.setAlpha(0.85);
 
   // Start the song
   gameState.songStartTime = Date.now();
@@ -715,9 +836,13 @@ function rebuildPlayScreen(scene) {
           return;
         }
 
+        // Make notes taller on easier difficulty to increase hit area
+        const baseNoteH = Math.floor(
+          (noteData.duration * fallSpeed * 60) / gameState.selectedSong.bpm
+        );
         const noteH = Math.max(
-          20,
-          Math.floor((noteData.duration * fallSpeed * 60) / gameState.selectedSong.bpm)
+          26,
+          gameState.selectedSong.difficulty <= 1 ? Math.floor(baseNoteH * 1.4) : baseNoteH
         );
         const laneX = keyState.obj.x;
 
