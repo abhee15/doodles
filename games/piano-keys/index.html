@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <!-- Primary Meta Tags -->
+    <title>Piano Keys - Learn Piano and Chords for Kids | Doodles Games</title>
+    <meta name="title" content="Piano Keys - Learn Piano and Chords for Kids" />
+    <meta
+      name="description"
+      content="Learn to play piano! Play songs Synthesia-style and master chords with an interactive virtual keyboard and Web Audio synthesis."
+    />
+    <meta
+      name="keywords"
+      content="piano game, learn piano, music game, keyboard, musical chords, synthesia style, interactive piano, music lessons"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/piano-keys/" />
+    <meta property="og:title" content="Piano Keys - Learn Piano and Chords for Kids" />
+    <meta
+      property="og:description"
+      content="Learn to play piano! Play songs Synthesia-style and master chords with an interactive keyboard."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/piano-keys/" />
+    <meta property="twitter:title" content="Piano Keys - Learn Piano and Chords for Kids" />
+    <meta
+      property="twitter:description"
+      content="Learn to play piano! Play songs Synthesia-style and master chords with an interactive keyboard."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/piano-keys/" />
+    <link rel="stylesheet" href="../../shared/game-page-v2.css" />
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+
+    <style>
+      :root {
+        --game-bg-start: #0d1b2a;
+        --game-bg-end: #1a2e47;
+      }
+
+      /* ── Menu Screen Overlay ─────────────────────────── */
+      #menu-screen {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #0d1b2a 0%, #1a2e47 100%);
+        padding: 20px;
+        box-sizing: border-box;
+        font-family: 'Segoe UI', Arial, sans-serif;
+      }
+
+      .menu-content {
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 600px;
+        gap: 30px;
+      }
+
+      .menu-title {
+        font-size: clamp(28px, 6vw, 48px);
+        font-weight: 900;
+        color: #f9a8d4;
+        text-align: center;
+        margin-bottom: 10px;
+        letter-spacing: -0.02em;
+      }
+
+      .menu-subtitle {
+        font-size: clamp(14px, 3vw, 18px);
+        color: rgba(255, 255, 255, 0.75);
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      /* Animated key strip decoration */
+      .key-strip {
+        width: 100%;
+        height: 40px;
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        margin: 20px 0;
+      }
+
+      .key-strip-key {
+        width: 20px;
+        height: 30px;
+        border-radius: 4px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        animation: keyBounce 0.8s ease-in-out infinite;
+      }
+
+      .key-strip-key:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .key-strip-key:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .key-strip-key:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .key-strip-key:nth-child(4) {
+        animation-delay: 0.3s;
+      }
+      .key-strip-key:nth-child(5) {
+        animation-delay: 0.4s;
+      }
+      .key-strip-key:nth-child(6) {
+        animation-delay: 0.5s;
+      }
+
+      @keyframes keyBounce {
+        0%,
+        100% {
+          transform: translateY(0);
+          background: rgba(255, 255, 255, 0.15);
+        }
+        50% {
+          transform: translateY(-8px);
+          background: rgba(249, 168, 212, 0.4);
+        }
+      }
+
+      /* Mode cards */
+      .mode-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      @media (min-width: 600px) {
+        .mode-cards {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .menu-card {
+        padding: 28px 20px;
+        border-radius: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        text-decoration: none;
+        color: #fff;
+        font-weight: 700;
+        font-size: 18px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .menu-card:hover {
+        transform: translateY(-8px);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+
+      .menu-card:active {
+        transform: scale(0.98);
+      }
+
+      #btn-learn {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.2) 0%, rgba(168, 85, 247, 0.1) 100%);
+        border-color: rgba(168, 85, 247, 0.4);
+      }
+
+      #btn-learn:hover {
+        background: linear-gradient(135deg, rgba(168, 85, 247, 0.35) 0%, rgba(168, 85, 247, 0.25) 100%);
+        border-color: rgba(168, 85, 247, 0.6);
+      }
+
+      #btn-play {
+        background: linear-gradient(135deg, rgba(249, 168, 212, 0.2) 0%, rgba(249, 168, 212, 0.1) 100%);
+        border-color: rgba(249, 168, 212, 0.4);
+      }
+
+      #btn-play:hover {
+        background: linear-gradient(135deg, rgba(249, 168, 212, 0.35) 0%, rgba(249, 168, 212, 0.25) 100%);
+        border-color: rgba(249, 168, 212, 0.6);
+      }
+
+      .menu-card-icon {
+        font-size: 32px;
+      }
+
+      .menu-card-desc {
+        font-size: 13px;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.8);
+        margin-top: 8px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <a href="../../index.html#piano-keys" class="back-link" id="game-back-btn">← Back</a>
+    <div id="game-container">
+      <div id="menu-screen">
+        <div class="menu-content">
+          <div>
+            <h1 class="menu-title">🎹 Piano Keys</h1>
+            <p class="menu-subtitle">Learn piano and play your favorite songs!</p>
+          </div>
+
+          <div class="key-strip">
+            <div class="key-strip-key"></div>
+            <div class="key-strip-key"></div>
+            <div class="key-strip-key"></div>
+            <div class="key-strip-key"></div>
+            <div class="key-strip-key"></div>
+            <div class="key-strip-key"></div>
+          </div>
+
+          <div class="mode-cards">
+            <button class="menu-card" id="btn-learn">
+              <div class="menu-card-icon">🎓</div>
+              <div>Learn Chords</div>
+              <div class="menu-card-desc">Master the 6 essential chords</div>
+            </button>
+            <button class="menu-card" id="btn-play">
+              <div class="menu-card-icon">♫</div>
+              <div>Play Along</div>
+              <div class="menu-card-desc">Play songs Synthesia-style</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+    <script src="../../shared/game-config.js"></script>
+    <script src="../../shared/design-system.js"></script>
+    <script src="../../shared/ui-components.js"></script>
+    <script src="../../shared/navigation.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>

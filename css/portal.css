@@ -25,6 +25,7 @@
   --c-science: #2e7d32;
   --c-art: #ec4899;
   --c-logic: #6d28d9;
+  --c-music: #db2777;
 }
 
 *,
@@ -202,6 +203,12 @@ body {
 .pill[data-cat="art"].active {
   color: var(--c-art);
 }
+.pill[data-cat="logic"].active {
+  color: var(--c-logic);
+}
+.pill[data-cat="music"].active {
+  color: var(--c-music);
+}
 
 /* Mobile: Icon-only pills, scalable for future categories */
 @media (max-width: 768px) {
@@ -353,6 +360,9 @@ body {
 }
 .sec-bar.logic {
   background: var(--c-logic);
+}
+.sec-bar.music {
+  background: var(--c-music);
 }
 
 .sec-title h2 {

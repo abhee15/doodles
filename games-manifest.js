@@ -63,6 +63,14 @@ const CATEGORIES = [
     color: '#6D28D9',
     gradient: 'linear-gradient(145deg, #A78BFA 0%, #1a0a2e 100%)',
     footerHeading: 'Logic & Puzzles'
+  },
+  {
+    id: 'music',
+    label: 'Music & Arts',
+    icon: 'ti-music',
+    color: '#DB2777',
+    gradient: 'linear-gradient(145deg, #DB2777 0%, #7C3AED 100%)',
+    footerHeading: 'Music & Arts'
   }
 ];
 
@@ -281,6 +289,22 @@ const GAMES = [
     grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
     footerName: 'Brain Spark'
+  },
+  {
+    id: 'piano-keys',
+    name: 'Piano Keys',
+    thumbClass: 'piano',
+    category: 'music',
+    desc: 'Learn chords and play songs Synthesia-style on an interactive piano keyboard!',
+    icon: 'ti-piano',
+    iconColor: '#F9A8D4',
+    gradient: 'linear-gradient(145deg, #DB2777 0%, #7C3AED 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 12px)',
+    patternSize: '12px 12px',
+    patternPosition: null,
+    newUntil: '2026-08-01',
+    footerName: 'Piano Keys'
   }
 ];
 
