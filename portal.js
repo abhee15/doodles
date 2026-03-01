@@ -95,11 +95,12 @@
         container.appendChild(card);
       });
 
-      // Add "See all →" link to section header
+      // Add "See all →" link to section header (only if more than 1 game in category)
       const section = container.closest('.cat-section');
       if (section) {
         const header = section.querySelector('.sec-header');
-        if (header && !header.querySelector('.sec-see-all')) {
+        // Only show "See all" link if category has more than one game
+        if (header && !header.querySelector('.sec-see-all') && categoryGames.length > 1) {
           const link = document.createElement('a');
           link.href = `games/${cat.id}/index.html`;
           link.className = 'sec-see-all';
