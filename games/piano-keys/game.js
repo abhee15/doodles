@@ -585,23 +585,23 @@ function buildPianoKeyboard(scene) {
   const isPortrait = height > width;
   const whiteNotesCount = gameState.whiteNotes.length;
 
-  // On mobile landscape: use full width, much bigger keys
+  // On mobile landscape: use full width, MUCH bigger keys for easy playing
   // On mobile portrait: smaller but still usable
   // On desktop: original sizing
   let pianoStripWidth, whiteKeyHeight, blackKeyHeight, pianoY;
 
   if (gameState.isMobile && !isPortrait) {
-    // Mobile LANDSCAPE: maximize key size
+    // Mobile LANDSCAPE: HUGE keys for easy playing (70-80% of screen height)
     pianoStripWidth = width - 20;
-    whiteKeyHeight = Math.min(height * 0.6, 200);
+    whiteKeyHeight = Math.floor(height * 0.7); // 70% of screen for big playable keys
     blackKeyHeight = whiteKeyHeight * 0.63;
-    pianoY = height * 0.5;
+    pianoY = height * 0.45; // Position in middle area
   } else if (gameState.isMobile && isPortrait) {
-    // Mobile PORTRAIT: smaller keys, compact layout
-    pianoStripWidth = Math.min(700, width - 20);
-    whiteKeyHeight = 80;
-    blackKeyHeight = 50;
-    pianoY = height - 100;
+    // Mobile PORTRAIT: medium keys, compact layout
+    pianoStripWidth = Math.min(width - 20, 720);
+    whiteKeyHeight = 120; // Bigger than before
+    blackKeyHeight = 75;
+    pianoY = height - 140;
   } else {
     // DESKTOP: original layout
     pianoStripWidth = Math.min(860, width - 20);
@@ -634,10 +634,18 @@ function buildPianoKeyboard(scene) {
     key.keyType = 'white';
 
     // Add note name label at bottom (scale font based on key size)
-    const noteLabelFont = gameState.whiteKeyWidth > 60 ? '16px' : '12px';
+    let noteLabelFont = '12px';
+    if (gameState.whiteKeyWidth > 100) {
+      noteLabelFont = '20px';
+    } else if (gameState.whiteKeyWidth > 80) {
+      noteLabelFont = '18px';
+    } else if (gameState.whiteKeyWidth > 60) {
+      noteLabelFont = '16px';
+    }
+
     const noteLabel = scene.add.text(
       x + gameState.whiteKeyWidth / 2,
-      gameState.pianoY + whiteKeyHeight - 20,
+      gameState.pianoY + whiteKeyHeight - 30,
       note,
       { font: `bold ${noteLabelFont} Arial`, fill: '#000000' }
     );
@@ -645,10 +653,18 @@ function buildPianoKeyboard(scene) {
 
     // Add keyboard key label at top (if this is C4-C5 range)
     if (KEYBOARD_LABELS[note]) {
-      const keyLabelFont = gameState.whiteKeyWidth > 60 ? '14px' : '11px';
+      let keyLabelFont = '11px';
+      if (gameState.whiteKeyWidth > 100) {
+        keyLabelFont = '18px';
+      } else if (gameState.whiteKeyWidth > 80) {
+        keyLabelFont = '16px';
+      } else if (gameState.whiteKeyWidth > 60) {
+        keyLabelFont = '14px';
+      }
+
       const keyLabel = scene.add.text(
         x + gameState.whiteKeyWidth / 2,
-        gameState.pianoY + 10,
+        gameState.pianoY + 15,
         KEYBOARD_LABELS[note],
         { font: `bold ${keyLabelFont} Arial`, fill: '#666666' }
       );
@@ -688,10 +704,18 @@ function buildPianoKeyboard(scene) {
       'A#4': 'J'
     };
     if (blackKeyLabels[bp.note]) {
-      const blackKeyLabelFont = gameState.blackKeyWidth > 40 ? '12px' : '10px';
+      let blackKeyLabelFont = '10px';
+      if (gameState.blackKeyWidth > 60) {
+        blackKeyLabelFont = '16px';
+      } else if (gameState.blackKeyWidth > 50) {
+        blackKeyLabelFont = '14px';
+      } else if (gameState.blackKeyWidth > 40) {
+        blackKeyLabelFont = '12px';
+      }
+
       const keyLabel = scene.add.text(
         x + gameState.blackKeyWidth / 2,
-        gameState.pianoY - 10,
+        gameState.pianoY - 15,
         blackKeyLabels[bp.note],
         { font: `bold ${blackKeyLabelFont} Arial`, fill: '#FFFFFF' }
       );
@@ -700,7 +724,15 @@ function buildPianoKeyboard(scene) {
     }
 
     // Add note name label in center
-    const blackNoteLabelFont = gameState.blackKeyWidth > 40 ? '11px' : '9px';
+    let blackNoteLabelFont = '9px';
+    if (gameState.blackKeyWidth > 60) {
+      blackNoteLabelFont = '14px';
+    } else if (gameState.blackKeyWidth > 50) {
+      blackNoteLabelFont = '12px';
+    } else if (gameState.blackKeyWidth > 40) {
+      blackNoteLabelFont = '11px';
+    }
+
     const labelText = scene.add.text(
       x + gameState.blackKeyWidth / 2,
       gameState.pianoY + blackKeyHeight / 2,
@@ -765,14 +797,20 @@ function rebuildLearnScreen(scene) {
   const height = scene.cameras.main.height;
   const isPortrait = height > width;
 
+  // On mobile landscape, minimize title & buttons to maximize piano
+  const isMobileLandscape = gameState.isMobile && !isPortrait;
+
   // Title
-  const titleY = gameState.isMobile && isPortrait ? 12 : 20;
-  const titleSize = gameState.isMobile && isPortrait ? '24px' : '32px';
-  const title = scene.add.text(width / 2, titleY, 'Learn Chords', {
-    font: `bold ${titleSize} Arial`,
-    fill: '#F9A8D4'
-  });
-  title.setOrigin(0.5, 0);
+  const titleY = isMobileLandscape ? 5 : gameState.isMobile && isPortrait ? 12 : 20;
+  const titleSize = isMobileLandscape ? '14px' : gameState.isMobile && isPortrait ? '24px' : '32px';
+  if (!isMobileLandscape) {
+    // Hide title on landscape to save space
+    const title = scene.add.text(width / 2, titleY, 'Learn Chords', {
+      font: `bold ${titleSize} Arial`,
+      fill: '#F9A8D4'
+    });
+    title.setOrigin(0.5, 0);
+  }
 
   // On mobile portrait, show landscape suggestion
   if (gameState.isMobile && isPortrait) {
@@ -788,64 +826,78 @@ function rebuildLearnScreen(scene) {
     suggestion.setOrigin(0.5, 0);
   }
 
-  // Chord buttons - smaller on mobile portrait
-  const chordGridX = width * 0.05;
-  const chordGridW = width * 0.9;
-  const buttonsPerRow = width > 768 ? 3 : isPortrait ? 2 : 3;
-  const buttonWidth = (chordGridW - (buttonsPerRow - 1) * 10) / buttonsPerRow;
-  const buttonHeight = gameState.isMobile && isPortrait ? 40 : 50;
-  const chordStartY = gameState.isMobile && isPortrait ? 50 : 80;
+  // Chord buttons - hide on landscape, show on portrait/desktop
+  if (!isMobileLandscape) {
+    const chordGridX = width * 0.05;
+    const chordGridW = width * 0.9;
+    const buttonsPerRow = width > 768 ? 3 : isPortrait ? 2 : 3;
+    const buttonWidth = (chordGridW - (buttonsPerRow - 1) * 10) / buttonsPerRow;
+    const buttonHeight = gameState.isMobile && isPortrait ? 40 : 50;
+    const chordStartY = gameState.isMobile && isPortrait ? 50 : 80;
 
-  CHORDS.forEach((chord, idx) => {
-    const row = Math.floor(idx / buttonsPerRow);
-    const col = idx % buttonsPerRow;
-    const x = chordGridX + col * (buttonWidth + 10) + buttonWidth / 2;
-    const y = chordStartY + row * (buttonHeight + 10);
+    CHORDS.forEach((chord, idx) => {
+      const row = Math.floor(idx / buttonsPerRow);
+      const col = idx % buttonsPerRow;
+      const x = chordGridX + col * (buttonWidth + 10) + buttonWidth / 2;
+      const y = chordStartY + row * (buttonHeight + 10);
 
-    const btn = scene.add.rectangle(x, y, buttonWidth, buttonHeight, chord.color);
-    btn.setInteractive();
-    btn.setStrokeStyle(2, 0xffffff);
+      const btn = scene.add.rectangle(x, y, buttonWidth, buttonHeight, chord.color);
+      btn.setInteractive();
+      btn.setStrokeStyle(2, 0xffffff);
 
-    // Chord name (top line)
-    const text = scene.add.text(x, y - 6, chord.label, {
-      font: `bold ${gameState.isMobile && isPortrait ? 11 : 13}px Arial`,
-      fill: '#FFFFFF'
+      // Chord name (top line)
+      const text = scene.add.text(x, y - 6, chord.label, {
+        font: `bold ${gameState.isMobile && isPortrait ? 11 : 13}px Arial`,
+        fill: '#FFFFFF'
+      });
+      text.setOrigin(0.5, 0.5);
+
+      // Chord notes notation (bottom line, e.g., "C-E-G")
+      const notesNotation = chord.keys.join('-');
+      const notesText = scene.add.text(x, y + 8, notesNotation, {
+        font: `${gameState.isMobile && isPortrait ? 9 : 11}px Arial`,
+        fill: '#F0F0F0'
+      });
+      notesText.setOrigin(0.5, 0.5);
+
+      btn.on('pointerover', () => btn.setScale(1.05));
+      btn.on('pointerout', () => btn.setScale(1));
+      btn.on('pointerdown', () => selectChord(scene, chord));
     });
-    text.setOrigin(0.5, 0.5);
-
-    // Chord notes notation (bottom line, e.g., "C-E-G")
-    const notesNotation = chord.keys.join('-');
-    const notesText = scene.add.text(x, y + 8, notesNotation, {
-      font: `${gameState.isMobile && isPortrait ? 9 : 11}px Arial`,
-      fill: '#F0F0F0'
-    });
-    notesText.setOrigin(0.5, 0.5);
-
-    btn.on('pointerover', () => btn.setScale(1.05));
-    btn.on('pointerout', () => btn.setScale(1));
-    btn.on('pointerdown', () => selectChord(scene, chord));
-  });
+  }
 
   buildPianoKeyboard(scene);
 
-  // Instructions (move below piano)
-  const instructionY = gameState.pianoY + 40;
-  const instructions = scene.add.text(
-    width / 2,
-    instructionY,
-    'Click a chord to highlight the keys',
-    {
-      font: '12px Arial',
-      fill: '#CCCCCC',
-      align: 'center'
-    }
-  );
-  instructions.setOrigin(0.5, 0);
+  // Instructions and buttons positioned differently for landscape
+  let instructionY, playButtonY, buttonSpacing, centerX;
 
-  // Play Chord button area with toggle
-  const playButtonY = instructionY + 35;
-  const buttonSpacing = 120;
-  const centerX = width / 2;
+  if (isMobileLandscape) {
+    // On landscape: put buttons in bottom-right corner, minimal spacing
+    instructionY = height - 50;
+    playButtonY = height - 25;
+    buttonSpacing = 90;
+    centerX = width - 100;
+  } else {
+    // On portrait/desktop: buttons below piano
+    instructionY = gameState.pianoY + 40;
+    playButtonY = instructionY + 35;
+    buttonSpacing = 120;
+    centerX = width / 2;
+  }
+
+  if (!isMobileLandscape) {
+    const instructions = scene.add.text(
+      width / 2,
+      instructionY,
+      'Click a chord to highlight the keys',
+      {
+        font: '12px Arial',
+        fill: '#CCCCCC',
+        align: 'center'
+      }
+    );
+    instructions.setOrigin(0.5, 0);
+  }
 
   // Play Chord button (repeatable)
   createButton(scene, centerX - buttonSpacing / 2, playButtonY, '▶ Play Chord', () => {
