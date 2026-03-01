@@ -457,7 +457,7 @@ const config = createGameConfig({
       // Keyboard input for desktop play
       document.addEventListener('keydown', e => {
         const key = e.key.toLowerCase();
-        if (gameState.isPlaying && KEYBOARD_MAP[key]) {
+        if (KEYBOARD_MAP[key]) {
           const noteName = KEYBOARD_MAP[key];
           if (!gameState.keysPressed.has(noteName)) {
             gameState.keysPressed.add(noteName);

@@ -33,12 +33,13 @@ function createGameConfig(options = {}) {
     parent: 'game-container',
     backgroundColor: backgroundColor,
     scale: {
-      mode: Phaser.Scale.FIT,
+      mode: Phaser.Scale.RESIZE,
       autoCenter: Phaser.Scale.CENTER_BOTH,
       width: width,
       height: height,
       // Handle window resize for true responsiveness
-      autoRound: true
+      autoRound: true,
+      expandParent: true
     },
     scene: scene,
     // Input configuration - CRITICAL for mobile interaction
