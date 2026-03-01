@@ -409,9 +409,20 @@ const config = createGameConfig({
       const btnPlay = document.getElementById('btn-play');
       const backBtn = document.getElementById('game-back-btn');
 
+      // Debug: Check if buttons exist
+      console.log('Piano Keys Game Initialize:', {
+        menuScreen: !!menuScreen,
+        btnLearn: !!btnLearn,
+        btnPlay: !!btnPlay,
+        backBtn: !!backBtn
+      });
+
       btnLearn.addEventListener('click', () => {
         menuScreen.style.display = 'none';
-        document.querySelector('canvas').style.pointerEvents = 'auto';
+        const canvas = document.querySelector('canvas');
+        if (canvas) {
+          canvas.style.pointerEvents = 'auto';
+        }
         gameState.currentScreen = SCREEN.LEARN;
         gameState.isPlaying = false;
         rebuildLearnScreen(scene);
@@ -419,7 +430,10 @@ const config = createGameConfig({
 
       btnPlay.addEventListener('click', () => {
         menuScreen.style.display = 'none';
-        document.querySelector('canvas').style.pointerEvents = 'auto';
+        const canvas = document.querySelector('canvas');
+        if (canvas) {
+          canvas.style.pointerEvents = 'auto';
+        }
         gameState.currentScreen = SCREEN.SONG_SELECT;
         gameState.isPlaying = false;
         rebuildSongSelectScreen(scene);
@@ -537,7 +551,10 @@ function goBackScreen(scene) {
   ) {
     gameState.currentScreen = SCREEN.MENU;
     document.getElementById('menu-screen').style.display = 'flex';
-    document.querySelector('canvas').style.pointerEvents = 'none';
+    const canvas = document.querySelector('canvas');
+    if (canvas) {
+      canvas.style.pointerEvents = 'none';
+    }
   }
 }
 
