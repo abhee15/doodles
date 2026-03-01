@@ -65,7 +65,7 @@
       }
 
       .landing-title {
-        font-size: 3.5rem;
+        font-size: clamp(2rem, 6vw, 3.5rem);
         font-weight: bold;
         margin: 0 0 10px 0;
         background: linear-gradient(135deg, #fbbf24 0%, #818cf8 100%);
@@ -132,7 +132,7 @@
       }
 
       .category-title {
-        font-size: 2rem;
+        font-size: clamp(1.4rem, 4vw, 2rem);
         font-weight: bold;
         margin-bottom: 10px;
       }
@@ -154,6 +154,7 @@
         cursor: pointer;
         transition: all 0.3s ease;
         font-weight: bold;
+        min-height: 44px;
       }
 
       .difficulty-btn.active {
@@ -276,13 +277,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 56px;
-        height: 56px;
+        width: clamp(40px, 10vw, 56px);
+        height: clamp(40px, 10vw, 56px);
         border-radius: 12px;
         background: rgba(251, 191, 36, 0.15);
         border: 2px solid currentColor;
         font-weight: bold;
-        font-size: 1.2rem;
+        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
         flex-shrink: 0;
       }
 
@@ -352,11 +353,11 @@
         padding: 20px;
         background: rgba(251, 191, 36, 0.1);
         border-radius: 8px;
-        font-size: 1.5rem;
+        font-size: clamp(1rem, 3vw, 1.5rem);
       }
 
       .eq-token {
-        font-size: 2rem;
+        font-size: clamp(1.2rem, 3.5vw, 2rem);
       }
 
       .eq-op {
@@ -373,7 +374,7 @@
 
       .question-text {
         text-align: center;
-        font-size: 1.1rem;
+        font-size: clamp(0.95rem, 2.5vw, 1.1rem);
         margin-bottom: 25px;
         line-height: 1.5;
       }
@@ -658,6 +659,57 @@
           font-size: 0.95rem;
         }
       }
+
+      /* Tablet responsive (769px - 1024px) */
+      @media (min-width: 769px) and (max-width: 1024px) {
+        .category-cards {
+          grid-template-columns: repeat(2, 1fr);
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .answer-buttons {
+          max-width: 480px;
+          margin: 0 auto;
+        }
+
+        .explain-container {
+          max-width: 560px;
+          margin: 0 auto;
+        }
+
+        .results-container {
+          max-width: 560px;
+          margin: 0 auto;
+        }
+      }
+
+      /* Desktop responsive (1025px+) */
+      @media (min-width: 1025px) {
+        .category-cards {
+          max-width: 700px;
+          margin: 0 auto;
+        }
+
+        .play-content {
+          max-width: 640px;
+          margin: 0 auto;
+        }
+
+        .answer-buttons {
+          max-width: 500px;
+        }
+
+        .explain-container {
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .results-container {
+          max-width: 600px;
+          margin: 0 auto;
+        }
+      }
     </style>
   </head>
 
@@ -695,25 +747,25 @@
         <div class="category-card" data-category="number-patterns">
           <div class="category-icon">🔢</div>
           <div class="category-label">Number Patterns</div>
-          <div class="category-count"><span id="count-number-patterns">11</span> puzzles</div>
+          <div class="category-count"><span id="count-number-patterns">40</span> puzzles</div>
         </div>
 
         <div class="category-card" data-category="logic-riddles">
           <div class="category-icon">🧠</div>
           <div class="category-label">Logic Riddles</div>
-          <div class="category-count"><span id="count-logic-riddles">11</span> puzzles</div>
+          <div class="category-count"><span id="count-logic-riddles">40</span> puzzles</div>
         </div>
 
         <div class="category-card" data-category="odd-one-out">
           <div class="category-icon">🎯</div>
           <div class="category-label">Odd One Out</div>
-          <div class="category-count"><span id="count-odd-one-out">11</span> puzzles</div>
+          <div class="category-count"><span id="count-odd-one-out">40</span> puzzles</div>
         </div>
 
         <div class="category-card" data-category="math-tricks">
           <div class="category-icon">✨</div>
           <div class="category-label">Math Tricks</div>
-          <div class="category-count"><span id="count-math-tricks">11</span> puzzles</div>
+          <div class="category-count"><span id="count-math-tricks">40</span> puzzles</div>
         </div>
       </div>
     </div>
@@ -776,6 +828,7 @@
     </div>
 
     <script src="../../shared/navigation.js"></script>
+    <script src="puzzles-data.js"></script>
     <script src="game.js"></script>
     <script src="../../shared/analytics.js"></script>
     <div id="ad-container"></div>
