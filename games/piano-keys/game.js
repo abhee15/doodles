@@ -737,7 +737,7 @@ function buildPianoKeyboard(scene) {
         { font: `bold ${blackKeyLabelFont} Arial`, fill: '#FFFFFF' }
       );
       keyLabel.setOrigin(0.5, 0.5);
-      keyLabel.setDepth(11);
+      keyLabel.setDepth(9);
     }
 
     // Add note name label in center
@@ -757,7 +757,7 @@ function buildPianoKeyboard(scene) {
       { font: `bold ${blackNoteLabelFont} Arial`, fill: '#FFFFFF' }
     );
     labelText.setOrigin(0.5, 0.5);
-    labelText.setDepth(11);
+    labelText.setDepth(9);
 
     key.on('pointerdown', () => handleKeyPress(scene, bp.note));
     key.on('pointerup', () => handleKeyRelease(key));
