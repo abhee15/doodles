@@ -327,11 +327,15 @@ body {
     /* Ensure screens don't extend above nav */
     position: relative;
     z-index: 1;
+    /* Allow screens to scroll if content exceeds viewport */
+    overflow-y: auto;
   }
 
   .dom-screen {
-    /* Generous padding on large screens */
-    padding: var(--tok-space-8, 32px) var(--tok-space-8, 32px);
+    /* Moderate padding on large screens - don't push content off-screen */
+    padding: var(--tok-space-6, 24px) var(--tok-space-6, 24px);
+    /* Allow content to scroll */
+    min-height: auto;
   }
 }
 
