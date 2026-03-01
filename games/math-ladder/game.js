@@ -18,7 +18,8 @@ const RUNG_HEIGHT = 45;
 const MAX_RUNGS = 200; // effectively infinite
 const WORLD_H = 700 + MAX_RUNGS * RUNG_HEIGHT; // ~9700 px tall
 const GROUND_Y = WORLD_H - 75;
-const LADDER_X = 148; // left-panel horizontal centre
+// LADDER_X is now calculated dynamically per scene (see getLadderX function)
+let LADDER_X = 148; // default, will be overridden in create()
 const BASE_TIME = 15; // seconds per question
 const SILLY_DUR = 3; // seconds of silly wobble before falling
 const SILLY_TEXTS = [
@@ -134,7 +135,16 @@ function preload() {}
 
 function create() {
   sceneRef = this;
-  this.cameras.main.setBounds(0, 0, 800, WORLD_H);
+  // Set camera bounds based on ACTUAL scene dimensions (responsive)
+  const actualWidth = this.scale.width || 800;
+  const actualHeight = this.scale.height || 600;
+  this.cameras.main.setBounds(0, 0, actualWidth, WORLD_H);
+
+  // Calculate LADDER_X based on actual viewport width
+  // On 800px (default): ladder at 148px from left = center-left
+  // On mobile smaller: scale proportionally
+  LADDER_X = Math.round((actualWidth / 800) * 148);
+
   buildWorld(this);
   showStartScreen(this);
 }
@@ -150,13 +160,17 @@ function update() {
 
 // ==================== WORLD CONSTRUCTION ====================
 function buildWorld(scene) {
+  // Get actual viewport dimensions (responsive for mobile)
+  const sceneWidth = scene.scale.width || 800;
+  const centerX = sceneWidth / 2;
+
   // Sky colour layers (deepening as you climb)
-  scene.add.rectangle(400, WORLD_H * 0.15, 800, WORLD_H * 0.3, 0x1b3a6b).setDepth(0);
-  scene.add.rectangle(400, WORLD_H * 0.45, 800, WORLD_H * 0.3, 0x3a7fc1).setDepth(0);
-  scene.add.rectangle(400, WORLD_H * 0.75, 800, WORLD_H * 0.5, 0x87ceeb).setDepth(0);
+  scene.add.rectangle(centerX, WORLD_H * 0.15, sceneWidth, WORLD_H * 0.3, 0x1b3a6b).setDepth(0);
+  scene.add.rectangle(centerX, WORLD_H * 0.45, sceneWidth, WORLD_H * 0.3, 0x3a7fc1).setDepth(0);
+  scene.add.rectangle(centerX, WORLD_H * 0.75, sceneWidth, WORLD_H * 0.5, 0x87ceeb).setDepth(0);
 
   // Ground
-  scene.add.rectangle(400, GROUND_Y + 37, 800, 74, 0x4a7c3f).setDepth(1);
+  scene.add.rectangle(centerX, GROUND_Y + 37, sceneWidth, 74, 0x4a7c3f).setDepth(1);
   scene.add.rectangle(400, GROUND_Y + 110, 800, 100, 0x8b4513).setDepth(1);
   scene.add
     .text(LADDER_X, GROUND_Y + 18, '🌿🌱🌿', { fontSize: '20px' })

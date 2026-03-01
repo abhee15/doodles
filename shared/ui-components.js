@@ -126,7 +126,18 @@ function createButton(scene, x, y, label, callback, options = {}) {
   // Standalone objects with setScrollFactor(0) work correctly.
   const bg = scene.add.rectangle(x, y, dimensions.width, dimensions.height, style.bgColor);
   bg.setOrigin(0.5);
-  bg.setInteractive({ useHandCursor: true });
+
+  // Explicitly set hit area for mobile touch reliability
+  bg.setInteractive({
+    hitArea: new Phaser.Geom.Rectangle(
+      -dimensions.width / 2,
+      -dimensions.height / 2,
+      dimensions.width,
+      dimensions.height
+    ),
+    hitAreaCallback: Phaser.Geom.Rectangle.Contains,
+    useHandCursor: true
+  });
   if (style.alpha) {
     bg.setAlpha(style.alpha);
   }
