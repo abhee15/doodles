@@ -358,9 +358,12 @@ function showStartScreen(scene) {
     );
   }
 
-  // Position button responsively (center x, 70% down viewport)
-  const btnX = scene.scale.width / 2;
-  const btnY = scene.scale.height * 0.75; // 75% down from top
+  // Position button responsively (center x, lower in viewport)
+  // Use more conservative positioning that works across all screen sizes
+  const btnX = centerX;
+  const btnY = Math.min(scene.scale.height * 0.7, 450); // Cap at 450px to stay visible
+
+  console.log('Start Screen Button Position:', { btnX, btnY, viewportHeight: scene.scale.height });
 
   const startBtn = createButton(
     scene,
@@ -368,6 +371,7 @@ function showStartScreen(scene) {
     btnY,
     'START CLIMBING!',
     () => {
+      console.log('Button clicked - starting game');
       els.forEach(e => e.destroy());
       startBtn.destroy();
       startGameplay(scene);
