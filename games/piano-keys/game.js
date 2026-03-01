@@ -591,11 +591,11 @@ function buildPianoKeyboard(scene) {
   let pianoStripWidth, whiteKeyHeight, blackKeyHeight, pianoY;
 
   if (gameState.isMobile && !isPortrait) {
-    // Mobile LANDSCAPE: HUGE keys for easy playing (70-80% of screen height)
+    // Mobile LANDSCAPE: HUGE keys for easy playing (use ~80% of screen height)
     pianoStripWidth = width - 20;
-    whiteKeyHeight = Math.floor(height * 0.7); // 70% of screen for big playable keys
+    whiteKeyHeight = Math.floor(height * 0.75); // 75% of screen for maximum playable keys
     blackKeyHeight = whiteKeyHeight * 0.63;
-    pianoY = height * 0.45; // Position in middle area
+    pianoY = height * 0.42; // Position to center keys vertically
   } else if (gameState.isMobile && isPortrait) {
     // Mobile PORTRAIT: medium keys, compact layout
     pianoStripWidth = Math.min(width - 20, 720);
@@ -797,33 +797,52 @@ function rebuildLearnScreen(scene) {
   const height = scene.cameras.main.height;
   const isPortrait = height > width;
 
+  // On mobile portrait: show full-screen rotation message, hide piano
+  if (gameState.isMobile && isPortrait) {
+    const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
+    bg.setOrigin(0.5, 0.5);
+
+    const rotateIcon = scene.add.text(width / 2, height / 2 - 80, '🔄', {
+      font: 'bold 80px Arial',
+      fill: '#F9A8D4'
+    });
+    rotateIcon.setOrigin(0.5, 0.5);
+
+    const rotateText = scene.add.text(width / 2, height / 2 + 20, 'Rotate Your Phone', {
+      font: 'bold 28px Arial',
+      fill: '#F9A8D4',
+      align: 'center'
+    });
+    rotateText.setOrigin(0.5, 0.5);
+
+    const subtitle = scene.add.text(
+      width / 2,
+      height / 2 + 80,
+      'Piano Keys works best in landscape mode\nfor bigger, easier-to-tap keys!',
+      {
+        font: 'bold 14px Arial',
+        fill: '#CCCCCC',
+        align: 'center'
+      }
+    );
+    subtitle.setOrigin(0.5, 0.5);
+
+    return; // Don't render piano in portrait
+  }
+
   // On mobile landscape, minimize title & buttons to maximize piano
   const isMobileLandscape = gameState.isMobile && !isPortrait;
 
-  // Title
-  const titleY = isMobileLandscape ? 5 : gameState.isMobile && isPortrait ? 12 : 20;
-  const titleSize = isMobileLandscape ? '14px' : gameState.isMobile && isPortrait ? '24px' : '32px';
+  // Hide all title on landscape to save space
   if (!isMobileLandscape) {
-    // Hide title on landscape to save space
+    // Show title only on desktop
+    const titleY = 20;
+    const titleSize = '32px';
     const title = scene.add.text(width / 2, titleY, 'Learn Chords', {
       font: `bold ${titleSize} Arial`,
       fill: '#F9A8D4'
     });
     title.setOrigin(0.5, 0);
-  }
-
-  // On mobile portrait, show landscape suggestion
-  if (gameState.isMobile && isPortrait) {
-    const suggestion = scene.add.text(
-      width / 2,
-      titleY + 30,
-      'Rotate to landscape for bigger keys!',
-      {
-        font: '12px Arial',
-        fill: '#FFEB3B'
-      }
-    );
-    suggestion.setOrigin(0.5, 0);
   }
 
   // Chord buttons - hide on landscape, show on portrait/desktop
@@ -984,6 +1003,40 @@ function rebuildSongSelectScreen(scene) {
   clearAllPhaserObjects(scene);
   const width = scene.cameras.main.width;
   const height = scene.cameras.main.height;
+  const isPortrait = height > width;
+
+  // On mobile portrait: show full-screen rotation message
+  if (gameState.isMobile && isPortrait) {
+    const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
+    bg.setOrigin(0.5, 0.5);
+
+    const rotateIcon = scene.add.text(width / 2, height / 2 - 80, '🔄', {
+      font: 'bold 80px Arial',
+      fill: '#F9A8D4'
+    });
+    rotateIcon.setOrigin(0.5, 0.5);
+
+    const rotateText = scene.add.text(width / 2, height / 2 + 20, 'Rotate Your Phone', {
+      font: 'bold 28px Arial',
+      fill: '#F9A8D4',
+      align: 'center'
+    });
+    rotateText.setOrigin(0.5, 0.5);
+
+    const subtitle = scene.add.text(
+      width / 2,
+      height / 2 + 80,
+      'Piano Keys works best in landscape mode\nfor bigger, easier-to-tap keys!',
+      {
+        font: 'bold 14px Arial',
+        fill: '#CCCCCC',
+        align: 'center'
+      }
+    );
+    subtitle.setOrigin(0.5, 0.5);
+
+    return; // Don't render song list in portrait
+  }
 
   const title = scene.add.text(width / 2, 20, 'Select a Song', {
     font: 'bold 32px Arial',
