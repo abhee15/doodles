@@ -251,12 +251,25 @@ function showStartScreen(scene) {
     return el;
   };
 
-  add(scene.add.rectangle(400, 300, 800, 600, 0x000000, 0.8).setScrollFactor(0).setDepth(50));
+  // Responsive layout based on actual viewport size
+  const centerX = scene.scale.width / 2;
+  const centerY = scene.scale.height / 2;
+  const scaleFactorY = Math.min(1, scene.scale.height / 600); // Scale down if screen is smaller
 
+  // Semi-transparent background overlay (responsive size)
   add(
     scene.add
-      .text(400, 82, '🪜 Math Ladder', {
-        fontSize: '54px',
+      .rectangle(centerX, centerY, scene.scale.width, scene.scale.height, 0x000000, 0.8)
+      .setScrollFactor(0)
+      .setDepth(50)
+  );
+
+  // Title (responsive font size)
+  const titleSize = Math.max(32, Math.round(54 * scaleFactorY));
+  add(
+    scene.add
+      .text(centerX, centerY * 0.25, '🪜 Math Ladder', {
+        fontSize: `${titleSize}px`,
         fill: '#FFD700',
         fontFamily: 'Arial, sans-serif',
         fontStyle: 'bold',
@@ -268,10 +281,12 @@ function showStartScreen(scene) {
       .setDepth(51)
   );
 
+  // Subtitle (responsive font size)
+  const subtitleSize = Math.max(14, Math.round(19 * scaleFactorY));
   add(
     scene.add
-      .text(400, 148, '☁️  How high can YOU climb?  ☁️', {
-        fontSize: '19px',
+      .text(centerX, centerY * 0.4, '☁️  How high can YOU climb?  ☁️', {
+        fontSize: `${subtitleSize}px`,
         fill: '#87CEEB',
         fontFamily: 'Arial, sans-serif'
       })
@@ -280,8 +295,17 @@ function showStartScreen(scene) {
       .setDepth(51)
   );
 
-  add(scene.add.rectangle(400, 292, 530, 200, 0x000000, 0.35).setScrollFactor(0).setDepth(51));
+  // Rules panel (responsive size)
+  add(
+    scene.add
+      .rectangle(centerX, centerY * 0.6, 530 * scaleFactorY, 200 * scaleFactorY, 0x000000, 0.35)
+      .setScrollFactor(0)
+      .setDepth(51)
+  );
 
+  // Rules text (responsive font and positioning)
+  const rulesSize = Math.max(11, Math.round(15 * scaleFactorY));
+  const ruleLineHeight = 35 * scaleFactorY;
   [
     '✅  Right answer → Climb up one rung!',
     '❌  Wrong answer → Fall to the ground!',
@@ -291,8 +315,8 @@ function showStartScreen(scene) {
   ].forEach((line, i) =>
     add(
       scene.add
-        .text(400, 202 + i * 35, line, {
-          fontSize: '15px',
+        .text(centerX, centerY * 0.45 + i * ruleLineHeight, line, {
+          fontSize: `${rulesSize}px`,
           fill: '#FFFFFF',
           fontFamily: 'Arial, sans-serif'
         })
@@ -302,11 +326,13 @@ function showStartScreen(scene) {
     )
   );
 
+  // Best stats (responsive font and positioning)
   if (bestRung > 0 || hiScore > 0) {
+    const statsSize = Math.max(13, Math.round(17 * scaleFactorY));
     add(
       scene.add
-        .text(400, 397, `🏆  Best Rung: ${bestRung}   |   Best Score: ${hiScore}`, {
-          fontSize: '17px',
+        .text(centerX, centerY * 0.7, `🏆  Best Rung: ${bestRung}   |   Best Score: ${hiScore}`, {
+          fontSize: `${statsSize}px`,
           fill: '#FFD700',
           fontFamily: 'Arial',
           fontStyle: 'bold',
@@ -319,10 +345,14 @@ function showStartScreen(scene) {
     );
   }
 
+  // Position button responsively (center x, 70% down viewport)
+  const btnX = scene.scale.width / 2;
+  const btnY = scene.scale.height * 0.75; // 75% down from top
+
   const startBtn = createButton(
     scene,
-    400,
-    490,
+    btnX,
+    btnY,
     'START CLIMBING!',
     () => {
       els.forEach(e => e.destroy());
