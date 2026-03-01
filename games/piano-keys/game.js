@@ -216,8 +216,11 @@ const SONGS = [
 
 const SCREEN = { MENU: 0, LEARN: 1, SONG_SELECT: 2, PLAY: 3, RESULTS: 4 };
 
-// Keyboard mapping for desktop play (Z, X, C, V, B, N, M, ,)
+// Keyboard mapping for desktop play
+// White keys (bottom row): Z, X, C, V, B, N, M, , = C4 through C5
+// Black keys (top row):    S, D, (E skip), G, H, J = C#, D#, F#, G#, A# (mirrors real piano layout)
 const KEYBOARD_MAP = {
+  // White keys
   z: 'C4',
   x: 'D4',
   c: 'E4',
@@ -225,10 +228,17 @@ const KEYBOARD_MAP = {
   b: 'G4',
   n: 'A4',
   m: 'B4',
-  ',': 'C5'
+  ',': 'C5',
+  // Black keys
+  s: 'C#4',
+  d: 'D#4',
+  g: 'F#4',
+  h: 'G#4',
+  j: 'A#4'
 };
 
 const KEYBOARD_LABELS = {
+  // White key labels (shown on piano)
   C4: 'Z',
   D4: 'X',
   E4: 'C',
@@ -237,6 +247,7 @@ const KEYBOARD_LABELS = {
   A4: 'N',
   B4: 'M',
   C5: ','
+  // Black keys don't show labels (since they're not easily labeled on visualization)
 };
 
 // Fall speed constant: 300px/s = 0.3px/ms
@@ -602,12 +613,31 @@ function buildPianoKeyboard(scene) {
     key.keyType = 'black';
     key.setDepth(10);
 
-    // Add note name label
+    // Add keyboard key label at top (e.g., "S" for C#4)
+    const blackKeyLabels = {
+      'C#4': 'S',
+      'D#4': 'D',
+      'F#4': 'G',
+      'G#4': 'H',
+      'A#4': 'J'
+    };
+    if (blackKeyLabels[bp.note]) {
+      const keyLabel = scene.add.text(
+        x + gameState.blackKeyWidth / 2,
+        gameState.pianoY - 10,
+        blackKeyLabels[bp.note],
+        { font: 'bold 10px Arial', fill: '#FFFFFF' }
+      );
+      keyLabel.setOrigin(0.5, 0.5);
+      keyLabel.setDepth(11);
+    }
+
+    // Add note name label in center
     const labelText = scene.add.text(
       x + gameState.blackKeyWidth / 2,
       gameState.pianoY + blackKeyHeight / 2,
       bp.note,
-      { font: 'bold 10px Arial', fill: '#FFFFFF' }
+      { font: 'bold 9px Arial', fill: '#FFFFFF' }
     );
     labelText.setOrigin(0.5, 0.5);
     labelText.setDepth(11);
@@ -689,11 +719,20 @@ function rebuildLearnScreen(scene) {
     btn.setInteractive();
     btn.setStrokeStyle(2, 0xffffff);
 
-    const text = scene.add.text(x, y, chord.label, {
-      font: 'bold 14px Arial',
+    // Chord name (top line)
+    const text = scene.add.text(x, y - 8, chord.label, {
+      font: 'bold 13px Arial',
       fill: '#FFFFFF'
     });
     text.setOrigin(0.5, 0.5);
+
+    // Chord notes notation (bottom line, e.g., "C-E-G")
+    const notesNotation = chord.keys.join('-');
+    const notesText = scene.add.text(x, y + 10, notesNotation, {
+      font: '11px Arial',
+      fill: '#F0F0F0'
+    });
+    notesText.setOrigin(0.5, 0.5);
 
     btn.on('pointerover', () => btn.setScale(1.05));
     btn.on('pointerout', () => btn.setScale(1));
@@ -881,7 +920,7 @@ function rebuildPlayScreen(scene) {
     const guideText = scene.add.text(
       width / 2,
       height - 310,
-      'Press Z, X, C, V, B, N, M for piano keys or click keys',
+      'White: Z X C V B N M ,  |  Black: S D G H J  or click keys',
       {
         font: '12px Arial',
         fill: '#AAAAAA',
