@@ -181,6 +181,16 @@ canvas {
 
     /* Ensure it doesn't overflow */
     aspect-ratio: auto;
+
+    /* Enable positioning context for back-link */
+    position: relative;
+  }
+
+  .back-link {
+    /* Position relative to centered game-container instead of viewport */
+    position: absolute;
+    top: 20px;
+    left: 20px;
   }
 }
 
