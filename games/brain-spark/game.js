@@ -94,6 +94,32 @@ function initGame() {
     }
   });
 
+  // Custom back button logic for Brain Spark (always go to parent, not stack)
+  const backBtn = document.getElementById('game-back-btn');
+  if (backBtn) {
+    backBtn.addEventListener(
+      'click',
+      e => {
+        e.preventDefault();
+        const currentScreen = nav.currentScreen;
+
+        // Always go to parent screen
+        if (currentScreen === 'category') {
+          // From category, go to portal
+          window.location.href = '../../index.html#brain-spark';
+        } else if (
+          currentScreen === 'play' ||
+          currentScreen === 'explain' ||
+          currentScreen === 'results'
+        ) {
+          // From any quiz screen, go back to category picker
+          nav.goToScreen('category', { preserveStack: true });
+        }
+      },
+      true
+    ); // Use capture phase to intercept before GameNavigation
+  }
+
   // Difficulty toggles
   document.querySelectorAll('.difficulty-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -111,9 +137,17 @@ function initGame() {
   });
 
   // Continue button (explain screen)
-  document.getElementById('continue-btn').addEventListener('click', () => {
-    nextQuestion();
-  });
+  const continueBtn = document.getElementById('continue-btn');
+  if (continueBtn) {
+    continueBtn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      console.log('Continue button clicked - moving to next question');
+      nextQuestion();
+    });
+  } else {
+    console.warn('Continue button not found in DOM');
+  }
 
   // Try again button
   document.getElementById('try-again-btn').addEventListener('click', () => {
