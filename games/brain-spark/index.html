@@ -686,19 +686,10 @@
 
       /* Desktop responsive (1025px+) */
       @media (min-width: 1025px) {
-        body {
-          /* Ensure nav and content fit properly */
-          display: flex;
-          flex-direction: column;
-          min-height: 100vh;
-          overflow: hidden;
-        }
-
         .dom-screen {
-          /* Allow screens to scroll on large displays */
+          /* Allow screens to scroll if content exceeds viewport */
           overflow-y: auto;
-          overflow-x: hidden;
-          flex: 1;
+          max-height: calc(100vh - var(--dom-nav-height, 60px));
         }
 
         .category-cards {
@@ -709,28 +700,23 @@
         .play-content {
           max-width: 640px;
           margin: 0 auto;
-          flex: 1;
-          justify-content: flex-start;
         }
 
         .answer-buttons {
           max-width: 500px;
-          margin-top: auto;
-          margin-bottom: 20px;
+          margin: 20px auto 0;
         }
 
         .explain-container {
           max-width: 600px;
           margin: 0 auto;
-          justify-content: center;
-          flex: 1;
+          padding: 40px 20px;
         }
 
         .results-container {
           max-width: 600px;
           margin: 0 auto;
-          justify-content: center;
-          flex: 1;
+          padding: 40px 20px;
         }
       }
     </style>
