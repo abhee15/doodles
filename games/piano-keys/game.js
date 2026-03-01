@@ -1165,6 +1165,13 @@ function startSong(scene, song) {
   gameState.songStartTime = Date.now();
   gameState.currentScreen = SCREEN.PLAY;
   gameState.isPlaying = true;
+
+  // Ensure canvas can receive pointer events for gameplay
+  const canvas = document.querySelector('canvas');
+  if (canvas) {
+    canvas.style.pointerEvents = 'auto';
+  }
+
   rebuildPlayScreen(scene);
 }
 
