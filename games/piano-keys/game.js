@@ -1,6 +1,6 @@
 // ══════════════════════════════════════════════════════════════
 // Piano Keys Game — Phaser 3 with Web Audio API synthesis
-// FIXED: Key labels, keyboard support, fixed falling notes
+// COMPLETE REWRITE: Fixed timing, added speed control, keyboard labels
 // ══════════════════════════════════════════════════════════════
 
 // ─── Constants ──────────────────────────────────────────────
@@ -52,7 +52,13 @@ const CHORDS = [
     fingers: [1, 3, 5],
     color: 0xf9a8d4
   },
-  { id: 'G_maj', label: 'G Major', keys: ['G4', 'B4', 'D5'], fingers: [1, 3, 5], color: 0x86efac },
+  {
+    id: 'G_maj',
+    label: 'G Major',
+    keys: ['G4', 'B4', 'D5'],
+    fingers: [1, 3, 5],
+    color: 0x86efac
+  },
   {
     id: 'A_min',
     label: 'A Minor',
@@ -60,7 +66,13 @@ const CHORDS = [
     fingers: [1, 3, 5],
     color: 0xc4b5fd
   },
-  { id: 'F_maj', label: 'F Major', keys: ['F4', 'A4', 'C5'], fingers: [1, 3, 5], color: 0xfcd34d },
+  {
+    id: 'F_maj',
+    label: 'F Major',
+    keys: ['F4', 'A4', 'C5'],
+    fingers: [1, 3, 5],
+    color: 0xfcd34d
+  },
   {
     id: 'E_min',
     label: 'E Minor',
@@ -68,7 +80,13 @@ const CHORDS = [
     fingers: [1, 3, 5],
     color: 0x6ee7b7
   },
-  { id: 'D_min', label: 'D Minor', keys: ['D4', 'F4', 'A4'], fingers: [1, 3, 5], color: 0x93c5fd }
+  {
+    id: 'D_min',
+    label: 'D Minor',
+    keys: ['D4', 'F4', 'A4'],
+    fingers: [1, 3, 5],
+    color: 0x93c5fd
+  }
 ];
 
 const SONGS = [
@@ -198,7 +216,7 @@ const SONGS = [
 
 const SCREEN = { MENU: 0, LEARN: 1, SONG_SELECT: 2, PLAY: 3, RESULTS: 4 };
 
-// Keyboard mapping for desktop play
+// Keyboard mapping for desktop play (Z, X, C, V, B, N, M, ,)
 const KEYBOARD_MAP = {
   z: 'C4',
   x: 'D4',
@@ -209,6 +227,23 @@ const KEYBOARD_MAP = {
   m: 'B4',
   ',': 'C5'
 };
+
+const KEYBOARD_LABELS = {
+  C4: 'Z',
+  D4: 'X',
+  E4: 'C',
+  F4: 'V',
+  G4: 'B',
+  A4: 'N',
+  B4: 'M',
+  C5: ','
+};
+
+// Fall speed constant: 300px/s = 0.3px/ms
+const FALL_SPEED_PX_PER_MS = 0.3;
+const HUD_HEIGHT = 70;
+const LEAD_IN_MS = 2000;
+const HIT_WINDOW_MS = 150; // ±150ms to hit a note
 
 // ─── Global State ──────────────────────────────────────────
 const gameState = {
@@ -224,10 +259,12 @@ const gameState = {
   highlightedKeys: new Set(),
   selectedSong: null,
   songStartTime: null,
+  speedMultiplier: 1,
   score: 0,
   combo: 0,
   maxCombo: 0,
   activeNotes: [],
+  spawnTimers: [],
   keyboardState: new Map(),
   keysPressed: new Set(),
   isPlaying: false
@@ -342,7 +379,8 @@ function playMissSound() {
 }
 
 // ─── Phaser Scene ──────────────────────────────────────────
-const config = createGameConfig('piano-keys', {
+const config = createGameConfig({
+  backgroundColor: 0x0d1b2a,
   scene: {
     preload() {},
     create() {
@@ -399,7 +437,10 @@ const config = createGameConfig('piano-keys', {
           const noteName = KEYBOARD_MAP[key];
           gameState.keysPressed.delete(noteName);
           if (gameState.keyboardState.has(noteName)) {
-            handleKeyRelease(gameState.keyboardState.get(noteName).obj);
+            const obj = gameState.keyboardState.get(noteName).obj;
+            if (obj && obj.active) {
+              handleKeyRelease(obj);
+            }
           }
         }
       });
@@ -417,26 +458,28 @@ const config = createGameConfig('piano-keys', {
         }
       });
     },
-    update() {
-      // Update loop for falling notes
+    update(time, delta) {
+      // Update loop for falling notes - uses delta time for frame-rate independence
       if (gameState.currentScreen !== SCREEN.PLAY || !gameState.isPlaying) {
         return;
       }
+
+      const fallZoneH = gameState.pianoY - HUD_HEIGHT;
 
       gameState.activeNotes.forEach(note => {
         if (note.resolved) {
           return;
         }
 
-        note.y += 5; // Move note down
+        // Move note down using delta time (300px/s with speed multiplier)
+        note.y += FALL_SPEED_PX_PER_MS * gameState.speedMultiplier * delta;
 
-        // Check if note hit the piano area
-        if (note.y >= gameState.pianoY - 20) {
-          if (!note.hitOnce) {
-            note.hitOnce = true;
-            playMissSound();
-            gameState.combo = 0;
-          }
+        // Check if note reached the hit line (pianoY - 22)
+        const hitLineY = gameState.pianoY - 22;
+        if (note.y >= hitLineY && !note.hitOnce && note.y < gameState.pianoY) {
+          note.hitOnce = true;
+          playMissSound();
+          gameState.combo = 0;
           note.setFillStyle(0xff4444);
         }
 
@@ -446,6 +489,20 @@ const config = createGameConfig('piano-keys', {
           note.destroy();
         }
       });
+
+      // Check if all notes resolved and song duration elapsed
+      const allNotesResolved = gameState.activeNotes.every(n => n.resolved);
+      const now = Date.now();
+      const elapsed = now - gameState.songStartTime;
+      const beatDurationMs = (60 / gameState.selectedSong.bpm) * 1000;
+      const lastBeat = gameState.selectedSong.notes[gameState.selectedSong.notes.length - 1].beat;
+      const songDurationMs = lastBeat * beatDurationMs + 3000;
+
+      if (allNotesResolved && elapsed > songDurationMs) {
+        gameState.isPlaying = false;
+        gameState.currentScreen = SCREEN.RESULTS;
+        rebuildResultsScreen(this);
+      }
     }
   }
 });
@@ -501,14 +558,25 @@ function buildPianoKeyboard(scene) {
     key.noteName = note;
     key.keyType = 'white';
 
-    // Add key label
-    const labelText = scene.add.text(
+    // Add note name label at bottom
+    const noteLabel = scene.add.text(
       x + gameState.whiteKeyWidth / 2,
       gameState.pianoY + whiteKeyHeight - 20,
       note,
       { font: 'bold 12px Arial', fill: '#000000' }
     );
-    labelText.setOrigin(0.5, 0.5);
+    noteLabel.setOrigin(0.5, 0.5);
+
+    // Add keyboard key label at top (if this is C4-C5 range)
+    if (KEYBOARD_LABELS[note]) {
+      const keyLabel = scene.add.text(
+        x + gameState.whiteKeyWidth / 2,
+        gameState.pianoY + 10,
+        KEYBOARD_LABELS[note],
+        { font: 'bold 11px Arial', fill: '#666666' }
+      );
+      keyLabel.setOrigin(0.5, 0.5);
+    }
 
     key.on('pointerdown', () => handleKeyPress(scene, note));
     key.on('pointerup', () => handleKeyRelease(key));
@@ -534,7 +602,7 @@ function buildPianoKeyboard(scene) {
     key.keyType = 'black';
     key.setDepth(10);
 
-    // Add key label
+    // Add note name label
     const labelText = scene.add.text(
       x + gameState.blackKeyWidth / 2,
       gameState.pianoY + blackKeyHeight / 2,
@@ -547,8 +615,15 @@ function buildPianoKeyboard(scene) {
     key.on('pointerdown', () => handleKeyPress(scene, bp.note));
     key.on('pointerup', () => handleKeyRelease(key));
 
-    gameState.keyboardState.set(bp.note, { obj: key, state: 'normal' });
+    gameState.keyboardState.set(bp.note, {
+      obj: key,
+      state: 'normal'
+    });
   });
+
+  // Draw visual hit line just above piano
+  const hitLineY = gameState.pianoY - 22;
+  scene.add.line(0, hitLineY, 0, hitLineY, width, hitLineY, 0xffd700);
 }
 
 function handleKeyPress(scene, noteName) {
@@ -568,6 +643,10 @@ function handleKeyPress(scene, noteName) {
 }
 
 function handleKeyRelease(keyObj) {
+  if (!keyObj || !keyObj.active) {
+    return;
+  }
+
   const keyState = gameState.keyboardState.get(keyObj.noteName);
   if (!keyState) {
     return;
@@ -610,7 +689,10 @@ function rebuildLearnScreen(scene) {
     btn.setInteractive();
     btn.setStrokeStyle(2, 0xffffff);
 
-    const text = scene.add.text(x, y, chord.label, { font: 'bold 14px Arial', fill: '#FFFFFF' });
+    const text = scene.add.text(x, y, chord.label, {
+      font: 'bold 14px Arial',
+      fill: '#FFFFFF'
+    });
     text.setOrigin(0.5, 0.5);
 
     btn.on('pointerover', () => btn.setScale(1.05));
@@ -625,7 +707,11 @@ function rebuildLearnScreen(scene) {
     width / 2,
     height - 190,
     'Click a chord to highlight the keys',
-    { font: '14px Arial', fill: '#CCCCCC', align: 'center' }
+    {
+      font: '14px Arial',
+      fill: '#CCCCCC',
+      align: 'center'
+    }
   );
   instructions.setOrigin(0.5, 0);
 
@@ -673,6 +759,51 @@ function rebuildSongSelectScreen(scene) {
   });
   title.setOrigin(0.5, 0);
 
+  // Speed selector
+  const speedY = 65;
+  const speedLabels = ['🐢 Slow', '▶ Normal', '⚡ Fast'];
+  const speedMultipliers = [0.5, 1, 1.5];
+  const speedButtonWidth = 90;
+  const speedSpacing = 110;
+  const speedStartX = (width - speedSpacing * 2) / 2;
+
+  speedLabels.forEach((label, idx) => {
+    const x = speedStartX + idx * speedSpacing;
+    const isSelected = gameState.speedMultiplier === speedMultipliers[idx];
+    const btn = scene.add.rectangle(
+      x,
+      speedY,
+      speedButtonWidth,
+      36,
+      isSelected ? 0xf9a8d4 : 0x3a3a4a
+    );
+    btn.setInteractive();
+    btn.setStrokeStyle(2, isSelected ? 0xffffff : 0x666666);
+
+    const text = scene.add.text(x, speedY, label, {
+      font: `bold ${isSelected ? 12 : 11}px Arial`,
+      fill: isSelected ? '#FFFFFF' : '#AAAAAA'
+    });
+    text.setOrigin(0.5, 0.5);
+
+    btn.on('pointerdown', () => {
+      gameState.speedMultiplier = speedMultipliers[idx];
+      rebuildSongSelectScreen(scene);
+    });
+
+    btn.on('pointerover', () => {
+      if (!isSelected) {
+        btn.setFillStyle(0x4a4a5a);
+      }
+    });
+    btn.on('pointerout', () => {
+      if (!isSelected) {
+        btn.setFillStyle(0x3a3a4a);
+      }
+    });
+  });
+
+  // Song cards
   const songsPerRow = width > 768 ? 2 : 1;
   const cardWidth = Math.min(280, (width - 40 - (songsPerRow - 1) * 20) / songsPerRow);
   const cardHeight = 100;
@@ -684,7 +815,7 @@ function rebuildSongSelectScreen(scene) {
       (width - (songsPerRow * cardWidth + (songsPerRow - 1) * 20)) / 2 +
       col * (cardWidth + 20) +
       cardWidth / 2;
-    const y = 100 + row * (cardHeight + 20);
+    const y = 130 + row * (cardHeight + 20);
 
     const card = scene.add.rectangle(x, y, cardWidth, cardHeight, 0x2a2a3a);
     card.setInteractive();
@@ -734,7 +865,10 @@ function rebuildPlayScreen(scene) {
   });
   songTitle.setOrigin(0.5, 0);
 
-  const scoreText = scene.add.text(20, 40, 'Score: 0', { font: '16px Arial', fill: '#FFFFFF' });
+  const scoreText = scene.add.text(20, 40, 'Score: 0', {
+    font: '16px Arial',
+    fill: '#FFFFFF'
+  });
   const comboText = scene.add.text(width - 20, 40, 'Combo: 0', {
     font: '16px Arial',
     fill: '#FFFFFF',
@@ -748,81 +882,77 @@ function rebuildPlayScreen(scene) {
       width / 2,
       height - 310,
       'Press Z, X, C, V, B, N, M for piano keys or click keys',
-      { font: '12px Arial', fill: '#AAAAAA', align: 'center' }
+      {
+        font: '12px Arial',
+        fill: '#AAAAAA',
+        align: 'center'
+      }
     );
     guideText.setOrigin(0.5, 0);
   }
 
   buildPianoKeyboard(scene);
 
-  // Spawn notes
+  // Spawn notes using corrected timing math
+  const beatDurationMs = (60 / gameState.selectedSong.bpm) * 1000;
+  const fallZoneH = gameState.pianoY - HUD_HEIGHT;
+  const fallDurationMs = (fallZoneH / (FALL_SPEED_PX_PER_MS * gameState.speedMultiplier)) * 1000;
+
   gameState.selectedSong.notes.forEach(noteData => {
-    const beatDurationMs = (60 / gameState.selectedSong.bpm) * 1000;
-    const noteStartMs = noteData.beat * beatDurationMs;
-    const spawnMs = noteStartMs + 2000; // Spawn 2 seconds before hitting piano
+    const beatMs = noteData.beat * beatDurationMs;
+    const spawnMs = LEAD_IN_MS + beatMs - fallDurationMs;
 
-    setTimeout(() => {
-      if (!gameState.isPlaying || gameState.currentScreen !== SCREEN.PLAY) {
-        return;
-      }
+    const timerId = setTimeout(
+      () => {
+        if (!gameState.isPlaying || gameState.currentScreen !== SCREEN.PLAY) {
+          return;
+        }
 
-      const keyState = gameState.keyboardState.get(noteData.key);
-      if (!keyState) {
-        return;
-      }
+        const keyState = gameState.keyboardState.get(noteData.key);
+        if (!keyState) {
+          return;
+        }
 
-      const noteDurationMs = noteData.duration * beatDurationMs;
-      const noteHeight = Math.max(20, Math.floor((noteDurationMs / 1000) * 100));
-      const laneX = keyState.obj.x;
-      const fallZoneTop = 70;
+        const noteDurationMs = noteData.duration * beatDurationMs;
+        const noteHeight = Math.max(20, Math.floor((noteDurationMs / 1000) * 100));
+        const laneX = keyState.obj.x;
 
-      const note = scene.add.rectangle(
-        laneX,
-        fallZoneTop - noteHeight,
-        keyState.obj.width - 4,
-        noteHeight,
-        0x22c55e
-      );
-      note.noteName = noteData.key;
-      note.targetY = gameState.pianoY - 20;
-      note.resolved = false;
-      note.hitOnce = false;
-      note.noteData = noteData;
+        const note = scene.add.rectangle(
+          laneX,
+          HUD_HEIGHT - noteHeight,
+          keyState.obj.width - 4,
+          noteHeight,
+          0x22c55e
+        );
+        note.noteName = noteData.key;
+        note.targetY = gameState.pianoY - 22;
+        note.resolved = false;
+        note.hitOnce = false;
+        note.noteData = noteData;
 
-      gameState.activeNotes.push(note);
-    }, spawnMs);
+        gameState.activeNotes.push(note);
+      },
+      Math.max(0, spawnMs)
+    );
+
+    gameState.spawnTimers.push(timerId);
   });
 
   // Update HUD periodically
   let lastUpdateTime = Date.now();
-  scene.events.on('update', () => {
+  const updateInterval = setInterval(() => {
     if (!gameState.isPlaying || gameState.currentScreen !== SCREEN.PLAY) {
+      clearInterval(updateInterval);
       return;
     }
 
     const now = Date.now();
-    const elapsed = now - gameState.songStartTime;
-    const allNotesResolved = gameState.activeNotes.every(n => n.resolved);
-    const songDurationMs =
-      (gameState.selectedSong.notes[gameState.selectedSong.notes.length - 1].beat /
-        gameState.selectedSong.bpm) *
-        60 *
-        1000 +
-      3000;
-
-    if (allNotesResolved && elapsed > songDurationMs) {
-      gameState.isPlaying = false;
-      gameState.currentScreen = SCREEN.RESULTS;
-      rebuildResultsScreen(scene);
-    }
-
-    // Update HUD every 100ms to avoid excessive updates
     if (now - lastUpdateTime > 100) {
       scoreText.setText(`Score: ${gameState.score}`);
       comboText.setText(`Combo: ${gameState.combo}`);
       lastUpdateTime = now;
     }
-  });
+  }, 50);
 }
 
 function checkNoteHit(scene, noteName) {
@@ -884,6 +1014,15 @@ function rebuildResultsScreen(scene) {
 }
 
 // ─── Utility Functions ──────────────────────────────────────
+function cancelSpawnTimers() {
+  gameState.spawnTimers.forEach(timerId => {
+    clearTimeout(timerId);
+  });
+  gameState.spawnTimers = [];
+}
+
 function clearAllPhaserObjects(scene) {
+  cancelSpawnTimers();
+  gameState.keyboardState.clear();
   scene.children.list.slice().forEach(child => child.destroy());
 }
