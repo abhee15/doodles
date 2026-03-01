@@ -508,6 +508,10 @@ const config = createGameConfig({
 
       const fallZoneH = gameState.pianoY - HUD_HEIGHT;
 
+      if (gameState.activeNotes.length > 0) {
+        console.log('Update loop: active notes:', gameState.activeNotes.length);
+      }
+
       gameState.activeNotes.forEach(note => {
         if (note.resolved) {
           return;
@@ -1225,24 +1229,52 @@ function rebuildPlayScreen(scene) {
   const fallZoneH = gameState.pianoY - HUD_HEIGHT;
   const fallDurationMs = (fallZoneH / (FALL_SPEED_PX_PER_MS * gameState.speedMultiplier)) * 1000;
 
-  gameState.selectedSong.notes.forEach(noteData => {
+  console.log(
+    'Setting up note spawning:',
+    'beatDurationMs:',
+    beatDurationMs,
+    'fallDurationMs:',
+    fallDurationMs,
+    'fallZoneH:',
+    fallZoneH,
+    'speedMultiplier:',
+    gameState.speedMultiplier
+  );
+
+  gameState.selectedSong.notes.forEach((noteData, idx) => {
     const beatMs = noteData.beat * beatDurationMs;
     const spawnMs = LEAD_IN_MS + beatMs - fallDurationMs;
 
+    console.log(
+      `Note ${idx}:`,
+      noteData.key,
+      'beat:',
+      noteData.beat,
+      'beatMs:',
+      beatMs,
+      'spawnMs:',
+      spawnMs
+    );
+
     const timerId = setTimeout(
       () => {
+        console.log('Spawning note:', noteData.key);
         if (!gameState.isPlaying || gameState.currentScreen !== SCREEN.PLAY) {
+          console.log('Not playing or wrong screen, skipping note spawn');
           return;
         }
 
         const keyState = gameState.keyboardState.get(noteData.key);
         if (!keyState) {
+          console.log('No keyState found for:', noteData.key);
           return;
         }
 
         const noteDurationMs = noteData.duration * beatDurationMs;
         const noteHeight = Math.max(20, Math.floor((noteDurationMs / 1000) * 100));
         const laneX = keyState.obj.x;
+
+        console.log('Creating note at x:', laneX, 'y:', HUD_HEIGHT - noteHeight);
 
         const note = scene.add.rectangle(
           laneX,
@@ -1258,6 +1290,7 @@ function rebuildPlayScreen(scene) {
         note.noteData = noteData;
 
         gameState.activeNotes.push(note);
+        console.log('Total active notes:', gameState.activeNotes.length);
       },
       Math.max(0, spawnMs)
     );
