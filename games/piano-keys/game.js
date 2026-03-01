@@ -309,12 +309,19 @@ function initAudio() {
 }
 
 function playPianoNote(noteName, duration = 0.5) {
+  console.log('playPianoNote called:', noteName, 'duration:', duration);
   if (!gameState.audioCtx) {
+    console.log('Initializing audio context...');
     initAudio();
   }
   const ctx = gameState.audioCtx;
+  if (!ctx) {
+    console.log('ERROR: Audio context is null!');
+    return;
+  }
   const now = ctx.currentTime;
   const freq = noteToFreq(noteName);
+  console.log('Playing frequency:', freq, 'for note:', noteName);
 
   const master = ctx.createGain();
   master.connect(ctx.destination);
@@ -778,13 +785,17 @@ function buildPianoKeyboard(scene) {
 }
 
 function handleKeyPress(scene, noteName) {
+  console.log('handleKeyPress called:', noteName);
   const keyState = gameState.keyboardState.get(noteName);
   if (!keyState) {
+    console.log('No keyState found for:', noteName);
     return;
   }
 
+  console.log('keyState found, keyType:', keyState.obj.keyType);
   keyState.state = 'pressed';
   keyState.obj.setFillStyle(keyState.obj.keyType === 'white' ? 0xdddddd : 0x333333);
+  console.log('About to play note:', noteName);
   playPianoNote(noteName, 0.3);
 
   // In Play mode: check if this matches an active note
