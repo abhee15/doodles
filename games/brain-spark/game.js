@@ -94,30 +94,39 @@ function initGame() {
     }
   });
 
-  // Custom back button logic for Brain Spark (always go to parent, not stack)
+  // Override back button with custom parent-based navigation
+  // Remove GameNavigation's listener by replacing the back button
   const backBtn = document.getElementById('game-back-btn');
   if (backBtn) {
-    backBtn.addEventListener(
-      'click',
-      e => {
-        e.preventDefault();
-        const currentScreen = nav.currentScreen;
+    // Clone and replace to remove GameNavigation's listener
+    const newBackBtn = backBtn.cloneNode(true);
+    backBtn.parentNode.replaceChild(newBackBtn, backBtn);
 
-        // Always go to parent screen
-        if (currentScreen === 'category') {
-          // From category, go to portal
-          window.location.href = '../../index.html#brain-spark';
-        } else if (
-          currentScreen === 'play' ||
-          currentScreen === 'explain' ||
-          currentScreen === 'results'
-        ) {
-          // From any quiz screen, go back to category picker
-          nav.goToScreen('category', { preserveStack: true });
-        }
-      },
-      true
-    ); // Use capture phase to intercept before GameNavigation
+    // Add custom back button handler
+    newBackBtn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      const currentScreen = nav.currentScreen;
+
+      console.log(`Back button clicked from screen: ${currentScreen}`);
+
+      // Always go to parent screen
+      if (currentScreen === 'category') {
+        // From category, go to portal
+        console.log('Navigating to portal');
+        window.location.href = '../../index.html#brain-spark';
+      } else if (
+        currentScreen === 'play' ||
+        currentScreen === 'explain' ||
+        currentScreen === 'results'
+      ) {
+        // From any quiz screen, go back to category picker
+        console.log('Navigating back to category selection');
+        // Reset screen stack and go to category
+        nav.screenStack = ['category'];
+        nav.goToScreen('category');
+      }
+    });
   }
 
   // Difficulty toggles
