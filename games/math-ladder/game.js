@@ -140,10 +140,9 @@ function create() {
   const actualHeight = this.scale.height || 600;
   this.cameras.main.setBounds(0, 0, actualWidth, WORLD_H);
 
-  // Calculate LADDER_X based on actual viewport width
-  // On 800px (default): ladder at 148px from left = center-left
-  // On mobile smaller: scale proportionally
-  LADDER_X = Math.round((actualWidth / 800) * 148);
+  // Calculate LADDER_X to center the ladder in the viewport
+  // The ladder should always be centered horizontally
+  LADDER_X = Math.round(actualWidth / 2);
 
   buildWorld(this);
   showStartScreen(this);
