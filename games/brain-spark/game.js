@@ -405,6 +405,8 @@ function nextQuestion() {
     showResults();
   } else {
     renderQuestion();
+    // Navigate back to play screen to show the updated question
+    nav.goToScreen('play');
   }
 }
 
