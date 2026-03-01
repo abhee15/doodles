@@ -405,11 +405,96 @@ const LEVELS = [
     icon: '2×2',
     desc: 'Two-digit magic',
     color: '#DC2626',
-    generate(randInt) {
-      const num1 = randInt(10, 30);
-      const num2 = randInt(10, 30);
+    generate(randInt, randFrom) {
+      const num1 = randInt(10, 50);
+      const num2 = randInt(10, 50);
       const answer = num1 * num2;
-      const questionStr = `${num1} × ${num2} = ?`;
+      const formats = [
+        `${num1} × ${num2} = ?`,
+        `${num1} × ${num2} = ?`,
+        `${num1} times ${num2} = ?`
+      ];
+      const questionStr = randFrom(formats);
+      return { questionStr, answer };
+    }
+  },
+
+  // === ADDITION TRICKS (Phase 1) ===
+  {
+    id: 26,
+    name: 'Break Into Tens',
+    icon: '🔢',
+    desc: 'Separate tens and ones',
+    color: '#8B5CF6',
+    generate(randInt, randFrom) {
+      const num1 = randInt(20, 99);
+      const num2 = randInt(10, 79);
+      const answer = num1 + num2;
+      const formats = [
+        `${num1} + ${num2} = ?`,
+        `Add: ${num1} + ${num2} = ?`,
+        `${num1} and ${num2} together = ?`
+      ];
+      const questionStr = randFrom(formats);
+      return { questionStr, answer };
+    }
+  },
+  {
+    id: 27,
+    name: 'Left-to-Right',
+    icon: '←→',
+    desc: 'Add hundreds, then tens, then ones',
+    color: '#EC4899',
+    generate(randInt, randFrom) {
+      const num1 = randInt(100, 500);
+      const num2 = randInt(100, 400);
+      const answer = num1 + num2;
+      const formats = [
+        `${num1} + ${num2} = ?`,
+        `${num1} plus ${num2} = ?`,
+        `${num1} + ${num2} total = ?`
+      ];
+      const questionStr = randFrom(formats);
+      return { questionStr, answer };
+    }
+  },
+  {
+    id: 28,
+    name: 'Compensation',
+    icon: '↔️',
+    desc: 'Borrow to round, then adjust',
+    color: '#10B981',
+    generate(randInt, randFrom) {
+      const base1 = randInt(16, 28) * 10;
+      const base2 = randInt(12, 19) * 10;
+      const num1 = base1 + randInt(2, 8);
+      const num2 = base2 + randInt(1, 9);
+      const answer = num1 + num2;
+      const formats = [
+        `${num1} + ${num2} = ?`,
+        `Sum: ${num1} + ${num2} = ?`,
+        `${num1} and ${num2} = ?`
+      ];
+      const questionStr = randFrom(formats);
+      return { questionStr, answer };
+    }
+  },
+  {
+    id: 29,
+    name: 'Benchmark Rounding',
+    icon: '📍',
+    desc: 'Round to nearest 10, add, adjust',
+    color: '#F59E0B',
+    generate(randInt, randFrom) {
+      const num1 = randInt(200, 700);
+      const num2 = randInt(100, 500);
+      const answer = num1 + num2;
+      const formats = [
+        `${num1} + ${num2} = ?`,
+        `What is ${num1} + ${num2}?`,
+        `${num1} add ${num2} = ?`
+      ];
+      const questionStr = randFrom(formats);
       return { questionStr, answer };
     }
   }
@@ -834,6 +919,7 @@ function startPractice(levelId) {
   practiceAnswered = 0;
   answered = false;
   userAnswer = '';
+  sessionQuestionHistory = []; // Reset question history for new session
   nextPracticeQuestion();
 }
 
@@ -946,7 +1032,32 @@ function generateQuestion(levelId) {
     console.error(`No level found for id: ${levelId}`);
     return null;
   }
-  const result = level.generate(randInt, randFrom);
+
+  // Anti-repeat: Generate unique questions within a session
+  let result,
+    attempt = 0;
+  const maxAttempts = 20; // Prevent infinite loops
+
+  do {
+    result = level.generate(randInt, randFrom);
+    const questionSignature = `${levelId}:${result.questionStr}:${result.answer}`;
+
+    if (!sessionQuestionHistory.includes(questionSignature)) {
+      sessionQuestionHistory.push(questionSignature);
+      break;
+    }
+
+    attempt++;
+  } while (attempt < maxAttempts);
+
+  if (attempt >= maxAttempts && result) {
+    // Fallback: If we can't generate unique after many attempts, still use it
+    const questionSignature = `${levelId}:${result.questionStr}:${result.answer}`;
+    if (!sessionQuestionHistory.includes(questionSignature)) {
+      sessionQuestionHistory.push(questionSignature);
+    }
+  }
+
   return { ...result, levelId };
 }
 
