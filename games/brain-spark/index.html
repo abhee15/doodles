@@ -559,6 +559,11 @@
         color: var(--dom-accent);
       }
 
+      /* Hide landing screen - start directly at category selection */
+      .dom-screen[data-screen='landing'] {
+        display: none !important;
+      }
+
       /* Mobile responsive */
       @media (max-width: 768px) {
         .landing-title {

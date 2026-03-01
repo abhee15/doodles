@@ -83,21 +83,15 @@ document.addEventListener('DOMContentLoaded', () => {
 function initGame() {
   // Set up navigation
   nav = new GameNavigation('brain-spark', {
-    screens: ['landing', 'category', 'play', 'explain', 'results'],
-    initialScreen: 'landing',
+    screens: ['category', 'play', 'explain', 'results'],
+    initialScreen: 'category',
     gameName: 'Brain Spark',
     titles: {
-      landing: 'Brain Spark',
-      category: 'Choose Category',
+      category: 'Brain Spark - Choose Category',
       play: 'Play Quiz',
       explain: 'Explanation',
       results: 'Quiz Complete!'
     }
-  });
-
-  // Landing button
-  document.getElementById('start-btn').addEventListener('click', () => {
-    nav.goToScreen('category');
   });
 
   // Difficulty toggles
