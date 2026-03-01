@@ -55,14 +55,14 @@ const CHORDS = [
   {
     id: 'G_maj',
     label: 'G Major',
-    keys: ['G4', 'B4', 'D5'],
+    keys: ['G4', 'B4', 'D4'],
     fingers: [1, 3, 5],
     color: 0x86efac
   },
   {
     id: 'A_min',
     label: 'A Minor',
-    keys: ['A4', 'C5', 'E5'],
+    keys: ['A4', 'C5', 'E4'],
     fingers: [1, 3, 5],
     color: 0xc4b5fd
   },
