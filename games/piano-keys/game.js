@@ -615,6 +615,17 @@ function buildPianoKeyboard(scene) {
   const pianoX = (width - pianoStripWidth) / 2;
   gameState.pianoY = pianoY;
 
+  console.log('Building piano keyboard:', {
+    width,
+    height,
+    isPortrait,
+    whiteKeyHeight,
+    whiteKeyWidth: gameState.whiteKeyWidth,
+    blackKeyWidth: gameState.blackKeyWidth,
+    pianoStripWidth,
+    whiteNotesCount
+  });
+
   gameState.keyboardState.clear();
 
   // White keys
@@ -754,6 +765,10 @@ function buildPianoKeyboard(scene) {
   // Draw visual hit line just above piano
   const hitLineY = gameState.pianoY - 22;
   scene.add.line(0, hitLineY, 0, hitLineY, width, hitLineY, 0xffd700);
+
+  console.log('Piano keyboard built - total keys:', gameState.keyboardState.size);
+  console.log('White notes:', gameState.whiteNotes);
+  console.log('Keyboard state keys:', Array.from(gameState.keyboardState.keys()));
 }
 
 function handleKeyPress(scene, noteName) {
@@ -972,13 +987,22 @@ function rebuildLearnScreen(scene) {
 }
 
 function selectChord(scene, chord) {
+  console.log('Chord selected:', chord.label, 'Keys:', chord.keys);
   gameState.currentChord = chord;
   gameState.highlightedKeys.clear();
 
   chord.keys.forEach(key => gameState.highlightedKeys.add(key));
 
+  console.log('Keyboard state size:', gameState.keyboardState.size);
+  console.log('Highlighted keys:', Array.from(gameState.highlightedKeys));
+
   // Update key colors
   gameState.keyboardState.forEach((keyState, noteName) => {
+    if (!keyState || !keyState.obj) {
+      console.warn('Invalid key state for', noteName);
+      return;
+    }
+
     if (gameState.highlightedKeys.has(noteName)) {
       keyState.obj.setFillStyle(0xffd700);
       keyState.obj.setStrokeStyle(2, 0xffb700);
@@ -988,6 +1012,7 @@ function selectChord(scene, chord) {
     }
   });
 
+  console.log('Keys highlighted, playing chord...');
   // Auto-play the chord when selected
   playChordArpeggio(scene);
 }
