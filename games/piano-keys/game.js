@@ -392,7 +392,13 @@ function playMissSound() {
 }
 
 // ─── Phaser Scene ──────────────────────────────────────────
+// Get window dimensions for full-screen canvas on mobile
+const gameWidth = window.innerWidth;
+const gameHeight = window.innerHeight;
+
 const config = createGameConfig({
+  width: gameWidth,
+  height: gameHeight,
   backgroundColor: 0x0d1b2a,
   scene: {
     preload() {},
