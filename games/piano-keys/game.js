@@ -278,7 +278,9 @@ const gameState = {
   spawnTimers: [],
   keyboardState: new Map(),
   keysPressed: new Set(),
-  isPlaying: false
+  isPlaying: false,
+  autoPlayChord: false,
+  autoPlayTimer: null
 };
 
 // ─── Helper Functions ──────────────────────────────────────
@@ -538,17 +540,35 @@ const game = new Phaser.Game(config);
 
 // ─── Screen Navigation ─────────────────────────────────────
 function goBackScreen(scene) {
+  // Stop any active timers/playback
+  if (gameState.autoPlayTimer) {
+    clearInterval(gameState.autoPlayTimer);
+    gameState.autoPlayTimer = null;
+  }
+  gameState.autoPlayChord = false;
+
   clearAllPhaserObjects(scene);
   gameState.isPlaying = false;
   gameState.activeNotes = [];
 
   if (gameState.currentScreen === SCREEN.PLAY) {
+    // Going back from playing a song
     gameState.currentScreen = SCREEN.SONG_SELECT;
+    const canvas = document.querySelector('canvas');
+    if (canvas) {
+      canvas.style.pointerEvents = 'auto';
+    }
     rebuildSongSelectScreen(scene);
-  } else if (
-    gameState.currentScreen === SCREEN.SONG_SELECT ||
-    gameState.currentScreen === SCREEN.LEARN
-  ) {
+  } else if (gameState.currentScreen === SCREEN.SONG_SELECT) {
+    // Going back to menu
+    gameState.currentScreen = SCREEN.MENU;
+    document.getElementById('menu-screen').style.display = 'flex';
+    const canvas = document.querySelector('canvas');
+    if (canvas) {
+      canvas.style.pointerEvents = 'none';
+    }
+  } else if (gameState.currentScreen === SCREEN.LEARN) {
+    // Going back to menu from Learn Chords
     gameState.currentScreen = SCREEN.MENU;
     document.getElementById('menu-screen').style.display = 'flex';
     const canvas = document.querySelector('canvas');
@@ -822,13 +842,62 @@ function rebuildLearnScreen(scene) {
   );
   instructions.setOrigin(0.5, 0);
 
-  // Play Chord button (below instructions, not overlapping piano)
+  // Play Chord button area with toggle
   const playButtonY = instructionY + 35;
-  createButton(scene, width / 2, playButtonY, 'Play Chord', () => {
+  const buttonSpacing = 120;
+  const centerX = width / 2;
+
+  // Play Chord button (repeatable)
+  createButton(scene, centerX - buttonSpacing / 2, playButtonY, '▶ Play Chord', () => {
     if (gameState.currentChord) {
       playChordArpeggio(scene);
     }
   });
+
+  // Auto-Play Toggle button
+  const toggleText = gameState.autoPlayChord ? '⏸ Stop Repeat' : '🔄 Auto Repeat';
+  const toggleColor = gameState.autoPlayChord ? 0x4caf50 : 0x666666;
+  const toggleBtn = scene.add.rectangle(
+    centerX + buttonSpacing / 2,
+    playButtonY,
+    100,
+    50,
+    toggleColor
+  );
+  toggleBtn.setInteractive();
+  toggleBtn.setStrokeStyle(2, 0xffffff);
+
+  const toggleLabel = scene.add.text(centerX + buttonSpacing / 2, playButtonY, toggleText, {
+    font: 'bold 12px Arial',
+    fill: '#FFFFFF'
+  });
+  toggleLabel.setOrigin(0.5, 0.5);
+
+  toggleBtn.on('pointerdown', () => {
+    gameState.autoPlayChord = !gameState.autoPlayChord;
+
+    if (gameState.autoPlayChord && gameState.currentChord) {
+      // Start auto-play loop (every 3 seconds)
+      playChordArpeggio(scene);
+      gameState.autoPlayTimer = setInterval(() => {
+        if (gameState.currentScreen === SCREEN.LEARN && gameState.currentChord) {
+          playChordArpeggio(scene);
+        }
+      }, 3000);
+    } else {
+      // Stop auto-play
+      if (gameState.autoPlayTimer) {
+        clearInterval(gameState.autoPlayTimer);
+        gameState.autoPlayTimer = null;
+      }
+    }
+
+    // Rebuild screen to update button color
+    rebuildLearnScreen(scene);
+  });
+
+  toggleBtn.on('pointerover', () => toggleBtn.setScale(1.05));
+  toggleBtn.on('pointerout', () => toggleBtn.setScale(1));
 }
 
 function selectChord(scene, chord) {
@@ -847,6 +916,9 @@ function selectChord(scene, chord) {
       keyState.obj.setStrokeStyle(2, keyState.obj.keyType === 'white' ? 0x333333 : 0x111111);
     }
   });
+
+  // Auto-play the chord when selected
+  playChordArpeggio(scene);
 }
 
 function playChordArpeggio(scene) {

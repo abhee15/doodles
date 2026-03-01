@@ -226,6 +226,12 @@
       canvas {
         pointer-events: none !important;
       }
+
+      /* Ensure back button is always clickable */
+      .back-link {
+        pointer-events: auto !important;
+        z-index: 1001 !important;
+      }
     </style>
   </head>
 
