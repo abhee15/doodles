@@ -411,6 +411,7 @@ const config = createGameConfig({
 
       btnLearn.addEventListener('click', () => {
         menuScreen.style.display = 'none';
+        document.querySelector('canvas').style.pointerEvents = 'auto';
         gameState.currentScreen = SCREEN.LEARN;
         gameState.isPlaying = false;
         rebuildLearnScreen(scene);
@@ -418,6 +419,7 @@ const config = createGameConfig({
 
       btnPlay.addEventListener('click', () => {
         menuScreen.style.display = 'none';
+        document.querySelector('canvas').style.pointerEvents = 'auto';
         gameState.currentScreen = SCREEN.SONG_SELECT;
         gameState.isPlaying = false;
         rebuildSongSelectScreen(scene);
@@ -535,6 +537,7 @@ function goBackScreen(scene) {
   ) {
     gameState.currentScreen = SCREEN.MENU;
     document.getElementById('menu-screen').style.display = 'flex';
+    document.querySelector('canvas').style.pointerEvents = 'none';
   }
 }
 

@@ -206,11 +206,25 @@
         font-size: 32px;
       }
 
+      /* Ensure buttons are clickable on mobile */
+      #menu-screen {
+        pointer-events: all;
+      }
+
+      .menu-card {
+        pointer-events: auto;
+      }
+
       .menu-card-desc {
         font-size: 13px;
         font-weight: 500;
         color: rgba(255, 255, 255, 0.8);
         margin-top: 8px;
+      }
+
+      /* Disable canvas pointer events when menu is showing */
+      canvas {
+        pointer-events: none !important;
       }
     </style>
   </head>
