@@ -309,19 +309,12 @@ function initAudio() {
 }
 
 function playPianoNote(noteName, duration = 0.5) {
-  console.log('playPianoNote called:', noteName, 'duration:', duration);
   if (!gameState.audioCtx) {
-    console.log('Initializing audio context...');
     initAudio();
   }
   const ctx = gameState.audioCtx;
-  if (!ctx) {
-    console.log('ERROR: Audio context is null!');
-    return;
-  }
   const now = ctx.currentTime;
   const freq = noteToFreq(noteName);
-  console.log('Playing frequency:', freq, 'for note:', noteName);
 
   const master = ctx.createGain();
   master.connect(ctx.destination);
@@ -507,10 +500,6 @@ const config = createGameConfig({
       }
 
       const fallZoneH = gameState.pianoY - HUD_HEIGHT;
-
-      if (gameState.activeNotes.length > 0) {
-        console.log('Update loop: active notes:', gameState.activeNotes.length);
-      }
 
       gameState.activeNotes.forEach(note => {
         if (note.resolved) {
@@ -789,17 +778,13 @@ function buildPianoKeyboard(scene) {
 }
 
 function handleKeyPress(scene, noteName) {
-  console.log('handleKeyPress called:', noteName);
   const keyState = gameState.keyboardState.get(noteName);
   if (!keyState) {
-    console.log('No keyState found for:', noteName);
     return;
   }
 
-  console.log('keyState found, keyType:', keyState.obj.keyType);
   keyState.state = 'pressed';
   keyState.obj.setFillStyle(keyState.obj.keyType === 'white' ? 0xdddddd : 0x333333);
-  console.log('About to play note:', noteName);
   playPianoNote(noteName, 0.3);
 
   // In Play mode: check if this matches an active note
@@ -1229,52 +1214,24 @@ function rebuildPlayScreen(scene) {
   const fallZoneH = gameState.pianoY - HUD_HEIGHT;
   const fallDurationMs = (fallZoneH / (FALL_SPEED_PX_PER_MS * gameState.speedMultiplier)) * 1000;
 
-  console.log(
-    'Setting up note spawning:',
-    'beatDurationMs:',
-    beatDurationMs,
-    'fallDurationMs:',
-    fallDurationMs,
-    'fallZoneH:',
-    fallZoneH,
-    'speedMultiplier:',
-    gameState.speedMultiplier
-  );
-
-  gameState.selectedSong.notes.forEach((noteData, idx) => {
+  gameState.selectedSong.notes.forEach(noteData => {
     const beatMs = noteData.beat * beatDurationMs;
     const spawnMs = LEAD_IN_MS + beatMs - fallDurationMs;
 
-    console.log(
-      `Note ${idx}:`,
-      noteData.key,
-      'beat:',
-      noteData.beat,
-      'beatMs:',
-      beatMs,
-      'spawnMs:',
-      spawnMs
-    );
-
     const timerId = setTimeout(
       () => {
-        console.log('Spawning note:', noteData.key);
         if (!gameState.isPlaying || gameState.currentScreen !== SCREEN.PLAY) {
-          console.log('Not playing or wrong screen, skipping note spawn');
           return;
         }
 
         const keyState = gameState.keyboardState.get(noteData.key);
         if (!keyState) {
-          console.log('No keyState found for:', noteData.key);
           return;
         }
 
         const noteDurationMs = noteData.duration * beatDurationMs;
         const noteHeight = Math.max(20, Math.floor((noteDurationMs / 1000) * 100));
         const laneX = keyState.obj.x;
-
-        console.log('Creating note at x:', laneX, 'y:', HUD_HEIGHT - noteHeight);
 
         const note = scene.add.rectangle(
           laneX,
@@ -1290,7 +1247,6 @@ function rebuildPlayScreen(scene) {
         note.noteData = noteData;
 
         gameState.activeNotes.push(note);
-        console.log('Total active notes:', gameState.activeNotes.length);
       },
       Math.max(0, spawnMs)
     );
