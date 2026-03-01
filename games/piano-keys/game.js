@@ -927,11 +927,11 @@ function rebuildLearnScreen(scene) {
   let instructionY, playButtonY, buttonSpacing, centerX;
 
   if (isMobileLandscape) {
-    // On landscape: put buttons above piano to avoid overlap
-    instructionY = gameState.pianoY - 60;
-    playButtonY = gameState.pianoY - 25;
+    // On landscape: put buttons in bottom-right corner, minimal spacing
+    instructionY = height - 50;
+    playButtonY = height - 25;
     buttonSpacing = 90;
-    centerX = width / 2;
+    centerX = width - 100;
   } else {
     // On portrait/desktop: buttons below piano
     instructionY = gameState.pianoY + 40;
