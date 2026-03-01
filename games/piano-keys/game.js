@@ -1239,14 +1239,21 @@ function rebuildPlayScreen(scene) {
         const noteDurationMs = noteData.duration * beatDurationMs;
         const noteHeight = Math.max(20, Math.floor((noteDurationMs / 1000) * 100));
         const laneX = keyState.obj.x;
+        // Use actual key width for note display width
+        const noteWidth =
+          keyState.obj.keyType === 'white'
+            ? gameState.whiteKeyWidth - 4
+            : gameState.blackKeyWidth - 4;
 
         const note = scene.add.rectangle(
           laneX,
           HUD_HEIGHT - noteHeight,
-          keyState.obj.width - 4,
+          noteWidth,
           noteHeight,
           0x22c55e
         );
+        note.setStrokeStyle(1, 0x00dd00);
+        note.setDepth(5);
         note.noteName = noteData.key;
         note.targetY = gameState.pianoY - 22;
         note.resolved = false;
