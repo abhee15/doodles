@@ -314,6 +314,27 @@ body {
   }
 }
 
+/* Desktop: ensure nav is always clickable and visible */
+@media (min-width: 1025px) {
+  .dom-nav {
+    /* Ensure nav stays sticky and on top */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .dom-screens-container {
+    /* Ensure screens don't extend above nav */
+    position: relative;
+    z-index: 1;
+  }
+
+  .dom-screen {
+    /* Generous padding on large screens */
+    padding: var(--tok-space-8, 32px) var(--tok-space-8, 32px);
+  }
+}
+
 /* Reduced motion: disable all animations */
 @media (prefers-reduced-motion: reduce) {
   * {
