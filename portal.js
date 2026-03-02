@@ -100,7 +100,7 @@
       if (section) {
         const header = section.querySelector('.sec-header');
         // Only show "See all" link if category has more than one game
-        if (header && !header.querySelector('.sec-see-all') && categoryGames.length > 1) {
+        if (header && !header.querySelector('.sec-see-all') && gamesInCat.length > 1) {
           const link = document.createElement('a');
           link.href = `games/${cat.id}/index.html`;
           link.className = 'sec-see-all';
@@ -267,11 +267,23 @@
    * Initialize on DOM ready
    */
   document.addEventListener('DOMContentLoaded', function () {
+    // Verify manifest is loaded
+    if (typeof GAMES === 'undefined' || typeof CATEGORIES === 'undefined') {
+      console.error('Portal: GAMES or CATEGORIES manifest not loaded');
+      return;
+    }
+
+    console.log(
+      `Portal: Initializing with ${GAMES.length} games in ${CATEGORIES.length} categories`
+    );
+
     injectThumbStyles();
     renderCards();
     updateNavCount();
     updateSectionCounts();
     renderFilterPills();
     renderFooter();
+
+    console.log('Portal: Initialization complete');
   });
 })();
