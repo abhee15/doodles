@@ -261,6 +261,32 @@
       col.appendChild(ul);
       footerGames.appendChild(col);
     });
+
+    // Attach accordion toggle listeners for mobile
+    attachFooterAccordionListeners();
+  }
+
+  /**
+   * Attach accordion toggle listeners to footer headings (mobile only)
+   */
+  function attachFooterAccordionListeners() {
+    const cols = document.querySelectorAll('.footer-col');
+
+    cols.forEach(function (col) {
+      const heading = col.querySelector('h3');
+      if (!heading) {
+        return;
+      }
+
+      heading.addEventListener('click', function () {
+        // Check if mobile (768px or less)
+        if (window.innerWidth > 768) {
+          return; // Don't toggle on desktop/tablet
+        }
+
+        col.classList.toggle('expanded');
+      });
+    });
   }
 
   /**

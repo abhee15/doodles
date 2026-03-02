@@ -807,6 +807,10 @@ footer {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.35);
   margin-bottom: 14px;
+  transition: color 0.15s;
+}
+.footer-col h3:hover {
+  color: rgba(255, 255, 255, 0.55);
 }
 .footer-col ul {
   list-style: none;
@@ -1106,18 +1110,98 @@ footer {
 /* ══════════════════════════════════════════════════
    RESPONSIVE LAYOUT
 ══════════════════════════════════════════════════ */
-@media (max-width: 900px) {
+
+/* Tablet: 3-4 columns (900px-768px) */
+@media (max-width: 900px) and (min-width: 769px) {
   .footer-inner {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
   }
   .footer-brand {
     grid-column: 1 / -1;
+    margin-bottom: 8px;
   }
 }
-@media (max-width: 480px) {
+
+/* Mobile: Accordion layout (≤768px) */
+@media (max-width: 768px) {
   .footer-inner {
     grid-template-columns: 1fr;
+    gap: 0;
   }
+  .footer-brand {
+    grid-column: 1 / -1;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Accordion header */
+  .footer-col h3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color 0.2s;
+  }
+
+  .footer-col h3::after {
+    content: "▼";
+    font-size: 11px;
+    transition: transform 0.2s;
+  }
+
+  .footer-col h3:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  /* Collapsed state: hide list */
+  .footer-col ul {
+    display: none;
+    padding: 8px 0;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  /* Expanded state: show list */
+  .footer-col.expanded ul {
+    display: block;
+    max-height: 500px;
+    animation: slideDown 0.25s ease-out;
+  }
+
+  .footer-col.expanded h3::after {
+    transform: rotate(180deg);
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      max-height: 0;
+    }
+    to {
+      opacity: 1;
+      max-height: 500px;
+    }
+  }
+
+  .footer-col li {
+    margin-bottom: 10px;
+    padding-left: 16px;
+  }
+
+  .footer-col li:before {
+    content: "◦";
+    margin-left: -12px;
+    margin-right: 8px;
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
   .footer-bottom {
     flex-direction: column;
     gap: 10px;
