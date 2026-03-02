@@ -251,7 +251,8 @@ const KEYBOARD_LABELS = {
 };
 
 // Fall speed constant: 300px/s = 0.3px/ms
-const FALL_SPEED_PX_PER_MS = 0.3;
+const FALL_SPEED_PX_PER_MS = 0.3; // Normal play speed
+const FALL_SPEED_LEARN_MS = 0.1; // Play Along learning mode (3x slower)
 const HUD_HEIGHT = 70;
 const LEAD_IN_MS = 2000;
 const HIT_WINDOW_MS = 150; // ±150ms to hit a note
@@ -506,38 +507,17 @@ const config = createGameConfig({
           return;
         }
 
-        // Move note down using delta time (300px/s with speed multiplier)
-        note.y += FALL_SPEED_PX_PER_MS * gameState.speedMultiplier * delta;
+        // Move note down using slower delta time for learning
+        note.y += FALL_SPEED_LEARN_MS * delta;
 
-        // Check if note reached the hit line (pianoY - 22)
-        const hitLineY = gameState.pianoY - 22;
-        if (note.y >= hitLineY && !note.hitOnce && note.y < gameState.pianoY) {
-          note.hitOnce = true;
-          playMissSound();
-          gameState.combo = 0;
-          note.setFillStyle(0xff4444);
-        }
-
-        // Destroy if off screen
+        // Destroy if off screen (no scoring, just visual learning)
         if (note.y > gameState.pianoY + 100) {
           note.resolved = true;
           note.destroy();
         }
       });
 
-      // Check if all notes resolved and song duration elapsed
-      const allNotesResolved = gameState.activeNotes.every(n => n.resolved);
-      const now = Date.now();
-      const elapsed = now - gameState.songStartTime;
-      const beatDurationMs = (60 / gameState.selectedSong.bpm) * 1000;
-      const lastBeat = gameState.selectedSong.notes[gameState.selectedSong.notes.length - 1].beat;
-      const songDurationMs = lastBeat * beatDurationMs + 3000;
-
-      if (allNotesResolved && elapsed > songDurationMs) {
-        gameState.isPlaying = false;
-        gameState.currentScreen = SCREEN.RESULTS;
-        rebuildResultsScreen(this);
-      }
+      // Song plays indefinitely on loop - no end condition for learning mode
     }
   }
 });
@@ -787,10 +767,8 @@ function handleKeyPress(scene, noteName) {
   keyState.obj.setFillStyle(keyState.obj.keyType === 'white' ? 0xdddddd : 0x333333);
   playPianoNote(noteName, 0.3);
 
-  // In Play mode: check if this matches an active note
-  if (gameState.currentScreen === SCREEN.PLAY && gameState.isPlaying) {
-    checkNoteHit(scene, noteName);
-  }
+  // In Play mode: just provide visual feedback when key is pressed
+  // (No scoring - just learning by practice)
 }
 
 function handleKeyRelease(keyObj) {
@@ -1181,23 +1159,19 @@ function rebuildPlayScreen(scene) {
   const width = scene.cameras.main.width;
   const height = scene.cameras.main.height;
 
-  // Song title and HUD
+  // Song title only (no scoring needed for learning mode)
   const songTitle = scene.add.text(width / 2, 15, gameState.selectedSong.title, {
     font: 'bold 20px Arial',
     fill: '#F9A8D4'
   });
   songTitle.setOrigin(0.5, 0);
 
-  const scoreText = scene.add.text(20, 40, 'Score: 0', {
-    font: '16px Arial',
-    fill: '#FFFFFF'
+  // Learning mode indicator
+  const learnLabel = scene.add.text(width / 2, 40, '🎵 Practice at your own pace', {
+    font: '12px Arial',
+    fill: '#86efac'
   });
-  const comboText = scene.add.text(width - 20, 40, 'Combo: 0', {
-    font: '16px Arial',
-    fill: '#FFFFFF',
-    align: 'right'
-  });
-  comboText.setOrigin(1, 0);
+  learnLabel.setOrigin(0.5, 0);
 
   // Keyboard guide for desktop
   if (!gameState.isMobile) {
@@ -1217,72 +1191,75 @@ function rebuildPlayScreen(scene) {
   buildPianoKeyboard(scene);
 
   // Spawn notes using corrected timing math
-  const beatDurationMs = (60 / gameState.selectedSong.bpm) * 1000;
-  const fallZoneH = gameState.pianoY - HUD_HEIGHT;
-  const fallDurationMs = (fallZoneH / (FALL_SPEED_PX_PER_MS * gameState.speedMultiplier)) * 1000;
+  // Slower speed for learning mode - kids have time to read notes
+  function spawnNotesForSong() {
+    const beatDurationMs = (60 / gameState.selectedSong.bpm) * 1000;
+    const fallZoneH = gameState.pianoY - HUD_HEIGHT;
+    const fallDurationMs = (fallZoneH / FALL_SPEED_LEARN_MS) * 1000;
 
-  gameState.selectedSong.notes.forEach(noteData => {
-    const beatMs = noteData.beat * beatDurationMs;
-    const spawnMs = LEAD_IN_MS + beatMs - fallDurationMs;
+    gameState.selectedSong.notes.forEach(noteData => {
+      const beatMs = noteData.beat * beatDurationMs;
+      const spawnMs = LEAD_IN_MS + beatMs - fallDurationMs;
 
-    const timerId = setTimeout(
-      () => {
-        if (!gameState.isPlaying || gameState.currentScreen !== SCREEN.PLAY) {
-          return;
-        }
+      const timerId = setTimeout(
+        () => {
+          if (!gameState.isPlaying || gameState.currentScreen !== SCREEN.PLAY) {
+            return;
+          }
 
-        const keyState = gameState.keyboardState.get(noteData.key);
-        if (!keyState) {
-          return;
-        }
+          const keyState = gameState.keyboardState.get(noteData.key);
+          if (!keyState) {
+            return;
+          }
 
-        const noteDurationMs = noteData.duration * beatDurationMs;
-        const noteHeight = Math.max(20, Math.floor((noteDurationMs / 1000) * 100));
-        const laneX = keyState.obj.x;
-        // Use actual key width for note display width
-        const noteWidth =
-          keyState.obj.keyType === 'white'
-            ? gameState.whiteKeyWidth - 4
-            : gameState.blackKeyWidth - 4;
+          const noteDurationMs = noteData.duration * beatDurationMs;
+          const noteHeight = Math.max(20, Math.floor((noteDurationMs / 1000) * 100));
+          const laneX = keyState.obj.x;
+          // Use actual key width for note display width
+          const noteWidth =
+            keyState.obj.keyType === 'white'
+              ? gameState.whiteKeyWidth - 4
+              : gameState.blackKeyWidth - 4;
 
-        const note = scene.add.rectangle(
-          laneX,
-          HUD_HEIGHT - noteHeight,
-          noteWidth,
-          noteHeight,
-          0x22c55e
-        );
-        note.setStrokeStyle(1, 0x00dd00);
-        note.setDepth(5);
-        note.noteName = noteData.key;
-        note.targetY = gameState.pianoY - 22;
-        note.resolved = false;
-        note.hitOnce = false;
-        note.noteData = noteData;
+          const note = scene.add.rectangle(
+            laneX,
+            HUD_HEIGHT - noteHeight,
+            noteWidth,
+            noteHeight,
+            0x22c55e
+          );
+          note.setStrokeStyle(1, 0x00dd00);
+          note.setDepth(5);
+          note.noteName = noteData.key;
+          note.targetY = gameState.pianoY - 22;
+          note.resolved = false;
+          note.hitOnce = false;
+          note.noteData = noteData;
 
-        gameState.activeNotes.push(note);
-      },
-      Math.max(0, spawnMs)
-    );
+          gameState.activeNotes.push(note);
+        },
+        Math.max(0, spawnMs)
+      );
 
-    gameState.spawnTimers.push(timerId);
-  });
+      gameState.spawnTimers.push(timerId);
+    });
 
-  // Update HUD periodically
-  let lastUpdateTime = Date.now();
-  const updateInterval = setInterval(() => {
-    if (!gameState.isPlaying || gameState.currentScreen !== SCREEN.PLAY) {
-      clearInterval(updateInterval);
-      return;
-    }
+    // After all notes spawn, schedule the next loop
+    const lastNote = gameState.selectedSong.notes[gameState.selectedSong.notes.length - 1];
+    const lastNoteBeatMs = lastNote.beat * beatDurationMs;
+    const nextLoopDelayMs = LEAD_IN_MS + lastNoteBeatMs + 1000; // Add 1 second buffer between loops
 
-    const now = Date.now();
-    if (now - lastUpdateTime > 100) {
-      scoreText.setText(`Score: ${gameState.score}`);
-      comboText.setText(`Combo: ${gameState.combo}`);
-      lastUpdateTime = now;
-    }
-  }, 50);
+    const loopTimerId = setTimeout(() => {
+      if (gameState.isPlaying && gameState.currentScreen === SCREEN.PLAY) {
+        spawnNotesForSong(); // Loop the song
+      }
+    }, nextLoopDelayMs);
+
+    gameState.spawnTimers.push(loopTimerId);
+  }
+
+  // Start playing the song on loop
+  spawnNotesForSong();
 }
 
 function checkNoteHit(scene, noteName) {
