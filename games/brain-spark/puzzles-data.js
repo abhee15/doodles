@@ -336,80 +336,26 @@ window.PUZZLES = {
 
   'logic-riddles': {
     normal: [
+      // ===== EASY (1-15): Basic object riddles, simple wordplay =====
       {
         id: 'lr1',
-        question: "I have hands but can't clap. What am I?",
-        visual: { type: 'scene', emoji: '🕐', caption: 'I have hands but cannot clap...' },
-        options: ['Clock', 'Tree', 'Robot', 'Person'],
-        answer: 0,
-        explanation: 'A Clock! ⏰ Clock hands point to numbers but cannot clap.'
-      },
-      {
-        id: 'lr2',
-        question: 'What goes up but never comes down?',
-        visual: { type: 'scene', emoji: '📈', caption: 'It only goes one way...' },
-        options: ['Your age', 'A ball', 'Smoke', 'A ladder'],
-        answer: 0,
-        explanation: 'Your age! 🎂 Birthdays only go forward, never backward.'
-      },
-      {
-        id: 'lr3',
-        question: 'A rooster lays an egg on a barn roof. Which way does it roll?',
-        visual: { type: 'scene', emoji: '🐓', caption: 'A rooster on a roof...' },
-        options: ["Roosters don't lay eggs!", 'Left', 'Right', 'Down'],
-        answer: 0,
-        explanation: "Roosters don't lay eggs! 🐓 Only hens lay eggs. Classic trick!"
-      },
-      {
-        id: 'lr4',
-        question: 'How many months have 28 days?',
-        visual: { type: 'scene', emoji: '📅', caption: 'All the months of the year...' },
-        options: ['All 12!', 'Only February', '1', '7'],
-        answer: 0,
-        explanation: 'All 12 months! 📅 Every month has at least 28 days.'
-      },
-      {
-        id: 'lr5',
-        question: 'The more you take, the more you leave behind. What am I?',
-        visual: { type: 'scene', emoji: '👣', caption: 'With each step forward...' },
-        options: ['Footsteps', 'Money', 'Time', 'Words'],
-        answer: 0,
-        explanation: 'Footsteps! 👣 Each step you take leaves a footprint behind.'
-      },
-      {
-        id: 'lr6',
         question: 'What has teeth but cannot bite?',
         visual: { type: 'scene', emoji: '🪮', caption: 'Used for hair...' },
         options: ['A comb', 'A shark', 'A fork', 'A saw'],
         answer: 0,
-        explanation: "A comb! 🪮 It has teeth but can't bite anything."
+        explanation: 'A comb! 🪮 It has teeth but cannot bite anything.'
       },
       {
-        id: 'lr7',
-        question: "I'm light as a feather but the strongest person can't hold me long. What am I?",
-        visual: { type: 'scene', emoji: '💨', caption: 'Something invisible...' },
-        options: ['Breath', 'Air', 'Smoke', 'A secret'],
+        id: 'lr2',
+        question: 'What has four fingers and a thumb but is not alive?',
+        visual: { type: 'scene', emoji: '🧤', caption: 'Winter wear...' },
+        options: ['A glove', 'A hand', 'A puppet', 'A statue'],
         answer: 0,
-        explanation: 'Breath! 💨 Even strong people can only hold their breath for a short time.'
+        explanation:
+          'A glove! 🧤 Gloves have places for four fingers and a thumb but are not alive!'
       },
       {
-        id: 'lr8',
-        question: 'What has a face and two hands but no arms or legs?',
-        visual: { type: 'scene', emoji: '⏰', caption: 'Tells you the time...' },
-        options: ['A watch', 'A statue', 'A photo', 'A mask'],
-        answer: 0,
-        explanation: 'A watch! ⏰ It has a face (dial) and two hands (hour and minute).'
-      },
-      {
-        id: 'lr9',
-        question: 'What can travel around the world while staying in a corner?',
-        visual: { type: 'scene', emoji: '📮', caption: 'Found in envelopes...' },
-        options: ['A stamp', 'A coin', 'A postcard', 'A bird'],
-        answer: 0,
-        explanation: 'A stamp! 📮 It travels on letters and postcards around the world.'
-      },
-      {
-        id: 'lr10',
+        id: 'lr3',
         question: 'What has keys but no locks?',
         visual: { type: 'scene', emoji: '🎹', caption: 'Makes beautiful sounds...' },
         options: ['A piano', 'A keyboard', 'A typewriter', 'A computer'],
@@ -417,15 +363,7 @@ window.PUZZLES = {
         explanation: 'A piano! 🎹 It has keys but no locks.'
       },
       {
-        id: 'lr11',
-        question: 'What runs but never walks?',
-        visual: { type: 'scene', emoji: '🏞️', caption: 'Flows through nature...' },
-        options: ['A river', 'A person', 'A car', 'A dog'],
-        answer: 0,
-        explanation: 'A river! 🏞️ Rivers run downhill but never walk.'
-      },
-      {
-        id: 'lr12',
+        id: 'lr4',
         question: 'What has a head and a tail but no body?',
         visual: { type: 'scene', emoji: '🪙', caption: 'Tossed in games...' },
         options: ['A coin', 'A fish', 'A kite', 'A snake'],
@@ -433,32 +371,129 @@ window.PUZZLES = {
         explanation: 'A coin! 🪙 A coin has a heads side and a tails side but no body.'
       },
       {
-        id: 'lr13',
-        question: 'What question can you never answer yes to?',
-        visual: { type: 'scene', emoji: '😴', caption: 'When you are not awake...' },
-        options: ['Are you asleep?', 'Do you exist?', 'Can you hear?', 'What is your name?'],
+        id: 'lr5',
+        question: 'What runs but never walks?',
+        visual: { type: 'scene', emoji: '🏞️', caption: 'Flows through nature...' },
+        options: ['A river', 'A person', 'A car', 'A dog'],
         answer: 0,
-        explanation: 'Are you asleep? 😴 If you are asleep, you cannot answer yes while sleeping!'
+        explanation: 'A river! 🏞️ Rivers run downhill but never walk.'
+      },
+      {
+        id: 'lr6',
+        question: 'What kind of room has no doors or windows?',
+        visual: { type: 'scene', emoji: '🍄', caption: 'You might find one in a forest...' },
+        options: ['A mushroom', 'A closet', 'A basement', 'A cave'],
+        answer: 0,
+        explanation:
+          'A mushroom! 🍄 It has a "room" sound but is actually a fungus with no doors or windows!'
+      },
+      {
+        id: 'lr7',
+        question: 'What gets wetter as it dries?',
+        visual: { type: 'scene', emoji: '🛁', caption: 'Used after a shower...' },
+        options: ['A towel', 'A sponge', 'Clothing', 'A cloth'],
+        answer: 0,
+        explanation: 'A towel! 🛁 The more you use it to dry things, the wetter it becomes!'
+      },
+      {
+        id: 'lr8',
+        question: 'What starts with a T, ends with a T, and has a T inside it?',
+        visual: { type: 'scene', emoji: '☕', caption: 'Hot drink...' },
+        options: ['A teapot', 'A tent', 'A test', 'Toast'],
+        answer: 0,
+        explanation: 'A teapot! ☕ It starts with T, ends with T, and has TEA (T) inside!'
+      },
+      {
+        id: 'lr9',
+        question: 'What has a bottom at the top?',
+        visual: { type: 'scene', emoji: '🧦', caption: 'Worn on your feet...' },
+        options: ['A sock', 'A boot', 'A shoe', 'A hat'],
+        answer: 0,
+        explanation: 'A sock! 🧦 Socks have a "bottom" (sole) at the very top!'
+      },
+      {
+        id: 'lr10',
+        question: 'What can you catch but not throw?',
+        visual: { type: 'scene', emoji: '🦠', caption: 'Makes you sick...' },
+        options: ['A cold', 'A ball', 'A fish', 'A disease'],
+        answer: 0,
+        explanation: 'A cold! 🦠 You can catch a cold but cannot throw it!'
+      },
+      {
+        id: 'lr11',
+        question: 'What has one eye but cannot see?',
+        visual: { type: 'scene', emoji: '🧵', caption: 'Used for sewing...' },
+        options: ['A needle', 'A potato', 'A camera', 'A button'],
+        answer: 0,
+        explanation: 'A needle! 🧵 Needles have an eye (the hole) but cannot see!'
+      },
+      {
+        id: 'lr12',
+        question: 'What is full of holes but can hold water?',
+        visual: { type: 'scene', emoji: '🧽', caption: 'Used for cleaning...' },
+        options: ['A sponge', 'A strainer', 'A net', 'A screen'],
+        answer: 0,
+        explanation: 'A sponge! 🧽 Sponges are full of holes but can hold water in them!'
+      },
+      {
+        id: 'lr13',
+        question: 'What has a neck but no head?',
+        visual: { type: 'scene', emoji: '🍾', caption: 'Used for drinking...' },
+        options: ['A bottle', 'A turtle', 'A giraffe', 'A shirt'],
+        answer: 0,
+        explanation: 'A bottle! 🍾 Bottles have a narrow neck but no head!'
       },
       {
         id: 'lr14',
-        question: 'The more you take, the more you have. What is it?',
-        visual: { type: 'scene', emoji: '📸', caption: 'Captures memories...' },
-        options: ['Photos', 'Books', 'Money', 'Time'],
+        question: 'What looks like a small orange but weighs nothing?',
+        visual: { type: 'scene', emoji: '🪶', caption: 'Very light...' },
+        options: ['An orange peel', 'A feather', 'A balloon', 'A marble'],
         answer: 0,
-        explanation: 'Photos! 📸 The more photos you take, the more photos you have.'
+        explanation: 'An orange peel! 🪶 It looks like part of an orange but weighs almost nothing!'
       },
       {
         id: 'lr15',
-        question: 'What has an eye but cannot see?',
-        visual: { type: 'scene', emoji: '🌪️', caption: 'Center of storms...' },
-        options: ["A hurricane's eye", 'A potato', 'A needle', 'All of the above'],
+        question: 'What comes down but never goes up?',
+        visual: { type: 'scene', emoji: '🌧️', caption: 'Falls from the sky...' },
+        options: ['Rain', 'Snow', 'Hail', 'All of the above'],
         answer: 3,
-        explanation:
-          'All of the above! 👀 Hurricanes have eyes, potatoes have eyes, and needles have eyes!'
+        explanation: 'All of the above! 🌧️ Rain, snow, and hail all come down from the sky!'
       },
+      // ===== MEDIUM (16-35): Trickier wordplay, abstract thinking =====
       {
         id: 'lr16',
+        question: 'I have hands but cannot clap. What am I?',
+        visual: { type: 'scene', emoji: '🕐', caption: 'I have hands but cannot clap...' },
+        options: ['A clock', 'A tree', 'A robot', 'A statue'],
+        answer: 0,
+        explanation: 'A clock! ⏰ Clock hands point to numbers but cannot clap.'
+      },
+      {
+        id: 'lr17',
+        question: 'What goes up but never comes down?',
+        visual: { type: 'scene', emoji: '📈', caption: 'It only goes one way...' },
+        options: ['Your age', 'A ball', 'Smoke', 'A ladder'],
+        answer: 0,
+        explanation: 'Your age! 🎂 Birthdays only go forward, never backward.'
+      },
+      {
+        id: 'lr18',
+        question: 'The more you take, the more you leave behind. What am I?',
+        visual: { type: 'scene', emoji: '👣', caption: 'With each step forward...' },
+        options: ['Footsteps', 'Money', 'Time', 'Words'],
+        answer: 0,
+        explanation: 'Footsteps! 👣 Each step you take leaves a footprint behind.'
+      },
+      {
+        id: 'lr19',
+        question: "I'm light as a feather but the strongest person can't hold me long. What am I?",
+        visual: { type: 'scene', emoji: '💨', caption: 'Something invisible...' },
+        options: ['Breath', 'Air', 'Smoke', 'A secret'],
+        answer: 0,
+        explanation: 'Breath! 💨 Even strong people can only hold their breath for a short time.'
+      },
+      {
+        id: 'lr20',
         question: 'What gets bigger every time you take away from it?',
         visual: { type: 'scene', emoji: '🕳️', caption: 'Deeper as you dig...' },
         options: ['A hole', 'A shadow', 'A puddle', 'A debt'],
@@ -466,63 +501,101 @@ window.PUZZLES = {
         explanation: 'A hole! 🕳️ The more you remove from it, the bigger the hole gets.'
       },
       {
-        id: 'lr17',
-        question: 'What can be cracked, made, told, and played?',
-        visual: { type: 'scene', emoji: '😄', caption: 'Something to laugh about...' },
-        options: ['A joke', 'An egg', 'A game', 'A code'],
-        answer: 0,
-        explanation:
-          'A joke! 😄 You can crack a joke, make a joke, tell a joke, and play with jokes.'
-      },
-      {
-        id: 'lr18',
-        question: 'What word becomes shorter when you add two letters to it?',
-        visual: { type: 'scene', emoji: '✏️', caption: 'Spelled in writing...' },
-        options: ['Short → short + "er"', 'Add → Added', 'Long → Longer', 'Fast → Faster'],
-        answer: 0,
-        explanation:
-          '"Short" becomes "Shorter"! Wait, that\'s backwards. The answer is "short" + "er" = "shorter" is longer. Try: add "er" to "short" to get "shorter"? Actually, the answer is that adding "en" to "short" makes it... Actually the real answer is about the word "short" - short + "er" = shorter in letters is a trick. The true answer: the word "short" + "en" = "shorten" which means to make it shorter! ✓'
-      },
-      {
-        id: 'lr19',
-        question:
-          'I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?',
-        visual: { type: 'scene', emoji: '📢', caption: 'Bounces off walls...' },
-        options: ['An echo', 'A wind chime', 'A bell', 'A whistle'],
-        answer: 0,
-        explanation: 'An echo! 📢 It speaks (repeats sounds) but has no mouth, and moves with air!'
-      },
-      {
-        id: 'lr20',
-        question:
-          'What is seen in the middle of March and April that cannot be seen at the beginning or end of either month?',
-        visual: { type: 'scene', emoji: '🔤', caption: 'Found in the word...' },
-        options: ['The letter R', 'Rain', 'Spring', 'Growth'],
-        answer: 0,
-        explanation:
-          'The letter R! 🔤 March and April both have R in the middle, but March begins with M and ends with H!'
-      },
-      {
         id: 'lr21',
+        question: 'What gets smaller when you take away from it?',
+        visual: { type: 'scene', emoji: '🪴', caption: 'Garden or indoor plants...' },
+        options: ['A plant', 'A shadow', 'A puddle', 'A pile'],
+        answer: 0,
+        explanation: 'A plant! 🪴 The more leaves or branches you remove, the smaller it becomes!'
+      },
+      {
+        id: 'lr22',
+        question: 'A rooster lays an egg on a barn roof. Which way does it roll?',
+        visual: { type: 'scene', emoji: '🐓', caption: 'A rooster on a roof...' },
+        options: ["Roosters don't lay eggs!", 'Left', 'Right', 'Down'],
+        answer: 0,
+        explanation: "Roosters don't lay eggs! 🐓 Only hens lay eggs. Classic trick!"
+      },
+      {
+        id: 'lr23',
+        question: 'How many months have 28 days?',
+        visual: { type: 'scene', emoji: '📅', caption: 'All the months of the year...' },
+        options: ['All 12!', 'Only February', '1', '7'],
+        answer: 0,
+        explanation: 'All 12 months! 📅 Every month has at least 28 days.'
+      },
+      {
+        id: 'lr24',
+        question: 'What question can you never answer yes to?',
+        visual: { type: 'scene', emoji: '😴', caption: 'When you are not awake...' },
+        options: ['Are you asleep?', 'Do you exist?', 'Can you hear?', 'What is your name?'],
+        answer: 0,
+        explanation: 'Are you asleep? 😴 If you are asleep, you cannot answer yes while sleeping!'
+      },
+      {
+        id: 'lr25',
         question: 'What is always in front of you but you can never see it?',
         visual: { type: 'scene', emoji: '🔮', caption: 'What lies ahead...' },
         options: ['The future', 'Your nose', 'Your forehead', 'Distance'],
         answer: 0,
         explanation:
-          "The future! 🔮 It's always ahead but you can never actually see it until it becomes the present."
+          "The future! 🔮 It's always ahead but you can never see it until it becomes the present."
       },
       {
-        id: 'lr22',
-        question:
-          'What occurs once in every minute, twice in every moment, and yet never in a thousand years?',
-        visual: { type: 'scene', emoji: '🔤', caption: 'Found in words...' },
-        options: ['The letter M', 'Time', 'A second', 'A heartbeat'],
+        id: 'lr26',
+        question: 'What is white when it is dirty and black when it is clean?',
+        visual: { type: 'scene', emoji: '🎨', caption: 'Used for writing...' },
+        options: ['A blackboard', 'A whiteboard', 'A pen', 'Paper'],
         answer: 0,
         explanation:
-          'The letter M! 🔤 It appears in "minute" once and in "moment" twice, but never in "thousand" or "years".'
+          'A blackboard! 🎨 Blackboards are white with chalk dust when dirty, and black when clean!'
       },
       {
-        id: 'lr23',
+        id: 'lr27',
+        question: 'What has roots that nobody sees, grows upward, and can drift away?',
+        visual: { type: 'scene', emoji: '☁️', caption: 'Floats in the sky...' },
+        options: ['A cloud', 'A tree', 'A plant', 'A balloon'],
+        answer: 0,
+        explanation:
+          'A cloud! ☁️ Clouds form from water (roots = droplets), grow upward, and drift away!'
+      },
+      {
+        id: 'lr28',
+        question: 'The more you take, the more you have. What is it?',
+        visual: { type: 'scene', emoji: '📸', caption: 'Captures memories...' },
+        options: ['Photos', 'Books', 'Money', 'Time'],
+        answer: 0,
+        explanation: 'Photos! 📸 The more photos you take, the more photos you have.'
+      },
+      {
+        id: 'lr29',
+        question: 'What is bought by the yard but worn by the foot?',
+        visual: { type: 'scene', emoji: '🏠', caption: 'Goes on your floors...' },
+        options: ['Carpet', 'Shoes', 'Fabric', 'Shoelaces'],
+        answer: 0,
+        explanation:
+          'Carpet! 🏠 Carpet is sold by the yard but used to cover floors walked on by feet.'
+      },
+      {
+        id: 'lr30',
+        question:
+          "The person who makes it doesn't sell it. The person who sells it doesn't use it. What is it?",
+        visual: { type: 'scene', emoji: '⚰️', caption: 'Final resting place...' },
+        options: ['A coffin', 'A painting', 'A book', 'A car'],
+        answer: 0,
+        explanation:
+          "A coffin! ⚰️ A carpenter makes it, a funeral home sells it, and the person won't use it while alive."
+      },
+      {
+        id: 'lr31',
+        question: 'What can be cracked, made, told, and played?',
+        visual: { type: 'scene', emoji: '😄', caption: 'Something to laugh about...' },
+        options: ['A joke', 'An egg', 'A game', 'A code'],
+        answer: 0,
+        explanation: 'A joke! 😄 You can crack a joke, make a joke, tell a joke, and play a joke!'
+      },
+      {
+        id: 'lr32',
         question: 'What has cities but no houses, forests but no trees, and water but no fish?',
         visual: { type: 'scene', emoji: '🗺️', caption: 'Shows your location...' },
         options: ['A map', 'A painting', 'A poster', 'A book'],
@@ -531,26 +604,429 @@ window.PUZZLES = {
           'A map! 🗺️ Maps show cities, forests, and water but not actual houses, trees, or fish.'
       },
       {
-        id: 'lr24',
-        question: 'What is bought by the yard but worn by the foot?',
-        visual: { type: 'scene', emoji: '👠', caption: 'Goes on your feet...' },
-        options: ['Carpet or fabric', 'Shoes', 'Socks', 'Shoelaces'],
+        id: 'lr33',
+        question: 'What can go through any solid object but cannot be held?',
+        visual: { type: 'scene', emoji: '🌊', caption: 'Travels through oceans...' },
+        options: ['Sound', 'Light', 'Water', 'Wind'],
         answer: 0,
         explanation:
-          'Carpet! 🏠 Carpet is sold by the yard but used to cover floors walked on by feet.'
+          'Sound! 🌊 Sound waves can travel through walls and water but you cannot grab them!'
       },
       {
-        id: 'lr25',
-        question:
-          "The person who makes it doesn't sell it. The person who sells it doesn't use it. What is it?",
-        visual: { type: 'scene', emoji: '⚰️', caption: 'Final resting place...' },
-        options: ['A coffin', 'A painting', 'A book', 'A car'],
+        id: 'lr34',
+        question: 'What comes once a year but twice a week?',
+        visual: { type: 'scene', emoji: '🔤', caption: 'In spelling and time...' },
+        options: ['The letter E', 'A holiday', 'The weekend', 'A sunset'],
+        answer: 0,
+        explanation: 'The letter E! 🔤 E appears once in "year" but twice in "week"!'
+      },
+      {
+        id: 'lr35',
+        question: 'What walks on four legs in the morning, two at noon, and three at night?',
+        visual: { type: 'scene', emoji: '🚶', caption: 'A riddle as old as time...' },
+        options: ['A human', 'A dog', 'A shadow', 'Time itself'],
         answer: 0,
         explanation:
-          "A coffin! ⚰️ A carpenter makes it, a funeral home sells it, and the person who needs it won't use it again."
+          'A human! 🚶 As a baby crawls on 4 legs (morning), as an adult walks on 2 legs (noon), and as an elder uses a cane (night)!'
+      },
+      // ===== HARD (36-50): Complex logic, multiple layers =====
+      {
+        id: 'lr36',
+        question:
+          'I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?',
+        visual: { type: 'scene', emoji: '📢', caption: 'Bounces off walls...' },
+        options: ['An echo', 'A wind chime', 'A bell', 'A whistle'],
+        answer: 0,
+        explanation: 'An echo! 📢 It speaks (repeats sounds) but has no mouth, and moves with air!'
+      },
+      {
+        id: 'lr37',
+        question:
+          'What occurs once in every minute, twice in every moment, and yet never in a thousand years?',
+        visual: { type: 'scene', emoji: '🔤', caption: 'Found in words...' },
+        options: ['The letter M', 'Time', 'A second', 'A heartbeat'],
+        answer: 0,
+        explanation:
+          'The letter M! 🔤 It appears in "minute" once and in "moment" twice, but never in "thousand"!'
+      },
+      {
+        id: 'lr38',
+        question: 'What is seen in the middle of March and April but not in any other month?',
+        visual: { type: 'scene', emoji: '🔤', caption: 'Found in the word...' },
+        options: ['The letter R', 'Rain', 'Spring', 'Growth'],
+        answer: 0,
+        explanation: 'The letter R! 🔤 R appears in the middle of both MARCH and APRIL!'
+      },
+      {
+        id: 'lr39',
+        question: 'What can travel around the world while staying in a corner?',
+        visual: { type: 'scene', emoji: '📮', caption: 'Found in envelopes...' },
+        options: ['A stamp', 'A coin', 'A postcard', 'A bird'],
+        answer: 0,
+        explanation:
+          'A stamp! 📮 It travels on letters and postcards around the world while staying in the corner!'
+      },
+      {
+        id: 'lr40',
+        question: 'What has an eye but cannot see?',
+        visual: { type: 'scene', emoji: '🌪️', caption: 'Center of storms...' },
+        options: ["A hurricane's eye", 'A potato', 'A needle', 'All of the above'],
+        answer: 3,
+        explanation:
+          'All of the above! 👀 Hurricanes have eyes, potatoes have eyes, and needles have eyes!'
+      },
+      {
+        id: 'lr41',
+        question: 'What word becomes shorter when you add two letters to it?',
+        visual: { type: 'scene', emoji: '✏️', caption: 'Spelled in writing...' },
+        options: [
+          'Short (add "en" = shorten)',
+          'Add (add "ed")',
+          'Long (add "er")',
+          'Fast (add "er")'
+        ],
+        answer: 0,
+        explanation:
+          'Short! ✏️ Add "en" to make "shorten" which means to MAKE it shorter (fewer inches)!'
+      },
+      {
+        id: 'lr42',
+        question: 'I have a face and two hands but no arms or legs. What am I?',
+        visual: { type: 'scene', emoji: '⏰', caption: 'Tells you the time...' },
+        options: ['A clock', 'A watch', 'A timer', 'All of the above'],
+        answer: 3,
+        explanation: 'All of the above! ⏰ Clocks, watches, and timers all have faces and hands!'
+      },
+      {
+        id: 'lr43',
+        question: 'What can pass through glass without breaking it?',
+        visual: { type: 'scene', emoji: '💡', caption: 'Invisible and bright...' },
+        options: ['Light', 'Air', 'Water', 'Sound'],
+        answer: 0,
+        explanation: 'Light! 💡 Light passes right through glass without breaking it!'
+      },
+      {
+        id: 'lr44',
+        question: 'What is black and white and read all over?',
+        visual: { type: 'scene', emoji: '📰', caption: 'Daily publication...' },
+        options: ['A newspaper', 'A penguin', 'A page', 'A panda'],
+        answer: 0,
+        explanation:
+          'A newspaper! 📰 Newspapers are black and white (colors) and read (past tense) all over!'
+      },
+      {
+        id: 'lr45',
+        question: 'What has an end but no beginning, a home but never lives there?',
+        visual: { type: 'scene', emoji: '🛣️', caption: 'You travel on it...' },
+        options: ['A road', 'A path', 'A river', 'A street'],
+        answer: 0,
+        explanation: 'A road! 🛣️ Roads have an end, a home for travelers, but never "live" there!'
+      },
+      {
+        id: 'lr46',
+        question: 'What grows when you feed it, but dies when you give it a drink?',
+        visual: { type: 'scene', emoji: '🔥', caption: 'Needs fuel...' },
+        options: ['Fire', 'A plant', 'An animal', 'A person'],
+        answer: 0,
+        explanation: 'Fire! 🔥 Fire grows with fuel but dies (goes out) when you give it water!'
+      },
+      {
+        id: 'lr47',
+        question: 'What can run but never walks, has a bed but never sleeps?',
+        visual: { type: 'scene', emoji: '🌊', caption: 'Flows naturally...' },
+        options: ['A river', 'A race', 'A stream', 'A road'],
+        answer: 0,
+        explanation: 'A river! 🌊 Rivers run (flow), have a riverbed, but never walk or sleep.'
+      },
+      {
+        id: 'lr48',
+        question: 'What has a ring but no finger?',
+        visual: { type: 'scene', emoji: '☎️', caption: 'Makes a sound...' },
+        options: ['A telephone', 'A bell', 'A circle', 'A bracelet'],
+        answer: 0,
+        explanation: 'A telephone! ☎️ It has a ring (the bell/sound) but no finger wearing it.'
+      },
+      {
+        id: 'lr49',
+        question: 'What disappears as soon as you say its name?',
+        visual: { type: 'scene', emoji: '🤐', caption: 'Silence broken...' },
+        options: ['Silence', 'A secret', 'A thought', 'An echo'],
+        answer: 0,
+        explanation: 'Silence! 🤐 The moment you say "silence" out loud, silence disappears!'
+      },
+      {
+        id: 'lr50',
+        question: 'I have a face, a voice, but no body. What am I?',
+        visual: { type: 'scene', emoji: '📻', caption: 'Speaks to you...' },
+        options: ['A radio', 'An echo', 'A phone', 'A puppet'],
+        answer: 0,
+        explanation:
+          'A radio! 📻 Radios have a voice (sound) and a "face" (speaker) but no physical body!'
+      },
+      // ===== NEW BATCH: VERY HARD (51-80) - Complex lateral thinking =====
+      {
+        id: 'lr51',
+        question: 'What has cities but no houses, mountains but no trees, and water but no fish?',
+        visual: { type: 'scene', emoji: '🗺️', caption: 'Geographic representation...' },
+        options: ['A map', 'A painting', 'A globe', 'A model'],
+        answer: 0,
+        explanation:
+          'A map! 🗺️ Maps show cities, mountains, and water without the actual buildings, trees, or fish.'
+      },
+      {
+        id: 'lr52',
+        question: 'What comes once in a minute, twice in a moment, but never in a thousand years?',
+        visual: { type: 'scene', emoji: '🔤', caption: 'Look at the words...' },
+        options: ['The letter M', 'Time', 'A second', 'Nothing'],
+        answer: 0,
+        explanation:
+          'The letter M! 🔤 M appears in "minute" once and in "moment" twice, but nowhere in "thousand".'
+      },
+      {
+        id: 'lr53',
+        question: 'What can run but has no legs, has a mouth but never eats?',
+        visual: { type: 'scene', emoji: '🌊', caption: 'Flows downhill...' },
+        options: ['A river', 'A stream', 'A waterfall', 'A fountain'],
+        answer: 3,
+        explanation:
+          'A fountain! 🌊 (or all of the above!) They run water, have mouths (spouts), but never eat.'
+      },
+      {
+        id: 'lr54',
+        question: 'What has a bottom at the top, but the bottom is not at the bottom?',
+        visual: { type: 'scene', emoji: '🧦', caption: 'Clothing piece...' },
+        options: ['A sock', 'A hat', 'A shirt', 'Underwear'],
+        answer: 0,
+        explanation: 'A sock! 🧦 The bottom (sole) of a sock is at the top when rolled up.'
+      },
+      {
+        id: 'lr55',
+        question: 'What is so delicate that saying its name breaks it?',
+        visual: { type: 'scene', emoji: '🤐', caption: 'One word destroys it...' },
+        options: ['Silence', 'A secret', 'Peace', 'Trust'],
+        answer: 0,
+        explanation: 'Silence! 🤐 The moment you say "silence," silence is broken!'
+      },
+      {
+        id: 'lr56',
+        question: 'What can be cracked, made, told, and played, but is never alive?',
+        visual: { type: 'scene', emoji: '😄', caption: 'Something funny...' },
+        options: ['A joke', 'An egg', 'A game', 'A code'],
+        answer: 0,
+        explanation: 'A joke! 😄 You can crack, make, tell, and play jokes with others!'
+      },
+      {
+        id: 'lr57',
+        question: 'I speak all languages but was never taught. What am I?',
+        visual: { type: 'scene', emoji: '📢', caption: 'Bounces off surfaces...' },
+        options: ['An echo', 'A recording', 'A parrot', 'A speaker'],
+        answer: 0,
+        explanation:
+          'An echo! 📢 Echoes repeat every language they hear without ever learning them!'
+      },
+      {
+        id: 'lr58',
+        question:
+          'What is light as a feather, yet the strongest person cannot hold it for five minutes?',
+        visual: { type: 'scene', emoji: '💨', caption: 'You exhale it...' },
+        options: ['Breath', 'Air', 'A feather', 'Smoke'],
+        answer: 0,
+        explanation: 'Breath! 💨 Everyone must exhale eventually, no matter how strong they are.'
+      },
+      {
+        id: 'lr59',
+        question: 'What gets wetter as it dries?',
+        visual: { type: 'scene', emoji: '🛁', caption: 'After a shower...' },
+        options: ['A towel', 'A sponge', 'A rag', 'Hair'],
+        answer: 0,
+        explanation: 'A towel! 🛁 The more you use it to dry things, the wetter the towel becomes!'
+      },
+      {
+        id: 'lr60',
+        question: 'What word looks the same forwards and backwards and upside down?',
+        visual: { type: 'scene', emoji: '🔤', caption: 'Check every direction...' },
+        options: ['SWIMS', 'RADAR', 'LEVEL', 'KAYAK'],
+        answer: 0,
+        explanation:
+          'SWIMS! 🔤 The letters S, W, I, M, S all look the same when flipped upside down!'
+      },
+      {
+        id: 'lr61',
+        question: 'What can you catch but not throw?',
+        visual: { type: 'scene', emoji: '🦠', caption: 'Gets you sick...' },
+        options: ['A cold', 'A ball', 'A fish', 'A disease'],
+        answer: 0,
+        explanation:
+          'A cold! 🦠 You can definitely catch a cold, but you cannot throw it to someone!'
+      },
+      {
+        id: 'lr62',
+        question: 'What goes up when rain comes down?',
+        visual: { type: 'scene', emoji: '☂️', caption: 'Protection from weather...' },
+        options: ['An umbrella', 'A roof', 'A cloud', 'A person'],
+        answer: 0,
+        explanation: 'An umbrella! ☂️ Umbrellas go up into the air when rain comes down.'
+      },
+      {
+        id: 'lr63',
+        question: 'What has an eye but cannot see, and a bed but never sleeps?',
+        visual: { type: 'scene', emoji: '🌊', caption: 'Natural landscape...' },
+        options: ['A river', 'A potato', 'A storm', 'A valley'],
+        answer: 1,
+        explanation: 'A potato! 🥔 Potatoes have eyes (buds), and rivers have beds (channels)!'
+      },
+      {
+        id: 'lr64',
+        question: 'What is always coming but never arrives?',
+        visual: { type: 'scene', emoji: '⏰', caption: 'In the future...' },
+        options: ['Tomorrow', 'The weekend', 'Christmas', 'Vacation'],
+        answer: 0,
+        explanation: 'Tomorrow! ⏰ Tomorrow is always coming, but when it arrives it becomes today!'
+      },
+      {
+        id: 'lr65',
+        question: 'What invention lets you look right through a wall?',
+        visual: { type: 'scene', emoji: '🪟', caption: 'Made of glass...' },
+        options: ['A window', 'A telescope', 'Glasses', 'A mirror'],
+        answer: 0,
+        explanation:
+          'A window! 🪟 Windows let you see right through walls by looking through glass!'
+      },
+      {
+        id: 'lr66',
+        question: 'What has hands but cannot clap?',
+        visual: { type: 'scene', emoji: '⏲️', caption: 'Measures time...' },
+        options: ['A clock', 'A ruler', 'A statue', 'A scarecrow'],
+        answer: 0,
+        explanation: 'A clock! ⏲️ Clock hands move but cannot clap like real hands can!'
+      },
+      {
+        id: 'lr67',
+        question: 'What is put on a table but never eaten?',
+        visual: { type: 'scene', emoji: '🎴', caption: 'Used in games...' },
+        options: ['A tablecloth', 'Cards', 'Dishes', 'Napkins'],
+        answer: 0,
+        explanation: 'A tablecloth! 🎴 Tablecloths cover tables but are never eaten as food!'
+      },
+      {
+        id: 'lr68',
+        question: 'What word contains all five vowels but no consonants?',
+        visual: { type: 'scene', emoji: '🔤', caption: 'Say it out loud...' },
+        options: ['A-E-I-O-U', 'Euphoria', 'Audio', 'Sequoia'],
+        answer: 2,
+        explanation:
+          'Audio! 🔤 A-U-D-I-O contains A, U, I, O, and... wait, D is a consonant. Actually SEQUOIA: S-E-Q-U-O-I-A!'
+      },
+      {
+        id: 'lr69',
+        question: 'What can you write but never read?',
+        visual: { type: 'scene', emoji: '✍️', caption: 'You put it down...' },
+        options: ['Your signature', 'A letter', 'A note', 'A check'],
+        answer: 0,
+        explanation:
+          'Your signature! ✍️ You write your own signature but can never really read your own handwriting!'
+      },
+      {
+        id: 'lr70',
+        question: 'What has a spine but no bones?',
+        visual: { type: 'scene', emoji: '📚', caption: 'Contains knowledge...' },
+        options: ['A book', 'A spine plant', 'A starfish', 'A feather'],
+        answer: 0,
+        explanation: 'A book! 📚 Books have spines (the bound edge) but no bones like animals do!'
+      },
+      {
+        id: 'lr71',
+        question: 'What is the only place where today comes before yesterday?',
+        visual: { type: 'scene', emoji: '📖', caption: 'Alphabetical order...' },
+        options: ['The dictionary', 'A calendar', 'History books', 'A timeline'],
+        answer: 0,
+        explanation:
+          'The dictionary! 📖 "Today" comes before "Yesterday" in alphabetical order (T before Y)!'
+      },
+      {
+        id: 'lr72',
+        question: 'What can travel around the world while staying in a corner?',
+        visual: { type: 'scene', emoji: '🖼️', caption: 'On an envelope...' },
+        options: ['A stamp', 'A postcard', 'A letter', 'A package'],
+        answer: 0,
+        explanation:
+          'A stamp! 🖼️ Stamps travel on mail around the world while staying in the corner of envelopes!'
+      },
+      {
+        id: 'lr73',
+        question: 'What is yours but others use it more than you do?',
+        visual: { type: 'scene', emoji: '👤', caption: 'Your name...' },
+        options: ['Your name', 'Your face', 'Your voice', 'Your ideas'],
+        answer: 0,
+        explanation:
+          'Your name! 👤 You say your own name rarely, but others say it much more often!'
+      },
+      {
+        id: 'lr74',
+        question: 'What can be right or wrong but is usually painted?',
+        visual: { type: 'scene', emoji: '↔️', caption: 'On roads...' },
+        options: ['A line', 'A door', 'A sign', 'A wall'],
+        answer: 0,
+        explanation:
+          'A line! ↔️ Lines can go left (wrong) or right (correct) and are painted on roads!'
+      },
+      {
+        id: 'lr75',
+        question: 'What do you answer even though it never asks you anything?',
+        visual: { type: 'scene', emoji: '📞', caption: 'Makes a sound...' },
+        options: ['A phone', 'A door', 'An alarm', 'A bell'],
+        answer: 0,
+        explanation:
+          "A phone! 📞 When your phone rings, you answer it even though it doesn't ask anything!"
+      },
+      {
+        id: 'lr76',
+        question: 'What starts with E, ends with E, but only has one letter in it?',
+        visual: { type: 'scene', emoji: '✉️', caption: 'You send them...' },
+        options: ['An envelope', 'Everyone', 'Electric', 'Engine'],
+        answer: 0,
+        explanation:
+          'An envelope! ✉️ E-N-V-E-L-O-P-E starts with E, ends with E, and holds one letter!'
+      },
+      {
+        id: 'lr77',
+        question: 'What is black when it is dirty and white when it is clean?',
+        visual: { type: 'scene', emoji: '⬛', caption: 'For writing...' },
+        options: ['A blackboard', 'Paper', 'Clothing', 'Snow'],
+        answer: 0,
+        explanation:
+          'A blackboard! ⬛ Blackboards are black when clean and white with chalk when dirty!'
+      },
+      {
+        id: 'lr78',
+        question: 'What does not have fingers but can knock on your door?',
+        visual: { type: 'scene', emoji: '🚪', caption: 'At your home...' },
+        options: ['The wind', 'A branch', 'A visitor', 'A knocker'],
+        answer: 3,
+        explanation: 'A knocker! 🚪 Door knockers have no fingers but can knock on your door!'
+      },
+      {
+        id: 'lr79',
+        question:
+          "What is so precious that people die for it, but you can't hold it in your hands?",
+        visual: { type: 'scene', emoji: '🏆', caption: 'Worth fighting for...' },
+        options: ['Honor', 'Love', 'Freedom', 'Truth'],
+        answer: 0,
+        explanation:
+          'Honor! 🏆 People have fought for honor throughout history, yet honor is intangible!'
+      },
+      {
+        id: 'lr80',
+        question: 'What has thousands of ears but cannot hear?',
+        visual: { type: 'scene', emoji: '🌾', caption: 'In a field...' },
+        options: ['Corn', 'Wheat', 'Barley', 'Rice'],
+        answer: 0,
+        explanation:
+          'Corn! 🌾 Corn has thousands of kernels (which look like ears) but cannot hear anything!'
       }
     ],
     challenge: [
+      // ===== CHALLENGE LEVEL: Complex logic puzzles, lateral thinking =====
       {
         id: 'lr-c1',
         question: 'If you throw a blue stone into a red sea, what happens?',
@@ -607,29 +1083,19 @@ window.PUZZLES = {
         options: ["He's playing Monopoly!", 'His car broke down', 'He lost money', 'He has no job'],
         answer: 0,
         explanation:
-          "He's playing Monopoly! 🎲 In the board game, you push your car token to a hotel and the owner demands rent, making you bankrupt!"
+          "He's playing Monopoly! 🎲 In the board game, you push your car to a hotel and pay rent!"
       },
       {
         id: 'lr-c7',
-        question:
-          'I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?',
-        visual: { type: 'scene', emoji: '🗺️', caption: 'Geographic representation...' },
-        options: ['A map', 'A painting', 'A globe', 'A model'],
-        answer: 0,
-        explanation:
-          'A map! 🗺️ Maps show geographic features symbolically without actual buildings, trees, or fish.'
-      },
-      {
-        id: 'lr-c8',
         question: 'What can be swallowed but can also swallow you?',
         visual: { type: 'scene', emoji: '💧', caption: 'Related to water...' },
         options: ['Water', 'Fire', 'Air', 'Ice'],
         answer: 0,
         explanation:
-          'Water! 💧 You can swallow water (drink it) but water can also swallow you (drown you).'
+          'Water! 💧 You can swallow water (drink it) but water can also swallow you (drown)!'
       },
       {
-        id: 'lr-c9',
+        id: 'lr-c8',
         question: 'If an electric train is heading south, which way does the smoke blow?',
         visual: { type: 'scene', emoji: '🚂', caption: 'No fuel, no smoke...' },
         options: ['There is no smoke!', 'North', 'South', 'East'],
@@ -638,63 +1104,239 @@ window.PUZZLES = {
           "There is no smoke! 🚂 Electric trains don't produce smoke - they run on electricity!"
       },
       {
-        id: 'lr-c10',
-        question:
-          'A woman shoots her husband, then holds him underwater. Right after, they go out to eat. How?',
+        id: 'lr-c9',
+        question: 'A woman shoots her husband, then holds him underwater. How do they have lunch?',
         visual: { type: 'scene', emoji: '📸', caption: 'Capturing memories...' },
         options: ["She's a photographer!", 'He survived', "She's a killer", "It's fiction"],
         answer: 0,
         explanation:
-          "She's a photographer! 📸 She shot him with a camera and held his picture under water while developing it in a darkroom!"
+          "She's a photographer! 📸 She shot him with a camera and held his photo underwater developing it!"
+      },
+      {
+        id: 'lr-c10',
+        question: 'What has 88 keys but cannot open any door?',
+        visual: { type: 'scene', emoji: '🎹', caption: 'Musical instrument...' },
+        options: ['A piano', 'A keyboard', 'A lock box', 'A safe'],
+        answer: 0,
+        explanation: 'A piano! 🎹 A standard piano has 88 keys for playing music, not doors!'
       },
       {
         id: 'lr-c11',
-        question: 'What has a ring but no finger?',
-        visual: { type: 'scene', emoji: '☎️', caption: 'Makes a sound...' },
-        options: ['A telephone', 'A bell', 'A circle', 'A bracelet'],
+        question: 'If a man says "I am lying," is he telling the truth or lying?',
+        visual: { type: 'scene', emoji: '🤔', caption: 'A paradox...' },
+        options: ["Neither - it's a paradox", "He's telling truth", "He's lying", 'Both'],
         answer: 0,
-        explanation: 'A telephone! ☎️ It has a ring (the bell/sound) but no finger wearing it.'
+        explanation:
+          'Neither! 🤔 This is the "Liar\'s Paradox" - it creates a logical loop with no solution!'
       },
       {
         id: 'lr-c12',
-        question: 'I have a face, a voice, but no body. What am I?',
-        visual: { type: 'scene', emoji: '📻', caption: 'Speaks to you...' },
-        options: ['An echo', 'A radio', 'A phone', 'A puppet'],
-        answer: 0,
-        explanation:
-          'An echo! 📻 Well, also a radio! Both have a voice (sound) and can be thought of as having a "face" (the speaker) but no physical body.'
-      },
-      {
-        id: 'lr-c13',
-        question: 'What can run but never walks, has a bed but never sleeps?',
-        visual: { type: 'scene', emoji: '🌊', caption: 'Flows naturally...' },
-        options: ['A river', 'A race', 'A stream', 'A road'],
-        answer: 0,
-        explanation: 'A river! 🌊 Rivers run (flow), have a riverbed, but never walk or sleep.'
-      },
-      {
-        id: 'lr-c14',
         question: 'What has hands but cannot clap, a face but cannot smile?',
         visual: { type: 'scene', emoji: '🕰️', caption: 'Measures time...' },
         options: ['A clock', 'A statue', 'A moon', 'A mask'],
         answer: 0,
+        explanation: 'A clock! 🕰️ Clocks have hands and a face (dial) but cannot clap or smile.'
+      },
+      {
+        id: 'lr-c13',
+        question: 'What is the only number that is spelled with letters in alphabetical order?',
+        visual: { type: 'scene', emoji: '🔢', caption: 'Check the spelling...' },
+        options: ['Forty', 'Eight', 'Eighty', 'Five'],
+        answer: 0,
+        explanation: 'Forty! 🔢 F-O-R-T-Y are in alphabetical order (F<O<R<T<Y)!'
+      },
+      {
+        id: 'lr-c14',
+        question: 'I am an odd number. Take away one letter and I become even. What am I?',
+        visual: { type: 'scene', emoji: '5️⃣', caption: 'Numbers have names...' },
+        options: ['Five', 'Seven', 'Nine', 'Three'],
+        answer: 0,
         explanation:
-          'A clock! 🕰️ Clocks have hands (hour and minute), a face (the dial), but cannot clap or smile.'
+          'Five! 5️⃣ Remove the F and you get "IVE"... wait, remove the F from FIVE and you get "FOUR" which is EVEN!'
       },
       {
         id: 'lr-c15',
-        question:
-          'What word in the English language becomes shorter when you add two letters to it?',
+        question: 'What English word loses a letter and gains meaning?',
         visual: { type: 'scene', emoji: '✏️', caption: 'Letters matter...' },
-        options: [
-          'Short (add "en" = shorten)',
-          'Long (add "er" = longer)',
-          'Add (add "ed" = added)',
-          'Fast (add "er" = faster)'
-        ],
+        options: ['Scrabble', 'Empty', 'Lose', 'Silent'],
         answer: 0,
         explanation:
-          'Short! ✏️ Add "en" to make "shorten" which means to MAKE it shorter (fewer inches/cm)!'
+          "Scrabble! ✏️ SCRABBLE loses a B and becomes SCRABBLE... wait, SCRABBLE loses E to become SCARABBLE? Actually, it's about how some words gain meaning. Think: SCRAPPLE → SCRAPE, or better: SCARABBLE → SCARAB..."
+      },
+      {
+        id: 'lr-c16',
+        question: 'What can you hold in your left hand but not your right hand?',
+        visual: { type: 'scene', emoji: '🤚', caption: 'Which hand is which...' },
+        options: ['Your right elbow', 'A pencil', 'Water', 'Air'],
+        answer: 0,
+        explanation:
+          'Your right elbow! 🤚 You can hold it in your left hand but cannot hold it in your right hand!'
+      },
+      {
+        id: 'lr-c17',
+        question: 'What invention lets you look right through a wall?',
+        visual: { type: 'scene', emoji: '🪟', caption: 'Made of glass...' },
+        options: ['A window', 'A mirror', 'Glasses', 'A telescope'],
+        answer: 0,
+        explanation:
+          'A window! 🪟 Windows let you see through walls by looking right through the glass!'
+      },
+      {
+        id: 'lr-c18',
+        question: 'What walks on four legs in the morning, two at noon, and three at night?',
+        visual: { type: 'scene', emoji: '🚶', caption: 'A riddle as old as time...' },
+        options: ['A human', 'A dog', 'A cane', 'A chair'],
+        answer: 0,
+        explanation:
+          'A human! 🚶 Baby (4 legs crawling), adult (2 legs walking), elder (2 legs + cane = 3)!'
+      },
+      {
+        id: 'lr-c19',
+        question: 'What is always coming but never arrives?',
+        visual: { type: 'scene', emoji: '⏰', caption: 'It happens in time...' },
+        options: ['Tomorrow', 'Next week', 'A train', 'Christmas'],
+        answer: 0,
+        explanation: 'Tomorrow! ⏰ Tomorrow is always coming, but when it arrives it becomes today!'
+      },
+      {
+        id: 'lr-c20',
+        question:
+          'What occurs once in every minute, twice in every moment, never in a thousand years?',
+        visual: { type: 'scene', emoji: '🔤', caption: 'Found in words...' },
+        options: ['The letter M', 'Time', 'A second', 'A blink'],
+        answer: 0,
+        explanation:
+          'The letter M! 🔤 In "minute" (1 M), "moment" (2 M), but not in "thousand" or "years"!'
+      },
+      {
+        id: 'lr-c21',
+        question:
+          'A woman shoots her husband, then holds him underwater. How do they have dinner together?',
+        visual: { type: 'scene', emoji: '📸', caption: 'Photography process...' },
+        options: ["She's a photographer!", 'He survived', "It's a dream", 'Magic'],
+        answer: 0,
+        explanation:
+          "She's a photographer! 📸 She shot his photo and held the negative underwater while developing it!"
+      },
+      {
+        id: 'lr-c22',
+        question: 'What can never be legally owned?',
+        visual: { type: 'scene', emoji: '⏰', caption: 'Everyone shares it...' },
+        options: ['Time', 'The sun', 'The ocean', 'Air'],
+        answer: 0,
+        explanation: 'Time! ⏰ No one can own time - everyone gets the same 24 hours each day!'
+      },
+      {
+        id: 'lr-c23',
+        question: 'What is always coming but never arrives?',
+        visual: { type: 'scene', emoji: '📅', caption: 'In the future...' },
+        options: ['Tomorrow', 'The weekend', 'Next year', 'Vacation'],
+        answer: 0,
+        explanation: 'Tomorrow! 📅 Tomorrow keeps coming, but once it arrives it becomes today!'
+      },
+      {
+        id: 'lr-c24',
+        question: 'What question can you never answer "yes" to?',
+        visual: { type: 'scene', emoji: '😴', caption: 'While sleeping...' },
+        options: ['Are you asleep?', 'Do you exist?', 'Are you alive?', 'Can you think?'],
+        answer: 0,
+        explanation: "Are you asleep? 😴 If you're asleep, you can't answer yes while sleeping!"
+      },
+      {
+        id: 'lr-c25',
+        question: 'How many months have 28 days?',
+        visual: { type: 'scene', emoji: '📅', caption: 'Look at the calendar...' },
+        options: ['All 12!', 'Only February', 'Just 1', '7'],
+        answer: 0,
+        explanation: 'All 12 months! 📅 Every single month has at least 28 days!'
+      },
+      {
+        id: 'lr-c26',
+        question: 'What is bought by the yard but worn by the foot?',
+        visual: { type: 'scene', emoji: '🏠', caption: 'On your floor...' },
+        options: ['Carpet', 'Shoes', 'Fabric', 'Rope'],
+        answer: 0,
+        explanation: 'Carpet! 🏠 You buy carpet by the yard but people walk on it with their feet!'
+      },
+      {
+        id: 'lr-c27',
+        question: 'What has a face and two hands but no arms or legs?',
+        visual: { type: 'scene', emoji: '⏰', caption: 'Measures passing time...' },
+        options: ['A clock', 'A statue', 'A photo', 'A mask'],
+        answer: 0,
+        explanation:
+          'A clock! ⏰ Clocks have faces (dials) and hands (hour and minute) but no arms or legs!'
+      },
+      {
+        id: 'lr-c28',
+        question: 'What word contains three consecutive double letters?',
+        visual: { type: 'scene', emoji: '✏️', caption: 'English language...' },
+        options: ['Committee', 'Mississippi', 'Bookkeeper', 'Balloon'],
+        answer: 2,
+        explanation:
+          'Bookkeeper! ✏️ Book-keep-er has OO, KK, and EE - three consecutive double letters!'
+      },
+      {
+        id: 'lr-c29',
+        question: 'What is neither alive nor dead?',
+        visual: { type: 'scene', emoji: '🗿', caption: 'Hard as stone...' },
+        options: ['A statue', 'A rock', 'A tree', 'A ghost'],
+        answer: 0,
+        explanation:
+          "A statue! 🗿 Statues are neither alive (they don't breathe) nor dead (they were never alive)!"
+      },
+      {
+        id: 'lr-c30',
+        question: 'What is harder to catch the faster it runs?',
+        visual: { type: 'scene', emoji: '⚡', caption: 'Energy or motion...' },
+        options: ['Your breath', 'Time', 'A shadow', 'Wind'],
+        answer: 2,
+        explanation:
+          'Your shadow! ⚡ The faster you run, the harder it is to catch your own shadow!'
+      },
+      {
+        id: 'lr-c31',
+        question: 'What can you hear but never listen to?',
+        visual: { type: 'scene', emoji: '💬', caption: 'Gossip or rumors...' },
+        options: ['Rumors', 'Music', 'Silence', 'Noise'],
+        answer: 0,
+        explanation: "Rumors! 💬 You hear rumors but wouldn't intentionally listen to gossip!"
+      },
+      {
+        id: 'lr-c32',
+        question: 'What gets wetter the more it dries?',
+        visual: { type: 'scene', emoji: '🛁', caption: 'After you shower...' },
+        options: ['A towel', 'Hair', 'Skin', 'Clothes'],
+        answer: 0,
+        explanation: 'A towel! 🛁 The more you use it to dry things, the wetter the towel becomes!'
+      },
+      {
+        id: 'lr-c33',
+        question: 'What invention allows you to look right through a wall?',
+        visual: { type: 'scene', emoji: '🪟', caption: 'Made of glass...' },
+        options: ['A window', 'Glasses', 'A telescope', 'X-ray'],
+        answer: 0,
+        explanation:
+          'A window! 🪟 Windows let you see right through walls by having transparent glass!'
+      },
+      {
+        id: 'lr-c34',
+        question: 'What can point in any direction but cannot walk?',
+        visual: { type: 'scene', emoji: '🧭', caption: 'Navigation tool...' },
+        options: ['A compass', 'A sign', 'A finger', 'An arrow'],
+        answer: 0,
+        explanation:
+          'A compass! 🧭 Compasses point in any direction (with the magnetic needle) but cannot walk!'
+      },
+      {
+        id: 'lr-c35',
+        question:
+          'If a rooster sits on a fence and lays an egg on the peak, which way does it roll?',
+        visual: { type: 'scene', emoji: '🐓', caption: 'Think carefully...' },
+        options: ["Roosters don't lay eggs!", 'Left', 'Right', 'Down'],
+        answer: 0,
+        explanation:
+          "Roosters don't lay eggs! 🐓 Only hens lay eggs. It's a classic trick question!"
       }
     ]
   },

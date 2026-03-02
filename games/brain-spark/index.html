@@ -39,19 +39,19 @@
 
     <style>
       :root {
-        --dom-nav-bg: #0f0720;
-        --dom-accent: #fbbf24;
-        --dom-accent-dark: #d97706;
-        --dom-accent2: #818cf8;
-        --dom-bg: #1a0a2e;
-        --dom-bg-card: #2d1b69;
-        --dom-border: rgba(251, 191, 36, 0.2);
-        --dom-text: #f1f5f9;
-        --dom-text-muted: #94a3b8;
+        --dom-nav-bg: #6366f1;
+        --dom-accent: #06b6d4;
+        --dom-accent-dark: #0891b2;
+        --dom-accent2: #ec4899;
+        --dom-bg: #f0f9ff;
+        --dom-bg-card: #ffffff;
+        --dom-border: rgba(99, 102, 241, 0.15);
+        --dom-text: #1e293b;
+        --dom-text-muted: #64748b;
       }
 
       body {
-        background: linear-gradient(135deg, #0f0720 0%, #1a0a2e 50%, #2d1b69 100%);
+        background: linear-gradient(135deg, #f0f9ff 0%, #fef3c7 50%, #fce7f3 100%);
         color: var(--dom-text);
         min-height: 100vh;
         display: flex;
@@ -68,7 +68,7 @@
         font-size: clamp(2rem, 6vw, 3.5rem);
         font-weight: bold;
         margin: 0 0 10px 0;
-        background: linear-gradient(135deg, #fbbf24 0%, #818cf8 100%);
+        background: linear-gradient(135deg, #06b6d4 0%, #ec4899 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
@@ -104,8 +104,8 @@
       }
 
       .landing-btn {
-        background: linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
-        color: #1a0a2e;
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        color: #ffffff;
         border: none;
         padding: 16px 40px;
         font-size: 1.1rem;
@@ -147,8 +147,8 @@
 
       .difficulty-btn {
         padding: 10px 20px;
-        border: 2px solid var(--dom-border);
-        background: transparent;
+        border: 2px solid #cbd5e1;
+        background: #ffffff;
         color: var(--dom-text-muted);
         border-radius: 8px;
         cursor: pointer;
@@ -159,13 +159,14 @@
 
       .difficulty-btn.active {
         background: var(--dom-accent);
-        color: #1a0a2e;
+        color: #ffffff;
         border-color: var(--dom-accent);
       }
 
       .difficulty-btn:hover:not(.active) {
         border-color: var(--dom-accent);
         color: var(--dom-accent);
+        background: #f0f9ff;
       }
 
       .category-cards {
@@ -176,20 +177,38 @@
       }
 
       .category-card {
-        background: rgba(45, 27, 105, 0.6);
-        border: 2px solid var(--dom-border);
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
         border-radius: 12px;
         padding: 20px;
         text-align: center;
         cursor: pointer;
         transition: all 0.3s ease;
         position: relative;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       }
 
       .category-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
         border-color: var(--dom-accent);
-        transform: translateY(-4px);
-        background: rgba(45, 27, 105, 0.9);
+      }
+
+      /* Unique colors for each category */
+      .category-card:nth-child(1) {
+        background: linear-gradient(135deg, #fef3c7 0%, #fef08a 100%);
+      }
+
+      .category-card:nth-child(2) {
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      }
+
+      .category-card:nth-child(3) {
+        background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%);
+      }
+
+      .category-card:nth-child(4) {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
       }
 
       .category-icon {
@@ -214,7 +233,7 @@
         justify-content: space-between;
         align-items: center;
         padding: 20px;
-        border-bottom: 1px solid var(--dom-border);
+        border-bottom: 2px solid #e2e8f0;
       }
 
       .progress-info {
@@ -229,16 +248,16 @@
       }
 
       .timer-bar {
-        height: 4px;
-        background: rgba(251, 191, 36, 0.2);
+        height: 6px;
+        background: #e2e8f0;
         margin: 10px 20px 0 20px;
-        border-radius: 2px;
+        border-radius: 3px;
         overflow: hidden;
       }
 
       .timer-fill {
         height: 100%;
-        background: linear-gradient(90deg, var(--dom-accent) 0%, var(--dom-accent-dark) 100%);
+        background: linear-gradient(90deg, #06b6d4 0%, #0891b2 100%);
         width: 100%;
         transition: width 0.1s linear;
       }
@@ -270,7 +289,7 @@
         overflow-x: auto;
         padding: 10px;
         border-radius: 8px;
-        background: rgba(251, 191, 36, 0.05);
+        background: #f0f9ff;
       }
 
       .seq-tile {
@@ -280,11 +299,12 @@
         width: clamp(40px, 10vw, 56px);
         height: clamp(40px, 10vw, 56px);
         border-radius: 12px;
-        background: rgba(251, 191, 36, 0.15);
+        background: #ffffff;
         border: 2px solid currentColor;
         font-weight: bold;
         font-size: clamp(0.9rem, 2.5vw, 1.2rem);
         flex-shrink: 0;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       }
 
       .seq-tile--unknown {
@@ -310,8 +330,9 @@
       .visual-scene {
         text-align: center;
         padding: 20px;
-        background: rgba(45, 27, 105, 0.6);
+        background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
         border-radius: 12px;
+        border: 2px solid #bae6fd;
       }
 
       .scene-emoji {
@@ -338,10 +359,11 @@
         justify-content: center;
         width: 60px;
         height: 60px;
-        background: rgba(45, 27, 105, 0.6);
-        border: 2px solid var(--dom-border);
+        background: #ffffff;
+        border: 2px solid #cbd5e1;
         border-radius: 8px;
         font-size: 2rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
       }
 
       .visual-equation {
@@ -351,8 +373,9 @@
         gap: 10px;
         flex-wrap: wrap;
         padding: 20px;
-        background: rgba(251, 191, 36, 0.1);
+        background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
         border-radius: 8px;
+        border: 2px solid #fcd34d;
         font-size: clamp(1rem, 3vw, 1.5rem);
       }
 
@@ -379,6 +402,57 @@
         line-height: 1.5;
       }
 
+      .hint-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-width: 400px;
+        margin: 0 auto 20px;
+        align-items: center;
+      }
+
+      .hint-btn {
+        background: linear-gradient(135deg, #fde68a 0%, #fcd34d 100%);
+        border: 2px solid #fbbf24;
+        color: #92400e;
+        padding: 12px 24px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: bold;
+        min-height: 44px;
+        min-width: 200px;
+      }
+
+      .hint-btn:hover:not(:disabled) {
+        background: linear-gradient(135deg, #fcd34d 0%, #fbbf24 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(251, 191, 36, 0.3);
+      }
+
+      .hint-btn:disabled {
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border-color: #6ee7b7;
+        color: #047857;
+        cursor: default;
+        transform: none;
+      }
+
+      .hint-text {
+        color: #92400e;
+        font-style: italic;
+        background: linear-gradient(135deg, #fef3c7 0%, #fef08a 100%);
+        padding: 12px 16px;
+        border-radius: 8px;
+        border-left: 4px solid #fbbf24;
+        margin: 0;
+        text-align: center;
+        font-size: 0.95rem;
+        max-width: 380px;
+        border: 1px solid #fcd34d;
+      }
+
       .answer-buttons {
         display: grid;
         grid-template-columns: 1fr;
@@ -388,8 +462,8 @@
       }
 
       .answer-btn {
-        background: rgba(45, 27, 105, 0.8);
-        border: 2px solid var(--dom-border);
+        background: #ffffff;
+        border: 2px solid #cbd5e1;
         color: var(--dom-text);
         padding: 16px;
         font-size: 1rem;
@@ -401,7 +475,7 @@
       }
 
       .answer-btn:hover:not(:disabled) {
-        background: rgba(45, 27, 105, 0.95);
+        background: #f0f9ff;
         border-color: var(--dom-accent);
         transform: translateY(-2px);
       }
@@ -448,26 +522,28 @@
       }
 
       .explain-answer {
-        background: rgba(34, 197, 94, 0.15);
-        border: 2px solid #22c55e;
+        background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+        border: 2px solid #6ee7b7;
         padding: 15px;
         border-radius: 8px;
         text-align: center;
         font-weight: bold;
-        color: #22c55e;
+        color: #047857;
       }
 
       .explain-text {
-        background: rgba(45, 27, 105, 0.6);
+        background: #ffffff;
+        border: 2px solid #cbd5e1;
         padding: 20px;
         border-radius: 8px;
         line-height: 1.6;
         text-align: center;
+        color: var(--dom-text);
       }
 
       .explain-continue {
-        background: var(--dom-accent);
-        color: #1a0a2e;
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        color: #ffffff;
         border: none;
         padding: 16px;
         font-size: 1rem;
@@ -479,8 +555,8 @@
       }
 
       .explain-continue:hover {
-        background: var(--dom-accent-dark);
         transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
       }
 
       /* Results Screen */
@@ -498,10 +574,10 @@
       }
 
       .score-info {
-        background: rgba(45, 27, 105, 0.6);
+        background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
         padding: 20px;
         border-radius: 8px;
-        border: 2px solid var(--dom-border);
+        border: 2px solid #7dd3fc;
       }
 
       .score-label {
@@ -539,24 +615,25 @@
       }
 
       .results-btn--primary {
-        background: var(--dom-accent);
-        color: #1a0a2e;
+        background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+        color: #ffffff;
       }
 
       .results-btn--primary:hover {
-        background: var(--dom-accent-dark);
         transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
       }
 
       .results-btn--secondary {
-        background: rgba(45, 27, 105, 0.8);
+        background: #ffffff;
         color: var(--dom-text);
-        border: 2px solid var(--dom-border);
+        border: 2px solid #cbd5e1;
       }
 
       .results-btn--secondary:hover {
         border-color: var(--dom-accent);
         color: var(--dom-accent);
+        background: #f0f9ff;
       }
 
       /* Hide landing screen - start directly at category selection */
@@ -800,6 +877,11 @@
         <div class="visual-container" id="visual-container"></div>
 
         <div class="question-text" id="question-text"></div>
+
+        <div class="hint-container" id="hint-container" style="display: none">
+          <button class="hint-btn" id="hint-btn">💡 Show Hint</button>
+          <p class="hint-text" id="hint-text"></p>
+        </div>
 
         <div class="answer-buttons" id="answer-buttons"></div>
       </div>

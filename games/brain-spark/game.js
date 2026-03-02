@@ -231,6 +231,9 @@ function renderQuestion() {
   // Render question
   document.getElementById('question-text').textContent = puzzle.question;
 
+  // Setup hint button for scene visuals (logic riddles)
+  setupHintButton(puzzle);
+
   // Render answer buttons
   const buttonContainer = document.getElementById('answer-buttons');
   buttonContainer.innerHTML = '';
@@ -314,12 +317,14 @@ function renderScene(visual, container) {
   emoji.className = 'scene-emoji';
   emoji.textContent = visual.emoji;
 
-  const caption = document.createElement('p');
-  caption.className = 'scene-caption';
-  caption.textContent = visual.caption;
-
+  // Store caption data but don't display it (hidden until hint is revealed)
   div.appendChild(emoji);
-  div.appendChild(caption);
+
+  // Store the caption for later retrieval when hint is requested
+  if (visual.caption) {
+    div.setAttribute('data-hint', visual.caption);
+  }
+
   container.appendChild(div);
 }
 
@@ -358,6 +363,40 @@ function renderEquation(visual, container) {
   });
 
   container.appendChild(div);
+}
+
+function setupHintButton(puzzle) {
+  const hintContainer = document.getElementById('hint-container');
+  const hintBtn = document.getElementById('hint-btn');
+  const hintText = document.getElementById('hint-text');
+
+  // Only show hint button for logic riddles (scene type with caption)
+  if (puzzle.visual.type === 'scene' && puzzle.visual.caption) {
+    hintContainer.style.display = 'flex';
+    hintBtn.textContent = '💡 Show Hint';
+    hintBtn.classList.remove('revealed');
+    hintText.textContent = '';
+    hintText.style.display = 'none';
+
+    // Clear previous listener by cloning
+    const newHintBtn = hintBtn.cloneNode(true);
+    hintBtn.parentNode.replaceChild(newHintBtn, hintBtn);
+
+    // Add new listener
+    newHintBtn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (!newHintBtn.classList.contains('revealed')) {
+        hintText.textContent = puzzle.visual.caption;
+        hintText.style.display = 'block';
+        newHintBtn.textContent = '✓ Hint Shown';
+        newHintBtn.classList.add('revealed');
+        newHintBtn.disabled = true;
+      }
+    });
+  } else {
+    hintContainer.style.display = 'none';
+  }
 }
 
 function checkAnswer(selectedIndex) {
