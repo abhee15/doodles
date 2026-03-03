@@ -1,9 +1,34 @@
 // ══════════════════════════════════════════════════════════════
-// Piano Keys Game — Phaser 3 with Web Audio API synthesis
-// COMPLETE REWRITE: Fixed timing, added speed control, keyboard labels
+// Piano Keys Game — Phaser 3 (Refactored with Manager Classes)
+// Removed: Audio synthesis, gameState global, magic constants
+// Kept: All game rendering, screen logic, keyboard handling
 // ══════════════════════════════════════════════════════════════
 
-// ─── Constants ──────────────────────────────────────────────
+// ─── Configuration Constants ────────────────────────────────
+const CONFIG = {
+  SCREEN: { MENU: 0, LEARN: 1, LEARN_SONG: 2, SONG_SELECT: 3, PLAY: 4, RESULTS: 5 },
+  KEYBOARD_MAP: {
+    z: 'C4',
+    x: 'D4',
+    c: 'E4',
+    v: 'F4',
+    b: 'G4',
+    n: 'A4',
+    m: 'B4',
+    ',': 'C5',
+    s: 'C#4',
+    d: 'D#4',
+    g: 'F#4',
+    h: 'G#4',
+    j: 'A#4'
+  },
+  KEYBOARD_LABELS: { C4: 'Z', D4: 'X', E4: 'C', F4: 'V', G4: 'B', A4: 'N', B4: 'M', C5: ',' },
+  FALL_SPEED_LEARN_MS: 0.1,
+  HUD_HEIGHT: 70,
+  LEAD_IN_MS: 2000,
+  HIT_WINDOW_MS: 150
+};
+
 const WHITE_NOTES_2OCT = [
   'C3',
   'D3',
@@ -21,7 +46,6 @@ const WHITE_NOTES_2OCT = [
   'B4',
   'C5'
 ];
-
 const BLACK_NOTE_POSITIONS_2OCT = [
   { note: 'C#3', afterWhiteIdx: 0 },
   { note: 'D#3', afterWhiteIdx: 1 },
@@ -45,51 +69,14 @@ const BLACK_NOTE_POSITIONS_1OCT = [
 ];
 
 const CHORDS = [
-  {
-    id: 'C_maj',
-    label: 'C Major',
-    keys: ['C4', 'E4', 'G4'],
-    fingers: [1, 3, 5],
-    color: 0xf9a8d4
-  },
-  {
-    id: 'G_maj',
-    label: 'G Major',
-    keys: ['G4', 'B4', 'D4'],
-    fingers: [1, 3, 5],
-    color: 0x86efac
-  },
-  {
-    id: 'A_min',
-    label: 'A Minor',
-    keys: ['A4', 'C5', 'E4'],
-    fingers: [1, 3, 5],
-    color: 0xc4b5fd
-  },
-  {
-    id: 'F_maj',
-    label: 'F Major',
-    keys: ['F4', 'A4', 'C5'],
-    fingers: [1, 3, 5],
-    color: 0xfcd34d
-  },
-  {
-    id: 'E_min',
-    label: 'E Minor',
-    keys: ['E4', 'G4', 'B4'],
-    fingers: [1, 3, 5],
-    color: 0x6ee7b7
-  },
-  {
-    id: 'D_min',
-    label: 'D Minor',
-    keys: ['D4', 'F4', 'A4'],
-    fingers: [1, 3, 5],
-    color: 0x93c5fd
-  }
+  { id: 'C_maj', label: 'C Major', keys: ['C4', 'E4', 'G4'], fingers: [1, 3, 5], color: 0xf9a8d4 },
+  { id: 'G_maj', label: 'G Major', keys: ['G4', 'B4', 'D4'], fingers: [1, 3, 5], color: 0x86efac },
+  { id: 'A_min', label: 'A Minor', keys: ['A4', 'C5', 'E4'], fingers: [1, 3, 5], color: 0xc4b5fd },
+  { id: 'F_maj', label: 'F Major', keys: ['F4', 'A4', 'C5'], fingers: [1, 3, 5], color: 0xfcd34d },
+  { id: 'E_min', label: 'E Minor', keys: ['E4', 'G4', 'B4'], fingers: [1, 3, 5], color: 0x6ee7b7 },
+  { id: 'D_min', label: 'D Minor', keys: ['D4', 'F4', 'A4'], fingers: [1, 3, 5], color: 0x93c5fd }
 ];
 
-// Chord progressions for each song - teaches full songs using chords
 const CHORD_SONGS = [
   {
     title: 'Hot Cross Buns',
@@ -252,79 +239,261 @@ const SONGS = [
   }
 ];
 
-const SCREEN = { MENU: 0, LEARN: 1, LEARN_SONG: 2, SONG_SELECT: 3, PLAY: 4, RESULTS: 5 };
+// ─── State Manager Class ────────────────────────────────────
+class StateManager {
+  constructor() {
+    this.state = {
+      currentScreen: CONFIG.SCREEN.MENU,
+      isMobile: false,
+      whiteNotes: WHITE_NOTES_2OCT,
+      blackNotePositions: BLACK_NOTE_POSITIONS_2OCT,
+      whiteKeyWidth: 0,
+      blackKeyWidth: 0,
+      pianoY: 490,
+      currentChord: null,
+      highlightedKeys: new Set(),
+      selectedSong: null,
+      songStartTime: null,
+      speedMultiplier: 1,
+      score: 0,
+      combo: 0,
+      maxCombo: 0,
+      activeNotes: [],
+      spawnTimers: [],
+      keyboardState: new Map(),
+      keysPressed: new Set(),
+      isPlaying: false,
+      selectedChordSong: null,
+      currentChordIndex: 0,
+      chordLessonTimer: null
+    };
+  }
 
-// Keyboard mapping for desktop play
-// White keys (bottom row): Z, X, C, V, B, N, M, , = C4 through C5
-// Black keys (top row):    S, D, (E skip), G, H, J = C#, D#, F#, G#, A# (mirrors real piano layout)
-const KEYBOARD_MAP = {
-  // White keys
-  z: 'C4',
-  x: 'D4',
-  c: 'E4',
-  v: 'F4',
-  b: 'G4',
-  n: 'A4',
-  m: 'B4',
-  ',': 'C5',
-  // Black keys
-  s: 'C#4',
-  d: 'D#4',
-  g: 'F#4',
-  h: 'G#4',
-  j: 'A#4'
-};
+  setScreen(screenId) {
+    this.state.currentScreen = screenId;
+  }
 
-const KEYBOARD_LABELS = {
-  // White key labels (shown on piano)
-  C4: 'Z',
-  D4: 'X',
-  E4: 'C',
-  F4: 'V',
-  G4: 'B',
-  A4: 'N',
-  B4: 'M',
-  C5: ','
-  // Black keys don't show labels (since they're not easily labeled on visualization)
-};
+  setMobile(isMobile) {
+    this.state.isMobile = isMobile;
+    if (isMobile) {
+      this.state.whiteNotes = WHITE_NOTES_1OCT;
+      this.state.blackNotePositions = BLACK_NOTE_POSITIONS_1OCT;
+    }
+  }
 
-// Fall speed constant: 300px/s = 0.3px/ms
-const FALL_SPEED_PX_PER_MS = 0.3; // Normal play speed
-const FALL_SPEED_LEARN_MS = 0.1; // Play Along learning mode (3x slower)
-const HUD_HEIGHT = 70;
-const LEAD_IN_MS = 2000;
-const HIT_WINDOW_MS = 150; // ±150ms to hit a note
+  setSelectedSong(song) {
+    this.state.selectedSong = song;
+  }
 
-// ─── Global State ──────────────────────────────────────────
-const gameState = {
-  currentScreen: SCREEN.MENU,
-  isMobile: false,
-  audioCtx: null,
-  whiteNotes: WHITE_NOTES_2OCT,
-  blackNotePositions: BLACK_NOTE_POSITIONS_2OCT,
-  whiteKeyWidth: 0,
-  blackKeyWidth: 0,
-  pianoY: 490,
-  currentChord: null,
-  highlightedKeys: new Set(),
-  selectedSong: null,
-  songStartTime: null,
-  speedMultiplier: 1,
-  score: 0,
-  combo: 0,
-  maxCombo: 0,
-  activeNotes: [],
-  spawnTimers: [],
-  keyboardState: new Map(),
-  keysPressed: new Set(),
-  isPlaying: false,
-  autoPlayChord: false,
-  autoPlayTimer: null,
-  // Chord lesson state
-  selectedChordSong: null,
-  currentChordIndex: 0,
-  chordLessonTimer: null
-};
+  resetScore() {
+    this.state.score = 0;
+    this.state.combo = 0;
+    this.state.maxCombo = 0;
+  }
+
+  addScore(points) {
+    this.state.score += points;
+  }
+
+  incrementCombo() {
+    this.state.combo++;
+    this.state.maxCombo = Math.max(this.state.maxCombo, this.state.combo);
+  }
+
+  resetCombo() {
+    this.state.combo = 0;
+  }
+
+  clearSpawnTimers() {
+    this.state.spawnTimers.forEach(timerId => clearTimeout(timerId));
+    this.state.spawnTimers = [];
+  }
+
+  addSpawnTimer(timerId) {
+    this.state.spawnTimers.push(timerId);
+  }
+
+  clearKeyboardState() {
+    this.state.keyboardState.clear();
+  }
+
+  setKeyboardState(noteName, keyObj) {
+    this.state.keyboardState.set(noteName, { obj: keyObj, state: 'normal' });
+  }
+
+  getKeyState(noteName) {
+    return this.state.keyboardState.get(noteName);
+  }
+
+  setKeyPressed(noteName, isPressed) {
+    if (isPressed) {
+      this.state.keysPressed.add(noteName);
+    } else {
+      this.state.keysPressed.delete(noteName);
+    }
+  }
+
+  isKeyPressed(noteName) {
+    return this.state.keysPressed.has(noteName);
+  }
+
+  setCurrentChord(chord) {
+    this.state.currentChord = chord;
+  }
+
+  highlightKeys(keys) {
+    this.state.highlightedKeys.clear();
+    keys.forEach(key => this.state.highlightedKeys.add(key));
+  }
+
+  isKeyHighlighted(noteName) {
+    return this.state.highlightedKeys.has(noteName);
+  }
+
+  setSelectedChordSong(song) {
+    this.state.selectedChordSong = song;
+  }
+
+  setCurrentChordIndex(idx) {
+    this.state.currentChordIndex = idx;
+  }
+
+  setChordLessonTimer(timerId) {
+    if (this.state.chordLessonTimer) {
+      clearTimeout(this.state.chordLessonTimer);
+    }
+    this.state.chordLessonTimer = timerId;
+  }
+
+  clearChordLessonTimer() {
+    if (this.state.chordLessonTimer) {
+      clearTimeout(this.state.chordLessonTimer);
+      this.state.chordLessonTimer = null;
+    }
+  }
+
+  addActiveNote(note) {
+    this.state.activeNotes.push(note);
+  }
+
+  clearActiveNotes() {
+    this.state.activeNotes = [];
+  }
+}
+
+// ─── Audio Manager Class ────────────────────────────────────
+class AudioManager {
+  constructor() {
+    this.audioCtx = null;
+  }
+
+  init() {
+    if (this.audioCtx) {
+      return;
+    }
+    this.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  noteToFreq(noteName) {
+    const noteMap = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
+    const note = noteName[0];
+    const octave = parseInt(noteName[1]);
+    const semitone = noteMap[note] + (noteName.length === 3 ? 1 : 0);
+    const midi = (octave + 1) * 12 + semitone;
+    return 440 * Math.pow(2, (midi - 69) / 12);
+  }
+
+  playNote(noteName, duration = 0.5) {
+    this.init();
+    const ctx = this.audioCtx;
+    const now = ctx.currentTime;
+    const freq = this.noteToFreq(noteName);
+
+    const master = ctx.createGain();
+    master.connect(ctx.destination);
+    master.gain.setValueAtTime(0.35, now);
+    master.gain.exponentialRampToValueAtTime(0.01, now + duration);
+
+    // Fundamental
+    const osc1 = ctx.createOscillator();
+    osc1.type = 'sine';
+    osc1.frequency.value = freq;
+    const gain1 = ctx.createGain();
+    gain1.gain.value = 0.5;
+    osc1.connect(gain1);
+    gain1.connect(master);
+
+    // 2nd harmonic
+    const osc2 = ctx.createOscillator();
+    osc2.type = 'sine';
+    osc2.frequency.value = freq * 2;
+    const gain2 = ctx.createGain();
+    gain2.gain.value = 0.25;
+    osc2.connect(gain2);
+    gain2.connect(master);
+
+    // 3rd harmonic
+    const osc3 = ctx.createOscillator();
+    osc3.type = 'sine';
+    osc3.frequency.value = freq * 3;
+    const gain3 = ctx.createGain();
+    gain3.gain.value = 0.15;
+    osc3.connect(gain3);
+    gain3.connect(master);
+
+    // 4th harmonic
+    const osc4 = ctx.createOscillator();
+    osc4.type = 'sine';
+    osc4.frequency.value = freq * 4;
+    const gain4 = ctx.createGain();
+    gain4.gain.value = 0.08;
+    osc4.connect(gain4);
+    gain4.connect(master);
+
+    osc1.start(now);
+    osc2.start(now);
+    osc3.start(now);
+    osc4.start(now);
+    osc1.stop(now + duration);
+    osc2.stop(now + duration);
+    osc3.stop(now + duration);
+    osc4.stop(now + duration);
+  }
+
+  playKeyTap() {
+    this.init();
+    const ctx = this.audioCtx;
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(800, now);
+    osc.frequency.exponentialRampToValueAtTime(200, now + 0.1);
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.1, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.1);
+  }
+
+  playMissSound() {
+    this.init();
+    const ctx = this.audioCtx;
+    const now = ctx.currentTime;
+    const osc = ctx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(400, now);
+    osc.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(now);
+    osc.stop(now + 0.2);
+  }
+}
 
 // ─── Helper Functions ──────────────────────────────────────
 function isMobileDevice() {
@@ -335,124 +504,12 @@ function isMobileDevice() {
   );
 }
 
-function noteToFreq(noteName) {
-  const noteMap = { C: 0, D: 2, E: 4, F: 5, G: 7, A: 9, B: 11 };
-  const note = noteName[0];
-  const octave = parseInt(noteName[1]);
-  const semitone = noteMap[note] + (noteName.length === 3 ? 1 : 0);
-  const midi = (octave + 1) * 12 + semitone;
-  return 440 * Math.pow(2, (midi - 69) / 12);
-}
-
-function initAudio() {
-  if (gameState.audioCtx) {
-    return;
-  }
-  gameState.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-}
-
-function playPianoNote(noteName, duration = 0.5) {
-  if (!gameState.audioCtx) {
-    initAudio();
-  }
-  const ctx = gameState.audioCtx;
-  const now = ctx.currentTime;
-  const freq = noteToFreq(noteName);
-
-  // Better piano-like sound with brighter tone and more harmonics
-  const master = ctx.createGain();
-  master.connect(ctx.destination);
-  master.gain.setValueAtTime(0.35, now);
-  master.gain.exponentialRampToValueAtTime(0.01, now + duration);
-
-  // Fundamental (bright sine wave for clarity)
-  const osc1 = ctx.createOscillator();
-  osc1.type = 'sine';
-  osc1.frequency.value = freq;
-  const gain1 = ctx.createGain();
-  gain1.gain.value = 0.5;
-  osc1.connect(gain1);
-  gain1.connect(master);
-
-  // 2nd harmonic (adds brightness)
-  const osc2 = ctx.createOscillator();
-  osc2.type = 'sine';
-  osc2.frequency.value = freq * 2;
-  const gain2 = ctx.createGain();
-  gain2.gain.value = 0.25;
-  osc2.connect(gain2);
-  gain2.connect(master);
-
-  // 3rd harmonic
-  const osc3 = ctx.createOscillator();
-  osc3.type = 'sine';
-  osc3.frequency.value = freq * 3;
-  const gain3 = ctx.createGain();
-  gain3.gain.value = 0.15;
-  osc3.connect(gain3);
-  gain3.connect(master);
-
-  // 4th harmonic (adds clarity)
-  const osc4 = ctx.createOscillator();
-  osc4.type = 'sine';
-  osc4.frequency.value = freq * 4;
-  const gain4 = ctx.createGain();
-  gain4.gain.value = 0.08;
-  osc4.connect(gain4);
-  gain4.connect(master);
-
-  osc1.start(now);
-  osc2.start(now);
-  osc3.start(now);
-  osc4.start(now);
-  osc1.stop(now + duration);
-  osc2.stop(now + duration);
-  osc3.stop(now + duration);
-  osc4.stop(now + duration);
-}
-
-function playKeyTap() {
-  if (!gameState.audioCtx) {
-    initAudio();
-  }
-  const ctx = gameState.audioCtx;
-  const now = ctx.currentTime;
-  const osc = ctx.createOscillator();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(800, now);
-  osc.frequency.exponentialRampToValueAtTime(200, now + 0.1);
-  const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0.1, now);
-  gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.start(now);
-  osc.stop(now + 0.1);
-}
-
-function playMissSound() {
-  if (!gameState.audioCtx) {
-    initAudio();
-  }
-  const ctx = gameState.audioCtx;
-  const now = ctx.currentTime;
-  const osc = ctx.createOscillator();
-  osc.type = 'sine';
-  osc.frequency.setValueAtTime(400, now);
-  osc.frequency.exponentialRampToValueAtTime(100, now + 0.2);
-  const gain = ctx.createGain();
-  gain.gain.setValueAtTime(0.15, now);
-  gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-  osc.connect(gain);
-  gain.connect(ctx.destination);
-  osc.start(now);
-  osc.stop(now + 0.2);
-}
-
-// ─── Phaser Scene ──────────────────────────────────────────
-// Get window dimensions for full-screen canvas on mobile
+// ─── Game Scene ────────────────────────────────────────────
 const gameWidth = window.innerWidth;
 const gameHeight = window.innerHeight;
+
+const stateManager = new StateManager();
+const audioManager = new AudioManager();
 
 const config = createGameConfig({
   width: gameWidth,
@@ -463,19 +520,14 @@ const config = createGameConfig({
     create() {
       const scene = this;
       window.phaserScene = scene;
-      gameState.isMobile = isMobileDevice();
-      if (gameState.isMobile) {
-        gameState.whiteNotes = WHITE_NOTES_1OCT;
-        gameState.blackNotePositions = BLACK_NOTE_POSITIONS_1OCT;
-      }
 
-      // Menu screen button listeners
+      stateManager.setMobile(isMobileDevice());
+
       const menuScreen = document.getElementById('menu-screen');
       const btnLearn = document.getElementById('btn-learn');
       const btnPlay = document.getElementById('btn-play');
       const backBtn = document.getElementById('game-back-btn');
 
-      // Debug: Check if buttons exist
       console.log('Piano Keys Game Initialize:', {
         menuScreen: !!menuScreen,
         btnLearn: !!btnLearn,
@@ -489,8 +541,8 @@ const config = createGameConfig({
         if (canvas) {
           canvas.style.pointerEvents = 'auto';
         }
-        gameState.currentScreen = SCREEN.LEARN;
-        gameState.isPlaying = false;
+        stateManager.setScreen(CONFIG.SCREEN.LEARN);
+        stateManager.state.isPlaying = false;
         rebuildLearnScreen(scene);
       });
 
@@ -500,25 +552,24 @@ const config = createGameConfig({
         if (canvas) {
           canvas.style.pointerEvents = 'auto';
         }
-        gameState.currentScreen = SCREEN.SONG_SELECT;
-        gameState.isPlaying = false;
+        stateManager.setScreen(CONFIG.SCREEN.SONG_SELECT);
+        stateManager.state.isPlaying = false;
         rebuildSongSelectScreen(scene);
       });
 
       backBtn.addEventListener('click', e => {
-        if (gameState.currentScreen !== SCREEN.MENU) {
+        if (stateManager.state.currentScreen !== CONFIG.SCREEN.MENU) {
           e.preventDefault();
           goBackScreen(scene);
         }
       });
 
-      // Keyboard input for desktop play
       document.addEventListener('keydown', e => {
         const key = e.key.toLowerCase();
-        if (KEYBOARD_MAP[key]) {
-          const noteName = KEYBOARD_MAP[key];
-          if (!gameState.keysPressed.has(noteName)) {
-            gameState.keysPressed.add(noteName);
+        if (CONFIG.KEYBOARD_MAP[key]) {
+          const noteName = CONFIG.KEYBOARD_MAP[key];
+          if (!stateManager.isKeyPressed(noteName)) {
+            stateManager.setKeyPressed(noteName, true);
             handleKeyPress(scene, noteName);
           }
         }
@@ -526,103 +577,84 @@ const config = createGameConfig({
 
       document.addEventListener('keyup', e => {
         const key = e.key.toLowerCase();
-        if (KEYBOARD_MAP[key]) {
-          const noteName = KEYBOARD_MAP[key];
-          gameState.keysPressed.delete(noteName);
-          if (gameState.keyboardState.has(noteName)) {
-            const obj = gameState.keyboardState.get(noteName).obj;
-            if (obj && obj.active) {
-              handleKeyRelease(obj);
-            }
+        if (CONFIG.KEYBOARD_MAP[key]) {
+          const noteName = CONFIG.KEYBOARD_MAP[key];
+          stateManager.setKeyPressed(noteName, false);
+          const keyState = stateManager.getKeyState(noteName);
+          if (keyState && keyState.obj && keyState.obj.active) {
+            handleKeyRelease(keyState.obj);
           }
         }
       });
 
-      // Responsive resize
       window.addEventListener('resize', () => {
-        if (gameState.currentScreen === SCREEN.LEARN) {
+        if (stateManager.state.currentScreen === CONFIG.SCREEN.LEARN) {
           rebuildLearnScreen(scene);
         }
-        if (gameState.currentScreen === SCREEN.SONG_SELECT) {
+        if (stateManager.state.currentScreen === CONFIG.SCREEN.SONG_SELECT) {
           rebuildSongSelectScreen(scene);
         }
-        if (gameState.currentScreen === SCREEN.PLAY) {
+        if (stateManager.state.currentScreen === CONFIG.SCREEN.PLAY) {
           rebuildPlayScreen(scene);
         }
       });
     },
     update(time, delta) {
-      // Update loop for falling notes - uses delta time for frame-rate independence
-      if (gameState.currentScreen !== SCREEN.PLAY || !gameState.isPlaying) {
+      if (
+        stateManager.state.currentScreen !== CONFIG.SCREEN.PLAY ||
+        !stateManager.state.isPlaying
+      ) {
         return;
       }
 
-      const fallZoneH = gameState.pianoY - HUD_HEIGHT;
+      const fallZoneH = stateManager.state.pianoY - CONFIG.HUD_HEIGHT;
 
-      gameState.activeNotes.forEach(note => {
+      stateManager.state.activeNotes.forEach(note => {
         if (note.resolved) {
           return;
         }
-
-        // Move note down using slower delta time for learning
-        note.y += FALL_SPEED_LEARN_MS * delta;
-
-        // Destroy if off screen (no scoring, just visual learning)
-        if (note.y > gameState.pianoY + 100) {
+        note.y += CONFIG.FALL_SPEED_LEARN_MS * delta;
+        if (note.y > stateManager.state.pianoY + 100) {
           note.resolved = true;
           note.destroy();
         }
       });
-
-      // Song plays indefinitely on loop - no end condition for learning mode
     }
   }
 });
 
 const game = new Phaser.Game(config);
 
-// ─── Screen Navigation ─────────────────────────────────────
+// ─── Screen Navigation ──────────────────────────────────────
 function goBackScreen(scene) {
-  // Stop any active timers/playback
-  if (gameState.autoPlayTimer) {
-    clearInterval(gameState.autoPlayTimer);
-    gameState.autoPlayTimer = null;
-  }
-  gameState.autoPlayChord = false;
-
+  stateManager.clearChordLessonTimer();
+  stateManager.clearSpawnTimers();
   clearAllPhaserObjects(scene);
-  gameState.isPlaying = false;
-  gameState.activeNotes = [];
+  stateManager.state.isPlaying = false;
+  stateManager.clearActiveNotes();
 
-  if (gameState.currentScreen === SCREEN.PLAY) {
-    // Going back from playing a song
-    gameState.currentScreen = SCREEN.SONG_SELECT;
+  if (stateManager.state.currentScreen === CONFIG.SCREEN.PLAY) {
+    stateManager.setScreen(CONFIG.SCREEN.SONG_SELECT);
     const canvas = document.querySelector('canvas');
     if (canvas) {
       canvas.style.pointerEvents = 'auto';
     }
     rebuildSongSelectScreen(scene);
-  } else if (gameState.currentScreen === SCREEN.SONG_SELECT) {
-    // Going back to menu
-    gameState.currentScreen = SCREEN.MENU;
+  } else if (stateManager.state.currentScreen === CONFIG.SCREEN.SONG_SELECT) {
+    stateManager.setScreen(CONFIG.SCREEN.MENU);
     document.getElementById('menu-screen').style.display = 'flex';
     const canvas = document.querySelector('canvas');
     if (canvas) {
       canvas.style.pointerEvents = 'none';
     }
-  } else if (gameState.currentScreen === SCREEN.LEARN_SONG) {
-    // Going back from chord lesson to song selection
-    gameState.selectedChordSong = null;
-    gameState.currentChordIndex = 0;
-    if (gameState.chordLessonTimer) {
-      clearTimeout(gameState.chordLessonTimer);
-      gameState.chordLessonTimer = null;
-    }
-    gameState.currentScreen = SCREEN.LEARN;
+  } else if (stateManager.state.currentScreen === CONFIG.SCREEN.LEARN_SONG) {
+    stateManager.setSelectedChordSong(null);
+    stateManager.setCurrentChordIndex(0);
+    stateManager.clearChordLessonTimer();
+    stateManager.setScreen(CONFIG.SCREEN.LEARN);
     rebuildLearnScreen(scene);
-  } else if (gameState.currentScreen === SCREEN.LEARN) {
-    // Going back to menu from Learn Chords
-    gameState.currentScreen = SCREEN.MENU;
+  } else if (stateManager.state.currentScreen === CONFIG.SCREEN.LEARN) {
+    stateManager.setScreen(CONFIG.SCREEN.MENU);
     document.getElementById('menu-screen').style.display = 'flex';
     const canvas = document.querySelector('canvas');
     if (canvas) {
@@ -636,58 +668,52 @@ function buildPianoKeyboard(scene) {
   const width = scene.cameras.main.width;
   const height = scene.cameras.main.height;
   const isPortrait = height > width;
-  const whiteNotesCount = gameState.whiteNotes.length;
+  const whiteNotesCount = stateManager.state.whiteNotes.length;
 
-  // On mobile landscape: use full width, MUCH bigger keys for easy playing
-  // On mobile portrait: smaller but still usable
-  // On desktop: original sizing
   let pianoStripWidth, whiteKeyHeight, blackKeyHeight, pianoY;
 
-  if (gameState.isMobile && !isPortrait) {
-    // Mobile LANDSCAPE: HUGE keys for easy playing (use ~80% of screen height)
+  if (stateManager.state.isMobile && !isPortrait) {
     pianoStripWidth = width - 20;
-    whiteKeyHeight = Math.floor(height * 0.75); // 75% of screen for maximum playable keys
+    whiteKeyHeight = Math.floor(height * 0.75);
     blackKeyHeight = whiteKeyHeight * 0.63;
-    pianoY = height * 0.42; // Position to center keys vertically
-  } else if (gameState.isMobile && isPortrait) {
-    // Mobile PORTRAIT: medium keys, compact layout
+    pianoY = height * 0.42;
+  } else if (stateManager.state.isMobile && isPortrait) {
     pianoStripWidth = Math.min(width - 20, 720);
-    whiteKeyHeight = 120; // Bigger than before
+    whiteKeyHeight = 120;
     blackKeyHeight = 75;
     pianoY = height - 140;
   } else {
-    // DESKTOP: original layout
     pianoStripWidth = Math.min(860, width - 20);
     whiteKeyHeight = 150;
     blackKeyHeight = 95;
     pianoY = height - 160;
   }
 
-  gameState.whiteKeyWidth = Math.floor(pianoStripWidth / whiteNotesCount);
-  gameState.blackKeyWidth = Math.max(36, Math.floor(gameState.whiteKeyWidth * 0.6));
+  stateManager.state.whiteKeyWidth = Math.floor(pianoStripWidth / whiteNotesCount);
+  stateManager.state.blackKeyWidth = Math.max(
+    36,
+    Math.floor(stateManager.state.whiteKeyWidth * 0.6)
+  );
   const pianoX = (width - pianoStripWidth) / 2;
-  gameState.pianoY = pianoY;
+  stateManager.state.pianoY = pianoY;
 
   console.log('Building piano keyboard:', {
     width,
     height,
     isPortrait,
     whiteKeyHeight,
-    whiteKeyWidth: gameState.whiteKeyWidth,
-    blackKeyWidth: gameState.blackKeyWidth,
-    pianoStripWidth,
-    whiteNotesCount
+    pianoStripWidth
   });
 
-  gameState.keyboardState.clear();
+  stateManager.clearKeyboardState();
 
   // White keys
-  gameState.whiteNotes.forEach((note, idx) => {
-    const x = pianoX + idx * gameState.whiteKeyWidth;
+  stateManager.state.whiteNotes.forEach((note, idx) => {
+    const x = pianoX + idx * stateManager.state.whiteKeyWidth;
     const key = scene.add.rectangle(
-      x + gameState.whiteKeyWidth / 2,
-      gameState.pianoY + whiteKeyHeight / 2,
-      gameState.whiteKeyWidth - 2,
+      x + stateManager.state.whiteKeyWidth / 2,
+      stateManager.state.pianoY + whiteKeyHeight / 2,
+      stateManager.state.whiteKeyWidth - 2,
       whiteKeyHeight,
       0xffffff
     );
@@ -697,39 +723,37 @@ function buildPianoKeyboard(scene) {
     key.noteName = note;
     key.keyType = 'white';
 
-    // Add note name label at bottom (scale font based on key size)
     let noteLabelFont = '12px';
-    if (gameState.whiteKeyWidth > 100) {
+    if (stateManager.state.whiteKeyWidth > 100) {
       noteLabelFont = '20px';
-    } else if (gameState.whiteKeyWidth > 80) {
+    } else if (stateManager.state.whiteKeyWidth > 80) {
       noteLabelFont = '18px';
-    } else if (gameState.whiteKeyWidth > 60) {
+    } else if (stateManager.state.whiteKeyWidth > 60) {
       noteLabelFont = '16px';
     }
 
     const noteLabel = scene.add.text(
-      x + gameState.whiteKeyWidth / 2,
-      gameState.pianoY + whiteKeyHeight - 30,
+      x + stateManager.state.whiteKeyWidth / 2,
+      stateManager.state.pianoY + whiteKeyHeight - 30,
       note,
       { font: `bold ${noteLabelFont} Arial`, fill: '#000000' }
     );
     noteLabel.setOrigin(0.5, 0.5);
 
-    // Add keyboard key label at top (if this is C4-C5 range)
-    if (KEYBOARD_LABELS[note]) {
+    if (CONFIG.KEYBOARD_LABELS[note]) {
       let keyLabelFont = '11px';
-      if (gameState.whiteKeyWidth > 100) {
+      if (stateManager.state.whiteKeyWidth > 100) {
         keyLabelFont = '18px';
-      } else if (gameState.whiteKeyWidth > 80) {
+      } else if (stateManager.state.whiteKeyWidth > 80) {
         keyLabelFont = '16px';
-      } else if (gameState.whiteKeyWidth > 60) {
+      } else if (stateManager.state.whiteKeyWidth > 60) {
         keyLabelFont = '14px';
       }
 
       const keyLabel = scene.add.text(
-        x + gameState.whiteKeyWidth / 2,
-        gameState.pianoY + 15,
-        KEYBOARD_LABELS[note],
+        x + stateManager.state.whiteKeyWidth / 2,
+        stateManager.state.pianoY + 15,
+        CONFIG.KEYBOARD_LABELS[note],
         { font: `bold ${keyLabelFont} Arial`, fill: '#666666' }
       );
       keyLabel.setOrigin(0.5, 0.5);
@@ -738,17 +762,19 @@ function buildPianoKeyboard(scene) {
     key.on('pointerdown', () => handleKeyPress(scene, note));
     key.on('pointerup', () => handleKeyRelease(key));
 
-    gameState.keyboardState.set(note, { obj: key, state: 'normal' });
+    stateManager.setKeyboardState(note, key);
   });
 
   // Black keys
-  gameState.blackNotePositions.forEach(bp => {
+  stateManager.state.blackNotePositions.forEach(bp => {
     const x =
-      pianoX + (bp.afterWhiteIdx + 1) * gameState.whiteKeyWidth - gameState.blackKeyWidth / 2;
+      pianoX +
+      (bp.afterWhiteIdx + 1) * stateManager.state.whiteKeyWidth -
+      stateManager.state.blackKeyWidth / 2;
     const key = scene.add.rectangle(
-      x + gameState.blackKeyWidth / 2,
-      gameState.pianoY + blackKeyHeight / 2,
-      gameState.blackKeyWidth - 2,
+      x + stateManager.state.blackKeyWidth / 2,
+      stateManager.state.pianoY + blackKeyHeight / 2,
+      stateManager.state.blackKeyWidth - 2,
       blackKeyHeight,
       0x000000
     );
@@ -759,27 +785,20 @@ function buildPianoKeyboard(scene) {
     key.keyType = 'black';
     key.setDepth(10);
 
-    // Add keyboard key label at top (e.g., "S" for C#4)
-    const blackKeyLabels = {
-      'C#4': 'S',
-      'D#4': 'D',
-      'F#4': 'G',
-      'G#4': 'H',
-      'A#4': 'J'
-    };
+    const blackKeyLabels = { 'C#4': 'S', 'D#4': 'D', 'F#4': 'G', 'G#4': 'H', 'A#4': 'J' };
     if (blackKeyLabels[bp.note]) {
       let blackKeyLabelFont = '10px';
-      if (gameState.blackKeyWidth > 60) {
+      if (stateManager.state.blackKeyWidth > 60) {
         blackKeyLabelFont = '16px';
-      } else if (gameState.blackKeyWidth > 50) {
+      } else if (stateManager.state.blackKeyWidth > 50) {
         blackKeyLabelFont = '14px';
-      } else if (gameState.blackKeyWidth > 40) {
+      } else if (stateManager.state.blackKeyWidth > 40) {
         blackKeyLabelFont = '12px';
       }
 
       const keyLabel = scene.add.text(
-        x + gameState.blackKeyWidth / 2,
-        gameState.pianoY - 15,
+        x + stateManager.state.blackKeyWidth / 2,
+        stateManager.state.pianoY - 15,
         blackKeyLabels[bp.note],
         { font: `bold ${blackKeyLabelFont} Arial`, fill: '#FFFFFF' }
       );
@@ -787,19 +806,18 @@ function buildPianoKeyboard(scene) {
       keyLabel.setDepth(9);
     }
 
-    // Add note name label in center
     let blackNoteLabelFont = '9px';
-    if (gameState.blackKeyWidth > 60) {
+    if (stateManager.state.blackKeyWidth > 60) {
       blackNoteLabelFont = '14px';
-    } else if (gameState.blackKeyWidth > 50) {
+    } else if (stateManager.state.blackKeyWidth > 50) {
       blackNoteLabelFont = '12px';
-    } else if (gameState.blackKeyWidth > 40) {
+    } else if (stateManager.state.blackKeyWidth > 40) {
       blackNoteLabelFont = '11px';
     }
 
     const labelText = scene.add.text(
-      x + gameState.blackKeyWidth / 2,
-      gameState.pianoY + blackKeyHeight / 2,
+      x + stateManager.state.blackKeyWidth / 2,
+      stateManager.state.pianoY + blackKeyHeight / 2,
       bp.note,
       { font: `bold ${blackNoteLabelFont} Arial`, fill: '#FFFFFF' }
     );
@@ -809,33 +827,24 @@ function buildPianoKeyboard(scene) {
     key.on('pointerdown', () => handleKeyPress(scene, bp.note));
     key.on('pointerup', () => handleKeyRelease(key));
 
-    gameState.keyboardState.set(bp.note, {
-      obj: key,
-      state: 'normal'
-    });
+    stateManager.setKeyboardState(bp.note, key);
   });
 
-  // Draw visual hit line just above piano
-  const hitLineY = gameState.pianoY - 22;
+  const hitLineY = stateManager.state.pianoY - 22;
   scene.add.line(0, hitLineY, 0, hitLineY, width, hitLineY, 0xffd700);
 
-  console.log('Piano keyboard built - total keys:', gameState.keyboardState.size);
-  console.log('White notes:', gameState.whiteNotes);
-  console.log('Keyboard state keys:', Array.from(gameState.keyboardState.keys()));
+  console.log('Piano keyboard built - total keys:', stateManager.state.keyboardState.size);
 }
 
 function handleKeyPress(scene, noteName) {
-  const keyState = gameState.keyboardState.get(noteName);
+  const keyState = stateManager.getKeyState(noteName);
   if (!keyState) {
     return;
   }
 
   keyState.state = 'pressed';
   keyState.obj.setFillStyle(keyState.obj.keyType === 'white' ? 0xdddddd : 0x333333);
-  playPianoNote(noteName, 0.3);
-
-  // In Play mode: just provide visual feedback when key is pressed
-  // (No scoring - just learning by practice)
+  audioManager.playNote(noteName, 0.3);
 }
 
 function handleKeyRelease(keyObj) {
@@ -843,7 +852,7 @@ function handleKeyRelease(keyObj) {
     return;
   }
 
-  const keyState = gameState.keyboardState.get(keyObj.noteName);
+  const keyState = stateManager.getKeyState(keyObj.noteName);
   if (!keyState) {
     return;
   }
@@ -858,13 +867,10 @@ function handleKeyRelease(keyObj) {
 
 // ─── Learn Chords Screen ────────────────────────────────────
 function rebuildLearnScreen(scene) {
-  // If no song selected, show chord song selection menu
-  if (!gameState.selectedChordSong) {
+  if (!stateManager.state.selectedChordSong) {
     rebuildChordSongSelectScreen(scene);
     return;
   }
-
-  // Otherwise show the chord progression lesson
   rebuildChordLessonScreen(scene);
 }
 
@@ -874,40 +880,30 @@ function rebuildChordSongSelectScreen(scene) {
   const height = scene.cameras.main.height;
   const isPortrait = height > width;
 
-  // On mobile portrait: show rotation message
-  if (gameState.isMobile && isPortrait) {
+  if (stateManager.state.isMobile && isPortrait) {
     const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
     bg.setOrigin(0.5, 0.5);
-
     const rotateIcon = scene.add.text(width / 2, height / 2 - 80, '🔄', {
       font: 'bold 80px Arial',
       fill: '#F9A8D4'
     });
     rotateIcon.setOrigin(0.5, 0.5);
-
     const rotateText = scene.add.text(width / 2, height / 2 + 20, 'Rotate Your Phone', {
       font: 'bold 28px Arial',
       fill: '#F9A8D4',
       align: 'center'
     });
     rotateText.setOrigin(0.5, 0.5);
-
     const subtitle = scene.add.text(
       width / 2,
       height / 2 + 80,
       'Piano Keys works best in landscape mode\nfor bigger, easier-to-tap keys!',
-      {
-        font: 'bold 14px Arial',
-        fill: '#CCCCCC',
-        align: 'center'
-      }
+      { font: 'bold 14px Arial', fill: '#CCCCCC', align: 'center' }
     );
     subtitle.setOrigin(0.5, 0.5);
-
     return;
   }
 
-  // Title
   const title = scene.add.text(width / 2, 20, '🎵 Learn Chord Progressions', {
     font: 'bold 28px Arial',
     fill: '#F9A8D4',
@@ -915,20 +911,14 @@ function rebuildChordSongSelectScreen(scene) {
   });
   title.setOrigin(0.5, 0);
 
-  // Subtitle
   const subtitle = scene.add.text(
     width / 2,
     60,
     'Choose a song to learn how to play it with chords',
-    {
-      font: '14px Arial',
-      fill: '#CCCCCC',
-      align: 'center'
-    }
+    { font: '14px Arial', fill: '#CCCCCC', align: 'center' }
   );
   subtitle.setOrigin(0.5, 0);
 
-  // Song cards
   const cardWidth = Math.min(280, (width - 40) / 2);
   const cardHeight = 100;
   const cardsPerRow = Math.floor((width - 40) / (cardWidth + 20));
@@ -952,7 +942,6 @@ function rebuildChordSongSelectScreen(scene) {
     });
     songTitle.setOrigin(0.5, 0.5);
 
-    // Show chord progression (e.g., "C - G - C")
     const chordProgression = song.chords.map(c => c.label.split(' ')[0]).join(' - ');
     const progressText = scene.add.text(x, y + 10, chordProgression, {
       font: '12px Arial',
@@ -964,9 +953,9 @@ function rebuildChordSongSelectScreen(scene) {
     card.on('pointerover', () => card.setScale(1.05));
     card.on('pointerout', () => card.setScale(1));
     card.on('pointerdown', () => {
-      gameState.selectedChordSong = song;
-      gameState.currentChordIndex = 0;
-      gameState.currentScreen = SCREEN.LEARN_SONG;
+      stateManager.setSelectedChordSong(song);
+      stateManager.setCurrentChordIndex(0);
+      stateManager.setScreen(CONFIG.SCREEN.LEARN_SONG);
       rebuildChordLessonScreen(scene);
     });
   });
@@ -978,34 +967,28 @@ function rebuildChordLessonScreen(scene) {
   const height = scene.cameras.main.height;
   const isPortrait = height > width;
 
-  // On mobile portrait: show rotation message
-  if (gameState.isMobile && isPortrait) {
+  if (stateManager.state.isMobile && isPortrait) {
     const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
     bg.setOrigin(0.5, 0.5);
-
     const rotateIcon = scene.add.text(width / 2, height / 2 - 80, '🔄', {
       font: 'bold 80px Arial',
       fill: '#F9A8D4'
     });
     rotateIcon.setOrigin(0.5, 0.5);
-
     const rotateText = scene.add.text(width / 2, height / 2 + 20, 'Rotate Your Phone', {
       font: 'bold 28px Arial',
       fill: '#F9A8D4',
       align: 'center'
     });
     rotateText.setOrigin(0.5, 0.5);
-
     return;
   }
 
-  // Chord lesson - show one chord at a time
-  const isMobileLandscape = gameState.isMobile && !isPortrait;
-  const song = gameState.selectedChordSong;
-  const currentChord = song.chords[gameState.currentChordIndex];
+  const isMobileLandscape = stateManager.state.isMobile && !isPortrait;
+  const song = stateManager.state.selectedChordSong;
+  const currentChord = song.chords[stateManager.state.currentChordIndex];
   const chordInfo = CHORDS.find(c => c.id === currentChord.id);
 
-  // Song title
   if (!isMobileLandscape) {
     const title = scene.add.text(width / 2, 20, `🎵 ${song.title}`, {
       font: 'bold 28px Arial',
@@ -1015,16 +998,14 @@ function rebuildChordLessonScreen(scene) {
     title.setOrigin(0.5, 0);
   }
 
-  // Current chord display (big and clear)
-  const chordDisplayY = isMobileLandscape ? HUD_HEIGHT + 15 : 80;
+  const chordDisplayY = isMobileLandscape ? CONFIG.HUD_HEIGHT + 15 : 80;
   const chordLabel = scene.add.text(width / 2, chordDisplayY, chordInfo.label, {
     font: 'bold 48px Arial',
-    fill: chordInfo.color === undefined ? '#FFFFFF' : '#FFFFFF',
+    fill: '#FFFFFF',
     align: 'center'
   });
   chordLabel.setOrigin(0.5, 0);
 
-  // Notes in the chord (e.g., "C - E - G")
   const chordNotation = scene.add.text(width / 2, chordDisplayY + 60, chordInfo.keys.join(' - '), {
     font: '24px Arial',
     fill: '#86efac',
@@ -1032,26 +1013,19 @@ function rebuildChordLessonScreen(scene) {
   });
   chordNotation.setOrigin(0.5, 0);
 
-  // Progress indicator
   const progressText = scene.add.text(
     width / 2,
     chordDisplayY + 110,
-    `Chord ${gameState.currentChordIndex + 1} of ${song.chords.length}`,
-    {
-      font: '14px Arial',
-      fill: '#AAAAAA',
-      align: 'center'
-    }
+    `Chord ${stateManager.state.currentChordIndex + 1} of ${song.chords.length}`,
+    { font: '14px Arial', fill: '#AAAAAA', align: 'center' }
   );
   progressText.setOrigin(0.5, 0);
 
   buildPianoKeyboard(scene);
 
-  // Highlight the current chord keys on the piano
-  gameState.highlightedKeys.clear();
-  chordInfo.keys.forEach(key => gameState.highlightedKeys.add(key));
-  gameState.keyboardState.forEach((keyState, noteName) => {
-    if (gameState.highlightedKeys.has(noteName)) {
+  stateManager.highlightKeys(chordInfo.keys);
+  stateManager.state.keyboardState.forEach((keyState, noteName) => {
+    if (stateManager.isKeyHighlighted(noteName)) {
       keyState.obj.setFillStyle(chordInfo.color || 0xffd700);
     } else {
       if (keyState.obj.keyType === 'white') {
@@ -1062,33 +1036,26 @@ function rebuildChordLessonScreen(scene) {
     }
   });
 
-  // Play the chord immediately
-  gameState.currentChord = chordInfo;
+  stateManager.setCurrentChord(chordInfo);
   playChordArpeggio(scene);
 
-  // Auto-advance to next chord after 4 seconds
-  if (gameState.chordLessonTimer) {
-    clearTimeout(gameState.chordLessonTimer);
-  }
-  gameState.chordLessonTimer = setTimeout(() => {
-    gameState.currentChordIndex = (gameState.currentChordIndex + 1) % song.chords.length;
+  const timerId = setTimeout(() => {
+    stateManager.setCurrentChordIndex(
+      (stateManager.state.currentChordIndex + 1) % song.chords.length
+    );
     rebuildChordLessonScreen(scene);
   }, 4000);
+  stateManager.setChordLessonTimer(timerId);
 
-  // Back button to return to song selection
-  const buttonY = isMobileLandscape ? HUD_HEIGHT + 50 : gameState.pianoY + 40;
+  const buttonY = isMobileLandscape ? CONFIG.HUD_HEIGHT + 50 : stateManager.state.pianoY + 40;
   createButton(scene, width / 2 - 100, buttonY, '← Back', () => {
-    gameState.selectedChordSong = null;
-    gameState.currentChordIndex = 0;
-    if (gameState.chordLessonTimer) {
-      clearTimeout(gameState.chordLessonTimer);
-      gameState.chordLessonTimer = null;
-    }
+    stateManager.setSelectedChordSong(null);
+    stateManager.setCurrentChordIndex(0);
+    stateManager.clearChordLessonTimer();
     rebuildLearnScreen(scene);
   });
 
-  // Instructions
-  const instructionY = isMobileLandscape ? HUD_HEIGHT + 50 : gameState.pianoY + 40;
+  const instructionY = isMobileLandscape ? CONFIG.HUD_HEIGHT + 50 : stateManager.state.pianoY + 40;
   const instrText = scene.add.text(width / 2 + 100, instructionY, 'Play along with the chord!', {
     font: '12px Arial',
     fill: '#86efac',
@@ -1099,22 +1066,15 @@ function rebuildChordLessonScreen(scene) {
 
 function selectChord(scene, chord) {
   console.log('Chord selected:', chord.label, 'Keys:', chord.keys);
-  gameState.currentChord = chord;
-  gameState.highlightedKeys.clear();
+  stateManager.setCurrentChord(chord);
+  stateManager.highlightKeys(chord.keys);
 
-  chord.keys.forEach(key => gameState.highlightedKeys.add(key));
-
-  console.log('Keyboard state size:', gameState.keyboardState.size);
-  console.log('Highlighted keys:', Array.from(gameState.highlightedKeys));
-
-  // Update key colors
-  gameState.keyboardState.forEach((keyState, noteName) => {
+  stateManager.state.keyboardState.forEach((keyState, noteName) => {
     if (!keyState || !keyState.obj) {
       console.warn('Invalid key state for', noteName);
       return;
     }
-
-    if (gameState.highlightedKeys.has(noteName)) {
+    if (stateManager.isKeyHighlighted(noteName)) {
       keyState.obj.setFillStyle(0xffd700);
       keyState.obj.setStrokeStyle(2, 0xffb700);
     } else {
@@ -1123,14 +1083,12 @@ function selectChord(scene, chord) {
     }
   });
 
-  console.log('Keys highlighted, playing chord...');
-  // Auto-play the chord when selected
   playChordArpeggio(scene);
 }
 
 function playChordArpeggio(scene) {
-  gameState.currentChord.keys.forEach((key, idx) => {
-    setTimeout(() => playPianoNote(key, 0.5), idx * 100);
+  stateManager.state.currentChord.keys.forEach((key, idx) => {
+    setTimeout(() => audioManager.playNote(key, 0.5), idx * 100);
   });
 }
 
@@ -1141,37 +1099,28 @@ function rebuildSongSelectScreen(scene) {
   const height = scene.cameras.main.height;
   const isPortrait = height > width;
 
-  // On mobile portrait: show full-screen rotation message
-  if (gameState.isMobile && isPortrait) {
+  if (stateManager.state.isMobile && isPortrait) {
     const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
     bg.setOrigin(0.5, 0.5);
-
     const rotateIcon = scene.add.text(width / 2, height / 2 - 80, '🔄', {
       font: 'bold 80px Arial',
       fill: '#F9A8D4'
     });
     rotateIcon.setOrigin(0.5, 0.5);
-
     const rotateText = scene.add.text(width / 2, height / 2 + 20, 'Rotate Your Phone', {
       font: 'bold 28px Arial',
       fill: '#F9A8D4',
       align: 'center'
     });
     rotateText.setOrigin(0.5, 0.5);
-
     const subtitle = scene.add.text(
       width / 2,
       height / 2 + 80,
       'Piano Keys works best in landscape mode\nfor bigger, easier-to-tap keys!',
-      {
-        font: 'bold 14px Arial',
-        fill: '#CCCCCC',
-        align: 'center'
-      }
+      { font: 'bold 14px Arial', fill: '#CCCCCC', align: 'center' }
     );
     subtitle.setOrigin(0.5, 0.5);
-
-    return; // Don't render song list in portrait
+    return;
   }
 
   const title = scene.add.text(width / 2, 20, 'Select a Song', {
@@ -1180,7 +1129,6 @@ function rebuildSongSelectScreen(scene) {
   });
   title.setOrigin(0.5, 0);
 
-  // Speed selector
   const speedY = 65;
   const speedLabels = ['🐢 Slow', '▶ Normal', '⚡ Fast'];
   const speedMultipliers = [0.5, 1, 1.5];
@@ -1190,7 +1138,7 @@ function rebuildSongSelectScreen(scene) {
 
   speedLabels.forEach((label, idx) => {
     const x = speedStartX + idx * speedSpacing;
-    const isSelected = gameState.speedMultiplier === speedMultipliers[idx];
+    const isSelected = stateManager.state.speedMultiplier === speedMultipliers[idx];
     const btn = scene.add.rectangle(
       x,
       speedY,
@@ -1208,7 +1156,7 @@ function rebuildSongSelectScreen(scene) {
     text.setOrigin(0.5, 0.5);
 
     btn.on('pointerdown', () => {
-      gameState.speedMultiplier = speedMultipliers[idx];
+      stateManager.state.speedMultiplier = speedMultipliers[idx];
       rebuildSongSelectScreen(scene);
     });
 
@@ -1224,7 +1172,6 @@ function rebuildSongSelectScreen(scene) {
     });
   });
 
-  // Song cards
   const songsPerRow = width > 768 ? 2 : 1;
   const cardWidth = Math.min(280, (width - 40 - (songsPerRow - 1) * 20) / songsPerRow);
   const cardHeight = 100;
@@ -1262,16 +1209,13 @@ function rebuildSongSelectScreen(scene) {
 
 function startSong(scene, song) {
   clearAllPhaserObjects(scene);
-  gameState.selectedSong = song;
-  gameState.score = 0;
-  gameState.combo = 0;
-  gameState.maxCombo = 0;
-  gameState.activeNotes = [];
-  gameState.songStartTime = Date.now();
-  gameState.currentScreen = SCREEN.PLAY;
-  gameState.isPlaying = true;
+  stateManager.setSelectedSong(song);
+  stateManager.resetScore();
+  stateManager.state.activeNotes = [];
+  stateManager.state.songStartTime = Date.now();
+  stateManager.setScreen(CONFIG.SCREEN.PLAY);
+  stateManager.state.isPlaying = true;
 
-  // Ensure canvas can receive pointer events for gameplay
   const canvas = document.querySelector('canvas');
   if (canvas) {
     canvas.style.pointerEvents = 'auto';
@@ -1286,55 +1230,49 @@ function rebuildPlayScreen(scene) {
   const width = scene.cameras.main.width;
   const height = scene.cameras.main.height;
 
-  // Song title only (no scoring needed for learning mode)
-  const songTitle = scene.add.text(width / 2, 15, gameState.selectedSong.title, {
+  const songTitle = scene.add.text(width / 2, 15, stateManager.state.selectedSong.title, {
     font: 'bold 20px Arial',
     fill: '#F9A8D4'
   });
   songTitle.setOrigin(0.5, 0);
 
-  // Learning mode indicator
   const learnLabel = scene.add.text(width / 2, 40, '🎵 Practice at your own pace', {
     font: '12px Arial',
     fill: '#86efac'
   });
   learnLabel.setOrigin(0.5, 0);
 
-  // Keyboard guide for desktop
-  if (!gameState.isMobile) {
+  if (!stateManager.state.isMobile) {
     const guideText = scene.add.text(
       width / 2,
       height - 310,
       'White: Z X C V B N M ,  |  Black: S D G H J  or click keys',
-      {
-        font: '12px Arial',
-        fill: '#AAAAAA',
-        align: 'center'
-      }
+      { font: '12px Arial', fill: '#AAAAAA', align: 'center' }
     );
     guideText.setOrigin(0.5, 0);
   }
 
   buildPianoKeyboard(scene);
 
-  // Spawn notes using corrected timing math
-  // Slower speed for learning mode - kids have time to read notes
   function spawnNotesForSong() {
-    const beatDurationMs = (60 / gameState.selectedSong.bpm) * 1000;
-    const fallZoneH = gameState.pianoY - HUD_HEIGHT;
-    const fallDurationMs = (fallZoneH / FALL_SPEED_LEARN_MS) * 1000;
+    const beatDurationMs = (60 / stateManager.state.selectedSong.bpm) * 1000;
+    const fallZoneH = stateManager.state.pianoY - CONFIG.HUD_HEIGHT;
+    const fallDurationMs = (fallZoneH / CONFIG.FALL_SPEED_LEARN_MS) * 1000;
 
-    gameState.selectedSong.notes.forEach(noteData => {
+    stateManager.state.selectedSong.notes.forEach(noteData => {
       const beatMs = noteData.beat * beatDurationMs;
-      const spawnMs = LEAD_IN_MS + beatMs - fallDurationMs;
+      const spawnMs = CONFIG.LEAD_IN_MS + beatMs - fallDurationMs;
 
       const timerId = setTimeout(
         () => {
-          if (!gameState.isPlaying || gameState.currentScreen !== SCREEN.PLAY) {
+          if (
+            !stateManager.state.isPlaying ||
+            stateManager.state.currentScreen !== CONFIG.SCREEN.PLAY
+          ) {
             return;
           }
 
-          const keyState = gameState.keyboardState.get(noteData.key);
+          const keyState = stateManager.getKeyState(noteData.key);
           if (!keyState) {
             return;
           }
@@ -1342,15 +1280,14 @@ function rebuildPlayScreen(scene) {
           const noteDurationMs = noteData.duration * beatDurationMs;
           const noteHeight = Math.max(20, Math.floor((noteDurationMs / 1000) * 100));
           const laneX = keyState.obj.x;
-          // Use actual key width for note display width
           const noteWidth =
             keyState.obj.keyType === 'white'
-              ? gameState.whiteKeyWidth - 4
-              : gameState.blackKeyWidth - 4;
+              ? stateManager.state.whiteKeyWidth - 4
+              : stateManager.state.blackKeyWidth - 4;
 
           const note = scene.add.rectangle(
             laneX,
-            HUD_HEIGHT - noteHeight,
+            CONFIG.HUD_HEIGHT - noteHeight,
             noteWidth,
             noteHeight,
             0x22c55e
@@ -1358,105 +1295,62 @@ function rebuildPlayScreen(scene) {
           note.setStrokeStyle(1, 0x00dd00);
           note.setDepth(5);
           note.noteName = noteData.key;
-          note.targetY = gameState.pianoY - 22;
+          note.targetY = stateManager.state.pianoY - 22;
           note.resolved = false;
           note.hitOnce = false;
           note.noteData = noteData;
 
-          gameState.activeNotes.push(note);
+          stateManager.addActiveNote(note);
         },
         Math.max(0, spawnMs)
       );
 
-      gameState.spawnTimers.push(timerId);
+      stateManager.addSpawnTimer(timerId);
     });
 
-    // After all notes spawn, schedule the next loop
-    const lastNote = gameState.selectedSong.notes[gameState.selectedSong.notes.length - 1];
+    const lastNote =
+      stateManager.state.selectedSong.notes[stateManager.state.selectedSong.notes.length - 1];
     const lastNoteBeatMs = lastNote.beat * beatDurationMs;
-    const nextLoopDelayMs = LEAD_IN_MS + lastNoteBeatMs + 1000; // Add 1 second buffer between loops
+    const nextLoopDelayMs = CONFIG.LEAD_IN_MS + lastNoteBeatMs + 1000;
 
     const loopTimerId = setTimeout(() => {
-      if (gameState.isPlaying && gameState.currentScreen === SCREEN.PLAY) {
-        spawnNotesForSong(); // Loop the song
+      if (stateManager.state.isPlaying && stateManager.state.currentScreen === CONFIG.SCREEN.PLAY) {
+        spawnNotesForSong();
       }
     }, nextLoopDelayMs);
 
-    gameState.spawnTimers.push(loopTimerId);
+    stateManager.addSpawnTimer(loopTimerId);
   }
 
-  // Start playing the song on loop
   spawnNotesForSong();
 }
 
 function checkNoteHit(scene, noteName) {
-  const unresolved = gameState.activeNotes.filter(n => !n.resolved && n.noteName === noteName);
-
+  const unresolved = stateManager.state.activeNotes.filter(
+    n => !n.resolved && n.noteName === noteName
+  );
   if (unresolved.length === 0) {
     return;
   }
 
-  const note = unresolved[0]; // Take first unresolved note
+  const note = unresolved[0];
   note.resolved = true;
   note.setFillStyle(0x86efac);
 
-  gameState.score += 10;
-  gameState.combo++;
-  gameState.maxCombo = Math.max(gameState.maxCombo, gameState.combo);
+  stateManager.addScore(10);
+  stateManager.incrementCombo();
 
-  if (gameState.combo >= 5 && gameState.combo % 5 === 0) {
-    gameState.score += gameState.combo * 2;
+  if (stateManager.state.combo >= 5 && stateManager.state.combo % 5 === 0) {
+    stateManager.addScore(stateManager.state.combo * 2);
   }
 
-  playKeyTap();
+  audioManager.playKeyTap();
   setTimeout(() => note.destroy(), 100);
 }
 
-// ─── Results Screen ────────────────────────────────────────
-function rebuildResultsScreen(scene) {
-  clearAllPhaserObjects(scene);
-  const width = scene.cameras.main.width;
-  const height = scene.cameras.main.height;
-
-  const titleText = scene.add.text(width / 2, 60, 'Song Complete!', {
-    font: 'bold 36px Arial',
-    fill: '#86EFAC'
-  });
-  titleText.setOrigin(0.5, 0);
-
-  const scoreText = scene.add.text(width / 2, 140, `Score: ${gameState.score}`, {
-    font: 'bold 28px Arial',
-    fill: '#F9A8D4'
-  });
-  scoreText.setOrigin(0.5, 0);
-
-  const maxComboText = scene.add.text(width / 2, 190, `Max Combo: ${gameState.maxCombo}`, {
-    font: '20px Arial',
-    fill: '#FFFFFF'
-  });
-  maxComboText.setOrigin(0.5, 0);
-
-  createButton(scene, width / 2 - 100, height - 100, 'Replay', () => {
-    startSong(scene, gameState.selectedSong);
-  });
-
-  createButton(scene, width / 2 + 100, height - 100, 'Song List', () => {
-    gameState.currentScreen = SCREEN.SONG_SELECT;
-    gameState.isPlaying = false;
-    rebuildSongSelectScreen(scene);
-  });
-}
-
 // ─── Utility Functions ──────────────────────────────────────
-function cancelSpawnTimers() {
-  gameState.spawnTimers.forEach(timerId => {
-    clearTimeout(timerId);
-  });
-  gameState.spawnTimers = [];
-}
-
 function clearAllPhaserObjects(scene) {
-  cancelSpawnTimers();
-  gameState.keyboardState.clear();
+  stateManager.clearSpawnTimers();
+  stateManager.clearKeyboardState();
   scene.children.list.slice().forEach(child => child.destroy());
 }
