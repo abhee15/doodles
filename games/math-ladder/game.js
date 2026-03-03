@@ -363,15 +363,12 @@ function showStartScreen(scene) {
   const btnX = centerX;
   const btnY = Math.min(scene.scale.height * 0.7, 450); // Cap at 450px to stay visible
 
-  console.log('Start Screen Button Position:', { btnX, btnY, viewportHeight: scene.scale.height });
-
   const startBtn = createButton(
     scene,
     btnX,
     btnY,
     'START CLIMBING!',
     () => {
-      console.log('Button clicked - starting game');
       els.forEach(e => e.destroy());
       startBtn.destroy();
       startGameplay(scene);

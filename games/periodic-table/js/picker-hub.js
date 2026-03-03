@@ -119,8 +119,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // Add event listener for back button
   document.getElementById('btn-back-to-recommended').addEventListener('click', toggleAlternatives);
-
-  console.log('Picker Hub initialized');
 });
 
 /**

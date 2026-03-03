@@ -108,12 +108,9 @@ function initGame() {
       e.stopPropagation();
       const currentScreen = nav.currentScreen;
 
-      console.log(`Back button clicked from screen: ${currentScreen}`);
-
       // Always go to parent screen
       if (currentScreen === 'category') {
         // From category, go to portal
-        console.log('Navigating to portal');
         window.location.href = '../../index.html#brain-spark';
       } else if (
         currentScreen === 'play' ||
@@ -121,7 +118,6 @@ function initGame() {
         currentScreen === 'results'
       ) {
         // From any quiz screen, go back to category picker
-        console.log('Navigating back to category selection');
         // Reset screen stack and go to category
         nav.screenStack = ['category'];
         nav.goToScreen('category');
@@ -151,7 +147,6 @@ function initGame() {
     continueBtn.addEventListener('click', e => {
       e.preventDefault();
       e.stopPropagation();
-      console.log('Continue button clicked - moving to next question');
       nextQuestion();
     });
   } else {

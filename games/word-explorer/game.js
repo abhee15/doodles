@@ -880,24 +880,18 @@ function renderMyWordsList() {
 
 document.addEventListener('DOMContentLoaded', () => {
   try {
-    console.log('Word Explorer: Initializing...');
-
     if (typeof WORDS === 'undefined' || typeof WORD_CATEGORIES === 'undefined') {
       console.error('Data not loaded. Ensure words-data.js is loaded before game.js');
       return;
     }
 
     initializeData();
-    console.log(`✓ Data initialized: ${WORD_CATEGORIES.length} categories, ${WORDS.length} words`);
 
     loadProgress();
-    console.log('✓ Progress loaded');
 
     initNavigation();
-    console.log('✓ Navigation initialized');
 
     goToScreen('landing');
-    console.log('✓ Landing screen loaded');
   } catch (error) {
     console.error('Word Explorer initialization error:', error);
   }

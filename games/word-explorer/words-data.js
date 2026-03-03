@@ -1505,10 +1505,3 @@ window.WORDS = [
     ]
   }
 ];
-
-// Verify all words have required fields (for debugging)
-if (typeof window !== 'undefined') {
-  console.log(
-    `✓ Word Explorer: ${WORD_CATEGORIES.length} categories, ${WORDS.length} words loaded`
-  );
-}

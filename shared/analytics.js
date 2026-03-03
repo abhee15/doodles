@@ -20,9 +20,6 @@ const GA_MEASUREMENT_ID = 'G-GMLMMLZB3Y'; // Doodles Analytics
   const script = document.createElement('script');
   script.async = true;
   script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-  script.onload = function () {
-    console.log('✓ Google Analytics loaded successfully');
-  };
   document.head.appendChild(script);
 })();
 

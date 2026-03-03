@@ -44,8 +44,6 @@ class PeriodicTableGameEngine {
           id: el.atomicNumber
         }))
       };
-
-      console.log('Element data loaded:', this.elementData.elements.length, 'elements');
     } catch (error) {
       console.error('Error loading element data:', error);
       this.elementData = { elements: [] };
@@ -61,8 +59,6 @@ class PeriodicTableGameEngine {
     }
 
     this.elements = this.elementData.elements.filter(el => el.chunk === this.chunk);
-
-    console.log(`Loaded ${this.elements.length} elements for Chunk ${this.chunk}`);
   }
 
   /**
@@ -143,8 +139,6 @@ class PeriodicTableGameEngine {
    * STORY CHAIN TECHNIQUE
    */
   setupStoryChainUI() {
-    console.log('Setting up Story Chain UI');
-
     const uiDiv = document.getElementById('story-chain-ui');
     uiDiv.style.display = 'block';
 
@@ -168,8 +162,6 @@ class PeriodicTableGameEngine {
    * MEMORY PALACE TECHNIQUE
    */
   setupMemoryPalaceUI() {
-    console.log('Setting up Memory Palace UI');
-
     const uiDiv = document.getElementById('memory-palace-ui');
     uiDiv.style.display = 'block';
 
@@ -251,8 +243,6 @@ class PeriodicTableGameEngine {
    * BODY MAP TECHNIQUE
    */
   setupBodyMapUI() {
-    console.log('Setting up Body Map UI');
-
     const uiDiv = document.getElementById('body-map-ui');
     uiDiv.style.display = 'block';
 
@@ -335,8 +325,6 @@ class PeriodicTableGameEngine {
    * KEYWORD IMAGE TECHNIQUE
    */
   setupKeywordImageUI() {
-    console.log('Setting up Keyword Image UI');
-
     const uiDiv = document.getElementById('keyword-ui');
     uiDiv.style.display = 'block';
 
@@ -363,8 +351,6 @@ class PeriodicTableGameEngine {
    * RHYME PEGS TECHNIQUE
    */
   setupRhymePegsUI() {
-    console.log('Setting up Rhyme Pegs UI');
-
     const uiDiv = document.getElementById('rhyme-pegs-ui');
     uiDiv.style.display = 'block';
 
@@ -408,7 +394,6 @@ class PeriodicTableGameEngine {
     this.score = correct;
     this.maxScore = total;
     const percentage = (correct / total) * 100;
-    console.log(`Score: ${correct}/${total} (${percentage.toFixed(1)}%)`);
     return percentage;
   }
 }
@@ -463,8 +448,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(window.location.search);
   const chunk = urlParams.get('chunk') || '1';
   const technique = urlParams.get('technique') || 'story_chain';
-
-  console.log(`Game initialized: Chunk ${chunk}, Technique ${technique}`);
 
   // Initialize gamification system
   if (typeof initGamification === 'function') {

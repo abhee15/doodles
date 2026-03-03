@@ -115,17 +115,19 @@
 }
 
 .se-scene-canvas--3d {
+  position: relative;
   background: #05091a;
+  border: 2px solid var(--se-border);
   border-radius: 12px;
-  overflow: hidden;
   padding: 0;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
 }
 
 .se-scene-canvas--3d canvas {
   display: block;
   width: 100% !important;
   height: 100% !important;
-  border-radius: 12px;
 }
 
 /* SVG Element Animations */

@@ -528,13 +528,6 @@ const config = createGameConfig({
       const btnPlay = document.getElementById('btn-play');
       const backBtn = document.getElementById('game-back-btn');
 
-      console.log('Piano Keys Game Initialize:', {
-        menuScreen: !!menuScreen,
-        btnLearn: !!btnLearn,
-        btnPlay: !!btnPlay,
-        backBtn: !!backBtn
-      });
-
       btnLearn.addEventListener('click', () => {
         menuScreen.style.display = 'none';
         const canvas = document.querySelector('canvas');
@@ -697,14 +690,6 @@ function buildPianoKeyboard(scene) {
   const pianoX = (width - pianoStripWidth) / 2;
   stateManager.state.pianoY = pianoY;
 
-  console.log('Building piano keyboard:', {
-    width,
-    height,
-    isPortrait,
-    whiteKeyHeight,
-    pianoStripWidth
-  });
-
   stateManager.clearKeyboardState();
 
   // White keys
@@ -832,8 +817,6 @@ function buildPianoKeyboard(scene) {
 
   const hitLineY = stateManager.state.pianoY - 22;
   scene.add.line(0, hitLineY, 0, hitLineY, width, hitLineY, 0xffd700);
-
-  console.log('Piano keyboard built - total keys:', stateManager.state.keyboardState.size);
 }
 
 function handleKeyPress(scene, noteName) {
@@ -1065,7 +1048,6 @@ function rebuildChordLessonScreen(scene) {
 }
 
 function selectChord(scene, chord) {
-  console.log('Chord selected:', chord.label, 'Keys:', chord.keys);
   stateManager.setCurrentChord(chord);
   stateManager.highlightKeys(chord.keys);
 

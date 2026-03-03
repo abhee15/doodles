@@ -2143,6 +2143,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Attach landing screen mode buttons
+  const btnLandmarkHunt = document.getElementById('btn-landmark-hunt');
+  const btnCollections = document.getElementById('btn-collections');
+  const btnFavorites = document.getElementById('btn-favorites');
+
+  if (btnLandmarkHunt) {
+    btnLandmarkHunt.addEventListener('click', () => goToScreen('landmark-hunt'));
+  }
+  if (btnCollections) {
+    btnCollections.addEventListener('click', () => goToScreen('collections'));
+  }
+  if (btnFavorites) {
+    btnFavorites.addEventListener('click', () => goToScreen('favorites'));
+  }
+
   // Rotate banner fact on page load and every 10 seconds
   rotateBanner();
   setInterval(rotateBanner, 10000);

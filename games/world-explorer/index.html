@@ -212,7 +212,6 @@
       .search-input:focus {
         outline: none;
         border-color: var(--dom-accent);
-        box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.1);
       }
 
       .search-input::placeholder {
@@ -929,7 +928,7 @@
   <body>
     <!-- Navigation Bar -->
     <nav class="dom-nav">
-      <a href="../../index.html#world-explorer"> <i class="ti ti-arrow-left"></i> Back </a>
+      <a id="game-back-btn" href="../../index.html#world-explorer"> <i class="ti ti-arrow-left"></i> Back </a>
       <span class="dom-nav-title">World Explorer</span>
       <span class="dom-nav-meta" id="nav-meta"> Explored: 0/195 🌍 </span>
     </nav>
@@ -974,7 +973,7 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 24px">
           <button
             class="dom-btn dom-btn--primary"
-            onclick="goToScreen('landmark-hunt')"
+            id="btn-landmark-hunt"
             style="padding: 16px; font-size: 14px"
           >
             <i class="ti ti-target-off" style="font-size: 20px; display: block; margin-bottom: 8px"></i>
@@ -982,7 +981,7 @@
           </button>
           <button
             class="dom-btn dom-btn--secondary"
-            onclick="goToScreen('collections')"
+            id="btn-collections"
             style="padding: 16px; font-size: 14px"
           >
             <i class="ti ti-bookmarks" style="font-size: 20px; display: block; margin-bottom: 8px"></i>
@@ -990,7 +989,7 @@
           </button>
           <button
             class="dom-btn dom-btn--secondary"
-            onclick="goToScreen('favorites')"
+            id="btn-favorites"
             style="padding: 16px; font-size: 14px"
           >
             <i class="ti ti-heart" style="font-size: 20px; display: block; margin-bottom: 8px"></i>
