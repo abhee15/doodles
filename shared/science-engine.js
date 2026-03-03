@@ -353,7 +353,18 @@ class ScienceStory {
     const canvas = document.getElementById('se-3d-canvas');
     const handler = window.SCENE_3D && window.SCENE_3D[scene.sceneKey];
     if (handler) {
-      this.threeRenderer = handler(canvas);
+      try {
+        this.threeRenderer = handler(canvas);
+      } catch (error) {
+        console.error('3D scene handler error:', error);
+        // Fallback: show error message to user
+        const errorDiv = document.createElement('div');
+        errorDiv.style.cssText = 'color: red; padding: 20px; text-align: center;';
+        errorDiv.textContent = `Error loading 3D scene: ${error.message}`;
+        canvas.parentElement.appendChild(errorDiv);
+      }
+    } else {
+      console.warn(`3D scene handler not found for: ${scene.sceneKey}`);
     }
 
     // Show term badges with stagger
