@@ -610,6 +610,16 @@ function goBackScreen(scene) {
     if (canvas) {
       canvas.style.pointerEvents = 'none';
     }
+  } else if (gameState.currentScreen === SCREEN.LEARN_SONG) {
+    // Going back from chord lesson to song selection
+    gameState.selectedChordSong = null;
+    gameState.currentChordIndex = 0;
+    if (gameState.chordLessonTimer) {
+      clearTimeout(gameState.chordLessonTimer);
+      gameState.chordLessonTimer = null;
+    }
+    gameState.currentScreen = SCREEN.LEARN;
+    rebuildLearnScreen(scene);
   } else if (gameState.currentScreen === SCREEN.LEARN) {
     // Going back to menu from Learn Chords
     gameState.currentScreen = SCREEN.MENU;
@@ -848,12 +858,23 @@ function handleKeyRelease(keyObj) {
 
 // ─── Learn Chords Screen ────────────────────────────────────
 function rebuildLearnScreen(scene) {
+  // If no song selected, show chord song selection menu
+  if (!gameState.selectedChordSong) {
+    rebuildChordSongSelectScreen(scene);
+    return;
+  }
+
+  // Otherwise show the chord progression lesson
+  rebuildChordLessonScreen(scene);
+}
+
+function rebuildChordSongSelectScreen(scene) {
   clearAllPhaserObjects(scene);
   const width = scene.cameras.main.width;
   const height = scene.cameras.main.height;
   const isPortrait = height > width;
 
-  // On mobile portrait: show full-screen rotation message, hide piano
+  // On mobile portrait: show rotation message
   if (gameState.isMobile && isPortrait) {
     const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
     bg.setOrigin(0.5, 0.5);
@@ -883,148 +904,197 @@ function rebuildLearnScreen(scene) {
     );
     subtitle.setOrigin(0.5, 0.5);
 
-    return; // Don't render piano in portrait
+    return;
   }
 
-  // On mobile landscape, minimize title & buttons to maximize piano
-  const isMobileLandscape = gameState.isMobile && !isPortrait;
+  // Title
+  const title = scene.add.text(width / 2, 20, '🎵 Learn Chord Progressions', {
+    font: 'bold 28px Arial',
+    fill: '#F9A8D4',
+    align: 'center'
+  });
+  title.setOrigin(0.5, 0);
 
-  // Hide all title on landscape to save space
-  if (!isMobileLandscape) {
-    // Show title only on desktop
-    const titleY = 20;
-    const titleSize = '32px';
-    const title = scene.add.text(width / 2, titleY, 'Learn Chords', {
-      font: `bold ${titleSize} Arial`,
+  // Subtitle
+  const subtitle = scene.add.text(
+    width / 2,
+    60,
+    'Choose a song to learn how to play it with chords',
+    {
+      font: '14px Arial',
+      fill: '#CCCCCC',
+      align: 'center'
+    }
+  );
+  subtitle.setOrigin(0.5, 0);
+
+  // Song cards
+  const cardWidth = Math.min(280, (width - 40) / 2);
+  const cardHeight = 100;
+  const cardsPerRow = Math.floor((width - 40) / (cardWidth + 20));
+  const cardStartY = 130;
+  const cardStartX = (width - cardsPerRow * (cardWidth + 20) + 20) / 2;
+
+  CHORD_SONGS.forEach((song, idx) => {
+    const row = Math.floor(idx / cardsPerRow);
+    const col = idx % cardsPerRow;
+    const x = cardStartX + col * (cardWidth + 20);
+    const y = cardStartY + row * (cardHeight + 20);
+
+    const card = scene.add.rectangle(x, y, cardWidth, cardHeight, 0x1a3a52);
+    card.setStrokeStyle(2, 0x86efac);
+    card.setInteractive();
+
+    const songTitle = scene.add.text(x, y - 30, song.title, {
+      font: 'bold 16px Arial',
+      fill: '#F9A8D4',
+      align: 'center'
+    });
+    songTitle.setOrigin(0.5, 0.5);
+
+    // Show chord progression (e.g., "C - G - C")
+    const chordProgression = song.chords.map(c => c.label.split(' ')[0]).join(' - ');
+    const progressText = scene.add.text(x, y + 10, chordProgression, {
+      font: '12px Arial',
+      fill: '#86efac',
+      align: 'center'
+    });
+    progressText.setOrigin(0.5, 0.5);
+
+    card.on('pointerover', () => card.setScale(1.05));
+    card.on('pointerout', () => card.setScale(1));
+    card.on('pointerdown', () => {
+      gameState.selectedChordSong = song;
+      gameState.currentChordIndex = 0;
+      gameState.currentScreen = SCREEN.LEARN_SONG;
+      rebuildChordLessonScreen(scene);
+    });
+  });
+}
+
+function rebuildChordLessonScreen(scene) {
+  clearAllPhaserObjects(scene);
+  const width = scene.cameras.main.width;
+  const height = scene.cameras.main.height;
+  const isPortrait = height > width;
+
+  // On mobile portrait: show rotation message
+  if (gameState.isMobile && isPortrait) {
+    const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
+    bg.setOrigin(0.5, 0.5);
+
+    const rotateIcon = scene.add.text(width / 2, height / 2 - 80, '🔄', {
+      font: 'bold 80px Arial',
       fill: '#F9A8D4'
+    });
+    rotateIcon.setOrigin(0.5, 0.5);
+
+    const rotateText = scene.add.text(width / 2, height / 2 + 20, 'Rotate Your Phone', {
+      font: 'bold 28px Arial',
+      fill: '#F9A8D4',
+      align: 'center'
+    });
+    rotateText.setOrigin(0.5, 0.5);
+
+    return;
+  }
+
+  // Chord lesson - show one chord at a time
+  const isMobileLandscape = gameState.isMobile && !isPortrait;
+  const song = gameState.selectedChordSong;
+  const currentChord = song.chords[gameState.currentChordIndex];
+  const chordInfo = CHORDS.find(c => c.id === currentChord.id);
+
+  // Song title
+  if (!isMobileLandscape) {
+    const title = scene.add.text(width / 2, 20, `🎵 ${song.title}`, {
+      font: 'bold 28px Arial',
+      fill: '#F9A8D4',
+      align: 'center'
     });
     title.setOrigin(0.5, 0);
   }
 
-  // Chord buttons - hide on landscape, show on portrait/desktop
-  if (!isMobileLandscape) {
-    const chordGridX = width * 0.05;
-    const chordGridW = width * 0.9;
-    const buttonsPerRow = width > 768 ? 3 : isPortrait ? 2 : 3;
-    const buttonWidth = (chordGridW - (buttonsPerRow - 1) * 10) / buttonsPerRow;
-    const buttonHeight = gameState.isMobile && isPortrait ? 40 : 50;
-    const chordStartY = gameState.isMobile && isPortrait ? 50 : 80;
+  // Current chord display (big and clear)
+  const chordDisplayY = isMobileLandscape ? HUD_HEIGHT + 15 : 80;
+  const chordLabel = scene.add.text(width / 2, chordDisplayY, chordInfo.label, {
+    font: 'bold 48px Arial',
+    fill: chordInfo.color === undefined ? '#FFFFFF' : '#FFFFFF',
+    align: 'center'
+  });
+  chordLabel.setOrigin(0.5, 0);
 
-    CHORDS.forEach((chord, idx) => {
-      const row = Math.floor(idx / buttonsPerRow);
-      const col = idx % buttonsPerRow;
-      const x = chordGridX + col * (buttonWidth + 10) + buttonWidth / 2;
-      const y = chordStartY + row * (buttonHeight + 10);
+  // Notes in the chord (e.g., "C - E - G")
+  const chordNotation = scene.add.text(width / 2, chordDisplayY + 60, chordInfo.keys.join(' - '), {
+    font: '24px Arial',
+    fill: '#86efac',
+    align: 'center'
+  });
+  chordNotation.setOrigin(0.5, 0);
 
-      const btn = scene.add.rectangle(x, y, buttonWidth, buttonHeight, chord.color);
-      btn.setInteractive();
-      btn.setStrokeStyle(2, 0xffffff);
-
-      // Chord name (top line)
-      const text = scene.add.text(x, y - 6, chord.label, {
-        font: `bold ${gameState.isMobile && isPortrait ? 11 : 13}px Arial`,
-        fill: '#FFFFFF'
-      });
-      text.setOrigin(0.5, 0.5);
-
-      // Chord notes notation (bottom line, e.g., "C-E-G")
-      const notesNotation = chord.keys.join('-');
-      const notesText = scene.add.text(x, y + 8, notesNotation, {
-        font: `${gameState.isMobile && isPortrait ? 9 : 11}px Arial`,
-        fill: '#F0F0F0'
-      });
-      notesText.setOrigin(0.5, 0.5);
-
-      btn.on('pointerover', () => btn.setScale(1.05));
-      btn.on('pointerout', () => btn.setScale(1));
-      btn.on('pointerdown', () => selectChord(scene, chord));
-    });
-  }
+  // Progress indicator
+  const progressText = scene.add.text(
+    width / 2,
+    chordDisplayY + 110,
+    `Chord ${gameState.currentChordIndex + 1} of ${song.chords.length}`,
+    {
+      font: '14px Arial',
+      fill: '#AAAAAA',
+      align: 'center'
+    }
+  );
+  progressText.setOrigin(0.5, 0);
 
   buildPianoKeyboard(scene);
 
-  // Instructions and buttons positioned differently for landscape
-  let instructionY, playButtonY, buttonSpacing, centerX;
-
-  if (isMobileLandscape) {
-    // On landscape: put buttons above piano to avoid overlap
-    instructionY = HUD_HEIGHT + 8;
-    playButtonY = HUD_HEIGHT + 40;
-    buttonSpacing = 100;
-    centerX = width / 2;
-  } else {
-    // On portrait/desktop: buttons below piano
-    instructionY = gameState.pianoY + 40;
-    playButtonY = instructionY + 35;
-    buttonSpacing = 120;
-    centerX = width / 2;
-  }
-
-  if (!isMobileLandscape) {
-    const instructions = scene.add.text(
-      width / 2,
-      instructionY,
-      'Click a chord to highlight the keys',
-      {
-        font: '12px Arial',
-        fill: '#CCCCCC',
-        align: 'center'
-      }
-    );
-    instructions.setOrigin(0.5, 0);
-  }
-
-  // Play Chord button (repeatable)
-  createButton(scene, centerX - buttonSpacing / 2, playButtonY, '▶ Play Chord', () => {
-    if (gameState.currentChord) {
-      playChordArpeggio(scene);
-    }
-  });
-
-  // Auto-Play Toggle button
-  const toggleText = gameState.autoPlayChord ? '⏸ Stop Repeat' : '🔄 Auto Repeat';
-  const toggleColor = gameState.autoPlayChord ? 0x4caf50 : 0x666666;
-  const toggleBtn = scene.add.rectangle(
-    centerX + buttonSpacing / 2,
-    playButtonY,
-    100,
-    50,
-    toggleColor
-  );
-  toggleBtn.setInteractive();
-  toggleBtn.setStrokeStyle(2, 0xffffff);
-
-  const toggleLabel = scene.add.text(centerX + buttonSpacing / 2, playButtonY, toggleText, {
-    font: 'bold 12px Arial',
-    fill: '#FFFFFF'
-  });
-  toggleLabel.setOrigin(0.5, 0.5);
-
-  toggleBtn.on('pointerdown', () => {
-    gameState.autoPlayChord = !gameState.autoPlayChord;
-
-    if (gameState.autoPlayChord && gameState.currentChord) {
-      // Start auto-play loop (every 3 seconds)
-      playChordArpeggio(scene);
-      gameState.autoPlayTimer = setInterval(() => {
-        if (gameState.currentScreen === SCREEN.LEARN && gameState.currentChord) {
-          playChordArpeggio(scene);
-        }
-      }, 3000);
+  // Highlight the current chord keys on the piano
+  gameState.highlightedKeys.clear();
+  chordInfo.keys.forEach(key => gameState.highlightedKeys.add(key));
+  gameState.keyboardState.forEach((keyState, noteName) => {
+    if (gameState.highlightedKeys.has(noteName)) {
+      keyState.obj.setFillStyle(chordInfo.color || 0xffd700);
     } else {
-      // Stop auto-play
-      if (gameState.autoPlayTimer) {
-        clearInterval(gameState.autoPlayTimer);
-        gameState.autoPlayTimer = null;
+      if (keyState.obj.keyType === 'white') {
+        keyState.obj.setFillStyle(0xffffff);
+      } else {
+        keyState.obj.setFillStyle(0x000000);
       }
     }
+  });
 
-    // Rebuild screen to update button color
+  // Play the chord immediately
+  gameState.currentChord = chordInfo;
+  playChordArpeggio(scene);
+
+  // Auto-advance to next chord after 4 seconds
+  if (gameState.chordLessonTimer) {
+    clearTimeout(gameState.chordLessonTimer);
+  }
+  gameState.chordLessonTimer = setTimeout(() => {
+    gameState.currentChordIndex = (gameState.currentChordIndex + 1) % song.chords.length;
+    rebuildChordLessonScreen(scene);
+  }, 4000);
+
+  // Back button to return to song selection
+  const buttonY = isMobileLandscape ? HUD_HEIGHT + 50 : gameState.pianoY + 40;
+  createButton(scene, width / 2 - 100, buttonY, '← Back', () => {
+    gameState.selectedChordSong = null;
+    gameState.currentChordIndex = 0;
+    if (gameState.chordLessonTimer) {
+      clearTimeout(gameState.chordLessonTimer);
+      gameState.chordLessonTimer = null;
+    }
     rebuildLearnScreen(scene);
   });
 
-  toggleBtn.on('pointerover', () => toggleBtn.setScale(1.05));
-  toggleBtn.on('pointerout', () => toggleBtn.setScale(1));
+  // Instructions
+  const instructionY = isMobileLandscape ? HUD_HEIGHT + 50 : gameState.pianoY + 40;
+  const instrText = scene.add.text(width / 2 + 100, instructionY, 'Play along with the chord!', {
+    font: '12px Arial',
+    fill: '#86efac',
+    align: 'center'
+  });
+  instrText.setOrigin(0.5, 0.5);
 }
 
 function selectChord(scene, chord) {
