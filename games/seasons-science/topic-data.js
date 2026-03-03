@@ -15,62 +15,16 @@ window.TOPIC_DATA = {
     {
       id: 'tilted-axis',
       title: "Earth's Tilted Axis",
+      renderType: '3d',
+      sceneKey: 'seasons-3d-tilt',
       narration:
         "Earth's axis is tilted 23.5 degrees! This tilt is the key to seasons. If Earth's axis were straight up and down, every place would have the same temperature year-round. But because it's tilted, different parts of Earth receive more or less direct sunlight at different times of year.",
-      svg: {
-        viewBox: '0 0 400 300',
-        elements: [
-          {
-            id: 'sun-tilt',
-            type: 'circle',
-            cx: 80,
-            cy: 150,
-            r: 25,
-            fill: '#fbbf24',
-            class: 'se-anim-pulse'
-          },
-          {
-            id: 'earth-orbit-tilt',
-            type: 'ellipse',
-            cx: 200,
-            cy: 150,
-            rx: 90,
-            ry: 70,
-            fill: 'none',
-            stroke: '#ddd',
-            strokeWidth: 2
-          },
-          { id: 'earth-tilt', type: 'circle', cx: 250, cy: 200, r: 35, fill: '#22c55e' },
-          {
-            id: 'axis-line',
-            type: 'line',
-            x1: 250,
-            y1: 165,
-            x2: 250,
-            y2: 235,
-            stroke: '#ff6b6b',
-            strokeWidth: 3,
-            class: 'se-anim-appear'
-          },
-          {
-            id: 'tilt-angle',
-            type: 'text',
-            x: 270,
-            y: 200,
-            fontSize: 14,
-            fill: '#ff6b6b',
-            fontWeight: 'bold'
-          }
-        ]
-      },
       terms: [
         {
           word: 'Axial Tilt',
           definition:
             "The 23.5-degree angle of Earth's axis compared to its orbital plane. This tilt causes seasons.",
-          emoji: '↗️',
-          attachTo: '#axis-line',
-          labelPosition: 'right'
+          emoji: '↗️'
         }
       ]
     },

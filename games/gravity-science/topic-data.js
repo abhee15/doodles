@@ -15,84 +15,21 @@ window.TOPIC_DATA = {
     {
       id: 'invisible-force',
       title: 'An Invisible Force',
+      renderType: '3d',
+      sceneKey: 'gravity-3d-force',
       narration:
         "Gravity is an invisible force that pulls objects toward each other. Even though you can't see it, you feel it every moment! Gravity pulls you toward Earth, keeping your feet on the ground. Every object in the universe has gravity, but bigger objects have stronger gravity.",
-      svg: {
-        viewBox: '0 0 400 300',
-        elements: [
-          { id: 'earth-grav', type: 'circle', cx: 200, cy: 200, r: 60, fill: '#22c55e' },
-          {
-            id: 'person',
-            type: 'g',
-            children: [
-              { id: 'person-circle', type: 'circle', cx: 200, cy: 80, r: 8, fill: '#f59e0b' },
-              {
-                id: 'person-body',
-                type: 'line',
-                x1: 200,
-                y1: 88,
-                x2: 200,
-                y2: 110,
-                stroke: '#f59e0b',
-                strokeWidth: 3
-              }
-            ]
-          },
-          {
-            id: 'gravity-arrows',
-            type: 'g',
-            children: [
-              {
-                id: 'arrow1',
-                type: 'path',
-                d: 'M 200 100 L 200 140',
-                stroke: '#7c3aed',
-                strokeWidth: 3,
-                fill: 'none',
-                markerEnd: 'url(#arrowhead)',
-                class: 'se-anim-float-up'
-              },
-              {
-                id: 'arrow2',
-                type: 'path',
-                d: 'M 180 100 L 180 140',
-                stroke: '#7c3aed',
-                strokeWidth: 3,
-                fill: 'none',
-                markerEnd: 'url(#arrowhead)',
-                class: 'se-anim-float-up',
-                style: 'animation-delay:0.1s'
-              },
-              {
-                id: 'arrow3',
-                type: 'path',
-                d: 'M 220 100 L 220 140',
-                stroke: '#7c3aed',
-                strokeWidth: 3,
-                fill: 'none',
-                markerEnd: 'url(#arrowhead)',
-                class: 'se-anim-float-up',
-                style: 'animation-delay:0.2s'
-              }
-            ]
-          }
-        ]
-      },
       terms: [
         {
           word: 'Gravity',
           definition:
             'An invisible force that pulls objects toward each other. Stronger for bigger objects.',
-          emoji: '⬇️',
-          attachTo: '#arrow1',
-          labelPosition: 'right'
+          emoji: '⬇️'
         },
         {
           word: 'Force',
           definition: 'A push or pull that can change how an object moves or its shape.',
-          emoji: '💪',
-          attachTo: '#earth-grav',
-          labelPosition: 'bottom'
+          emoji: '💪'
         }
       ]
     },

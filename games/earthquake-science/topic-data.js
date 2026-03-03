@@ -15,81 +15,21 @@ window.TOPIC_DATA = {
     {
       id: 'tectonic-plates',
       title: 'Tectonic Plates',
+      renderType: '3d',
+      sceneKey: 'earthquake-3d-plates',
       narration:
         "Earth's crust is divided into large pieces called tectonic plates. These plates are always moving—very slowly! They move just a few centimeters per year. Over millions of years, these movements have shaped our continents and oceans. Where plates meet, earthquakes often happen.",
-      svg: {
-        viewBox: '0 0 400 300',
-        elements: [
-          {
-            id: 'plate-1',
-            type: 'rect',
-            x: 0,
-            y: 60,
-            width: 180,
-            height: 140,
-            fill: '#92400e',
-            stroke: '#333',
-            strokeWidth: 3
-          },
-          {
-            id: 'plate-2',
-            type: 'rect',
-            x: 220,
-            y: 60,
-            width: 180,
-            height: 140,
-            fill: '#a0600e',
-            stroke: '#333',
-            strokeWidth: 3
-          },
-          {
-            id: 'fault-line',
-            type: 'line',
-            x1: 200,
-            y1: 50,
-            x2: 200,
-            y2: 250,
-            stroke: '#b91c1c',
-            strokeWidth: 3,
-            class: 'se-anim-ray'
-          },
-          {
-            id: 'arrow-left',
-            type: 'path',
-            d: 'M 180 150 L 150 150 M 150 150 L 160 140 M 150 150 L 160 160',
-            stroke: '#f97316',
-            strokeWidth: 2,
-            fill: 'none',
-            class: 'se-anim-ray',
-            style: 'animation-delay:0.2s'
-          },
-          {
-            id: 'arrow-right',
-            type: 'path',
-            d: 'M 220 150 L 250 150 M 250 150 L 240 140 M 250 150 L 240 160',
-            stroke: '#f97316',
-            strokeWidth: 2,
-            fill: 'none',
-            class: 'se-anim-ray',
-            style: 'animation-delay:0.4s'
-          }
-        ]
-      },
       terms: [
         {
           word: 'Tectonic Plates',
           definition:
             "Large pieces of Earth's crust that constantly move very slowly, a few centimeters per year.",
-          emoji: '🧩',
-          attachTo: '#plate-1',
-          labelPosition: 'bottom'
+          emoji: '🧩'
         },
         {
           word: 'Fault Line',
           definition: 'The boundary where two tectonic plates meet and rub against each other.',
-          emoji: '⚡',
-          attachTo: '#fault-line',
-          labelPosition: 'right'
+          emoji: '⚡'
         }
       ]
     },

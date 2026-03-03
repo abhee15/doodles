@@ -15,78 +15,21 @@ window.TOPIC_DATA = {
     {
       id: 'hot-inside',
       title: 'Earth is Hot Inside',
+      renderType: '3d',
+      sceneKey: 'volcano-3d-magma',
       narration:
         "Deep beneath Earth's crust lies extremely hot rock called magma. This magma is so hot it can melt rock! Pressure builds up as more magma forms and has nowhere to go. Eventually, the pressure becomes so great that magma has to find a way out—through cracks in Earth's crust.",
-      svg: {
-        viewBox: '0 0 400 300',
-        elements: [
-          { id: 'crust', type: 'rect', x: 0, y: 0, width: 400, height: 80, fill: '#92400e' },
-          {
-            id: 'magma-chamber',
-            type: 'ellipse',
-            cx: 200,
-            cy: 160,
-            rx: 70,
-            ry: 60,
-            fill: '#dc2626',
-            class: 'se-anim-pulse'
-          },
-          {
-            id: 'pressure-arrow-1',
-            type: 'path',
-            d: 'M 200 100 L 200 140',
-            stroke: '#f97316',
-            strokeWidth: 3,
-            fill: 'none',
-            class: 'se-anim-appear'
-          },
-          {
-            id: 'pressure-arrow-2',
-            type: 'path',
-            d: 'M 160 160 L 130 160',
-            stroke: '#f97316',
-            strokeWidth: 3,
-            fill: 'none',
-            class: 'se-anim-appear',
-            style: 'animation-delay:0.1s'
-          },
-          {
-            id: 'pressure-arrow-3',
-            type: 'path',
-            d: 'M 240 160 L 270 160',
-            stroke: '#f97316',
-            strokeWidth: 3,
-            fill: 'none',
-            class: 'se-anim-appear',
-            style: 'animation-delay:0.2s'
-          },
-          {
-            id: 'temp-label',
-            type: 'text',
-            x: 200,
-            y: 235,
-            fontSize: 12,
-            fill: '#dc2626',
-            textAnchor: 'middle',
-            fontWeight: 'bold'
-          }
-        ]
-      },
       terms: [
         {
           word: 'Magma',
           definition:
             "Hot, liquid rock beneath Earth's surface. When it flows out, it's called lava.",
-          emoji: '🌋',
-          attachTo: '#magma-chamber',
-          labelPosition: 'bottom'
+          emoji: '🌋'
         },
         {
           word: 'Pressure',
           definition: 'A pushing force. Pressure builds up when hot magma is trapped underground.',
-          emoji: '💥',
-          attachTo: '#pressure-arrow-1',
-          labelPosition: 'right'
+          emoji: '💥'
         }
       ]
     },

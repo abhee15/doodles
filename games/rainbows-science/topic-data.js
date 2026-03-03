@@ -21,63 +21,15 @@ window.TOPIC_DATA = {
     {
       id: 'white-light',
       title: 'White Light is All Colours',
+      renderType: '3d',
+      sceneKey: 'rainbow-3d-spectrum',
       narration:
         "Sunlight looks white, but it's actually a mix of all colours of the rainbow blended together! Red, orange, yellow, green, blue, indigo, and violet are all hiding in white light. When separated, we can see each colour clearly.",
-      svg: {
-        viewBox: '0 0 400 300',
-        elements: [
-          {
-            id: 'sun-wl',
-            type: 'circle',
-            cx: 50,
-            cy: 50,
-            r: 30,
-            fill: '#ffffff',
-            stroke: '#fbbf24',
-            strokeWidth: 3,
-            class: 'se-anim-pulse'
-          },
-          {
-            id: 'white-ray',
-            type: 'line',
-            x1: 80,
-            y1: 50,
-            x2: 300,
-            y2: 150,
-            stroke: '#ffffff',
-            strokeWidth: 8,
-            class: 'se-anim-ray'
-          },
-          {
-            id: 'white-ray-bg',
-            type: 'line',
-            x1: 80,
-            y1: 50,
-            x2: 300,
-            y2: 150,
-            stroke: '#fbbf24',
-            strokeWidth: 3,
-            opacity: 0.3
-          },
-          {
-            id: 'label-white',
-            type: 'text',
-            x: 190,
-            y: 80,
-            fontSize: 14,
-            fill: '#666',
-            textAnchor: 'middle',
-            fontWeight: 'bold'
-          }
-        ]
-      },
       terms: [
         {
           word: 'White Light',
           definition: 'Light that contains all colours of the visible spectrum mixed together.',
-          emoji: '💡',
-          attachTo: '#sun-wl',
-          labelPosition: 'bottom'
+          emoji: '💡'
         }
       ]
     },
