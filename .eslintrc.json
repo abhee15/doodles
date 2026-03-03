@@ -82,7 +82,7 @@
   },
   "overrides": [
     {
-      "files": ["scripts/**/*.js", "games/**/validate-*.js"],
+      "files": ["scripts/**/*.js", "games/**/validate-*.js", "shared/element_pngs/**/*.js"],
       "rules": {
         "no-console": "off"
       }

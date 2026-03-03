@@ -210,8 +210,6 @@
       return;
     }
 
-    console.log(`✓ renderHero: Rendering hero for ${categoryId}`);
-
     // Set gradient inline
     hero.style.background = cat.gradient;
 
@@ -272,8 +270,6 @@
       console.error('❌ renderArticle: .lp-page element not found in DOM');
       return;
     }
-
-    console.log(`✓ renderArticle: Rendering ${categoryId} with ${games.length} games`);
 
     let html = '';
 
@@ -544,8 +540,6 @@
       renderArticle(root, config.categoryId, config.gradeLabel || null, games);
       renderFooter(root);
       injectJsonLd(config.categoryId, config.gradeLabel || null, games);
-
-      console.log('✅ Landing page initialized successfully');
     } catch (error) {
       console.error('❌ Error initializing landing page:', error);
       showError('An error occurred while loading the page. Please refresh and try again.');
@@ -553,18 +547,6 @@
   }
 
   document.addEventListener('DOMContentLoaded', function () {
-    console.log('🔍 DOMContentLoaded: Checking if landing page scripts loaded...');
-    console.log('  LANDING_CONFIG:', window.LANDING_CONFIG ? '✓' : '✗');
-    console.log('  GAMES:', window.GAMES ? `✓ (${window.GAMES.length} games)` : '✗');
-    console.log(
-      '  CATEGORIES:',
-      window.CATEGORIES ? `✓ (${window.CATEGORIES.length} categories)` : '✗'
-    );
-    console.log(
-      '  LANDING_CONTENT:',
-      window.LANDING_CONTENT ? `✓ (${Object.keys(window.LANDING_CONTENT).length} entries)` : '✗'
-    );
-
     // Try immediately
     if (!validate()) {
       // If validation fails, wait up to 5 seconds for scripts to load
@@ -573,7 +555,6 @@
 
       const retryInit = setInterval(function () {
         retries++;
-        console.log(`Retry ${retries}/${maxRetries}: Waiting for scripts to load...`);
 
         if (validate() || retries >= maxRetries) {
           clearInterval(retryInit);

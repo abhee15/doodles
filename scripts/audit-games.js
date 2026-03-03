@@ -113,14 +113,15 @@ function auditGame(gameDir, gameName) {
     errors.push('Found inline onclick handlers (use addEventListener instead)');
   }
 
-  // Check for console.log
-  if (gameContent.includes('console.log')) {
-    warnings.push('Found console.log statements (remove before production)');
+  // Check for console.log in ALL JS files (not just game.js)
+  const allGameJs = collectAllJs(gameDir);
+  if (allGameJs.includes('console.log')) {
+    warnings.push('Found console.log statements in JS files (remove before production)');
   }
 
-  // Check for debugger statement
-  if (gameContent.includes('debugger')) {
-    errors.push('Found debugger statement (remove before production)');
+  // Check for debugger in all JS files
+  if (allGameJs.includes('debugger')) {
+    errors.push('Found debugger statement in JS files (remove before production)');
   }
 
   // ============ UX FOR KIDS ============
@@ -284,6 +285,21 @@ function auditManifest() {
   const gameRegex = /{\s*id:\s*'([^']+)'[^}]*?category:\s*'([^']+)'/g;
   let gameMatch;
 
+  const gamesWithCategory = new Set();
+  const catFieldRegex = /id:\s*'([^']+)'[^}]*?category:\s*'[^']+'/g;
+  let catFieldMatch;
+
+  while ((catFieldMatch = catFieldRegex.exec(manifestContent)) !== null) {
+    gamesWithCategory.add(catFieldMatch[1]);
+  }
+
+  // Check all extracted games have a category field
+  games.forEach(gameId => {
+    if (!gamesWithCategory.has(gameId)) {
+      errors.push(`Game '${gameId}' missing required 'category' field`);
+    }
+  });
+
   while ((gameMatch = gameRegex.exec(manifestContent)) !== null) {
     const gameId = gameMatch[1];
     const catRef = gameMatch[2];
@@ -297,6 +313,61 @@ function auditManifest() {
 }
 
 /**
+ * Audit the portal index.html for CDN pins and preconnect
+ */
+function auditPortal() {
+  const portalPath = path.join(__dirname, '..', 'index.html');
+  const errors = [];
+  const warnings = [];
+
+  if (!fs.existsSync(portalPath)) {
+    errors.push('Could not find portal index.html');
+    return { errors, warnings };
+  }
+
+  const content = fs.readFileSync(portalPath, 'utf8');
+
+  // CDN @latest pins
+  if (/@(latest|next)\//.test(content)) {
+    errors.push('Portal index.html: CDN uses @latest/@next pin — use major version (e.g., @3)');
+  }
+
+  // Preconnect crossorigin for fonts.googleapis.com
+  if (
+    /rel="preconnect"[^>]*fonts\.googleapis\.com[^>]*>/.test(content) &&
+    !/rel="preconnect"[^>]*fonts\.googleapis\.com[^>]*crossorigin/.test(content)
+  ) {
+    errors.push('Portal index.html: fonts.googleapis.com preconnect missing crossorigin attribute');
+  }
+
+  return { errors, warnings };
+}
+
+/**
+ * Collect all JavaScript files in a game directory
+ */
+function collectAllJs(gameDir) {
+  const jsFiles = [];
+
+  // Top-level .js files
+  const topLevelFiles = fs
+    .readdirSync(gameDir)
+    .filter(f => f.endsWith('.js'))
+    .map(f => fs.readFileSync(path.join(gameDir, f), 'utf8'));
+
+  // Files in js/ subdirectory
+  const jsSubdir = path.join(gameDir, 'js');
+  const subDirFiles = fs.existsSync(jsSubdir)
+    ? fs
+        .readdirSync(jsSubdir)
+        .filter(f => f.endsWith('.js'))
+        .map(f => fs.readFileSync(path.join(jsSubdir, f), 'utf8'))
+    : [];
+
+  return [...topLevelFiles, ...subDirFiles].join('\n');
+}
+
+/**
  * Main audit function
  */
 function runAudit() {
@@ -307,9 +378,22 @@ function runAudit() {
     process.exit(1);
   }
 
+  // Filter out category landing-page directories
+  const CATEGORY_DIRS = new Set([
+    'art',
+    'geo',
+    'logic',
+    'math',
+    'memory',
+    'music',
+    'science',
+    'words'
+  ]);
+
   const games = fs
     .readdirSync(gamesDir)
-    .filter(f => fs.statSync(path.join(gamesDir, f)).isDirectory());
+    .filter(f => fs.statSync(path.join(gamesDir, f)).isDirectory())
+    .filter(f => !CATEGORY_DIRS.has(f));
 
   if (games.length === 0) {
     log.warn('No games found to audit');
@@ -317,6 +401,22 @@ function runAudit() {
   }
 
   log.header('🔍 GAME CONSISTENCY AUDIT');
+
+  // ============ PORTAL AUDIT ============
+  log.info('Checking portal index.html...\n');
+  const portalAudit = auditPortal();
+
+  if (portalAudit.errors.length === 0 && portalAudit.warnings.length === 0) {
+    log.ok('Portal index.html');
+  } else {
+    console.log(`${colors.cyan}Portal (index.html):${colors.reset}`);
+    portalAudit.errors.forEach(err => {
+      log.error(`  ${err}`);
+    });
+    portalAudit.warnings.forEach(warn => {
+      log.warn(`  ${warn}`);
+    });
+  }
 
   // ============ MANIFEST AUDIT ============
   log.info('Checking manifest consistency...\n');
@@ -336,8 +436,8 @@ function runAudit() {
 
   log.info(`\nAuditing ${games.length} games\n`);
 
-  let totalErrors = manifestAudit.errors.length;
-  let totalWarnings = manifestAudit.warnings.length;
+  let totalErrors = manifestAudit.errors.length + portalAudit.errors.length;
+  let totalWarnings = manifestAudit.warnings.length + portalAudit.warnings.length;
   const results = {};
 
   games.forEach(game => {

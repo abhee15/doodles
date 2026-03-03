@@ -197,9 +197,6 @@ function selectTechnique(techniqueType, isRecommended = false) {
   // Route to game with parameters
   const gameUrl = `game.html?chunk=${currentChunk}&technique=${techniqueType}`;
 
-  console.log(`Launching: Chunk ${currentChunk} with ${techniqueType} technique`);
-  console.log(`Redirecting to: ${gameUrl}`);
-
   window.location.href = gameUrl;
 }
 

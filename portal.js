@@ -299,17 +299,11 @@
       return;
     }
 
-    console.log(
-      `Portal: Initializing with ${GAMES.length} games in ${CATEGORIES.length} categories`
-    );
-
     injectThumbStyles();
     renderCards();
     updateNavCount();
     updateSectionCounts();
     renderFilterPills();
     renderFooter();
-
-    console.log('Portal: Initialization complete');
   });
 })();

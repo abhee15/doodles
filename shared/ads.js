@@ -16,7 +16,6 @@ const AD_SLOTS = {
 // Initialize ads
 (function () {
   if (!ADS_ENABLED) {
-    console.log('💰 Ads disabled. Enable in shared/ads.js when ready to monetize.');
     return;
   }
 
@@ -26,8 +25,6 @@ const AD_SLOTS = {
   script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`;
   script.crossOrigin = 'anonymous';
   document.head.appendChild(script);
-
-  console.log('✓ AdSense initialized');
 })();
 
 // Helper to show interstitial ad between levels
@@ -41,8 +38,6 @@ function showInterstitialAd(callback) {
 
   // Show ad, then execute callback
   // Implementation depends on ad network
-  console.log('Showing interstitial ad...');
-
   // For now, just callback
   setTimeout(() => {
     if (callback) {

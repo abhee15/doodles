@@ -198,9 +198,6 @@ STEP 6: Done!
   - Push!
 `;
 
-console.log(VALIDATION_CHECKLIST);
-console.log(QUICK_START);
-
 // Export for validation scripts
 if (typeof module !== 'undefined' && module.exports) {
   module.exports = { ID_CODES, RIDDLE_TEMPLATE };

@@ -33,6 +33,12 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+      - name: Run game audit
+        run: npm run audit
+
+      - name: Validate science topic data
+        run: npm run validate:topics
+
       - name: Check formatting
         run: npm run format:check
         continue-on-error: true

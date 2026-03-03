@@ -15,6 +15,9 @@
     "format:check": "prettier --check '**/*.{js,json,html,css,md}'",
     "validate": "npm run format:check && npm run lint",
     "audit": "node scripts/audit-games.js",
+    "validate:topics": "node scripts/validate-topics.js",
+    "audit:full": "npm run audit && npm run validate:topics",
+    "check": "npm run validate && npm run audit:full",
     "prepare": "husky install"
   },
   "devDependencies": {
