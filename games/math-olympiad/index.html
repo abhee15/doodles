@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Math Olympiad - Prep for Math Competitions for Kids | Doodles Games</title>
+    <meta name="title" content="Math Olympiad - Learn Olympiad Math for Kids" />
+    <meta
+      name="description"
+      content="Prepare for AMC 8, MOEMS, and Math Kangaroo competitions. Learn number theory, geometry, patterns, and logic with visual concepts and step-by-step examples."
+    />
+    <meta
+      name="keywords"
+      content="math olympiad, AMC 8, MOEMS, Math Kangaroo, math competition, number theory, geometry"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/math-olympiad/" />
+    <meta property="og:title" content="Math Olympiad - Learn Olympiad Math for Kids" />
+    <meta
+      property="og:description"
+      content="Prepare for AMC 8, MOEMS, and Math Kangaroo competitions. Learn number theory, geometry, patterns, and logic."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/math-olympiad/" />
+    <meta property="twitter:title" content="Math Olympiad - Learn Olympiad Math for Kids" />
+    <meta
+      property="twitter:description"
+      content="Prepare for AMC 8, MOEMS, and Math Kangaroo competitions. Learn number theory, geometry, patterns, and logic."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/math-olympiad/" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #1e3a5f;
+        --dom-accent: #f0b429;
+        --dom-accent2: #3b82f6;
+        --dom-bg: #f8faff;
+        --dom-bg-card: #ffffff;
+        --dom-border: rgba(30, 58, 95, 0.12);
+      }
+
+      /* Page layout */
+      html {
+        height: auto;
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: #1e3a5f;
+      }
+
+      /* Trophy header */
+      .landing-header {
+        text-align: center;
+        padding: 2rem 1rem 1rem;
+      }
+
+      .trophy-emoji {
+        font-size: 3.5rem;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .landing-header h1 {
+        font-size: 1.8rem;
+        color: #1e3a5f;
+        margin-bottom: 0.25rem;
+        font-weight: 800;
+      }
+
+      .landing-header p {
+        color: #666;
+        font-size: 0.95rem;
+      }
+
+      /* Topic grid */
+      .topics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+        max-width: 100%;
+      }
+
+      .topic-card {
+        background: white;
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .topic-card:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .topic-emoji {
+        font-size: 2.5rem;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .topic-name {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #1e3a5f;
+        margin-bottom: 0.25rem;
+      }
+
+      .topic-tagline {
+        font-size: 0.75rem;
+        color: #999;
+        margin-bottom: 0.75rem;
+      }
+
+      .topic-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        font-size: 0.8rem;
+      }
+
+      .status-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #ddd;
+      }
+
+      .status-dot.completed {
+        background: var(--dom-accent);
+      }
+
+      .topic-checkmark {
+        color: var(--dom-accent);
+        font-weight: 700;
+      }
+
+      /* Concept screen */
+      .concept-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1.5rem 1rem;
+        background: linear-gradient(135deg, #1e3a5f 0%, #2563eb 100%);
+        color: white;
+        border-radius: 8px;
+        margin: 1rem;
+      }
+
+      .concept-emoji {
+        font-size: 2.5rem;
+      }
+
+      .concept-header h2 {
+        font-size: 1.4rem;
+        margin: 0;
+      }
+
+      .concept-visual {
+        background: var(--dom-bg-card);
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem;
+        font-family: 'Courier New', monospace;
+        font-size: 0.85rem;
+        color: #1e3a5f;
+        line-height: 1.6;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      .concept-points {
+        padding: 0 1rem 1rem;
+      }
+
+      .concept-point {
+        margin-bottom: 1rem;
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .point-check {
+        color: var(--dom-accent);
+        flex-shrink: 0;
+        font-weight: 700;
+      }
+
+      .point-text {
+        color: #1e3a5f;
+        line-height: 1.5;
+      }
+
+      .vocab-section {
+        padding: 0 1rem 1.5rem;
+      }
+
+      .vocab-label {
+        font-weight: 600;
+        font-size: 0.9rem;
+        color: #1e3a5f;
+        margin-bottom: 0.75rem;
+      }
+
+      .vocab-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .vocab-badge {
+        background: var(--dom-accent);
+        color: white;
+        padding: 0.4rem 0.8rem;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+
+      .cta-button {
+        background: var(--dom-accent);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin: 0 1rem 1.5rem;
+        display: block;
+        width: calc(100% - 2rem);
+      }
+
+      .cta-button:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      .cta-button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Example screen */
+      .example-header {
+        padding: 1.5rem 1rem;
+        text-align: center;
+      }
+
+      .example-header h2 {
+        font-size: 1.3rem;
+        color: #1e3a5f;
+        margin: 0 0 0.5rem 0;
+      }
+
+      .example-header p {
+        color: #666;
+        font-size: 0.9rem;
+        margin: 0;
+      }
+
+      .problem-box {
+        background: var(--dom-accent2);
+        color: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem;
+        font-weight: 600;
+        font-size: 1.05rem;
+        text-align: center;
+        line-height: 1.6;
+      }
+
+      .think-prompt {
+        text-align: center;
+        padding: 1rem;
+        color: #999;
+        font-size: 0.9rem;
+      }
+
+      .steps-container {
+        padding: 0 1rem 1rem;
+      }
+
+      .step-card {
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+        animation: fadeIn 0.4s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .step-label {
+        font-weight: 700;
+        color: var(--dom-accent);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .step-text {
+        color: #1e3a5f;
+        line-height: 1.6;
+        font-size: 0.95rem;
+      }
+
+      .strategy-badge {
+        background: linear-gradient(135deg, var(--dom-accent) 0%, #d4860a 100%);
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+        margin: 1rem;
+        font-weight: 700;
+        font-size: 0.9rem;
+      }
+
+      /* Practice screen */
+      .progress-dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1.5rem 1rem 1rem;
+      }
+
+      .dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: #ddd;
+        transition: all 0.3s ease;
+      }
+
+      .dot.active {
+        background: var(--dom-accent);
+        width: 16px;
+      }
+
+      .dot.completed {
+        background: var(--dom-accent);
+      }
+
+      .problem-header {
+        padding: 0 1rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .problem-number {
+        font-weight: 700;
+        font-size: 0.95rem;
+        color: #1e3a5f;
+      }
+
+      .difficulty-badge {
+        background: #f0f0f0;
+        color: #666;
+        padding: 0.3rem 0.7rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .difficulty-badge.easy {
+        background: #c8e6c9;
+        color: #2e7d32;
+      }
+
+      .difficulty-badge.medium {
+        background: #fff9c4;
+        color: #f57f17;
+      }
+
+      .difficulty-badge.challenge {
+        background: #ffccbc;
+        color: #d84315;
+      }
+
+      .practice-question {
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 1.25rem;
+        margin: 0 1rem 1rem;
+        color: #1e3a5f;
+        font-weight: 600;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      .options-container {
+        padding: 0 1rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .option-btn {
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-weight: 600;
+        color: #1e3a5f;
+        font-size: 0.95rem;
+      }
+
+      .option-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent2);
+        transform: translateY(-2px);
+      }
+
+      .option-btn:disabled {
+        cursor: not-allowed;
+      }
+
+      .option-btn.correct {
+        border-color: #2e7d32;
+        background: #f1f8f4;
+      }
+
+      .option-btn.wrong {
+        border-color: #d32f2f;
+        background: #ffebee;
+      }
+
+      .feedback-message {
+        text-align: center;
+        padding: 0 1rem 0.5rem;
+        font-weight: 700;
+        font-size: 0.95rem;
+        animation: slideIn 0.3s ease;
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .feedback-message.correct {
+        color: #2e7d32;
+      }
+
+      .feedback-message.wrong {
+        color: #d32f2f;
+      }
+
+      .hint-btn {
+        background: transparent;
+        border: 2px solid var(--dom-accent);
+        color: var(--dom-accent);
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        margin: 0 1rem 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-size: 0.85rem;
+        width: calc(100% - 2rem);
+      }
+
+      .hint-btn:hover {
+        background: var(--dom-accent);
+        color: white;
+      }
+
+      .hint-text {
+        background: #fffacd;
+        border-left: 4px solid var(--dom-accent);
+        padding: 0.75rem;
+        margin: 0 1rem 1rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        color: #333;
+      }
+
+      .explanation {
+        background: var(--dom-bg-card);
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem;
+        color: #1e3a5f;
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+
+      .next-btn {
+        background: var(--dom-accent);
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        margin: 1rem;
+        width: calc(100% - 2rem);
+        transition: all 0.3s ease;
+      }
+
+      .next-btn:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      /* Results screen */
+      .results-container {
+        text-align: center;
+        padding: 2rem 1rem;
+      }
+
+      .stars-display {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+        animation: scaleIn 0.6s ease;
+      }
+
+      @keyframes scaleIn {
+        from {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .result-message {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: #1e3a5f;
+        margin-bottom: 1rem;
+      }
+
+      .score-display {
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-accent);
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dom-accent);
+      }
+
+      .review-section {
+        text-align: left;
+        padding: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .review-label {
+        font-weight: 700;
+        color: #1e3a5f;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+      }
+
+      .review-item {
+        background: var(--dom-bg-card);
+        border: 1px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .review-question {
+        font-weight: 600;
+        color: #1e3a5f;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+      }
+
+      .review-answer {
+        color: #d32f2f;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .review-explanation {
+        color: #2e7d32;
+        font-size: 0.9rem;
+        line-height: 1.5;
+      }
+
+      .results-buttons {
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+        margin-top: 1.5rem;
+      }
+
+      .results-buttons button {
+        flex: 1;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn-primary {
+        background: var(--dom-accent);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        border: 2px solid var(--dom-accent);
+        color: var(--dom-accent);
+      }
+
+      .btn-secondary:hover {
+        background: var(--dom-accent);
+        color: white;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .landing-header h1 {
+          font-size: 1.4rem;
+        }
+
+        .trophy-emoji {
+          font-size: 2.5rem;
+        }
+
+        .topics-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 0.75rem;
+          padding: 0.75rem;
+        }
+
+        .topic-emoji {
+          font-size: 2rem;
+        }
+
+        .results-buttons {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Navigation Bar -->
+    <nav class="dom-nav">
+      <a href="../../index.html#math-olympiad" id="game-back-btn"> <i class="ti ti-arrow-left"></i> Back </a>
+      <span class="dom-nav-title" id="nav-title">Math Olympiad</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Landing Screen -->
+    <div class="dom-screen active" data-screen="landing">
+      <div class="landing-header">
+        <span class="trophy-emoji">🏆</span>
+        <h1>Math Olympiad Prep</h1>
+        <p>Master competition math — one topic at a time!</p>
+      </div>
+
+      <div class="topics-grid" id="topics-grid"></div>
+    </div>
+
+    <!-- Concept Screen -->
+    <div class="dom-screen" data-screen="concept">
+      <div class="concept-header">
+        <span class="concept-emoji" id="concept-emoji"></span>
+        <h2 id="concept-title"></h2>
+      </div>
+
+      <div class="concept-visual" id="concept-visual"></div>
+
+      <div class="concept-points" id="concept-points"></div>
+
+      <div class="vocab-section">
+        <div class="vocab-label">Key Vocabulary</div>
+        <div class="vocab-badges" id="vocab-badges"></div>
+      </div>
+
+      <button class="cta-button" id="btn-show-example">Show me an example →</button>
+    </div>
+
+    <!-- Example Screen -->
+    <div class="dom-screen" data-screen="example">
+      <div class="example-header">
+        <h2>Let's Solve This Together</h2>
+        <p>Watch each step unfold...</p>
+      </div>
+
+      <div class="problem-box" id="example-problem"></div>
+
+      <div class="think-prompt" id="think-prompt">Think for a moment... Ready? Tap below to reveal each step.</div>
+
+      <div class="steps-container" id="steps-container"></div>
+
+      <div class="strategy-badge" id="strategy-badge"></div>
+
+      <button class="cta-button" id="btn-start-practice" disabled>Now it's your turn! →</button>
+    </div>
+
+    <!-- Practice Screen -->
+    <div class="dom-screen" data-screen="practice">
+      <div class="progress-dots" id="progress-dots"></div>
+
+      <div class="problem-header">
+        <div class="problem-number" id="problem-number"></div>
+        <div class="difficulty-badge" id="difficulty-badge"></div>
+      </div>
+
+      <div class="practice-question" id="practice-question"></div>
+
+      <div class="options-container" id="options-container"></div>
+
+      <button class="hint-btn" id="hint-btn">💡 Show Hint</button>
+
+      <div class="hint-text" id="hint-text" style="display: none"></div>
+
+      <div id="feedback-area"></div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="dom-screen" data-screen="results">
+      <div class="results-container">
+        <div class="stars-display" id="stars-display">⭐</div>
+        <div class="result-message" id="result-message"></div>
+        <div class="score-display" id="score-display"></div>
+
+        <div class="review-section" id="review-section"></div>
+
+        <div class="results-buttons">
+          <button class="btn-primary" id="btn-try-again">Try Again</button>
+          <button class="btn-secondary" id="btn-back-to-topics">Back to Topics</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Error Tracker -->
+    <script src="../../shared/error-tracker.js"></script>
+
+    <!-- Game Script -->
+    <script src="topics-data.js"></script>
+    <script src="../../shared/navigation.js"></script>
+    <script src="game.js"></script>
+
+    <!-- Analytics & Ads -->
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

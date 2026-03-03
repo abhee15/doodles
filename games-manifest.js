@@ -144,6 +144,22 @@ const GAMES = [
     footerName: 'Measure Master'
   },
   {
+    id: 'math-olympiad',
+    name: 'Math Olympiad',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Learn olympiad math step by step — number theory, geometry, patterns, and more!',
+    icon: 'ti-trophy',
+    iconColor: '#f0b429',
+    gradient: 'linear-gradient(150deg, #1e3a5f 0%, #2563eb 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-09-01',
+    footerName: 'Math Olympiad'
+  },
+  {
     id: 'body-map',
     name: 'Body Map',
     thumbClass: null,
