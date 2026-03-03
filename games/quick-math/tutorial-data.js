@@ -1012,18 +1012,18 @@ const TUTORIAL_STEPS = {
     },
     {
       title: 'The Trick',
-      text: '47 + 28:\n\nRound 28 → 30 (add 2)\n47 + 30 = 77\nBut we added 2 extra!\nSo: 77 − 2 = 75',
-      example: '47 + 28 = 75',
+      text: '247 + 168:\n\nRound 168 → 170 (add 2)\n247 + 170 = 417\nBut we added 2 extra!\nSo: 417 − 2 = 415',
+      example: '247 + 168 = 415',
       steps: [
-        '🔄 Round 28 up to 30',
-        '➕ Add: 47 + 30 = 77',
-        '➖ Adjust: 77 − 2 = 75',
-        '✅ Answer: 75'
+        '🔄 Round 168 up to 170',
+        '➕ Add: 247 + 170 = 417',
+        '➖ Adjust: 417 − 2 = 415',
+        '✅ Answer: 415'
       ]
     },
     {
       title: 'Another Example',
-      text: '63 + 19:\nRound 19 → 20 (add 1)\n63 + 20 = 83\nAdjust: 83 − 1 = 82\n\nEasier than 63 + 19 directly!',
+      text: '183 + 149:\nRound 149 → 150 (add 1)\n183 + 150 = 333\nAdjust: 333 − 1 = 332\n\nEasier than 183 + 149 directly!',
       example: '✨ Make it round! ✨',
       tip: 'Rounding makes mental math faster!'
     }
