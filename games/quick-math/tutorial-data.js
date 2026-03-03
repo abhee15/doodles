@@ -901,5 +901,156 @@ const TUTORIAL_STEPS = {
       example: '✨ Master Pattern! ✨',
       tip: 'This works because the ones digits "complete each other" to 10!'
     }
+  ],
+  22: [
+    {
+      title: '×11 Extended',
+      text: 'When the sum of digits ≥ 10!',
+      example: '',
+      mnemonic: 'Split, Add, Carry!'
+    },
+    {
+      title: 'The Challenge',
+      text: '57 × 11:\nNormal: 5 | 5+7 | 7 = 5|12|7\n\nBut 5+7=12, which is 2 digits!\nWe need to CARRY the 1',
+      example: '',
+      steps: [
+        '📍 First digit: 5',
+        '📍 Add middle: 5+7 = 12 (≥10!)',
+        '🔄 Carry the 1 to first digit: 5+1=6',
+        '✅ Result: 627'
+      ]
+    },
+    {
+      title: 'More Examples',
+      text: '78 × 11:\n7 | (7+8) | 8\n7 | 15 | 8\nCarry: (7+1) | 5 | 8 = 858\n\n95 × 11 = 1045',
+      example: '✨ Handle the carry! ✨',
+      tip: 'When middle sum ≥ 10, add 1 to the first digit!'
+    }
+  ],
+  25: [
+    {
+      title: 'Cross Multiply',
+      text: 'Two-digit magic method!',
+      example: '',
+      mnemonic: 'Vedic multiplication'
+    },
+    {
+      title: 'The Pattern',
+      text: '23 × 14:\n\n3 × 4 = 12 (right)\n2 × 4 + 3 × 1 = 8 + 3 = 11 (middle)\n2 × 1 = 2 (left)\n\nCombine: 322',
+      example: '23 × 14 = 322',
+      steps: [
+        '✖️ Ones × Ones: 3 × 4 = 12',
+        '✖️ Cross: (2 × 4) + (3 × 1) = 11',
+        '✖️ Tens × Tens: 2 × 1 = 2',
+        '🔗 Combine with carry: 322'
+      ]
+    },
+    {
+      title: 'Another Example',
+      text: '34 × 26:\n4 × 6 = 24\n(3 × 6) + (4 × 2) = 26\n3 × 2 = 6\nResult: 884',
+      example: '✨ Cross Multiply! ✨',
+      tip: 'Overlapping products = power!'
+    }
+  ],
+  26: [
+    {
+      title: 'Break Into Tens',
+      text: 'Split numbers before adding!',
+      example: '',
+      mnemonic: 'Tens + Ones'
+    },
+    {
+      title: 'The Method',
+      text: '47 + 35:\nSplit into tens and ones:\n47 = 40 + 7\n35 = 30 + 5\n\nAdd tens: 40 + 30 = 70\nAdd ones: 7 + 5 = 12\nTotal: 70 + 12 = 82',
+      example: '47 + 35 = 82',
+      steps: [
+        '📌 Split: 47 = 40 + 7',
+        '📌 Split: 35 = 30 + 5',
+        '➕ Tens: 40 + 30 = 70',
+        '➕ Ones: 7 + 5 = 12',
+        '✅ Total: 82'
+      ]
+    },
+    {
+      title: 'Why It Works',
+      text: 'Addition is easier when numbers are broken down:\n(40 + 30) + (7 + 5)\n= 70 + 12\n= 82\n\nMental math becomes simpler!',
+      example: '✨ Decompose, then add! ✨',
+      tip: 'This works for any two-digit numbers!'
+    }
+  ],
+  27: [
+    {
+      title: 'Left-to-Right Addition',
+      text: 'Add from biggest to smallest!',
+      example: '',
+      mnemonic: 'Hundreds, Tens, Ones'
+    },
+    {
+      title: 'The Pattern',
+      text: '246 + 138:\n\nHundreds: 200 + 100 = 300\nTens: 40 + 30 = 70\nOnes: 6 + 8 = 14\n\nTotal: 300 + 70 + 14 = 384',
+      example: '246 + 138 = 384',
+      steps: [
+        '💯 Hundreds: 200 + 100 = 300',
+        '➕ Tens: 40 + 30 = 70',
+        '➕ Ones: 6 + 8 = 14',
+        '✅ Add all: 300 + 70 + 14 = 384'
+      ]
+    },
+    {
+      title: 'Why Left-to-Right?',
+      text: 'Your brain naturally thinks left-to-right!\n\nNot: 6+8, then 40+30, then 200+100\nBut: 200+100, then 40+30, then 6+8\n\nMuch easier!',
+      example: '✨ Biggest first! ✨',
+      tip: 'Matches how we read and think naturally!'
+    }
+  ],
+  28: [
+    {
+      title: 'Compensation',
+      text: 'Borrow to round, then adjust!',
+      example: '',
+      mnemonic: 'Round + Fix'
+    },
+    {
+      title: 'The Trick',
+      text: '47 + 28:\n\nRound 28 → 30 (add 2)\n47 + 30 = 77\nBut we added 2 extra!\nSo: 77 − 2 = 75',
+      example: '47 + 28 = 75',
+      steps: [
+        '🔄 Round 28 up to 30',
+        '➕ Add: 47 + 30 = 77',
+        '➖ Adjust: 77 − 2 = 75',
+        '✅ Answer: 75'
+      ]
+    },
+    {
+      title: 'Another Example',
+      text: '63 + 19:\nRound 19 → 20 (add 1)\n63 + 20 = 83\nAdjust: 83 − 1 = 82\n\nEasier than 63 + 19 directly!',
+      example: '✨ Make it round! ✨',
+      tip: 'Rounding makes mental math faster!'
+    }
+  ],
+  29: [
+    {
+      title: 'Benchmark Rounding',
+      text: 'Round to nearest 10, add, adjust!',
+      example: '',
+      mnemonic: 'Round + Add + Fix'
+    },
+    {
+      title: 'The Method',
+      text: '347 + 255:\n\nRound 347 → 350 (add 3)\nRound 255 → 260 (add 5)\n350 + 260 = 610\nAdjust: 610 − 3 − 5 = 602',
+      example: '347 + 255 = 602',
+      steps: [
+        '🔄 Round 347 → 350 (+3)',
+        '🔄 Round 255 → 260 (+5)',
+        '➕ Add: 350 + 260 = 610',
+        '➖ Adjust: 610 − 8 = 602'
+      ]
+    },
+    {
+      title: 'Why It Works',
+      text: 'Numbers close to benchmarks (10, 50, 100, etc.) are easier!\n\nInstead of 347 + 255,\nwe do 350 + 260\nand adjust the difference.\n\nMuch faster mentally!',
+      example: '✨ Use benchmarks! ✨',
+      tip: 'Benchmarks make large additions manageable!'
+    }
   ]
 };
