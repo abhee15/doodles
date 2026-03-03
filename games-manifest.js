@@ -46,7 +46,7 @@ const CATEGORIES = [
     icon: 'ti-leaf',
     color: '#2E7D32',
     gradient: 'linear-gradient(145deg, #66BB6A 0%, #1B5E20 100%)',
-    footerHeading: 'Science & Memory'
+    footerHeading: 'Science & Nature'
   },
   {
     id: 'art',
@@ -305,6 +305,51 @@ const GAMES = [
     patternPosition: null,
     newUntil: '2026-08-01',
     footerName: 'Piano Keys'
+  },
+  {
+    id: 'photosynthesis-explorer',
+    name: 'Photosynthesis',
+    thumbClass: 'photosynthesis',
+    category: 'science',
+    desc: 'Journey inside a leaf and discover how plants turn sunlight into food. Explore 5 interactive scenes and run your own lab experiment!',
+    icon: 'ti-plant-2',
+    iconColor: '#4ade80',
+    gradient: 'linear-gradient(145deg, #bbf7d0 0%, #166534 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    newUntil: '2026-09-01',
+    footerName: 'Photosynthesis'
+  },
+  {
+    id: 'water-cycle',
+    name: 'Water Cycle',
+    thumbClass: 'water-cycle',
+    category: 'science',
+    desc: 'Follow a water droplet on its epic journey from ocean to cloud to rain and back again. Explore 5 interactive scenes!',
+    icon: 'ti-droplet',
+    iconColor: '#38bdf8',
+    gradient: 'linear-gradient(145deg, #bae6fd 0%, #0c4a6e 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    newUntil: '2026-09-01',
+    footerName: 'Water Cycle'
+  },
+  {
+    id: 'rainbows-science',
+    name: 'Rainbow Science',
+    thumbClass: 'rainbows-science',
+    category: 'science',
+    desc: 'Uncover the physics behind rainbows — how sunlight splits into a spectrum of colours. Explore 4 interactive scenes!',
+    icon: 'ti-rainbow',
+    iconColor: '#f472b6',
+    gradient: 'linear-gradient(145deg, #fde68a 0%, #7c3aed 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    newUntil: '2026-09-01',
+    footerName: 'Rainbow Science'
   }
 ];
 
