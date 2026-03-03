@@ -231,10 +231,8 @@ function validateTopicData(gameName, filePath) {
 
       if (!term.emoji) {
         errors.push(`Glossary term '${term.term || idx}' missing 'emoji' field`);
-      } else if (term.emoji.length !== 1) {
-        errors.push(
-          `Glossary term '${term.term || idx}' emoji should be single character, got '${term.emoji}'`
-        );
+      } else if (typeof term.emoji !== 'string' || term.emoji.trim() === '') {
+        errors.push(`Glossary term '${term.term || idx}' emoji should be a non-empty string`);
       }
 
       // Check for duplicate terms
