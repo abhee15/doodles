@@ -88,6 +88,17 @@
 .se-scene-container {
   padding: var(--se-spacing-lg);
   max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--se-spacing-lg);
+}
+
+/* 3D scenes on desktop: keep nav buttons visible */
+@media (min-width: 1024px) {
+  .se-scene-container:has(.se-scene-canvas--3d) {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 }
 
 .se-scene-content {
@@ -97,6 +108,32 @@
   width: 100%;
   max-width: var(--se-max-width);
   margin: 0 auto;
+}
+
+/* 3D scenes on desktop: side-by-side layout */
+@media (min-width: 1024px) {
+  .se-scene-content:has(> .se-scene-canvas--3d) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--se-spacing-lg);
+    max-width: 1000px;
+  }
+
+  .se-scene-content:has(> .se-scene-canvas--3d) > .se-scene-canvas--3d {
+    grid-row: 1 / 3;
+    aspect-ratio: 3 / 2;
+  }
+
+  .se-scene-content:has(> .se-scene-canvas--3d) > .se-scene-narration {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .se-scene-content:has(> .se-scene-canvas--3d) > .se-progress-dots {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+  }
 }
 
 .se-scene-canvas {
@@ -234,6 +271,19 @@
 .se-scene-nav .dom-btn {
   flex: 1;
   max-width: 200px;
+}
+
+/* Nav buttons for 3D scenes on desktop */
+@media (min-width: 1024px) {
+  .se-scene-container:has(.se-scene-canvas--3d) .se-scene-nav {
+    justify-content: flex-end;
+    gap: var(--se-spacing-md);
+    padding: var(--se-spacing-md);
+  }
+
+  .se-scene-container:has(.se-scene-canvas--3d) .se-scene-nav .dom-btn {
+    max-width: 150px;
+  }
 }
 
 /* ════════════════════════════════════════════════════════════════
