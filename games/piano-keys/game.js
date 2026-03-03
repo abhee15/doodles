@@ -252,7 +252,7 @@ const SONGS = [
   }
 ];
 
-const SCREEN = { MENU: 0, LEARN: 1, SONG_SELECT: 2, PLAY: 3, RESULTS: 4 };
+const SCREEN = { MENU: 0, LEARN: 1, LEARN_SONG: 2, SONG_SELECT: 3, PLAY: 4, RESULTS: 5 };
 
 // Keyboard mapping for desktop play
 // White keys (bottom row): Z, X, C, V, B, N, M, , = C4 through C5
@@ -319,7 +319,11 @@ const gameState = {
   keysPressed: new Set(),
   isPlaying: false,
   autoPlayChord: false,
-  autoPlayTimer: null
+  autoPlayTimer: null,
+  // Chord lesson state
+  selectedChordSong: null,
+  currentChordIndex: 0,
+  chordLessonTimer: null
 };
 
 // ─── Helper Functions ──────────────────────────────────────
