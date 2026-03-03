@@ -20,113 +20,21 @@ window.TOPIC_DATA = {
   scenes: [
     {
       id: 'earth-moon-sun',
-      title: 'The Earth, Moon, and Sun',
+      title: 'Earth, Moon & Sun',
+      renderType: '3d',
+      sceneKey: 'moon-phases-3d',
       narration:
-        "The moon orbits around Earth, and Earth orbits around the sun. The moon doesn't make its own light — it reflects sunlight! As the moon moves around Earth, we see different amounts of its lit side. This is what we call moon phases.",
-      svg: {
-        viewBox: '0 0 400 300',
-        elements: [
-          {
-            id: 'sun',
-            type: 'circle',
-            cx: 50,
-            cy: 150,
-            r: 25,
-            fill: '#fbbf24',
-            class: 'se-anim-pulse'
-          },
-          {
-            id: 'sun-rays-1',
-            type: 'line',
-            x1: 75,
-            y1: 150,
-            x2: 320,
-            y2: 150,
-            stroke: '#fde68a',
-            strokeWidth: 2,
-            class: 'se-anim-ray'
-          },
-          {
-            id: 'sun-rays-2',
-            type: 'line',
-            x1: 75,
-            y1: 120,
-            x2: 300,
-            y2: 100,
-            stroke: '#fde68a',
-            strokeWidth: 2,
-            class: 'se-anim-ray',
-            style: 'animation-delay:0.2s'
-          },
-          {
-            id: 'sun-rays-3',
-            type: 'line',
-            x1: 75,
-            y1: 180,
-            x2: 300,
-            y2: 200,
-            stroke: '#fde68a',
-            strokeWidth: 2,
-            class: 'se-anim-ray',
-            style: 'animation-delay:0.4s'
-          },
-          {
-            id: 'earth-orbit',
-            type: 'circle',
-            cx: 200,
-            cy: 150,
-            r: 100,
-            fill: 'none',
-            stroke: '#ddd',
-            strokeWidth: 1,
-            strokeDasharray: '5,5'
-          },
-          {
-            id: 'earth',
-            type: 'circle',
-            cx: 200,
-            cy: 250,
-            r: 18,
-            fill: '#22c55e',
-            class: 'se-anim-appear'
-          },
-          {
-            id: 'moon-orbit',
-            type: 'circle',
-            cx: 200,
-            cy: 250,
-            r: 35,
-            fill: 'none',
-            stroke: '#ccc',
-            strokeWidth: 1,
-            strokeDasharray: '3,3'
-          },
-          {
-            id: 'moon',
-            type: 'circle',
-            cx: 235,
-            cy: 250,
-            r: 8,
-            fill: '#9ca3af',
-            class: 'se-anim-appear',
-            style: 'animation-delay:0.2s'
-          }
-        ]
-      },
+        'The Moon orbits Earth once every 29 days. As it travels around, sunlight hits it from different angles — that is why the Moon appears to change shape each night!',
       terms: [
         {
           word: 'Orbit',
-          definition: 'The curved path that one object takes around another object in space.',
-          emoji: '🌍',
-          attachTo: '#earth-orbit',
-          labelPosition: 'right'
+          definition: 'The curved path one object takes around another due to gravity.',
+          emoji: '🔄'
         },
         {
           word: 'Lunar Cycle',
-          definition: 'The complete cycle of moon phases, taking about 29.5 days.',
-          emoji: '🔄',
-          attachTo: '#moon-orbit',
-          labelPosition: 'bottom'
+          definition: 'The 29-day journey of the Moon around Earth, creating the phases we see.',
+          emoji: '🌑'
         }
       ]
     },

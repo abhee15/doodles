@@ -19,6 +19,9 @@ class ScienceStory {
     this.quizAnswers = [];
     this.quizScore = 0;
 
+    // 3D Scene management
+    this.threeRenderer = null;
+
     // Cache quiz questions (auto-generate from glossary if not provided)
     this.quizQuestions = this.topicData.quiz || this.generateQuizFromGlossary();
 
@@ -143,6 +146,18 @@ class ScienceStory {
     const scene = this.topicData.scenes[index];
     const screen = document.querySelector('[data-screen="scene"]');
 
+    // Dispose any running Three.js renderer first
+    if (this.threeRenderer) {
+      this.threeRenderer.dispose();
+      this.threeRenderer = null;
+    }
+
+    // Handle 3D scenes
+    if (scene.renderType === '3d') {
+      this.render3DScene(scene, screen, index);
+      return;
+    }
+
     // Build SVG from elements array
     const svgElements = (scene.svg.elements || [])
       .map(el => {
@@ -235,7 +250,7 @@ class ScienceStory {
   }
 
   /**
-   * Run scene animations
+   * Run scene animations (SVG only)
    */
   runSceneAnimations(scene) {
     // Small delay to ensure SVG is rendered
@@ -253,22 +268,112 @@ class ScienceStory {
       });
 
       // Show term badges with stagger
-      const badges = document.querySelectorAll('.se-term-badge');
-      badges.forEach((badge, idx) => {
-        setTimeout(
-          () => {
-            badge.classList.add('visible');
-          },
-          500 + idx * 300
-        );
-      });
+      this.runTermBadges(scene);
     }, 100);
+  }
+
+  /**
+   * Show term badges with stagger animation (reusable for SVG and 3D)
+   */
+  runTermBadges(scene) {
+    const badges = document.querySelectorAll('.se-term-badge');
+    badges.forEach((badge, idx) => {
+      setTimeout(
+        () => {
+          badge.classList.add('visible');
+        },
+        500 + idx * 300
+      );
+    });
+  }
+
+  /**
+   * Render a 3D scene
+   */
+  render3DScene(scene, screen, index) {
+    // Build term badges
+    const termBadges = (scene.terms || [])
+      .map((term, idx) => {
+        return `
+        <div class="se-term-badge se-term-${idx}" data-term="${term.word}">
+          <span class="se-term-emoji">${term.emoji}</span>
+          <strong>${term.word}</strong>
+          <p>${term.definition}</p>
+        </div>
+      `;
+      })
+      .join('');
+
+    // Build shell with canvas placeholder
+    screen.innerHTML = `
+      <div class="se-scene-container">
+        <div class="se-scene-content">
+          <div class="se-scene-canvas se-scene-canvas--3d">
+            <canvas id="se-3d-canvas"></canvas>
+            ${termBadges}
+          </div>
+          <div class="se-scene-narration">
+            <p>${scene.narration}</p>
+          </div>
+          <div class="se-progress-dots">
+            ${Array.from(
+              { length: this.topicData.scenes.length },
+              (_, i) =>
+                `<button class="se-progress-dot ${i === index ? 'active' : ''}"
+                       data-scene="${i}" title="Scene ${i + 1}"></button>`
+            ).join('')}
+          </div>
+        </div>
+        <div class="se-scene-nav">
+          <button class="dom-btn" id="btn-prev" ${index === 0 ? 'disabled' : ''}>
+            ← Previous
+          </button>
+          <button class="dom-btn dom-btn--primary" id="btn-next">
+            ${index === this.topicData.scenes.length - 1 ? 'Go to Lab' : 'Next →'}
+          </button>
+        </div>
+      </div>
+    `;
+
+    // Wire up progress dots
+    document.querySelectorAll('.se-progress-dot').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sceneIdx = parseInt(btn.dataset.scene);
+        this.goToScene(sceneIdx);
+      });
+    });
+
+    // Wire up nav buttons
+    document.getElementById('btn-prev').addEventListener('click', () => this.prevScene());
+    document.getElementById('btn-next').addEventListener('click', () => {
+      index === this.topicData.scenes.length - 1 ? this.goToLab() : this.nextScene();
+    });
+
+    // Call registered 3D handler
+    const canvas = document.getElementById('se-3d-canvas');
+    const handler = window.SCENE_3D && window.SCENE_3D[scene.sceneKey];
+    if (handler) {
+      this.threeRenderer = handler(canvas);
+    }
+
+    // Show term badges with stagger
+    this.runTermBadges(scene);
+
+    // Update nav meta
+    document.getElementById('nav-meta').textContent =
+      `Scene ${index + 1} of ${this.topicData.scenes.length}`;
   }
 
   /**
    * Lab Experiment
    */
   goToLab() {
+    // Cleanup any running 3D renderer
+    if (this.threeRenderer) {
+      this.threeRenderer.dispose();
+      this.threeRenderer = null;
+    }
+
     // Initialize lab controls to defaults
     this.topicData.lab.controls.forEach(control => {
       this.labControls[control.id] = control.default;
@@ -547,6 +652,12 @@ class ScienceStory {
    * Glossary
    */
   goToGlossary() {
+    // Cleanup any running 3D renderer
+    if (this.threeRenderer) {
+      this.threeRenderer.dispose();
+      this.threeRenderer = null;
+    }
+
     this.renderGlossary();
     this.showScreen('glossary');
     document.getElementById('nav-meta').textContent = 'Glossary';

@@ -114,6 +114,20 @@
   display: block;
 }
 
+.se-scene-canvas--3d {
+  background: #05091a;
+  border-radius: 12px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.se-scene-canvas--3d canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 12px;
+}
+
 /* SVG Element Animations */
 .se-scene-svg [class*="se-anim-"] {
   transform-origin: center;
