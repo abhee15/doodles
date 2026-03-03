@@ -20,66 +20,94 @@ window.SCENE_3D = {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x001428);
+    // Better background: subtle gradient from dark blue to teal
+    scene.background = new THREE.Color(0x001a3d);
 
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-    camera.position.set(0, 3, 10);
+    camera.position.set(0, 2, 10);
     camera.lookAt(0, 0, 0);
 
-    // Sun (yellow sphere, pulsing)
+    // Sun (glowing yellow sphere with emissive properties)
     const sun = new THREE.Mesh(
       new THREE.SphereGeometry(2, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+      new THREE.MeshStandardMaterial({
+        color: 0xfcd34d,
+        emissive: 0xfbbf24,
+        emissiveIntensity: 0.8,
+        metalness: 0.2,
+        roughness: 0.3
+      })
     );
     sun.position.set(-8, 3, -5);
     scene.add(sun);
 
-    // Light rays (8 cones from sun toward center)
+    // Light rays (8 cones from sun - more vibrant)
     const rayMaterial = new THREE.MeshBasicMaterial({
       color: 0xfde68a,
       transparent: true,
-      opacity: 0.4
+      opacity: 0.5
     });
     for (let i = 0; i < 8; i++) {
       const angle = (i / 8) * Math.PI * 2;
-      const ray = new THREE.Mesh(new THREE.ConeGeometry(0.3, 8, 8), rayMaterial);
+      const ray = new THREE.Mesh(new THREE.ConeGeometry(0.35, 8, 8), rayMaterial);
       ray.position.set(-8 + Math.cos(angle) * 6, 3 + Math.sin(angle) * 3, -5 + Math.cos(angle) * 4);
       ray.lookAt(0, 0, 0);
       scene.add(ray);
     }
 
-    // Earth (green sphere at center)
-    const earth = new THREE.Mesh(
+    // Soil/Plant base (brown sphere)
+    const soil = new THREE.Mesh(
       new THREE.SphereGeometry(1.2, 32, 32),
-      new THREE.MeshLambertMaterial({ color: 0x22c55e })
+      new THREE.MeshStandardMaterial({
+        color: 0x8b6914,
+        metalness: 0.1,
+        roughness: 0.6,
+        emissive: 0x4d3d0a,
+        emissiveIntensity: 0.1
+      })
     );
-    scene.add(earth);
+    scene.add(soil);
 
-    // Leaf (green flat plane)
-    const leafGeo = new THREE.PlaneGeometry(2, 1.2);
-    const leafMat = new THREE.MeshLambertMaterial({ color: 0x4ade80, side: THREE.DoubleSide });
+    // Leaf (bright vibrant green)
+    const leafGeo = new THREE.PlaneGeometry(2.2, 1.4);
+    const leafMat = new THREE.MeshStandardMaterial({
+      color: 0x22c55e,
+      side: THREE.DoubleSide,
+      metalness: 0.2,
+      roughness: 0.4,
+      emissive: 0x16a34a,
+      emissiveIntensity: 0.2
+    });
     const leaf = new THREE.Mesh(leafGeo, leafMat);
-    leaf.position.set(2, 0, 0);
+    leaf.position.set(2, 0.2, 0);
     leaf.rotation.y = Math.PI / 6;
     scene.add(leaf);
 
-    // Lighting
-    const mainLight = new THREE.DirectionalLight(0xffffee, 1.5);
-    mainLight.position.set(-8, 3, -5);
+    // Enhanced lighting: strong directional + fill lights
+    const mainLight = new THREE.DirectionalLight(0xffffee, 2.5);
+    mainLight.position.set(-8, 4, -5);
     scene.add(mainLight);
-    scene.add(new THREE.AmbientLight(0x1a4d2e, 0.8));
 
-    // Animate sun pulsing and leaf rotation
+    const fillLight = new THREE.DirectionalLight(0x22c55e, 1.2);
+    fillLight.position.set(8, -2, 5);
+    scene.add(fillLight);
+
+    scene.add(new THREE.AmbientLight(0x2d5a3d, 0.9));
+
+    // Animate sun pulsing, leaf rotation, and glow effects
     let time = 0;
     let animId;
     function animate() {
       time += 0.01;
-      sun.scale.set(
-        1 + Math.sin(time) * 0.15,
-        1 + Math.sin(time) * 0.15,
-        1 + Math.sin(time) * 0.15
-      );
+      const pulse = Math.sin(time) * 0.15;
+      sun.scale.set(1 + pulse, 1 + pulse, 1 + pulse);
+      // Dynamic sun glow
+      sun.material.emissiveIntensity = 0.8 + Math.sin(time * 1.5) * 0.3;
+
+      // Leaf rotation and gentle bob
       leaf.rotation.z += 0.002;
+      leaf.position.y = 0.2 + Math.sin(time * 0.5) * 0.15;
+
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);
     }

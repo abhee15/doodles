@@ -37,6 +37,7 @@ function auditGame(gameDir, gameName) {
 
   const indexPath = path.join(gameDir, 'index.html');
   const gamePath = path.join(gameDir, 'game.js');
+  const gamePathInJs = path.join(gameDir, 'js', 'game.js'); // Allow js/ subdirectory
   const cssPath = path.join(gameDir, 'styles.css');
 
   // ============ REQUIRED FILES ============
@@ -45,8 +46,8 @@ function auditGame(gameDir, gameName) {
     return { errors, warnings }; // Can't continue without HTML
   }
 
-  if (!fs.existsSync(gamePath)) {
-    errors.push('Missing game.js');
+  if (!fs.existsSync(gamePath) && !fs.existsSync(gamePathInJs)) {
+    errors.push('Missing game.js (should be in root or js/ subdirectory)');
   }
 
   const indexContent = fs.readFileSync(indexPath, 'utf8');
@@ -54,18 +55,19 @@ function auditGame(gameDir, gameName) {
 
   // ============ NAVIGATION STRUCTURE ============
 
-  // Check for nav bar
-  if (
-    !indexContent.includes('<nav class="dom-nav">') &&
-    !indexContent.includes('<nav class="navbar">')
-  ) {
-    errors.push('Missing proper nav bar (should be <nav class="dom-nav">)');
+  // Check for nav bar (DOM games) OR back button (Canvas games)
+  const hasNav =
+    indexContent.includes('<nav class="dom-nav">') || indexContent.includes('<nav class="navbar">');
+  const hasBackBtn = indexContent.includes('id="game-back-btn"');
+
+  if (!hasNav && !hasBackBtn) {
+    errors.push(
+      'Missing navigation: needs either <nav class="dom-nav"> OR back button with id="game-back-btn"'
+    );
   }
 
-  // Check for back button
-  if (!indexContent.includes('id="game-back-btn"')) {
-    errors.push('Missing back button with id="game-back-btn"');
-  } else {
+  // Check for back button (if not a nav-based game)
+  if (hasBackBtn) {
     // Check back button href format
     const backBtnRegex = /id="game-back-btn"[^>]*href="([^"]+)"/;
     const match = indexContent.match(backBtnRegex);

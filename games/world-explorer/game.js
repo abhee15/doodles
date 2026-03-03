@@ -1643,11 +1643,11 @@ function showAchievementNotification(achievement) {
     color: #000;
     padding: 16px 24px;
     border-radius: 8px;
+    border: 2px solid #D4A500;
     font-weight: 600;
     font-size: 14px;
     z-index: 9999;
     animation: slideIn 0.3s ease-out;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   `;
   notification.innerHTML = `
     <div style="font-size: 18px; margin-bottom: 4px;">🏆 Achievement Unlocked!</div>
