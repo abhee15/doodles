@@ -89,6 +89,44 @@ const CHORDS = [
   }
 ];
 
+// Chord progressions for each song - teaches full songs using chords
+const CHORD_SONGS = [
+  {
+    title: 'Hot Cross Buns',
+    chords: [
+      { id: 'C_maj', label: 'C Major', beats: 2 },
+      { id: 'C_maj', label: 'C Major', beats: 2 },
+      { id: 'G_maj', label: 'G Major', beats: 2 },
+      { id: 'C_maj', label: 'C Major', beats: 2 }
+    ]
+  },
+  {
+    title: 'Mary Had a Little Lamb',
+    chords: [
+      { id: 'C_maj', label: 'C Major', beats: 4 },
+      { id: 'G_maj', label: 'G Major', beats: 2 },
+      { id: 'C_maj', label: 'C Major', beats: 2 }
+    ]
+  },
+  {
+    title: 'Twinkle Twinkle',
+    chords: [
+      { id: 'C_maj', label: 'C Major', beats: 4 },
+      { id: 'G_maj', label: 'G Major', beats: 2 },
+      { id: 'C_maj', label: 'C Major', beats: 2 }
+    ]
+  },
+  {
+    title: 'Happy Birthday',
+    chords: [
+      { id: 'C_maj', label: 'C Major', beats: 2 },
+      { id: 'C_maj', label: 'C Major', beats: 2 },
+      { id: 'G_maj', label: 'G Major', beats: 2 },
+      { id: 'C_maj', label: 'C Major', beats: 4 }
+    ]
+  }
+];
+
 const SONGS = [
   {
     id: 1,
@@ -317,41 +355,56 @@ function playPianoNote(noteName, duration = 0.5) {
   const now = ctx.currentTime;
   const freq = noteToFreq(noteName);
 
+  // Better piano-like sound with brighter tone and more harmonics
   const master = ctx.createGain();
   master.connect(ctx.destination);
-  master.gain.setValueAtTime(0.3, now);
+  master.gain.setValueAtTime(0.35, now);
   master.gain.exponentialRampToValueAtTime(0.01, now + duration);
 
+  // Fundamental (bright sine wave for clarity)
   const osc1 = ctx.createOscillator();
-  osc1.type = 'triangle';
+  osc1.type = 'sine';
   osc1.frequency.value = freq;
   const gain1 = ctx.createGain();
-  gain1.gain.value = 0.6;
+  gain1.gain.value = 0.5;
   osc1.connect(gain1);
   gain1.connect(master);
 
+  // 2nd harmonic (adds brightness)
   const osc2 = ctx.createOscillator();
   osc2.type = 'sine';
   osc2.frequency.value = freq * 2;
   const gain2 = ctx.createGain();
-  gain2.gain.value = 0.18;
+  gain2.gain.value = 0.25;
   osc2.connect(gain2);
   gain2.connect(master);
 
+  // 3rd harmonic
   const osc3 = ctx.createOscillator();
   osc3.type = 'sine';
   osc3.frequency.value = freq * 3;
   const gain3 = ctx.createGain();
-  gain3.gain.value = 0.1;
+  gain3.gain.value = 0.15;
   osc3.connect(gain3);
   gain3.connect(master);
+
+  // 4th harmonic (adds clarity)
+  const osc4 = ctx.createOscillator();
+  osc4.type = 'sine';
+  osc4.frequency.value = freq * 4;
+  const gain4 = ctx.createGain();
+  gain4.gain.value = 0.08;
+  osc4.connect(gain4);
+  gain4.connect(master);
 
   osc1.start(now);
   osc2.start(now);
   osc3.start(now);
+  osc4.start(now);
   osc1.stop(now + duration);
   osc2.stop(now + duration);
   osc3.stop(now + duration);
+  osc4.stop(now + duration);
 }
 
 function playKeyTap() {
