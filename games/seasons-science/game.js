@@ -17,51 +17,64 @@ window.SCENE_3D = {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x0a0a0a);
+    // Better background: deeper space blue
+    scene.background = new THREE.Color(0x0d1220);
 
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-    camera.position.set(0, 2, 10);
+    camera.position.set(3, 4, 11);
     camera.lookAt(0, 0, 0);
 
-    // Stars
+    // Enhanced stars
     const starVerts = [];
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 400; i++) {
       starVerts.push(
-        (Math.random() - 0.5) * 60,
-        (Math.random() - 0.5) * 60,
-        (Math.random() - 0.5) * 60
+        (Math.random() - 0.5) * 80,
+        (Math.random() - 0.5) * 80,
+        (Math.random() - 0.5) * 80
       );
     }
     const starGeo = new THREE.BufferGeometry();
     starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starVerts, 3));
-    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.1 })));
+    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.15 })));
 
-    // Sun
+    // Sun: Glowing and vibrant
     const sun = new THREE.Mesh(
-      new THREE.SphereGeometry(1.2, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+      new THREE.SphereGeometry(1.3, 32, 32),
+      new THREE.MeshStandardMaterial({
+        color: 0xfcd34d,
+        emissive: 0xfbbf24,
+        emissiveIntensity: 0.9,
+        metalness: 0.1,
+        roughness: 0.2
+      })
     );
     sun.position.set(-7, 0, 0);
     scene.add(sun);
 
-    // Orbit ellipse (visual guide)
+    // Orbit ellipse: Brighter and more visible
     const orbitCurve = new THREE.EllipseCurve(0, 0, 7, 5, 0, Math.PI * 2, false, 0);
-    const orbitPoints = orbitCurve.getPoints(100);
+    const orbitPoints = orbitCurve.getPoints(120);
     const orbitGeo = new THREE.BufferGeometry().setFromPoints(orbitPoints);
-    const orbitMat = new THREE.LineBasicMaterial({ color: 0x444444 });
+    const orbitMat = new THREE.LineBasicMaterial({ color: 0x6b7280, linewidth: 1.5 });
     const orbitLine = new THREE.Line(orbitGeo, orbitMat);
     orbitLine.rotation.x = Math.PI / 2.5;
     scene.add(orbitLine);
 
-    // Earth (tilted axis)
+    // Earth: Brighter with glow
     const earth = new THREE.Mesh(
       new THREE.SphereGeometry(0.8, 64, 64),
-      new THREE.MeshLambertMaterial({ color: 0x22c55e })
+      new THREE.MeshStandardMaterial({
+        color: 0x22c55e,
+        metalness: 0.2,
+        roughness: 0.4,
+        emissive: 0x16a34a,
+        emissiveIntensity: 0.15
+      })
     );
     earth.rotation.z = (23.5 * Math.PI) / 180; // Axial tilt
     scene.add(earth);
 
-    // Axis line (red)
+    // Axis line: Brighter red for better visibility
     const axisGeo = new THREE.BufferGeometry();
     axisGeo.setAttribute('position', new THREE.Float32BufferAttribute([0, -1.2, 0, 0, 1.2, 0], 3));
     const axisMat = new THREE.LineBasicMaterial({ color: 0xff6b6b, linewidth: 2 });
@@ -69,26 +82,37 @@ window.SCENE_3D = {
     axisLine.rotation.z = (23.5 * Math.PI) / 180;
     scene.add(axisLine);
 
-    // Lighting
-    const sunLight = new THREE.DirectionalLight(0xffffee, 1.8);
-    sunLight.position.set(-7, 0, 0);
+    // Enhanced lighting: strong sun + fill light
+    const sunLight = new THREE.DirectionalLight(0xffffee, 2.5);
+    sunLight.position.set(-7, 2, 2);
     scene.add(sunLight);
-    scene.add(new THREE.AmbientLight(0x1a1a2e, 0.6));
+
+    const fillLight = new THREE.DirectionalLight(0x4f46e5, 1.2);
+    fillLight.position.set(8, -2, -2);
+    scene.add(fillLight);
+
+    scene.add(new THREE.AmbientLight(0x4f46e5, 0.8));
 
     // Animation
     let angle = 0;
     let animId;
     function animate() {
       angle += 0.002;
+      const timeVal = Date.now() * 0.002;
+
       // Earth orbits (stays tilted)
       const orbitRadius = 7;
       earth.position.set(Math.cos(angle) * orbitRadius, 0, Math.sin(angle) * orbitRadius * 0.7);
       axisLine.position.copy(earth.position);
-      sun.scale.set(
-        1 + Math.sin(Date.now() * 0.002) * 0.08,
-        1 + Math.sin(Date.now() * 0.002) * 0.08,
-        1 + Math.sin(Date.now() * 0.002) * 0.08
-      );
+
+      // Sun pulsing glow
+      const pulse = 1 + Math.sin(timeVal) * 0.1;
+      sun.scale.set(pulse, pulse, pulse);
+      sun.material.emissiveIntensity = 0.9 + Math.sin(timeVal * 1.5) * 0.25;
+
+      // Earth subtle glow
+      earth.material.emissiveIntensity = 0.15 + Math.sin(timeVal * 0.8) * 0.08;
+
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);
     }

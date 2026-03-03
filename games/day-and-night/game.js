@@ -20,63 +20,92 @@ window.SCENE_3D = {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+    // Better background: space with blue-ish night color
+    scene.background = new THREE.Color(0x0f172a);
 
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
     camera.position.set(0, 2, 6);
     camera.lookAt(0, 0, 0);
 
-    // Stars background
+    // Enhanced stars background
     const starVerts = [];
-    for (let i = 0; i < 300; i++) {
+    for (let i = 0; i < 400; i++) {
       starVerts.push(
-        (Math.random() - 0.5) * 60,
-        (Math.random() - 0.5) * 60,
-        (Math.random() - 0.5) * 60
+        (Math.random() - 0.5) * 70,
+        (Math.random() - 0.5) * 70,
+        (Math.random() - 0.5) * 70
       );
     }
     const starGeo = new THREE.BufferGeometry();
     starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starVerts, 3));
-    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.1 })));
+    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.15 })));
 
-    // Sun
+    // Sun: Brighter, more vibrant with glow
     const sun = new THREE.Mesh(
       new THREE.SphereGeometry(1.2, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+      new THREE.MeshStandardMaterial({
+        color: 0xfcd34d,
+        emissive: 0xfbbf24,
+        emissiveIntensity: 0.9,
+        metalness: 0.1,
+        roughness: 0.2
+      })
     );
     sun.position.set(-5, 0, 0);
     scene.add(sun);
 
-    // Earth (rotating)
+    // Earth: Brighter green with better visibility
     const earth = new THREE.Mesh(
       new THREE.SphereGeometry(1, 64, 64),
-      new THREE.MeshLambertMaterial({ color: 0x22c55e })
+      new THREE.MeshStandardMaterial({
+        color: 0x22c55e,
+        metalness: 0.2,
+        roughness: 0.4,
+        emissive: 0x16a34a,
+        emissiveIntensity: 0.15
+      })
     );
     scene.add(earth);
 
-    // Dark side hemisphere
+    // Dark side hemisphere: Darker but still visible
     const darkGeo = new THREE.SphereGeometry(1.01, 64, 64);
-    const darkMat = new THREE.MeshLambertMaterial({ color: 0x1f2937, emissive: 0x111111 });
+    const darkMat = new THREE.MeshStandardMaterial({
+      color: 0x0f172a,
+      metalness: 0.1,
+      roughness: 0.5,
+      emissive: 0x1f2937,
+      emissiveIntensity: 0.2
+    });
     const darkSide = new THREE.Mesh(darkGeo, darkMat);
     darkSide.rotation.x = Math.PI / 2.5;
     scene.add(darkSide);
 
-    // Lighting from sun
-    const sunLight = new THREE.DirectionalLight(0xffffee, 2);
-    sunLight.position.set(-5, 0, 0);
+    // Enhanced lighting: strong sun + fill light
+    const sunLight = new THREE.DirectionalLight(0xffffee, 2.8);
+    sunLight.position.set(-5, 1, 1);
     scene.add(sunLight);
-    scene.add(new THREE.AmbientLight(0x1a1a2e, 0.6));
+
+    const fillLight = new THREE.DirectionalLight(0x3b82f6, 1.2);
+    fillLight.position.set(5, -1, -2);
+    scene.add(fillLight);
+
+    scene.add(new THREE.AmbientLight(0x3b5998, 0.7));
 
     // Animation
     let animId;
     function animate() {
+      const timeVal = Date.now() * 0.002;
       earth.rotation.y += 0.002;
       darkSide.rotation.y += 0.002;
-      sun.scale.set(
-        1 + Math.sin(Date.now() * 0.002) * 0.08,
-        1 + Math.sin(Date.now() * 0.002) * 0.08,
-        1 + Math.sin(Date.now() * 0.002) * 0.08
-      );
+
+      // Sun pulsing with glow
+      const pulse = 1 + Math.sin(timeVal) * 0.1;
+      sun.scale.set(pulse, pulse, pulse);
+      sun.material.emissiveIntensity = 0.9 + Math.sin(timeVal * 1.5) * 0.25;
+
+      // Earth subtle glow
+      earth.material.emissiveIntensity = 0.15 + Math.sin(timeVal * 0.8) * 0.08;
+
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);
     }

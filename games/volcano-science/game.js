@@ -17,30 +17,43 @@ window.SCENE_3D = {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x2d1b00);
+    // Better background: reddish-brown for volcanic theme
+    scene.background = new THREE.Color(0x3d2416);
 
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-    camera.position.set(0, 0, 8);
+    camera.position.set(0, 0, 9);
     camera.lookAt(0, 0, 0);
 
-    // Crust layer (brown)
-    const crustGeo = new THREE.BoxGeometry(10, 2, 6);
-    const crustMat = new THREE.MeshLambertMaterial({ color: 0x92400e });
+    // Crust layer: Brighter brown with texture feel
+    const crustGeo = new THREE.BoxGeometry(11, 2.2, 6.5);
+    const crustMat = new THREE.MeshStandardMaterial({
+      color: 0xa0631d,
+      metalness: 0.2,
+      roughness: 0.6,
+      emissive: 0x6d4221,
+      emissiveIntensity: 0.1
+    });
     const crust = new THREE.Mesh(crustGeo, crustMat);
     crust.position.y = 2.5;
     scene.add(crust);
 
-    // Magma chamber (red/orange ellipsoid)
+    // Magma chamber: Glowing red with strong emissive
     const magmaChamber = new THREE.Mesh(
       new THREE.SphereGeometry(1.5, 32, 24),
-      new THREE.MeshLambertMaterial({ color: 0xdc2626, emissive: 0x7f1313 })
+      new THREE.MeshStandardMaterial({
+        color: 0xef4444,
+        emissive: 0xdc2626,
+        emissiveIntensity: 0.8,
+        metalness: 0.1,
+        roughness: 0.3
+      })
     );
     magmaChamber.scale.set(1.2, 1, 1.2);
     magmaChamber.position.y = -1.5;
     scene.add(magmaChamber);
 
-    // Pressure arrows (red lines pointing outward)
-    const arrowMat = new THREE.LineBasicMaterial({ color: 0xf97316, linewidth: 2 });
+    // Pressure arrows: Brighter orange for visibility
+    const arrowMat = new THREE.LineBasicMaterial({ color: 0xffa500, linewidth: 2.5 });
     const directions = [
       [0, 1, 0],
       [-1, 0, 0],
@@ -55,7 +68,7 @@ window.SCENE_3D = {
       arrowGeo.setAttribute(
         'position',
         new THREE.Float32BufferAttribute(
-          [0, -1.5, 0, dir[0] * 1.5, -1.5 + dir[1] * 1.5, dir[2] * 1.5],
+          [0, -1.5, 0, dir[0] * 1.6, -1.5 + dir[1] * 1.6, dir[2] * 1.6],
           3
         )
       );
@@ -63,34 +76,47 @@ window.SCENE_3D = {
       scene.add(arrow);
     });
 
-    // Hot inner core (bright red sphere)
-    const coreGeo = new THREE.SphereGeometry(0.6, 32, 32);
-    const coreMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
+    // Hot inner core: Very bright glowing orange/red
+    const coreGeo = new THREE.SphereGeometry(0.7, 32, 32);
+    const coreMat = new THREE.MeshStandardMaterial({
+      color: 0xff6b35,
+      emissive: 0xff4444,
+      emissiveIntensity: 1,
+      metalness: 0.2,
+      roughness: 0.2
+    });
     const core = new THREE.Mesh(coreGeo, coreMat);
     core.position.y = -1.5;
     scene.add(core);
 
-    // Lighting
-    const light1 = new THREE.DirectionalLight(0xffffff, 0.8);
-    light1.position.set(5, 3, 5);
+    // Enhanced lighting: warm volcanic lighting
+    const light1 = new THREE.DirectionalLight(0xffccaa, 1.2);
+    light1.position.set(6, 4, 5);
     scene.add(light1);
-    scene.add(new THREE.AmbientLight(0x663300, 0.6));
+
+    const light2 = new THREE.DirectionalLight(0xff6b35, 1);
+    light2.position.set(-8, -2, -3);
+    scene.add(light2);
+
+    scene.add(new THREE.AmbientLight(0x8b4513, 0.8));
 
     // Animation
     let animId;
     function animate() {
-      // Magma chamber pulsing
-      magmaChamber.scale.set(
-        1.2 + Math.sin(Date.now() * 0.003) * 0.15,
-        1 + Math.sin(Date.now() * 0.003) * 0.1,
-        1.2 + Math.sin(Date.now() * 0.003) * 0.15
-      );
+      const timeVal = Date.now() * 0.003;
 
-      core.scale.set(
-        1 + Math.sin(Date.now() * 0.002) * 0.2,
-        1 + Math.sin(Date.now() * 0.002) * 0.2,
-        1 + Math.sin(Date.now() * 0.002) * 0.2
+      // Magma chamber pulsing with glow
+      magmaChamber.scale.set(
+        1.2 + Math.sin(timeVal) * 0.18,
+        1 + Math.sin(timeVal) * 0.12,
+        1.2 + Math.sin(timeVal) * 0.18
       );
+      magmaChamber.material.emissiveIntensity = 0.8 + Math.sin(timeVal * 1.5) * 0.3;
+
+      // Core pulsing intensely with max glow
+      const corePulse = 1 + Math.sin(Date.now() * 0.002) * 0.25;
+      core.scale.set(corePulse, corePulse, corePulse);
+      core.material.emissiveIntensity = 0.9 + Math.sin(Date.now() * 0.003) * 0.4;
 
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);

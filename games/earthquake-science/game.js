@@ -17,67 +17,97 @@ window.SCENE_3D = {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x5a3a2a);
+    // Better background: darker earth tone
+    scene.background = new THREE.Color(0x6d4320);
 
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-    camera.position.set(0, 3, 8);
+    camera.position.set(0, 3.5, 9);
     camera.lookAt(0, 0, 0);
 
-    // Left tectonic plate
+    // Left tectonic plate: Brighter brown
     const plate1 = new THREE.Mesh(
-      new THREE.BoxGeometry(4, 0.8, 5),
-      new THREE.MeshLambertMaterial({ color: 0x92400e })
+      new THREE.BoxGeometry(4.2, 0.9, 5.5),
+      new THREE.MeshStandardMaterial({
+        color: 0xb8860b,
+        metalness: 0.2,
+        roughness: 0.5,
+        emissive: 0x8b6914,
+        emissiveIntensity: 0.1
+      })
     );
     plate1.position.x = -2.5;
     scene.add(plate1);
 
-    // Right tectonic plate
+    // Right tectonic plate: Different shade for contrast
     const plate2 = new THREE.Mesh(
-      new THREE.BoxGeometry(4, 0.8, 5),
-      new THREE.MeshLambertMaterial({ color: 0xa0600e })
+      new THREE.BoxGeometry(4.2, 0.9, 5.5),
+      new THREE.MeshStandardMaterial({
+        color: 0xcd853f,
+        metalness: 0.2,
+        roughness: 0.5,
+        emissive: 0xa0631d,
+        emissiveIntensity: 0.1
+      })
     );
     plate2.position.x = 2.5;
     scene.add(plate2);
 
-    // Fault line / stress zone (red middle plane)
-    const faultGeo = new THREE.PlaneGeometry(0.5, 5);
-    const faultMat = new THREE.MeshLambertMaterial({
-      color: 0xb91c1c,
+    // Fault line / stress zone: Brighter red with glow
+    const faultGeo = new THREE.PlaneGeometry(0.6, 5.5);
+    const faultMat = new THREE.MeshStandardMaterial({
+      color: 0xef4444,
       side: THREE.DoubleSide,
-      emissive: 0x7f1c1c
+      emissive: 0xdc2626,
+      emissiveIntensity: 0.6,
+      metalness: 0.1,
+      roughness: 0.3
     });
     const fault = new THREE.Mesh(faultGeo, faultMat);
     fault.position.z = 0.1;
     scene.add(fault);
 
-    // Stress wave indicator (pulsing cube at fault)
-    const stressGeo = new THREE.BoxGeometry(0.4, 0.4, 0.4);
-    const stressMat = new THREE.MeshBasicMaterial({ color: 0xff4444 });
+    // Stress wave indicator: Glowing cube at fault
+    const stressGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+    const stressMat = new THREE.MeshStandardMaterial({
+      color: 0xff6b35,
+      emissive: 0xff4444,
+      emissiveIntensity: 0.8,
+      metalness: 0.2,
+      roughness: 0.2
+    });
     const stress = new THREE.Mesh(stressGeo, stressMat);
-    stress.position.z = 0.2;
+    stress.position.z = 0.3;
     scene.add(stress);
 
-    // Lighting
-    const light1 = new THREE.DirectionalLight(0xffffff, 1);
-    light1.position.set(4, 4, 4);
+    // Enhanced lighting: warm earthquake lighting
+    const light1 = new THREE.DirectionalLight(0xffccaa, 1.3);
+    light1.position.set(5, 5, 5);
     scene.add(light1);
-    scene.add(new THREE.AmbientLight(0x663300, 0.7));
+
+    const light2 = new THREE.DirectionalLight(0xff6b35, 0.8);
+    light2.position.set(-6, -3, -4);
+    scene.add(light2);
+
+    scene.add(new THREE.AmbientLight(0x8b6914, 0.8));
 
     // Animation
     let animId;
     let offset = 0;
     function animate() {
       offset += 0.01;
-      // Plates sliding (left goes left, right goes right)
-      plate1.position.x = -2.5 - Math.sin(offset) * 0.3;
-      plate2.position.x = 2.5 + Math.sin(offset) * 0.3;
+      const timeVal = Date.now() * 0.005;
 
-      // Stress pulse
-      stress.scale.set(
-        1 + Math.sin(Date.now() * 0.005) * 0.4,
-        1 + Math.sin(Date.now() * 0.005) * 0.4,
-        1 + Math.sin(Date.now() * 0.005) * 0.4
-      );
+      // Plates sliding (left goes left, right goes right)
+      plate1.position.x = -2.5 - Math.sin(offset) * 0.35;
+      plate2.position.x = 2.5 + Math.sin(offset) * 0.35;
+
+      // Stress pulse with intense glow
+      const stressPulse = 1 + Math.sin(timeVal) * 0.5;
+      stress.scale.set(stressPulse, stressPulse, stressPulse);
+      stress.material.emissiveIntensity = 0.8 + Math.sin(timeVal * 1.5) * 0.4;
+
+      // Fault line glow pulsing
+      fault.material.emissiveIntensity = 0.6 + Math.sin(timeVal * 0.8) * 0.2;
 
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);

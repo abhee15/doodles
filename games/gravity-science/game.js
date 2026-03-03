@@ -17,55 +17,80 @@ window.SCENE_3D = {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x1e1b4b);
+    // Better background: deep space blue with purple tint
+    scene.background = new THREE.Color(0x2e1a47);
 
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-    camera.position.set(0, 2, 8);
+    camera.position.set(0, 2, 8.5);
     camera.lookAt(0, 0, 0);
 
-    // Stars
+    // Enhanced stars
     const starVerts = [];
-    for (let i = 0; i < 200; i++) {
+    for (let i = 0; i < 300; i++) {
       starVerts.push(
-        (Math.random() - 0.5) * 50,
-        (Math.random() - 0.5) * 50,
-        (Math.random() - 0.5) * 50
+        (Math.random() - 0.5) * 60,
+        (Math.random() - 0.5) * 60,
+        (Math.random() - 0.5) * 60
       );
     }
     const starGeo = new THREE.BufferGeometry();
     starGeo.setAttribute('position', new THREE.Float32BufferAttribute(starVerts, 3));
-    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.1 })));
+    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.15 })));
 
-    // Earth (large sphere)
+    // Earth: Brighter with glow
     const earth = new THREE.Mesh(
       new THREE.SphereGeometry(2, 32, 32),
-      new THREE.MeshLambertMaterial({ color: 0x22c55e })
+      new THREE.MeshStandardMaterial({
+        color: 0x22c55e,
+        metalness: 0.2,
+        roughness: 0.4,
+        emissive: 0x16a34a,
+        emissiveIntensity: 0.2
+      })
     );
     earth.position.y = -3;
     scene.add(earth);
 
-    // Falling objects (red, blue, yellow spheres)
+    // Falling objects: Brighter, more vibrant colors
     const objects = [
       {
         mesh: new THREE.Mesh(
-          new THREE.SphereGeometry(0.3, 16, 16),
-          new THREE.MeshLambertMaterial({ color: 0xef4444 })
+          new THREE.SphereGeometry(0.33, 16, 16),
+          new THREE.MeshStandardMaterial({
+            color: 0xff6b6b,
+            emissive: 0xef4444,
+            emissiveIntensity: 0.4,
+            metalness: 0.1,
+            roughness: 0.3
+          })
         ),
         x: -2,
         startY: 3
       },
       {
         mesh: new THREE.Mesh(
-          new THREE.SphereGeometry(0.25, 16, 16),
-          new THREE.MeshLambertMaterial({ color: 0x3b82f6 })
+          new THREE.SphereGeometry(0.28, 16, 16),
+          new THREE.MeshStandardMaterial({
+            color: 0x60a5fa,
+            emissive: 0x3b82f6,
+            emissiveIntensity: 0.4,
+            metalness: 0.1,
+            roughness: 0.3
+          })
         ),
         x: 0,
         startY: 4
       },
       {
         mesh: new THREE.Mesh(
-          new THREE.SphereGeometry(0.28, 16, 16),
-          new THREE.MeshLambertMaterial({ color: 0xfbbf24 })
+          new THREE.SphereGeometry(0.31, 16, 16),
+          new THREE.MeshStandardMaterial({
+            color: 0xfcd34d,
+            emissive: 0xfbbf24,
+            emissiveIntensity: 0.4,
+            metalness: 0.1,
+            roughness: 0.3
+          })
         ),
         x: 2,
         startY: 3.5
@@ -77,32 +102,38 @@ window.SCENE_3D = {
       scene.add(obj.mesh);
     });
 
-    // Gravity well visualization (wireframe sphere around Earth)
-    const wellGeo = new THREE.SphereGeometry(5, 16, 16);
+    // Gravity well visualization: More visible with better colors
+    const wellGeo = new THREE.SphereGeometry(5.5, 20, 20);
     const wellMat = new THREE.MeshBasicMaterial({
       wireframe: true,
-      color: 0x8b5cf6,
+      color: 0xa78bfa,
       transparent: true,
-      opacity: 0.1
+      opacity: 0.25
     });
     const well = new THREE.Mesh(wellGeo, wellMat);
     well.position.y = -3;
     scene.add(well);
 
-    // Lighting
-    const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(5, 5, 5);
+    // Enhanced lighting: strong directional + point light
+    const light = new THREE.DirectionalLight(0xffffff, 1.5);
+    light.position.set(6, 6, 6);
     scene.add(light);
-    scene.add(new THREE.AmbientLight(0x6366f1, 0.5));
+
+    const pointLight = new THREE.PointLight(0xa78bfa, 0.8);
+    pointLight.position.set(0, -3, 0);
+    scene.add(pointLight);
+
+    scene.add(new THREE.AmbientLight(0x7c3aed, 0.6));
 
     // Animation
     let time = 0;
     let animId;
     function animate() {
       time += 0.016;
+      const timeVal = Date.now() * 0.001;
 
-      // Animate falling objects
-      objects.forEach(obj => {
+      // Animate falling objects with glow pulsing
+      objects.forEach((obj, idx) => {
         const fallSpeed = 0.03;
         obj.mesh.position.y -= fallSpeed;
 
@@ -114,10 +145,17 @@ window.SCENE_3D = {
         // Rotate objects
         obj.mesh.rotation.x += 0.02;
         obj.mesh.rotation.y += 0.03;
+
+        // Pulsing glow on falling objects
+        obj.mesh.material.emissiveIntensity = 0.4 + Math.sin(timeVal + idx * 0.8) * 0.2;
       });
 
       // Rotate Earth slowly
       earth.rotation.y += 0.001;
+      earth.material.emissiveIntensity = 0.2 + Math.sin(timeVal * 0.5) * 0.1;
+
+      // Gravity well pulsing
+      well.material.opacity = 0.25 + Math.sin(timeVal * 0.8) * 0.1;
 
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);

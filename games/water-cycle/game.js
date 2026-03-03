@@ -20,37 +20,58 @@ window.SCENE_3D = {
     renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x87ceeb);
+    // Better sky background: gradient from light to mid-blue
+    scene.background = new THREE.Color(0x87d4ff);
 
     const camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 100);
-    camera.position.set(0, 3, 10);
+    camera.position.set(0, 2, 10);
     camera.lookAt(0, 0, 0);
 
-    // Sun
+    // Sun: Glowing and vibrant
     const sun = new THREE.Mesh(
       new THREE.SphereGeometry(2, 32, 32),
-      new THREE.MeshBasicMaterial({ color: 0xfbbf24 })
+      new THREE.MeshStandardMaterial({
+        color: 0xfcd34d,
+        emissive: 0xfbbf24,
+        emissiveIntensity: 0.9,
+        metalness: 0.1,
+        roughness: 0.2
+      })
     );
     sun.position.set(-8, 5, -5);
     scene.add(sun);
 
-    // Ocean (large blue plane)
-    const oceanGeo = new THREE.PlaneGeometry(16, 8);
-    const oceanMat = new THREE.MeshLambertMaterial({ color: 0x0369a1 });
+    // Ocean: Deeper, more vibrant blue
+    const oceanGeo = new THREE.PlaneGeometry(18, 10);
+    const oceanMat = new THREE.MeshStandardMaterial({
+      color: 0x0284c7,
+      metalness: 0.3,
+      roughness: 0.4,
+      emissive: 0x015a96,
+      emissiveIntensity: 0.15
+    });
     const ocean = new THREE.Mesh(oceanGeo, oceanMat);
     ocean.rotation.x = -Math.PI / 2.2;
     ocean.position.y = -2;
     scene.add(ocean);
 
-    // Water vapor particles rising
+    // Water vapor particles: More visible with brighter colors
     const vaporParticles = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 16; i++) {
       const particle = new THREE.Mesh(
-        new THREE.SphereGeometry(0.15, 16, 16),
-        new THREE.MeshLambertMaterial({ color: 0xdbeafe, transparent: true, opacity: 0.6 })
+        new THREE.SphereGeometry(0.18, 16, 16),
+        new THREE.MeshStandardMaterial({
+          color: 0xe0f4ff,
+          transparent: true,
+          opacity: 0.7,
+          emissive: 0xb3e5fc,
+          emissiveIntensity: 0.3,
+          metalness: 0.1,
+          roughness: 0.3
+        })
       );
       particle.position.set(
-        (Math.random() - 0.5) * 6,
+        (Math.random() - 0.5) * 7,
         (Math.random() - 0.5) * 2 - 2,
         (Math.random() - 0.5) * 4
       );
@@ -63,29 +84,42 @@ window.SCENE_3D = {
       scene.add(particle);
     }
 
-    // Lighting
-    const sunLight = new THREE.DirectionalLight(0xffffee, 1.5);
-    sunLight.position.set(-8, 5, -5);
+    // Enhanced lighting: strong sun + fill light
+    const sunLight = new THREE.DirectionalLight(0xffffee, 2.5);
+    sunLight.position.set(-8, 6, -5);
     scene.add(sunLight);
-    scene.add(new THREE.AmbientLight(0x87ceeb, 0.7));
+
+    const fillLight = new THREE.DirectionalLight(0x6bb6ff, 1.2);
+    fillLight.position.set(8, -3, 5);
+    scene.add(fillLight);
+
+    scene.add(new THREE.AmbientLight(0x87d4ff, 0.8));
 
     let animId;
     function animate() {
-      // Animate vapor particles
-      vaporParticles.forEach(particle => {
+      const timeVal = Date.now() * 0.003;
+
+      // Animate vapor particles with scale pulsing for visibility
+      vaporParticles.forEach((particle, idx) => {
         particle.mesh.position.add(new THREE.Vector3(particle.vx, particle.vy, particle.vz));
+
+        // Add pulsing scale for more visibility
+        const scale = 1 + Math.sin(timeVal + idx * 0.3) * 0.2;
+        particle.mesh.scale.set(scale, scale, scale);
 
         // Reset particle if it goes too high
         if (particle.mesh.position.y > 8) {
-          particle.mesh.position.set((Math.random() - 0.5) * 6, -2, (Math.random() - 0.5) * 4);
+          particle.mesh.position.set((Math.random() - 0.5) * 7, -2, (Math.random() - 0.5) * 4);
         }
       });
 
-      sun.scale.set(
-        1 + Math.sin(Date.now() * 0.003) * 0.1,
-        1 + Math.sin(Date.now() * 0.003) * 0.1,
-        1 + Math.sin(Date.now() * 0.003) * 0.1
-      );
+      // Sun pulsing with glow
+      const pulse = 1 + Math.sin(timeVal) * 0.12;
+      sun.scale.set(pulse, pulse, pulse);
+      sun.material.emissiveIntensity = 0.9 + Math.sin(timeVal * 1.5) * 0.3;
+
+      // Ocean shimmer effect
+      ocean.material.emissiveIntensity = 0.15 + Math.sin(timeVal * 0.5) * 0.1;
 
       renderer.render(scene, camera);
       animId = requestAnimationFrame(animate);
