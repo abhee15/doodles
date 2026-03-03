@@ -121,8 +121,14 @@
   border: 2px solid var(--se-border);
   border-radius: 12px;
   padding: 0;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 5 / 3;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .se-scene-canvas--3d {
+    aspect-ratio: 4 / 3;
+  }
 }
 
 .se-scene-canvas--3d canvas {
