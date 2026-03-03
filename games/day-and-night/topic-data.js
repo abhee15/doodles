@@ -21,98 +21,21 @@ window.TOPIC_DATA = {
     {
       id: 'earth-in-space',
       title: 'Earth in Space',
+      renderType: '3d',
+      sceneKey: 'day-and-night-3d',
       narration:
         "Earth is a spinning ball floating in space. The sun shines on one side of Earth, making that side bright (daytime). The other side, facing away from the sun, is dark (nighttime). At this very moment, it's daytime where you are, and nighttime on the opposite side of Earth!",
-      svg: {
-        viewBox: '0 0 400 300',
-        elements: [
-          {
-            id: 'sun-space',
-            type: 'circle',
-            cx: 80,
-            cy: 150,
-            r: 30,
-            fill: '#fbbf24',
-            class: 'se-anim-pulse'
-          },
-          {
-            id: 'light-rays',
-            type: 'g',
-            children: [
-              {
-                id: 'ray1',
-                type: 'line',
-                x1: 110,
-                y1: 120,
-                x2: 250,
-                y2: 100,
-                stroke: '#fde68a',
-                strokeWidth: 2,
-                class: 'se-anim-ray'
-              },
-              {
-                id: 'ray2',
-                type: 'line',
-                x1: 110,
-                y1: 150,
-                x2: 280,
-                y2: 150,
-                stroke: '#fde68a',
-                strokeWidth: 2,
-                class: 'se-anim-ray',
-                style: 'animation-delay:0.2s'
-              },
-              {
-                id: 'ray3',
-                type: 'line',
-                x1: 110,
-                y1: 180,
-                x2: 250,
-                y2: 200,
-                stroke: '#fde68a',
-                strokeWidth: 2,
-                class: 'se-anim-ray',
-                style: 'animation-delay:0.4s'
-              }
-            ]
-          },
-          {
-            id: 'earth-day-night',
-            type: 'circle',
-            cx: 250,
-            cy: 150,
-            r: 50,
-            fill: '#22c55e',
-            class: 'se-anim-appear'
-          },
-          {
-            id: 'night-side',
-            type: 'circle',
-            cx: 250,
-            cy: 150,
-            r: 50,
-            fill: '#1f2937',
-            opacity: 0.6,
-            class: 'se-anim-appear',
-            style: 'animation-delay:0.2s'
-          }
-        ]
-      },
       terms: [
         {
           word: 'Rotation',
           definition: 'When Earth spins on its axis like a top. One rotation takes 24 hours.',
-          emoji: '🌍',
-          attachTo: '#earth-day-night',
-          labelPosition: 'right'
+          emoji: '🌍'
         },
         {
           word: 'Axis',
           definition:
             "An imaginary line through Earth's north and south poles around which Earth spins.",
-          emoji: '↔️',
-          attachTo: '#earth-day-night',
-          labelPosition: 'bottom'
+          emoji: '↔️'
         }
       ]
     },

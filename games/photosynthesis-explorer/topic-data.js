@@ -28,74 +28,15 @@ window.TOPIC_DATA = {
     {
       id: 'sun-energy',
       title: 'The Sun Sends Energy',
+      renderType: '3d',
+      sceneKey: 'photosynthesis-3d-sun',
       narration:
         "The sun is our planet's power station. It sends out light energy that travels 150 million kilometres to reach Earth. Plants have evolved a special ability to capture this energy — and that's where our story begins.",
-      svg: {
-        viewBox: '0 0 400 300',
-        elements: [
-          {
-            id: 'sun',
-            type: 'circle',
-            cx: 200,
-            cy: 50,
-            r: 40,
-            fill: '#fbbf24',
-            class: 'se-anim-pulse'
-          },
-          {
-            id: 'ray-1',
-            type: 'line',
-            x1: 200,
-            y1: 90,
-            x2: 120,
-            y2: 200,
-            stroke: '#fde68a',
-            strokeWidth: 3,
-            class: 'se-anim-ray'
-          },
-          {
-            id: 'ray-2',
-            type: 'line',
-            x1: 200,
-            y1: 90,
-            x2: 200,
-            y2: 220,
-            stroke: '#fde68a',
-            strokeWidth: 3,
-            class: 'se-anim-ray',
-            style: 'animation-delay:0.2s'
-          },
-          {
-            id: 'ray-3',
-            type: 'line',
-            x1: 200,
-            y1: 90,
-            x2: 280,
-            y2: 200,
-            stroke: '#fde68a',
-            strokeWidth: 3,
-            class: 'se-anim-ray',
-            style: 'animation-delay:0.4s'
-          },
-          {
-            id: 'leaf',
-            type: 'ellipse',
-            cx: 200,
-            cy: 250,
-            rx: 80,
-            ry: 35,
-            fill: '#4ade80',
-            class: 'se-anim-appear'
-          }
-        ]
-      },
       terms: [
         {
           word: 'Solar Energy',
           definition: 'Light and heat energy that comes from the sun.',
-          emoji: '☀️',
-          attachTo: '#sun',
-          labelPosition: 'right'
+          emoji: '☀️'
         }
       ]
     },

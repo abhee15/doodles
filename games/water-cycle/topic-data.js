@@ -21,112 +21,20 @@ window.TOPIC_DATA = {
     {
       id: 'evaporation',
       title: 'Evaporation: Water Rises',
+      renderType: '3d',
+      sceneKey: 'water-cycle-3d-evaporation',
       narration:
         'The sun heats water in oceans, lakes, and rivers, turning it into water vapor — an invisible gas. This process is called evaporation. The warmer the sun, the faster water evaporates and rises into the atmosphere.',
-      svg: {
-        viewBox: '0 0 400 300',
-        elements: [
-          {
-            id: 'sun-ev',
-            type: 'circle',
-            cx: 350,
-            cy: 50,
-            r: 30,
-            fill: '#fbbf24',
-            class: 'se-anim-pulse'
-          },
-          {
-            id: 'ocean',
-            type: 'rect',
-            x: 0,
-            y: 150,
-            width: 400,
-            height: 150,
-            fill: '#0369a1'
-          },
-          {
-            id: 'ray-heat-1',
-            type: 'line',
-            x1: 350,
-            y1: 80,
-            x2: 320,
-            y2: 150,
-            stroke: '#fde68a',
-            strokeWidth: 2,
-            class: 'se-anim-ray'
-          },
-          {
-            id: 'ray-heat-2',
-            type: 'line',
-            x1: 350,
-            y1: 80,
-            x2: 350,
-            y2: 150,
-            stroke: '#fde68a',
-            strokeWidth: 2,
-            class: 'se-anim-ray',
-            style: 'animation-delay:0.2s'
-          },
-          {
-            id: 'ray-heat-3',
-            type: 'line',
-            x1: 350,
-            y1: 80,
-            x2: 380,
-            y2: 150,
-            stroke: '#fde68a',
-            strokeWidth: 2,
-            class: 'se-anim-ray',
-            style: 'animation-delay:0.4s'
-          },
-          {
-            id: 'vapor-1',
-            type: 'circle',
-            cx: 100,
-            cy: 140,
-            r: 8,
-            fill: '#dbeafe',
-            opacity: 0.6,
-            class: 'se-anim-float-up'
-          },
-          {
-            id: 'vapor-2',
-            type: 'circle',
-            cx: 200,
-            cy: 140,
-            r: 8,
-            fill: '#dbeafe',
-            opacity: 0.6,
-            class: 'se-anim-float-up',
-            style: 'animation-delay:0.2s'
-          },
-          {
-            id: 'vapor-3',
-            type: 'circle',
-            cx: 300,
-            cy: 140,
-            r: 8,
-            fill: '#dbeafe',
-            opacity: 0.6,
-            class: 'se-anim-float-up',
-            style: 'animation-delay:0.4s'
-          }
-        ]
-      },
       terms: [
         {
           word: 'Evaporation',
           definition: 'The process where liquid water turns into water vapor gas.',
-          emoji: '💨',
-          attachTo: '#vapor-1',
-          labelPosition: 'top'
+          emoji: '💨'
         },
         {
           word: 'Water Vapor',
           definition: 'Invisible water gas in the air that came from evaporated water.',
-          emoji: '☁️',
-          attachTo: '#vapor-2',
-          labelPosition: 'top'
+          emoji: '☁️'
         }
       ]
     },
