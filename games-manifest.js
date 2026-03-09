@@ -160,6 +160,22 @@ const GAMES = [
     footerName: 'Math Olympiad'
   },
   {
+    id: 'division-dojo',
+    name: 'Division Dojo',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Master division from first principles! Learn divisibility tricks and discover how division connects to fractions.',
+    icon: 'ti-divide',
+    iconColor: null,
+    gradient: 'linear-gradient(150deg, #7C3AED 0%, #4C1D95 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade'],
+    newUntil: null,
+    footerName: 'Division Dojo'
+  },
+  {
     id: 'body-map',
     name: 'Body Map',
     thumbClass: null,
