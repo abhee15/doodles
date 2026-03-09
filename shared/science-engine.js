@@ -535,6 +535,24 @@ class ScienceStory {
           <circle cy="280" r="15" fill="#a0aec0"/>
         </svg>
       `;
+    } else if (simulationType === 'digestion-lab') {
+      return `
+        <svg class="se-lab-svg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg">
+          <rect width="300" height="400" fill="#fff7ed"/>
+          <!-- Mouth -->
+          <circle id="lab-organ-mouth" cx="80" cy="60" r="20" fill="#f97316" stroke="#7c3200" stroke-width="2"/>
+          <!-- Esophagus -->
+          <path id="lab-organ-esophagus" d="M 80 80 Q 70 120 75 160" stroke="#fb923c" stroke-width="12" fill="none" stroke-linecap="round"/>
+          <!-- Stomach -->
+          <ellipse id="lab-organ-stomach" cx="90" cy="220" rx="35" ry="45" fill="#f97316" stroke="#7c3200" stroke-width="2"/>
+          <!-- Small Intestine -->
+          <path id="lab-organ-small-int" d="M 130 220 Q 200 200 220 280 Q 200 320 130 310" stroke="#fb923c" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <!-- Large Intestine -->
+          <path id="lab-organ-large-int" d="M 130 310 L 60 310 L 60 360" stroke="#f97316" stroke-width="18" fill="none" stroke-linecap="round"/>
+          <!-- Food particle -->
+          <circle id="lab-food-particle" cx="80" cy="50" r="8" fill="#fbbf24"/>
+        </svg>
+      `;
     }
     return '<div>Lab visualization</div>';
   }
@@ -571,6 +589,8 @@ class ScienceStory {
       this.updateWeatherStation();
     } else if (simulationType === 'rainbow-maker') {
       this.updateRainbowMaker();
+    } else if (simulationType === 'digestion-lab') {
+      this.updateDigestionLab();
     }
   }
 
@@ -645,6 +665,51 @@ class ScienceStory {
       } else {
         rainbow.style.stroke = 'transparent';
       }
+    }
+  }
+
+  updateDigestionLab() {
+    const chewing = this.labControls.chewing || 15;
+    const isSoftFood = this.labControls['food-type'] || false;
+    const water = this.labControls.water || 250;
+
+    // Calculate digestion score (0-100)
+    let score = 0;
+    if (chewing >= 15) {
+      score += 30;
+    }
+    if (chewing >= 25) {
+      score += 20;
+    }
+    if (isSoftFood) {
+      score += 20;
+    }
+    if (water >= 250) {
+      score += 15;
+    }
+    if (water >= 400) {
+      score += 15;
+    }
+
+    // Determine food particle position and color
+    // Position moves along digestive path (y from 50 to 360)
+    const foodParticle = document.getElementById('lab-food-particle');
+    if (foodParticle) {
+      const normalizedScore = Math.min(score / 100, 1);
+      const posY = 50 + normalizedScore * 310;
+
+      // Color gradient: red (bad) -> orange -> green (good)
+      let color;
+      if (score < 30) {
+        color = '#ef4444'; // red
+      } else if (score < 60) {
+        color = '#f97316'; // orange
+      } else {
+        color = '#22c55e'; // green
+      }
+
+      foodParticle.style.cy = posY;
+      foodParticle.style.fill = color;
     }
   }
 

@@ -31,10 +31,11 @@ const log = {
 };
 
 /**
- * Science games to validate (9 games)
+ * Science games to validate (10 games)
  */
 const SCIENCE_GAMES = [
   'photosynthesis-explorer',
+  'digestion-explorer',
   'water-cycle',
   'rainbows-science',
   'moon-phases',

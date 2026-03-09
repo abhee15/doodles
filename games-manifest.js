@@ -338,6 +338,22 @@ const GAMES = [
     footerName: 'Photosynthesis'
   },
   {
+    id: 'digestion-explorer',
+    name: 'Digestive System',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Follow a pizza slice on its 9-metre journey through your digestive system — from bite to absorption!',
+    icon: 'ti-salad',
+    iconColor: '#f97316',
+    gradient: 'linear-gradient(145deg, #fff7ed 0%, #7c3200 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-12-01',
+    footerName: 'Digestive System'
+  },
+  {
     id: 'water-cycle',
     name: 'Water Cycle',
     thumbClass: 'water-cycle',
