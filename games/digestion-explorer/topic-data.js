@@ -495,15 +495,11 @@ window.TOPIC_DATA = {
     discoveries: [
       {
         message: '⚠️ Barely chewed! Your stomach has to work much harder to break food down.',
-        trigger: { chewing: [5, 7] }
+        trigger: { chewing: [5, 8] }
       },
       {
         message: '🌟 Great chewing! Saliva enzymes have already started digesting your food.',
-        trigger: { chewing: [25, 30] }
-      },
-      {
-        message: '🍕 Solid food needs lots of chewing — give your teeth more work to do!',
-        trigger: { 'food-type': false, chewing: [5, 9] }
+        trigger: { chewing: [26, 30] }
       },
       {
         message: '💧 Excellent! Water helps food move smoothly through your digestive system.',
