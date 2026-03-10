@@ -189,6 +189,42 @@ function create() {
     },
     { variant: ButtonVariants.SUCCESS, size: ButtonSizes.LARGE }
   );
+
+  // Handle orientation changes and window resize
+  this.scale.on('orientationchange', orientation => {
+    // Pause game during rotation
+    if (gameActive) {
+      gameActive = false;
+      if (spawnTimer) {
+        spawnTimer.paused = true;
+      }
+      // Resume after short delay to let layout settle
+      this.time.delayedCall(500, () => {
+        gameActive = true;
+        if (spawnTimer) {
+          spawnTimer.paused = false;
+        }
+      });
+    }
+  });
+
+  this.scale.on('resize', () => {
+    // Update UI positions if they exist
+    if (scoreText) {
+      scoreText.setPosition(16, 68);
+    }
+    if (livesText) {
+      livesText.setPosition(this.scale.width - 16, 68);
+    }
+    if (patternLabel) {
+      const newCenter = getCenterPosition(this);
+      patternLabel.setPosition(newCenter.x, 68);
+    }
+    if (nextNumberText) {
+      const newCenter = getCenterPosition(this);
+      nextNumberText.setPosition(newCenter.x, 110);
+    }
+  });
 }
 
 function update() {
@@ -196,8 +232,10 @@ function update() {
     return;
   }
 
+  const fallOffY = this.scale.height + 50;
+
   numbers.forEach((numberObj, index) => {
-    if (numberObj.sprite.y > 650) {
+    if (numberObj.sprite.y > fallOffY) {
       if (numberObj.value === nextNumber) {
         loseLife(this);
       }
@@ -296,9 +334,10 @@ function spawnNumber(scene) {
   bubble.setInteractive({ useHandCursor: true });
   bubble.on('pointerdown', () => handleNumberClick(scene, numValue, bubble, text));
 
+  const fallOffY = scene.scale.height + 50;
   scene.tweens.add({
     targets: [bubble, text],
-    y: 700,
+    y: fallOffY,
     duration: (600 / fallSpeed) * 1000,
     ease: 'Linear'
   });
