@@ -929,58 +929,39 @@
           <button id="btn-progress" class="dom-btn dom-btn--primary">🏆 Progress</button>
         </div>
         <div id="level-grid" class="dd-level-grid"></div>
-      </div>
 
-      <!-- Quiz Mode Selection Screen -->
-      <div data-screen="quiz" class="dom-screen">
-        <div class="dd-landing-header">
-          <div>
-            <h1 style="color: var(--dom-text)">🎯 Quiz Mode</h1>
-            <p style="color: var(--dom-text-muted)">Test your division mastery!</p>
-          </div>
-        </div>
-        <div style="max-width: 600px; margin: 40px auto; padding: 0 20px">
-          <div style="display: grid; grid-template-columns: 1fr; gap: 16px">
-            <button
-              id="btn-single-level-quiz"
-              class="dom-btn dom-btn--primary"
-              style="padding: 20px; font-size: 16px; text-align: left; height: auto"
-            >
-              <div style="font-weight: 700; margin-bottom: 8px">📚 Single-Level Quiz</div>
-              <div style="font-size: 14px; opacity: 0.8">Choose a level and answer 10 questions</div>
+        <!-- Quiz Section at Bottom -->
+        <div
+          style="
+            padding: 40px 20px;
+            text-align: center;
+            background: linear-gradient(135deg, rgba(124, 58, 237, 0.05) 0%, rgba(76, 29, 149, 0.05) 100%);
+            margin-top: 40px;
+            border-top: 2px solid var(--dom-border);
+          "
+        >
+          <h2 style="font-size: 24px; color: var(--dom-text); margin: 0 0 12px 0">🎯 Test Your Skills</h2>
+          <p style="color: var(--dom-text-muted); margin: 0 0 24px 0">
+            Take a comprehensive quiz to test what you've learned
+          </p>
+          <div
+            style="
+              display: grid;
+              grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+              gap: 12px;
+              max-width: 600px;
+              margin: 0 auto;
+            "
+          >
+            <button id="btn-single-trick-quiz" class="dom-btn dom-btn--primary" style="font-size: 14px">
+              📚 Single Trick
             </button>
-            <button
-              id="btn-multi-level-quiz"
-              class="dom-btn dom-btn--primary"
-              style="padding: 20px; font-size: 16px; text-align: left; height: auto"
-            >
-              <div style="font-weight: 700; margin-bottom: 8px">🎲 Multi-Level Quiz</div>
-              <div style="font-size: 14px; opacity: 0.8">Mix questions from 3 random levels</div>
+            <button id="btn-multi-trick-quiz" class="dom-btn dom-btn--primary" style="font-size: 14px">
+              🎲 Multi Trick
             </button>
-            <button
-              id="btn-random-quiz"
-              class="dom-btn dom-btn--primary"
-              style="padding: 20px; font-size: 16px; text-align: left; height: auto"
-            >
-              <div style="font-weight: 700; margin-bottom: 8px">🌟 Random Quiz</div>
-              <div style="font-size: 14px; opacity: 0.8">10 random questions from all levels</div>
-            </button>
-            <button
-              id="btn-comprehensive-test"
-              class="dom-btn dom-btn--primary"
-              style="
-                padding: 20px;
-                font-size: 16px;
-                text-align: left;
-                height: auto;
-                background: linear-gradient(135deg, var(--dom-accent) 0%, var(--dom-accent-dark) 100%);
-              "
-            >
-              <div style="font-weight: 700; margin-bottom: 8px">🏆 Comprehensive Test</div>
-              <div style="font-size: 14px; opacity: 0.8">Master quiz: 20 questions from all levels</div>
-            </button>
-            <button id="btn-cancel-quiz" class="dom-btn dom-btn--secondary" style="margin-top: 20px">
-              ← Back to Menu
+            <button id="btn-random-quiz-btn" class="dom-btn dom-btn--primary" style="font-size: 14px">🌟 Random</button>
+            <button id="btn-full-test" class="dom-btn dom-btn--primary" style="font-size: 14px">
+              🏆 Comprehensive
             </button>
           </div>
         </div>

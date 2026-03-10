@@ -20,14 +20,13 @@ let gameNav;
 
 function initNavigation() {
   gameNav = new GameNavigation('division-dojo', {
-    screens: ['landing', 'tutorial', 'practice', 'quiz', 'quiz-practice', 'results', 'progress'],
+    screens: ['landing', 'tutorial', 'practice', 'quiz-practice', 'results', 'progress'],
     initialScreen: 'landing',
     gameName: 'Division Dojo',
     titles: {
       landing: 'Division Dojo',
       tutorial: 'Learn the Concept',
       practice: 'Practice Problems',
-      quiz: 'Quiz Mode',
       'quiz-practice': 'Quiz Time',
       results: 'Results',
       progress: 'Your Progress'
@@ -858,9 +857,6 @@ function loadProgress() {
 }
 
 // ==================== QUIZ MODE ====================
-function showQuizSelection() {
-  showScreen('quiz');
-}
 
 function startSingleTrickQuiz(trickId) {
   const trick = TRICK_PARTS.find(t => t.id === trickId);
@@ -1203,8 +1199,8 @@ document.addEventListener('DOMContentLoaded', () => {
     .getElementById('btn-back-from-progress')
     ?.addEventListener('click', () => showScreen('landing'));
 
-  // Quiz buttons
-  document.getElementById('btn-single-level-quiz')?.addEventListener('click', () => {
+  // Quiz buttons from landing section
+  document.getElementById('btn-single-trick-quiz')?.addEventListener('click', () => {
     const trickId = prompt(
       `Choose a trick to master:\n\n${TRICK_PARTS.map((t, i) => `${i + 1}. ${t.name}`).join('\n')}\n\nEnter number (1-5):`
     );
@@ -1213,28 +1209,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  document.getElementById('btn-multi-level-quiz')?.addEventListener('click', startMultiTrickQuiz);
-  document.getElementById('btn-random-quiz')?.addEventListener('click', startRandomQuiz);
-  document
-    .getElementById('btn-comprehensive-test')
-    ?.addEventListener('click', startComprehensiveTest);
-  document
-    .getElementById('btn-cancel-quiz')
-    ?.addEventListener('click', () => showScreen('landing'));
-
-  // Add Quiz button to landing screen
-  const quizBtn = document.createElement('button');
-  quizBtn.className = 'dom-btn dom-btn--primary';
-  quizBtn.textContent = '🎯 Quiz Mode';
-  quizBtn.style.cssText = 'margin-left: 12px';
-  quizBtn.addEventListener('click', showQuizSelection);
-
-  const headerDiv = document.querySelector('.dd-landing-header');
-  if (headerDiv) {
-    const btnContainer = headerDiv.querySelector('div:first-child');
-    if (btnContainer && !document.getElementById('btn-quiz')) {
-      quizBtn.id = 'btn-quiz';
-      headerDiv.appendChild(quizBtn);
-    }
-  }
+  document.getElementById('btn-multi-trick-quiz')?.addEventListener('click', startMultiTrickQuiz);
+  document.getElementById('btn-random-quiz-btn')?.addEventListener('click', startRandomQuiz);
+  document.getElementById('btn-full-test')?.addEventListener('click', startComprehensiveTest);
 });

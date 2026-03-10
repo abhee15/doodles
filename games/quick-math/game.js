@@ -20,14 +20,13 @@ let gameNav;
 
 function initNavigation() {
   gameNav = new GameNavigation('quick-math', {
-    screens: ['landing', 'tutorial', 'practice', 'quiz', 'quiz-practice', 'results', 'progress'],
+    screens: ['landing', 'tutorial', 'practice', 'quiz-practice', 'results', 'progress'],
     initialScreen: 'landing',
     gameName: 'Quick Math',
     titles: {
       landing: 'Quick Math',
       tutorial: 'Learn the Trick',
       practice: 'Practice Problems',
-      quiz: 'Quiz Mode',
       'quiz-practice': 'Quiz Time',
       results: 'Results',
       progress: 'Your Progress'
