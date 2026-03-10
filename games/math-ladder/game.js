@@ -19,7 +19,22 @@ function isLandscapeMode() {
   return window.innerWidth > window.innerHeight;
 }
 
+function allDependenciesReady() {
+  return (
+    typeof Phaser !== 'undefined' &&
+    typeof createGameConfig === 'function' &&
+    document.getElementById('game-container') !== null &&
+    typeof config !== 'undefined'
+  );
+}
+
 function initializeGameWhenReady() {
+  // Wait for all dependencies to be ready
+  if (!allDependenciesReady()) {
+    setTimeout(initializeGameWhenReady, 50);
+    return;
+  }
+
   if (isLandscapeMode()) {
     startGame();
   } else {
@@ -30,7 +45,7 @@ function initializeGameWhenReady() {
 }
 
 function onOrientationChange() {
-  if (isLandscapeMode() && !window.game) {
+  if (isLandscapeMode() && !window.game && allDependenciesReady()) {
     startGame();
   }
 }
@@ -41,11 +56,20 @@ function startGame() {
     window.game.destroy(true);
     window.game = null;
   }
+
+  // Clear container to ensure clean slate
+  const container = document.getElementById('game-container');
+  if (container) {
+    container.innerHTML = '';
+  }
+
   // Create the game after a brief delay to ensure container is ready
   setTimeout(() => {
-    // eslint-disable-next-line no-undef
-    window.game = new Phaser.Game(config);
-  }, 50);
+    if (allDependenciesReady()) {
+      // eslint-disable-next-line no-undef
+      window.game = new Phaser.Game(config);
+    }
+  }, 100);
 }
 
 // ==================== WORLD CONSTANTS ====================
