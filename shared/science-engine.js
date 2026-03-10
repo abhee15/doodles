@@ -936,10 +936,13 @@ class ScienceStory {
         .slice(0, 3)
         .map(t => t.term);
 
+      const options = [term.term, ...wrongOptions].sort(() => Math.random() - 0.5);
+      const answer = options.indexOf(term.term);
+
       return {
         question: `What is "${term.term}"?`,
-        options: [term.term, ...wrongOptions].sort(() => Math.random() - 0.5),
-        answer: [term.term, ...wrongOptions].sort(() => Math.random() - 0.5).indexOf(term.term),
+        options,
+        answer,
         explanation: term.definition
       };
     });
