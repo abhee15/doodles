@@ -20,13 +20,15 @@ let gameNav;
 
 function initNavigation() {
   gameNav = new GameNavigation('quick-math', {
-    screens: ['landing', 'tutorial', 'practice', 'results', 'progress'],
+    screens: ['landing', 'tutorial', 'practice', 'quiz', 'quiz-practice', 'results', 'progress'],
     initialScreen: 'landing',
     gameName: 'Quick Math',
     titles: {
       landing: 'Quick Math',
       tutorial: 'Learn the Trick',
       practice: 'Practice Problems',
+      quiz: 'Quiz Mode',
+      'quiz-practice': 'Quiz Time',
       results: 'Results',
       progress: 'Your Progress'
     }
@@ -60,7 +62,62 @@ let playerProgress = {
   achievements: [],
   totalScore: 0,
   gamesPlayed: 0,
-  totalStars: 0
+  totalStars: 0,
+  quizzesCompleted: 0,
+  perfectScores: 0
+};
+
+// Quiz Trick Parts (for comprehensive testing)
+const TRICK_PARTS = [
+  {
+    id: 'foundational',
+    name: 'Foundational Tricks',
+    desc: '×4, ×5, ×3, ÷5, ×20, ×30',
+    levels: [1, 2, 3, 4, 5, 6],
+    icon: '⭐'
+  },
+  {
+    id: 'multiplication',
+    name: 'Multiplication Masters',
+    desc: '×9, ×11, ×6, ×7, ×8, ×12, ×15, ×25, ×99',
+    levels: [7, 8, 9, 10, 11, 12, 13, 14, 15],
+    icon: '🚀'
+  },
+  {
+    id: 'squaring',
+    name: 'Squaring Mastery',
+    desc: 'Squares ending 5, 1, 6',
+    levels: [16, 17, 18],
+    icon: '5️⃣'
+  },
+  {
+    id: 'vedic',
+    name: 'Advanced Vedic',
+    desc: 'Divisibility tests, Base methods, ×11 extended',
+    levels: [19, 20, 21, 22],
+    icon: '🧠'
+  },
+  {
+    id: 'advanced',
+    name: 'Mental Math Masters',
+    desc: 'Differ by 2, Same Tens, Cross Multiply, Compensation',
+    levels: [23, 24, 25, 26, 27, 28, 29],
+    icon: '💡'
+  }
+];
+
+// Quiz Mode State
+const quizMode = {
+  type: null, // 'single-trick', 'multi-trick', 'random', 'comprehensive'
+  selectedTrick: null,
+  tricks: [],
+  questions: [],
+  currentQuestionIndex: 0,
+  score: 0,
+  answered: 0,
+  userAnswers: [],
+  startTime: null,
+  endTime: null
 };
 
 // ==================== LEVEL DATA ====================
@@ -547,6 +604,20 @@ const ACHIEVEMENTS = {
     icon: '💯',
     description: 'Earn 100+ total points',
     check: () => playerProgress.totalScore >= 100
+  },
+  quiz_champion: {
+    id: 'quiz_champion',
+    name: 'Quiz Champion',
+    icon: '🏆',
+    description: 'Complete 5 quizzes',
+    check: () => playerProgress.quizzesCompleted >= 5
+  },
+  perfect_quiz: {
+    id: 'perfect_quiz',
+    name: 'Perfect Score',
+    icon: '💯',
+    description: 'Get 100% on a quiz',
+    check: () => playerProgress.perfectScores >= 1
   }
 };
 
@@ -1155,6 +1226,294 @@ function showLevelSelect() {
   };
 }
 
+// ==================== QUIZ MODE ====================
+function showQuizSelection() {
+  showScreen('quiz');
+}
+
+function startSingleTrickQuiz(trickId) {
+  const trick = TRICK_PARTS.find(t => t.id === trickId);
+  if (!trick) {
+    return;
+  }
+
+  quizMode.type = 'single-trick';
+  quizMode.selectedTrick = trick;
+  quizMode.tricks = [trick];
+  quizMode.questions = generateQuizQuestions([trick], 10);
+  quizMode.currentQuestionIndex = 0;
+  quizMode.score = 0;
+  quizMode.answered = 0;
+  quizMode.userAnswers = [];
+  quizMode.startTime = Date.now();
+
+  showScreen('quiz-practice');
+  renderQuizQuestion();
+}
+
+function startMultiTrickQuiz() {
+  const shuffled = TRICK_PARTS.sort(() => Math.random() - 0.5);
+  const selectedTricks = shuffled.slice(0, 3);
+
+  quizMode.type = 'multi-trick';
+  quizMode.tricks = selectedTricks;
+  quizMode.questions = generateQuizQuestions(selectedTricks, 15);
+  quizMode.currentQuestionIndex = 0;
+  quizMode.score = 0;
+  quizMode.answered = 0;
+  quizMode.userAnswers = [];
+  quizMode.startTime = Date.now();
+
+  showScreen('quiz-practice');
+  renderQuizQuestion();
+}
+
+function startRandomQuiz() {
+  quizMode.type = 'random';
+  quizMode.tricks = [];
+  quizMode.questions = generateQuizQuestions(TRICK_PARTS, 10);
+  quizMode.currentQuestionIndex = 0;
+  quizMode.score = 0;
+  quizMode.answered = 0;
+  quizMode.userAnswers = [];
+  quizMode.startTime = Date.now();
+
+  showScreen('quiz-practice');
+  renderQuizQuestion();
+}
+
+function startComprehensiveTest() {
+  quizMode.type = 'comprehensive';
+  quizMode.tricks = TRICK_PARTS;
+  quizMode.questions = generateQuizQuestions(TRICK_PARTS, 20);
+  quizMode.currentQuestionIndex = 0;
+  quizMode.score = 0;
+  quizMode.answered = 0;
+  quizMode.userAnswers = [];
+  quizMode.startTime = Date.now();
+
+  showScreen('quiz-practice');
+  renderQuizQuestion();
+}
+
+function generateQuizQuestions(tricks, count) {
+  const questions = [];
+  const levels = [];
+
+  tricks.forEach(trick => {
+    levels.push(...trick.levels);
+  });
+
+  for (let i = 0; i < count; i++) {
+    const levelId = randFrom(levels);
+    const level = LEVELS.find(l => l.id === levelId);
+    if (level) {
+      const q = level.generate(randInt, randFrom);
+      questions.push({
+        levelId,
+        levelName: level.name,
+        ...q
+      });
+    }
+  }
+
+  return questions;
+}
+
+function renderQuizQuestion() {
+  if (quizMode.currentQuestionIndex >= quizMode.questions.length) {
+    showQuizResults();
+    return;
+  }
+
+  const q = quizMode.questions[quizMode.currentQuestionIndex];
+  const totalQuestions = quizMode.questions.length;
+
+  document.getElementById('quiz-question-display').textContent = q.questionStr;
+  document.getElementById('quiz-score-display').textContent =
+    `Score: ${quizMode.score}/${quizMode.answered + 1}`;
+  document.getElementById('quiz-meta').textContent =
+    `${quizMode.type.replace('-', ' ').toUpperCase()} • Question ${quizMode.currentQuestionIndex + 1}/${totalQuestions} • Trick: ${q.levelName}`;
+  document.getElementById('quiz-answer-box').textContent = '?';
+  document.getElementById('quiz-answer-box').className = 'qm-answer-box';
+  document.getElementById('quiz-feedback-display').textContent = '';
+  userAnswer = '';
+
+  renderQuizNumpad();
+}
+
+function checkQuizAnswer() {
+  if (answered || userAnswer === '') {
+    return;
+  }
+
+  answered = true;
+  const q = quizMode.questions[quizMode.currentQuestionIndex];
+  const isCorrect = parseInt(userAnswer, 10) === q.answer;
+
+  if (isCorrect) {
+    quizMode.score++;
+    playSound('correct');
+    document.getElementById('quiz-answer-box').classList.add('correct');
+    document.getElementById('quiz-feedback-display').textContent = '✅ Correct!';
+  } else {
+    playSound('wrong');
+    document.getElementById('quiz-answer-box').classList.add('wrong');
+    document.getElementById('quiz-feedback-display').textContent = `❌ Wrong! It was ${q.answer}`;
+  }
+
+  quizMode.userAnswers.push({
+    levelId: q.levelId,
+    levelName: q.levelName,
+    question: q.questionStr,
+    userAnswer: parseInt(userAnswer, 10),
+    correctAnswer: q.answer,
+    correct: isCorrect
+  });
+
+  quizMode.answered++;
+  autoAdvanceTimer = setTimeout(() => {
+    quizMode.currentQuestionIndex++;
+    answered = false;
+    renderQuizQuestion();
+  }, GAME.AUTO_ADVANCE_MS);
+}
+
+function renderQuizNumpad() {
+  const numpad = document.getElementById('quiz-numpad');
+  numpad.innerHTML = '';
+
+  for (let i = 0; i <= 9; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'qm-numpad-btn';
+    btn.textContent = i;
+    if (answered) {
+      btn.disabled = true;
+    }
+    btn.addEventListener('click', () => {
+      if (!answered && userAnswer.length < GAME.MAX_ANSWER_DIGITS) {
+        userAnswer += i;
+        document.getElementById('quiz-answer-box').textContent = userAnswer;
+      }
+    });
+    numpad.appendChild(btn);
+  }
+
+  const clearBtn = document.createElement('button');
+  clearBtn.className = 'qm-numpad-btn qm-clear';
+  clearBtn.textContent = 'Clear';
+  if (answered) {
+    clearBtn.disabled = true;
+  }
+  clearBtn.addEventListener('click', () => {
+    if (!answered) {
+      userAnswer = '';
+      document.getElementById('quiz-answer-box').textContent = '?';
+    }
+  });
+  numpad.appendChild(clearBtn);
+
+  const submitBtn = document.createElement('button');
+  submitBtn.className = 'qm-numpad-btn qm-submit';
+  submitBtn.textContent = 'Submit';
+  if (answered) {
+    submitBtn.disabled = true;
+  }
+  submitBtn.addEventListener('click', checkQuizAnswer);
+  numpad.appendChild(submitBtn);
+}
+
+function showQuizResults() {
+  quizMode.endTime = Date.now();
+  const percentage = Math.round((quizMode.score / quizMode.questions.length) * 100);
+  const stars = percentage >= 80 ? 3 : percentage >= 60 ? 2 : percentage >= 40 ? 1 : 0;
+  const timeSeconds = Math.round((quizMode.endTime - quizMode.startTime) / 1000);
+
+  // Update progress
+  playerProgress.quizzesCompleted++;
+  if (percentage === 100) {
+    playerProgress.perfectScores++;
+  }
+  playerProgress.totalScore += quizMode.score;
+  saveProgress();
+
+  // Render results
+  document.getElementById('results-title').textContent =
+    quizMode.score === quizMode.questions.length ? '🎉 Perfect!' : 'Great Effort!';
+  document.getElementById('results-score').textContent =
+    `${quizMode.score}/${quizMode.questions.length}`;
+  document.getElementById('results-percentage').textContent = `${percentage}%`;
+
+  const starsHtml = Array(3)
+    .fill(0)
+    .map((_, i) => `<span class="qm-result-star--${i < stars ? 'filled' : 'empty'}"></span>`)
+    .join('');
+  document.getElementById('results-stars').innerHTML = starsHtml;
+
+  let rating = 'Keep practicing!';
+  if (percentage >= 90) {
+    rating = 'Awesome! 🌟';
+  } else if (percentage >= 80) {
+    rating = 'Excellent! 🎯';
+  } else if (percentage >= 60) {
+    rating = 'Good job! 👍';
+  }
+  document.getElementById('results-rating').textContent = rating;
+
+  // Quiz-specific stats
+  const trickBreakdown = calculateTrickBreakdown();
+  const metaInfo = `<div style="margin-top: 20px; padding-top: 20px; border-top: 1px solid var(--dom-border)">
+    <div style="font-size: 16px; font-weight: 700; margin-bottom: 12px">📊 Quiz Stats</div>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; font-size: 14px">
+      <div><span style="color: var(--dom-text-muted)">Quiz Type:</span> ${quizMode.type.replace('-', ' ').toUpperCase()}</div>
+      <div><span style="color: var(--dom-text-muted)">Time:</span> ${Math.floor(timeSeconds / 60)}m ${timeSeconds % 60}s</div>
+      <div><span style="color: var(--dom-text-muted)">Accuracy:</span> ${percentage}%</div>
+      <div><span style="color: var(--dom-text-muted)">Questions:</span> ${quizMode.questions.length}</div>
+    </div>
+    ${trickBreakdown}
+  </div>`;
+
+  const resultsCard = document.querySelector('.qm-results-card');
+  const existingMeta = resultsCard.querySelector('[id="results-rating"]');
+  if (existingMeta && !existingMeta.parentElement.querySelector('[id="quiz-meta-info"]')) {
+    const metaDiv = document.createElement('div');
+    metaDiv.id = 'quiz-meta-info';
+    metaDiv.innerHTML = metaInfo;
+    existingMeta.parentElement.appendChild(metaDiv);
+  }
+
+  showScreen('results');
+}
+
+function calculateTrickBreakdown() {
+  const breakdown = {};
+
+  quizMode.userAnswers.forEach(answer => {
+    const trick = TRICK_PARTS.find(t => t.levels.includes(answer.levelId));
+    if (trick) {
+      if (!breakdown[trick.name]) {
+        breakdown[trick.name] = { correct: 0, total: 0 };
+      }
+      breakdown[trick.name].total++;
+      if (answer.correct) {
+        breakdown[trick.name].correct++;
+      }
+    }
+  });
+
+  let html =
+    '<div style="margin-top: 16px"><div style="font-size: 14px; font-weight: 700; margin-bottom: 8px">By Trick Category:</div>';
+  Object.entries(breakdown).forEach(([trick, stats]) => {
+    const pct = Math.round((stats.correct / stats.total) * 100);
+    html += `<div style="margin-bottom: 8px; padding: 8px; background: color-mix(in srgb, var(--dom-accent) 10%, white); border-radius: 4px; font-size: 13px">
+      <strong>${trick}:</strong> ${stats.correct}/${stats.total} (${pct}%)
+    </div>`;
+  });
+  html += '</div>';
+
+  return html;
+}
+
 // ==================== INITIALIZATION ====================
 document.addEventListener('DOMContentLoaded', () => {
   // Initialize navigation system (handles back button and screen transitions)
@@ -1187,4 +1546,38 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     { once: true }
   );
+
+  // Quiz buttons
+  document.getElementById('btn-single-level-quiz')?.addEventListener('click', () => {
+    const trickId = prompt(
+      `Choose a trick category to master:\n\n${TRICK_PARTS.map((t, i) => `${i + 1}. ${t.name}`).join('\n')}\n\nEnter number (1-5):`
+    );
+    if (trickId && trickId >= 1 && trickId <= 5) {
+      startSingleTrickQuiz(TRICK_PARTS[parseInt(trickId) - 1].id);
+    }
+  });
+
+  document.getElementById('btn-multi-level-quiz')?.addEventListener('click', startMultiTrickQuiz);
+  document.getElementById('btn-random-quiz')?.addEventListener('click', startRandomQuiz);
+  document
+    .getElementById('btn-comprehensive-test')
+    ?.addEventListener('click', startComprehensiveTest);
+  document
+    .getElementById('btn-cancel-quiz')
+    ?.addEventListener('click', () => showScreen('landing'));
+
+  // Add Quiz button to landing screen
+  const quizBtn = document.createElement('button');
+  quizBtn.className = 'dom-btn dom-btn--primary';
+  quizBtn.textContent = '🎯 Quiz Mode';
+  quizBtn.style.cssText = 'margin-left: 12px';
+  quizBtn.addEventListener('click', showQuizSelection);
+
+  const headerDiv = document.querySelector('.qm-landing-header');
+  if (headerDiv) {
+    if (!document.getElementById('btn-quiz')) {
+      quizBtn.id = 'btn-quiz';
+      headerDiv.appendChild(quizBtn);
+    }
+  }
 });
