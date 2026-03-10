@@ -91,6 +91,15 @@
           display: none;
         }
       }
+      @media (max-width: 600px) and (orientation: landscape) {
+        #rotate-hint {
+          display: none;
+        }
+        #game-container,
+        .back-link {
+          display: block;
+        }
+      }
       /* Prevent accidental scroll / zoom on touch during gameplay */
       @media (max-width: 768px) {
         canvas {

@@ -11,7 +11,42 @@ document.addEventListener('DOMContentLoaded', () => {
       gameName: 'Math Ladder'
     });
   }
+  initializeGameWhenReady();
 });
+
+// ==================== ORIENTATION-AWARE INITIALIZATION ====================
+function isLandscapeMode() {
+  return window.innerWidth > window.innerHeight;
+}
+
+function initializeGameWhenReady() {
+  if (isLandscapeMode()) {
+    startGame();
+  } else {
+    // Wait for orientation change
+    window.addEventListener('orientationchange', onOrientationChange, { once: true });
+    window.addEventListener('resize', onOrientationChange, { once: true });
+  }
+}
+
+function onOrientationChange() {
+  if (isLandscapeMode() && !window.game) {
+    startGame();
+  }
+}
+
+function startGame() {
+  // Remove any existing game instance
+  if (window.game) {
+    window.game.destroy(true);
+    window.game = null;
+  }
+  // Create the game after a brief delay to ensure container is ready
+  setTimeout(() => {
+    // eslint-disable-next-line no-undef
+    window.game = new Phaser.Game(config);
+  }, 50);
+}
 
 // ==================== WORLD CONSTANTS ====================
 const RUNG_HEIGHT = 45;
@@ -126,9 +161,6 @@ const config = createGameConfig({
   backgroundColor: 0x87ceeb,
   scene: { preload, create, update }
 });
-
-// eslint-disable-next-line no-unused-vars
-const game = new Phaser.Game(config);
 
 // ==================== LIFECYCLE ====================
 function preload() {}
