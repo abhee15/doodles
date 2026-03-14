@@ -1,11 +1,13 @@
 # 3D Visualization Improvements — All 9 Science Games
 
 ## Overview
+
 Comprehensive visual enhancements across all 9 science games (Moon Phases, Photosynthesis Explorer, Water Cycle, Day & Night, Seasons Science, Volcano Science, Earthquake Science, Gravity Science, and Rainbows Science).
 
 ## Key Improvements Applied
 
 ### 1. **Better Visibility & Lighting**
+
 - ✅ Upgraded from `MeshLambertMaterial` to `MeshStandardMaterial` for better control
 - ✅ Added multiple light sources per scene:
   - Strong directional light (sun position)
@@ -16,6 +18,7 @@ Comprehensive visual enhancements across all 9 science games (Moon Phases, Photo
 - ✅ Added emissive properties to key objects for self-illumination
 
 ### 2. **Brighter, More Vibrant Colors**
+
 - ✅ Increased color saturation across all materials
 - ✅ Examples:
   - Earth: `0x22c55e` (base green) → vibrant with emissive glow
@@ -25,6 +28,7 @@ Comprehensive visual enhancements across all 9 science games (Moon Phases, Photo
   - Rainbow rays: All 7 colors now have emissive properties (0.7 intensity)
 
 ### 3. **Optimized Camera Angles**
+
 - ✅ Adjusted positioning for better object visibility:
   - Moon Phases: `(0, 6, 12)` - tilted view
   - Seasons: `(3, 4, 11)` - angled for orbit visibility
@@ -32,6 +36,7 @@ Comprehensive visual enhancements across all 9 science games (Moon Phases, Photo
   - Volcano: `(0, 0, 9)` - direct view of cross-section
 
 ### 4. **Enhanced Backgrounds**
+
 - ✅ Replaced pure black/dark backgrounds with subtle color gradients:
   - Moon Phases: `0x05091a` → `0x0a0e27` (slightly brighter space blue)
   - Day & Night: `0x000000` → `0x0f172a` (dark blue space)
@@ -43,7 +48,9 @@ Comprehensive visual enhancements across all 9 science games (Moon Phases, Photo
   - Earthquake: `0x5a3a2a` → `0x6d4320` (brighter earth tone)
 
 ### 5. **Subtle Animations & Glow Effects**
+
 All games now include:
+
 - ✅ **Pulsing glow effects** on primary objects (sun, magma, core, etc.)
   - Using `emissiveIntensity` that varies with sine waves
   - Creates visual "breathing" effect to draw attention
@@ -61,7 +68,9 @@ All games now include:
 ## Game-by-Game Details
 
 ### 1. Moon Phases
+
 **Changes:**
+
 - Background: Darker space blue with better contrast
 - Earth: Brighter blue with emissive glow
 - Moon: Brighter gray with gentle emissive
@@ -71,7 +80,9 @@ All games now include:
 - **Result:** Moon phases now clearly visible, phases more distinct
 
 ### 2. Photosynthesis Explorer
+
 **Changes:**
+
 - Sun: Glowing yellow with strong emissive
 - Leaf: Brighter green with emissive glow + bobbing animation
 - Soil base: Added brown sphere with subtle glow
@@ -80,7 +91,9 @@ All games now include:
 - **Result:** Sun's energy is clearly visible, leaf stands out with movement
 
 ### 3. Water Cycle
+
 **Changes:**
+
 - Ocean: Deeper blue with emissive properties
 - Water particles: Brighter with emissive glow + scale pulsing
 - Sun: Glowing yellow with emissive intensity
@@ -89,7 +102,9 @@ All games now include:
 - **Result:** Water droplets clearly rising, ocean has depth and shimmer
 
 ### 4. Day & Night
+
 **Changes:**
+
 - Background: Dark space blue instead of pure black
 - Sun: Bright yellow with emissive glow
 - Earth: Vibrant green with emissive
@@ -100,7 +115,9 @@ All games now include:
 - **Result:** Day/night contrast clearer, Earth rotation more visible
 
 ### 5. Seasons Science
+
 **Changes:**
+
 - Camera: Adjusted for angled view
 - Sun: Glowing yellow with emissive
 - Earth: Vibrant green with glow
@@ -111,7 +128,9 @@ All games now include:
 - **Result:** Axial tilt and orbit clearly visible
 
 ### 6. Volcano Science
+
 **Changes:**
+
 - Background: Volcanic reddish-brown theme
 - Magma chamber: Bright red with strong glow
 - Core: Glowing orange with max emissive
@@ -121,7 +140,9 @@ All games now include:
 - **Result:** Magma chamber clearly visible, glow shows heat concept
 
 ### 7. Earthquake Science
+
 **Changes:**
+
 - Background: Earth tone brown
 - Plates: Contrasting brown shades with subtle glow
 - Fault line: Red with glow effect
@@ -131,7 +152,9 @@ All games now include:
 - **Result:** Tectonic plates distinct, stress waves clearly visible
 
 ### 8. Gravity Science
+
 **Changes:**
+
 - Background: Purple-tinted space
 - Earth: Vibrant green with glow
 - Falling objects: Brighter with emissive properties
@@ -142,7 +165,9 @@ All games now include:
 - **Result:** Falling objects clearly tracked, gravity well concept visible
 
 ### 9. Rainbows Science
+
 **Changes:**
+
 - Sun: Bright white/yellow with strong glow
 - Rainbow rays: All 7 colors now have emissive properties
 - Prism: More visible with better opacity and shimmer
@@ -155,7 +180,9 @@ All games now include:
 ## Technical Implementation
 
 ### Material Upgrades
+
 Upgraded to MeshStandardMaterial with:
+
 - `color` - base material color
 - `emissive` - self-illumination color
 - `emissiveIntensity` - glow strength (0-1)
@@ -163,18 +190,22 @@ Upgraded to MeshStandardMaterial with:
 - `roughness` - surface detail
 
 ### Animation Pattern
+
 Objects now use sine-based pulsing for smooth glow effects:
+
 - `emissiveIntensity` varies from baseValue to baseValue + range
 - Creates visual "breathing" effect
 - Frequency controlled per object type
 
 ### Lighting Strategy
+
 - **Directional Light:** Strong sun position (yellow/warm)
 - **Fill Light:** Opposite direction (blue/cool for shadows)
 - **Ambient Light:** Scene base illumination
 - **Point Light:** Localized glows where needed
 
 ## Files Modified
+
 1. `/games/moon-phases/game.js`
 2. `/games/photosynthesis-explorer/game.js`
 3. `/games/water-cycle/game.js`
@@ -186,6 +217,7 @@ Objects now use sine-based pulsing for smooth glow effects:
 9. `/games/rainbows-science/game.js`
 
 ## Performance Notes
+
 - Uses standard Three.js materials (no custom shaders)
 - Emissive intensity is GPU-optimized
 - Star counts reasonable (300-500 points)
