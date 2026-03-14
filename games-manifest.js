@@ -266,6 +266,22 @@ const GAMES = [
     footerName: 'Earth Explorer'
   },
   {
+    id: 'south-america-tree',
+    name: 'South America Tree',
+    thumbClass: null,
+    category: 'geo',
+    desc: 'Grow a tree to memorize all 12 South American countries — from roots to crown!',
+    icon: 'ti-tree',
+    iconColor: '#58cc02',
+    gradient: 'linear-gradient(145deg, #2e7d32 0%, #0d2007 100%)',
+    pattern: 'radial-gradient(circle, rgba(255,255,255,.1) 1px, transparent 1px)',
+    patternSize: '24px 24px',
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-09-01',
+    footerName: 'South America Tree'
+  },
+  {
     id: 'word-explorer',
     name: 'Word Explorer',
     thumbClass: 'word',
