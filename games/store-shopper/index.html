@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Store Shopper - Learn Money Management | Doodles Games</title>
+    <meta name="title" content="Store Shopper - Learn Money Management" />
+    <meta
+      name="description"
+      content="Practice budgeting and money management by shopping within a set budget. Make smart choices and save money!"
+    />
+    <meta name="keywords" content="money, budgeting, shopping, financial literacy, economics" />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/store-shopper/" />
+    <meta property="og:title" content="Store Shopper - Learn Money Management" />
+    <meta
+      property="og:description"
+      content="Practice budgeting and money management by shopping within a set budget. Make smart choices and save money!"
+    />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/store-shopper/" />
+    <meta property="twitter:title" content="Store Shopper - Learn Money Management" />
+    <meta
+      property="twitter:description"
+      content="Practice budgeting and money management by shopping within a set budget. Make smart choices and save money!"
+    />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/store-shopper/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #065f46;
+        --dom-accent: #4ade80;
+        --dom-accent2: #22c55e;
+        --dom-bg: #ecfdf5;
+        --dom-border: rgba(16, 185, 129, 0.2);
+      }
+
+      .level-selector {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+        padding: 20px;
+      }
+
+      .level-btn {
+        background: white;
+        border: 2px solid var(--dom-border);
+        padding: 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.2s;
+      }
+
+      .level-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .level-btn.active {
+        background: linear-gradient(135deg, var(--dom-accent2), var(--dom-accent));
+        color: white;
+        border-color: var(--dom-accent2);
+      }
+
+      .level-title {
+        font-weight: 600;
+        font-size: 14px;
+        margin: 8px 0 4px 0;
+      }
+
+      .level-budget {
+        font-size: 12px;
+        opacity: 0.8;
+      }
+
+      .game-layout {
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        gap: 20px;
+        padding: 20px;
+      }
+
+      .budget-section {
+        background: white;
+        border-radius: 8px;
+        padding: 15px;
+        border: 2px solid var(--dom-border);
+      }
+
+      .budget-header {
+        font-weight: 600;
+        color: #065f46;
+        margin: 0 0 10px 0;
+        font-size: 14px;
+      }
+
+      .budget-display {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 14px;
+      }
+
+      .budget-label {
+        color: #6b7280;
+      }
+
+      .budget-amount {
+        font-weight: 600;
+        color: var(--dom-accent2);
+      }
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: #e5e7eb;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 15px;
+      }
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, var(--dom-accent2), var(--dom-accent));
+        transition: width 0.3s;
+      }
+
+      .cart-header {
+        font-weight: 600;
+        color: #065f46;
+        margin: 15px 0 10px 0;
+        font-size: 14px;
+      }
+
+      .cart-items {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        max-height: 200px;
+        overflow-y: auto;
+      }
+
+      .cart-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f0fdf4;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 13px;
+        border-left: 3px solid var(--dom-accent2);
+      }
+
+      .cart-item-price {
+        font-weight: 600;
+        color: var(--dom-accent2);
+      }
+
+      .remove-item-btn {
+        background: none;
+        border: none;
+        color: #ef4444;
+        cursor: pointer;
+        font-size: 12px;
+        padding: 0 4px;
+      }
+
+      .remove-item-btn:hover {
+        color: #dc2626;
+      }
+
+      .checkout-section {
+        border-top: 2px solid var(--dom-border);
+        padding-top: 15px;
+        margin-top: 15px;
+      }
+
+      .checkout-total {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+
+      .checkout-btn {
+        width: 100%;
+        background: linear-gradient(135deg, var(--dom-accent2), var(--dom-accent));
+        color: white;
+        border: none;
+        padding: 10px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s;
+      }
+
+      .checkout-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        opacity: 0.9;
+      }
+
+      .checkout-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .products-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 12px;
+      }
+
+      .product-item {
+        background: white;
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 12px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .product-item:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .product-emoji {
+        font-size: 36px;
+        display: block;
+        margin-bottom: 6px;
+      }
+
+      .product-name {
+        font-size: 12px;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 4px;
+      }
+
+      .product-price {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--dom-accent2);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .modal.show {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        max-width: 400px;
+        text-align: center;
+      }
+
+      .modal-title {
+        font-size: 32px;
+        margin: 0 0 10px 0;
+      }
+
+      .modal-heading {
+        font-size: 20px;
+        font-weight: 600;
+        color: #065f46;
+        margin: 10px 0 15px 0;
+      }
+
+      .modal-text {
+        font-size: 14px;
+        color: #6b7280;
+        margin-bottom: 20px;
+        line-height: 1.5;
+      }
+
+      .score-box {
+        background: #f0fdf4;
+        border: 2px solid var(--dom-border);
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+
+      .score-label {
+        font-size: 12px;
+        color: #6b7280;
+        margin-bottom: 4px;
+      }
+
+      .score-value {
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--dom-accent2);
+      }
+
+      .modal-buttons {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .modal-btn {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 14px;
+      }
+
+      .modal-btn-primary {
+        background: linear-gradient(135deg, var(--dom-accent2), var(--dom-accent));
+        color: white;
+      }
+
+      .modal-btn-primary:hover {
+        opacity: 0.9;
+      }
+
+      .modal-btn-secondary {
+        background: #f3f4f6;
+        color: #1f2937;
+        border: 2px solid #e5e7eb;
+      }
+
+      .modal-btn-secondary:hover {
+        background: #e5e7eb;
+      }
+
+      .empty-cart {
+        color: #9ca3af;
+        font-size: 13px;
+        text-align: center;
+        padding: 20px 10px;
+      }
+
+      @media (max-width: 768px) {
+        .level-selector {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .game-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .products-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .modal-content {
+          max-width: 90%;
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#store-shopper"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Store Shopper</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Level Selector -->
+    <div class="dom-screen active" id="level-screen">
+      <div style="padding: 20px">
+        <h1 style="color: #065f46; margin: 0 0 10px 0; text-align: center">Choose Your Level</h1>
+        <p style="color: #6b7280; margin: 0 0 20px 0; text-align: center; font-size: 14px">
+          Pick a budget and practice smart shopping!
+        </p>
+        <div class="level-selector" id="level-selector"></div>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="dom-screen" id="game-screen">
+      <button
+        class="dom-btn"
+        style="position: absolute; top: 65px; right: 20px; font-size: 12px; padding: 6px 12px"
+        id="back-to-levels"
+      >
+        ← Levels
+      </button>
+
+      <div class="game-layout">
+        <!-- Budget Panel -->
+        <div>
+          <div class="budget-section">
+            <h3 class="budget-header">💰 Your Budget</h3>
+            <div class="budget-display">
+              <span class="budget-label">Total</span>
+              <span class="budget-amount" id="budget-total">$0</span>
+            </div>
+            <div class="budget-display">
+              <span class="budget-label">Spent</span>
+              <span class="budget-amount" id="budget-spent">$0</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <div class="budget-display">
+              <span class="budget-label">Remaining</span>
+              <span class="budget-amount" id="budget-remaining">$0</span>
+            </div>
+
+            <!-- Shopping Cart -->
+            <h3 class="cart-header">🛒 Your Cart</h3>
+            <div class="cart-items" id="cart-items">
+              <div class="empty-cart">Your cart is empty</div>
+            </div>
+
+            <!-- Checkout -->
+            <div class="checkout-section">
+              <div class="checkout-total">
+                <span>Total Price:</span>
+                <span id="cart-total">$0</span>
+              </div>
+              <button class="checkout-btn" id="checkout-btn" disabled>Checkout</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div>
+          <h2 style="color: #065f46; margin: 0 0 15px 0">🛍️ Store Items</h2>
+          <div class="products-grid" id="products-grid"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div class="modal" id="result-modal">
+      <div class="modal-content">
+        <div class="modal-title" id="result-emoji">🎉</div>
+        <h2 class="modal-heading" id="result-heading">Great Job!</h2>
+        <p class="modal-text" id="result-text"></p>
+
+        <div class="score-box">
+          <div class="score-label">Money Remaining</div>
+          <div class="score-value" id="result-money">$0</div>
+        </div>
+
+        <div class="modal-buttons">
+          <button class="modal-btn modal-btn-primary" id="next-level-btn">Next Level</button>
+          <button class="modal-btn modal-btn-secondary" id="try-again-btn">Try Again</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="store-data.js"></script>
+    <script src="game.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

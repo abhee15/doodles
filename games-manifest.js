@@ -71,6 +71,30 @@ const CATEGORIES = [
     color: '#DB2777',
     gradient: 'linear-gradient(145deg, #DB2777 0%, #7C3AED 100%)',
     footerHeading: 'Music & Arts'
+  },
+  {
+    id: 'tech',
+    label: 'Technology & Coding',
+    icon: 'ti-code',
+    color: '#5B21B6',
+    gradient: 'linear-gradient(145deg, #8B5CF6 0%, #2D1B69 100%)',
+    footerHeading: 'Technology'
+  },
+  {
+    id: 'sel',
+    label: 'Social-Emotional Learning',
+    icon: 'ti-heart',
+    color: '#EC4899',
+    gradient: 'linear-gradient(145deg, #F472B6 0%, #9D174D 100%)',
+    footerHeading: 'Social-Emotional'
+  },
+  {
+    id: 'money',
+    label: 'Money & Economics',
+    icon: 'ti-coin',
+    color: '#065F46',
+    gradient: 'linear-gradient(145deg, #4ADE80 0%, #0F2817 100%)',
+    footerHeading: 'Money & Economics'
   }
 ];
 
@@ -488,6 +512,53 @@ const GAMES = [
     patternPosition: null,
     newUntil: '2026-09-15',
     footerName: 'Earthquakes'
+  },
+  {
+    id: 'code-quest',
+    name: 'Code Quest',
+    thumbClass: null,
+    category: 'tech',
+    desc: 'Guide a character through puzzles using visual programming blocks. Learn loops, sequences, and conditionals.',
+    icon: 'ti-code',
+    iconColor: null,
+    gradient: 'linear-gradient(150deg, #1e293b 0%, #5b21b6 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.04) 10px, rgba(255,255,255,.04) 20px)',
+    patternSize: null,
+    patternPosition: null,
+    newUntil: '2026-04-01',
+    footerName: 'Code Quest'
+  },
+  {
+    id: 'emotion-explorer',
+    name: 'Emotion Explorer',
+    thumbClass: null,
+    category: 'sel',
+    desc: 'Explore different emotions, learn what triggers them, and discover healthy coping strategies.',
+    icon: 'ti-heart',
+    iconColor: null,
+    gradient: 'linear-gradient(150deg, #fef3c7 0%, #7c3aed 100%)',
+    pattern: 'radial-gradient(circle, rgba(255,255,255,.1) 1px, transparent 1px) 0 0 / 10px 10px',
+    patternSize: null,
+    patternPosition: null,
+    newUntil: '2026-04-01',
+    footerName: 'Emotion Explorer'
+  },
+  {
+    id: 'store-shopper',
+    name: 'Store Shopper',
+    thumbClass: null,
+    category: 'money',
+    desc: 'Practice budgeting and money management by shopping within a set budget. Make smart choices!',
+    icon: 'ti-shopping-cart',
+    iconColor: null,
+    gradient: 'linear-gradient(150deg, #ecfdf5 0%, #065f46 100%)',
+    pattern:
+      'repeating-linear-gradient(90deg, rgba(4, 120, 87, .1) 0px, rgba(4, 120, 87, .1) 2px, transparent 2px, transparent 10px)',
+    patternSize: null,
+    patternPosition: null,
+    newUntil: '2026-04-01',
+    footerName: 'Store Shopper'
   }
 ];
 

@@ -1,0 +1,413 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Code Quest - Learn Programming Logic | Doodles Games</title>
+    <meta name="title" content="Code Quest - Learn Programming Logic" />
+    <meta
+      name="description"
+      content="Guide a character through puzzles using visual programming blocks. Learn loops, sequences, and conditionals."
+    />
+    <meta name="keywords" content="coding, programming, logic, sequences, loops, algorithms" />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/code-quest/" />
+    <meta property="og:title" content="Code Quest - Learn Programming Logic" />
+    <meta
+      property="og:description"
+      content="Guide a character through puzzles using visual programming blocks. Learn loops, sequences, and conditionals."
+    />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/code-quest/" />
+    <meta property="twitter:title" content="Code Quest - Learn Programming Logic" />
+    <meta
+      property="twitter:description"
+      content="Guide a character through puzzles using visual programming blocks. Learn loops, sequences, and conditionals."
+    />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/code-quest/" />
+    <link rel="stylesheet" href="../../shared/game-page-v2.css" />
+    <style>
+      :root {
+        --game-bg-start: #1e293b;
+        --game-bg-end: #5b21b6;
+      }
+
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, var(--game-bg-start) 0%, var(--game-bg-end) 100%);
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+
+      #game-container {
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        background: transparent;
+      }
+
+      .code-quest-ui {
+        display: grid;
+        grid-template-columns: 1fr 2fr 1fr;
+        grid-template-rows: auto 1fr;
+        gap: 12px;
+        padding: 12px;
+        height: 100vh;
+        box-sizing: border-box;
+      }
+
+      .toolbox,
+      .program-area,
+      .game-view {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        padding: 12px;
+        overflow-y: auto;
+      }
+
+      .level-info {
+        grid-column: 1 / -1;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
+        font-size: 14px;
+        padding: 0 8px;
+      }
+
+      .level-info h2 {
+        margin: 0;
+        font-size: 16px;
+      }
+
+      .toolbox {
+        grid-column: 1;
+        grid-row: 2;
+      }
+
+      .toolbox h3 {
+        margin: 0 0 8px 0;
+        color: #60a5fa;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .block-item {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+        padding: 8px 12px;
+        margin-bottom: 8px;
+        border-radius: 6px;
+        cursor: grab;
+        user-select: none;
+        font-size: 13px;
+        font-weight: 500;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.2s;
+      }
+
+      .block-item:hover {
+        transform: translateY(-2px);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      .block-item.turn-left {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      }
+
+      .block-item.turn-right {
+        background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      }
+
+      .block-item.repeat {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+      }
+
+      .block-item.if {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      }
+
+      .program-area {
+        grid-column: 2;
+        grid-row: 2;
+        min-height: 300px;
+      }
+
+      .program-area h3 {
+        margin: 0 0 8px 0;
+        color: #60a5fa;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      .program-blocks {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-height: 100px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 6px;
+        padding: 8px;
+      }
+
+      .program-block {
+        background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        color: white;
+        padding: 10px 12px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+        cursor: grab;
+        user-select: none;
+      }
+
+      .program-block.turn-left {
+        background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      }
+
+      .program-block.turn-right {
+        background: linear-gradient(135deg, #ec4899 0%, #db2777 100%);
+      }
+
+      .program-block.repeat {
+        background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+      }
+
+      .program-block.if {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      }
+
+      .remove-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: white;
+        cursor: pointer;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 12px;
+        transition: all 0.2s;
+      }
+
+      .remove-btn:hover {
+        background: rgba(255, 0, 0, 0.5);
+      }
+
+      .game-view {
+        grid-column: 3;
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .game-view h3 {
+        margin: 0 0 12px 0;
+        color: #60a5fa;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        width: 100%;
+      }
+
+      .grid-container {
+        width: 100%;
+        height: auto;
+        max-width: 200px;
+        aspect-ratio: 1;
+        display: grid;
+        gap: 4px;
+        grid-template-columns: repeat(6, 1fr);
+        margin-bottom: 12px;
+      }
+
+      .grid-cell {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 4px;
+        aspect-ratio: 1;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .grid-cell.wall {
+        background: rgba(100, 100, 100, 0.4);
+        border-color: rgba(100, 100, 100, 0.6);
+      }
+
+      .grid-cell.lava {
+        background: linear-gradient(135deg, #ff4500 0%, #ff6347 100%);
+        border-color: rgba(255, 69, 0, 0.6);
+      }
+
+      .grid-cell.goal {
+        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        border-color: rgba(251, 191, 36, 0.6);
+        font-size: 20px;
+      }
+
+      .player {
+        font-size: 20px;
+        position: absolute;
+        transition: all 0.3s ease;
+      }
+
+      .controls {
+        display: flex;
+        gap: 8px;
+        width: 100%;
+      }
+
+      .controls button {
+        flex: 1;
+        padding: 10px;
+        border: none;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.2s;
+        text-transform: uppercase;
+      }
+
+      .run-btn {
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        color: white;
+      }
+
+      .run-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+      }
+
+      .run-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      .reset-btn {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .reset-btn:hover {
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .clear-btn {
+        background: rgba(239, 68, 68, 0.3);
+        color: #fca5a5;
+        border: 1px solid rgba(239, 68, 68, 0.5);
+      }
+
+      .clear-btn:hover {
+        background: rgba(239, 68, 68, 0.5);
+      }
+
+      .back-link {
+        position: absolute;
+        top: 16px;
+        left: 16px;
+        color: white;
+        text-decoration: none;
+        font-weight: 600;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 8px 12px;
+        border-radius: 6px;
+        transition: all 0.2s;
+      }
+
+      .back-link:hover {
+        background: rgba(0, 0, 0, 0.5);
+      }
+
+      @media (max-width: 768px) {
+        .code-quest-ui {
+          grid-template-columns: 1fr;
+          grid-template-rows: auto auto auto auto;
+          height: auto;
+          padding: 8px;
+          gap: 8px;
+        }
+
+        .toolbox,
+        .program-area,
+        .game-view {
+          grid-column: 1;
+        }
+
+        .toolbox {
+          grid-row: 2;
+        }
+
+        .program-area {
+          grid-row: 3;
+        }
+
+        .game-view {
+          grid-row: 4;
+        }
+
+        .block-item {
+          font-size: 12px;
+          padding: 6px 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="../../index.html#code-quest" class="back-link">← Back</a>
+    <div id="game-container">
+      <div class="code-quest-ui">
+        <div class="level-info">
+          <h2 id="level-title">Level 1</h2>
+          <span id="level-count">1 / 16</span>
+        </div>
+
+        <div class="toolbox">
+          <h3>Blocks</h3>
+          <div class="block-item" draggable="true" data-block="move_forward">→ Move Forward</div>
+          <div class="block-item turn-left" draggable="true" data-block="turn_left">↻ Turn Left</div>
+          <div class="block-item turn-right" draggable="true" data-block="turn_right">↺ Turn Right</div>
+          <div class="block-item repeat" draggable="true" data-block="repeat">↻ Repeat (4x)</div>
+          <div class="block-item if" draggable="true" data-block="if">❓ If Wall</div>
+        </div>
+
+        <div class="program-area">
+          <h3>Program</h3>
+          <div class="program-blocks" id="program-blocks"></div>
+        </div>
+
+        <div class="game-view">
+          <h3>Game</h3>
+          <div class="grid-container" id="grid-container"></div>
+          <div class="controls">
+            <button class="run-btn" id="run-btn">▶ Run</button>
+            <button class="reset-btn" id="reset-btn">⟲ Reset</button>
+            <button class="clear-btn" id="clear-btn">✕ Clear</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+    <script src="blocks-data.js"></script>
+    <script src="levels-data.js"></script>
+    <script src="game.js"></script>
+  </body>
+</html>
