@@ -189,7 +189,6 @@ function startLearn() {
   gameState.quizScore = 0;
   showScreen('learn');
   revealCountry(0);
-  updateProgress();
 }
 
 function revealCountry(idx) {
