@@ -924,28 +924,126 @@ class ScienceStory {
   }
 
   /**
-   * Auto-generate quiz from glossary
+   * Auto-generate better quiz questions from glossary
+   * Creates application-based and comprehension questions, not just recognition
    */
   generateQuizFromGlossary() {
     const glossary = this.topicData.glossary || [];
-    return glossary.map(term => {
-      // Create a question from the definition
+    const questions = [];
+
+    glossary.forEach((term, idx) => {
+      // Question Type 1: Definition Comprehension
+      // Pick 3 other glossary terms as distractors
       const wrongOptions = glossary
-        .filter(t => t.term !== term.term)
+        .filter((t, i) => i !== idx)
         .sort(() => Math.random() - 0.5)
         .slice(0, 3)
         .map(t => t.term);
 
-      const options = [term.term, ...wrongOptions].sort(() => Math.random() - 0.5);
+      const options1 = [term.term, ...wrongOptions].sort(() => Math.random() - 0.5);
+      const answer1 = options1.indexOf(term.term);
+
+      questions.push({
+        question: `Which term describes: "${term.definition.substring(0, 60)}..."?`,
+        options: options1,
+        answer: answer1,
+        explanation: `${term.term} is: ${term.definition}`
+      });
+
+      // Question Type 2: Role/Function (from definition)
+      // Extract action words and create "What does/is X used for?" type questions
+      if (term.definition && term.definition.length > 20) {
+        const roleBasedQ = this.createRoleQuestion(term, glossary, idx);
+        if (roleBasedQ) {
+          questions.push(roleBasedQ);
+        }
+      }
+
+      // Question Type 3: True/False converted to multiple choice comprehension
+      const comprehensionQ = this.createComprehensionQuestion(term, glossary, idx);
+      if (comprehensionQ) {
+        questions.push(comprehensionQ);
+      }
+    });
+
+    return questions.slice(0, Math.min(questions.length, glossary.length * 2));
+  }
+
+  /**
+   * Create a "role/function" question based on definition
+   */
+  createRoleQuestion(term, glossary, currentIdx) {
+    const defLower = term.definition.toLowerCase();
+
+    // Questions about purpose/function
+    if (
+      defLower.includes('process') ||
+      defLower.includes('capture') ||
+      defLower.includes('produce') ||
+      defLower.includes('release')
+    ) {
+      const wrongTerms = glossary
+        .filter((t, i) => i !== currentIdx)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3)
+        .map(t => t.term);
+
+      const options = [term.term, ...wrongTerms].sort(() => Math.random() - 0.5);
       const answer = options.indexOf(term.term);
 
       return {
-        question: `What is "${term.term}"?`,
+        question: `Which of these is mainly responsible for: "${term.definition.substring(0, 50)}..."?`,
         options,
         answer,
-        explanation: term.definition
+        explanation: `${term.term}: ${term.definition}`
       };
-    });
+    }
+    return null;
+  }
+
+  /**
+   * Create a scenario-based comprehension question
+   */
+  createComprehensionQuestion(term, glossary, currentIdx) {
+    const defLower = term.definition.toLowerCase();
+
+    // Build scenario-based questions
+    let scenarioQ = null;
+    let scenarioAnswer = null;
+
+    if (defLower.includes('light') || defLower.includes('energy')) {
+      scenarioQ = `If something blocks ${term.term}, what would be the most direct effect?`;
+      scenarioAnswer = 'Process would slow down or stop';
+    } else if (defLower.includes('water') || defLower.includes('absorb')) {
+      scenarioQ = `What role does ${term.term} play in the overall process?`;
+      scenarioAnswer = 'Essential input/raw material';
+    } else if (defLower.includes('release') || defLower.includes('produce')) {
+      scenarioQ = `${term.term} is produced/released as a result of...?`;
+      scenarioAnswer = 'The main chemical process';
+    } else if (defLower.includes('gas') || defLower.includes('air')) {
+      scenarioQ = `How does ${term.term} move between the plant and environment?`;
+      scenarioAnswer = 'Through specialized pores/structures';
+    }
+
+    if (scenarioQ) {
+      const distractors = glossary
+        .filter((t, i) => i !== currentIdx)
+        .sort(() => Math.random() - 0.5)
+        .slice(0, 3)
+        .map(t => t.term);
+
+      const options = [term.term, ...distractors].sort(() => Math.random() - 0.5);
+      const answer = options.indexOf(term.term);
+
+      return {
+        question: scenarioQ,
+        options,
+        answer,
+        explanation: `${term.term}: ${term.definition}`
+      };
+    }
+
+    return null;
   }
 
   /**
