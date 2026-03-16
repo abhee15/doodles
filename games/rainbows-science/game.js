@@ -57,13 +57,13 @@ window.SCENE_3D = {
 
     // Rainbow spectrum: Much brighter and more vibrant
     const colors = [
-      0xff0000,  // Red
-      0xff7700,  // Orange
-      0xffff00,  // Yellow
-      0x00ff00,  // Green
-      0x0099ff,  // Blue
-      0x4400ff,  // Indigo
-      0xff00ff   // Violet
+      0xff0000, // Red
+      0xff7700, // Orange
+      0xffff00, // Yellow
+      0x00ff00, // Green
+      0x0099ff, // Blue
+      0x4400ff, // Indigo
+      0xff00ff // Violet
     ];
     const rays = [];
 

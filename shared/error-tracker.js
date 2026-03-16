@@ -139,10 +139,7 @@
   // Fatal error handler (script errors)
   window.onerror = function (message, source, lineno, colno, error) {
     // Skip CDN/internal errors
-    if (
-      source &&
-      (source.includes('googletagmanager') || source.includes('gtag'))
-    ) {
+    if (source && (source.includes('googletagmanager') || source.includes('gtag'))) {
       return false;
     }
 
