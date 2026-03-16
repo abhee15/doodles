@@ -743,6 +743,10 @@
           padding-right: 12px;
         }
 
+        .dd-quiz-buttons {
+          grid-template-columns: repeat(2, 1fr) !important;
+        }
+
         .dd-numpad-btn {
           min-height: 44px;
           font-size: 16px;
@@ -804,6 +808,10 @@
 
         .dd-level-grid {
           grid-template-columns: 1fr;
+        }
+
+        .dd-quiz-buttons {
+          grid-template-columns: 1fr !important;
         }
 
         .dd-stats-grid {
@@ -945,13 +953,8 @@
             Take a comprehensive quiz to test what you've learned
           </p>
           <div
-            style="
-              display: grid;
-              grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-              gap: 12px;
-              max-width: 600px;
-              margin: 0 auto;
-            "
+            style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; max-width: 600px; margin: 0 auto"
+            class="dd-quiz-buttons"
           >
             <button id="btn-single-trick-quiz" class="dom-btn dom-btn--primary" style="font-size: 14px">
               📚 Single Trick
