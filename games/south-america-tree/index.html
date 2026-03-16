@@ -185,15 +185,18 @@
       }
 
       .tree-panel {
-        width: 280px;
+        width: 35%;
+        min-width: 260px;
+        max-width: 400px;
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: rgba(255, 255, 255, 0.03);
-        padding: 16px 8px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(88, 204, 2, 0.03) 100%);
+        padding: 20px 12px;
         border-right: 1px solid var(--dom-border);
+        overflow-y: auto;
       }
 
       .tree-label {
@@ -206,8 +209,10 @@
       }
 
       #tree-svg {
-        width: 200px;
-        max-width: 100%;
+        width: 100%;
+        max-width: 380px;
+        height: auto;
+        aspect-ratio: 320 / 520;
       }
 
       .tree-zone {
@@ -583,15 +588,18 @@
       }
 
       .quiz-tree-panel {
-        width: 280px;
+        width: 35%;
+        min-width: 260px;
+        max-width: 400px;
         flex-shrink: 0;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        background: rgba(255, 255, 255, 0.03);
-        padding: 16px 8px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(88, 204, 2, 0.03) 100%);
+        padding: 20px 12px;
         border-right: 1px solid var(--dom-border);
+        overflow-y: auto;
       }
 
       .quiz-q-panel {
@@ -776,28 +784,35 @@
 
         .tree-panel {
           width: 100% !important;
-          height: auto !important;
-          min-height: 60px;
+          height: auto;
+          min-height: 300px;
           border-right: none !important;
-          border-bottom: 1px solid var(--dom-border);
-          flex-direction: row;
-          padding: 8px 12px;
-          justify-content: flex-start;
+          border-bottom: 2px solid var(--dom-border);
+          flex-direction: column;
+          padding: 16px 12px;
+          justify-content: center;
           gap: 12px;
           align-items: center;
           flex-shrink: 0;
         }
 
         .tree-label {
-          margin-bottom: 0;
-          font-size: 11px;
+          margin-bottom: 8px;
+          font-size: 12px;
         }
 
-        #tree-svg,
-        #quiz-tree-svg {
-          width: 50px !important;
-          flex-shrink: 0;
+        #tree-svg {
+          width: 90%;
+          max-width: 320px;
           height: auto;
+          aspect-ratio: 320 / 520;
+        }
+
+        #quiz-tree-svg {
+          width: 90%;
+          max-width: 320px;
+          height: auto;
+          aspect-ratio: 320 / 520;
         }
 
         .info-panel {
@@ -834,13 +849,13 @@
 
         .quiz-tree-panel {
           width: 100% !important;
-          height: auto !important;
-          min-height: 60px;
+          height: auto;
+          min-height: 300px;
           border-right: none !important;
-          border-bottom: 1px solid var(--dom-border);
-          flex-direction: row;
-          padding: 8px 12px;
-          justify-content: flex-start;
+          border-bottom: 2px solid var(--dom-border);
+          flex-direction: column;
+          padding: 16px 12px;
+          justify-content: center;
           gap: 12px;
           align-items: center;
         }
