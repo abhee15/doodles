@@ -539,33 +539,44 @@ function loadSavedScores() {
 // ═══════════════════════════════════════════
 function wireUpEvents() {
   // Back button
-  gameBackBtn.addEventListener('click', e => {
-    e.preventDefault();
-    if (state.screen === 'landing') {
-      window.location.href = '../../index.html#map-masters';
-    } else {
-      goToLanding();
-    }
-  });
+  if (gameBackBtn) {
+    gameBackBtn.addEventListener('click', e => {
+      e.preventDefault();
+      if (state.screen === 'landing') {
+        window.location.href = '../../index.html#map-masters';
+      } else {
+        goToLanding();
+      }
+    });
+  }
 
   // Score screen buttons
-  document.getElementById('btn-replay').addEventListener('click', () => {
-    if (state.currentChapter) {
-      goToQuiz(state.currentChapter.id);
-    }
-  });
+  const btnReplay = document.getElementById('btn-replay');
+  if (btnReplay) {
+    btnReplay.addEventListener('click', () => {
+      if (state.currentChapter) {
+        goToQuiz(state.currentChapter.id);
+      }
+    });
+  }
 
-  document.getElementById('btn-all-chapters').addEventListener('click', () => {
-    goToLanding();
-  });
-
-  document.getElementById('btn-next-chapter').addEventListener('click', () => {
-    const currentIdx = CHAPTERS.findIndex(c => c.id === state.currentChapter.id);
-    const nextChapter = CHAPTERS[currentIdx + 1];
-    if (nextChapter) {
-      goToLearn(nextChapter.id);
-    } else {
+  const btnAllChapters = document.getElementById('btn-all-chapters');
+  if (btnAllChapters) {
+    btnAllChapters.addEventListener('click', () => {
       goToLanding();
-    }
-  });
+    });
+  }
+
+  const btnNextChapter = document.getElementById('btn-next-chapter');
+  if (btnNextChapter) {
+    btnNextChapter.addEventListener('click', () => {
+      const currentIdx = CHAPTERS.findIndex(c => c.id === state.currentChapter.id);
+      const nextChapter = CHAPTERS[currentIdx + 1];
+      if (nextChapter) {
+        goToLearn(nextChapter.id);
+      } else {
+        goToLanding();
+      }
+    });
+  }
 }
