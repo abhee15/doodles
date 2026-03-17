@@ -1,0 +1,718 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Map Masters - Learn 195 Countries and Their Shapes for Kids | Doodles Games</title>
+    <meta name="title" content="Map Masters - Learn 195 Countries for Kids" />
+    <meta
+      name="description"
+      content="Learn to recognize the shapes of all 195 countries on Earth! Map Masters teaches country geography with fun memory techniques, shape metaphors, and interactive quizzes for kids."
+    />
+    <meta name="keywords" content="geography, world map, country shapes, learning, memory techniques, kids game" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/map-masters/" />
+    <meta property="og:title" content="Map Masters - Learn 195 Countries for Kids" />
+    <meta
+      property="og:description"
+      content="Learn to recognize the shapes of all 195 countries on Earth! With fun memory techniques and interactive quizzes."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/map-masters/" />
+    <meta property="twitter:title" content="Map Masters - Learn 195 Countries for Kids" />
+    <meta
+      property="twitter:description"
+      content="Learn to recognize the shapes of all 195 countries on Earth! With fun memory techniques and interactive quizzes."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/map-masters/" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <!-- TopoJSON Decoder -->
+    <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
+
+    <style>
+      :root {
+        /* Game-specific theme overrides */
+        --dom-nav-bg: #0a4a6f;
+        --dom-nav-border: rgba(255, 255, 255, 0.07);
+        --dom-bg: #0d1f3c;
+        --dom-bg-card: rgba(255, 255, 255, 0.05);
+        --dom-border: rgba(255, 255, 255, 0.12);
+        --dom-text: #e8edf5;
+        --dom-text-muted: rgba(255, 255, 255, 0.5);
+        --dom-accent: #4caf50; /* green */
+        --dom-accent-dark: #388e3c;
+        --dom-accent2: #2196f3; /* blue */
+
+        /* Game-specific legacy variables */
+        --navy: #0d1f3c;
+        --navy2: #152a48;
+        --navy3: #1e3a54;
+        --gold: #4caf50;
+        --gold2: #388e3c;
+        --red: #d32f2f;
+        --blue: #2196f3;
+        --green: #4caf50;
+        --white: #ffffff;
+        --text: #e8edf5;
+        --dim: #7a93b0;
+        --card: #1a2e47;
+        --border: #2a4565;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        height: auto;
+      }
+
+      body {
+        font-family: 'Nunito', 'Segoe UI', sans-serif;
+        background: var(--navy);
+        color: var(--text);
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      /* ══════════════════ START SCREEN ══════════════════ */
+      [data-screen='landing'] {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 32px 24px;
+        gap: 24px;
+        overflow-y: auto;
+      }
+
+      .start-hero {
+        text-align: center;
+      }
+
+      .start-hero h1 {
+        font-size: clamp(32px, 6vw, 52px);
+        font-weight: 900;
+        color: var(--gold);
+        letter-spacing: -1px;
+      }
+
+      .start-hero p {
+        font-size: 16px;
+        color: var(--dim);
+        margin-top: 8px;
+        max-width: 480px;
+        margin-inline: auto;
+      }
+
+      .technique-box {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 20px 24px;
+        max-width: 520px;
+        width: 100%;
+        margin: 20px auto;
+      }
+
+      @media (min-width: 769px) {
+        .technique-box {
+          max-width: none;
+          margin: 30px 60px;
+          padding: 28px 36px;
+        }
+      }
+
+      .technique-box h3 {
+        font-size: 13px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--gold);
+        margin-bottom: 10px;
+      }
+
+      .technique-box p {
+        font-size: clamp(14px, 2vw, 16px);
+        color: var(--dim);
+        line-height: 1.65;
+      }
+
+      .batch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+      }
+
+      .batch-btn {
+        background: var(--card);
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 24px 20px;
+        cursor: pointer;
+        text-align: center;
+        transition:
+          border-color 0.2s,
+          transform 0.15s,
+          background 0.2s;
+        color: var(--text);
+        width: 100%;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .batch-btn:hover {
+        border-color: var(--gold);
+        background: var(--navy3);
+        transform: translateY(-2px);
+      }
+
+      .batch-btn .bnum {
+        font-size: 22px;
+        font-weight: 900;
+        color: var(--gold);
+      }
+
+      .batch-btn .brange {
+        font-size: 13px;
+        color: var(--dim);
+        margin-top: 4px;
+      }
+
+      .batch-btn .bnames {
+        font-size: 11px;
+        color: #4a6a8a;
+        margin-top: 6px;
+      }
+
+      /* ══════════════════ LEARN SCREEN ══════════════════ */
+      [data-screen='learn'] {
+        flex-direction: column;
+      }
+
+      .progress-bar-wrap {
+        height: 5px;
+        background: var(--navy3);
+        flex-shrink: 0;
+      }
+
+      .progress-bar-fill {
+        height: 100%;
+        background: var(--gold);
+        transition: width 0.4s ease;
+      }
+
+      .learn-main {
+        flex: 1;
+        display: flex;
+        gap: 0;
+        overflow: hidden;
+      }
+
+      .map-panel {
+        width: 360px;
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: var(--navy2);
+        padding: 16px 12px;
+        border-right: 1px solid var(--border);
+      }
+
+      #learn-canvas,
+      #quiz-canvas {
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .info-panel {
+        flex: 1;
+        overflow-y: auto;
+        padding: 28px 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .zone-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(76, 175, 80, 0.12);
+        border: 1.5px solid var(--gold2);
+        border-radius: 8px;
+        padding: 6px 14px;
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--gold);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        align-self: flex-start;
+      }
+
+      .pres-name {
+        font-size: clamp(26px, 4vw, 40px);
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.1;
+        margin: 4px 0;
+      }
+
+      .pres-term {
+        font-size: 15px;
+        color: var(--dim);
+      }
+
+      .tip-card {
+        background: rgba(76, 175, 80, 0.07);
+        border: 1.5px solid rgba(76, 175, 80, 0.3);
+        border-radius: 14px;
+        padding: 16px 20px;
+      }
+
+      .tip-card h4 {
+        font-size: 11px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+
+      .tip-card p {
+        font-size: 15px;
+        color: var(--text);
+        line-height: 1.65;
+      }
+
+      .learn-footer {
+        padding: 16px 32px;
+        background: var(--navy2);
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+      }
+
+      .step-indicator {
+        font-size: 14px;
+        color: var(--dim);
+      }
+
+      .step-dots {
+        display: flex;
+        gap: 6px;
+      }
+
+      .step-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--border);
+        transition: background 0.3s;
+      }
+
+      .step-dot.done {
+        background: #9db88a;
+      }
+
+      .step-dot.active {
+        background: var(--gold);
+        transform: scale(1.3);
+      }
+
+      /* ══════════════════ QUIZ SCREEN ══════════════════ */
+      [data-screen='quiz'] {
+        flex-direction: column;
+      }
+
+      .quiz-main {
+        flex: 1;
+        display: flex;
+        gap: 0;
+        overflow: hidden;
+      }
+
+      .quiz-q-panel {
+        flex: 1;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        overflow-y: auto;
+      }
+
+      .quiz-question {
+        font-size: clamp(22px, 4vw, 34px);
+        font-weight: 900;
+        color: var(--white);
+        line-height: 1.2;
+      }
+
+      .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-top: 8px;
+      }
+
+      .opt-btn {
+        background: var(--card);
+        border: 2px solid var(--border);
+        border-radius: 14px;
+        padding: 16px 18px;
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text);
+        cursor: pointer;
+        text-align: left;
+        transition:
+          border-color 0.15s,
+          background 0.15s,
+          transform 0.1s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .opt-btn:hover:not(:disabled) {
+        border-color: var(--gold);
+        background: var(--navy3);
+        transform: translateY(-1px);
+      }
+
+      .opt-btn:disabled {
+        cursor: default;
+      }
+
+      .opt-btn.correct {
+        border-color: #4caf50 !important;
+        background: rgba(76, 175, 80, 0.15) !important;
+        color: #a5d6a7;
+      }
+
+      .opt-btn.wrong {
+        border-color: var(--red) !important;
+        background: rgba(211, 47, 47, 0.15) !important;
+        color: #ef9a9a;
+      }
+
+      .opt-letter {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        background: var(--navy3);
+        display: grid;
+        place-items: center;
+        font-size: 13px;
+        font-weight: 900;
+        flex-shrink: 0;
+        border: 1.5px solid var(--border);
+      }
+
+      .correct .opt-letter {
+        background: rgba(76, 175, 80, 0.3);
+        border-color: #4caf50;
+      }
+
+      .wrong .opt-letter {
+        background: rgba(211, 47, 47, 0.3);
+        border-color: var(--red);
+      }
+
+      .quiz-footer {
+        padding: 14px 32px;
+        background: var(--navy2);
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-shrink: 0;
+      }
+
+      .quiz-score-live {
+        font-size: 14px;
+        color: var(--dim);
+      }
+
+      .quiz-score-live b {
+        color: var(--gold);
+      }
+
+      /* ══════════════════ SCORE SCREEN ══════════════════ */
+      [data-screen='score'] {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 32px 20px;
+        gap: 24px;
+        text-align: center;
+      }
+
+      .score-emoji {
+        font-size: 64px;
+      }
+
+      .score-title {
+        font-size: clamp(28px, 5vw, 44px);
+        font-weight: 900;
+        color: var(--gold);
+      }
+
+      .score-num {
+        font-size: clamp(52px, 10vw, 80px);
+        font-weight: 900;
+        color: var(--white);
+      }
+
+      .score-out {
+        font-size: 20px;
+        color: var(--dim);
+      }
+
+      .score-sub {
+        font-size: 16px;
+        color: var(--dim);
+        max-width: 400px;
+      }
+
+      .score-btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 8px;
+      }
+
+      /* ── RESPONSIVE ── */
+      @media (max-width: 768px) {
+        .learn-main {
+          flex-direction: column !important;
+        }
+
+        .map-panel {
+          width: 100% !important;
+          height: auto !important;
+          min-height: 60px;
+          border-right: none !important;
+          border-bottom: 1px solid var(--border);
+          flex-direction: row;
+          padding: 8px 12px;
+          justify-content: flex-start;
+          gap: 12px;
+          align-items: center;
+          flex-shrink: 0;
+        }
+
+        #learn-canvas,
+        #quiz-canvas {
+          width: 50px !important;
+          height: auto !important;
+          flex-shrink: 0;
+        }
+
+        .info-panel {
+          padding: 12px 12px 16px;
+          gap: 10px;
+          overflow-y: auto;
+          flex: 1;
+          max-height: calc(100dvh - 150px);
+        }
+
+        .learn-footer {
+          padding: 10px 12px;
+          gap: 8px;
+          flex-shrink: 0;
+        }
+
+        .step-dots {
+          display: none;
+        }
+
+        .quiz-main {
+          flex-direction: column !important;
+        }
+
+        .quiz-q-panel {
+          padding: 12px;
+          gap: 10px;
+          overflow-y: auto;
+          flex: 1;
+        }
+
+        .quiz-question {
+          font-size: 20px !important;
+        }
+
+        .options-grid {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+
+        .opt-btn {
+          padding: 10px 12px;
+          font-size: 13px;
+        }
+
+        .quiz-footer {
+          padding: 8px 12px;
+          flex-shrink: 0;
+        }
+
+        [data-screen='landing'] {
+          padding: 16px 12px;
+          gap: 14px;
+        }
+
+        .batch-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+          padding: 0 12px;
+        }
+
+        .score-btns {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+        }
+
+        .score-btns button {
+          justify-content: center;
+        }
+
+        [data-screen='score'] {
+          padding: 20px 12px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ══ NAV ══ -->
+    <nav class="dom-nav">
+      <a id="game-back-btn" href="../../index.html#map-masters"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Map Masters</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- ══════════════════════════════════════
+     LANDING SCREEN
+══════════════════════════════════════ -->
+    <div data-screen="landing" class="dom-screen active"></div>
+
+    <!-- ══════════════════════════════════════
+     LEARN SCREEN
+══════════════════════════════════════ -->
+    <div data-screen="learn" class="dom-screen" style="flex-direction: column">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="learn-bar"></div></div>
+
+      <div class="learn-main">
+        <!-- Map -->
+        <div class="map-panel" id="learn-map"></div>
+
+        <!-- Info Card -->
+        <div class="info-panel" id="learn-info"></div>
+      </div>
+
+      <div class="learn-footer">
+        <button class="dom-btn dom-btn--ghost" id="btn-prev"><i class="ti ti-arrow-left"></i> Back</button>
+        <div style="flex: 1; text-align: center; min-width: 0">
+          <div class="step-indicator" id="step-indicator">Country 1 of 10</div>
+          <div class="step-dots" id="step-dots"></div>
+        </div>
+        <button class="dom-btn dom-btn--primary" id="btn-next">Next <i class="ti ti-arrow-right"></i></button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     QUIZ SCREEN
+══════════════════════════════════════ -->
+    <div data-screen="quiz" class="dom-screen" style="flex-direction: column">
+      <div class="progress-bar-wrap"><div class="progress-bar-fill" id="quiz-bar"></div></div>
+
+      <div class="quiz-main">
+        <!-- Map -->
+        <div class="map-panel" id="quiz-map"></div>
+
+        <!-- Question -->
+        <div class="quiz-q-panel">
+          <div class="quiz-question" id="quiz-question">Which country is this?</div>
+          <div class="options-grid" id="quiz-options"></div>
+        </div>
+      </div>
+
+      <div class="quiz-footer">
+        <div class="quiz-score-live">Score: <b id="quiz-score-live">0</b></div>
+        <div class="step-dots" id="quiz-dots"></div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════
+     SCORE SCREEN
+══════════════════════════════════════ -->
+    <div data-screen="score" class="dom-screen">
+      <div class="score-emoji" id="score-emoji">🌟</div>
+      <div class="score-title" id="score-title">Quiz Complete!</div>
+      <div class="score-num" id="score-num">8</div>
+      <div class="score-out" id="score-out">out of 10 correct</div>
+      <div class="score-sub" id="score-sub">Keep practicing!</div>
+      <div class="score-btns">
+        <button class="dom-btn dom-btn--ghost" id="btn-replay"><i class="ti ti-arrow-back-up"></i> Try Again</button>
+        <button class="dom-btn dom-btn--ghost" id="btn-all-chapters">
+          <i class="ti ti-layout-list"></i> All Chapters
+        </button>
+        <button class="dom-btn dom-btn--gold" id="btn-next-chapter">
+          <i class="ti ti-arrow-right"></i> Next Chapter
+        </button>
+      </div>
+    </div>
+
+    <script src="../../shared/navigation.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="country-data.js"></script>
+    <script src="game.js"></script>
+
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

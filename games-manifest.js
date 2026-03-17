@@ -282,6 +282,22 @@ const GAMES = [
     footerName: 'South America Tree'
   },
   {
+    id: 'map-masters',
+    name: 'Map Masters',
+    thumbClass: null,
+    category: 'geo',
+    desc: 'Learn to recognize all 195 countries by their unique shapes with fun memory tricks and interactive quizzes!',
+    icon: 'ti-world',
+    iconColor: '#4caf50',
+    gradient: 'linear-gradient(145deg, #2196f3 0%, #0d47a1 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-04-01',
+    footerName: 'Map Masters'
+  },
+  {
     id: 'word-explorer',
     name: 'Word Explorer',
     thumbClass: 'word',
