@@ -19,28 +19,32 @@ const state = {
 };
 
 // ═══════════════════════════════════════════
-// DOM REFERENCES
+// DOM REFERENCES & INITIALIZATION
 // ═══════════════════════════════════════════
-const screens = {
-  landing: document.querySelector('[data-screen="landing"]'),
-  learn: document.querySelector('[data-screen="learn"]'),
-  quiz: document.querySelector('[data-screen="quiz"]'),
-  score: document.querySelector('[data-screen="score"]')
-};
+let screens;
+let nav;
+let gameBackBtn;
 
-const nav = new GameNavigation('Map Masters');
-const gameBackBtn = document.getElementById('game-back-btn');
-
-// ═══════════════════════════════════════════
-// INITIALIZATION
-// ═══════════════════════════════════════════
 document.addEventListener('DOMContentLoaded', async () => {
+  // Initialize DOM references
+  screens = {
+    landing: document.querySelector('[data-screen="landing"]'),
+    learn: document.querySelector('[data-screen="learn"]'),
+    quiz: document.querySelector('[data-screen="quiz"]'),
+    score: document.querySelector('[data-screen="score"]')
+  };
+
+  nav = new GameNavigation('Map Masters');
+  gameBackBtn = document.getElementById('game-back-btn');
+
   // Load TopoJSON once
   try {
     const response = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
     state.topoData = await response.json();
   } catch (error) {
-    errorTracker.report('Failed to load TopoJSON', { error: error.message });
+    if (window.errorTracker) {
+      window.errorTracker.report('Failed to load TopoJSON', { error: error.message });
+    }
   }
 
   // Load saved scores from localStorage
@@ -336,21 +340,27 @@ function renderQuiz() {
     return;
   }
 
-  // Draw country map
-  const canvas = document.getElementById('quiz-canvas');
+  // Ensure quiz canvas exists
+  let canvas = document.getElementById('quiz-canvas');
   if (!canvas) {
     const mapContainer = document.querySelector('[data-screen="quiz"] .map-panel');
-    const newCanvas = document.createElement('canvas');
-    newCanvas.id = 'quiz-canvas';
-    newCanvas.width = 320;
-    newCanvas.height = 240;
-    newCanvas.style.border = '1px solid var(--dom-border)';
-    newCanvas.style.borderRadius = '8px';
-    newCanvas.style.backgroundColor = '#d0e8e8';
-    mapContainer.innerHTML = '';
-    mapContainer.appendChild(newCanvas);
+    if (mapContainer) {
+      const newCanvas = document.createElement('canvas');
+      newCanvas.id = 'quiz-canvas';
+      newCanvas.width = 320;
+      newCanvas.height = 240;
+      newCanvas.style.border = '1px solid var(--dom-border)';
+      newCanvas.style.borderRadius = '8px';
+      newCanvas.style.backgroundColor = '#d0e8e8';
+      mapContainer.innerHTML = '';
+      mapContainer.appendChild(newCanvas);
+      canvas = newCanvas;
+    }
   }
-  drawCountry(document.getElementById('quiz-canvas'), country.isoNum, '#0d7a7a');
+
+  if (canvas) {
+    drawCountry(canvas, country.isoNum, '#0d7a7a');
+  }
 
   // Question
   document.getElementById('quiz-question').textContent = 'Which country is this?';
