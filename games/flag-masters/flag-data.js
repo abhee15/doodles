@@ -197,7 +197,7 @@ const COUNTRIES = [
     flag: '🇫🇷',
     continent: 'europe',
     chapter: 'eu-1',
-    tip: 'Blue, White, Red — the TRICOLORE! 🎨 Three equal stripes standing for Liberty, Equality, and Fraternity.'
+    tip: "LIBERTY-EQUALITY-FRATERNITY FLAG! 🎨 **BLUE** = Freedom & Sky (we're free from kings!), **WHITE** = Peace & Equality (everyone's equal), **RED** = Courage & Sacrifice (people died for these rights). **Blue-White-Red = Free-Equal-Brave!** This flag was born from revolution!"
   },
   {
     id: 'united-kingdom',
@@ -206,7 +206,7 @@ const COUNTRIES = [
     flag: '🇬🇧',
     continent: 'europe',
     chapter: 'eu-1',
-    tip: "The UNION JACK! 🇬🇧 Three crosses layered — England's cross, Scotland's saltire, and Ireland's cross all together!"
+    tip: "THE UNION JACK = 3 NATIONS IN ONE! 🇬🇧 **See the 3 crosses:** (1) Red **+** (Plus) = England, (2) White **X** (Saltire) = Scotland, (3) Red ✕ = Ireland. They're layered together = 3 countries united! Blue background = holding it all together. **Tip:** Look for red +, then white X, then you see how they overlap! It's like 3 shields combined!"
   },
   {
     id: 'ireland',
@@ -215,7 +215,7 @@ const COUNTRIES = [
     flag: '🇮🇪',
     continent: 'europe',
     chapter: 'eu-1',
-    tip: 'Green, White, Orange — the TRICOLOR! 🍀 Green for Irish heritage, White for peace, Orange for William of Orange.'
+    tip: "IRELAND'S TRICOLOR! 🍀 **GREEN** = Irish heritage & land, **WHITE** = Peace between people, **ORANGE** = Historical connection to Ireland's past rulers. **Memory trick:** Green-White-Orange = 🍀-☮️-🧡 = Ireland-Peace-History! The green is HUGE because Ireland is so green! Fun fact: Same 3-stripe pattern as France, but GREEN instead of BLUE!"
   },
   {
     id: 'netherlands',
@@ -224,7 +224,7 @@ const COUNTRIES = [
     flag: '🇳🇱',
     continent: 'europe',
     chapter: 'eu-1',
-    tip: 'Red, White, Blue — horizontal stripes! 🌊 The Dutch flag inspired Russia, Netherlands and France all share this pattern!'
+    tip: 'THE FREEDOM & UNITY FLAG! 🌊 **Red-White-Blue** = **Courage-Peace-Freedom!** Notice: France is Blue-White-Red, Netherlands is Red-White-Blue, Russia is White-Blue-Red — SAME 3 COLORS, DIFFERENT ORDERS! 🇫🇷🇳🇱🇷🇺 These nations inspired each other during freedom revolutions. **Memory:** Red = action/courage, White = peace between people, Blue = freedom & sky. Mix in any order!'
   },
   {
     id: 'belgium',
@@ -233,7 +233,7 @@ const COUNTRIES = [
     flag: '🇧🇪',
     continent: 'europe',
     chapter: 'eu-1',
-    tip: 'Black, Yellow, Red — horizontal stripes! 🍫 The tallest flag in the world (width-to-height ratio)!'
+    tip: "THE CHOCOLATE & WAFFLE FLAG! 🍫 Think of Belgium's flag as a snack: **BLACK** = Dark chocolate (premium!), **YELLOW** = Golden Belgian waffle, **RED** = Strawberries on top! **Real meanings:** Black = Strength, Yellow = Wealth & prosperity, Red = Courage of independence fighters. Belgium makes the world's best chocolate AND waffles — that's their gift! 🧇"
   },
   {
     id: 'germany',
@@ -242,7 +242,7 @@ const COUNTRIES = [
     flag: '🇩🇪',
     continent: 'europe',
     chapter: 'eu-1',
-    tip: 'Black, Red, Gold — top to bottom! ⭐ The colors represent unity and freedom after the 1848 revolution!'
+    tip: 'UNITY & FREEDOM FLAG! ⭐ **BLACK** = Strength & determination, **RED** = Courage & blood shed for freedom, **GOLD** = Wealth & generosity. Born from the 1848 revolution when Germans fought for freedom! **Memory tip:** Black-Red-Gold = like a sunrise over strong mountains. These colors appeared on flags of freedom fighters across German lands!'
   },
   {
     id: 'luxembourg',
@@ -260,7 +260,7 @@ const COUNTRIES = [
     flag: '🇩🇰',
     continent: 'europe',
     chapter: 'eu-1',
-    tip: 'Dannebrog — Red with white cross! ✝ One of the oldest flags in the world, dating back to the 13th century!'
+    tip: 'DANNEBROG — THE ANCIENT FLAG! ✝ **RED** = Courage & power, **WHITE CROSS** = Christianity & faith. Used since the 1200s! The cross is OFFSET (not centered) — the vertical bar is closer to the left edge. **Why crosses?** Many old European flags have crosses because Christianity was important. **Look for:** Bright red + white cross = Denmark (one of the oldest flag designs still in use!)'
   },
   {
     id: 'switzerland',
@@ -269,7 +269,7 @@ const COUNTRIES = [
     flag: '🇨🇭',
     continent: 'europe',
     chapter: 'eu-1',
-    tip: 'Red with white cross! ✝ The only square flag in the world (well, almost). White cross = neutrality!'
+    tip: "EQUAL CROSS & SQUARE = BALANCE! 🟥✝ **RED** = Courage & independence, **WHITE +** = Perfect balance & neutrality (the cross points equally in all 4 directions — we don't pick sides!). The cross is perfectly centered & symmetrical = Switzerland is neutral & fair. **Special fact:** Switzerland is almost SQUARE (most flags are rectangular) = unique & independent! The perfect geometric cross = perfect balance!"
   },
   {
     id: 'austria',
@@ -278,7 +278,7 @@ const COUNTRIES = [
     flag: '🇦🇹',
     continent: 'europe',
     chapter: 'eu-1',
-    tip: "Red-White-Red horizontal stripes! 🎯 The white stripe is supposed to represent a blood-soaked Emperor's belt!"
+    tip: "RED-WHITE-RED = **STRENGTH-PEACE-STRENGTH**! 🎯 The white stripe in the middle looks like a belt (legend: an Emperor's blood-soaked belt from battle!). **Visual pattern:** Red frame around white = Austria holding peace/neutrality in the middle. **Connect the dots:** Same colors as neighbors, but arranged differently = unique! Austria's flag = strong on outside, peaceful inside."
   },
 
   // EUROPE - Part 2 (Southern Europe)
@@ -289,7 +289,7 @@ const COUNTRIES = [
     flag: '🇪🇸',
     continent: 'europe',
     chapter: 'eu-2',
-    tip: 'Red, Yellow, Red! 🌟 The yellow stripe is twice as thick as the red stripes, symbolizing strength!'
+    tip: "RED-YELLOW-RED = **THE POWER FLAG**! 🌟 **RED** = Courage & blood (Spanish people), **YELLOW** = Wealth & sunshine. The YELLOW stripe is TWICE as thick as red = yellow is the strongest color, symbolizing Spain's power! **Visual tip:** Remember the size ratio — yellow is the BIG middle = Spain's power! Spain is sunny, so imagine that golden stripe = Mediterranean sun!"
   },
   {
     id: 'portugal',
@@ -307,7 +307,7 @@ const COUNTRIES = [
     flag: '🇮🇹',
     continent: 'europe',
     chapter: 'eu-2',
-    tip: 'Green, White, Red — same as France but different! 🤌 Think: Italian forests, Alps, and wine!'
+    tip: "GREEN-WHITE-RED = **ITALY'S NATURE**! 🤌 **GREEN** = Forests & rolling hills (countryside), **WHITE** = The snowy Alps (mountains), **RED** = Courage & passion (Italian people). **Trick to remember:** GREEN = nature, WHITE = mountains, RED = people! France has BLUE-White-Red, Ireland has GREEN-White-Orange, Italy has GREEN-White-RED = look at the GREEN for Italy! Think: Pesto (green) + Mozzarella (white) + Tomato sauce (red) = Italian food on a flag! 🍝"
   },
   {
     id: 'greece',
@@ -316,7 +316,7 @@ const COUNTRIES = [
     flag: '🇬🇷',
     continent: 'europe',
     chapter: 'eu-2',
-    tip: 'Blue and white with a cross! ✝ 9 stripes represent the 9 syllables of the Greek war cry! Ocean blue!'
+    tip: 'BLUE-WHITE & THE GREEK CROSS! ✝ **BLUE** = The Mediterranean Sea (Greece is surrounded by water!), **WHITE** = Purity & ancient Greek ideals, **CROSS** = Christianity & faith. **Count the stripes:** 9 stripes = they represent the 9 syllables of "Eleftheria i Thanatos" (Freedom or Death!) — the Greek war cry for independence! **Visual:** Bright ocean blue + white = Greece\'s beautiful islands & sea!'
   },
   {
     id: 'malta',
