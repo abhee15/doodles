@@ -35,7 +35,19 @@ class ScienceStory {
   init() {
     // Set up navigation (back button)
     if (window.GameNavigation) {
-      this.navigation = new GameNavigation(this.gameId);
+      this.navigation = new GameNavigation(this.gameId, {
+        screens: ['landing', 'scene', 'lab', 'glossary', 'quiz', 'results'],
+        initialScreen: 'landing',
+        gameName: this.navTitle,
+        titles: {
+          landing: this.navTitle,
+          scene: 'Story',
+          lab: 'Lab',
+          glossary: 'Words',
+          quiz: 'Quiz',
+          results: 'Results'
+        }
+      });
     }
 
     // Load progress from localStorage

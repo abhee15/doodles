@@ -34,7 +34,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     score: document.querySelector('[data-screen="score"]')
   };
 
-  nav = new GameNavigation('Map Masters');
+  nav = new GameNavigation('map-masters', {
+    screens: ['landing', 'learn', 'quiz', 'score'],
+    initialScreen: 'landing',
+    gameName: 'Map Masters',
+    titles: {
+      landing: 'Map Masters',
+      learn: 'Learn',
+      quiz: 'Quiz',
+      score: 'Results'
+    }
+  });
   gameBackBtn = document.getElementById('game-back-btn');
 
   // Load TopoJSON once
