@@ -388,15 +388,224 @@ function renderQuiz() {
 // ═══════════════════════════════════════════
 // FLAG DISPLAY
 // ═══════════════════════════════════════════
+
+// Map country IDs to ISO 3166-1 alpha-2 codes
+const ISO_CODE_MAP = {
+  france: 'fr',
+  germany: 'de',
+  italy: 'it',
+  spain: 'es',
+  netherlands: 'nl',
+  belgium: 'be',
+  austria: 'at',
+  switzerland: 'ch',
+  poland: 'pl',
+  portugal: 'pt',
+  greece: 'gr',
+  sweden: 'se',
+  norway: 'no',
+  denmark: 'dk',
+  finland: 'fi',
+  ireland: 'ie',
+  'united-kingdom': 'gb',
+  iceland: 'is',
+  romania: 'ro',
+  bulgaria: 'bg',
+  serbia: 'rs',
+  croatia: 'hr',
+  'bosnia-herzegovina': 'ba',
+  montenegro: 'me',
+  albania: 'al',
+  'north-macedonia': 'mk',
+  slovenia: 'si',
+  slovakia: 'sk',
+  hungary: 'hu',
+  'czech-republic': 'cz',
+  ukraine: 'ua',
+  belarus: 'by',
+  moldova: 'md',
+  russia: 'ru',
+  georgia: 'ge',
+  armenia: 'am',
+  azerbaijan: 'az',
+  turkey: 'tr',
+  egypt: 'eg',
+  libya: 'ly',
+  tunisia: 'tn',
+  algeria: 'dz',
+  morocco: 'ma',
+  sudan: 'sd',
+  ethiopia: 'et',
+  eritrea: 'er',
+  djibouti: 'dj',
+  somalia: 'so',
+  kenya: 'ke',
+  uganda: 'ug',
+  tanzania: 'tz',
+  rwanda: 'rw',
+  burundi: 'bi',
+  malawi: 'mw',
+  zambia: 'zm',
+  zimbabwe: 'zw',
+  mozambique: 'mz',
+  madagascar: 'mg',
+  mauritius: 'mu',
+  seychelles: 'sc',
+  'south-africa': 'za',
+  botswana: 'bw',
+  namibia: 'na',
+  lesotho: 'ls',
+  eswatini: 'sz',
+  angola: 'ao',
+  'democratic-republic-congo': 'cd',
+  congo: 'cg',
+  cameroon: 'cm',
+  gabon: 'ga',
+  'equatorial-guinea': 'gq',
+  'sao-tome-principe': 'st',
+  nigeria: 'ng',
+  senegal: 'sn',
+  gambia: 'gm',
+  'guinea-bissau': 'gw',
+  guinea: 'gn',
+  'sierra-leone': 'sl',
+  liberia: 'lr',
+  mali: 'ml',
+  mauritania: 'mr',
+  'south-sudan': 'ss',
+  'ivory-coast': 'ci',
+  ghana: 'gh',
+  togo: 'tg',
+  benin: 'bj',
+  niger: 'ne',
+  chad: 'td',
+  'central-african-republic': 'cf',
+  china: 'cn',
+  japan: 'jp',
+  'south-korea': 'kr',
+  'north-korea': 'kp',
+  mongolia: 'mn',
+  india: 'in',
+  pakistan: 'pk',
+  bangladesh: 'bd',
+  nepal: 'np',
+  bhutan: 'bt',
+  'sri-lanka': 'lk',
+  maldives: 'mv',
+  thailand: 'th',
+  myanmar: 'mm',
+  cambodia: 'kh',
+  laos: 'la',
+  vietnam: 'vn',
+  philippines: 'ph',
+  indonesia: 'id',
+  malaysia: 'my',
+  singapore: 'sg',
+  brunei: 'bn',
+  'east-timor': 'tl',
+  afghanistan: 'af',
+  iran: 'ir',
+  iraq: 'iq',
+  'saudi-arabia': 'sa',
+  yemen: 'ye',
+  oman: 'om',
+  'united-arab-emirates': 'ae',
+  qatar: 'qa',
+  bahrain: 'bh',
+  kuwait: 'kw',
+  jordan: 'jo',
+  lebanon: 'lb',
+  syria: 'sy',
+  palestine: 'ps',
+  israel: 'il',
+  kazakhstan: 'kz',
+  uzbekistan: 'uz',
+  turkmenistan: 'tm',
+  tajikistan: 'tj',
+  kyrgyzstan: 'kg',
+  canada: 'ca',
+  'united-states': 'us',
+  mexico: 'mx',
+  guatemala: 'gt',
+  belize: 'bz',
+  honduras: 'hn',
+  'el-salvador': 'sv',
+  nicaragua: 'ni',
+  'costa-rica': 'cr',
+  panama: 'pa',
+  cuba: 'cu',
+  'dominican-republic': 'do',
+  haiti: 'ht',
+  jamaica: 'jm',
+  'trinidad-tobago': 'tt',
+  bahamas: 'bs',
+  barbados: 'bb',
+  colombia: 'co',
+  venezuela: 've',
+  guyana: 'gy',
+  suriname: 'sr',
+  brazil: 'br',
+  peru: 'pe',
+  ecuador: 'ec',
+  bolivia: 'bo',
+  chile: 'cl',
+  argentina: 'ar',
+  uruguay: 'uy',
+  paraguay: 'py',
+  australia: 'au',
+  'new-zealand': 'nz',
+  fiji: 'fj',
+  samoa: 'ws',
+  kiribati: 'ki',
+  nauru: 'nr',
+  tuvalu: 'tv',
+  palau: 'pw',
+  'marshall-islands': 'mh',
+  micronesia: 'fm',
+  'solomon-islands': 'sb',
+  vanuatu: 'vu',
+  tonga: 'to',
+  comoros: 'km'
+};
+
+function getCountryFlagUrl(countryId) {
+  const iso = ISO_CODE_MAP[countryId];
+  if (!iso) {
+    console.warn(`No ISO code found for: ${countryId}`);
+    return null;
+  }
+  // Using flagcdn.com for reliable flag images
+  return `https://cdn.jsdelivr.net/npm/country-flags-svg/svg/${iso}.svg`;
+}
+
 function renderFlag(container, country) {
   if (!country) {
     return;
   }
   container.innerHTML = '';
-  const display = document.createElement('div');
-  display.className = 'flag-display';
-  display.textContent = country.flag;
-  container.appendChild(display);
+  const flagUrl = getCountryFlagUrl(country.id);
+
+  if (flagUrl) {
+    const img = document.createElement('img');
+    img.src = flagUrl;
+    img.alt = `${country.name} flag`;
+    img.className = 'flag-image';
+    img.onerror = () => {
+      // Fallback to emoji if image fails to load
+      img.style.display = 'none';
+      const fallback = document.createElement('div');
+      fallback.className = 'flag-display';
+      fallback.textContent = country.flag;
+      container.appendChild(fallback);
+    };
+    container.appendChild(img);
+  } else {
+    // Fallback to emoji if no ISO code found
+    const display = document.createElement('div');
+    display.className = 'flag-display';
+    display.textContent = country.flag;
+    container.appendChild(display);
+  }
 }
 
 // ═══════════════════════════════════════════
