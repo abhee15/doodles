@@ -183,6 +183,26 @@ class GameNavigation {
   getStack() {
     return [...this.screenStack];
   }
+
+  /**
+   * Set title for current screen (dynamic)
+   */
+  setTitle(title) {
+    const navTitle = document.getElementById('nav-title');
+    if (navTitle) {
+      navTitle.textContent = title;
+    }
+  }
+
+  /**
+   * Set meta/subtitle for current screen (dynamic)
+   */
+  setMeta(meta) {
+    const navMeta = document.getElementById('nav-meta');
+    if (navMeta) {
+      navMeta.textContent = meta;
+    }
+  }
 }
 
 // Export for use in games
