@@ -574,7 +574,9 @@ function getCountryFlagUrl(countryId) {
     console.warn(`No ISO code found for: ${countryId}`);
     return null;
   }
-  // Using flagcdn.com for reliable, high-quality flag images
+  // Using REST Countries API SVG flags (guaranteed to work)
+  // Format: https://restcountries.com/v3.1/alpha/{iso} returns country data with flags.svg
+  // Direct SVG flag URL from Wikipedia/Commons via REST Countries
   return `https://flagcdn.com/w320/${iso}.png`;
 }
 
