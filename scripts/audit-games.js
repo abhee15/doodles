@@ -387,8 +387,11 @@ function runAudit() {
     'logic',
     'math',
     'memory',
+    'money',
     'music',
     'science',
+    'sel',
+    'tech',
     'words'
   ]);
 
