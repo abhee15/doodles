@@ -470,9 +470,9 @@ function drawCountry(canvas, isoNum, fillColor) {
     const countries = state.topoData.objects.countries.geometries;
 
     let countryGeom = null;
-    const isoNumInt = parseInt(isoNum);
+    const isoNumStr = String(isoNum);
     for (let i = 0; i < countries.length; i++) {
-      if (countries[i].id === isoNumInt) {
+      if (countries[i].id === isoNumStr) {
         countryGeom = countries[i];
         break;
       }
