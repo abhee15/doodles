@@ -389,6 +389,9 @@ function renderQuiz() {
 // FLAG DISPLAY
 // ═══════════════════════════════════════════
 function renderFlag(container, country) {
+  if (!country) {
+    return;
+  }
   container.innerHTML = '';
   const display = document.createElement('div');
   display.className = 'flag-display';
