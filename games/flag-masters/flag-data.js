@@ -194,7 +194,7 @@ const COUNTRIES = [
     id: 'france',
     name: 'France',
     isoNum: '250',
-    flag: '🇫🇷',
+    flag: '🇫🇷️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: 'Blue, White, Red — the TRICOLORE! 🎨 Three equal stripes standing for Liberty, Equality, and Fraternity.'
@@ -203,7 +203,7 @@ const COUNTRIES = [
     id: 'united-kingdom',
     name: 'United Kingdom',
     isoNum: '826',
-    flag: '🇬🇧',
+    flag: '🇬🇧️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: "The UNION JACK! 🇬🇧 Three crosses layered — England's cross, Scotland's saltire, and Ireland's cross all together!"
@@ -212,7 +212,7 @@ const COUNTRIES = [
     id: 'ireland',
     name: 'Ireland',
     isoNum: '372',
-    flag: '🇮🇪',
+    flag: '🇮🇪️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: 'Green, White, Orange — the TRICOLOR! 🍀 Green for Irish heritage, White for peace, Orange for William of Orange.'
@@ -221,7 +221,7 @@ const COUNTRIES = [
     id: 'netherlands',
     name: 'Netherlands',
     isoNum: '528',
-    flag: '🇳🇱',
+    flag: '🇳🇱️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: 'Red, White, Blue — horizontal stripes! 🌊 The Dutch flag inspired Russia, Netherlands and France all share this pattern!'
@@ -230,7 +230,7 @@ const COUNTRIES = [
     id: 'belgium',
     name: 'Belgium',
     isoNum: '56',
-    flag: '🇧🇪',
+    flag: '🇧🇪️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: 'Black, Yellow, Red — horizontal stripes! 🍫 The tallest flag in the world (width-to-height ratio)!'
@@ -239,7 +239,7 @@ const COUNTRIES = [
     id: 'germany',
     name: 'Germany',
     isoNum: '276',
-    flag: '🇩🇪',
+    flag: '🇩🇪️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: 'Black, Red, Gold — top to bottom! ⭐ The colors represent unity and freedom after the 1848 revolution!'
@@ -248,7 +248,7 @@ const COUNTRIES = [
     id: 'luxembourg',
     name: 'Luxembourg',
     isoNum: '442',
-    flag: '🇱🇺',
+    flag: '🇱🇺️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: "Red, White, Blue — horizontal stripes! 👑 One of the world's richest nations, tiny but mighty!"
@@ -257,7 +257,7 @@ const COUNTRIES = [
     id: 'denmark',
     name: 'Denmark',
     isoNum: '208',
-    flag: '🇩🇰',
+    flag: '🇩🇰️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: 'Dannebrog — Red with white cross! ✝️ One of the oldest flags in the world, dating back to the 13th century!'
@@ -266,7 +266,7 @@ const COUNTRIES = [
     id: 'switzerland',
     name: 'Switzerland',
     isoNum: '756',
-    flag: '🇨🇭',
+    flag: '🇨🇭️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: 'Red with white cross! ✝️ The only square flag in the world (well, almost). White cross = neutrality!'
@@ -275,7 +275,7 @@ const COUNTRIES = [
     id: 'austria',
     name: 'Austria',
     isoNum: '40',
-    flag: '🇦🇹',
+    flag: '🇦🇹️',
     continent: 'europe',
     chapter: 'eu-1',
     tip: "Red-White-Red horizontal stripes! 🎯 The white stripe is supposed to represent a blood-soaked Emperor's belt!"
@@ -286,7 +286,7 @@ const COUNTRIES = [
     id: 'spain',
     name: 'Spain',
     isoNum: '724',
-    flag: '🇪🇸',
+    flag: '🇪🇸️',
     continent: 'europe',
     chapter: 'eu-2',
     tip: 'Red, Yellow, Red! 🌟 The yellow stripe is twice as thick as the red stripes, symbolizing strength!'
@@ -295,7 +295,7 @@ const COUNTRIES = [
     id: 'portugal',
     name: 'Portugal',
     isoNum: '620',
-    flag: '🇵🇹',
+    flag: '🇵🇹️',
     continent: 'europe',
     chapter: 'eu-2',
     tip: 'Green and red split vertically! 🛡️ The shield in the middle has 7 small crosses representing seven victories!'
@@ -304,7 +304,7 @@ const COUNTRIES = [
     id: 'italy',
     name: 'Italy',
     isoNum: '380',
-    flag: '🇮🇹',
+    flag: '🇮🇹️',
     continent: 'europe',
     chapter: 'eu-2',
     tip: 'Green, White, Red — same as France but different! 🤌 Think: Italian forests, Alps, and wine!'
@@ -313,7 +313,7 @@ const COUNTRIES = [
     id: 'greece',
     name: 'Greece',
     isoNum: '300',
-    flag: '🇬🇷',
+    flag: '🇬🇷️',
     continent: 'europe',
     chapter: 'eu-2',
     tip: 'Blue and white with a cross! ✝️ 9 stripes represent the 9 syllables of the Greek war cry! Ocean blue!'
@@ -322,7 +322,7 @@ const COUNTRIES = [
     id: 'malta',
     name: 'Malta',
     isoNum: '470',
-    flag: '🇲🇹',
+    flag: '🇲🇹️',
     continent: 'europe',
     chapter: 'eu-2',
     tip: 'Red and White split vertically! ⚪ Tiny island nation with a simple, bold design. Center has a George Cross!'
@@ -331,7 +331,7 @@ const COUNTRIES = [
     id: 'cyprus',
     name: 'Cyprus',
     isoNum: '196',
-    flag: '🇨🇾',
+    flag: '🇨🇾️',
     continent: 'europe',
     chapter: 'eu-2',
     tip: "White with olive branches and copper island map! 🥬 The copper-colored island represents the island's mineral wealth!"
@@ -340,7 +340,7 @@ const COUNTRIES = [
     id: 'vatican-city',
     name: 'Vatican City',
     isoNum: '336',
-    flag: '🇻🇦',
+    flag: '🇻🇦️',
     continent: 'europe',
     chapter: 'eu-2',
     tip: 'Yellow and White with the Papal Tiara and Keys! ⛪ Smallest country in the world with its own flag!'
@@ -349,7 +349,7 @@ const COUNTRIES = [
     id: 'san-marino',
     name: 'San Marino',
     isoNum: '674',
-    flag: '🇸🇲',
+    flag: '🇸🇲️',
     continent: 'europe',
     chapter: 'eu-2',
     tip: 'White and Blue with three peaks and a crown! 👑 One of the oldest republics in the world!'
@@ -358,7 +358,7 @@ const COUNTRIES = [
     id: 'slovenia',
     name: 'Slovenia',
     isoNum: '705',
-    flag: '🇸🇮',
+    flag: '🇸🇮️',
     continent: 'europe',
     chapter: 'eu-2',
     tip: 'White, Blue, Red with Mount Triglav and a star! ⭐ The mountain is the highest peak in Slovenia!'
@@ -369,7 +369,7 @@ const COUNTRIES = [
     id: 'poland',
     name: 'Poland',
     isoNum: '616',
-    flag: '🇵🇱',
+    flag: '🇵🇱️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: 'White above Red! Inverted from Indonesia! 🔄 The white represents hope, the red represents strength!'
@@ -378,7 +378,7 @@ const COUNTRIES = [
     id: 'czech-republic',
     name: 'Czech Republic',
     isoNum: '203',
-    flag: '🇨🇿',
+    flag: '🇨🇿️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: 'White, Red with a blue triangle! 🔵 The triangle points left and represents the old Bohemian flag!'
@@ -387,7 +387,7 @@ const COUNTRIES = [
     id: 'slovakia',
     name: 'Slovakia',
     isoNum: '703',
-    flag: '🇸🇰',
+    flag: '🇸🇰️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: 'White, Blue, Red with a national shield! 🛡️ The shield shows three crowns for three ancient kingdoms!'
@@ -396,7 +396,7 @@ const COUNTRIES = [
     id: 'hungary',
     name: 'Hungary',
     isoNum: '348',
-    flag: '🇭🇺',
+    flag: '🇭🇺️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: "Red, White, Blue horizontal stripes! 🎨 Same as Austria's tricolor pattern, representing historical ties!"
@@ -405,7 +405,7 @@ const COUNTRIES = [
     id: 'romania',
     name: 'Romania',
     isoNum: '642',
-    flag: '🇷🇴',
+    flag: '🇷🇴️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: 'Blue, Yellow, Red vertical stripes! 🌍 Remember: BYR for Blue, Yellow, Red — alphabetical order!'
@@ -414,7 +414,7 @@ const COUNTRIES = [
     id: 'croatia',
     name: 'Croatia',
     isoNum: '191',
-    flag: '🇭🇷',
+    flag: '🇭🇷️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: 'Red, White, Blue with a checkered shield! ♟️ The shield has 5 smaller shields representing historic regions!'
@@ -423,7 +423,7 @@ const COUNTRIES = [
     id: 'bosnia-and-herzegovina',
     name: 'Bosnia and Herzegovina',
     isoNum: '070',
-    flag: '🇧🇦',
+    flag: '🇧🇦️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: 'Blue with yellow triangle and stars! ⭐ The triangle points up and the stars never end (infinite stars)!'
@@ -432,7 +432,7 @@ const COUNTRIES = [
     id: 'serbia',
     name: 'Serbia',
     isoNum: '688',
-    flag: '🇷🇸',
+    flag: '🇷🇸️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: 'Red, White, Blue with the royal coat of arms! 🛡️ An eagle with a shield on the flag!'
@@ -441,7 +441,7 @@ const COUNTRIES = [
     id: 'montenegro',
     name: 'Montenegro',
     isoNum: '499',
-    flag: '🇲🇪',
+    flag: '🇲🇪️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: 'Red with a golden double-headed eagle! 🦅 The eagle is holding a scepter and orb symbolizing power!'
@@ -450,7 +450,7 @@ const COUNTRIES = [
     id: 'north-macedonia',
     name: 'North Macedonia',
     isoNum: '807',
-    flag: '🇲🇰',
+    flag: '🇲🇰️',
     continent: 'europe',
     chapter: 'eu-3',
     tip: 'Red with a golden star! ⭐ The star has 8 rays and is surrounded by a golden sun!'
@@ -461,7 +461,7 @@ const COUNTRIES = [
     id: 'ukraine',
     name: 'Ukraine',
     isoNum: '804',
-    flag: '🇺🇦',
+    flag: '🇺🇦️',
     continent: 'europe',
     chapter: 'eu-4',
     tip: 'Blue above Yellow! 🌻 The blue represents sky and the yellow represents wheat fields!'
@@ -470,7 +470,7 @@ const COUNTRIES = [
     id: 'moldova',
     name: 'Moldova',
     isoNum: '498',
-    flag: '🇲🇩',
+    flag: '🇲🇩️',
     continent: 'europe',
     chapter: 'eu-4',
     tip: 'Blue, Yellow, Red with an eagle shield! 🦅 The eagle is holding an olive branch!'
@@ -479,7 +479,7 @@ const COUNTRIES = [
     id: 'russia',
     name: 'Russia',
     isoNum: '643',
-    flag: '🇷🇺',
+    flag: '🇷🇺️',
     continent: 'europe',
     chapter: 'eu-4',
     tip: 'White, Blue, Red horizontal stripes! 🎨 The widest country flag, representing a free nation!'
@@ -488,7 +488,7 @@ const COUNTRIES = [
     id: 'belarus',
     name: 'Belarus',
     isoNum: '112',
-    flag: '🇧🇾',
+    flag: '🇧🇾️',
     continent: 'europe',
     chapter: 'eu-4',
     tip: 'Red and White with a red pattern! 🎯 The pattern on the left represents traditional Belarusian art!'
@@ -497,7 +497,7 @@ const COUNTRIES = [
     id: 'lithuania',
     name: 'Lithuania',
     isoNum: '440',
-    flag: '🇱🇹',
+    flag: '🇱🇹️',
     continent: 'europe',
     chapter: 'eu-4',
     tip: 'Yellow, Red, Red horizontal stripes! 🌅 Yellow for the sun, red for courage and love!'
@@ -506,7 +506,7 @@ const COUNTRIES = [
     id: 'latvia',
     name: 'Latvia',
     isoNum: '428',
-    flag: '🇱🇻',
+    flag: '🇱🇻️',
     continent: 'europe',
     chapter: 'eu-4',
     tip: 'Red-White-Red (cardinals) with white stripe! ⚪ The white is much narrower than the red stripes!'
@@ -515,7 +515,7 @@ const COUNTRIES = [
     id: 'estonia',
     name: 'Estonia',
     isoNum: '233',
-    flag: '🇪🇪',
+    flag: '🇪🇪️',
     continent: 'europe',
     chapter: 'eu-4',
     tip: 'Blue, Black, White horizontal stripes! 🎨 Blue for loyalty, black for hard times, white for hope!'
@@ -524,7 +524,7 @@ const COUNTRIES = [
     id: 'albania',
     name: 'Albania',
     isoNum: '008',
-    flag: '🇦🇱',
+    flag: '🇦🇱️',
     continent: 'europe',
     chapter: 'eu-4',
     tip: 'Red with a black double-headed eagle! 🦅 The eagle is a national symbol of strength and freedom!'
@@ -533,7 +533,7 @@ const COUNTRIES = [
     id: 'kosovo',
     name: 'Kosovo',
     isoNum: '383',
-    flag: '🇽🇰',
+    flag: '🇽🇰️',
     continent: 'europe',
     chapter: 'eu-4',
     tip: 'Blue with a golden map and 6 stars! ⭐ The 6 stars represent the 6 major ethnic groups!'
@@ -544,7 +544,7 @@ const COUNTRIES = [
     id: 'norway',
     name: 'Norway',
     isoNum: '578',
-    flag: '🇳🇴',
+    flag: '🇳🇴️',
     continent: 'europe',
     chapter: 'eu-5',
     tip: 'Red, Blue, White with a Nordic cross! ✝️ The blue cross outlined in white represents Scandinavian unity!'
@@ -553,7 +553,7 @@ const COUNTRIES = [
     id: 'sweden',
     name: 'Sweden',
     isoNum: '752',
-    flag: '🇸🇪',
+    flag: '🇸🇪️',
     continent: 'europe',
     chapter: 'eu-5',
     tip: "Blue and Yellow with a cross! ✝️ The cross is offset and represents the country's ancient symbol!"
@@ -562,7 +562,7 @@ const COUNTRIES = [
     id: 'finland',
     name: 'Finland',
     isoNum: '246',
-    flag: '🇫🇮',
+    flag: '🇫🇮️',
     continent: 'europe',
     chapter: 'eu-5',
     tip: 'White with a blue Nordic cross! ✝️ The cross is offset toward the hoist like other Nordic countries!'
@@ -571,7 +571,7 @@ const COUNTRIES = [
     id: 'iceland',
     name: 'Iceland',
     isoNum: '352',
-    flag: '🇮🇸',
+    flag: '🇮🇸️',
     continent: 'europe',
     chapter: 'eu-5',
     tip: 'Blue with a white-outlined red cross! ✝️ The colors represent the volcanic fire and icy snow!'
@@ -580,7 +580,7 @@ const COUNTRIES = [
     id: 'georgia',
     name: 'Georgia',
     isoNum: '268',
-    flag: '🇬🇪',
+    flag: '🇬🇪️',
     continent: 'europe',
     chapter: 'eu-5',
     tip: 'White with red crosses! ✝️ The large cross is the Georgian flag, small crosses in corners are ancient symbols!'
@@ -589,7 +589,7 @@ const COUNTRIES = [
     id: 'armenia',
     name: 'Armenia',
     isoNum: '051',
-    flag: '🇦🇲',
+    flag: '🇦🇲️',
     continent: 'europe',
     chapter: 'eu-5',
     tip: "Red, Blue, Orange horizontal stripes! 🌈 Red for blood, blue for hope, orange for the Armenian people's character!"
@@ -602,7 +602,7 @@ const COUNTRIES = [
     id: 'morocco',
     name: 'Morocco',
     isoNum: '504',
-    flag: '🇲🇦',
+    flag: '🇲🇦️',
     continent: 'africa',
     chapter: 'af-1',
     tip: 'Red with a green pentagram! 🌟 Green represents Islam, the star is the Seal of Solomon!'
@@ -611,7 +611,7 @@ const COUNTRIES = [
     id: 'algeria',
     name: 'Algeria',
     isoNum: '012',
-    flag: '🇩🇿',
+    flag: '🇩🇿️',
     continent: 'africa',
     chapter: 'af-1',
     tip: 'Green and White with red crescent and star! ☪️ The crescent and star are Islamic symbols!'
@@ -620,7 +620,7 @@ const COUNTRIES = [
     id: 'tunisia',
     name: 'Tunisia',
     isoNum: '788',
-    flag: '🇹🇳',
+    flag: '🇹🇳️',
     continent: 'africa',
     chapter: 'af-1',
     tip: 'Red with a white circle containing a crescent and star! ☪️ The white represents the shield of Islam!'
@@ -629,7 +629,7 @@ const COUNTRIES = [
     id: 'libya',
     name: 'Libya',
     isoNum: '434',
-    flag: '🇱🇾',
+    flag: '🇱🇾️',
     continent: 'africa',
     chapter: 'af-1',
     tip: 'Red, Black, Green with a white crescent and star! ☪️ Red represents the revolution against colonialism!'
@@ -638,7 +638,7 @@ const COUNTRIES = [
     id: 'egypt',
     name: 'Egypt',
     isoNum: '818',
-    flag: '🇪🇬',
+    flag: '🇪🇬️',
     continent: 'africa',
     chapter: 'af-1',
     tip: 'Red, White, Black with a gold eagle! 🦅 The eagle is the symbol of power and strength!'
@@ -647,7 +647,7 @@ const COUNTRIES = [
     id: 'sudan',
     name: 'Sudan',
     isoNum: '729',
-    flag: '🇸🇩',
+    flag: '🇸🇩️',
     continent: 'africa',
     chapter: 'af-1',
     tip: 'Red, White, Black with a green triangle! 🔺 The triangle represents Islam and progress!'
@@ -656,7 +656,7 @@ const COUNTRIES = [
     id: 'south-sudan',
     name: 'South Sudan',
     isoNum: '728',
-    flag: '🇸🇸',
+    flag: '🇸🇸️',
     continent: 'africa',
     chapter: 'af-1',
     tip: 'Black, White, Red with a blue triangle and star! ⭐ The star represents unity and hope!'
@@ -665,7 +665,7 @@ const COUNTRIES = [
     id: 'mauritania',
     name: 'Mauritania',
     isoNum: '478',
-    flag: '🇲🇷',
+    flag: '🇲🇷️',
     continent: 'africa',
     chapter: 'af-1',
     tip: 'Green with a red stripe and white crescent and star! ☪️ Green is dominant, representing Islam!'
@@ -674,7 +674,7 @@ const COUNTRIES = [
     id: 'djibouti',
     name: 'Djibouti',
     isoNum: '262',
-    flag: '🇩🇯',
+    flag: '🇩🇯️',
     continent: 'africa',
     chapter: 'af-1',
     tip: 'Light Blue, Light Green with a white triangle and red star! ⭐ The blue and green represent the two main groups!'
@@ -685,7 +685,7 @@ const COUNTRIES = [
     id: 'mauritius',
     name: 'Mauritius',
     isoNum: '480',
-    flag: '🇲🇺',
+    flag: '🇲🇺️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Red, Blue, Yellow, Green horizontal stripes! 🌈 The colors represent the diversity of the island!'
@@ -694,7 +694,7 @@ const COUNTRIES = [
     id: 'senegal',
     name: 'Senegal',
     isoNum: '686',
-    flag: '🇸🇳',
+    flag: '🇸🇳️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Green, Yellow, Red with a green star! ⭐ The star represents the guiding light of the nation!'
@@ -703,7 +703,7 @@ const COUNTRIES = [
     id: 'guinea-bissau',
     name: 'Guinea-Bissau',
     isoNum: '624',
-    flag: '🇬🇼',
+    flag: '🇬🇼️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Red, Yellow, Green with a black star! ⭐ The red represents struggle, yellow is the sun, green is hope!'
@@ -712,7 +712,7 @@ const COUNTRIES = [
     id: 'guinea',
     name: 'Guinea',
     isoNum: '324',
-    flag: '🇬🇳',
+    flag: '🇬🇳️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Red, Yellow, Green vertical stripes! 🌈 The colors represent blood, minerals, and vegetation!'
@@ -721,7 +721,7 @@ const COUNTRIES = [
     id: 'sierra-leone',
     name: 'Sierra Leone',
     isoNum: '694',
-    flag: '🇸🇱',
+    flag: '🇸🇱️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Green, White, Blue horizontal stripes! 🌊 Green for agriculture, white for unity, blue for the Atlantic Ocean!'
@@ -730,7 +730,7 @@ const COUNTRIES = [
     id: 'liberia',
     name: 'Liberia',
     isoNum: '430',
-    flag: '🇱🇷',
+    flag: '🇱🇷️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Red and White with a blue square and white star! ⭐ Founded by freed American slaves, the flag resembles the US flag!'
@@ -739,7 +739,7 @@ const COUNTRIES = [
     id: 'mali',
     name: 'Mali',
     isoNum: '466',
-    flag: '🇲🇱',
+    flag: '🇲🇱️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Green, Yellow, Red vertical stripes! 🌈 Same colors as Guinea and Senegal, representing Pan-African unity!'
@@ -748,7 +748,7 @@ const COUNTRIES = [
     id: 'ivory-coast',
     name: 'Ivory Coast',
     isoNum: '384',
-    flag: '🇨🇮',
+    flag: '🇨🇮️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Orange, White, Green vertical stripes! 🌊 Orange is the land, white is peace, green is hope!'
@@ -757,7 +757,7 @@ const COUNTRIES = [
     id: 'burkina-faso',
     name: 'Burkina Faso',
     isoNum: '854',
-    flag: '🇧🇫',
+    flag: '🇧🇫️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Red and Green with a yellow star! ⭐ The star represents the guiding light and the hope of the people!'
@@ -766,7 +766,7 @@ const COUNTRIES = [
     id: 'ghana',
     name: 'Ghana',
     isoNum: '288',
-    flag: '🇬🇭',
+    flag: '🇬🇭️',
     continent: 'africa',
     chapter: 'af-2',
     tip: 'Red, Yellow, Green with a black star! ⭐ The star represents African freedom!'
@@ -777,7 +777,7 @@ const COUNTRIES = [
     id: 'niger',
     name: 'Niger',
     isoNum: '562',
-    flag: '🇳🇪',
+    flag: '🇳🇪️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Orange, White, Green with an orange circle! 🟠 The circle represents the sun rising over the Sahara!'
@@ -786,7 +786,7 @@ const COUNTRIES = [
     id: 'togo',
     name: 'Togo',
     isoNum: '768',
-    flag: '🇹🇬',
+    flag: '🇹🇬️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Green, Yellow, Red with a white star! ⭐ The star represents hope for a better future!'
@@ -795,7 +795,7 @@ const COUNTRIES = [
     id: 'benin',
     name: 'Benin',
     isoNum: '204',
-    flag: '🇧🇯',
+    flag: '🇧🇯️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Green, Yellow, Red vertical stripes! 🌈 The green represents palm trees, yellow the soil, red the blood!'
@@ -804,7 +804,7 @@ const COUNTRIES = [
     id: 'nigeria',
     name: 'Nigeria',
     isoNum: '566',
-    flag: '🇳🇬',
+    flag: '🇳🇬️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Green, White, Green vertical stripes! 🌳 The white represents peace and unity between the green halves!'
@@ -813,7 +813,7 @@ const COUNTRIES = [
     id: 'cameroon',
     name: 'Cameroon',
     isoNum: '120',
-    flag: '🇨🇲',
+    flag: '🇨🇲️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Green, Red, Yellow vertical stripes with a yellow star! ⭐ The star unites the colors in the center!'
@@ -822,7 +822,7 @@ const COUNTRIES = [
     id: 'central-african-republic',
     name: 'Central African Republic',
     isoNum: '140',
-    flag: '🇨🇫',
+    flag: '🇨🇫️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Blue, White, Green, Yellow, Red with a vertical red stripe and yellow star! ⭐ Unique four-color design!'
@@ -831,7 +831,7 @@ const COUNTRIES = [
     id: 'congo',
     name: 'Congo (Republic)',
     isoNum: '178',
-    flag: '🇨🇬',
+    flag: '🇨🇬️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Green, Yellow, Red diagonal stripes! 🎨 The diagonal design is unique in African flags!'
@@ -840,7 +840,7 @@ const COUNTRIES = [
     id: 'democratic-republic-congo',
     name: 'Democratic Republic of Congo',
     isoNum: '180',
-    flag: '🇨🇩',
+    flag: '🇨🇩️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Blue with a yellow stripe and yellow star! ⭐ The star is large and centered, representing unity!'
@@ -849,7 +849,7 @@ const COUNTRIES = [
     id: 'gabon',
     name: 'Gabon',
     isoNum: '266',
-    flag: '🇬🇦',
+    flag: '🇬🇦️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Green, Yellow, Blue horizontal stripes! 🌊 The stripes represent the forests, sun, and Atlantic Ocean!'
@@ -858,7 +858,7 @@ const COUNTRIES = [
     id: 'equatorial-guinea',
     name: 'Equatorial Guinea',
     isoNum: '226',
-    flag: '🇬🇶',
+    flag: '🇬🇶️',
     continent: 'africa',
     chapter: 'af-3',
     tip: 'Light Blue, White, Red with a green triangle and coat of arms! 🛡️ The triangle is on the hoist side!'
@@ -869,7 +869,7 @@ const COUNTRIES = [
     id: 'sao-tome-and-principe',
     name: 'São Tomé and Príncipe',
     isoNum: '678',
-    flag: '🇸🇹',
+    flag: '🇸🇹️',
     continent: 'africa',
     chapter: 'af-4',
     tip: 'Green, Yellow, Green with a red triangle and two black stars! ⭐ The stars represent the two main islands!'
@@ -878,7 +878,7 @@ const COUNTRIES = [
     id: 'chad',
     name: 'Chad',
     isoNum: '148',
-    flag: '🇹🇩',
+    flag: '🇹🇩️',
     continent: 'africa',
     chapter: 'af-4',
     tip: 'Blue, Yellow, Red vertical stripes! 🌈 Same colors as Romania but opposite order!'
@@ -887,7 +887,7 @@ const COUNTRIES = [
     id: 'ethiopia',
     name: 'Ethiopia',
     isoNum: '231',
-    flag: '🇪🇹',
+    flag: '🇪🇹️',
     continent: 'africa',
     chapter: 'af-4',
     tip: 'Green, Yellow, Red horizontal stripes with a circle and star! ⭐ The circle contains a cross and star!'
@@ -896,7 +896,7 @@ const COUNTRIES = [
     id: 'eritrea',
     name: 'Eritrea',
     isoNum: '232',
-    flag: '🇪🇷',
+    flag: '🇪🇷️',
     continent: 'africa',
     chapter: 'af-4',
     tip: 'Red, Green, Blue with a yellow star and olive branches! ⭐ The star represents the unity of the people!'
@@ -905,7 +905,7 @@ const COUNTRIES = [
     id: 'uganda',
     name: 'Uganda',
     isoNum: '800',
-    flag: '🇺🇬',
+    flag: '🇺🇬️',
     continent: 'africa',
     chapter: 'af-4',
     tip: 'Black, Yellow, Red with a white disc and grey crowned crane! 🦢 The crane is the national bird!'
@@ -914,7 +914,7 @@ const COUNTRIES = [
     id: 'kenya',
     name: 'Kenya',
     isoNum: '404',
-    flag: '🇰🇪',
+    flag: '🇰🇪️',
     continent: 'africa',
     chapter: 'af-4',
     tip: 'Black, Red, Green with white bands and a Maasai shield and spears! 🛡️ The shield represents protection!'
@@ -923,7 +923,7 @@ const COUNTRIES = [
     id: 'somalia',
     name: 'Somalia',
     isoNum: '706',
-    flag: '🇸🇴',
+    flag: '🇸🇴️',
     continent: 'africa',
     chapter: 'af-4',
     tip: "Light Blue with a white star! ⭐ The light blue is the UN color, representing Somalia's UN membership!"
@@ -932,7 +932,7 @@ const COUNTRIES = [
     id: 'tanzania',
     name: 'Tanzania',
     isoNum: '834',
-    flag: '🇹🇿',
+    flag: '🇹🇿️',
     continent: 'africa',
     chapter: 'af-4',
     tip: 'Light Green, Yellow, Black, Blue diagonal stripes! 🌈 The diagonal band is unique and represents minerals!'
@@ -941,7 +941,7 @@ const COUNTRIES = [
     id: 'mozambique',
     name: 'Mozambique',
     isoNum: '508',
-    flag: '🇲🇿',
+    flag: '🇲🇿️',
     continent: 'africa',
     chapter: 'af-4',
     tip: 'Green, Black, Yellow with a white triangle and rifle! 🔫 The rifle represents the armed struggle for independence!'
@@ -950,7 +950,7 @@ const COUNTRIES = [
     id: 'malawi',
     name: 'Malawi',
     isoNum: '454',
-    flag: '🇲🇼',
+    flag: '🇲🇼️',
     continent: 'africa',
     chapter: 'af-4',
     tip: 'Black, Red, Green with a sun! 🌅 The sun is red and represents a new dawn for the nation!'
@@ -961,7 +961,7 @@ const COUNTRIES = [
     id: 'zambia',
     name: 'Zambia',
     isoNum: '894',
-    flag: '🇿🇲',
+    flag: '🇿🇲️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Green, Black, Red, Orange with an eagle! 🦅 The eagle represents freedom and the spirit of the nation!'
@@ -970,7 +970,7 @@ const COUNTRIES = [
     id: 'zimbabwe',
     name: 'Zimbabwe',
     isoNum: '716',
-    flag: '🇿🇼',
+    flag: '🇿🇼️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Green, Yellow, Red, Black with a white star and bird! ⭐ The bird is the Great Zimbabwe bird!'
@@ -979,7 +979,7 @@ const COUNTRIES = [
     id: 'botswana',
     name: 'Botswana',
     isoNum: '072',
-    flag: '🇧🇼',
+    flag: '🇧🇼️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Light Blue, White, Black horizontal stripes! ⚪ The black and white represent the people, blue is the sky and water!'
@@ -988,7 +988,7 @@ const COUNTRIES = [
     id: 'namibia',
     name: 'Namibia',
     isoNum: '516',
-    flag: '🇳🇦',
+    flag: '🇳🇦️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Blue, Red, Green diagonal with a gold sun! ☀️ The sun represents life and energy!'
@@ -997,7 +997,7 @@ const COUNTRIES = [
     id: 'south-africa',
     name: 'South Africa',
     isoNum: '710',
-    flag: '🇿🇦',
+    flag: '🇿🇦️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Six colors with a Y-shape! 🎨 The Y unites all the colors, representing the unity of all people!'
@@ -1006,7 +1006,7 @@ const COUNTRIES = [
     id: 'lesotho',
     name: 'Lesotho',
     isoNum: '426',
-    flag: '🇱🇸',
+    flag: '🇱🇸️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Blue, White, Green with a brown shield! 🛡️ The shield contains a crocodile and spears!'
@@ -1015,7 +1015,7 @@ const COUNTRIES = [
     id: 'eswatini',
     name: 'Eswatini',
     isoNum: '748',
-    flag: '🇸🇿',
+    flag: '🇸🇿️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Blue, Yellow, Red with a shield and staff! 🛡️ The shield is a royal shield with a spear and staff!'
@@ -1024,7 +1024,7 @@ const COUNTRIES = [
     id: 'madagascar',
     name: 'Madagascar',
     isoNum: '450',
-    flag: '🇲🇬',
+    flag: '🇲🇬️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Red, White, Green vertical stripes! 🌈 Red represents the soil, white is peace, green is hope!'
@@ -1033,7 +1033,7 @@ const COUNTRIES = [
     id: 'mauritius-island',
     name: 'Mauritius',
     isoNum: '480',
-    flag: '🇲🇺',
+    flag: '🇲🇺️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Red, Blue, Yellow, Green horizontal stripes! 🌈 The colors represent the diversity of the island!'
@@ -1042,7 +1042,7 @@ const COUNTRIES = [
     id: 'seychelles',
     name: 'Seychelles',
     isoNum: '690',
-    flag: '🇸🇨',
+    flag: '🇸🇨️',
     continent: 'africa',
     chapter: 'af-5',
     tip: 'Blue, Yellow, Red, White, Green radiating from the hoist! 🌈 The unique radiating design is one-of-a-kind!'
@@ -1053,7 +1053,7 @@ const COUNTRIES = [
     id: 'cape-verde',
     name: 'Cape Verde',
     isoNum: '132',
-    flag: '🇨🇻',
+    flag: '🇨🇻️',
     continent: 'africa',
     chapter: 'af-6',
     tip: 'Blue with a white strip containing a black band and yellow stars! ⭐ The stars represent the main islands!'
@@ -1062,7 +1062,7 @@ const COUNTRIES = [
     id: 'comoros',
     name: 'Comoros',
     isoNum: '174',
-    flag: '🇰🇲',
+    flag: '🇰🇲️',
     continent: 'africa',
     chapter: 'af-6',
     tip: 'Green, White, Red, Blue with a yellow crescent and stars! ☪️ The crescent faces up and the stars shine!'
@@ -1071,7 +1071,7 @@ const COUNTRIES = [
     id: 'reunion',
     name: 'Réunion',
     isoNum: '638',
-    flag: '🇷🇪',
+    flag: '🇷🇪️',
     continent: 'africa',
     chapter: 'af-6',
     tip: "This is technically an overseas department of France, so it doesn't have its own flag! 🇫🇷 Uses the French flag!"
@@ -1080,7 +1080,7 @@ const COUNTRIES = [
     id: 'mayotte',
     name: 'Mayotte',
     isoNum: '175',
-    flag: '🇾🇹',
+    flag: '🇾🇹️',
     continent: 'africa',
     chapter: 'af-6',
     tip: 'Red and White! 🔴 A collectivity of France, so it also uses the French flag predominantly!'
@@ -1089,7 +1089,7 @@ const COUNTRIES = [
     id: 'mauritius-af6',
     name: 'Mauritius',
     isoNum: '480',
-    flag: '🇲🇺',
+    flag: '🇲🇺️',
     continent: 'africa',
     chapter: 'af-6',
     tip: 'Red, Blue, Yellow, Green horizontal stripes! 🌈 A four-stripe island nation in the Indian Ocean!'
@@ -1098,7 +1098,7 @@ const COUNTRIES = [
     id: 'st-helena',
     name: 'Saint Helena',
     isoNum: '654',
-    flag: '🇸🇭',
+    flag: '🇸🇭️',
     continent: 'africa',
     chapter: 'af-6',
     tip: 'Blue with the British flag in corner and a white cross and shield! 🛡️ British Overseas Territory!'
@@ -1111,7 +1111,7 @@ const COUNTRIES = [
     id: 'timor-leste',
     name: 'Timor-Leste',
     isoNum: '626',
-    flag: '🇹🇱',
+    flag: '🇹🇱️',
     continent: 'asia',
     chapter: 'as-1',
     tip: "Red and Yellow with a black triangle and white star! ⭐ The triangle represents the nation's journey to independence!"
@@ -1120,7 +1120,7 @@ const COUNTRIES = [
     id: 'indonesia',
     name: 'Indonesia',
     isoNum: '360',
-    flag: '🇮🇩',
+    flag: '🇮🇩️',
     continent: 'asia',
     chapter: 'as-1',
     tip: 'Red above White! 🔴 Simple but bold — the red represents blood, white represents purity!'
@@ -1129,7 +1129,7 @@ const COUNTRIES = [
     id: 'philippines',
     name: 'Philippines',
     isoNum: '608',
-    flag: '🇵🇭',
+    flag: '🇵🇭️',
     continent: 'asia',
     chapter: 'as-1',
     tip: 'Blue, Yellow, Red, White with a sun and three stars! ⭐ The sun has 8 rays representing the first 8 provinces!'
@@ -1138,7 +1138,7 @@ const COUNTRIES = [
     id: 'malaysia',
     name: 'Malaysia',
     isoNum: '458',
-    flag: '🇲🇾',
+    flag: '🇲🇾️',
     continent: 'asia',
     chapter: 'as-1',
     tip: 'Blue, Yellow with a crescent and star and stripes! ⭐ The crescent and star represent Islam and unity!'
@@ -1147,7 +1147,7 @@ const COUNTRIES = [
     id: 'singapore',
     name: 'Singapore',
     isoNum: '702',
-    flag: '🇸🇬',
+    flag: '🇸🇬️',
     continent: 'asia',
     chapter: 'as-1',
     tip: "Red and White with a crescent moon and five stars! ☪️ The five stars represent the nation's ideals!"
@@ -1156,7 +1156,7 @@ const COUNTRIES = [
     id: 'brunei',
     name: 'Brunei',
     isoNum: '096',
-    flag: '🇧🇳',
+    flag: '🇧🇳️',
     continent: 'asia',
     chapter: 'as-1',
     tip: "Yellow with black and white bands and a red emblem! 🛡️ The emblem contains the sultan's crown!"
@@ -1165,7 +1165,7 @@ const COUNTRIES = [
     id: 'myanmar',
     name: 'Myanmar',
     isoNum: '104',
-    flag: '🇲🇲',
+    flag: '🇲🇲️',
     continent: 'asia',
     chapter: 'as-1',
     tip: 'Yellow, Green, Red with a white star! ⭐ The star represents the unity of the nation!'
@@ -1174,7 +1174,7 @@ const COUNTRIES = [
     id: 'laos',
     name: 'Laos',
     isoNum: '418',
-    flag: '🇱🇦',
+    flag: '🇱🇦️',
     continent: 'asia',
     chapter: 'as-1',
     tip: 'Red, Blue, Red with a white circle! ⚪ The circle represents the full moon and unity!'
@@ -1183,7 +1183,7 @@ const COUNTRIES = [
     id: 'thailand',
     name: 'Thailand',
     isoNum: '764',
-    flag: '🇹🇭',
+    flag: '🇹🇭️',
     continent: 'asia',
     chapter: 'as-1',
     tip: 'Red, White, Blue horizontal stripes! 🎨 The blue stripe is twice as thick as the red stripes!'
@@ -1192,7 +1192,7 @@ const COUNTRIES = [
     id: 'cambodia',
     name: 'Cambodia',
     isoNum: '116',
-    flag: '🇰🇭',
+    flag: '🇰🇭️',
     continent: 'asia',
     chapter: 'as-1',
     tip: "Red and Blue with the Angkor Wat temple! 🏛️ The temple is the national symbol and the world's largest religious monument!"
@@ -1203,7 +1203,7 @@ const COUNTRIES = [
     id: 'vietnam',
     name: 'Vietnam',
     isoNum: '704',
-    flag: '🇻🇳',
+    flag: '🇻🇳️',
     continent: 'asia',
     chapter: 'as-2',
     tip: 'Red with a yellow star! ⭐ The star represents communism, and the red is the color of revolution!'
@@ -1212,7 +1212,7 @@ const COUNTRIES = [
     id: 'bangladesh',
     name: 'Bangladesh',
     isoNum: '050',
-    flag: '🇧🇩',
+    flag: '🇧🇩️',
     continent: 'asia',
     chapter: 'as-2',
     tip: 'Green with a red circle! 🔴 The red circle represents the blood of those who fought for independence!'
@@ -1221,7 +1221,7 @@ const COUNTRIES = [
     id: 'india',
     name: 'India',
     isoNum: '356',
-    flag: '🇮🇳',
+    flag: '🇮🇳️',
     continent: 'asia',
     chapter: 'as-2',
     tip: 'Orange, White, Green with a blue Ashoka Chakra! 🔵 The wheel has 24 spokes representing the 24 hours!'
@@ -1230,7 +1230,7 @@ const COUNTRIES = [
     id: 'pakistan',
     name: 'Pakistan',
     isoNum: '586',
-    flag: '🇵🇰',
+    flag: '🇵🇰️',
     continent: 'asia',
     chapter: 'as-2',
     tip: 'Green and White with a crescent and star! ☪️ Green represents Islam and white represents minorities!'
@@ -1239,7 +1239,7 @@ const COUNTRIES = [
     id: 'nepal',
     name: 'Nepal',
     isoNum: '524',
-    flag: '🇳🇵',
+    flag: '🇳🇵️',
     continent: 'asia',
     chapter: 'as-2',
     tip: 'Two stacked triangles in crimson with a white moon and star! ⭐ The only non-rectangular flag in the world!'
@@ -1248,7 +1248,7 @@ const COUNTRIES = [
     id: 'bhutan',
     name: 'Bhutan',
     isoNum: '064',
-    flag: '🇧🇹',
+    flag: '🇧🇹️',
     continent: 'asia',
     chapter: 'as-2',
     tip: 'Yellow and Orange with a white dragon! 🐉 The dragon is the national symbol and represents power!'
@@ -1257,7 +1257,7 @@ const COUNTRIES = [
     id: 'sri-lanka',
     name: 'Sri Lanka',
     isoNum: '144',
-    flag: '🇱🇰',
+    flag: '🇱🇰️',
     continent: 'asia',
     chapter: 'as-2',
     tip: 'Green and Saffron with a lion holding a sword! 🦁 The lion is the national symbol representing strength!'
@@ -1266,7 +1266,7 @@ const COUNTRIES = [
     id: 'maldives',
     name: 'Maldives',
     isoNum: '462',
-    flag: '🇲🇻',
+    flag: '🇲🇻️',
     continent: 'asia',
     chapter: 'as-2',
     tip: 'Red and Green with a white crescent! ☪️ The crescent represents Islam and the green is for the nation!'
@@ -1277,7 +1277,7 @@ const COUNTRIES = [
     id: 'china',
     name: 'China',
     isoNum: '156',
-    flag: '🇨🇳',
+    flag: '🇨🇳️',
     continent: 'asia',
     chapter: 'as-3',
     tip: 'Red with five yellow stars! ⭐ The large star represents the Communist Party, four smaller stars represent the people!'
@@ -1286,7 +1286,7 @@ const COUNTRIES = [
     id: 'japan',
     name: 'Japan',
     isoNum: '392',
-    flag: '🇯🇵',
+    flag: '🇯🇵️',
     continent: 'asia',
     chapter: 'as-3',
     tip: 'White with a red circle! 🌅 The RISING SUN! The simplest flag in the world and one of the most recognizable!'
@@ -1295,7 +1295,7 @@ const COUNTRIES = [
     id: 'south-korea',
     name: 'South Korea',
     isoNum: '410',
-    flag: '🇰🇷',
+    flag: '🇰🇷️',
     continent: 'asia',
     chapter: 'as-3',
     tip: 'White with a red and blue yin-yang symbol! ☯️ The symbol represents balance between opposing forces!'
@@ -1304,7 +1304,7 @@ const COUNTRIES = [
     id: 'north-korea',
     name: 'North Korea',
     isoNum: '408',
-    flag: '🇰🇵',
+    flag: '🇰🇵️',
     continent: 'asia',
     chapter: 'as-3',
     tip: 'Red, White, Blue with a red star! ⭐ The star represents communism and the ideals of the nation!'
@@ -1313,7 +1313,7 @@ const COUNTRIES = [
     id: 'mongolia',
     name: 'Mongolia',
     isoNum: '496',
-    flag: '🇲🇳',
+    flag: '🇲🇳️',
     continent: 'asia',
     chapter: 'as-3',
     tip: "Red with a blue stripe and yellow symbol! 🟡 The symbol is the Soyombo, representing Mongolia's identity!"
@@ -1322,7 +1322,7 @@ const COUNTRIES = [
     id: 'taiwan',
     name: 'Taiwan',
     isoNum: '158',
-    flag: '🇹🇼',
+    flag: '🇹🇼️',
     continent: 'asia',
     chapter: 'as-3',
     tip: 'Red and Blue with a white sun! ☀️ The sun represents the spirit of the people and the future!'
@@ -1331,7 +1331,7 @@ const COUNTRIES = [
     id: 'hong-kong',
     name: 'Hong Kong',
     isoNum: '344',
-    flag: '🇭🇰',
+    flag: '🇭🇰️',
     continent: 'asia',
     chapter: 'as-3',
     tip: 'Red with a white bauhinia flower! 🌸 The flower is the national emblem and represents Hong Kong!'
@@ -1340,7 +1340,7 @@ const COUNTRIES = [
     id: 'macau',
     name: 'Macau',
     isoNum: '446',
-    flag: '🇲🇴',
+    flag: '🇲🇴️',
     continent: 'asia',
     chapter: 'as-3',
     tip: 'Green and White with a lotus flower and crescent! 🌸 The lotus is a symbol of purity and resilience!'
@@ -1351,7 +1351,7 @@ const COUNTRIES = [
     id: 'turkey',
     name: 'Turkey',
     isoNum: '792',
-    flag: '🇹🇷',
+    flag: '🇹🇷️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Red with a white crescent and star! ⭐ The crescent and star are Islamic symbols representing Islam!'
@@ -1360,7 +1360,7 @@ const COUNTRIES = [
     id: 'israel',
     name: 'Israel',
     isoNum: '376',
-    flag: '🇮🇱',
+    flag: '🇮🇱️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'White and Blue with a blue Star of David! ✡️ The star has six points and is a Jewish symbol!'
@@ -1369,7 +1369,7 @@ const COUNTRIES = [
     id: 'palestine',
     name: 'Palestine',
     isoNum: '275',
-    flag: '🇵🇸',
+    flag: '🇵🇸️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Black, White, Green with a red triangle! 🔺 The colors represent Arab unity and the Palestinian struggle!'
@@ -1378,7 +1378,7 @@ const COUNTRIES = [
     id: 'jordan',
     name: 'Jordan',
     isoNum: '400',
-    flag: '🇯🇴',
+    flag: '🇯🇴️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Black, White, Green with a white star and red triangle! ⭐ The triangle represents the Arab Revolt!'
@@ -1387,7 +1387,7 @@ const COUNTRIES = [
     id: 'lebanon',
     name: 'Lebanon',
     isoNum: '422',
-    flag: '🇱🇧',
+    flag: '🇱🇧️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Red and White with a green cedar tree! 🌲 The cedar is the national symbol and represents strength!'
@@ -1396,7 +1396,7 @@ const COUNTRIES = [
     id: 'syria',
     name: 'Syria',
     isoNum: '760',
-    flag: '🇸🇾',
+    flag: '🇸🇾️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Red, White, Black with red stars! ⭐ The stars represent unity, the black represents the oppression!'
@@ -1405,7 +1405,7 @@ const COUNTRIES = [
     id: 'iraq',
     name: 'Iraq',
     isoNum: '368',
-    flag: '🇮🇶',
+    flag: '🇮🇶️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Red, White, Black with green stars and an inscription! 🟢 The colors represent Arab unity!'
@@ -1414,7 +1414,7 @@ const COUNTRIES = [
     id: 'saudi-arabia',
     name: 'Saudi Arabia',
     isoNum: '682',
-    flag: '🇸🇦',
+    flag: '🇸🇦️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Green with white Arabic text and a sword! ⚔️ Green is the color of Islam and the sword represents strength!'
@@ -1423,7 +1423,7 @@ const COUNTRIES = [
     id: 'yemen',
     name: 'Yemen',
     isoNum: '887',
-    flag: '🇾🇪',
+    flag: '🇾🇪️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Red, White, Black horizontal stripes! 🎨 The colors represent Arab unity, same as Egypt and Sudan!'
@@ -1432,7 +1432,7 @@ const COUNTRIES = [
     id: 'oman',
     name: 'Oman',
     isoNum: '512',
-    flag: '🇴🇲',
+    flag: '🇴🇲️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Red, White, Green with a national emblem! 🛡️ The emblem features a crossed khanj and two swords!'
@@ -1441,7 +1441,7 @@ const COUNTRIES = [
     id: 'united-arab-emirates',
     name: 'United Arab Emirates',
     isoNum: '784',
-    flag: '🇦🇪',
+    flag: '🇦🇪️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Red, Green, White, Black with a vertical red stripe! 🎨 The colors represent Arab unity and independence!'
@@ -1450,7 +1450,7 @@ const COUNTRIES = [
     id: 'qatar',
     name: 'Qatar',
     isoNum: '634',
-    flag: '🇶🇦',
+    flag: '🇶🇦️',
     continent: 'asia',
     chapter: 'as-4',
     tip: 'Maroon and White with a serrated line! 🟪 The white band represents peace, maroon represents blood!'
@@ -1461,7 +1461,7 @@ const COUNTRIES = [
     id: 'bahrain',
     name: 'Bahrain',
     isoNum: '048',
-    flag: '🇧🇭',
+    flag: '🇧🇭️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'White and Brown with a serrated line! 🟤 The serrated line represents the teeth of a saw or pearls!'
@@ -1470,7 +1470,7 @@ const COUNTRIES = [
     id: 'kuwait',
     name: 'Kuwait',
     isoNum: '414',
-    flag: '🇰🇼',
+    flag: '🇰🇼️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'Green, White, Black with a red trapezoid! 🎨 The colors represent Arab unity, the trapezoid is unique!'
@@ -1479,7 +1479,7 @@ const COUNTRIES = [
     id: 'iran',
     name: 'Iran',
     isoNum: '364',
-    flag: '🇮🇷',
+    flag: '🇮🇷️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'Green, White, Red with a red emblem! 🔴 The emblem is a stylized symbol representing unity!'
@@ -1488,7 +1488,7 @@ const COUNTRIES = [
     id: 'afghanistan',
     name: 'Afghanistan',
     isoNum: '004',
-    flag: '🇦🇫',
+    flag: '🇦🇫️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'Black, Red, Green with an emblem! 🛡️ The emblem contains a mosque and a wheat wreath!'
@@ -1497,7 +1497,7 @@ const COUNTRIES = [
     id: 'tajikistan',
     name: 'Tajikistan',
     isoNum: '762',
-    flag: '🇹🇯',
+    flag: '🇹🇯️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'Red, White, Green with a gold crown and stars! ⭐ The crown represents unity, the stars represent peace!'
@@ -1506,7 +1506,7 @@ const COUNTRIES = [
     id: 'uzbekistan',
     name: 'Uzbekistan',
     isoNum: '860',
-    flag: '🇺🇿',
+    flag: '🇺🇿️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'Light Blue, White, Red with white crescent and stars! ☪️ The crescent and stars are Islamic symbols!'
@@ -1515,7 +1515,7 @@ const COUNTRIES = [
     id: 'turkmenistan',
     name: 'Turkmenistan',
     isoNum: '795',
-    flag: '🇹🇲',
+    flag: '🇹🇲️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'Green with a red stripe and traditional carpet pattern! 🟢 The green represents Islam, red is the nation!'
@@ -1524,7 +1524,7 @@ const COUNTRIES = [
     id: 'kazakhstan',
     name: 'Kazakhstan',
     isoNum: '398',
-    flag: '🇰🇿',
+    flag: '🇰🇿️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'Sky Blue with a golden sun and eagle, and a traditional pattern stripe! 🦅 The eagle represents strength and freedom!'
@@ -1533,7 +1533,7 @@ const COUNTRIES = [
     id: 'kyrgyzstan',
     name: 'Kyrgyzstan',
     isoNum: '417',
-    flag: '🇰🇬',
+    flag: '🇰🇬️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'Red with a yellow sun and radiant lines! ☀️ The sun represents the 40 Kyrgyz tribes united as one nation!'
@@ -1542,7 +1542,7 @@ const COUNTRIES = [
     id: 'azerbaijan',
     name: 'Azerbaijan',
     isoNum: '031',
-    flag: '🇦🇿',
+    flag: '🇦🇿️',
     continent: 'asia',
     chapter: 'as-5',
     tip: 'Light Blue, Red, Green with a white crescent and star! ☪️ The crescent and star represent Islam!'
@@ -1555,7 +1555,7 @@ const COUNTRIES = [
     id: 'canada',
     name: 'Canada',
     isoNum: '124',
-    flag: '🇨🇦',
+    flag: '🇨🇦️',
     continent: 'americas',
     chapter: 'am-1',
     tip: "Red, White, Red with a maple leaf! 🍁 The maple leaf is the national symbol, Canada's emblem since 1965!"
@@ -1564,7 +1564,7 @@ const COUNTRIES = [
     id: 'usa',
     name: 'United States',
     isoNum: '840',
-    flag: '🇺🇸',
+    flag: '🇺🇸️',
     continent: 'americas',
     chapter: 'am-1',
     tip: 'Red & white stripes + blue box with white stars ⭐ 50 stars = 50 states, 13 stripes = 13 original colonies!'
@@ -1573,7 +1573,7 @@ const COUNTRIES = [
     id: 'mexico',
     name: 'Mexico',
     isoNum: '484',
-    flag: '🇲🇽',
+    flag: '🇲🇽️',
     continent: 'americas',
     chapter: 'am-1',
     tip: 'Green, White, Red with an eagle! 🦅 The eagle is the Aztec symbol from the legend of Tenochtitlan!'
@@ -1584,7 +1584,7 @@ const COUNTRIES = [
     id: 'guatemala',
     name: 'Guatemala',
     isoNum: '320',
-    flag: '🇬🇹',
+    flag: '🇬🇹️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Blue, White, Blue with a coat of arms! 🛡️ The coat of arms contains a quetzal bird and laurel branches!'
@@ -1593,7 +1593,7 @@ const COUNTRIES = [
     id: 'belize',
     name: 'Belize',
     isoNum: '084',
-    flag: '🇧🇿',
+    flag: '🇧🇿️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Blue, White, Red with a coat of arms and logwood tree! 🌳 The coat of arms contains a sailing ship!'
@@ -1602,7 +1602,7 @@ const COUNTRIES = [
     id: 'el-salvador',
     name: 'El Salvador',
     isoNum: '222',
-    flag: '🇸🇻',
+    flag: '🇸🇻️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Blue, White, Blue with a national seal! 🛡️ The seal contains a triangle with three volcanic peaks!'
@@ -1611,7 +1611,7 @@ const COUNTRIES = [
     id: 'honduras',
     name: 'Honduras',
     isoNum: '340',
-    flag: '🇭🇳',
+    flag: '🇭🇳️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Blue, White, Blue with five stars! ⭐ The stars represent the five Central American nations!'
@@ -1620,7 +1620,7 @@ const COUNTRIES = [
     id: 'nicaragua',
     name: 'Nicaragua',
     isoNum: '558',
-    flag: '🇳🇮',
+    flag: '🇳🇮️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Blue, White, Blue with a coat of arms! 🛡️ The coat of arms contains three volcanic peaks and rainbow!'
@@ -1629,7 +1629,7 @@ const COUNTRIES = [
     id: 'costa-rica',
     name: 'Costa Rica',
     isoNum: '188',
-    flag: '🇨🇷',
+    flag: '🇨🇷️',
     continent: 'americas',
     chapter: 'am-2',
     tip: "Blue, White, Red with thick red stripe! 🎨 The white stripes are thinner, and there's a coat of arms!"
@@ -1638,7 +1638,7 @@ const COUNTRIES = [
     id: 'panama',
     name: 'Panama',
     isoNum: '591',
-    flag: '🇵🇦',
+    flag: '🇵🇦️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Quarterly flag: Blue, Red, White, Stars! ⭐ The quadrants represent the unity of all Panamanian people!'
@@ -1647,7 +1647,7 @@ const COUNTRIES = [
     id: 'cuba',
     name: 'Cuba',
     isoNum: '192',
-    flag: '🇨🇺',
+    flag: '🇨🇺️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Blue and White with a red triangle and white star! ⭐ The triangle represents blood of freedom!'
@@ -1656,7 +1656,7 @@ const COUNTRIES = [
     id: 'dominican-republic',
     name: 'Dominican Republic',
     isoNum: '214',
-    flag: '🇩🇴',
+    flag: '🇩🇴️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Blue, Red, White with a coat of arms! 🛡️ The coat of arms has a cross in the center with a shield!'
@@ -1665,7 +1665,7 @@ const COUNTRIES = [
     id: 'haiti',
     name: 'Haiti',
     isoNum: '332',
-    flag: '🇭🇹',
+    flag: '🇭🇹️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Blue and Red with a coat of arms! 🛡️ The coat of arms contains a palm tree and cannons!'
@@ -1674,7 +1674,7 @@ const COUNTRIES = [
     id: 'jamaica',
     name: 'Jamaica',
     isoNum: '388',
-    flag: '🇯🇲',
+    flag: '🇯🇲️',
     continent: 'americas',
     chapter: 'am-2',
     tip: "Green, Yellow, Green with a diagonal gold cross! ✝️ The saltire (X-shape) represents the islands' landscape!"
@@ -1683,7 +1683,7 @@ const COUNTRIES = [
     id: 'bahamas',
     name: 'Bahamas',
     isoNum: '044',
-    flag: '🇧🇸',
+    flag: '🇧🇸️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Blue, Gold, Gold, Blue with a black triangle! 🔺 The triangle represents the unity and strength!'
@@ -1692,7 +1692,7 @@ const COUNTRIES = [
     id: 'trinidad-and-tobago',
     name: 'Trinidad and Tobago',
     isoNum: '780',
-    flag: '🇹🇹',
+    flag: '🇹🇹️',
     continent: 'americas',
     chapter: 'am-2',
     tip: "Red, White, Black diagonal stripes! 🎨 The black diagonal stripe represents the people's strength!"
@@ -1701,7 +1701,7 @@ const COUNTRIES = [
     id: 'barbados',
     name: 'Barbados',
     isoNum: '052',
-    flag: '🇧🇧',
+    flag: '🇧🇧️',
     continent: 'americas',
     chapter: 'am-2',
     tip: "Blue, Yellow, Blue with a black trident! 🔱 The trident is a symbol of Barbados' maritime heritage!"
@@ -1710,7 +1710,7 @@ const COUNTRIES = [
     id: 'grenada',
     name: 'Grenada',
     isoNum: '308',
-    flag: '🇬🇩',
+    flag: '🇬🇩️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Yellow, Green, Red with stars and a nutmeg! 🌰 The nutmeg represents the agricultural heritage!'
@@ -1719,7 +1719,7 @@ const COUNTRIES = [
     id: 'st-lucia',
     name: 'Saint Lucia',
     isoNum: '662',
-    flag: '🇱🇨',
+    flag: '🇱🇨️',
     continent: 'americas',
     chapter: 'am-2',
     tip: "Blue with two peaks and a yellow/white triangle! 🏔️ The two peaks represent the island's volcanic peaks (Pitons)!"
@@ -1728,7 +1728,7 @@ const COUNTRIES = [
     id: 'dominica',
     name: 'Dominica',
     isoNum: '212',
-    flag: '🇩🇲',
+    flag: '🇩🇲️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Green, Yellow, Black with a parrot and stars! 🦜 The parrot is the national bird, the stars represent divisions!'
@@ -1737,7 +1737,7 @@ const COUNTRIES = [
     id: 'st-vincent-grenadines',
     name: 'Saint Vincent & the Grenadines',
     isoNum: '670',
-    flag: '🇻🇨',
+    flag: '🇻🇨️',
     continent: 'americas',
     chapter: 'am-2',
     tip: "Green, Yellow, Blue with a diamond shape! 💎 The diamond represents the three islands's unity!"
@@ -1746,7 +1746,7 @@ const COUNTRIES = [
     id: 'antigua-barbuda',
     name: 'Antigua and Barbuda',
     isoNum: '028',
-    flag: '🇦🇬',
+    flag: '🇦🇬️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Red, Blue, White with a yellow sun and triangle! ☀️ The sun represents a new dawn of freedom!'
@@ -1755,7 +1755,7 @@ const COUNTRIES = [
     id: 'st-kitts-nevis',
     name: 'Saint Kitts and Nevis',
     isoNum: '659',
-    flag: '🇰🇳',
+    flag: '🇰🇳️',
     continent: 'americas',
     chapter: 'am-2',
     tip: 'Green, Red, Black, White with two stars! ⭐ The stars represent the two islands of the nation!'
@@ -1766,7 +1766,7 @@ const COUNTRIES = [
     id: 'colombia',
     name: 'Colombia',
     isoNum: '170',
-    flag: '🇨🇴',
+    flag: '🇨🇴️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'Yellow, Blue, Red horizontal stripes! 🌈 The yellow is twice as thick as the other stripes!'
@@ -1775,7 +1775,7 @@ const COUNTRIES = [
     id: 'venezuela',
     name: 'Venezuela',
     isoNum: '862',
-    flag: '🇻🇪',
+    flag: '🇻🇪️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'Yellow, Blue, Red with a white crescent and stars! ⭐ The arc of 8 stars represents the unity of the nation!'
@@ -1784,7 +1784,7 @@ const COUNTRIES = [
     id: 'guyana',
     name: 'Guyana',
     isoNum: '328',
-    flag: '🇬🇾',
+    flag: '🇬🇾️',
     continent: 'americas',
     chapter: 'am-3',
     tip: "Red, Green, Yellow, White, Black with a gold triangle! 🔺 The triangle represents the nation's wealth!"
@@ -1793,7 +1793,7 @@ const COUNTRIES = [
     id: 'suriname',
     name: 'Suriname',
     isoNum: '740',
-    flag: '🇸🇷',
+    flag: '🇸🇷️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'Green, White, Red with a yellow star! ⭐ The star represents golden dreams and prosperity!'
@@ -1802,7 +1802,7 @@ const COUNTRIES = [
     id: 'ecuador',
     name: 'Ecuador',
     isoNum: '218',
-    flag: '🇪🇨',
+    flag: '🇪🇨️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'Yellow, Blue, Red with a coat of arms! 🛡️ The coat of arms contains a condor bird!'
@@ -1811,7 +1811,7 @@ const COUNTRIES = [
     id: 'peru',
     name: 'Peru',
     isoNum: '604',
-    flag: '🇵🇪',
+    flag: '🇵🇪️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'Red, White, Red with a coat of arms! 🛡️ The coat of arms contains a vicuña, cinchona tree, and cornucopia!'
@@ -1820,7 +1820,7 @@ const COUNTRIES = [
     id: 'brazil',
     name: 'Brazil',
     isoNum: '076',
-    flag: '🇧🇷',
+    flag: '🇧🇷️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'Green, Yellow, Blue with a white band! 💛 Yellow = gold, Green = forest! The band says "Order and Progress"!'
@@ -1829,7 +1829,7 @@ const COUNTRIES = [
     id: 'bolivia',
     name: 'Bolivia',
     isoNum: '068',
-    flag: '🇧🇴',
+    flag: '🇧🇴️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'Red, Yellow, Green with a coat of arms! 🛡️ The coat of arms contains a condor eagle and laurel wreath!'
@@ -1838,7 +1838,7 @@ const COUNTRIES = [
     id: 'chile',
     name: 'Chile',
     isoNum: '152',
-    flag: '🇨🇱',
+    flag: '🇨🇱️',
     continent: 'americas',
     chapter: 'am-3',
     tip: "Blue, White, Red with a white star! ⭐ The thin white stripe and thick red stripe represent the nation's values!"
@@ -1847,7 +1847,7 @@ const COUNTRIES = [
     id: 'argentina',
     name: 'Argentina',
     isoNum: '032',
-    flag: '🇦🇷',
+    flag: '🇦🇷️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'Light Blue, White, Light Blue with a sun! ☀️ The sun is the Sun of May, representing independence!'
@@ -1856,7 +1856,7 @@ const COUNTRIES = [
     id: 'uruguay',
     name: 'Uruguay',
     isoNum: '858',
-    flag: '🇺🇾',
+    flag: '🇺🇾️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'White and Blue with nine stripes and a sun! ☀️ The 9 stripes represent the 9 departments when it was created!'
@@ -1865,7 +1865,7 @@ const COUNTRIES = [
     id: 'paraguay',
     name: 'Paraguay',
     isoNum: '600',
-    flag: '🇵🇾',
+    flag: '🇵🇾️',
     continent: 'americas',
     chapter: 'am-3',
     tip: 'Red, White, Blue with a coat of arms! 🛡️ The coat of arms is different on each side (recto and verso)!'
@@ -1878,7 +1878,7 @@ const COUNTRIES = [
     id: 'australia',
     name: 'Australia',
     isoNum: '036',
-    flag: '🇦🇺',
+    flag: '🇦🇺️',
     continent: 'oceania',
     chapter: 'oc-1',
     tip: 'Blue with British flag, white star and stars of the Southern Cross! ⭐ The cross is the constellation visible from the south!'
@@ -1887,7 +1887,7 @@ const COUNTRIES = [
     id: 'new-zealand',
     name: 'New Zealand',
     isoNum: '554',
-    flag: '🇳🇿',
+    flag: '🇳🇿️',
     continent: 'oceania',
     chapter: 'oc-1',
     tip: 'Blue with British flag and Southern Cross stars! ⭐ The four red stars with white trim form the Southern Cross!'
@@ -1898,7 +1898,7 @@ const COUNTRIES = [
     id: 'fiji',
     name: 'Fiji',
     isoNum: '242',
-    flag: '🇫🇯',
+    flag: '🇫🇯️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: 'Light Blue with British flag and coat of arms! 🛡️ The coat of arms contains a lion and local symbols!'
@@ -1907,7 +1907,7 @@ const COUNTRIES = [
     id: 'samoa',
     name: 'Samoa',
     isoNum: '882',
-    flag: '🇼🇸',
+    flag: '🇼🇸️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: 'Red and Blue with white stars! ⭐ The stars form the Southern Cross and represent four major islands!'
@@ -1916,7 +1916,7 @@ const COUNTRIES = [
     id: 'tonga',
     name: 'Tonga',
     isoNum: '776',
-    flag: '🇹🇴',
+    flag: '🇹🇴️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: 'Red and White with a cross! ✝️ The cross represents Christianity, which is central to Tongan culture!'
@@ -1925,7 +1925,7 @@ const COUNTRIES = [
     id: 'vanuatu',
     name: 'Vanuatu',
     isoNum: '548',
-    flag: '🇻🇺',
+    flag: '🇻🇺️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: 'Red, Green, Black, Yellow with a boar tusk and fern! 🥒 The boar tusk represents wealth and status!'
@@ -1934,7 +1934,7 @@ const COUNTRIES = [
     id: 'kiribati',
     name: 'Kiribati',
     isoNum: '296',
-    flag: '🇰🇮',
+    flag: '🇰🇮️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: 'Blue and Red with a sun and birds! 🌅 The sun represents the equator, the birds represent the islands!'
@@ -1943,7 +1943,7 @@ const COUNTRIES = [
     id: 'nauru',
     name: 'Nauru',
     isoNum: '520',
-    flag: '🇳🇷',
+    flag: '🇳🇷️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: "Blue with a yellow stripe and white star! ⭐ The star represents the island's position on the equator!"
@@ -1952,7 +1952,7 @@ const COUNTRIES = [
     id: 'tuvalu',
     name: 'Tuvalu',
     isoNum: '798',
-    flag: '🇹🇻',
+    flag: '🇹🇻️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: 'Light Blue and Yellow with stars! ⭐ The stars represent the nine coral atolls of the nation!'
@@ -1961,7 +1961,7 @@ const COUNTRIES = [
     id: 'marshall-islands',
     name: 'Marshall Islands',
     isoNum: '584',
-    flag: '🇲🇭',
+    flag: '🇲🇭️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: 'Blue with a chain of stars and an orange/white stripe! ⭐ The stars represent the island chains!'
@@ -1970,7 +1970,7 @@ const COUNTRIES = [
     id: 'micronesia',
     name: 'Micronesia',
     isoNum: '583',
-    flag: '🇫🇲',
+    flag: '🇫🇲️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: 'Blue with four white stars! ⭐ The stars represent the four main island groups!'
@@ -1979,7 +1979,7 @@ const COUNTRIES = [
     id: 'palau',
     name: 'Palau',
     isoNum: '585',
-    flag: '🇵🇼',
+    flag: '🇵🇼️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: "Blue with a yellow circle (moon)! 🌙 The moon represents peace and the nation's tranquility!"
@@ -1988,7 +1988,7 @@ const COUNTRIES = [
     id: 'solomon-islands',
     name: 'Solomon Islands',
     isoNum: '090',
-    flag: '🇸🇧',
+    flag: '🇸🇧️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: 'Green and Blue with a yellow stripe and stars! ⭐ The stripe and stars form a path of light!'
@@ -1997,7 +1997,7 @@ const COUNTRIES = [
     id: 'papua-new-guinea',
     name: 'Papua New Guinea',
     isoNum: '598',
-    flag: '🇵🇬',
+    flag: '🇵🇬️',
     continent: 'oceania',
     chapter: 'oc-2',
     tip: "Black, Red, Gold with a bird of paradise and stars! 🦜 The bird represents the nation's rich wildlife!"
