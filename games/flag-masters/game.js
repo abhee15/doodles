@@ -590,14 +590,29 @@ function renderFlag(container, country) {
     img.src = flagUrl;
     img.alt = `${country.name} flag`;
     img.className = 'flag-image';
-    img.onerror = () => {
-      // Fallback to emoji if image fails to load
-      img.style.display = 'none';
-      const fallback = document.createElement('div');
-      fallback.className = 'flag-display';
-      fallback.textContent = country.flag;
-      container.appendChild(fallback);
+    img.loading = 'eager';
+
+    let imageLoaded = false;
+    img.onload = () => {
+      imageLoaded = true;
     };
+
+    img.onerror = () => {
+      if (!imageLoaded) {
+        // Fallback to emoji if image fails to load
+        if (window.errorTracker) {
+          window.errorTracker.report(`Flag image failed to load: ${flagUrl}`, {
+            country: country.name
+          });
+        }
+        img.style.display = 'none';
+        const fallback = document.createElement('div');
+        fallback.className = 'flag-display';
+        fallback.textContent = country.flag;
+        container.appendChild(fallback);
+      }
+    };
+
     container.appendChild(img);
   } else {
     // Fallback to emoji if no ISO code found
