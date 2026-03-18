@@ -260,24 +260,30 @@ function renderLearn() {
   }
 
   // Draw map canvas
-  const canvas = document.getElementById('learn-canvas');
-  if (canvas) {
-    canvas.remove();
-  }
+  try {
+    const canvas = document.getElementById('learn-canvas');
+    if (canvas) {
+      canvas.remove();
+    }
 
-  const mapContainer = document.querySelector('[data-screen="learn"] .map-panel');
-  if (mapContainer) {
-    const newCanvas = document.createElement('canvas');
-    newCanvas.id = 'learn-canvas';
-    newCanvas.width = 320;
-    newCanvas.height = 240;
-    newCanvas.style.border = '1px solid var(--dom-border)';
-    newCanvas.style.borderRadius = '8px';
-    newCanvas.style.backgroundColor = '#d0e8e8';
-    mapContainer.innerHTML = '';
-    mapContainer.appendChild(newCanvas);
+    const mapContainer = document.querySelector('[data-screen="learn"] .map-panel');
+    if (mapContainer) {
+      const newCanvas = document.createElement('canvas');
+      newCanvas.id = 'learn-canvas';
+      newCanvas.width = 320;
+      newCanvas.height = 240;
+      newCanvas.style.border = '1px solid var(--dom-border)';
+      newCanvas.style.borderRadius = '8px';
+      newCanvas.style.backgroundColor = '#d0e8e8';
+      mapContainer.innerHTML = '';
+      mapContainer.appendChild(newCanvas);
 
-    drawCountry(newCanvas, country.isoNum, '#0d7a7a');
+      drawCountry(newCanvas, country.isoNum, '#0d7a7a');
+    }
+  } catch (error) {
+    if (window.errorTracker) {
+      window.errorTracker.report('Error rendering learn canvas', { error: error.message });
+    }
   }
 
   // Info panel
@@ -351,25 +357,31 @@ function renderQuiz() {
   }
 
   // Ensure quiz canvas exists
-  let canvas = document.getElementById('quiz-canvas');
-  if (!canvas) {
-    const mapContainer = document.querySelector('[data-screen="quiz"] .map-panel');
-    if (mapContainer) {
-      const newCanvas = document.createElement('canvas');
-      newCanvas.id = 'quiz-canvas';
-      newCanvas.width = 320;
-      newCanvas.height = 240;
-      newCanvas.style.border = '1px solid var(--dom-border)';
-      newCanvas.style.borderRadius = '8px';
-      newCanvas.style.backgroundColor = '#d0e8e8';
-      mapContainer.innerHTML = '';
-      mapContainer.appendChild(newCanvas);
-      canvas = newCanvas;
+  try {
+    let canvas = document.getElementById('quiz-canvas');
+    if (!canvas) {
+      const mapContainer = document.querySelector('[data-screen="quiz"] .map-panel');
+      if (mapContainer) {
+        const newCanvas = document.createElement('canvas');
+        newCanvas.id = 'quiz-canvas';
+        newCanvas.width = 320;
+        newCanvas.height = 240;
+        newCanvas.style.border = '1px solid var(--dom-border)';
+        newCanvas.style.borderRadius = '8px';
+        newCanvas.style.backgroundColor = '#d0e8e8';
+        mapContainer.innerHTML = '';
+        mapContainer.appendChild(newCanvas);
+        canvas = newCanvas;
+      }
     }
-  }
 
-  if (canvas) {
-    drawCountry(canvas, country.isoNum, '#0d7a7a');
+    if (canvas) {
+      drawCountry(canvas, country.isoNum, '#0d7a7a');
+    }
+  } catch (error) {
+    if (window.errorTracker) {
+      window.errorTracker.report('Error rendering quiz canvas', { error: error.message });
+    }
   }
 
   // Question
@@ -438,96 +450,111 @@ function renderQuiz() {
 // ═══════════════════════════════════════════
 function drawCountry(canvas, isoNum, fillColor) {
   if (!state.topoData || !window.topojson) {
+    // Draw placeholder if data not loaded yet
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#ccc';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#999';
+    ctx.font = '14px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('Loading map...', canvas.width / 2, canvas.height / 2);
     return;
   }
 
-  const ctx = canvas.getContext('2d');
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  try {
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Find country in TopoJSON
-  const countries = state.topoData.objects.countries.geometries;
+    // Find country in TopoJSON
+    const countries = state.topoData.objects.countries.geometries;
 
-  let countryGeom = null;
-  const isoNumInt = parseInt(isoNum);
-  for (let i = 0; i < countries.length; i++) {
-    if (countries[i].id === isoNumInt) {
-      countryGeom = countries[i];
-      break;
+    let countryGeom = null;
+    const isoNumInt = parseInt(isoNum);
+    for (let i = 0; i < countries.length; i++) {
+      if (countries[i].id === isoNumInt) {
+        countryGeom = countries[i];
+        break;
+      }
+    }
+
+    if (!countryGeom) {
+      return;
+    }
+
+    // Convert TopoJSON to GeoJSON using topojson-client
+    const feature = window.topojson.feature(state.topoData, countryGeom);
+    if (!feature || !feature.geometry) {
+      return;
+    }
+
+    // Extract all coordinate rings
+    let allRings = [];
+    if (feature.geometry.type === 'Polygon') {
+      allRings = feature.geometry.coordinates;
+    } else if (feature.geometry.type === 'MultiPolygon') {
+      feature.geometry.coordinates.forEach(poly => {
+        allRings = allRings.concat(poly);
+      });
+    } else {
+      return;
+    }
+
+    if (allRings.length === 0) {
+      return;
+    }
+
+    // Find bounding box
+    let minLon = Infinity,
+      maxLon = -Infinity,
+      minLat = Infinity,
+      maxLat = -Infinity;
+    allRings.forEach(ring => {
+      ring.forEach(([lon, lat]) => {
+        minLon = Math.min(minLon, lon);
+        maxLon = Math.max(maxLon, lon);
+        minLat = Math.min(minLat, lat);
+        maxLat = Math.max(maxLat, lat);
+      });
+    });
+
+    // Compute scale to fit canvas with padding
+    const padding = 10;
+    const availWidth = canvas.width - 2 * padding;
+    const availHeight = canvas.height - 2 * padding;
+
+    const lonRange = maxLon - minLon || 1;
+    const latRange = maxLat - minLat || 1;
+
+    const scale = Math.min(availWidth / lonRange, availHeight / latRange);
+
+    // Draw country
+    ctx.fillStyle = fillColor;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineWidth = 1.5;
+
+    allRings.forEach(ring => {
+      ctx.beginPath();
+      ring.forEach(([lon, lat], i) => {
+        const x = padding + ((lon - minLon) * scale + (availWidth - lonRange * scale) / 2);
+        const y =
+          padding + ((latRange - (lat - minLat)) * scale + (availHeight - latRange * scale) / 2);
+
+        if (i === 0) {
+          ctx.moveTo(x, y);
+        } else {
+          ctx.lineTo(x, y);
+        }
+      });
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+    });
+  } catch (error) {
+    if (window.errorTracker) {
+      window.errorTracker.report('Error drawing country map', { error: error.message });
     }
   }
-
-  if (!countryGeom) {
-    return;
-  }
-
-  // Convert TopoJSON to GeoJSON using topojson-client
-  const feature = window.topojson.feature(state.topoData, countryGeom);
-  if (!feature || !feature.geometry) {
-    return;
-  }
-
-  // Extract all coordinate rings
-  let allRings = [];
-  if (feature.geometry.type === 'Polygon') {
-    allRings = feature.geometry.coordinates;
-  } else if (feature.geometry.type === 'MultiPolygon') {
-    feature.geometry.coordinates.forEach(poly => {
-      allRings = allRings.concat(poly);
-    });
-  } else {
-    return;
-  }
-
-  if (allRings.length === 0) {
-    return;
-  }
-
-  // Find bounding box
-  let minLon = Infinity,
-    maxLon = -Infinity,
-    minLat = Infinity,
-    maxLat = -Infinity;
-  allRings.forEach(ring => {
-    ring.forEach(([lon, lat]) => {
-      minLon = Math.min(minLon, lon);
-      maxLon = Math.max(maxLon, lon);
-      minLat = Math.min(minLat, lat);
-      maxLat = Math.max(maxLat, lat);
-    });
-  });
-
-  // Compute scale to fit canvas with padding
-  const padding = 10;
-  const availWidth = canvas.width - 2 * padding;
-  const availHeight = canvas.height - 2 * padding;
-
-  const lonRange = maxLon - minLon || 1;
-  const latRange = maxLat - minLat || 1;
-
-  const scale = Math.min(availWidth / lonRange, availHeight / latRange);
-
-  // Draw country
-  ctx.fillStyle = fillColor;
-  ctx.strokeStyle = '#ffffff';
-  ctx.lineWidth = 1.5;
-
-  allRings.forEach(ring => {
-    ctx.beginPath();
-    ring.forEach(([lon, lat], i) => {
-      const x = padding + ((lon - minLon) * scale + (availWidth - lonRange * scale) / 2);
-      const y =
-        padding + ((latRange - (lat - minLat)) * scale + (availHeight - latRange * scale) / 2);
-
-      if (i === 0) {
-        ctx.moveTo(x, y);
-      } else {
-        ctx.lineTo(x, y);
-      }
-    });
-    ctx.closePath();
-    ctx.fill();
-    ctx.stroke();
-  });
 }
 
 // ═══════════════════════════════════════════
