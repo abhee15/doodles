@@ -298,6 +298,22 @@ const GAMES = [
     footerName: 'Map Masters'
   },
   {
+    id: 'flag-masters',
+    name: 'Flag Masters',
+    thumbClass: null,
+    category: 'geo',
+    desc: 'Learn to recognize the flags of all 195 countries with fun memory tricks and interactive quizzes!',
+    icon: 'ti-flag-3',
+    iconColor: '#f59e0b',
+    gradient: 'linear-gradient(145deg, #f59e0b 0%, #dc2626 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-05-01',
+    footerName: 'Flag Masters'
+  },
+  {
     id: 'word-explorer',
     name: 'Word Explorer',
     thumbClass: 'word',
