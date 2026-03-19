@@ -61,6 +61,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://abhee15.github.io/doodles/games/amazing-facts/</loc>
+    <lastmod>2026-03-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://abhee15.github.io/doodles/games/measure-master/</loc>
     <lastmod>2026-02-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -93,6 +99,12 @@
   <url>
     <loc>https://abhee15.github.io/doodles/games/body-map/</loc>
     <lastmod>2026-02-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://abhee15.github.io/doodles/games/vp-pup/</loc>
+    <lastmod>2026-03-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

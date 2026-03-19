@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Amazing Facts - Explore the World for Kids | Doodles Games</title>
+    <meta name="title" content="Amazing Facts - Explore the World" />
+    <meta
+      name="description"
+      content="Discover amazing facts about 7 Wonders, mountains, countries, rivers, languages, and animals. Learn with interactive fact cards and quiz challenges."
+    />
+    <meta name="keywords" content="facts, world, geography, animals, nature, educational game, for kids" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/amazing-facts/" />
+    <meta property="og:title" content="Amazing Facts - Explore the World" />
+    <meta
+      property="og:description"
+      content="Discover amazing facts about 7 Wonders, mountains, countries, rivers, languages, and animals."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/amazing-facts/" />
+    <meta property="twitter:title" content="Amazing Facts - Explore the World" />
+    <meta
+      property="twitter:description"
+      content="Discover amazing facts about 7 Wonders, mountains, countries, rivers, languages, and animals."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/amazing-facts/" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #0d1b2a;
+        --dom-nav-border: rgba(255, 255, 255, 0.07);
+        --dom-bg: #0a0e27;
+        --dom-bg-card: rgba(255, 255, 255, 0.05);
+        --dom-border: rgba(255, 255, 255, 0.12);
+        --dom-text: #e8edf5;
+        --dom-text-muted: rgba(255, 255, 255, 0.5);
+        --dom-accent: #f5c518;
+        --dom-accent-dark: #e6b010;
+        --dom-accent2: #4caf50;
+
+        --navy: #0a0e27;
+        --navy2: #101933;
+        --navy3: #1a2847;
+        --gold: #f5c518;
+        --gold2: #c9a000;
+        --text: #e8edf5;
+        --dim: #7a93b0;
+        --card: #151e3f;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        height: auto;
+      }
+
+      body {
+        font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+        background: var(--navy);
+        color: var(--text);
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      /* ═══════════════════════════════════════ SCREENS ═════════════════════════════════════════ */
+
+      [data-screen] {
+        display: none;
+        flex: 1;
+        overflow-y: auto;
+        padding: 20px;
+      }
+
+      [data-screen].active {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ═══════════════════════════════════════ HOME SCREEN ═════════════════════════════════════════ */
+
+      #screen-home {
+        align-items: center;
+        justify-content: flex-start;
+        gap: 24px;
+        padding: 32px 20px;
+      }
+
+      .home-hero {
+        text-align: center;
+        margin-bottom: 16px;
+      }
+
+      .home-hero h1 {
+        font-size: clamp(32px, 6vw, 48px);
+        font-weight: 900;
+        color: var(--gold);
+        letter-spacing: -1px;
+        margin-bottom: 8px;
+      }
+
+      .home-hero p {
+        font-size: 16px;
+        color: var(--dim);
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .topic-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 12px;
+        width: 100%;
+        max-width: 600px;
+      }
+
+      .topic-btn {
+        background: var(--card);
+        border: 2px solid var(--dom-border);
+        border-radius: 14px;
+        padding: 16px 12px;
+        cursor: pointer;
+        text-align: center;
+        transition:
+          border-color 0.2s,
+          transform 0.15s,
+          background 0.2s;
+        color: var(--text);
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .topic-btn:hover {
+        border-color: var(--gold);
+        background: var(--navy3);
+        transform: translateY(-2px);
+      }
+
+      .topic-emoji {
+        font-size: 32px;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      /* ═══════════════════════════════════════ TOPIC SCREEN ═════════════════════════════════════════ */
+
+      #screen-topic {
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+      }
+
+      .topic-header {
+        text-align: center;
+        margin-bottom: 8px;
+      }
+
+      .topic-header h2 {
+        font-size: clamp(24px, 5vw, 36px);
+        font-weight: 900;
+        color: var(--gold);
+      }
+
+      #fact-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 12px;
+        width: 100%;
+        max-width: 800px;
+      }
+
+      .fact-card {
+        background: var(--card);
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 14px;
+        cursor: pointer;
+        text-align: center;
+        transition:
+          border-color 0.2s,
+          transform 0.15s,
+          background 0.2s;
+      }
+
+      .fact-card:hover {
+        border-color: var(--gold);
+        background: var(--navy3);
+        transform: translateY(-2px);
+      }
+
+      .fact-emoji {
+        font-size: 28px;
+        margin-bottom: 8px;
+      }
+
+      .fact-card h3 {
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--text);
+        line-height: 1.3;
+        margin-bottom: 4px;
+      }
+
+      .fact-card p {
+        font-size: 11px;
+        color: var(--dim);
+        line-height: 1.3;
+      }
+
+      /* ═══════════════════════════════════════ DETAIL SCREEN ═════════════════════════════════════════ */
+
+      #screen-detail {
+        gap: 16px;
+      }
+
+      .detail-header {
+        text-align: center;
+        margin-bottom: 8px;
+      }
+
+      .detail-header h2 {
+        font-size: clamp(22px, 5vw, 32px);
+        font-weight: 900;
+        color: var(--gold);
+        margin-bottom: 4px;
+      }
+
+      .detail-header .subtitle {
+        font-size: 14px;
+        color: var(--dim);
+        margin-bottom: 4px;
+      }
+
+      .detail-header .location {
+        font-size: 13px;
+        color: var(--dom-text-muted);
+      }
+
+      #detail-photo {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+        max-height: 250px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 1px solid var(--dom-border);
+        margin: 0 auto;
+        display: block;
+      }
+
+      #detail-key-facts {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .key-fact {
+        background: var(--card);
+        border: 1px solid var(--dom-border);
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 12px;
+      }
+
+      .kf-icon {
+        font-size: 18px;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .kf-label {
+        color: var(--gold);
+        font-weight: 800;
+        font-size: 11px;
+        display: block;
+        margin-bottom: 2px;
+      }
+
+      .kf-value {
+        color: var(--text);
+        font-size: 11px;
+        line-height: 1.4;
+      }
+
+      .detail-story {
+        background: var(--card);
+        border: 1px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 14px;
+        max-width: 500px;
+        margin: 0 auto;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .detail-tip {
+        background: rgba(245, 197, 24, 0.08);
+        border: 1.5px solid rgba(245, 197, 24, 0.3);
+        border-radius: 12px;
+        padding: 14px;
+        max-width: 500px;
+        margin: 0 auto;
+        font-size: 14px;
+        line-height: 1.6;
+      }
+
+      .detail-controls {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn-detail {
+        background: var(--card);
+        border: 2px solid var(--dom-border);
+        border-radius: 10px;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 10px 16px;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          transform 0.15s;
+      }
+
+      .btn-detail:hover:not(:disabled) {
+        border-color: var(--gold);
+        transform: translateY(-1px);
+      }
+
+      .btn-detail:disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+
+      .btn-quiz-start {
+        background: var(--dom-accent2);
+        border: none;
+        color: white;
+        font-weight: 800;
+      }
+
+      .btn-quiz-start:hover {
+        background: #66bb6a;
+        border: none;
+      }
+
+      /* ═══════════════════════════════════════ QUIZ SCREEN ═════════════════════════════════════════ */
+
+      #screen-quiz {
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+      }
+
+      .quiz-progress {
+        font-size: 12px;
+        color: var(--dim);
+        margin-bottom: 8px;
+      }
+
+      #quiz-question {
+        font-size: clamp(18px, 4vw, 28px);
+        font-weight: 900;
+        color: var(--text);
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto 16px;
+        line-height: 1.3;
+      }
+
+      .quiz-options {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto 16px;
+      }
+
+      .quiz-option {
+        background: var(--card);
+        border: 2px solid var(--dom-border);
+        border-radius: 10px;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: 700;
+        padding: 12px;
+        cursor: pointer;
+        text-align: left;
+        transition:
+          border-color 0.2s,
+          background 0.2s,
+          transform 0.1s;
+      }
+
+      .quiz-option:hover:not(:disabled) {
+        border-color: var(--gold);
+        background: var(--navy3);
+        transform: translateY(-1px);
+      }
+
+      .quiz-option:disabled {
+        cursor: default;
+      }
+
+      .quiz-option.correct {
+        border-color: var(--dom-accent2) !important;
+        background: rgba(76, 175, 80, 0.15) !important;
+        color: #a5d6a7;
+      }
+
+      .quiz-option.wrong {
+        border-color: #e53935 !important;
+        background: rgba(229, 57, 53, 0.15) !important;
+        color: #ef9a9a;
+      }
+
+      #quiz-feedback {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .quiz-feedback-box {
+        border-radius: 10px;
+        padding: 12px;
+        font-size: 12px;
+        line-height: 1.5;
+      }
+
+      .quiz-feedback-box.correct {
+        background: rgba(76, 175, 80, 0.15);
+        border: 1px solid var(--dom-accent2);
+        color: #a5d6a7;
+      }
+
+      .quiz-feedback-box.wrong {
+        background: rgba(229, 57, 53, 0.15);
+        border: 1px solid #e53935;
+        color: #ef9a9a;
+      }
+
+      .feedback-title {
+        font-weight: 800;
+        margin-bottom: 4px;
+      }
+
+      .feedback-text {
+        font-size: 11px;
+      }
+
+      /* ═══════════════════════════════════════ RESULTS SCREEN ═════════════════════════════════════════ */
+
+      #screen-results {
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .results-stars {
+        font-size: 44px;
+        line-height: 1;
+        margin-bottom: 8px;
+      }
+
+      .results-title {
+        font-size: clamp(24px, 5vw, 36px);
+        font-weight: 900;
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+
+      .results-score {
+        font-size: clamp(48px, 10vw, 64px);
+        font-weight: 900;
+        color: var(--text);
+        line-height: 1;
+      }
+
+      .results-out-of {
+        font-size: 14px;
+        color: var(--dim);
+        margin-bottom: 8px;
+      }
+
+      .results-message {
+        font-size: 14px;
+        color: var(--dim);
+        max-width: 400px;
+        margin: 0 auto 16px;
+      }
+
+      .results-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn-results {
+        background: var(--card);
+        border: 2px solid var(--dom-border);
+        border-radius: 10px;
+        color: var(--text);
+        font-family: inherit;
+        font-size: 13px;
+        font-weight: 700;
+        padding: 10px 16px;
+        cursor: pointer;
+        transition:
+          border-color 0.2s,
+          transform 0.15s;
+      }
+
+      .btn-results:hover {
+        border-color: var(--gold);
+        transform: translateY(-1px);
+      }
+
+      /* ═══════════════════════════════════════ RESPONSIVE ═════════════════════════════════════════ */
+
+      @media (max-width: 768px) {
+        [data-screen] {
+          padding: 16px 12px;
+        }
+
+        #screen-home {
+          padding: 20px 12px;
+        }
+
+        .topic-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        #fact-cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        #detail-key-facts {
+          grid-template-columns: 1fr;
+        }
+
+        .quiz-options {
+          grid-template-columns: 1fr;
+        }
+
+        .quiz-option {
+          font-size: 11px;
+          padding: 10px;
+        }
+
+        #quiz-question {
+          font-size: 16px;
+        }
+
+        .results-score {
+          font-size: clamp(36px, 8vw, 48px);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ══════════════════ NAV ══════════════════ -->
+    <nav class="dom-nav">
+      <a id="game-back-btn" href="../../index.html#amazing-facts"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Amazing Facts</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- ══════════════════ HOME SCREEN ══════════════════ -->
+    <div data-screen="home" class="active">
+      <div class="home-hero">
+        <h1>🌍 Amazing Facts</h1>
+        <p>
+          Explore fascinating facts about our world — 7 Wonders, mountains, countries, rivers, languages, and animals!
+        </p>
+      </div>
+
+      <div class="topic-grid">
+        <button class="topic-btn" data-topic="wonders">
+          <span class="topic-emoji">🏛️</span>
+          7 Wonders
+        </button>
+        <button class="topic-btn" data-topic="mountains">
+          <span class="topic-emoji">⛰️</span>
+          Mountains
+        </button>
+        <button class="topic-btn" data-topic="countries">
+          <span class="topic-emoji">🗺️</span>
+          Countries
+        </button>
+        <button class="topic-btn" data-topic="rivers-oceans">
+          <span class="topic-emoji">💧</span>
+          Rivers & Oceans
+        </button>
+        <button class="topic-btn" data-topic="languages">
+          <span class="topic-emoji">💬</span>
+          Languages
+        </button>
+        <button class="topic-btn" data-topic="nature">
+          <span class="topic-emoji">🌿</span>
+          Animals & Nature
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════ TOPIC SCREEN ══════════════════ -->
+    <div data-screen="topic">
+      <div class="topic-header">
+        <h2 id="topic-title">Topic</h2>
+      </div>
+      <div id="fact-cards"></div>
+    </div>
+
+    <!-- ══════════════════ DETAIL SCREEN ══════════════════ -->
+    <div data-screen="detail">
+      <div class="detail-header">
+        <h2 id="detail-title">Fact Title</h2>
+        <div class="subtitle" id="detail-subtitle">Subtitle</div>
+        <div class="location" id="detail-location">📍 Location</div>
+      </div>
+
+      <img id="detail-photo" src="" alt="Fact" />
+
+      <div id="detail-key-facts"></div>
+
+      <div class="detail-story" id="detail-story">Story text</div>
+
+      <div class="detail-tip" id="detail-tip">Memory tip</div>
+
+      <div class="detail-controls">
+        <button class="btn-detail" id="btn-fact-back"><i class="ti ti-arrow-left"></i> Back</button>
+        <button class="btn-detail" id="btn-fact-prev" disabled><i class="ti ti-arrow-up"></i> Prev</button>
+        <button class="btn-detail" id="btn-fact-next"><i class="ti ti-arrow-down"></i> Next</button>
+        <button class="btn-detail btn-quiz-start" id="btn-quiz-start"><i class="ti ti-help"></i> Quiz</button>
+      </div>
+    </div>
+
+    <!-- ══════════════════ QUIZ SCREEN ══════════════════ -->
+    <div data-screen="quiz">
+      <div class="quiz-progress" id="quiz-progress">Question 1 of 10</div>
+      <div id="quiz-question">Question here?</div>
+      <div class="quiz-options">
+        <button class="quiz-option" id="quiz-opt-a">A) Option A</button>
+        <button class="quiz-option" id="quiz-opt-b">B) Option B</button>
+        <button class="quiz-option" id="quiz-opt-c">C) Option C</button>
+        <button class="quiz-option" id="quiz-opt-d">D) Option D</button>
+      </div>
+      <div id="quiz-feedback"></div>
+    </div>
+
+    <!-- ══════════════════ RESULTS SCREEN ══════════════════ -->
+    <div data-screen="results">
+      <div class="results-stars" id="results-stars">⭐</div>
+      <div class="results-title" id="results-title">Quiz Complete!</div>
+      <div class="results-score" id="results-score">8</div>
+      <div class="results-out-of">out of <span id="results-total">10</span> correct</div>
+      <div class="results-message" id="results-message">Great job!</div>
+      <div class="results-buttons">
+        <button class="btn-results" id="btn-quiz-again"><i class="ti ti-arrow-back-up"></i> Try Again</button>
+        <button class="btn-results" id="btn-home"><i class="ti ti-layout-list"></i> Home</button>
+      </div>
+    </div>
+
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="facts-data.js"></script>
+    <script src="game.js"></script>
+
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

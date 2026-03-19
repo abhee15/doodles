@@ -216,6 +216,22 @@ const GAMES = [
     footerName: 'Body Map'
   },
   {
+    id: 'vp-pup',
+    name: 'VP Pup',
+    thumbClass: null,
+    category: 'memory',
+    desc: 'Learn all 50 US Vice Presidents using a dog memory palace — tail to snout!',
+    icon: 'ti-dog',
+    iconColor: '#42a5f5',
+    gradient: 'linear-gradient(145deg, #1a237e 0%, #0d1b4b 100%)',
+    pattern: 'radial-gradient(circle, rgba(66, 165, 245, 0.15) 1px, transparent 1px)',
+    patternSize: '24px 24px',
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-09-01',
+    footerName: 'VP Pup'
+  },
+  {
     id: 'periodic-table',
     name: 'Periodic Table Master',
     thumbClass: 'periodic',
@@ -312,6 +328,22 @@ const GAMES = [
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-05-01',
     footerName: 'Flag Masters'
+  },
+  {
+    id: 'amazing-facts',
+    name: 'Amazing Facts',
+    thumbClass: null,
+    category: 'geo',
+    desc: 'Explore fascinating facts about 7 Wonders, mountains, countries, rivers, languages, and animals from around the world!',
+    icon: 'ti-world',
+    iconColor: '#f5c518',
+    gradient: 'linear-gradient(145deg, #0d1b2a 0%, #1a4d6d 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: null,
+    footerName: 'Amazing Facts'
   },
   {
     id: 'word-explorer',
