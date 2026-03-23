@@ -339,14 +339,15 @@
           grid-template-columns: 1fr;
           grid-template-rows: auto auto auto auto;
           height: auto;
-          padding: 8px;
-          gap: 8px;
+          padding: 16px;
+          gap: 16px;
         }
 
         .toolbox,
         .program-area,
         .game-view {
           grid-column: 1;
+          padding: 16px;
         }
 
         .toolbox {
@@ -355,15 +356,37 @@
 
         .program-area {
           grid-row: 3;
+          min-height: 200px;
         }
 
         .game-view {
           grid-row: 4;
+          padding: 20px 16px;
         }
 
         .block-item {
+          font-size: 13px;
+          padding: 10px 12px;
+          margin-bottom: 10px;
+        }
+
+        .program-block {
+          padding: 12px 14px;
+          margin-bottom: 8px;
+        }
+
+        .grid-container {
+          max-width: 180px;
+          margin-bottom: 16px;
+        }
+
+        .controls {
+          gap: 10px;
+        }
+
+        .controls button {
+          padding: 12px;
           font-size: 12px;
-          padding: 6px 10px;
         }
       }
     </style>
@@ -403,6 +426,7 @@
       </div>
     </div>
 
+    <script src="../../shared/error-tracker.js"></script>
     <script src="../../shared/analytics.js"></script>
     <div id="ad-container"></div>
     <script src="../../shared/ads.js"></script>

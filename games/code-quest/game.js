@@ -34,8 +34,11 @@ class CodeQuestGame {
     this.resetBtn.addEventListener('click', () => this.resetLevel());
     this.clearBtn.addEventListener('click', () => this.clearProgram());
 
+    this.selectedBlockType = null;
+
     document.querySelectorAll('.block-item').forEach(item => {
       item.addEventListener('dragstart', e => this.handleDragStart(e));
+      item.addEventListener('touchstart', e => this.handleTouchStart(e));
     });
 
     this.programBlocksContainer.addEventListener('dragover', e => {
@@ -55,12 +58,29 @@ class CodeQuestGame {
         this.addBlockToProgram(blockType);
       }
     });
+
+    this.programBlocksContainer.addEventListener('touchend', e => {
+      if (this.selectedBlockType) {
+        e.preventDefault();
+        this.addBlockToProgram(this.selectedBlockType);
+        this.selectedBlockType = null;
+        this.programBlocksContainer.style.backgroundColor = '';
+      }
+    });
   }
 
   handleDragStart(e) {
     const blockType = e.target.getAttribute('data-block');
     e.dataTransfer.effectAllowed = 'copy';
     e.dataTransfer.setData('blockType', blockType);
+  }
+
+  handleTouchStart(e) {
+    const blockType = e.target.closest('.block-item')?.getAttribute('data-block');
+    if (blockType) {
+      this.selectedBlockType = blockType;
+      this.programBlocksContainer.style.backgroundColor = 'rgba(96, 165, 250, 0.2)';
+    }
   }
 
   addBlockToProgram(blockType) {
