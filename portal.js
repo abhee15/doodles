@@ -305,5 +305,17 @@
     updateSectionCounts();
     renderFilterPills();
     renderFooter();
+
+    // Smooth page-leave transition on game card clicks
+    document.querySelectorAll('.game-card').forEach(function (card) {
+      card.addEventListener('click', function (e) {
+        e.preventDefault();
+        const href = card.href;
+        document.body.classList.add('page-leaving');
+        setTimeout(function () {
+          window.location.href = href;
+        }, 200);
+      });
+    });
   });
 })();

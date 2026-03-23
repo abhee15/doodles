@@ -1,4 +1,14 @@
 /* ══════════════════════════════════════════════════
+   PAGE TRANSITION
+══════════════════════════════════════════════════ */
+body {
+  transition: opacity 0.2s ease;
+}
+body.page-leaving {
+  opacity: 0;
+}
+
+/* ══════════════════════════════════════════════════
    DESIGN TOKENS
 ══════════════════════════════════════════════════ */
 :root {
@@ -50,6 +60,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+}
+
+body.page-leaving {
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
 /* ══════════════════════════════════════════════════
@@ -216,6 +231,7 @@ body {
 /* Mobile: Icon-only pills, scalable for future categories */
 @media (max-width: 768px) {
   .filter-bar {
+    position: relative;
     gap: 2px;
     justify-content: flex-start;
     overflow-x: auto;
@@ -223,6 +239,16 @@ body {
     padding: 0 8px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+  }
+  .filter-bar::after {
+    content: "";
+    position: sticky;
+    right: 0;
+    flex-shrink: 0;
+    width: 40px;
+    align-self: stretch;
+    background: linear-gradient(to right, transparent, var(--bg));
+    pointer-events: none;
   }
   .filter-bar::-webkit-scrollbar {
     display: none;
@@ -1161,13 +1187,21 @@ footer {
   }
 
   .footer-col h3::after {
-    content: "▼";
-    font-size: 11px;
-    transition: transform 0.2s;
+    content: "›";
+    font-size: 22px;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.5);
+    transition:
+      transform 0.2s,
+      color 0.2s;
   }
 
   .footer-col h3:hover {
     background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  .footer-col h3:hover::after {
+    color: rgba(255, 255, 255, 0.7);
   }
 
   /* Collapsed state: hide list */
@@ -1186,7 +1220,7 @@ footer {
   }
 
   .footer-col.expanded h3::after {
-    transform: rotate(180deg);
+    transform: rotate(90deg);
   }
 
   @keyframes slideDown {

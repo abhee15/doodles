@@ -656,6 +656,19 @@ function goBackScreen(scene) {
   }
 }
 
+// ─── Landscape Suggestion Banner (non-blocking) ─────────────
+function showLandscapeBanner(scene, width) {
+  const banner = scene.add.rectangle(width / 2, 16, width - 20, 28, 0x1a3a52, 0.9);
+  banner.setOrigin(0.5, 0);
+  banner.setStrokeStyle(1, 0xf9a8d4);
+  const bannerText = scene.add.text(width / 2, 30, '📱 Tip: Rotate to landscape for bigger keys!', {
+    font: 'bold 12px Arial',
+    fill: '#F9A8D4',
+    align: 'center'
+  });
+  bannerText.setOrigin(0.5, 0.5);
+}
+
 // ─── Piano Keyboard Builder ─────────────────────────────────
 function buildPianoKeyboard(scene) {
   const width = scene.cameras.main.width;
@@ -671,10 +684,10 @@ function buildPianoKeyboard(scene) {
     blackKeyHeight = whiteKeyHeight * 0.63;
     pianoY = height * 0.42;
   } else if (stateManager.state.isMobile && isPortrait) {
-    pianoStripWidth = Math.min(width - 20, 720);
-    whiteKeyHeight = 120;
-    blackKeyHeight = 75;
-    pianoY = height - 140;
+    pianoStripWidth = width - 10;
+    whiteKeyHeight = Math.min(Math.floor(height * 0.25), 160);
+    blackKeyHeight = Math.floor(whiteKeyHeight * 0.63);
+    pianoY = height - whiteKeyHeight - 10;
   } else {
     pianoStripWidth = Math.min(860, width - 20);
     whiteKeyHeight = 150;
@@ -746,6 +759,11 @@ function buildPianoKeyboard(scene) {
 
     key.on('pointerdown', () => handleKeyPress(scene, note));
     key.on('pointerup', () => handleKeyRelease(key));
+    key.on('pointerover', pointer => {
+      if (pointer.isDown) {
+        handleKeyPress(scene, note);
+      }
+    });
 
     stateManager.setKeyboardState(note, key);
   });
@@ -811,6 +829,11 @@ function buildPianoKeyboard(scene) {
 
     key.on('pointerdown', () => handleKeyPress(scene, bp.note));
     key.on('pointerup', () => handleKeyRelease(key));
+    key.on('pointerover', pointer => {
+      if (pointer.isDown) {
+        handleKeyPress(scene, bp.note);
+      }
+    });
 
     stateManager.setKeyboardState(bp.note, key);
   });
@@ -864,27 +887,7 @@ function rebuildChordSongSelectScreen(scene) {
   const isPortrait = height > width;
 
   if (stateManager.state.isMobile && isPortrait) {
-    const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
-    bg.setOrigin(0.5, 0.5);
-    const rotateIcon = scene.add.text(width / 2, height / 2 - 80, '🔄', {
-      font: 'bold 80px Arial',
-      fill: '#F9A8D4'
-    });
-    rotateIcon.setOrigin(0.5, 0.5);
-    const rotateText = scene.add.text(width / 2, height / 2 + 20, 'Rotate Your Phone', {
-      font: 'bold 28px Arial',
-      fill: '#F9A8D4',
-      align: 'center'
-    });
-    rotateText.setOrigin(0.5, 0.5);
-    const subtitle = scene.add.text(
-      width / 2,
-      height / 2 + 80,
-      'Piano Keys works best in landscape mode\nfor bigger, easier-to-tap keys!',
-      { font: 'bold 14px Arial', fill: '#CCCCCC', align: 'center' }
-    );
-    subtitle.setOrigin(0.5, 0.5);
-    return;
+    showLandscapeBanner(scene, width);
   }
 
   const title = scene.add.text(width / 2, 20, '🎵 Learn Chord Progressions', {
@@ -951,20 +954,7 @@ function rebuildChordLessonScreen(scene) {
   const isPortrait = height > width;
 
   if (stateManager.state.isMobile && isPortrait) {
-    const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
-    bg.setOrigin(0.5, 0.5);
-    const rotateIcon = scene.add.text(width / 2, height / 2 - 80, '🔄', {
-      font: 'bold 80px Arial',
-      fill: '#F9A8D4'
-    });
-    rotateIcon.setOrigin(0.5, 0.5);
-    const rotateText = scene.add.text(width / 2, height / 2 + 20, 'Rotate Your Phone', {
-      font: 'bold 28px Arial',
-      fill: '#F9A8D4',
-      align: 'center'
-    });
-    rotateText.setOrigin(0.5, 0.5);
-    return;
+    showLandscapeBanner(scene, width);
   }
 
   const isMobileLandscape = stateManager.state.isMobile && !isPortrait;
@@ -1082,27 +1072,7 @@ function rebuildSongSelectScreen(scene) {
   const isPortrait = height > width;
 
   if (stateManager.state.isMobile && isPortrait) {
-    const bg = scene.add.rectangle(width / 2, height / 2, width, height, 0x0d1b2a);
-    bg.setOrigin(0.5, 0.5);
-    const rotateIcon = scene.add.text(width / 2, height / 2 - 80, '🔄', {
-      font: 'bold 80px Arial',
-      fill: '#F9A8D4'
-    });
-    rotateIcon.setOrigin(0.5, 0.5);
-    const rotateText = scene.add.text(width / 2, height / 2 + 20, 'Rotate Your Phone', {
-      font: 'bold 28px Arial',
-      fill: '#F9A8D4',
-      align: 'center'
-    });
-    rotateText.setOrigin(0.5, 0.5);
-    const subtitle = scene.add.text(
-      width / 2,
-      height / 2 + 80,
-      'Piano Keys works best in landscape mode\nfor bigger, easier-to-tap keys!',
-      { font: 'bold 14px Arial', fill: '#CCCCCC', align: 'center' }
-    );
-    subtitle.setOrigin(0.5, 0.5);
-    return;
+    showLandscapeBanner(scene, width);
   }
 
   const title = scene.add.text(width / 2, 20, 'Select a Song', {

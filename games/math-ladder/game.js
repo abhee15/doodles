@@ -35,19 +35,35 @@ function initializeGameWhenReady() {
     return;
   }
 
-  if (isLandscapeMode()) {
-    startGame();
-  } else {
-    // Wait for orientation change
-    window.addEventListener('orientationchange', onOrientationChange, { once: true });
-    window.addEventListener('resize', onOrientationChange, { once: true });
+  startGame();
+
+  // Show landscape tip if in portrait
+  if (!isLandscapeMode()) {
+    showLandscapeTip();
   }
 }
 
-function onOrientationChange() {
-  if (isLandscapeMode() && !window.game && allDependenciesReady()) {
-    startGame();
+function showLandscapeTip() {
+  const existing = document.getElementById('landscape-tip');
+  if (existing) {
+    return;
   }
+  const tip = document.createElement('div');
+  tip.id = 'landscape-tip';
+  tip.style.cssText =
+    'position:fixed;top:8px;left:50%;transform:translateX(-50%);z-index:9999;' +
+    'background:rgba(10,36,36,0.9);color:#F9A8D4;padding:8px 18px;border-radius:20px;' +
+    'font:bold 13px Arial;pointer-events:auto;cursor:pointer;border:1px solid rgba(249,168,212,0.4);';
+  tip.textContent = '📱 Rotate to landscape for best experience';
+  tip.onclick = function () {
+    tip.remove();
+  };
+  document.body.appendChild(tip);
+  setTimeout(function () {
+    if (tip.parentNode) {
+      tip.remove();
+    }
+  }, 6000);
 }
 
 function startGame() {
