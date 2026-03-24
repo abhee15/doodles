@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <title>Fraction Fun - Learn Fractions for Kids | Doodles Games</title>
+    <meta name="title" content="Fraction Fun - Learn Fractions" />
+    <meta
+      name="description"
+      content="Learn fractions with pizza slices and visual shapes. Compare, shade, and match fractions in a fun interactive game!"
+    />
+    <meta name="keywords" content="fractions, math, kids, education, pizza, halves, thirds, quarters" />
+
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/fraction-fun/" />
+    <meta property="og:title" content="Fraction Fun - Learn Fractions" />
+    <meta property="og:description" content="Learn fractions with pizza slices and visual shapes." />
+
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/fraction-fun/" />
+    <meta property="twitter:title" content="Fraction Fun - Learn Fractions" />
+    <meta property="twitter:description" content="Learn fractions with pizza slices and visual shapes." />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/fraction-fun/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #4a1942;
+        --dom-accent: #ff6b6b;
+        --dom-accent-dark: #e05555;
+        --dom-accent2: #ffd93d;
+        --dom-bg: #2d1b4e;
+        --dom-bg-card: rgba(255, 255, 255, 0.07);
+        --dom-border: rgba(255, 255, 255, 0.15);
+        --dom-text: #f0f0f0;
+        --dom-text-muted: rgba(255, 255, 255, 0.55);
+      }
+
+      .mode-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 20px;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .mode-card {
+        background: var(--dom-bg-card);
+        border: 1px solid var(--dom-border);
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        transition:
+          transform 0.2s,
+          border-color 0.2s;
+      }
+      .mode-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--dom-accent);
+      }
+      .mode-card .icon {
+        font-size: 36px;
+        margin-bottom: 6px;
+      }
+      .mode-card h3 {
+        color: var(--dom-text);
+        font-size: 1.1rem;
+        margin: 0 0 4px;
+      }
+      .mode-card p {
+        color: var(--dom-text-muted);
+        font-size: 0.82rem;
+        margin: 0;
+      }
+
+      .fraction-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+      }
+      .fraction-visual {
+        margin: 12px auto;
+      }
+      .fraction-label {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: #fff;
+        text-align: center;
+        margin: 8px 0;
+      }
+      .fraction-words {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        text-align: center;
+      }
+
+      .denom-row {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px;
+        flex-wrap: wrap;
+      }
+      .denom-btn {
+        min-width: 48px;
+        min-height: 44px;
+        border-radius: 10px;
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          transform 0.1s;
+      }
+      .denom-btn.active {
+        border-color: var(--dom-accent);
+        background: rgba(255, 107, 107, 0.2);
+      }
+      .denom-btn:active {
+        transform: scale(0.95);
+      }
+
+      .compare-row {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        align-items: center;
+        padding: 12px;
+        flex-wrap: wrap;
+      }
+      .compare-option {
+        cursor: pointer;
+        padding: 12px;
+        border: 3px solid transparent;
+        border-radius: 16px;
+        transition:
+          border-color 0.2s,
+          transform 0.15s;
+        text-align: center;
+      }
+      .compare-option:hover {
+        transform: translateY(-2px);
+      }
+      .compare-option.correct {
+        border-color: #10b981;
+      }
+      .compare-option.wrong {
+        border-color: #ef4444;
+      }
+      .compare-label {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #fff;
+        margin-top: 8px;
+      }
+
+      .feedback {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 700;
+        min-height: 30px;
+        padding: 8px;
+      }
+      .feedback.correct {
+        color: #10b981;
+      }
+      .feedback.wrong {
+        color: #ef4444;
+      }
+
+      .progress-row {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        padding: 8px 16px;
+        flex-wrap: wrap;
+      }
+      .progress-dot {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        border: 2px solid var(--dom-border);
+        font-size: 10px;
+        line-height: 18px;
+        text-align: center;
+        color: var(--dom-text-muted);
+      }
+      .progress-dot.correct {
+        background: #10b981;
+        border-color: #10b981;
+        color: #fff;
+      }
+      .progress-dot.wrong {
+        background: #ef4444;
+        border-color: #ef4444;
+        color: #fff;
+      }
+      .progress-dot.current {
+        border-color: var(--dom-accent);
+      }
+
+      .question-text {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #fff;
+        text-align: center;
+        margin: 8px 0;
+      }
+
+      .options-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        padding: 12px 20px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .option-btn {
+        min-height: 52px;
+        border-radius: 12px;
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        color: #fff;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          transform 0.1s;
+      }
+      .option-btn:active {
+        transform: scale(0.96);
+      }
+      .option-btn.correct {
+        border-color: #10b981;
+        background: rgba(16, 185, 129, 0.15);
+      }
+      .option-btn.wrong {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.15);
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        padding: 20px;
+        max-width: 400px;
+        margin: 0 auto;
+      }
+      .stat-card {
+        background: var(--dom-bg-card);
+        border: 1px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+      }
+      .stat-card .value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--dom-accent);
+      }
+      .stat-card .label {
+        font-size: 0.8rem;
+        color: var(--dom-text-muted);
+        margin-top: 4px;
+      }
+
+      .stars {
+        text-align: center;
+        font-size: 2.5rem;
+        margin: 12px 0;
+      }
+      .section-title {
+        text-align: center;
+        font-size: 1.1rem;
+        color: var(--dom-text-muted);
+        padding: 12px 16px 4px;
+      }
+      .btn-row {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px;
+        flex-wrap: wrap;
+      }
+      .check-btn {
+        margin: 12px auto;
+        display: block;
+      }
+
+      @media (min-width: 500px) {
+        .mode-cards {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#fraction-fun"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Fraction Fun</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="dom-screen active" id="screen-landing"></div>
+    <div class="dom-screen" id="screen-learn"></div>
+    <div class="dom-screen" id="screen-compare"></div>
+    <div class="dom-screen" id="screen-practice"></div>
+    <div class="dom-screen" id="screen-match"></div>
+    <div class="dom-screen" id="screen-results"></div>
+
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/navigation.js"></script>
+    <script src="game.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
