@@ -123,8 +123,8 @@ const CFG = {
     animType: 'float',
     rewardEmoji: '🌈',
     rewardMsg: 'Wow! You popped so many balloons!',
-    maxObj: 7,
-    spawnMs: 1900,
+    maxObj: 9,
+    spawnMs: 1200,
     dark: false
   },
   bubble: {
@@ -138,8 +138,8 @@ const CFG = {
     animType: 'float',
     rewardEmoji: '🦆',
     rewardMsg: 'Quack! You found all my bubble friends!',
-    maxObj: 8,
-    spawnMs: 1600,
+    maxObj: 10,
+    spawnMs: 1100,
     dark: false
   },
   egg: {
@@ -339,11 +339,11 @@ function spawnObj() {
   if (c.animType === 'float') {
     el.style.left = `${10 + Math.random() * (W - size - 20)}px`;
     el.style.top = `${H + 10}px`;
-    const dur = 7 + Math.random() * 5;
+    const dur = 4 + Math.random() * 3;
     el.style.animationDuration = `${dur}s`;
     el.classList.add('anim-float');
     el.addEventListener('animationend', () => cleanup(el));
-    setTimeout(() => cleanup(el), (dur + 1.5) * 1000);
+    setTimeout(() => cleanup(el), (dur + 0.8) * 1000);
   } else {
     // bounce: stays in place
     el.style.left = `${8 + Math.random() * (W - size - 16)}px`;
