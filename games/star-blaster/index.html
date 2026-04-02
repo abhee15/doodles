@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Star Blaster - Space Shooter Game for Kids | Doodles Games</title>
+    <meta name="title" content="Star Blaster - Space Shooter for Kids" />
+    <meta
+      name="description"
+      content="Defend the galaxy from alien robots! Choose your weapon, blast waves of enemies, collect power-ups and survive as long as you can."
+    />
+    <meta
+      name="keywords"
+      content="space shooter game for kids, star blaster, alien shooter, kids action game, arcade game"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/star-blaster/" />
+    <meta property="og:title" content="Star Blaster - Space Shooter for Kids" />
+    <meta property="og:description" content="Defend the galaxy! Choose your weapon and blast alien robots." />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/star-blaster/" />
+    <meta property="twitter:title" content="Star Blaster - Space Shooter for Kids" />
+    <meta property="twitter:description" content="Defend the galaxy! Choose your weapon and blast alien robots." />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/star-blaster/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../shared/game-page-v2.css" />
+    <style>
+      * {
+        font-family: 'Nunito', sans-serif;
+        box-sizing: border-box;
+      }
+      #game-container {
+        position: relative;
+        overflow: hidden;
+      }
+      /* ── Overlays ── */
+      .g-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(2, 4, 22, 0.93);
+        z-index: 20;
+      }
+      .g-overlay.hidden {
+        display: none !important;
+      }
+      .g-logo {
+        font-size: clamp(2.4rem, 9vw, 4.8rem);
+        font-weight: 900;
+        color: #fff;
+        text-shadow:
+          0 0 30px #00d4ff,
+          0 0 70px #7c3aed;
+        margin-bottom: 6px;
+        letter-spacing: -0.02em;
+        text-align: center;
+      }
+      .g-tagline {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: clamp(0.85rem, 3vw, 1.15rem);
+        margin-bottom: 36px;
+        text-align: center;
+        padding: 0 20px;
+      }
+      /* ── Buttons ── */
+      .g-btn {
+        padding: 13px 38px;
+        border-radius: 50px;
+        border: 2px solid rgba(255, 255, 255, 0.22);
+        background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+        color: #fff;
+        font-size: 1.05rem;
+        font-weight: 800;
+        cursor: pointer;
+        margin: 5px;
+        transition:
+          transform 0.12s,
+          border-color 0.12s;
+        font-family: 'Nunito', sans-serif;
+        letter-spacing: 0.01em;
+      }
+      .g-btn:hover:not(:disabled) {
+        transform: translateY(-3px);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      .g-btn:active {
+        transform: translateY(0);
+      }
+      .g-btn:disabled {
+        opacity: 0.32;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .g-btn--sec {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .g-best {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 0.82rem;
+        margin-top: 14px;
+      }
+      /* ── Weapon Select ── */
+      .pick-title {
+        font-size: clamp(1.1rem, 4.5vw, 1.7rem);
+        font-weight: 900;
+        color: #fff;
+        margin-bottom: 14px;
+        text-align: center;
+      }
+      #weapon-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        padding: 4px 12px 12px;
+        max-width: 470px;
+        width: 92%;
+        margin-bottom: 14px;
+      }
+      .w-card {
+        border: 2px solid rgba(255, 255, 255, 0.13);
+        border-radius: 14px;
+        padding: 14px 10px;
+        background: rgba(255, 255, 255, 0.04);
+        cursor: pointer;
+        text-align: center;
+        transition:
+          transform 0.12s,
+          border-color 0.15s,
+          background 0.15s;
+      }
+      .w-card:hover {
+        transform: translateY(-3px);
+        border-color: rgba(255, 255, 255, 0.28);
+      }
+      .w-card.selected {
+        border-color: var(--wc, #00d4ff);
+        background: rgba(255, 255, 255, 0.1);
+      }
+      .w-em {
+        font-size: 2rem;
+        display: block;
+        margin-bottom: 5px;
+      }
+      .w-name {
+        font-size: 0.88rem;
+        font-weight: 800;
+        color: #fff;
+      }
+      .w-desc {
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.48);
+        margin-top: 3px;
+        line-height: 1.35;
+      }
+      /* ── HUD ── */
+      #game-hud {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 16px;
+        z-index: 15;
+        pointer-events: none;
+        background: linear-gradient(to bottom, rgba(0, 0, 18, 0.78) 0%, transparent 100%);
+      }
+      #hud-lives {
+        font-size: 1.4rem;
+        letter-spacing: 2px;
+        min-width: 80px;
+      }
+      #hud-center {
+        text-align: center;
+      }
+      #hud-score {
+        font-size: 1.15rem;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: 0.02em;
+      }
+      #hud-combo {
+        font-size: 0.72rem;
+        color: #fbbf24;
+        font-weight: 800;
+        min-height: 16px;
+      }
+      #hud-wave {
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.45);
+        text-align: right;
+        min-width: 80px;
+      }
+      /* ── Wave Banner ── */
+      #wave-banner {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 18;
+        pointer-events: none;
+      }
+      .wb-text {
+        font-size: clamp(2.2rem, 11vw, 5.5rem);
+        font-weight: 900;
+        color: #fff;
+        text-shadow:
+          0 0 30px #7c3aed,
+          0 0 60px #1d4ed8;
+        text-align: center;
+        animation: wbZoom 2.2s ease-in-out forwards;
+      }
+      .wb-sub {
+        font-size: clamp(0.85rem, 3vw, 1.2rem);
+        color: rgba(255, 255, 255, 0.65);
+        text-align: center;
+        margin-top: 6px;
+        animation: wbFade 2.2s ease-in-out forwards;
+      }
+      /* ── Score Pop ── */
+      .score-pop {
+        position: absolute;
+        font-weight: 900;
+        color: #fbbf24;
+        pointer-events: none;
+        font-size: 1rem;
+        z-index: 16;
+        text-shadow: 0 0 8px #f59e0b;
+        animation: popUp 0.9s ease-out forwards;
+        white-space: nowrap;
+        transform: translateX(-50%);
+      }
+      .score-pop.combo {
+        color: #ff6b35;
+        font-size: 1.25rem;
+        text-shadow: 0 0 12px #ef4444;
+      }
+      /* ── Game Over ── */
+      .go-label {
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.88rem;
+        margin-bottom: 2px;
+      }
+      .go-val {
+        font-size: clamp(2.5rem, 10vw, 4.2rem);
+        font-weight: 900;
+        color: #fbbf24;
+        text-shadow: 0 0 30px #f59e0b;
+        margin-bottom: 2px;
+      }
+      .go-detail {
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.83rem;
+        margin-bottom: 24px;
+      }
+      .go-best {
+        color: rgba(255, 255, 255, 0.32);
+        font-size: 0.75rem;
+        margin-bottom: 16px;
+      }
+      /* ── Joystick ── */
+      #joy-ring {
+        position: absolute;
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        border: 3px solid rgba(255, 255, 255, 0.28);
+        background: rgba(255, 255, 255, 0.06);
+        pointer-events: none;
+        z-index: 15;
+        display: none;
+      }
+      #joy-knob {
+        position: absolute;
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.32);
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        pointer-events: none;
+        z-index: 16;
+        display: none;
+      }
+      /* ── Freeze overlay ── */
+      #freeze-overlay {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 12;
+        border: 4px solid rgba(147, 197, 253, 0);
+        transition: border-color 0.3s;
+      }
+      #freeze-overlay.active {
+        border-color: rgba(147, 197, 253, 0.5);
+        animation: freezePulse 1s ease-in-out infinite;
+      }
+      @keyframes wbZoom {
+        0% {
+          transform: scale(0.3);
+          opacity: 0;
+        }
+        18% {
+          transform: scale(1.08);
+          opacity: 1;
+        }
+        35% {
+          transform: scale(1);
+        }
+        78% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(1.12);
+          opacity: 0;
+        }
+      }
+      @keyframes wbFade {
+        0%,
+        15% {
+          opacity: 0;
+        }
+        30%,
+        75% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+      @keyframes popUp {
+        0% {
+          transform: translateX(-50%) translateY(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translateX(-50%) translateY(-65px);
+          opacity: 0;
+        }
+      }
+      @keyframes freezePulse {
+        0%,
+        100% {
+          border-color: rgba(147, 197, 253, 0.4);
+        }
+        50% {
+          border-color: rgba(147, 197, 253, 0.85);
+        }
+      }
+      /* ── back-link z-index override ── */
+      .back-link {
+        z-index: 30;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="../../index.html#star-blaster" class="back-link">← Back</a>
+
+    <div id="game-container">
+      <!-- Menu -->
+      <div id="menu-overlay" class="g-overlay">
+        <div class="g-logo">⭐ Star Blaster</div>
+        <div class="g-tagline">Defend the galaxy from alien robots!</div>
+        <button class="g-btn" id="menu-play-btn">▶ Play</button>
+        <div class="g-best">Best Score: <span id="menu-best">0</span></div>
+      </div>
+
+      <!-- Weapon Select -->
+      <div id="pick-overlay" class="g-overlay hidden">
+        <div class="pick-title">⚔️ Choose Your Weapon</div>
+        <div id="weapon-grid"></div>
+        <button class="g-btn" id="pick-start-btn" disabled>Choose a weapon!</button>
+        <button class="g-btn g-btn--sec" id="pick-back-btn">← Back</button>
+      </div>
+
+      <!-- Wave Banner -->
+      <div id="wave-banner" style="display: none">
+        <div>
+          <div class="wb-text" id="wb-text"></div>
+          <div class="wb-sub" id="wb-sub"></div>
+        </div>
+      </div>
+
+      <!-- HUD -->
+      <div id="game-hud" style="display: none">
+        <div id="hud-lives">❤️❤️❤️</div>
+        <div id="hud-center">
+          <div id="hud-score">0</div>
+          <div id="hud-combo"></div>
+        </div>
+        <div id="hud-wave">Wave 1</div>
+      </div>
+
+      <!-- Game Over -->
+      <div id="gameover-overlay" class="g-overlay hidden">
+        <div class="g-logo" style="font-size: clamp(1.5rem, 6vw, 2.8rem)">Game Over! 💥</div>
+        <div class="go-label">Your Score</div>
+        <div class="go-val" id="go-score">0</div>
+        <div class="go-detail" id="go-detail">Wave 1 · 0 enemies</div>
+        <div class="go-best" id="go-best"></div>
+        <button class="g-btn" id="go-retry-btn">▶ Play Again</button>
+        <button class="g-btn g-btn--sec" id="go-weapon-btn">⚔️ Change Weapon</button>
+      </div>
+
+      <!-- Joystick visuals (pointer-events: none, controlled by JS) -->
+      <div id="joy-ring"></div>
+      <div id="joy-knob"></div>
+
+      <!-- Freeze border effect -->
+      <div id="freeze-overlay"></div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

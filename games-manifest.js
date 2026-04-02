@@ -603,6 +603,21 @@ const GAMES = [
     patternPosition: null,
     newUntil: '2026-07-01',
     footerName: 'Pop Town'
+  },
+  {
+    id: 'star-blaster',
+    name: 'Star Blaster',
+    thumbClass: null,
+    category: 'play',
+    desc: 'Defend the galaxy! Pick your weapon, blast waves of alien robots, collect power-ups, and survive. Desktop & mobile!',
+    icon: 'ti-rocket',
+    iconColor: '#00d4ff',
+    gradient: 'linear-gradient(150deg, #020412 0%, #1d4ed8 50%, #7c3aed 100%)',
+    pattern: 'radial-gradient(circle, rgba(255,255,255,.09) 1px, transparent 1px)',
+    patternSize: '22px 22px',
+    patternPosition: null,
+    newUntil: '2026-08-01',
+    footerName: 'Star Blaster'
   }
 ];
 
