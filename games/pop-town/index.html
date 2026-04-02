@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Pop Town - Magical Popping Adventure for Kids | Doodles Games</title>
+    <meta name="title" content="Pop Town - Magical Popping Adventure for Kids" />
+    <meta
+      name="description"
+      content="Welcome to Magical Pop Town! Pop balloons, hatch baby animals, find ocean treasure and more. A gentle, screen-safe game designed for little ones aged 2–5."
+    />
+    <meta
+      name="keywords"
+      content="toddler game, kids popping game, baby animals, balloons, preschool, early learning"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/pop-town/" />
+    <meta property="og:title" content="Pop Town - Magical Popping Adventure for Kids" />
+    <meta
+      property="og:description"
+      content="Welcome to Magical Pop Town! Pop balloons, hatch baby animals, find ocean treasure and more. Designed for little ones aged 2–5."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/pop-town/" />
+    <meta property="twitter:title" content="Pop Town - Magical Popping Adventure for Kids" />
+    <meta
+      property="twitter:description"
+      content="Welcome to Magical Pop Town! Pop balloons, hatch baby animals, find ocean treasure and more. Designed for little ones aged 2–5."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/pop-town/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      /* ── Reset & Base ── */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        height: 100vh;
+        height: 100dvh;
+        font-family:
+          'Segoe UI',
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background: #030318;
+      }
+
+      /* ── Screens ── */
+      .pop-screen {
+        display: none;
+        width: 100%;
+        height: 100vh;
+        height: 100dvh;
+        overflow: hidden;
+      }
+
+      .pop-screen.active {
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ═══════════════════════════════════════
+         WELCOME SCREEN
+      ═══════════════════════════════════════ */
+
+      #welcome {
+        background: radial-gradient(ellipse at 50% 40%, #1a1a7e 0%, #030318 100%);
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        cursor: pointer;
+        user-select: none;
+        position: relative;
+      }
+
+      #w-stars {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .w-star {
+        position: absolute;
+        animation: twinkle ease-in-out infinite;
+      }
+
+      .guide-big {
+        font-size: clamp(4.5rem, 18vw, 7rem);
+        animation: bounce-guide 1.6s ease-in-out infinite;
+        z-index: 1;
+        position: relative;
+      }
+
+      .welcome-title {
+        font-size: clamp(1.6rem, 6.5vw, 2.8rem);
+        font-weight: 900;
+        color: #ffd700;
+        text-shadow: 0 0 24px rgba(255, 215, 0, 0.55);
+        margin: 0.4rem 1rem 0;
+        z-index: 1;
+        position: relative;
+      }
+
+      .welcome-sub {
+        font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0.3rem 0 0;
+        z-index: 1;
+        position: relative;
+      }
+
+      .welcome-tap {
+        margin-top: 1.8rem;
+        font-size: clamp(0.85rem, 3vw, 1rem);
+        color: rgba(255, 255, 255, 0.45);
+        animation: pulse-fade 2s ease-in-out infinite;
+        z-index: 1;
+        position: relative;
+      }
+
+      /* ═══════════════════════════════════════
+         MENU SCREEN
+      ═══════════════════════════════════════ */
+
+      #menu {
+        background: linear-gradient(145deg, #1a1050 0%, #2d1b6e 100%);
+      }
+
+      .menu-top-nav {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem 1rem;
+        background: rgba(0, 0, 0, 0.3);
+        flex-shrink: 0;
+      }
+
+      .menu-top-nav a {
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        font-size: 0.88rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .menu-title-text {
+        flex: 1;
+        text-align: center;
+        font-weight: 800;
+        font-size: 1.05rem;
+        color: #ffd700;
+      }
+
+      .menu-spacer {
+        width: 60px;
+      }
+
+      .menu-hero {
+        text-align: center;
+        padding: 0.6rem 1rem 0.4rem;
+        flex-shrink: 0;
+      }
+
+      .menu-guide {
+        font-size: clamp(2rem, 8vw, 3.2rem);
+        animation: bounce-guide 2s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      .menu-question {
+        font-size: clamp(0.85rem, 3.2vw, 1.05rem);
+        color: rgba(255, 255, 255, 0.85);
+        margin: 0.25rem 0 0;
+      }
+
+      #menu-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.65rem;
+        padding: 0.65rem;
+        flex: 1;
+        align-content: start;
+      }
+
+      .game-card {
+        border: none;
+        border-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.4rem;
+        cursor: pointer;
+        padding: 0.9rem 0.5rem;
+        transition: transform 0.12s;
+        touch-action: manipulation;
+        min-height: max(100px, 16vh);
+      }
+
+      .game-card:active {
+        transform: scale(0.93);
+      }
+
+      .gc-emoji {
+        font-size: clamp(2.2rem, 9vw, 3.8rem);
+        line-height: 1;
+      }
+
+      .gc-name {
+        font-size: clamp(0.68rem, 2.5vw, 0.9rem);
+        font-weight: 700;
+        color: white;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+        text-align: center;
+      }
+
+      /* ═══════════════════════════════════════
+         GAME SCREEN
+      ═══════════════════════════════════════ */
+
+      #game {
+        position: relative;
+      }
+
+      #game-nav {
+        display: flex;
+        align-items: center;
+        padding: 0.4rem 0.75rem;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        z-index: 50;
+        flex-shrink: 0;
+        transition: background 0.3s;
+      }
+
+      .nav-btn {
+        background: none;
+        border: none;
+        font-size: 1.45rem;
+        cursor: pointer;
+        padding: 0.25rem;
+        touch-action: manipulation;
+        line-height: 1;
+        transition: transform 0.1s;
+      }
+
+      .nav-btn:active {
+        transform: scale(0.85);
+      }
+
+      #game-title {
+        flex: 1;
+        text-align: center;
+        font-weight: 700;
+        font-size: 0.92rem;
+        transition: color 0.3s;
+      }
+
+      #game-area {
+        flex: 1;
+        position: relative;
+        overflow: hidden;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
+      }
+
+      /* ─── Pop Objects ─── */
+
+      .pop-obj {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        touch-action: manipulation;
+        user-select: none;
+        z-index: 10;
+        line-height: 1;
+      }
+
+      .anim-float {
+        animation: anim-float linear forwards;
+      }
+
+      .anim-bounce {
+        animation: anim-bounce ease-in-out infinite;
+      }
+
+      /* Bubble */
+      .is-bubble {
+        font-size: 0 !important;
+      }
+
+      .bubble-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle at 30% 26%,
+          rgba(255, 255, 255, 0.92) 0%,
+          rgba(200, 240, 255, 0.38) 38%,
+          rgba(140, 200, 255, 0.06) 100%
+        );
+        border: 2px solid rgba(180, 225, 255, 0.6);
+      }
+
+      /* Egg */
+      .is-egg {
+        border-radius: 50% 50% 50% 50% / 58% 58% 42% 42%;
+        font-size: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .egg-inner {
+        font-size: 2rem;
+      }
+
+      .egg-crack {
+        animation: anim-egg-crack 0.5s ease-out forwards !important;
+        pointer-events: none;
+      }
+
+      /* Pop burst */
+      .popping {
+        animation: anim-pop 0.3s ease-out forwards !important;
+        pointer-events: none;
+      }
+
+      /* Background decorations */
+      .decor {
+        position: absolute;
+        pointer-events: none;
+        animation: anim-bounce ease-in-out infinite;
+      }
+
+      /* ─── Reveal ─── */
+
+      .reveal-item {
+        position: absolute;
+        font-size: 2.6rem;
+        pointer-events: none;
+        animation: anim-reveal 0.95s ease-out forwards;
+        z-index: 20;
+      }
+
+      /* ─── Particles ─── */
+
+      .particle {
+        position: absolute;
+        font-size: 1.1rem;
+        pointer-events: none;
+        animation: anim-particle 0.65s ease-out forwards;
+        z-index: 25;
+      }
+
+      /* ─── Pop Counter ─── */
+
+      #pop-counter-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 34px;
+        flex-shrink: 0;
+        background: rgba(0, 0, 0, 0.18);
+      }
+
+      #pop-counter {
+        display: flex;
+        gap: 3px;
+      }
+
+      .cstar {
+        font-size: 1.05rem;
+        color: rgba(255, 255, 255, 0.22);
+        line-height: 1;
+      }
+
+      .cstar.on {
+        color: #ffd700;
+      }
+
+      /* ═══════════════════════════════════════
+         CELEBRATION OVERLAY
+      ═══════════════════════════════════════ */
+
+      #cel-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.35s;
+      }
+
+      #cel-overlay.show {
+        opacity: 1;
+      }
+
+      .confetti {
+        position: absolute;
+        top: -70px;
+        animation: anim-confetti linear forwards;
+        animation-duration: 3s;
+      }
+
+      .cel-msg {
+        background: rgba(255, 255, 255, 0.97);
+        border-radius: 28px;
+        padding: 2rem 2.5rem;
+        text-align: center;
+        z-index: 201;
+        animation: anim-pop-in 0.4s ease-out;
+        max-width: 85vw;
+      }
+
+      .cel-emoji {
+        font-size: clamp(3rem, 12vw, 5rem);
+        animation: bounce-guide 0.75s ease-in-out infinite;
+        display: inline-block;
+      }
+
+      .cel-text {
+        font-size: clamp(1rem, 4vw, 1.3rem);
+        font-weight: 700;
+        color: #333;
+        margin-top: 0.9rem;
+        line-height: 1.4;
+      }
+
+      /* ═══════════════════════════════════════
+         KEYFRAME ANIMATIONS
+      ═══════════════════════════════════════ */
+
+      @keyframes anim-float {
+        0% {
+          transform: translate(0, 0) rotate(-4deg);
+          opacity: 0;
+        }
+        7% {
+          opacity: 1;
+        }
+        30% {
+          transform: translate(18px, -25vh) rotate(5deg);
+        }
+        55% {
+          transform: translate(-12px, -55vh) rotate(-4deg);
+        }
+        92% {
+          opacity: 1;
+        }
+        100% {
+          transform: translate(6px, -116vh) rotate(3deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes anim-bounce {
+        0%,
+        100% {
+          transform: translateY(0) rotate(-2deg) scale(1);
+        }
+        50% {
+          transform: translateY(-17px) rotate(2deg) scale(1.05);
+        }
+      }
+
+      @keyframes anim-pop {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        40% {
+          transform: scale(1.75);
+          opacity: 0.85;
+        }
+        100% {
+          transform: scale(0);
+          opacity: 0;
+        }
+      }
+
+      @keyframes anim-egg-crack {
+        0% {
+          transform: scale(1) rotate(0deg);
+        }
+        25% {
+          transform: scale(1.12) rotate(-13deg);
+        }
+        50% {
+          transform: scale(1.22) rotate(13deg);
+        }
+        75% {
+          transform: scale(1.16) rotate(-6deg);
+        }
+        100% {
+          transform: scale(0) rotate(0deg);
+          opacity: 0;
+        }
+      }
+
+      @keyframes anim-reveal {
+        0% {
+          transform: scale(0) translateY(0);
+          opacity: 0;
+        }
+        18% {
+          transform: scale(1.55) translateY(-12px);
+          opacity: 1;
+        }
+        55% {
+          transform: scale(1.2) translateY(-32px);
+          opacity: 1;
+        }
+        100% {
+          transform: scale(0.5) translateY(-80px);
+          opacity: 0;
+        }
+      }
+
+      @keyframes anim-particle {
+        0% {
+          transform: translate(0, 0) scale(1);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(var(--dx), var(--dy)) scale(0);
+          opacity: 0;
+        }
+      }
+
+      @keyframes anim-confetti {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(115vh) rotate(740deg);
+          opacity: 0.5;
+        }
+      }
+
+      @keyframes anim-pop-in {
+        0% {
+          transform: scale(0.4);
+          opacity: 0;
+        }
+        65% {
+          transform: scale(1.08);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      @keyframes bounce-guide {
+        0%,
+        100% {
+          transform: translateY(0) scale(1);
+        }
+        50% {
+          transform: translateY(-14px) scale(1.07);
+        }
+      }
+
+      @keyframes twinkle {
+        0%,
+        100% {
+          opacity: 0.15;
+          transform: scale(0.75);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1.2);
+        }
+      }
+
+      @keyframes pulse-fade {
+        0%,
+        100% {
+          opacity: 0.4;
+        }
+        50% {
+          opacity: 0.9;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Celebration Overlay -->
+    <div id="cel-overlay"></div>
+
+    <!-- ══ WELCOME SCREEN ══ -->
+    <div class="pop-screen active" id="welcome">
+      <div id="w-stars"></div>
+      <div class="guide-big">🌟</div>
+      <h1 class="welcome-title">Magical Pop Town</h1>
+      <p class="welcome-sub">A magical world just for you! ✨</p>
+      <p class="welcome-tap">Tap anywhere to begin!</p>
+    </div>
+
+    <!-- ══ MENU SCREEN ══ -->
+    <div class="pop-screen" id="menu">
+      <nav class="menu-top-nav">
+        <a href="../../index.html#pop-town"> <i class="ti ti-arrow-left"></i> Back </a>
+        <span class="menu-title-text">🌟 Pop Town</span>
+        <span class="menu-spacer"></span>
+      </nav>
+      <div class="menu-hero">
+        <div class="menu-guide">🌟</div>
+        <p class="menu-question">Where would you like to play today?</p>
+      </div>
+      <div id="menu-grid"></div>
+    </div>
+
+    <!-- ══ GAME SCREEN ══ -->
+    <div class="pop-screen" id="game">
+      <nav id="game-nav">
+        <button class="nav-btn" id="home-btn" aria-label="Home">🏠</button>
+        <span id="game-title">Game</span>
+        <button class="nav-btn" id="mute-btn" aria-label="Toggle sound">🔊</button>
+      </nav>
+      <div id="game-area"></div>
+      <div id="pop-counter-wrap">
+        <div id="pop-counter"></div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+  </body>
+</html>

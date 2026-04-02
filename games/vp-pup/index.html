@@ -8,39 +8,37 @@
     />
 
     <!-- Primary Meta Tags -->
-    <title>VP Pup - Learn US Vice Presidents for Kids | Doodles Games</title>
-    <meta name="title" content="VP Pup - Learn US Vice Presidents for Kids" />
+    <title>Dog Town - Learn US Vice Presidents for Kids | Doodles Games</title>
+    <meta name="title" content="Dog Town - Learn US Vice Presidents for Kids" />
     <meta
       name="description"
-      content="Meet the VP Pup! Learn all 50 US Vice Presidents using a dog memory palace. Fun facts, silly mnemonics, and quiz challenges."
+      content="Walk the streets of Dog Town! Each house holds a Vice President. Explore 5 neighborhoods to memorize all 50 US Vice Presidents using the memory palace method."
     />
-    <meta name="keywords" content="vice presidents, memory game, learning, american history, kids" />
+    <meta name="keywords" content="vice presidents, memory palace, american history, kids, dog town, learning game" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="game" />
     <meta property="og:url" content="https://abhee15.github.io/doodles/games/vp-pup/" />
-    <meta property="og:title" content="VP Pup - Learn US Vice Presidents for Kids" />
+    <meta property="og:title" content="Dog Town - Learn US Vice Presidents for Kids" />
     <meta
       property="og:description"
-      content="Meet the VP Pup! Learn all 50 US Vice Presidents using a dog memory palace. Fun facts, silly mnemonics, and quiz challenges."
+      content="Walk the streets of Dog Town! Each house holds a Vice President. Explore 5 neighborhoods to memorize all 50 US VPs."
     />
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/vp-pup/" />
-    <meta property="twitter:title" content="VP Pup - Learn US Vice Presidents for Kids" />
+    <meta property="twitter:title" content="Dog Town - Learn US Vice Presidents for Kids" />
     <meta
       property="twitter:description"
-      content="Meet the VP Pup! Learn all 50 US Vice Presidents using a dog memory palace. Fun facts, silly mnemonics, and quiz challenges."
+      content="Walk the streets of Dog Town! Each house holds a Vice President. Explore 5 neighborhoods to memorize all 50 US VPs."
     />
 
     <link rel="canonical" href="https://abhee15.github.io/doodles/games/vp-pup/" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
     <link rel="stylesheet" href="../../shared/tokens.css" />
     <link rel="stylesheet" href="../../shared/game-dom.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
 
     <style>
       :root {
@@ -49,76 +47,50 @@
         --dom-accent2: #ffd54f;
         --dom-bg: #0d1b4b;
         --dom-border: rgba(66, 165, 245, 0.2);
-        --paw-color: rgba(66, 165, 245, 0.1);
       }
 
-      /* Paw print pattern background */
-      body::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(circle, rgba(66, 165, 245, 0.08) 2px, transparent 2px);
-        background-size: 48px 48px;
-        background-position:
-          0 0,
-          24px 24px;
-        pointer-events: none;
-        z-index: 0;
-      }
-
-      .dom-screen {
-        position: relative;
-        z-index: 1;
-      }
-
-      /* Landing Screen */
+      /* ── Landing ── */
       .landing-hero {
         text-align: center;
-        padding: 2rem 1rem;
-        margin-bottom: 2rem;
+        padding: 2rem 1rem 1rem;
       }
 
       .landing-hero-icon {
-        font-size: 5rem;
-        margin-bottom: 1rem;
-        animation: bounce 2s infinite;
+        font-size: 4rem;
+        margin-bottom: 0.5rem;
       }
 
       .landing-hero h1 {
-        font-size: 2.5rem;
-        margin: 0.5rem 0;
+        font-size: 2.2rem;
+        margin: 0.25rem 0;
         color: var(--dom-accent);
         font-weight: bold;
       }
 
       .landing-hero p {
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.8);
-        margin: 0.5rem 0 0 0;
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.75);
+        margin: 0.25rem 0 0;
       }
 
       .technique-box {
-        background: rgba(66, 165, 245, 0.1);
+        background: rgba(66, 165, 245, 0.08);
         border: 2px solid var(--dom-border);
         border-radius: 12px;
-        padding: 1.5rem;
-        margin: 2rem 1rem;
-        text-align: center;
+        padding: 1.25rem 1.5rem;
+        margin: 1.25rem 1rem;
       }
 
       .technique-box h2 {
-        font-size: 1.2rem;
+        font-size: 1rem;
         color: var(--dom-accent2);
-        margin: 0 0 1rem 0;
+        margin: 0 0 0.75rem;
       }
 
       .technique-box p {
-        font-size: 0.95rem;
-        color: rgba(255, 255, 255, 0.85);
-        margin: 0.75rem 0;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0.5rem 0;
         line-height: 1.5;
       }
 
@@ -126,124 +98,221 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
-        padding: 1rem;
-        margin-bottom: 1rem;
+        padding: 0 1rem 1.5rem;
       }
 
-      @media (max-width: 480px) {
+      @media (max-width: 420px) {
         .batch-grid {
           grid-template-columns: 1fr;
         }
       }
 
       .batch-btn {
-        background: linear-gradient(135deg, rgba(66, 165, 245, 0.2), rgba(255, 213, 79, 0.1));
+        background: rgba(66, 165, 245, 0.1);
         border: 2px solid var(--dom-border);
         border-radius: 10px;
-        padding: 1.25rem 1rem;
+        padding: 1rem;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
         color: white;
-        font-weight: bold;
-        font-size: 0.95rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
+        text-align: center;
       }
 
       .batch-btn:hover {
         border-color: var(--dom-accent);
         transform: translateY(-2px);
-        background: linear-gradient(135deg, rgba(66, 165, 245, 0.3), rgba(255, 213, 79, 0.15));
       }
 
-      /* Two-column layout (Learn/Quiz) */
-      .two-col {
+      .batch-street-emoji {
+        font-size: 1.8rem;
+      }
+
+      .batch-btn strong {
+        font-size: 0.9rem;
+      }
+
+      .batch-btn small {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      /* ── Town Block ── */
+      .street-header {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem 0.5rem;
+        font-weight: bold;
+      }
+
+      .street-emoji {
+        font-size: 1.3rem;
+      }
+
+      .street-label {
+        font-size: 0.95rem;
+        color: var(--dom-accent);
+      }
+
+      .house-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 6px;
+        padding: 0 1rem 1rem;
+      }
+
+      .house-tile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s;
+      }
+
+      .house-roof {
+        width: 0;
+        height: 0;
+        border-left: 18px solid transparent;
+        border-right: 18px solid transparent;
+        border-bottom: 14px solid var(--hc);
+        opacity: 0.4;
+        transition: opacity 0.3s;
+      }
+
+      .house-body {
+        width: 32px;
+        height: 28px;
+        background: var(--hc);
+        border-radius: 2px 2px 4px 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.4;
+        border: 2px solid transparent;
+        transition:
+          opacity 0.3s,
+          border-color 0.3s;
+      }
+
+      .house-num,
+      .house-check {
+        color: white;
+        font-weight: bold;
+        font-size: 0.68rem;
+      }
+
+      /* State: upcoming */
+      .house-tile.upcoming .house-roof,
+      .house-tile.upcoming .house-body {
+        opacity: 0.18;
+      }
+
+      /* State: visited */
+      .house-tile.visited .house-roof,
+      .house-tile.visited .house-body {
+        opacity: 0.6;
+      }
+
+      /* State: active */
+      .house-tile.active {
+        transform: translateY(-5px);
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
+      }
+
+      .house-tile.active .house-roof,
+      .house-tile.active .house-body {
+        opacity: 1;
+      }
+
+      .house-tile.active .house-body {
+        border-color: white;
+      }
+
+      /* ── Learn Layout ── */
+      .learn-layout {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        padding: 2rem;
+        gap: 1.5rem;
+        padding: 1rem 1.5rem;
         align-items: start;
       }
 
       @media (max-width: 768px) {
-        .two-col {
+        .learn-layout {
           grid-template-columns: 1fr;
-          gap: 1.5rem;
-          padding: 1.5rem 1rem;
+          gap: 1rem;
+          padding: 0.75rem;
         }
       }
 
-      /* SVG Dog */
-      #dog-svg,
-      #quiz-dog-svg {
-        width: 100%;
-        max-width: 360px;
-        height: auto;
-        margin: 0 auto;
-        display: block;
-      }
-
-      .dog-zone {
-        cursor: pointer;
-        transition: all 0.3s ease;
-        filter: brightness(1);
-      }
-
-      .dog-zone.unrevealed {
-        opacity: 0.5;
-      }
-
-      .dog-zone.visited {
-        filter: brightness(1.1);
-      }
-
-      .dog-zone.active {
-        animation: pulse-zone 0.6s ease-in-out infinite;
-        filter: brightness(1.3) drop-shadow(0 0 8px rgba(66, 165, 245, 0.6));
-      }
-
-      @keyframes pulse-zone {
-        0%,
-        100% {
-          filter: brightness(1.3) drop-shadow(0 0 4px rgba(66, 165, 245, 0.6));
-        }
-        50% {
-          filter: brightness(1.5) drop-shadow(0 0 12px rgba(66, 165, 245, 0.9));
-        }
-      }
-
-      @keyframes bounce {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-
-      /* Learn Card */
-      .learn-card {
-        background: rgba(66, 165, 245, 0.08);
-        border: 2px solid var(--dom-border);
+      .town-block-panel {
+        background: rgba(66, 165, 245, 0.05);
+        border: 1px solid var(--dom-border);
         border-radius: 12px;
-        padding: 1.5rem;
-        min-height: 400px;
+        overflow: hidden;
+      }
+
+      .step-dots-row {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border-top: 1px solid var(--dom-border);
+      }
+
+      .step-dots {
+        display: flex;
+        gap: 4px;
+        flex: 1;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        transition: transform 0.2s;
+      }
+
+      .dot.active {
+        transform: scale(1.4);
+      }
+
+      .btn-sm {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
+        min-width: 48px;
+      }
+
+      /* ── Learn Card ── */
+      .learn-card {
+        background: rgba(66, 165, 245, 0.06);
+        border: 2px solid var(--card-accent, var(--dom-border));
+        border-radius: 12px;
+        padding: 1.25rem;
       }
 
       .vp-header {
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;
       }
 
       .party-badge {
         display: inline-block;
-        padding: 0.4rem 0.8rem;
+        padding: 0.3rem 0.7rem;
         border-radius: 20px;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         font-weight: bold;
-        margin-bottom: 0.5rem;
-        background: rgba(255, 255, 255, 0.1);
+        margin-bottom: 0.4rem;
+        background: rgba(255, 255, 255, 0.08);
         border: 1px solid var(--dom-border);
       }
 
@@ -257,153 +326,118 @@
         color: #f44336;
       }
 
-      .party-badge.w {
-        border-color: #9c27b0;
-        color: #9c27b0;
-      }
-
       .vp-number {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         color: var(--dom-accent2);
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.2rem;
       }
 
       .vp-name {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         font-weight: bold;
         color: white;
-        margin: 0.5rem 0;
+        margin: 0.3rem 0;
       }
 
       .vp-term {
-        font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.7);
-        margin: 0.5rem 0 0 0;
+        font-size: 0.82rem;
+        color: rgba(255, 255, 255, 0.65);
       }
 
       .served-badge {
-        background: rgba(255, 213, 79, 0.15);
-        border: 1px solid rgba(255, 213, 79, 0.4);
+        background: rgba(255, 213, 79, 0.12);
+        border: 1px solid rgba(255, 213, 79, 0.35);
         border-radius: 8px;
-        padding: 0.75rem;
-        margin: 1rem 0;
-        font-size: 0.9rem;
+        padding: 0.6rem 0.75rem;
+        margin-top: 0.75rem;
+        font-size: 0.88rem;
         color: rgba(255, 255, 255, 0.9);
       }
 
       .served-label {
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         color: var(--dom-accent2);
         font-weight: bold;
         display: block;
-        margin-bottom: 0.25rem;
+        margin-bottom: 0.2rem;
       }
 
       .fact-box {
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(255, 255, 255, 0.04);
         border-left: 3px solid var(--dom-accent);
-        padding: 0.75rem;
-        margin: 1rem 0;
+        padding: 0.7rem;
+        margin-top: 1rem;
         border-radius: 4px;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         line-height: 1.5;
         color: rgba(255, 255, 255, 0.85);
       }
 
       .tip-box {
-        background: rgba(255, 213, 79, 0.1);
+        background: rgba(255, 213, 79, 0.08);
         border-left: 3px solid var(--dom-accent2);
-        padding: 0.75rem;
-        margin: 1rem 0 0 0;
+        padding: 0.7rem;
+        margin-top: 0.75rem;
         border-radius: 4px;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         line-height: 1.5;
         color: rgba(255, 255, 255, 0.85);
       }
 
-      .learn-footer {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 1.5rem;
-        padding-top: 1rem;
-        border-top: 1px solid var(--dom-border);
-      }
-
-      .step-dots {
-        display: flex;
-        gap: 0.5rem;
-        justify-content: center;
-        flex: 1;
-      }
-
-      .dot {
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background: rgba(66, 165, 245, 0.3);
-        cursor: pointer;
-        transition: all 0.3s;
-      }
-
-      .dot.active {
-        background: var(--dom-accent);
-        width: 12px;
-        border-radius: 50%;
-      }
-
-      .learn-nav {
-        display: flex;
-        gap: 0.75rem;
-        justify-content: center;
-        margin-top: 1rem;
-      }
-
-      .learn-nav button {
-        padding: 0.5rem 1rem;
-        font-size: 0.85rem;
-        min-width: 80px;
-      }
-
-      /* Progress bar */
+      /* ── Progress Bar ── */
       .progress-bar {
         height: 4px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.08);
         overflow: hidden;
-        margin: 1rem 0;
       }
 
       .progress-fill {
         height: 100%;
         background: linear-gradient(90deg, var(--dom-accent), var(--dom-accent2));
         transition: width 0.3s ease;
+        width: 0%;
       }
 
-      /* Quiz Options */
+      /* ── Quiz ── */
+      .quiz-card {
+        background: rgba(66, 165, 245, 0.06);
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 1.25rem;
+      }
+
+      .quiz-question {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: white;
+        margin-bottom: 1.25rem;
+        text-align: center;
+      }
+
       .quiz-options {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
+        gap: 0.65rem;
       }
 
       .quiz-option {
         background: rgba(66, 165, 245, 0.1);
         border: 2px solid var(--dom-border);
         border-radius: 10px;
-        padding: 1rem;
+        padding: 0.9rem;
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition:
+          border-color 0.2s,
+          transform 0.2s;
         color: white;
         font-weight: bold;
         text-align: center;
-        font-size: 0.95rem;
+        font-size: 0.92rem;
       }
 
       .quiz-option:hover:not(.locked) {
         border-color: var(--dom-accent);
         transform: translateY(-2px);
-        background: rgba(66, 165, 245, 0.2);
       }
 
       .quiz-option.correct {
@@ -414,7 +448,7 @@
 
       .quiz-option.incorrect {
         border-color: #f44336;
-        background: rgba(244, 67, 54, 0.2);
+        background: rgba(244, 67, 54, 0.15);
         color: #ef5350;
       }
 
@@ -422,69 +456,37 @@
         pointer-events: none;
       }
 
-      .quiz-card {
-        background: rgba(66, 165, 245, 0.08);
-        border: 2px solid var(--dom-border);
-        border-radius: 12px;
-        padding: 1.5rem;
-        min-height: 400px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-      }
-
-      .quiz-question {
-        font-size: 1.2rem;
-        font-weight: bold;
-        color: white;
-        margin-bottom: 1.5rem;
-        text-align: center;
-      }
-
-      /* Score Screen */
+      /* ── Score ── */
       .score-screen {
         text-align: center;
         padding: 2rem 1rem;
       }
 
       .score-emoji {
-        font-size: 5rem;
-        margin-bottom: 1rem;
-        animation: bounce 2s infinite;
-      }
-
-      .score-text {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: var(--dom-accent);
-        margin: 1rem 0;
+        font-size: 4.5rem;
+        margin-bottom: 0.75rem;
       }
 
       .score-fraction {
         font-size: 2.5rem;
         font-weight: bold;
         color: white;
-        margin: 1.5rem 0;
+        margin: 1rem 0;
       }
 
       .score-message {
-        font-size: 1.1rem;
+        font-size: 1rem;
         color: rgba(255, 255, 255, 0.85);
-        margin: 1.5rem 0 2rem 0;
+        margin: 0 0 2rem;
         line-height: 1.5;
       }
 
       .score-actions {
         display: flex;
         flex-direction: column;
-        gap: 0.75rem;
-        max-width: 300px;
-        margin: 2rem auto 0;
-      }
-
-      .score-actions button {
-        padding: 0.75rem 1.5rem;
-        font-size: 1rem;
+        gap: 0.65rem;
+        max-width: 280px;
+        margin: 0 auto;
       }
     </style>
   </head>
@@ -493,26 +495,27 @@
     <!-- Navigation -->
     <nav class="dom-nav">
       <a href="../../index.html#vp-pup" id="game-back-btn"><i class="ti ti-arrow-left"></i> Back</a>
-      <span class="dom-nav-title" id="nav-title">VP Pup</span>
-      <span class="dom-nav-meta" id="nav-meta">Learn</span>
+      <span class="dom-nav-title" id="nav-title">Dog Town</span>
+      <span class="dom-nav-meta" id="nav-meta">Pick a Block</span>
     </nav>
 
     <!-- Landing Screen -->
     <div data-screen="landing" class="dom-screen active" id="landing">
       <div class="landing-hero">
-        <div class="landing-hero-icon">🐕</div>
-        <h1>VP Pup</h1>
-        <p>Learn all 50 US Vice Presidents</p>
+        <div class="landing-hero-icon">🏘️</div>
+        <h1>Dog Town</h1>
+        <p>Home of all 50 US Vice Presidents</p>
       </div>
 
       <div class="technique-box">
-        <h2>🧠 The Paw Memory System</h2>
+        <h2>🧠 The Memory Palace Method</h2>
         <p>
-          The VP Pup uses a dog's body as a memory palace! Each dog part (from tail to snout) is a "peg" that holds one
-          Vice President.
+          Dog Town has <strong>5 streets</strong> with <strong>10 houses</strong> each. Every house belongs to one Vice
+          President and has a unique color and memory clue on the door.
         </p>
         <p>
-          Learn 10 VPs and their silly connections, then quiz yourself. Repeat for all 50, and you'll never forget them!
+          Walk each street, learn the houses, then quiz yourself. Your brain remembers
+          <em>places</em> — use that superpower!
         </p>
       </div>
 
@@ -525,100 +528,17 @@
         <div class="progress-fill" id="learn-progress"></div>
       </div>
 
-      <div class="two-col">
-        <div id="dog-container">
-          <svg id="dog-svg" viewBox="0 0 360 480" xmlns="http://www.w3.org/2000/svg">
-            <!-- Tail -->
-            <g id="zone-tail" class="dog-zone unrevealed">
-              <path
-                d="M 320 180 Q 360 140 380 80"
-                stroke="rgba(66, 165, 245, 0.8)"
-                stroke-width="24"
-                fill="none"
-                stroke-linecap="round"
-              />
-            </g>
-
-            <!-- Back Paws -->
-            <g id="zone-back-paws" class="dog-zone unrevealed">
-              <ellipse cx="240" cy="420" rx="28" ry="32" fill="rgba(66, 165, 245, 0.6)" />
-              <ellipse cx="300" cy="420" rx="28" ry="32" fill="rgba(66, 165, 245, 0.6)" />
-            </g>
-
-            <!-- Hind Legs -->
-            <g id="zone-hind-legs" class="dog-zone unrevealed">
-              <rect x="220" y="340" width="36" height="85" rx="18" fill="rgba(66, 165, 245, 0.6)" />
-              <rect x="280" y="340" width="36" height="85" rx="18" fill="rgba(66, 165, 245, 0.6)" />
-            </g>
-
-            <!-- Rump -->
-            <g id="zone-rump" class="dog-zone unrevealed">
-              <ellipse cx="310" cy="260" rx="35" ry="45" fill="rgba(66, 165, 245, 0.6)" />
-            </g>
-
-            <!-- Belly -->
-            <g id="zone-belly" class="dog-zone unrevealed">
-              <ellipse cx="180" cy="280" rx="50" ry="70" fill="rgba(66, 165, 245, 0.5)" />
-            </g>
-
-            <!-- Back (upper body) -->
-            <g id="zone-back" class="dog-zone unrevealed">
-              <path
-                d="M 140 200 Q 180 180 250 190 Q 280 195 310 240"
-                stroke="rgba(66, 165, 245, 0.7)"
-                stroke-width="50"
-                fill="none"
-                stroke-linecap="round"
-              />
-            </g>
-
-            <!-- Front Legs -->
-            <g id="zone-front-legs" class="dog-zone unrevealed">
-              <rect x="100" y="300" width="36" height="125" rx="18" fill="rgba(66, 165, 245, 0.6)" />
-              <rect x="160" y="300" width="36" height="125" rx="18" fill="rgba(66, 165, 245, 0.6)" />
-            </g>
-
-            <!-- Front Paws -->
-            <g id="zone-front-paws" class="dog-zone unrevealed">
-              <ellipse cx="118" cy="425" rx="24" ry="28" fill="rgba(66, 165, 245, 0.6)" />
-              <ellipse cx="178" cy="425" rx="24" ry="28" fill="rgba(66, 165, 245, 0.6)" />
-            </g>
-
-            <!-- Chest -->
-            <g id="zone-chest" class="dog-zone unrevealed">
-              <ellipse cx="140" cy="220" rx="35" ry="50" fill="rgba(66, 165, 245, 0.6)" />
-            </g>
-
-            <!-- Neck -->
-            <g id="zone-neck" class="dog-zone unrevealed">
-              <rect x="120" y="150" width="40" height="80" rx="20" fill="rgba(66, 165, 245, 0.5)" />
-            </g>
-
-            <!-- Ears -->
-            <g id="zone-ears" class="dog-zone unrevealed">
-              <polygon points="85,80 75,120 95,110" fill="rgba(66, 165, 245, 0.7)" />
-              <polygon points="155,80 165,120 145,110" fill="rgba(66, 165, 245, 0.7)" />
-            </g>
-
-            <!-- Snout -->
-            <g id="zone-snout" class="dog-zone unrevealed">
-              <circle cx="120" cy="110" r="28" fill="rgba(66, 165, 245, 0.7)" />
-            </g>
-
-            <!-- Head -->
-            <g id="zone-head" class="dog-zone unrevealed">
-              <circle cx="120" cy="80" r="40" fill="rgba(66, 165, 245, 0.6)" />
-            </g>
-          </svg>
+      <div class="learn-layout">
+        <div class="town-block-panel">
+          <div id="town-block-learn"></div>
+          <div class="step-dots-row">
+            <button class="dom-btn dom-btn--secondary btn-sm" id="learn-prev">←</button>
+            <div class="step-dots" id="step-dots"></div>
+            <button class="dom-btn dom-btn--primary btn-sm" id="learn-next">→</button>
+          </div>
         </div>
 
         <div id="learn-card-container"></div>
-      </div>
-
-      <div class="learn-footer">
-        <button class="dom-btn dom-btn--primary" id="learn-prev">← Prev</button>
-        <div class="step-dots" id="step-dots"></div>
-        <button class="dom-btn dom-btn--primary" id="learn-next">Next →</button>
       </div>
     </div>
 
@@ -628,16 +548,14 @@
         <div class="progress-fill" id="quiz-progress"></div>
       </div>
 
-      <div class="two-col">
-        <div id="quiz-dog-container">
-          <svg id="quiz-dog-svg" viewBox="0 0 360 480" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="learn-layout">
+        <div class="town-block-panel">
+          <div id="town-block-quiz"></div>
         </div>
 
         <div class="quiz-card">
-          <div>
-            <div class="quiz-question" id="quiz-question">Which VP is this?</div>
-            <div class="quiz-options" id="quiz-options"></div>
-          </div>
+          <div class="quiz-question" id="quiz-question"></div>
+          <div class="quiz-options" id="quiz-options"></div>
         </div>
       </div>
     </div>
@@ -646,14 +564,13 @@
     <div data-screen="score" class="dom-screen" id="score">
       <div class="score-screen">
         <div class="score-emoji" id="score-emoji">🎉</div>
-        <div class="score-text" id="score-text">Batch Complete!</div>
         <div class="score-fraction" id="score-fraction">10/10</div>
-        <div class="score-message" id="score-message">Perfect! You're a VP expert!</div>
+        <div class="score-message" id="score-message"></div>
 
         <div class="score-actions">
-          <button class="dom-btn dom-btn--primary" id="next-batch-btn">Next Batch →</button>
-          <button class="dom-btn dom-btn--secondary" id="retry-btn">Retry This Batch</button>
-          <button class="dom-btn dom-btn--secondary" id="all-batches-btn">All Batches</button>
+          <button class="dom-btn dom-btn--primary" id="next-batch-btn">Next Street →</button>
+          <button class="dom-btn dom-btn--secondary" id="retry-btn">Retry This Street</button>
+          <button class="dom-btn dom-btn--secondary" id="all-batches-btn">All Streets</button>
         </div>
       </div>
     </div>

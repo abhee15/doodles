@@ -1,5 +1,18 @@
 {
   "permissions": {
-    "allow": ["Bash(node:*)", "Bash(git:*)"]
+    "allow": ["Bash(node:*)", "Bash(git:*)", "Bash(npm:*)", "Bash(npx:*)"]
+  },
+  "hooks": {
+    "Notification": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -Command \"[console]::beep(800,200)\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
   }
 }

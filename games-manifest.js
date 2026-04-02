@@ -95,44 +95,19 @@ const CATEGORIES = [
     color: '#065F46',
     gradient: 'linear-gradient(145deg, #4ADE80 0%, #0F2817 100%)',
     footerHeading: 'Money & Economics'
+  },
+  {
+    id: 'play',
+    label: 'Play & Explore',
+    icon: 'ti-confetti',
+    color: '#EC4899',
+    gradient: 'linear-gradient(145deg, #FF6B9D 0%, #C084FC 50%, #60A5FA 100%)',
+    footerHeading: 'Play & Explore'
   }
 ];
 
 // eslint-disable-next-line no-unused-vars
 const GAMES = [
-  {
-    id: 'math-ladder',
-    name: 'Math Ladder',
-    category: 'math',
-    desc: 'Climb rung by rung by solving addition & subtraction problems against the clock.',
-    icon: 'ti-stairs',
-    iconColor: null,
-    gradient: 'linear-gradient(150deg, #FF7043 0%, #BF360C 100%)',
-    pattern:
-      'repeating-linear-gradient(-55deg, transparent, transparent 6px, rgba(255,255,255,.06) 6px, rgba(255,255,255,.06) 12px)',
-    patternSize: null,
-    patternPosition: null,
-    grades: ['kindergarten', '1st-grade', '2nd-grade'],
-    newUntil: null,
-    footerName: 'Math Ladder'
-  },
-  {
-    id: 'number-ninja',
-    name: 'Number Ninja',
-    thumbClass: 'ninja',
-    category: 'math',
-    desc: 'Tap falling numbers in the right sequence before they hit the ground!',
-    icon: 'ti-target',
-    iconColor: null,
-    gradient: 'linear-gradient(135deg, #FF6B6B 0%, #D24545 100%)',
-    pattern:
-      'radial-gradient(circle, rgba(255,255,255,.15) 2px, transparent 2px) 50% 50% / 30px 30px, radial-gradient(circle, rgba(255,255,255,.08) 4px, transparent 4px) 50% 50% / 60px 60px, radial-gradient(circle, rgba(255,255,255,.05) 6px, transparent 6px) 50% 50% / 90px 90px',
-    patternSize: null,
-    patternPosition: null,
-    grades: ['1st-grade', '2nd-grade', '3rd-grade'],
-    newUntil: null,
-    footerName: 'Number Ninja'
-  },
   {
     id: 'quick-math',
     name: 'Quick Math',
@@ -217,19 +192,19 @@ const GAMES = [
   },
   {
     id: 'vp-pup',
-    name: 'VP Pup',
+    name: 'Dog Town',
     thumbClass: null,
     category: 'memory',
-    desc: 'Learn all 50 US Vice Presidents using a dog memory palace — tail to snout!',
-    icon: 'ti-dog',
+    desc: 'Walk the streets of Dog Town! Each house holds a Vice President. Explore 5 neighborhoods to memorize all 50 US VPs.',
+    icon: 'ti-home-2',
     iconColor: '#42a5f5',
     gradient: 'linear-gradient(145deg, #1a237e 0%, #0d1b4b 100%)',
     pattern: 'radial-gradient(circle, rgba(66, 165, 245, 0.15) 1px, transparent 1px)',
     patternSize: '24px 24px',
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
-    newUntil: '2026-09-01',
-    footerName: 'VP Pup'
+    newUntil: '2026-06-01',
+    footerName: 'Dog Town'
   },
   {
     id: 'periodic-table',
@@ -425,22 +400,6 @@ const GAMES = [
     grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
     footerName: 'Brain Spark'
-  },
-  {
-    id: 'piano-keys',
-    name: 'Piano Keys',
-    thumbClass: 'piano',
-    category: 'music',
-    desc: 'Learn chords and play songs Synthesia-style on an interactive piano keyboard!',
-    icon: 'ti-piano',
-    iconColor: '#F9A8D4',
-    gradient: 'linear-gradient(145deg, #DB2777 0%, #7C3AED 100%)',
-    pattern:
-      'repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 12px)',
-    patternSize: '12px 12px',
-    patternPosition: null,
-    newUntil: '2026-08-01',
-    footerName: 'Piano Keys'
   },
   {
     id: 'photosynthesis-explorer',
@@ -641,21 +600,6 @@ const GAMES = [
     footerName: 'Store Shopper'
   },
   {
-    id: 'multiplication-masters',
-    name: 'Multiplication Masters',
-    thumbClass: null,
-    category: 'math',
-    desc: 'Master your times tables with visual dot arrays, timed drills, and a speed challenge mode.',
-    icon: 'ti-x',
-    iconColor: '#e94560',
-    gradient: 'linear-gradient(150deg, #1a1a2e 0%, #e94560 100%)',
-    pattern: null,
-    patternSize: null,
-    patternPosition: null,
-    newUntil: '2026-04-15',
-    footerName: 'Multiplication Masters'
-  },
-  {
     id: 'fraction-fun',
     name: 'Fraction Fun',
     thumbClass: null,
@@ -714,6 +658,21 @@ const GAMES = [
     patternPosition: null,
     newUntil: '2026-04-15',
     footerName: 'US States & Capitals'
+  },
+  {
+    id: 'pop-town',
+    name: 'Pop Town',
+    thumbClass: null,
+    category: 'play',
+    desc: 'Welcome to Magical Pop Town! Pop balloons, hatch baby animals, find ocean treasure and more — a gentle world of surprises for little ones.',
+    icon: 'ti-confetti',
+    iconColor: '#FF6B9D',
+    gradient: 'linear-gradient(150deg, #FF6B9D 0%, #C084FC 50%, #60A5FA 100%)',
+    pattern: 'radial-gradient(circle, rgba(255,255,255,0.15) 2px, transparent 2px)',
+    patternSize: '28px 28px',
+    patternPosition: null,
+    newUntil: '2026-07-01',
+    footerName: 'Pop Town'
   }
 ];
 

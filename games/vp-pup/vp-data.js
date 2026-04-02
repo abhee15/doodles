@@ -1,23 +1,9 @@
-// VP Pup — Dog Peg System (50 US Vice Presidents)
+// VP Pup — Dog Town Data (50 US Vice Presidents)
 /* eslint-disable no-unused-vars */
-
-// 10 Dog Pegs (Tail → Snout)
-const VP_PEGS = [
-  { id: 'tail', label: 'Tail', emoji: '🐾' },
-  { id: 'back-paws', label: 'Back Paws', emoji: '🦶' },
-  { id: 'hind-legs', label: 'Hind Legs', emoji: '🦵' },
-  { id: 'rump', label: 'Rump', emoji: '🍑' },
-  { id: 'belly', label: 'Belly', emoji: '🫃' },
-  { id: 'back', label: 'Back', emoji: '🔙' },
-  { id: 'front-legs', label: 'Front Legs', emoji: '💪' },
-  { id: 'chest', label: 'Chest', emoji: '❤️' },
-  { id: 'ears', label: 'Ears', emoji: '👂' },
-  { id: 'snout', label: 'Snout', emoji: '👃' }
-];
 
 // 50 US Vice Presidents (John Adams → JD Vance)
 const VPs = [
-  // Batch 0: VPs 1–10
+  // Block 0: Founding Alley (VPs 1–10)
   {
     n: 1,
     name: 'John Adams',
@@ -25,7 +11,7 @@ const VPs = [
     servedUnder: 'George Washington',
     party: 'F',
     fact: 'First VP and second president. Complained being VP was "the most insignificant office."',
-    tip: '🐾 Adams WAG-WAGGED his TAIL — angry about his boring job!'
+    tip: 'Picture a dog in a RED house grumbling about his boring job — just like Adams!'
   },
   {
     n: 2,
@@ -33,8 +19,8 @@ const VPs = [
     term: '1797–1801',
     servedUnder: 'John Adams',
     party: 'D-R',
-    fact: 'Wrote the Declaration of Independence before becoming VP. Later, the 3rd president.',
-    tip: '🦶 Jefferson kicked with his BACK PAWS — wrote the Declaration!'
+    fact: 'Wrote the Declaration of Independence before becoming VP. Later the 3rd president.',
+    tip: 'The ORANGE house has a quill pen over the door — Jefferson wrote the Declaration!'
   },
   {
     n: 3,
@@ -43,7 +29,7 @@ const VPs = [
     servedUnder: 'Thomas Jefferson',
     party: 'D-R',
     fact: 'Killed Alexander Hamilton in a famous duel. Only VP to be charged with murder.',
-    tip: '🦵 Burr RAN on his HIND LEGS — he was always running from the law!'
+    tip: 'The YELLOW house has a duel pistol on the fence — Burr always got into trouble!'
   },
   {
     n: 4,
@@ -52,7 +38,7 @@ const VPs = [
     servedUnder: 'Thomas Jefferson, James Madison',
     party: 'D-R',
     fact: 'Served as VP under two different presidents. Died in office.',
-    tip: '🍑 Clinton sat on his RUMP — the longest-serving VP!'
+    tip: 'The GREEN house has two welcome mats — Clinton served two presidents!'
   },
   {
     n: 5,
@@ -61,7 +47,7 @@ const VPs = [
     servedUnder: 'James Madison',
     party: 'D-R',
     fact: 'His name gave us the word "gerrymander" — unfair political districts.',
-    tip: '🫃 Gerry had a BIG BELLY for political tricks!'
+    tip: 'The TEAL house has a wiggly district map drawn on the door — Gerry gerrymandered!'
   },
   {
     n: 6,
@@ -70,7 +56,7 @@ const VPs = [
     servedUnder: 'James Madison',
     party: 'D-R',
     fact: 'One of the least famous VPs. Served for only 3 years.',
-    tip: '🔙 Gaillard stayed in the BACK — nobody remembers him!'
+    tip: 'The BLUE house is plain with no decorations — Gaillard was the forgettable VP!'
   },
   {
     n: 7,
@@ -79,7 +65,7 @@ const VPs = [
     servedUnder: 'James Monroe',
     party: 'D-R',
     fact: 'Also served as New York governor. Struggled with money problems.',
-    tip: '💪 Tompkins used his FRONT LEGS to climb the ladder!'
+    tip: 'The PURPLE house has empty coin jars in the window — Tompkins had money troubles!'
   },
   {
     n: 8,
@@ -88,7 +74,7 @@ const VPs = [
     servedUnder: 'John Quincy Adams, Andrew Jackson',
     party: 'D-R',
     fact: "Strong Southern senator. Passionate defender of states' rights.",
-    tip: '❤️ Calhoun had a big CHEST full of Southern pride!'
+    tip: 'The PINK house flies a Southern flag — Calhoun was all about Southern pride!'
   },
   {
     n: 9,
@@ -97,7 +83,7 @@ const VPs = [
     servedUnder: 'Andrew Jackson',
     party: 'D',
     fact: 'First president born as a US citizen. Political insider under Jackson.',
-    tip: "👂 Van Buren LISTENED to Jackson's every word with his EARS!"
+    tip: 'The BROWN house has giant ears on the door — Van Buren listened to everything!'
   },
   {
     n: 10,
@@ -106,10 +92,10 @@ const VPs = [
     servedUnder: 'Martin Van Buren',
     party: 'D',
     fact: 'War hero. Claimed to have killed the Shawnee chief Tecumseh.',
-    tip: '👃 Johnson SNIFFED out the enemy — warrior of the SNOUT!'
+    tip: 'The GREY house has a war medal above the door — Johnson the war hero!'
   },
 
-  // Batch 1: VPs 11–20
+  // Block 1: Frontier Road (VPs 11–20)
   {
     n: 11,
     name: 'John Tyler',
@@ -117,7 +103,7 @@ const VPs = [
     servedUnder: 'William Henry Harrison',
     party: 'W',
     fact: 'Became president when Harrison died 31 days into his term — first "accidental" president.',
-    tip: '🐾 Tyler wagged his TAIL when he suddenly became president!'
+    tip: 'The RED house has a surprise crown on the doorstep — Tyler accidentally became president!'
   },
   {
     n: 12,
@@ -126,7 +112,7 @@ const VPs = [
     servedUnder: 'James K. Polk',
     party: 'D',
     fact: 'His name inspired the city of Dallas, Texas.',
-    tip: '🦶 Dallas kicked with his BACK PAWS — Texas was his territory!'
+    tip: 'The ORANGE house has a Texas star on it — Dallas, Texas!'
   },
   {
     n: 13,
@@ -135,7 +121,7 @@ const VPs = [
     servedUnder: 'Zachary Taylor',
     party: 'W',
     fact: 'Became president when Taylor died. Last Whig president.',
-    tip: '🦵 Fillmore ran on his HIND LEGS to the White House!'
+    tip: 'The YELLOW house has a "LAST WHIG" sign — Fillmore ended an era!'
   },
   {
     n: 14,
@@ -144,7 +130,7 @@ const VPs = [
     servedUnder: 'Franklin Pierce',
     party: 'D',
     fact: 'Died in office after serving only 45 days. Close friend of James Buchanan.',
-    tip: '🍑 King sat on his RUMP — but only briefly!'
+    tip: 'The GREEN house has a very short welcome mat — King only lasted 45 days!'
   },
   {
     n: 15,
@@ -153,7 +139,7 @@ const VPs = [
     servedUnder: 'James Buchanan',
     party: 'D',
     fact: 'Youngest VP ever. Later led the pro-slavery faction.',
-    tip: '🫃 Young Breckinridge had a BELLY full of youthful passion!'
+    tip: 'The TEAL house has a "YOUNGEST EVER" banner — Breckinridge was the baby VP!'
   },
   {
     n: 16,
@@ -162,7 +148,7 @@ const VPs = [
     servedUnder: 'Abraham Lincoln',
     party: 'R',
     fact: "Served under Lincoln but wasn't re-nominated. Later served in Congress.",
-    tip: '🔙 Hamlin stayed in the BACK during the Civil War!'
+    tip: "The BLUE house sits quietly in Lincoln's shadow — Hamlin was overshadowed!"
   },
   {
     n: 17,
@@ -171,7 +157,7 @@ const VPs = [
     servedUnder: 'Abraham Lincoln',
     party: 'R',
     fact: "Became president after Lincoln's assassination. Impeached.",
-    tip: '💪 Johnson flexed his FRONT LEGS when he took the presidency!'
+    tip: 'The PURPLE house has an impeachment notice on the door — Johnson was impeached!'
   },
   {
     n: 18,
@@ -180,7 +166,7 @@ const VPs = [
     servedUnder: 'Ulysses S. Grant',
     party: 'R',
     fact: 'Involved in the Credit Mobilier scandal. Dynamic politician.',
-    tip: "❤️ Colfax's CHEST puffed out with Grant's confidence!"
+    tip: 'The PINK house has scandal newspapers piled at the door — Colfax got caught!'
   },
   {
     n: 19,
@@ -189,7 +175,7 @@ const VPs = [
     servedUnder: 'Ulysses S. Grant',
     party: 'R',
     fact: 'Started as a shoemaker. Rose through politics. Died in office.',
-    tip: '👂 Wilson LISTENED to the machine — he built his way up!'
+    tip: "The BROWN house has a shoemaker's sign — Wilson started at the bottom!"
   },
   {
     n: 20,
@@ -198,18 +184,18 @@ const VPs = [
     servedUnder: 'Rutherford B. Hayes',
     party: 'R',
     fact: "Became president after Garfield's assassination. Reformed the civil service.",
-    tip: '👃 Arthur had his SNOUT in the New York political machine!'
+    tip: 'The GREY house has a fancy mustache door knocker — Arthur was famous for his style!'
   },
 
-  // Batch 2: VPs 21–30
+  // Block 2: Progress Lane (VPs 21–30)
   {
     n: 21,
     name: 'Chester A. Arthur',
     term: '1881',
     servedUnder: 'James A. Garfield',
     party: 'R',
-    fact: 'Same as VP #20 — continued as VP then president.',
-    tip: "🐾 Arthur's TAIL continued wagging from election to election!"
+    fact: 'Same Chester Arthur — served as VP again, then became president.',
+    tip: 'The RED house AGAIN has the mustache knocker — Arthur appeared twice!'
   },
   {
     n: 22,
@@ -218,7 +204,7 @@ const VPs = [
     servedUnder: 'Grover Cleveland',
     party: 'D',
     fact: 'Died in office after serving only 8 months.',
-    tip: "🦶 Hendricks didn't kick with his BACK PAWS for long!"
+    tip: 'The ORANGE house has a very short calendar on the door — only 8 months!'
   },
   {
     n: 23,
@@ -227,7 +213,7 @@ const VPs = [
     servedUnder: 'Grover Cleveland',
     party: 'D',
     fact: 'Ran for president twice, lost both times. Grandfather of the later VP.',
-    tip: "🦵 Stevenson I ran on his HIND LEGS but couldn't catch the presidency!"
+    tip: 'The YELLOW house has two LOSER trophies in the window — Stevenson ran twice!'
   },
   {
     n: 24,
@@ -236,7 +222,7 @@ const VPs = [
     servedUnder: 'William McKinley',
     party: 'R',
     fact: 'Strong relationship with McKinley. Died in office.',
-    tip: '🍑 Hobart sat close to McKinley on his RUMP — BFFs!'
+    tip: "The GREEN house is right next to McKinley's — best friends on the block!"
   },
   {
     n: 25,
@@ -245,16 +231,16 @@ const VPs = [
     servedUnder: 'William McKinley',
     party: 'R',
     fact: "Youngest president ever. Took office after McKinley's assassination.",
-    tip: '🫃 Teddy had a BELLY full of energy and ambition!'
+    tip: 'The TEAL house has a charging bull moose — TEDDY is here!'
   },
   {
     n: 26,
     name: 'James Sherman',
     term: '1909–1912',
-    servedUnder: 'Theodore Roosevelt, William Howard Taft',
+    servedUnder: 'William Howard Taft',
     party: 'R',
     fact: 'Died just days before the 1912 election.',
-    tip: "🔙 Sherman stayed in the BACK during Taft's clumsy presidency!"
+    tip: 'The BLUE house has an unfinished election sign — Sherman died just before voting!'
   },
   {
     n: 27,
@@ -262,8 +248,8 @@ const VPs = [
     term: '1912',
     servedUnder: 'William Howard Taft',
     party: 'R',
-    fact: 'Wait — we just covered him. Different administration, same tragic end.',
-    tip: '💪 Sherman flexed his FRONT LEGS — briefly!'
+    fact: 'Note: same Sherman! Two entries because he spanned two administrations.',
+    tip: 'The PURPLE house is identical to the blue one — same Sherman, different year!'
   },
   {
     n: 28,
@@ -271,8 +257,8 @@ const VPs = [
     term: '1913–1921',
     servedUnder: 'Woodrow Wilson',
     party: 'D',
-    fact: 'Longest-serving VP of the era. Known for witty quotes.',
-    tip: "❤️ Marshall's CHEST swelled with loyal service to Wilson!"
+    fact: 'Longest-serving VP of the era. Known for witty one-liners.',
+    tip: 'The PINK house has a joke-of-the-day board — Marshall was full of wit!'
   },
   {
     n: 29,
@@ -280,8 +266,8 @@ const VPs = [
     term: '1921–1923',
     servedUnder: 'Warren G. Harding',
     party: 'R',
-    fact: 'Became president when Harding died. Known for being quiet.',
-    tip: '👂 Silent Cal LISTENED more than he talked — quiet EARS!'
+    fact: 'Became president when Harding died. Known as "Silent Cal."',
+    tip: "The BROWN house is totally quiet — no noise, no fuss. That's Silent Cal!"
   },
   {
     n: 30,
@@ -290,18 +276,18 @@ const VPs = [
     servedUnder: 'Calvin Coolidge',
     party: 'R',
     fact: 'Won Nobel Peace Prize for Dawes Plan (reparations). Also a composer and banker.',
-    tip: '👃 Dawes had his SNOUT in every financial pie!'
+    tip: 'The GREY house has Nobel Prize ribbons and a piano — Dawes won it all!'
   },
 
-  // Batch 3: VPs 31–40
+  // Block 3: New Deal Drive (VPs 31–40)
   {
     n: 31,
     name: 'Charles Curtis',
     term: '1929–1933',
     servedUnder: 'Herbert Hoover',
     party: 'R',
-    fact: 'First VP with Native American heritage (Kaw Nation). Longest-serving VP until recent times.',
-    tip: '🐾 Curtis wagged his TAIL proudly — first Native American VP!'
+    fact: 'First VP with Native American heritage (Kaw Nation). A trailblazer.',
+    tip: 'The RED house has Native American art on the door — Curtis broke new ground!'
   },
   {
     n: 32,
@@ -309,8 +295,8 @@ const VPs = [
     term: '1933–1941',
     servedUnder: 'Franklin D. Roosevelt',
     party: 'D',
-    fact: 'Said the VP job was "not worth a bucket of warm spit." Served longer than any VP in history at the time.',
-    tip: '🦶 Garner kicked his BACK PAWS — honest about his useless job!'
+    fact: 'Said the VP job was "not worth a bucket of warm spit." Very honest.',
+    tip: 'The ORANGE house has a bucket on the porch — Garner was brutally honest!'
   },
   {
     n: 33,
@@ -318,8 +304,8 @@ const VPs = [
     term: '1941–1945',
     servedUnder: 'Franklin D. Roosevelt',
     party: 'D',
-    fact: 'Secretary of Agriculture before VP. Visionary thinker, pushed for civil rights.',
-    tip: '🦵 Wallace ran on his HIND LEGS — pushing progressive ideas!'
+    fact: 'Secretary of Agriculture before VP. Pushed hard for civil rights.',
+    tip: 'The YELLOW house has a civil rights banner — Wallace was ahead of his time!'
   },
   {
     n: 34,
@@ -328,7 +314,7 @@ const VPs = [
     servedUnder: 'Franklin D. Roosevelt',
     party: 'D',
     fact: 'Became president when FDR died. Made the atomic bomb decision.',
-    tip: '🍑 Truman sat on his RUMP — then stood up to lead the nation!'
+    tip: 'The GREEN house has a giant atom on the door — Truman made the big call!'
   },
   {
     n: 35,
@@ -336,8 +322,8 @@ const VPs = [
     term: '1949–1953',
     servedUnder: 'Harry S. Truman',
     party: 'D',
-    fact: 'Charming, folksy VP. Known for his sense of humor.',
-    tip: "🫃 Barkley's BELLY was full of jokes and charisma!"
+    fact: 'Charming, folksy VP. Known for his sense of humor and storytelling.',
+    tip: "The TEAL house has a storyteller's chair on the porch — Barkley loved to talk!"
   },
   {
     n: 36,
@@ -345,8 +331,8 @@ const VPs = [
     term: '1953–1961',
     servedUnder: 'Dwight D. Eisenhower',
     party: 'R',
-    fact: 'Survived "Checkers Speech" scandal. Later became president. Then resigned.',
-    tip: '🔙 Nixon stayed in the BACK — plotting his rise!'
+    fact: 'Survived "Checkers Speech" scandal. Later became president, then resigned.',
+    tip: 'The BLUE house has a "CHECKERS" dog bowl on the step — Nixon\'s famous speech!'
   },
   {
     n: 37,
@@ -354,8 +340,8 @@ const VPs = [
     term: '1961–1963',
     servedUnder: 'John F. Kennedy',
     party: 'D',
-    fact: "Became president after JFK's assassination. Passed Civil Rights Act.",
-    tip: '💪 LBJ flexed his FRONT LEGS — dominating Texas politics!'
+    fact: "Became president after JFK's assassination. Passed the Civil Rights Act.",
+    tip: 'The PURPLE house has a cowboy hat on the door — LBJ, the Texas giant!'
   },
   {
     n: 38,
@@ -363,8 +349,8 @@ const VPs = [
     term: '1965–1969',
     servedUnder: 'Lyndon B. Johnson',
     party: 'D',
-    fact: 'Civil rights champion. Ran for president in 1968, lost to Nixon.',
-    tip: "❤️ Humphrey's CHEST swelled with civil rights passion!"
+    fact: 'Civil rights champion. Ran for president in 1968, narrowly lost to Nixon.',
+    tip: 'The PINK house has a "VOTE FOR RIGHTS" sign — Humphrey the champion!'
   },
   {
     n: 39,
@@ -372,8 +358,8 @@ const VPs = [
     term: '1969–1973',
     servedUnder: 'Richard Nixon',
     party: 'R',
-    fact: 'Resigned in disgrace over tax evasion. Known for harsh rhetoric.',
-    tip: '👂 Agnew wagged his EARS — attacking the media!'
+    fact: 'Resigned in disgrace over tax evasion. Known for attacking the media.',
+    tip: 'The BROWN house has a "RESIGNED" notice on the door — Agnew had to go!'
   },
   {
     n: 40,
@@ -382,18 +368,18 @@ const VPs = [
     servedUnder: 'Richard Nixon',
     party: 'R',
     fact: 'Became president when Nixon resigned. Only president never elected to presidency.',
-    tip: '👃 Ford had his SNOUT for facts — FBI agent turned president!'
+    tip: 'The GREY house has a "NEVER ELECTED" sign — Ford got there without a vote!'
   },
 
-  // Batch 4: VPs 41–50
+  // Block 4: Modern Mile (VPs 41–50)
   {
     n: 41,
     name: 'Walter Mondale',
     term: '1977–1981',
     servedUnder: 'Jimmy Carter',
     party: 'D',
-    fact: 'Close adviser to Carter. Ran for president in 1984, lost spectacularly.',
-    tip: '🐾 Mondale wagged his TAIL — loyal to Carter!'
+    fact: 'Close adviser to Carter. Ran for president in 1984, lost in a landslide.',
+    tip: 'The RED house has a loyal dog in the window — Mondale stuck by Carter!'
   },
   {
     n: 42,
@@ -401,8 +387,8 @@ const VPs = [
     term: '1981–1989',
     servedUnder: 'Ronald Reagan',
     party: 'R',
-    fact: '"Voodoo economics" critic became VP. Later became 41st president.',
-    tip: '🦶 Bush kicked with his BACK PAWS — from VP to president!'
+    fact: '"Voodoo economics" critic became VP, then 41st president.',
+    tip: 'The ORANGE house has a "VP → PRESIDENT" path on the lawn — Bush made the leap!'
   },
   {
     n: 43,
@@ -410,8 +396,8 @@ const VPs = [
     term: '1989–1993',
     servedUnder: 'George H. W. Bush',
     party: 'R',
-    fact: 'Mocked for misspelling potato. One-term VP. Later made comeback.',
-    tip: '🦵 Quayle ran on his HIND LEGS — but tripped on spelling!'
+    fact: 'Mocked for misspelling "potato." One-term VP.',
+    tip: 'The YELLOW house has a potato with a spelling mistake — poor Quayle!'
   },
   {
     n: 44,
@@ -419,8 +405,8 @@ const VPs = [
     term: '1993–2001',
     servedUnder: 'Bill Clinton',
     party: 'D',
-    fact: 'Strong environmental advocate. Won Nobel Prize later for climate work.',
-    tip: "🍑 Gore sat on his RUMP — worrying about Earth's future!"
+    fact: 'Strong environmental advocate. Won Nobel Peace Prize for climate work.',
+    tip: 'The GREEN house is covered in solar panels and plants — Al Gore saves Earth!'
   },
   {
     n: 45,
@@ -428,8 +414,8 @@ const VPs = [
     term: '2001–2009',
     servedUnder: 'George W. Bush',
     party: 'R',
-    fact: 'Former Secretary of Defense. Most powerful VP in modern history.',
-    tip: "🫃 Cheney's BELLY was full of military might!"
+    fact: 'Former Secretary of Defense. Considered the most powerful modern VP.',
+    tip: 'The TEAL house has armor on the door — Cheney was the power behind the throne!'
   },
   {
     n: 46,
@@ -437,8 +423,8 @@ const VPs = [
     term: '2009–2017',
     servedUnder: 'Barack Obama',
     party: 'D',
-    fact: 'First VP from Delaware. Became 46th president.',
-    tip: '🔙 Biden stayed in the BACK — then stepped forward!'
+    fact: 'First VP from Delaware. Later became the 46th president.',
+    tip: 'The BLUE house has ice cream in the window — Biden loves his ice cream!'
   },
   {
     n: 47,
@@ -446,8 +432,8 @@ const VPs = [
     term: '2017–2021',
     servedUnder: 'Donald Trump',
     party: 'R',
-    fact: 'Former Indiana governor. Presided over 2020 election certification.',
-    tip: '💪 Pence flexed his FRONT LEGS — standing up for democracy!'
+    fact: 'Former Indiana governor. Presided over the 2020 election certification.',
+    tip: 'The PURPLE house has a firm "DUTY DONE" sign — Pence stood firm!'
   },
   {
     n: 48,
@@ -456,7 +442,7 @@ const VPs = [
     servedUnder: 'Joe Biden',
     party: 'D',
     fact: 'First woman, Black, and South Asian vice president. Historic.',
-    tip: "❤️ Harris's CHEST swells with pride — breaking barriers!"
+    tip: 'The PINK house has a "FIRST EVER" banner — Harris made history!'
   },
   {
     n: 49,
@@ -465,7 +451,7 @@ const VPs = [
     servedUnder: 'Donald Trump',
     party: 'R',
     fact: 'Author of Hillbilly Elegy. Former venture capitalist turned politician.',
-    tip: '👂 Vance LISTENED to the heartland — EARS to the Rust Belt!'
+    tip: 'The BROWN house has a book titled "Hillbilly Elegy" on the porch — that\'s Vance!'
   },
   {
     n: 50,
@@ -473,12 +459,12 @@ const VPs = [
     term: 'Future',
     servedUnder: 'Future',
     party: '?',
-    fact: 'The 50th VP slot awaits the next chapter of American history.',
-    tip: '👃 The future SNOUT leads the way!'
+    fact: 'The 50th house on Modern Mile is waiting for the next chapter of history.',
+    tip: 'The GREY house has a "COMING SOON" sign — history is still being written!'
   }
 ];
 
-// Batch groupings (10 per batch)
+// Batch groupings (5 blocks of 10)
 const BATCHES = [
   { n: 0, label: 'VPs 1–10', start: 0, count: 10 },
   { n: 1, label: 'VPs 11–20', start: 10, count: 10 },

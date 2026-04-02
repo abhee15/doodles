@@ -1,13 +1,34 @@
-// VP Pup — Game Logic
-/* global BATCHES, VPs, VP_PEGS */
+// VP Pup — Dog Town Game Logic
+/* global VPs, BATCHES */
+
+const STREETS = [
+  { label: 'Founding Alley', emoji: '🎩', subtitle: '1789–1841' },
+  { label: 'Frontier Road', emoji: '🤠', subtitle: '1841–1877' },
+  { label: 'Progress Lane', emoji: '🚂', subtitle: '1877–1929' },
+  { label: 'New Deal Drive', emoji: '📻', subtitle: '1929–1974' },
+  { label: 'Modern Mile', emoji: '🚀', subtitle: '1977–today' }
+];
+
+const HOUSE_COLORS = [
+  '#ef5350',
+  '#ff7043',
+  '#ffa726',
+  '#66bb6a',
+  '#26c6da',
+  '#42a5f5',
+  '#7e57c2',
+  '#ec407a',
+  '#8d6e63',
+  '#78909c'
+];
 
 const GameState = {
-  screen: 'landing', // landing | learn | quiz | score
+  screen: 'landing',
   batchIndex: null,
   currentVpIndex: 0,
   quizAnswers: [],
   quizScore: 0,
-  learnedZones: []
+  visitedIndices: []
 };
 
 // ============================================================================
@@ -19,22 +40,23 @@ function showScreen(screenId) {
   document.getElementById(screenId).classList.add('active');
   GameState.screen = screenId;
 
+  const meta = document.getElementById('nav-meta');
   switch (screenId) {
     case 'landing':
       renderLandingScreen();
-      document.getElementById('nav-meta').textContent = 'Learn';
+      meta.textContent = 'Pick a Block';
       break;
     case 'learn':
       renderLearnScreen();
-      document.getElementById('nav-meta').textContent = 'Learn';
+      meta.textContent = 'Learn';
       break;
     case 'quiz':
       renderQuizScreen();
-      document.getElementById('nav-meta').textContent = 'Quiz';
+      meta.textContent = 'Quiz';
       break;
     case 'score':
       renderScoreScreen();
-      document.getElementById('nav-meta').textContent = 'Results';
+      meta.textContent = 'Results';
       break;
   }
 }
@@ -47,11 +69,16 @@ function renderLandingScreen() {
   const grid = document.getElementById('batch-grid');
   grid.innerHTML = '';
 
-  BATCHES.forEach(batch => {
+  BATCHES.forEach((batch, i) => {
+    const street = STREETS[i];
     const btn = document.createElement('button');
     btn.className = 'batch-btn';
-    btn.innerHTML = `<strong>${batch.label}</strong><br><small>${batch.count} VPs</small>`;
-    btn.addEventListener('click', () => startBatch(batch.n));
+    btn.innerHTML = `
+      <span class="batch-street-emoji">${street.emoji}</span>
+      <strong>${street.label}</strong>
+      <small>${batch.label} &middot; ${street.subtitle}</small>
+    `;
+    btn.addEventListener('click', () => startBatch(i));
     grid.appendChild(btn);
   });
 }
@@ -65,9 +92,49 @@ function startBatch(batchIndex) {
   GameState.currentVpIndex = 0;
   GameState.quizAnswers = [];
   GameState.quizScore = 0;
-  GameState.learnedZones = [];
-
+  GameState.visitedIndices = [];
   showScreen('learn');
+}
+
+// ============================================================================
+// TOWN BLOCK RENDERER
+// ============================================================================
+
+function renderTownBlock(containerId, activeIndex) {
+  const container = document.getElementById(containerId);
+  const street = STREETS[GameState.batchIndex];
+  const batch = BATCHES[GameState.batchIndex];
+
+  let housesHtml = '';
+  for (let i = 0; i < batch.count; i++) {
+    const isActive = i === activeIndex;
+    const isVisited = GameState.visitedIndices.includes(i) && !isActive;
+    const isUpcoming = i > activeIndex && !GameState.visitedIndices.includes(i);
+    const stateClass = isActive
+      ? ' active'
+      : isVisited
+        ? ' visited'
+        : isUpcoming
+          ? ' upcoming'
+          : '';
+    const inner = isVisited
+      ? '<span class="house-check">✓</span>'
+      : `<span class="house-num">${i + 1}</span>`;
+
+    housesHtml += `
+      <div class="house-tile${stateClass}" style="--hc:${HOUSE_COLORS[i]}">
+        <div class="house-roof"></div>
+        <div class="house-body">${inner}</div>
+      </div>`;
+  }
+
+  container.innerHTML = `
+    <div class="street-header">
+      <span class="street-emoji">${street.emoji}</span>
+      <span class="street-label">${street.label}</span>
+    </div>
+    <div class="house-grid">${housesHtml}</div>
+  `;
 }
 
 // ============================================================================
@@ -75,29 +142,30 @@ function startBatch(batchIndex) {
 // ============================================================================
 
 function renderLearnScreen() {
+  if (!GameState.visitedIndices.includes(GameState.currentVpIndex)) {
+    GameState.visitedIndices.push(GameState.currentVpIndex);
+  }
+  renderTownBlock('town-block-learn', GameState.currentVpIndex);
   renderLearnCard();
   renderStepDots();
   updateProgressBar('learn');
-  highlightDogZone();
   attachLearnListeners();
 }
 
 function renderLearnCard() {
   const batch = BATCHES[GameState.batchIndex];
-  const vpIndex = batch.start + GameState.currentVpIndex;
-  const vp = VPs[vpIndex];
+  const vp = VPs[batch.start + GameState.currentVpIndex];
+  const color = HOUSE_COLORS[GameState.currentVpIndex];
 
-  const container = document.getElementById('learn-card-container');
-
-  let partyClass = 'w'; // Default: Whig
+  let partyClass = 'other';
   if (vp.party.includes('D')) {
     partyClass = 'd';
   } else if (vp.party.includes('R')) {
     partyClass = 'r';
   }
 
-  container.innerHTML = `
-    <div class="learn-card">
+  document.getElementById('learn-card-container').innerHTML = `
+    <div class="learn-card" style="--card-accent:${color}">
       <div class="vp-header">
         <div class="party-badge ${partyClass}">${vp.party}</div>
         <div class="vp-number">VP #${vp.n}</div>
@@ -108,10 +176,9 @@ function renderLearnCard() {
           <strong>${vp.servedUnder}</strong>
         </div>
       </div>
-
       <div>
         <div class="fact-box">💡 <strong>Fact:</strong> ${vp.fact}</div>
-        <div class="tip-box">🐾 <strong>Memory Tip:</strong> ${vp.tip}</div>
+        <div class="tip-box">🏠 <strong>Memory Hook:</strong> ${vp.tip}</div>
       </div>
     </div>
   `;
@@ -124,41 +191,15 @@ function renderStepDots() {
 
   for (let i = 0; i < batch.count; i++) {
     const dot = document.createElement('button');
-    dot.className = `dot ${i === GameState.currentVpIndex ? 'active' : ''}`;
+    dot.className = `dot${i === GameState.currentVpIndex ? ' active' : ''}`;
+    dot.style.background =
+      i === GameState.currentVpIndex ? HOUSE_COLORS[i] : 'rgba(255,255,255,0.2)';
     dot.addEventListener('click', () => {
       GameState.currentVpIndex = i;
-      renderLearnCard();
-      renderStepDots();
-      highlightDogZone();
-      updateProgressBar('learn');
+      renderLearnScreen();
     });
     container.appendChild(dot);
   }
-}
-
-function highlightDogZone() {
-  const peg = VP_PEGS[GameState.currentVpIndex];
-  document.querySelectorAll('.dog-zone').forEach(zone => {
-    zone.classList.remove('active');
-    if (zone.id === `zone-${peg.id}`) {
-      zone.classList.add('active');
-    }
-  });
-
-  if (!GameState.learnedZones.includes(peg.id)) {
-    GameState.learnedZones.push(peg.id);
-  }
-  updateZoneStates();
-}
-
-function updateZoneStates() {
-  document.querySelectorAll('.dog-zone').forEach(zone => {
-    const zoneId = zone.id.replace('zone-', '');
-    if (GameState.learnedZones.includes(zoneId)) {
-      zone.classList.remove('unrevealed');
-      zone.classList.add('visited');
-    }
-  });
 }
 
 function attachLearnListeners() {
@@ -167,26 +208,26 @@ function attachLearnListeners() {
   document.getElementById('learn-prev').onclick = () => {
     if (GameState.currentVpIndex > 0) {
       GameState.currentVpIndex--;
-      renderLearnCard();
-      renderStepDots();
-      highlightDogZone();
-      updateProgressBar('learn');
+      renderLearnScreen();
     }
   };
 
   document.getElementById('learn-next').onclick = () => {
     if (GameState.currentVpIndex < batch.count - 1) {
       GameState.currentVpIndex++;
-      renderLearnCard();
-      renderStepDots();
-      highlightDogZone();
-      updateProgressBar('learn');
+      renderLearnScreen();
     } else {
-      // Start quiz
       GameState.currentVpIndex = 0;
       showScreen('quiz');
     }
   };
+}
+
+function updateProgressBar(screen) {
+  const batch = BATCHES[GameState.batchIndex];
+  const progress = ((GameState.currentVpIndex + 1) / batch.count) * 100;
+  const barId = screen === 'learn' ? 'learn-progress' : 'quiz-progress';
+  document.getElementById(barId).style.width = `${progress}%`;
 }
 
 // ============================================================================
@@ -194,53 +235,29 @@ function attachLearnListeners() {
 // ============================================================================
 
 function renderQuizScreen() {
+  renderTownBlock('town-block-quiz', GameState.currentVpIndex);
+
   const batch = BATCHES[GameState.batchIndex];
-  const vpIndex = batch.start + GameState.currentVpIndex;
-  const vp = VPs[vpIndex];
-  const peg = VP_PEGS[GameState.currentVpIndex];
+  const vp = VPs[batch.start + GameState.currentVpIndex];
+  const color = HOUSE_COLORS[GameState.currentVpIndex];
+  const street = STREETS[GameState.batchIndex];
 
-  // Clone dog SVG from learn
-  const learnSvg = document.getElementById('dog-svg');
-  const quizSvg = document.getElementById('quiz-dog-svg');
-  quizSvg.innerHTML = learnSvg.innerHTML;
+  document.getElementById('quiz-question').innerHTML =
+    `Who lives in house <strong style="color:${color}">#${GameState.currentVpIndex + 1}</strong> on <em>${street.label}</em>?`;
 
-  // Highlight current zone
-  quizSvg.querySelectorAll('.dog-zone').forEach(zone => {
-    zone.classList.remove('active');
-    if (zone.id === `zone-${peg.id}`) {
-      zone.classList.add('active');
-    }
-  });
-
-  // Show visited zones
-  quizSvg.querySelectorAll('.dog-zone').forEach(zone => {
-    const zoneId = zone.id.replace('zone-', '');
-    if (GameState.learnedZones.includes(zoneId)) {
-      zone.classList.add('visited');
-    } else {
-      zone.classList.add('unrevealed');
-    }
-  });
-
-  // Set question
-  document.getElementById('quiz-question').textContent = `Which VP is at the ${peg.label}?`;
-
-  // Generate options
-  const options = [vp];
-  const distractors = getDistractors(vpIndex, 3, batch);
-  options.push(...distractors);
-  shuffle(options);
-
-  // Render options
-  const optionsContainer = document.getElementById('quiz-options');
-  optionsContainer.innerHTML = '';
+  const options = shuffle([
+    vp,
+    ...getDistractors(batch.start + GameState.currentVpIndex, 3, batch)
+  ]);
+  const container = document.getElementById('quiz-options');
+  container.innerHTML = '';
 
   options.forEach(option => {
     const btn = document.createElement('button');
-    btn.className = 'quiz-option dom-btn dom-btn--secondary';
+    btn.className = 'quiz-option';
     btn.textContent = option.name;
     btn.addEventListener('click', () => answerQuiz(option, vp, btn));
-    optionsContainer.appendChild(btn);
+    container.appendChild(btn);
   });
 
   updateProgressBar('quiz');
@@ -253,13 +270,8 @@ function answerQuiz(selected, correct, button) {
     GameState.quizScore++;
   }
 
-  // Lock all buttons
   document.querySelectorAll('.quiz-option').forEach(btn => {
     btn.classList.add('locked');
-  });
-
-  // Highlight correct/incorrect
-  document.querySelectorAll('.quiz-option').forEach(btn => {
     if (btn.textContent === correct.name) {
       btn.classList.add('correct');
     } else if (btn === button && !isCorrect) {
@@ -267,7 +279,6 @@ function answerQuiz(selected, correct, button) {
     }
   });
 
-  // Auto-advance after 900ms
   setTimeout(() => {
     const batch = BATCHES[GameState.batchIndex];
     if (GameState.currentVpIndex < batch.count - 1) {
@@ -280,11 +291,7 @@ function answerQuiz(selected, correct, button) {
 }
 
 function getDistractors(correctVpIndex, count, batch) {
-  const start = batch.start;
-  const end = batch.start + batch.count;
-  const vpRange = VPs.slice(start, end);
-
-  return vpRange
+  return VPs.slice(batch.start, batch.start + batch.count)
     .filter(v => v.n !== VPs[correctVpIndex].n)
     .sort(() => Math.random() - 0.5)
     .slice(0, count);
@@ -299,20 +306,19 @@ function renderScoreScreen() {
   const percent = Math.round((GameState.quizScore / batch.count) * 100);
 
   let emoji = '😬';
-  let message = `You got ${GameState.quizScore}/${batch.count}. Try again!`;
-
+  let message = `You got ${GameState.quizScore}/${batch.count}. Walk the block again!`;
   if (percent >= 90) {
     emoji = '🏆';
-    message = "Perfect! You're a VP expert on this batch!";
+    message = 'Perfect! You know every house on this block!';
   } else if (percent >= 80) {
     emoji = '⭐';
-    message = "Great job! You're a VP scholar!";
+    message = 'Great job! Almost the whole neighborhood!';
   } else if (percent >= 70) {
     emoji = '👍';
-    message = "Good effort! A little more practice and you'll nail it!";
+    message = 'Good effort! Walk the block a few more times!';
   } else if (percent >= 60) {
     emoji = '💪';
-    message = "You're getting there! Keep learning!";
+    message = "Keep exploring! You're learning the street!";
   }
 
   document.getElementById('score-emoji').textContent = emoji;
@@ -326,20 +332,10 @@ function attachScoreListeners() {
   const nextBatchIndex = GameState.batchIndex + 1;
 
   document.getElementById('next-batch-btn').onclick = () => {
-    if (nextBatchIndex < BATCHES.length) {
-      startBatch(nextBatchIndex);
-    } else {
-      showScreen('landing');
-    }
+    startBatch(nextBatchIndex < BATCHES.length ? nextBatchIndex : 0);
   };
-
-  document.getElementById('retry-btn').onclick = () => {
-    startBatch(GameState.batchIndex);
-  };
-
-  document.getElementById('all-batches-btn').onclick = () => {
-    showScreen('landing');
-  };
+  document.getElementById('retry-btn').onclick = () => startBatch(GameState.batchIndex);
+  document.getElementById('all-batches-btn').onclick = () => showScreen('landing');
 }
 
 // ============================================================================
@@ -347,26 +343,12 @@ function attachScoreListeners() {
 // ============================================================================
 
 function shuffle(arr) {
-  for (let i = arr.length - 1; i > 0; i--) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [a[i], a[j]] = [a[j], a[i]];
   }
-  return arr;
+  return a;
 }
 
-function updateProgressBar(screen) {
-  const batch = BATCHES[GameState.batchIndex];
-  const progress = ((GameState.currentVpIndex + 1) / batch.count) * 100;
-  const progressBar = document.getElementById(
-    screen === 'learn' ? 'learn-progress' : 'quiz-progress'
-  );
-  progressBar.style.width = `${progress}%`;
-}
-
-// ============================================================================
-// INITIALIZATION
-// ============================================================================
-
-document.addEventListener('DOMContentLoaded', () => {
-  showScreen('landing');
-});
+document.addEventListener('DOMContentLoaded', () => showScreen('landing'));
