@@ -235,12 +235,6 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://abhee15.github.io/doodles/games/emotion-explorer/</loc>
-    <lastmod>2026-03-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://abhee15.github.io/doodles/games/store-shopper/</loc>
     <lastmod>2026-03-14</lastmod>
     <changefreq>monthly</changefreq>
@@ -277,16 +271,16 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://abhee15.github.io/doodles/games/typing-tutor/</loc>
+    <loc>https://abhee15.github.io/doodles/games/us-states/</loc>
     <lastmod>2026-03-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://abhee15.github.io/doodles/games/us-states/</loc>
-    <lastmod>2026-03-22</lastmod>
+    <loc>https://abhee15.github.io/doodles/games/play/</loc>
+    <lastmod>2026-04-02</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://abhee15.github.io/doodles/games/pop-town/</loc>

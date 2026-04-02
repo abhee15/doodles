@@ -65,14 +65,6 @@ const CATEGORIES = [
     footerHeading: 'Logic & Puzzles'
   },
   {
-    id: 'music',
-    label: 'Music & Arts',
-    icon: 'ti-music',
-    color: '#DB2777',
-    gradient: 'linear-gradient(145deg, #DB2777 0%, #7C3AED 100%)',
-    footerHeading: 'Music & Arts'
-  },
-  {
     id: 'tech',
     label: 'Technology & Coding',
     icon: 'ti-code',
@@ -569,21 +561,6 @@ const GAMES = [
     footerName: 'Code Quest'
   },
   {
-    id: 'emotion-explorer',
-    name: 'Emotion Explorer',
-    thumbClass: null,
-    category: 'sel',
-    desc: 'Explore different emotions, learn what triggers them, and discover healthy coping strategies.',
-    icon: 'ti-heart',
-    iconColor: null,
-    gradient: 'linear-gradient(150deg, #fef3c7 0%, #7c3aed 100%)',
-    pattern: 'radial-gradient(circle, rgba(255,255,255,.1) 1px, transparent 1px) 0 0 / 10px 10px',
-    patternSize: null,
-    patternPosition: null,
-    newUntil: '2026-04-01',
-    footerName: 'Emotion Explorer'
-  },
-  {
     id: 'store-shopper',
     name: 'Store Shopper',
     thumbClass: null,
@@ -628,21 +605,6 @@ const GAMES = [
     patternPosition: null,
     newUntil: '2026-04-15',
     footerName: 'Spelling Bee'
-  },
-  {
-    id: 'typing-tutor',
-    name: 'Typing Tutor',
-    thumbClass: null,
-    category: 'tech',
-    desc: 'Learn touch typing with visual keyboard guides, practice drills, and a falling words game!',
-    icon: 'ti-keyboard',
-    iconColor: '#00b4d8',
-    gradient: 'linear-gradient(150deg, #0a1628 0%, #00b4d8 100%)',
-    pattern: null,
-    patternSize: null,
-    patternPosition: null,
-    newUntil: '2026-04-15',
-    footerName: 'Typing Tutor'
   },
   {
     id: 'us-states',
