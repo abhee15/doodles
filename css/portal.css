@@ -35,10 +35,8 @@ body.page-leaving {
   --c-science: #2e7d32;
   --c-art: #ec4899;
   --c-logic: #6d28d9;
-  --c-music: #db2777;
-  --c-tech: #5b21b6;
-  --c-sel: #ec4899;
   --c-money: #065f46;
+  --c-play: #ec4899;
 }
 
 *,
@@ -224,8 +222,11 @@ body.page-leaving {
 .pill[data-cat="logic"].active {
   color: var(--c-logic);
 }
-.pill[data-cat="music"].active {
-  color: var(--c-music);
+.pill[data-cat="money"].active {
+  color: var(--c-money);
+}
+.pill[data-cat="play"].active {
+  color: var(--c-play);
 }
 
 /* Mobile: Icon-only pills, scalable for future categories */
@@ -390,17 +391,11 @@ body.page-leaving {
 .sec-bar.logic {
   background: var(--c-logic);
 }
-.sec-bar.music {
-  background: var(--c-music);
-}
-.sec-bar.tech {
-  background: var(--c-tech);
-}
-.sec-bar.sel {
-  background: var(--c-sel);
-}
 .sec-bar.money {
   background: var(--c-money);
+}
+.sec-bar.play {
+  background: var(--c-play);
 }
 
 .sec-title h2 {

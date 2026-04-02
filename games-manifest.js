@@ -65,22 +65,6 @@ const CATEGORIES = [
     footerHeading: 'Logic & Puzzles'
   },
   {
-    id: 'tech',
-    label: 'Technology & Coding',
-    icon: 'ti-code',
-    color: '#5B21B6',
-    gradient: 'linear-gradient(145deg, #8B5CF6 0%, #2D1B69 100%)',
-    footerHeading: 'Technology'
-  },
-  {
-    id: 'sel',
-    label: 'Social-Emotional Learning',
-    icon: 'ti-heart',
-    color: '#EC4899',
-    gradient: 'linear-gradient(145deg, #F472B6 0%, #9D174D 100%)',
-    footerHeading: 'Social-Emotional'
-  },
-  {
     id: 'money',
     label: 'Money & Economics',
     icon: 'ti-coin',
@@ -543,22 +527,6 @@ const GAMES = [
     patternPosition: null,
     newUntil: '2026-09-15',
     footerName: 'Earthquakes'
-  },
-  {
-    id: 'code-quest',
-    name: 'Code Quest',
-    thumbClass: null,
-    category: 'tech',
-    desc: 'Guide a character through puzzles using visual programming blocks. Learn loops, sequences, and conditionals.',
-    icon: 'ti-code',
-    iconColor: null,
-    gradient: 'linear-gradient(150deg, #1e293b 0%, #5b21b6 100%)',
-    pattern:
-      'repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.04) 10px, rgba(255,255,255,.04) 20px)',
-    patternSize: null,
-    patternPosition: null,
-    newUntil: '2026-04-01',
-    footerName: 'Code Quest'
   },
   {
     id: 'store-shopper',
