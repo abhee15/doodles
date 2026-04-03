@@ -618,6 +618,21 @@ const GAMES = [
     patternPosition: null,
     newUntil: '2026-08-01',
     footerName: 'Star Blaster'
+  },
+  {
+    id: 'pixel-quest',
+    name: 'Pixel Quest',
+    thumbClass: null,
+    category: 'play',
+    desc: 'Run, jump, and stomp through Grassland, Desert &amp; Castle! Collect coins, dodge enemies, reach the finish flag!',
+    icon: 'ti-mushroom',
+    iconColor: '#4ade80',
+    gradient: 'linear-gradient(150deg, #16a34a 0%, #0d4a2a 60%, #1e3a5c 100%)',
+    pattern: 'radial-gradient(circle, rgba(255,255,255,.07) 1px, transparent 1px)',
+    patternSize: '18px 18px',
+    patternPosition: null,
+    newUntil: '2026-09-01',
+    footerName: 'Pixel Quest'
   }
 ];
 

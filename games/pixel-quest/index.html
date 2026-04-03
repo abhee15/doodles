@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Pixel Quest - Adventure Platformer for Kids | Doodles Games</title>
+    <meta name="title" content="Pixel Quest - Adventure Platformer for Kids" />
+    <meta
+      name="description"
+      content="Run, jump, and stomp your way through Grassland, Desert, and Castle! Collect coins, dodge enemies, and reach the finish flag!"
+    />
+    <meta
+      name="keywords"
+      content="platformer game for kids, pixel quest, mario style game, jump and run, kids adventure game"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/pixel-quest/" />
+    <meta property="og:title" content="Pixel Quest - Adventure Platformer for Kids" />
+    <meta property="og:description" content="Run, jump, and stomp through 3 worlds! Reach the finish flag!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/pixel-quest/" />
+    <meta property="twitter:title" content="Pixel Quest - Adventure Platformer for Kids" />
+    <meta property="twitter:description" content="Run, jump, and stomp through 3 worlds! Reach the finish flag!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/pixel-quest/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="../../shared/game-page-v2.css" />
+    <style>
+      * {
+        font-family: 'Nunito', sans-serif;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --game-bg-start: #1a3a5c;
+        --game-bg-end: #0d1b2a;
+      }
+
+      #game-container {
+        position: relative;
+        overflow: hidden;
+      }
+
+      canvas {
+        position: absolute !important;
+        width: auto !important;
+        height: auto !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+      }
+
+      /* ── Overlays ── */
+      .g-overlay {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 20;
+        background: rgba(10, 18, 40, 0.92);
+      }
+      .g-overlay.hidden {
+        display: none !important;
+      }
+
+      .g-logo {
+        font-size: clamp(2.2rem, 8vw, 4.5rem);
+        font-weight: 900;
+        color: #fff;
+        text-align: center;
+        text-shadow:
+          0 0 30px #4ade80,
+          0 0 70px #16a34a;
+        margin-bottom: 6px;
+        letter-spacing: -0.02em;
+      }
+      .g-tagline {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: clamp(0.85rem, 3vw, 1.1rem);
+        margin-bottom: 30px;
+        text-align: center;
+        padding: 0 20px;
+      }
+      .g-btn {
+        padding: 12px 36px;
+        border-radius: 50px;
+        border: 2px solid rgba(255, 255, 255, 0.22);
+        background: linear-gradient(135deg, #16a34a, #15803d);
+        color: #fff;
+        font-size: 1.05rem;
+        font-weight: 800;
+        cursor: pointer;
+        margin: 5px;
+        transition:
+          transform 0.12s,
+          border-color 0.12s;
+        font-family: 'Nunito', sans-serif;
+      }
+      .g-btn:hover {
+        transform: translateY(-3px);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+      .g-btn:active {
+        transform: translateY(0);
+      }
+      .g-btn--sec {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      /* Level banners */
+      .lv-badge {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .lv-pip {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        background: rgba(255, 255, 255, 0.06);
+      }
+      .lv-pip.done {
+        border-color: #4ade80;
+        background: rgba(74, 222, 128, 0.18);
+      }
+      .lv-pip.active {
+        border-color: #fbbf24;
+        background: rgba(251, 191, 36, 0.18);
+      }
+
+      /* Results rows */
+      .stat-row {
+        display: flex;
+        gap: 24px;
+        margin-bottom: 16px;
+      }
+      .stat-box {
+        text-align: center;
+      }
+      .stat-label {
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.82rem;
+        margin-bottom: 2px;
+      }
+      .stat-val {
+        font-size: clamp(1.6rem, 6vw, 2.6rem);
+        font-weight: 900;
+        color: #fbbf24;
+        text-shadow: 0 0 20px #f59e0b;
+      }
+      .stat-val.green {
+        color: #4ade80;
+        text-shadow: 0 0 20px #16a34a;
+      }
+      .go-msg {
+        font-size: clamp(1.5rem, 5.5vw, 2.4rem);
+        font-weight: 900;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+      .g-best {
+        color: rgba(255, 255, 255, 0.35);
+        font-size: 0.82rem;
+        margin-top: 10px;
+      }
+
+      /* ── Mobile controls ── */
+      #mobile-btns {
+        position: absolute;
+        bottom: 40px;
+        left: 0;
+        right: 0;
+        display: none;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding: 0 20px;
+        z-index: 15;
+        pointer-events: none;
+      }
+      .mob-group {
+        display: flex;
+        gap: 8px;
+        pointer-events: all;
+      }
+      .mob-btn {
+        width: 62px;
+        height: 62px;
+        border-radius: 50%;
+        border: 2px solid rgba(255, 255, 255, 0.35);
+        background: rgba(0, 0, 0, 0.4);
+        color: #fff;
+        font-size: 1.4rem;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: none;
+        backdrop-filter: blur(4px);
+        transition:
+          background 0.1s,
+          border-color 0.1s;
+      }
+      .mob-btn:active,
+      .mob-btn.pressed {
+        background: rgba(255, 255, 255, 0.18);
+        border-color: rgba(255, 255, 255, 0.7);
+      }
+      #btn-jump {
+        width: 72px;
+        height: 72px;
+        font-size: 1.6rem;
+        background: rgba(74, 222, 128, 0.25);
+        border-color: rgba(74, 222, 128, 0.6);
+      }
+      #btn-jump:active,
+      #btn-jump.pressed {
+        background: rgba(74, 222, 128, 0.45);
+      }
+
+      .back-link {
+        z-index: 30;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="../../index.html#pixel-quest" class="back-link">← Back</a>
+
+    <div id="game-container">
+      <!-- Menu -->
+      <div id="menu-overlay" class="g-overlay">
+        <div class="g-logo">🍄 Pixel Quest</div>
+        <div class="g-tagline">Run · Jump · Stomp · Win!</div>
+        <div class="lv-badge">
+          <div class="lv-pip">🌿</div>
+          <div class="lv-pip">🏜️</div>
+          <div class="lv-pip">🏰</div>
+        </div>
+        <button class="g-btn" id="menu-play-btn">▶ Play</button>
+        <div class="g-best">Best Score: <span id="menu-best">0</span></div>
+      </div>
+
+      <!-- Level Complete -->
+      <div id="levelcomplete-overlay" class="g-overlay hidden">
+        <div class="g-logo" style="font-size: clamp(1.6rem, 6vw, 3rem)" id="lc-title">🎉 Level Complete!</div>
+        <div class="g-tagline" id="lc-subtitle">Keep going!</div>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-label">Score</div>
+            <div class="stat-val" id="lc-score">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Coins</div>
+            <div class="stat-val green" id="lc-coins">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Bonus</div>
+            <div class="stat-val" id="lc-bonus">+0</div>
+          </div>
+        </div>
+        <div class="lv-badge" id="lc-pips"></div>
+        <button class="g-btn" id="lc-next-btn">▶ Next Level</button>
+        <button class="g-btn g-btn--sec" id="lc-menu-btn">🏠 Menu</button>
+      </div>
+
+      <!-- Game Over -->
+      <div id="gameover-overlay" class="g-overlay hidden">
+        <div class="go-msg">💀 Game Over!</div>
+        <div class="g-tagline">Better luck next time!</div>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-label">Score</div>
+            <div class="stat-val" id="go-score">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Coins</div>
+            <div class="stat-val green" id="go-coins">0</div>
+          </div>
+        </div>
+        <div class="g-best" id="go-best"></div>
+        <button class="g-btn" id="go-retry-btn">▶ Try Again</button>
+        <button class="g-btn g-btn--sec" id="go-menu-btn">🏠 Menu</button>
+      </div>
+
+      <!-- Victory -->
+      <div id="victory-overlay" class="g-overlay hidden">
+        <div class="g-logo">🏆 You Win!</div>
+        <div class="g-tagline">All 3 worlds conquered! Amazing!</div>
+        <div class="stat-row">
+          <div class="stat-box">
+            <div class="stat-label">Final Score</div>
+            <div class="stat-val" id="v-score">0</div>
+          </div>
+          <div class="stat-box">
+            <div class="stat-label">Coins</div>
+            <div class="stat-val green" id="v-coins">0</div>
+          </div>
+        </div>
+        <div class="g-best" id="v-best"></div>
+        <button class="g-btn" id="v-play-btn">▶ Play Again</button>
+        <button class="g-btn g-btn--sec" id="v-menu-btn">🏠 Menu</button>
+      </div>
+
+      <!-- Mobile controls -->
+      <div id="mobile-btns">
+        <div class="mob-group">
+          <button class="mob-btn" id="btn-left">◀</button>
+          <button class="mob-btn" id="btn-right">▶</button>
+        </div>
+        <div class="mob-group">
+          <button class="mob-btn" id="btn-jump">▲</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
