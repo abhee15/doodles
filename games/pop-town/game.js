@@ -6,7 +6,6 @@
 let _ac = null;
 let isMuted = false;
 let _musicTimer = null;
-let _celebrating = false;
 
 function _ctx() {
   if (!_ac) {
@@ -210,6 +209,7 @@ const CFG = {
 
 let curGame = null;
 let popCount = 0;
+let popLevel = 0; // increases every 10 pops — drives speed + density
 let objCount = 0;
 let spawnTimer = null;
 
@@ -273,8 +273,8 @@ function showMenu() {
 function startGame(gameId) {
   curGame = gameId;
   popCount = 0;
+  popLevel = 0;
   objCount = 0;
-  _celebrating = false;
   const c = CFG[gameId];
 
   showScreen('game');
@@ -303,11 +303,7 @@ function startGame(gameId) {
   updateCounter();
   stopSpawning();
   spawnObj();
-  spawnTimer = setInterval(() => {
-    if (objCount < c.maxObj) {
-      spawnObj();
-    }
-  }, c.spawnMs);
+  restartSpawner();
   startMusic();
 }
 
@@ -339,7 +335,7 @@ function spawnObj() {
   if (c.animType === 'float') {
     el.style.left = `${10 + Math.random() * (W - size - 20)}px`;
     el.style.top = `${H + 10}px`;
-    const dur = 4 + Math.random() * 3;
+    const dur = Math.max(2.0, 4 + Math.random() * 3 - popLevel * 0.25);
     el.style.animationDuration = `${dur}s`;
     el.classList.add('anim-float');
     el.addEventListener('animationend', () => cleanup(el));
@@ -438,11 +434,32 @@ function doPop(el, x, y) {
   }, 290);
 }
 
+// Returns effective max objects for current level
+function effectiveMaxObj() {
+  return Math.min(CFG[curGame].maxObj + popLevel, CFG[curGame].maxObj + 6);
+}
+
+// Returns effective spawn interval (ms) for current level
+function effectiveSpawnMs() {
+  return Math.max(Math.floor(CFG[curGame].spawnMs * 0.5), CFG[curGame].spawnMs - popLevel * 90);
+}
+
+function restartSpawner() {
+  stopSpawning();
+  spawnTimer = setInterval(() => {
+    if (objCount < effectiveMaxObj()) {
+      spawnObj();
+    }
+  }, effectiveSpawnMs());
+}
+
 function incPop() {
   popCount++;
   updateCounter();
-  if (popCount % 10 === 0 && !_celebrating) {
+  if (popCount % 10 === 0) {
+    popLevel++;
     celebrate();
+    restartSpawner(); // bump up speed + density
   }
 }
 
@@ -493,44 +510,28 @@ function updateCounter() {
 // ─── CELEBRATION ──────────────────────────────────────────────────────────────
 
 function celebrate() {
-  _celebrating = true;
-  const c = CFG[curGame];
   playCelebration();
-  stopSpawning();
 
   const overlay = document.getElementById('cel-overlay');
   overlay.innerHTML = '';
 
   const confPool = ['🎉', '🎊', '⭐', '💖', '🌈', '🎈', '✨', '🌟', '🎀', '🐣'];
-  for (let i = 0; i < 24; i++) {
+  for (let i = 0; i < 28; i++) {
     const d = document.createElement('div');
     d.className = 'confetti';
     d.textContent = confPool[Math.floor(Math.random() * confPool.length)];
     d.style.left = `${Math.random() * 100}%`;
-    d.style.animationDelay = `${Math.random() * 0.9}s`;
-    d.style.fontSize = `${0.85 + Math.random() * 0.85}rem`;
+    d.style.animationDelay = `${Math.random() * 0.7}s`;
+    d.style.fontSize = `${0.9 + Math.random() * 0.9}rem`;
     overlay.appendChild(d);
   }
 
-  const msg = document.createElement('div');
-  msg.className = 'cel-msg';
-  msg.innerHTML = `<div class="cel-emoji">${c.rewardEmoji}</div><div class="cel-text">${c.rewardMsg}</div>`;
-  overlay.appendChild(msg);
   overlay.classList.add('show');
-
+  // Clear confetti after animation finishes — game keeps running throughout
   setTimeout(() => {
     overlay.classList.remove('show');
     overlay.innerHTML = '';
-    _celebrating = false;
-    if (curGame) {
-      const cfg = CFG[curGame];
-      spawnTimer = setInterval(() => {
-        if (objCount < cfg.maxObj) {
-          spawnObj();
-        }
-      }, cfg.spawnMs);
-    }
-  }, 3400);
+  }, 3200);
 }
 
 // ─── CONTROLS ─────────────────────────────────────────────────────────────────
