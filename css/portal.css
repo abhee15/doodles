@@ -14,29 +14,29 @@ body.page-leaving {
 :root {
   --font: "Nunito", "Segoe UI", system-ui, sans-serif;
 
-  --bg: #f2efe9;
+  --bg: #f4f6fb;
   --bg-card: #ffffff;
-  --nav-bg: rgba(10, 36, 36, 0.94);
-  --footer-bg: #0a2424;
+  --nav-bg: rgba(17, 24, 39, 0.96);
+  --footer-bg: #111827;
   --max-w: 1280px;
   --pad: clamp(16px, 4vw, 48px);
 
-  --text: #1c1c2e;
+  --text: #111827;
   --muted: #6b7280;
 
-  --brand: #a44a3f;
-  --brand-dark: #7e352b;
+  --brand: #4f46e5;
+  --brand-dark: #3730a3;
 
   /* Category dot colors (for section headers) */
   --c-math: #bf360c;
   --c-geo: #0277bd;
   --c-words: #6a1b9a;
-  --c-memory: #8b5cf6;
-  --c-science: #2e7d32;
-  --c-art: #ec4899;
+  --c-memory: #7c3aed;
+  --c-science: #059669;
+  --c-art: #db2777;
   --c-logic: #6d28d9;
   --c-money: #065f46;
-  --c-play: #ec4899;
+  --c-play: #f59e0b;
 }
 
 *,
@@ -99,7 +99,7 @@ body.page-leaving {
 .brand-mark {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, #ff7043, var(--brand-dark));
+  background: linear-gradient(135deg, #818cf8, var(--brand-dark));
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -130,7 +130,7 @@ body.page-leaving {
    HERO
 ══════════════════════════════════════════════════ */
 .hero {
-  background: linear-gradient(135deg, #a8dada 0%, #3d9e9e 100%);
+  background: linear-gradient(135deg, #6366f1 0%, #4338ca 60%, #312e81 100%);
   padding: clamp(28px, 5vw, 52px) var(--pad);
   text-align: center;
 }
@@ -227,6 +227,9 @@ body.page-leaving {
 }
 .pill[data-cat="play"].active {
   color: var(--c-play);
+}
+.pill[data-cat="money"].active {
+  color: var(--c-money);
 }
 
 /* Mobile: Icon-only pills, scalable for future categories */
