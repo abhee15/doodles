@@ -14,10 +14,11 @@
     "format": "prettier --write '**/*.{js,json,html,css,md}'",
     "format:check": "prettier --check '**/*.{js,json,html,css,md}'",
     "validate": "npm run format:check && npm run lint",
+    "test": "node scripts/test-manifest.js && node scripts/test-security.js",
     "audit": "node scripts/audit-games.js",
     "validate:topics": "node scripts/validate-topics.js",
     "audit:full": "npm run audit && npm run validate:topics",
-    "check": "npm run validate && npm run audit:full",
+    "check": "npm run validate && npm run audit:full && npm run test",
     "prepare": "husky install"
   },
   "devDependencies": {

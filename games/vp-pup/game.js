@@ -22,6 +22,14 @@ const HOUSE_COLORS = [
   '#78909c'
 ];
 
+const BATCH_SKY = [
+  'linear-gradient(180deg, #050520 0%, #0d1b4b 65%, #162156 100%)',
+  'linear-gradient(180deg, #4a1000 0%, #8b2800 50%, #c25500 100%)',
+  'linear-gradient(180deg, #081208 0%, #0f2d0f 60%, #1a4020 100%)',
+  'linear-gradient(180deg, #0e0820 0%, #2d1060 60%, #4a1a80 100%)',
+  'linear-gradient(180deg, #001820 0%, #003040 60%, #005870 100%)'
+];
+
 const GameState = {
   screen: 'landing',
   batchIndex: null,
@@ -165,6 +173,7 @@ function renderLearnCard() {
   }
 
   document.getElementById('learn-card-container').innerHTML = `
+    ${renderScenePanel(vp, GameState.batchIndex, color)}
     <div class="learn-card" style="--card-accent:${color}">
       <div class="vp-header">
         <div class="party-badge ${partyClass}">${vp.party}</div>
@@ -242,6 +251,11 @@ function renderQuizScreen() {
   const color = HOUSE_COLORS[GameState.currentVpIndex];
   const street = STREETS[GameState.batchIndex];
 
+  document.getElementById('quiz-scene-container').innerHTML = renderScenePanel(
+    vp,
+    GameState.batchIndex,
+    color
+  );
   document.getElementById('quiz-question').innerHTML =
     `Who lives in house <strong style="color:${color}">#${GameState.currentVpIndex + 1}</strong> on <em>${street.label}</em>?`;
 
@@ -336,6 +350,39 @@ function attachScoreListeners() {
   };
   document.getElementById('retry-btn').onclick = () => startBatch(GameState.batchIndex);
   document.getElementById('all-batches-btn').onclick = () => showScreen('landing');
+}
+
+// ============================================================================
+// SCENE PANEL
+// ============================================================================
+
+function darkenHex(hex) {
+  const r = Math.max(0, parseInt(hex.slice(1, 3), 16) - 45);
+  const g = Math.max(0, parseInt(hex.slice(3, 5), 16) - 45);
+  const b = Math.max(0, parseInt(hex.slice(5, 7), 16) - 45);
+  return `rgb(${r},${g},${b})`;
+}
+
+function renderScenePanel(vp, batchIndex, color) {
+  const s = vp.scene || {};
+  const roofColor = darkenHex(color);
+  return `
+    <div class="scene-panel" style="background:${BATCH_SKY[batchIndex]};--card-accent:${color}">
+      <div class="scene-sky">
+        <span>${s.skyL || ''}</span>
+        <span>${s.skyR || ''}</span>
+      </div>
+      <div class="scene-middle">
+        <span class="scene-item-side">${s.left || ''}</span>
+        <div class="scene-house">
+          <div class="scene-house-roof" style="border-bottom-color:${roofColor}"></div>
+          <div class="scene-house-facade" style="background:${color}">${s.door || '🏠'}</div>
+        </div>
+        <span class="scene-item-side">${s.right || ''}</span>
+      </div>
+      <div class="scene-ground"></div>
+    </div>
+  `;
 }
 
 // ============================================================================

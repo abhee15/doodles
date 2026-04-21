@@ -488,6 +488,93 @@
         max-width: 280px;
         margin: 0 auto;
       }
+
+      /* ── Scene Panel ── */
+      .scene-panel {
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+        display: flex;
+        flex-direction: column;
+        border: 2px solid var(--card-accent, var(--dom-border));
+        min-height: 168px;
+      }
+
+      .scene-sky {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        padding: 10px 14px 4px;
+        font-size: 1.5rem;
+        flex: 1;
+        min-height: 50px;
+      }
+
+      .scene-middle {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        gap: 18px;
+        padding: 0 12px;
+      }
+
+      .scene-item-side {
+        font-size: 2rem;
+        line-height: 1;
+        padding-bottom: 12px;
+        min-width: 36px;
+        text-align: center;
+      }
+
+      .scene-house {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+      }
+
+      .scene-house-roof {
+        width: 0;
+        height: 0;
+        border-left: 42px solid transparent;
+        border-right: 42px solid transparent;
+        border-bottom: 36px solid #333;
+      }
+
+      .scene-house-facade {
+        width: 76px;
+        height: 72px;
+        border-radius: 0 0 5px 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.1rem;
+      }
+
+      .scene-ground {
+        background: rgba(0, 0, 0, 0.22);
+        height: 30px;
+        flex-shrink: 0;
+      }
+
+      @media (max-width: 480px) {
+        .scene-panel {
+          min-height: 148px;
+        }
+        .scene-house-facade {
+          width: 64px;
+          height: 60px;
+          font-size: 1.8rem;
+        }
+        .scene-house-roof {
+          border-left-width: 36px;
+          border-right-width: 36px;
+          border-bottom-width: 30px;
+        }
+        .scene-item-side {
+          font-size: 1.7rem;
+        }
+      }
     </style>
   </head>
 
@@ -554,6 +641,7 @@
         </div>
 
         <div class="quiz-card">
+          <div id="quiz-scene-container"></div>
           <div class="quiz-question" id="quiz-question"></div>
           <div class="quiz-options" id="quiz-options"></div>
         </div>
