@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Spirograph Studio - Math Art Game for Kids | Doodles Games</title>
+    <meta name="title" content="Spirograph Studio - Math Art Game" />
+    <meta
+      name="description"
+      content="Create beautiful spirograph patterns, rose flowers, and star bursts! Pick parameters and watch amazing math art draw itself with rainbow colors."
+    />
+    <meta
+      name="keywords"
+      content="spirograph game kids, math art children, rose curve game, geometric art game, spirograph online kids, mandala maker children"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/spirograph-studio/" />
+    <meta property="og:title" content="Spirograph Studio - Math Art Game" />
+    <meta
+      property="og:description"
+      content="Create beautiful spirograph patterns! Adjust the sliders and watch amazing math art appear with rainbow colors."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/spirograph-studio/" />
+    <meta property="twitter:title" content="Spirograph Studio - Math Art Game" />
+    <meta
+      property="twitter:description"
+      content="Create beautiful spirograph patterns! Adjust the sliders and watch amazing math art appear."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/spirograph-studio/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #0a001f;
+        --dom-nav-color: #e9d5ff;
+        --dom-nav-border: rgba(139, 92, 246, 0.3);
+        --dom-accent: #7c3aed;
+        --dom-accent2: #f59e0b;
+        --dom-bg: #06011a;
+        --dom-text: #f5f3ff;
+        --dom-text-muted: rgba(245, 243, 255, 0.55);
+        --dom-border: rgba(139, 92, 246, 0.25);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      /* ── PAGE LAYOUT ── */
+      .sg-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px 24px;
+        min-height: calc(100vh - var(--dom-nav-height));
+      }
+
+      /* ── PATTERN PICKER ── */
+      .pattern-row {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 480px;
+      }
+
+      .pat-btn {
+        flex: 1;
+        min-width: 80px;
+        padding: 10px 8px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 0.875rem;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .pat-btn.active {
+        border-color: var(--dom-accent);
+        background: rgba(124, 58, 237, 0.15);
+      }
+
+      .pat-btn:hover:not(.active) {
+        border-color: rgba(139, 92, 246, 0.6);
+        transform: translateY(-1px);
+      }
+
+      .pat-emoji {
+        font-size: 1.4rem;
+        line-height: 1;
+      }
+
+      .pat-label {
+        font-size: 0.875rem;
+        white-space: nowrap;
+      }
+
+      /* ── CANVAS ── */
+      .canvas-wrap {
+        border-radius: 16px;
+        border: 2px solid var(--dom-border);
+        overflow: hidden;
+        width: 100%;
+        max-width: 480px;
+        background: #06011a;
+      }
+
+      #sg-canvas {
+        display: block;
+      }
+
+      /* ── PARAMETERS ── */
+      .param-sliders {
+        width: 100%;
+        max-width: 480px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .param-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .param-label {
+        font-size: 0.875rem;
+        font-weight: 700;
+        width: 76px;
+        flex-shrink: 0;
+        color: var(--dom-text-muted);
+      }
+
+      .param-range {
+        flex: 1;
+        -webkit-appearance: none;
+        height: 6px;
+        border-radius: 3px;
+        background: rgba(139, 92, 246, 0.3);
+        outline: none;
+        cursor: pointer;
+      }
+
+      .param-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--dom-accent);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        cursor: pointer;
+      }
+
+      .param-val {
+        font-size: 0.875rem;
+        font-weight: 700;
+        width: 28px;
+        text-align: right;
+        color: var(--dom-accent2);
+        flex-shrink: 0;
+      }
+
+      /* ── INFO PILL ── */
+      .pattern-info {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        text-align: center;
+        max-width: 380px;
+        font-style: italic;
+        line-height: 1.5;
+        min-height: 1.4rem;
+      }
+
+      /* ── BUTTONS ── */
+      .sg-btns {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .sg-btn {
+        padding: 12px 28px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+
+      .sg-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .sg-btn:disabled {
+        opacity: 0.5;
+        cursor: default;
+      }
+
+      .sg-btn--primary {
+        background: var(--dom-accent);
+        border-color: var(--dom-accent);
+        color: white;
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 480px) {
+        .pat-btn {
+          min-width: 68px;
+          padding: 8px 6px;
+        }
+
+        .pat-emoji {
+          font-size: 1.2rem;
+        }
+        .pat-label {
+          font-size: 0.875rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#spirograph-studio"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Spirograph Studio</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="sg-page">
+      <!-- Pattern type picker -->
+      <div class="pattern-row" id="pattern-row">
+        <!-- built by JS -->
+      </div>
+
+      <!-- Canvas -->
+      <div class="canvas-wrap" id="canvas-wrap">
+        <canvas id="sg-canvas"></canvas>
+      </div>
+
+      <!-- Pattern info -->
+      <div class="pattern-info" id="pattern-info"></div>
+
+      <!-- Sliders -->
+      <div class="param-sliders" id="param-sliders">
+        <!-- built by JS -->
+      </div>
+
+      <!-- Action buttons -->
+      <div class="sg-btns">
+        <button class="sg-btn" id="btn-clear">Clear</button>
+        <button class="sg-btn sg-btn--primary" id="btn-draw">🎨 Draw!</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

@@ -378,6 +378,22 @@ const GAMES = [
     footerName: 'Draw It'
   },
   {
+    id: 'spirograph-studio',
+    name: 'Spirograph Studio',
+    thumbClass: 'spirograph-studio',
+    category: 'art',
+    desc: 'Pick a pattern, adjust the sliders, and watch rainbow spirographs, rose curves, and star bursts draw themselves!',
+    icon: 'ti-circle-dashed',
+    iconColor: '#a78bfa',
+    gradient: 'linear-gradient(145deg, #06011a 0%, #2e1065 50%, #7c3aed 100%)',
+    pattern: 'radial-gradient(circle, rgba(167,139,250,0.2) 1px, transparent 1px)',
+    patternSize: '22px 22px',
+    patternPosition: '0 0',
+    grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Spirograph Studio'
+  },
+  {
     id: 'color-lab',
     name: 'Color Lab',
     thumbClass: 'color-lab',

@@ -365,6 +365,11 @@ const LANDING_CONTENT = {
       ],
       gameBlurbs: [
         {
+          gameId: 'spirograph-studio',
+          blurb:
+            'Pick a pattern type (flower, spirograph, star burst, wave art), adjust the sliders, and watch rainbow geometric art draw itself. Each parameter change produces a completely different design — endlessly explorable.'
+        },
+        {
           gameId: 'color-lab',
           blurb:
             'Lets kids mix red, yellow, and blue at any ratio to discover orange, green, purple, and brown. The color wheel comes alive through hands-on experimentation and mixing challenges.'
@@ -384,11 +389,11 @@ const LANDING_CONTENT = {
     faqs: [
       {
         q: 'Do kids need drawing talent to play?',
-        a: 'Not at all — games are designed for complete beginners. Steps are clear, forgiving, and build confidence gradually.'
+        a: 'Not at all — Spirograph Studio and Wave Painter create art automatically. Draw It guides beginners step by step.'
       },
       {
         q: 'What age are these art games for?',
-        a: 'Ages 4 and up. Color Lab and Draw It start very simple; Wave Painter challenges kids who love math and art together.'
+        a: 'Ages 4 and up. Color Lab and Draw It start very simple; Spirograph Studio and Wave Painter are great for curious 6–12 year olds who love math and art.'
       },
       {
         q: 'Can kids save or print their drawings?',
@@ -396,18 +401,32 @@ const LANDING_CONTENT = {
       },
       {
         q: 'Is this a replacement for art class?',
-        a: 'Great complement to art class — builds fundamental drawing skills and inspires creative practice at home.'
+        a: 'Great complement to art class — builds geometry intuition, color theory, and inspires creative exploration at home.'
       },
       {
         q: 'Do kids get more confident with art?',
-        a: 'Yes — step-by-step success and color discovery build real confidence. Many kids move from "I can\'t draw" to "I love this" within a few sessions.'
+        a: 'Yes — parameter-driven art removes the fear of a blank page. Kids discover they can create stunning designs just by adjusting sliders.'
       }
     ],
     grades: [
       { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['color-lab', 'draw-it'] },
-      { slug: '1st-grade', label: '1st Grade', gameIds: ['color-lab', 'draw-it', 'wave-painter'] },
-      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['color-lab', 'draw-it', 'wave-painter'] },
-      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['color-lab', 'wave-painter'] }
+      {
+        slug: '1st-grade',
+        label: '1st Grade',
+        gameIds: ['spirograph-studio', 'color-lab', 'draw-it']
+      },
+      {
+        slug: '2nd-grade',
+        label: '2nd Grade',
+        gameIds: ['spirograph-studio', 'color-lab', 'draw-it', 'wave-painter']
+      },
+      {
+        slug: '3rd-grade',
+        label: '3rd Grade',
+        gameIds: ['spirograph-studio', 'color-lab', 'wave-painter']
+      },
+      { slug: '4th-grade', label: '4th Grade', gameIds: ['spirograph-studio', 'wave-painter'] },
+      { slug: '5th-grade', label: '5th Grade', gameIds: ['spirograph-studio', 'wave-painter'] }
     ]
   },
 
