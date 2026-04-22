@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Word Scramble - Unscramble Words for Kids | Doodles Games</title>
+    <meta name="title" content="Word Scramble - Unscramble the Letters!" />
+    <meta
+      name="description"
+      content="Unscramble jumbled letters to find the hidden word! Choose from Animals, Food, Space, Nature, and Sports themes. Great for spelling and vocabulary practice."
+    />
+    <meta name="keywords" content="word scramble, spelling, vocabulary, unscramble, kids, educational" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/word-scramble/" />
+    <meta property="og:title" content="Word Scramble - Unscramble the Letters!" />
+    <meta property="og:description" content="Tap the letters in the right order to unscramble the hidden word!" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/word-scramble/" />
+    <meta property="twitter:title" content="Word Scramble - Unscramble the Letters!" />
+    <meta property="twitter:description" content="Tap the letters in the right order to unscramble the hidden word!" />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/word-scramble/" />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #312e81;
+        --dom-accent: #818cf8;
+        --dom-accent2: #4f46e5;
+        --dom-bg: #f5f3ff;
+        --dom-border: rgba(99, 102, 241, 0.2);
+        --dom-text: #1e1b4b;
+        --dom-text-muted: #6b7280;
+        --correct: #10b981;
+        --wrong: #ef4444;
+        --revealed: #f59e0b;
+      }
+
+      /* ═══ SET PICKER ═══ */
+      .set-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 12px;
+        padding: 20px;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+
+      .set-btn {
+        background: white;
+        border: 2px solid var(--dom-border);
+        border-radius: 14px;
+        padding: 20px 12px;
+        cursor: pointer;
+        text-align: center;
+        transition: all 0.18s;
+        font-family: inherit;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .set-btn:hover {
+        border-color: var(--set-color, var(--dom-accent));
+        transform: translateY(-2px);
+        background: #f9f8ff;
+      }
+
+      .set-emoji {
+        font-size: 2rem;
+        line-height: 1;
+      }
+
+      .set-label {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text);
+      }
+
+      /* ═══ GAME SCREEN ═══ */
+      .word-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px 0;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .word-progress {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      .word-score-badge {
+        background: var(--dom-accent2);
+        color: white;
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 0.875rem;
+        font-weight: 700;
+      }
+
+      .progress-track {
+        height: 6px;
+        background: var(--dom-border);
+        border-radius: 3px;
+        margin: 10px 20px 0;
+        max-width: calc(520px - 40px);
+        margin-left: auto;
+        margin-right: auto;
+        overflow: hidden;
+      }
+
+      .progress-track-fill {
+        height: 100%;
+        background: var(--dom-accent2);
+        border-radius: 3px;
+        transition: width 0.3s;
+      }
+
+      /* Answer slots */
+      .answer-area {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 20px 8px;
+        gap: 12px;
+      }
+
+      .answer-slots {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        min-height: 56px;
+        align-items: center;
+      }
+
+      .answer-slot {
+        width: 46px;
+        height: 56px;
+        border: 2.5px solid var(--dom-border);
+        border-radius: 10px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--dom-text);
+        cursor: pointer;
+        transition: all 0.15s;
+        text-transform: uppercase;
+      }
+
+      .answer-slot.filled {
+        border-color: var(--dom-accent2);
+        background: #eef2ff;
+        color: var(--dom-accent2);
+      }
+
+      .answer-slot.revealed {
+        border-color: var(--revealed);
+        background: #fef3c7;
+        color: #92400e;
+      }
+
+      .answer-slot.correct {
+        border-color: var(--correct) !important;
+        background: #d1fae5 !important;
+        color: var(--correct) !important;
+      }
+
+      .answer-slot.wrong {
+        border-color: var(--wrong) !important;
+        background: #fee2e2 !important;
+        color: var(--wrong) !important;
+      }
+
+      .word-hint {
+        font-size: 0.875rem;
+        color: #92400e;
+        background: #fef3c7;
+        border: 1.5px solid #fcd34d;
+        border-radius: 8px;
+        padding: 6px 14px;
+        text-align: center;
+        max-width: 400px;
+      }
+
+      .word-feedback {
+        font-size: 1rem;
+        font-weight: 700;
+        text-align: center;
+        min-height: 24px;
+        padding: 0 20px;
+        color: var(--dom-text-muted);
+      }
+
+      .word-feedback.correct {
+        color: var(--correct);
+      }
+
+      .word-feedback.wrong {
+        color: var(--wrong);
+      }
+
+      /* Letter tiles */
+      .letter-tiles-area {
+        padding: 8px 20px 0;
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .letter-tiles {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        min-height: 56px;
+        align-items: center;
+      }
+
+      .letter-tile {
+        width: 46px;
+        height: 56px;
+        border: 2.5px solid var(--dom-accent);
+        border-radius: 10px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+        cursor: pointer;
+        transition: all 0.15s;
+        font-family: inherit;
+        text-transform: uppercase;
+      }
+
+      .letter-tile:hover:not(:disabled) {
+        background: #eef2ff;
+        border-color: var(--dom-accent2);
+        transform: translateY(-3px);
+      }
+
+      .letter-tile.used,
+      .letter-tile:disabled {
+        opacity: 0.2;
+        cursor: default;
+        transform: none;
+      }
+
+      /* Controls */
+      .game-controls {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        padding: 14px 20px 0;
+        flex-wrap: wrap;
+      }
+
+      /* Results */
+      .results-card {
+        background: white;
+        border: 2px solid var(--dom-border);
+        border-radius: 20px;
+        margin: 20px;
+        padding: 32px 24px;
+        text-align: center;
+        max-width: 480px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      .result-trophy {
+        font-size: 4rem;
+        margin-bottom: 8px;
+      }
+
+      .result-score-big {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+
+      .result-fraction {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        margin: 2px 0 4px;
+      }
+
+      .result-set-tag {
+        display: inline-block;
+        background: #eef2ff;
+        border: 1.5px solid var(--dom-border);
+        border-radius: 20px;
+        padding: 4px 14px;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--dom-accent2);
+        margin-bottom: 14px;
+      }
+
+      .result-message {
+        font-size: 1rem;
+        color: var(--dom-text);
+        line-height: 1.5;
+        margin-bottom: 24px;
+      }
+
+      .result-btns {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 768px) {
+        .set-grid {
+          grid-template-columns: repeat(2, 1fr);
+          padding: 16px;
+        }
+
+        .answer-slot,
+        .letter-tile {
+          width: 40px;
+          height: 50px;
+          font-size: 1.3rem;
+        }
+
+        .answer-slots,
+        .letter-tiles {
+          gap: 6px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#word-scramble"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Word Scramble</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Landing Screen -->
+    <div class="dom-screen active" data-screen="landing" id="screen-landing">
+      <div style="padding: 36px 24px; max-width: 460px; margin: 0 auto; text-align: center">
+        <div style="font-size: 64px; margin-bottom: 14px">🔤</div>
+        <h1 style="color: var(--dom-accent2); margin: 0 0 10px 0; font-size: 1.8rem">Word Scramble</h1>
+        <p style="color: var(--dom-text-muted); margin: 0 0 24px 0; font-size: 1rem; line-height: 1.6">
+          The letters are all mixed up! Tap them in the right order to spell the word. Choose a theme and unscramble 8
+          words to score points.
+        </p>
+        <div
+          style="
+            background: white;
+            border: 2px solid var(--dom-border);
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            text-align: left;
+          "
+        >
+          <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px">
+            <span style="font-size: 1.3rem">💡</span>
+            <span style="font-size: 0.9rem; color: var(--dom-text)"
+              >Use the <strong>Hint</strong> button for a clue</span
+            >
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 8px">
+            <span style="font-size: 1.3rem">🗑️</span>
+            <span style="font-size: 0.9rem; color: var(--dom-text)"
+              ><strong>Clear</strong> removes your letters to start over</span
+            >
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center">
+            <span style="font-size: 1.3rem">⏭️</span>
+            <span style="font-size: 0.9rem; color: var(--dom-text)"><strong>Skip</strong> moves to the next word</span>
+          </div>
+        </div>
+        <button class="dom-btn dom-btn--primary" style="width: 100%; font-size: 1rem; padding: 14px" id="btn-to-picker">
+          Choose a Theme →
+        </button>
+      </div>
+    </div>
+
+    <!-- Theme Picker Screen -->
+    <div class="dom-screen" data-screen="picker" id="screen-picker">
+      <div style="padding: 20px 20px 8px; text-align: center">
+        <h2 style="color: var(--dom-accent2); margin: 0 0 4px 0; font-size: 1.2rem">Pick a theme</h2>
+        <p style="color: var(--dom-text-muted); margin: 0; font-size: 0.875rem">
+          8 words · tap letters in the right order
+        </p>
+      </div>
+      <div class="set-grid" id="set-grid"></div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="dom-screen" data-screen="game" id="screen-game">
+      <div class="word-header">
+        <span class="word-progress" id="word-progress">Word 1 of 8</span>
+        <span class="word-score-badge" id="word-score">Score: 0</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-track-fill" id="progress-fill" style="width: 0%"></div>
+      </div>
+
+      <div class="answer-area">
+        <div class="answer-slots" id="answer-slots"></div>
+        <div class="word-hint" id="word-hint" style="display: none"></div>
+        <div class="word-feedback" id="word-feedback"></div>
+      </div>
+
+      <div class="letter-tiles-area">
+        <div class="letter-tiles" id="letter-tiles"></div>
+      </div>
+
+      <div class="game-controls">
+        <button class="dom-btn dom-btn--secondary" id="btn-clear" style="font-size: 0.875rem; padding: 10px 18px">
+          🗑️ Clear
+        </button>
+        <button class="dom-btn dom-btn--secondary" id="btn-hint" style="font-size: 0.875rem; padding: 10px 18px">
+          💡 Hint
+        </button>
+        <button class="dom-btn dom-btn--secondary" id="btn-skip" style="font-size: 0.875rem; padding: 10px 18px">
+          ⏭️ Skip
+        </button>
+      </div>
+    </div>
+
+    <!-- Results Screen -->
+    <div class="dom-screen" data-screen="results" id="screen-results">
+      <div class="results-card">
+        <div class="result-trophy" id="result-trophy">🏆</div>
+        <div class="result-score-big" id="result-score">0</div>
+        <div class="result-fraction">out of <span id="result-max">0</span> pts · <span id="result-pct">0%</span></div>
+        <div class="result-set-tag" id="result-set">Animals</div>
+        <div class="result-message" id="result-message">Great job!</div>
+        <div class="result-btns">
+          <button class="dom-btn dom-btn--secondary" id="btn-change-set">Change Theme</button>
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again →</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

@@ -577,6 +577,23 @@ const GAMES = [
     footerName: 'Times Table'
   },
   {
+    id: 'word-scramble',
+    name: 'Word Scramble',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Unscramble jumbled letters to find the hidden word! Five themes: Animals, Food, Space, Nature, and Sports.',
+    icon: 'ti-letter-case',
+    iconColor: '#818cf8',
+    gradient: 'linear-gradient(145deg, #312e81 0%, #4f46e5 100%)',
+    pattern:
+      'repeating-linear-gradient(-45deg, rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 2px, transparent 2px, transparent 10px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade'],
+    newUntil: '2026-07-01',
+    footerName: 'Word Scramble'
+  },
+  {
     id: 'spelling-bee',
     name: 'Spelling Bee',
     thumbClass: null,
