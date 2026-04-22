@@ -167,6 +167,22 @@ const GAMES = [
     footerName: 'Body Map'
   },
   {
+    id: 'memory-match',
+    name: 'Memory Match',
+    thumbClass: 'memory-match',
+    category: 'memory',
+    desc: 'Flip cards to match animals with their names! Train your memory with 3 difficulty levels.',
+    icon: 'ti-cards',
+    iconColor: '#f59e0b',
+    gradient: 'linear-gradient(145deg, #1a0a3d 0%, #4c1d95 50%, #7c3aed 100%)',
+    pattern: 'radial-gradient(circle, rgba(245,158,11,0.2) 1px, transparent 1px)',
+    patternSize: '24px 24px',
+    patternPosition: '0 0',
+    grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Memory Match'
+  },
+  {
     id: 'vp-pup',
     name: 'Dog Town',
     thumbClass: null,

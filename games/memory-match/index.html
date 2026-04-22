@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Memory Match - Animal Card Game for Kids | Doodles Games</title>
+    <meta name="title" content="Memory Match - Animal Card Matching Game" />
+    <meta
+      name="description"
+      content="Flip cards to match animals with their names! A classic memory game that builds recall skills and vocabulary for kids."
+    />
+    <meta
+      name="keywords"
+      content="memory match game for kids, card flip game, animal memory game, matching game kids, memory training game"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/memory-match/" />
+    <meta property="og:title" content="Memory Match - Animal Card Matching Game" />
+    <meta
+      property="og:description"
+      content="Flip cards to match animals with their names! A classic memory game that builds recall skills."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/memory-match/" />
+    <meta property="twitter:title" content="Memory Match - Animal Card Game" />
+    <meta
+      property="twitter:description"
+      content="Flip cards to match animals with their names! A classic memory game for kids."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/memory-match/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #1a0a3d;
+        --dom-nav-color: #ddd6fe;
+        --dom-nav-border: rgba(139, 92, 246, 0.25);
+        --dom-accent: #8b5cf6;
+        --dom-accent2: #f59e0b;
+        --dom-bg: #0f0a1e;
+        --dom-text: #ddd6fe;
+        --dom-text-muted: rgba(221, 214, 254, 0.6);
+        --dom-border: rgba(139, 92, 246, 0.2);
+        --dom-card-bg: rgba(255, 255, 255, 0.05);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      /* ── SCREENS ── */
+      .screen {
+        display: none;
+        padding: 20px 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+      }
+
+      .screen.active {
+        display: flex;
+      }
+
+      /* ── START SCREEN ── */
+      .game-title {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .game-title .emoji {
+        font-size: 2.5rem;
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .game-subtitle {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 320px;
+        line-height: 1.5;
+      }
+
+      .diff-row {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .diff-btn {
+        padding: 14px 24px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        transition:
+          border-color 0.18s,
+          transform 0.15s;
+        min-width: 110px;
+      }
+
+      .diff-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .diff-btn .diff-emoji {
+        font-size: 1.6rem;
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .diff-btn .diff-pairs {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      /* ── GAME SCREEN ── */
+      .game-stats {
+        display: flex;
+        gap: 24px;
+        justify-content: center;
+        width: 100%;
+        max-width: 560px;
+      }
+
+      .stat-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .stat-label {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .stat-value {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--dom-accent);
+      }
+
+      /* ── CARD GRID ── */
+      .card-grid {
+        display: grid;
+        gap: 10px;
+        width: 100%;
+        max-width: 560px;
+      }
+
+      .card-grid.easy {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .card-grid.medium {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .card-grid.hard {
+        grid-template-columns: repeat(5, 1fr);
+      }
+
+      .mem-card {
+        aspect-ratio: 1;
+        border-radius: 10px;
+        cursor: pointer;
+        position: relative;
+        transform-style: preserve-3d;
+        transition: transform 0.35s ease;
+      }
+
+      .mem-card.flipped {
+        transform: rotateY(180deg);
+      }
+
+      .mem-card.matched {
+        transform: rotateY(180deg);
+        cursor: default;
+      }
+
+      .card-face {
+        position: absolute;
+        inset: 0;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+        font-weight: 700;
+        border: 2px solid var(--dom-border);
+      }
+
+      .card-back {
+        background: linear-gradient(135deg, #1a0a3d 0%, #312e81 100%);
+        font-size: 1.6rem;
+        color: rgba(139, 92, 246, 0.5);
+      }
+
+      .card-front {
+        background: #1c1040;
+        transform: rotateY(180deg);
+        flex-direction: column;
+        gap: 4px;
+        padding: 8px;
+        text-align: center;
+        border-color: rgba(139, 92, 246, 0.4);
+      }
+
+      .card-front.is-emoji {
+        font-size: 2rem;
+        line-height: 1;
+      }
+
+      .card-front.is-word {
+        font-size: 0.875rem;
+        color: #ddd6fe;
+        letter-spacing: 0.02em;
+      }
+
+      .mem-card.matched .card-front {
+        background: #1a3a1a;
+        border-color: #4ade80;
+      }
+
+      /* ── RESULT SCREEN ── */
+      .result-trophy {
+        font-size: 4rem;
+      }
+
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+
+      .result-stats {
+        display: flex;
+        gap: 32px;
+        justify-content: center;
+      }
+
+      .result-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .result-stat .val {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--dom-accent);
+      }
+
+      .result-stat .lbl {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      .result-btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .result-btn {
+        padding: 12px 28px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        transition:
+          border-color 0.18s,
+          transform 0.15s;
+      }
+
+      .result-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .result-btn.primary {
+        background: var(--dom-accent);
+        border-color: var(--dom-accent);
+        color: white;
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 480px) {
+        .card-grid.easy {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 6px;
+        }
+
+        .card-grid.medium {
+          grid-template-columns: repeat(4, 1fr);
+          gap: 6px;
+        }
+
+        .card-grid.hard {
+          grid-template-columns: repeat(5, 1fr);
+          gap: 5px;
+        }
+
+        .card-front.is-word {
+          font-size: 0.875rem;
+        }
+
+        .card-back {
+          font-size: 1.3rem;
+        }
+
+        .card-front.is-emoji {
+          font-size: 1.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#memory-match"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Memory Match</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Start Screen -->
+    <div class="screen active" id="screen-start">
+      <div class="game-title">
+        <span class="emoji">🃏</span>
+        Memory Match
+      </div>
+      <div class="game-subtitle">Flip cards to match each animal with its name. Remember where you saw each card!</div>
+      <div class="diff-row">
+        <button class="diff-btn" data-diff="easy">
+          <span class="diff-emoji">🐣</span>
+          Easy
+          <span class="diff-pairs">6 pairs</span>
+        </button>
+        <button class="diff-btn" data-diff="medium">
+          <span class="diff-emoji">🦊</span>
+          Medium
+          <span class="diff-pairs">8 pairs</span>
+        </button>
+        <button class="diff-btn" data-diff="hard">
+          <span class="diff-emoji">🦁</span>
+          Hard
+          <span class="diff-pairs">10 pairs</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="screen" id="screen-game">
+      <div class="game-stats">
+        <div class="stat-box">
+          <span class="stat-label">Moves</span>
+          <span class="stat-value" id="stat-moves">0</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Pairs</span>
+          <span class="stat-value" id="stat-pairs">0/6</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-label">Time</span>
+          <span class="stat-value" id="stat-time">0:00</span>
+        </div>
+      </div>
+      <div class="card-grid" id="card-grid"></div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="screen" id="screen-result">
+      <div class="result-trophy" id="result-trophy">🏆</div>
+      <div class="result-title" id="result-title">You did it!</div>
+      <div class="result-stats">
+        <div class="result-stat">
+          <span class="val" id="res-time">0:00</span>
+          <span class="lbl">Time</span>
+        </div>
+        <div class="result-stat">
+          <span class="val" id="res-moves">0</span>
+          <span class="lbl">Moves</span>
+        </div>
+        <div class="result-stat">
+          <span class="val" id="res-stars">⭐⭐⭐</span>
+          <span class="lbl">Rating</span>
+        </div>
+      </div>
+      <div class="result-btns">
+        <button class="result-btn primary" id="btn-play-again">Play Again</button>
+        <button class="result-btn" id="btn-harder">Try Harder</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

@@ -104,6 +104,11 @@ const LANDING_CONTENT = {
       ],
       gameBlurbs: [
         {
+          gameId: 'memory-match',
+          blurb:
+            'Classic card-flip game where kids match animal emoji to their names. Builds visual memory, vocabulary, and the strategy of remembering card positions.'
+        },
+        {
           gameId: 'body-map',
           blurb:
             'Uses visual body-peg method to teach anatomy and build associative memory. A proven technique for rapid, long-term recall.'
@@ -138,10 +143,14 @@ const LANDING_CONTENT = {
       }
     ],
     grades: [
-      { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['brain-spark'] },
-      { slug: '1st-grade', label: '1st Grade', gameIds: ['brain-spark', 'body-map'] },
-      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['body-map'] },
-      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['body-map'] }
+      { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['memory-match', 'brain-spark'] },
+      {
+        slug: '1st-grade',
+        label: '1st Grade',
+        gameIds: ['memory-match', 'brain-spark', 'body-map']
+      },
+      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['memory-match', 'body-map'] },
+      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['memory-match', 'body-map'] }
     ]
   },
 
