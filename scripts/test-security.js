@@ -120,6 +120,33 @@ for (const f of gameIndexFiles) {
   assert(src.includes('analytics.js'), `${path.relative(ROOT, f)} loads analytics.js`);
 }
 
+// ── HTML: error-tracker.js loaded in real games (not category landing pages) ──
+console.log('\nHTML: error-tracker.js loaded in real games');
+
+const manifestSrc2 = fs.readFileSync(path.join(ROOT, 'games-manifest.js'), 'utf8');
+const evalSrc2 = manifestSrc2
+  .replace(/\/\/ eslint-disable-line.*\n/g, '\n')
+  .replace(/\/\/ eslint-disable-next-line.*\n/g, '\n')
+  .replace(/window\.\w+\s*=\s*\w+;\s*/g, '');
+let realGameIds;
+try {
+  const fn = new Function('exports', `${evalSrc2}\nexports.GAMES=GAMES;`);
+  const exp = {};
+  fn(exp);
+  realGameIds = new Set(exp.GAMES.map(g => g.id));
+} catch (e) {
+  realGameIds = new Set();
+}
+
+for (const f of gameIndexFiles) {
+  const dir = path.basename(path.dirname(f));
+  if (!realGameIds.has(dir)) {
+    continue;
+  }
+  const src = fs.readFileSync(f, 'utf8');
+  assert(src.includes('error-tracker.js'), `${path.relative(ROOT, f)} loads error-tracker.js`);
+}
+
 // ── summary ───────────────────────────────────────────────────────────────
 console.log(`\n${'─'.repeat(50)}`);
 console.log(`Tests: ${total - failed} passed, ${failed} failed`);

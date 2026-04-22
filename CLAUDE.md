@@ -3,7 +3,7 @@
 This document defines the conventions every game in this repo must follow.
 Read it before adding or modifying any game.
 
-> **New!** See [FRAMEWORK_STANDARDS.md](FRAMEWORK_STANDARDS.md) for comprehensive framework design, consistency checklist, and automated auditing tools.
+> Run `npm run audit` for consistency checks, `npm test` for security & manifest tests, `npm run check` for the full pipeline.
 
 ---
 
@@ -312,20 +312,25 @@ From `css/portal.css` (Portal only):
 
 ---
 
-## 10. Framework Standards & Consistency Tools
+## 10. Quality & Testing Tools
 
-**See [FRAMEWORK_STANDARDS.md](FRAMEWORK_STANDARDS.md) for:**
+| Command                   | What it does                                            |
+| ------------------------- | ------------------------------------------------------- |
+| `npm test`                | Manifest integrity + security checks (732 tests)        |
+| `npm run audit`           | Game consistency audit (missing files, bad patterns)    |
+| `npm run validate:topics` | Science topic data validation                           |
+| `npm run check`           | Full pre-commit pipeline (lint + format + audit + test) |
 
-- Navigation Architecture Standard (back button always goes to logical parent)
-- Shared Navigation Component (`shared/navigation.js`)
-- Game Structure Standard (HTML/JS patterns)
-- **Consistency Audit Checklist** — verify before every commit
-- **Automated Audit Tool** — run `npm run audit` to catch inconsistencies
-- Kid-Friendly UX Checklist (font sizes, button targets, color contrast)
-- Shared Utilities Library (reusable components)
-- Code examples and templates
+**Navigation principle:** The back button should never skip levels. Quick Math module → back goes to technique picker, not portal. Draw It step → back goes to game landing, not portal.
 
-**Key principle:** The back button should never skip levels. Quick Math module → back goes to technique picker, not portal. Draw It step → back goes to game landing, not portal.
+**Shared navigation component:** `shared/navigation.js` — used by multi-screen games (periodic-table, etc.) for consistent back-link wiring.
+
+**Kid-friendly UX checklist:**
+
+- Minimum font size: 14px for labels, 16px for body text
+- Minimum touch target: 44×44px
+- Color contrast: WCAG AA (4.5:1 text, 3:1 UI)
+- No `box-shadow` — use `border-color` + `transform` for depth (see Section 9)
 
 ---
 

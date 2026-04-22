@@ -130,7 +130,12 @@ body.page-leaving {
    HERO
 ══════════════════════════════════════════════════ */
 .hero {
-  background: linear-gradient(135deg, #6366f1 0%, #4338ca 60%, #312e81 100%);
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(135deg, #6366f1 0%, #4338ca 60%, #312e81 100%);
+  background-size:
+    28px 28px,
+    100% 100%;
   padding: clamp(28px, 5vw, 52px) var(--pad);
   text-align: center;
 }
@@ -227,9 +232,6 @@ body.page-leaving {
 }
 .pill[data-cat="play"].active {
   color: var(--c-play);
-}
-.pill[data-cat="money"].active {
-  color: var(--c-money);
 }
 
 /* Mobile: Icon-only pills, scalable for future categories */
@@ -485,15 +487,17 @@ body.page-leaving {
   border-radius: 20px;
   overflow: hidden;
   position: relative;
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  border: 1.5px solid rgba(0, 0, 0, 0.07);
   text-decoration: none;
   color: #fff;
-  transition: transform 0.22s;
+  transition:
+    transform 0.22s,
+    border-color 0.22s;
 }
 
 .game-card:hover {
-  transform: translateY(-6px) scale(1.015);
-  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-5px) scale(1.012);
+  border-color: rgba(99, 102, 241, 0.35);
 }
 
 .game-card:hover .thumb i {
