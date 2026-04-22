@@ -169,7 +169,6 @@ const CATEGORIES = [
 
 const MAX_WRONG = 6;
 const LIFE_ICONS = ['⭐', '⭐', '⭐', '⭐', '⭐', '⭐'];
-const LOST_ICON = '💀';
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 

@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Color Lab - Color Mixing Game for Kids | Doodles Games</title>
+    <meta name="title" content="Color Lab - Color Mixing Game" />
+    <meta
+      name="description"
+      content="Mix red, yellow, and blue to discover secondary colors! Interactive color theory lab for kids — learn how colors blend and complete mixing challenges."
+    />
+    <meta
+      name="keywords"
+      content="color mixing game kids, color theory children, primary secondary colors, art game kids, color lab, mix colors online"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/color-lab/" />
+    <meta property="og:title" content="Color Lab - Color Mixing Game" />
+    <meta
+      property="og:description"
+      content="Mix primary colors to discover orange, green, purple and more! Fun color theory for kids."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/color-lab/" />
+    <meta property="twitter:title" content="Color Lab - Color Mixing Game" />
+    <meta
+      property="twitter:description"
+      content="Mix primary colors to discover orange, green, purple and more! Fun color theory for kids."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/color-lab/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #1a0533;
+        --dom-nav-color: #f5d0fe;
+        --dom-nav-border: rgba(168, 85, 247, 0.3);
+        --dom-accent: #c026d3;
+        --dom-accent2: #fbbf24;
+        --dom-bg: #0f0520;
+        --dom-text: #faf5ff;
+        --dom-text-muted: rgba(250, 245, 255, 0.6);
+        --dom-border: rgba(168, 85, 247, 0.25);
+        --dom-card-bg: rgba(255, 255, 255, 0.05);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .screen.active {
+        display: flex;
+      }
+
+      /* ── FREE MIX SCREEN ── */
+      .mix-swatch {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        border: 3px solid var(--dom-border);
+        background: #f0f0f0;
+        transition: background 0.25s ease;
+        margin: 0 auto;
+      }
+
+      .mix-name {
+        font-size: 1.4rem;
+        font-weight: 800;
+        min-height: 2rem;
+      }
+
+      .mix-fact {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+        max-width: 320px;
+        line-height: 1.5;
+        min-height: 2.5rem;
+      }
+
+      /* ── SLIDERS ── */
+      .sliders-panel {
+        width: 100%;
+        max-width: 380px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .slider-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .slider-dot {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        flex-shrink: 0;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .slider-dot.red {
+        background: rgb(220, 50, 50);
+      }
+      .slider-dot.yellow {
+        background: rgb(255, 220, 0);
+      }
+      .slider-dot.blue {
+        background: rgb(30, 80, 200);
+      }
+
+      .slider-label {
+        font-size: 0.875rem;
+        font-weight: 700;
+        width: 28px;
+        text-align: right;
+        color: var(--dom-text-muted);
+        flex-shrink: 0;
+      }
+
+      input[type='range'] {
+        flex: 1;
+        -webkit-appearance: none;
+        height: 8px;
+        border-radius: 4px;
+        outline: none;
+        cursor: pointer;
+      }
+
+      input[type='range'].red-range {
+        background: linear-gradient(to right, rgb(220, 50, 50) 0%, rgba(220, 50, 50, 0.15) 100%);
+      }
+      input[type='range'].yellow-range {
+        background: linear-gradient(to right, rgb(200, 170, 0) 0%, rgba(255, 220, 0, 0.15) 100%);
+      }
+      input[type='range'].blue-range {
+        background: linear-gradient(to right, rgb(30, 80, 200) 0%, rgba(30, 80, 200, 0.15) 100%);
+      }
+
+      input[type='range']::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: white;
+        border: 3px solid var(--dom-border);
+        cursor: pointer;
+      }
+
+      /* ── DISCOVERIES ── */
+      .discoveries-panel {
+        width: 100%;
+        max-width: 380px;
+        background: var(--dom-card-bg);
+        border: 1px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 12px 16px;
+        text-align: left;
+      }
+
+      .discoveries-title {
+        font-size: 0.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--dom-text-muted);
+        margin-bottom: 4px;
+      }
+
+      #discoveries {
+        font-size: 0.9rem;
+        color: var(--dom-accent2);
+        font-weight: 600;
+      }
+
+      /* ── ACTION BUTTONS ── */
+      .action-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        padding: 12px 22px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 0.95rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+
+      .action-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .action-btn.primary {
+        background: var(--dom-accent);
+        border-color: var(--dom-accent);
+        color: white;
+      }
+
+      /* ── CHALLENGE SCREEN ── */
+      .ch-layout {
+        display: flex;
+        gap: 20px;
+        width: 100%;
+        max-width: 480px;
+        justify-content: center;
+        align-items: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .ch-col {
+        flex: 1;
+        min-width: 160px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .ch-swatch {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        border: 3px solid var(--dom-border);
+        transition: background 0.25s;
+      }
+
+      .ch-swatch-label {
+        font-size: 0.875rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--dom-text-muted);
+      }
+
+      .ch-target-name {
+        font-size: 1.3rem;
+        font-weight: 800;
+      }
+
+      .ch-hint {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-style: italic;
+      }
+
+      .ch-feedback {
+        font-size: 0.95rem;
+        font-weight: 700;
+        min-height: 1.4rem;
+      }
+      .ch-feedback.good {
+        color: #4ade80;
+      }
+      .ch-feedback.warm {
+        color: #fbbf24;
+      }
+      .ch-feedback.bad {
+        color: #f87171;
+      }
+
+      .ch-closeness {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--dom-accent2);
+      }
+
+      .ch-progress {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      /* ── WIN SCREEN ── */
+      .win-emoji {
+        font-size: 4rem;
+      }
+      .win-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+      .win-score {
+        font-size: 1.2rem;
+        color: var(--dom-accent2);
+        font-weight: 700;
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 480px) {
+        .mix-swatch {
+          width: 110px;
+          height: 110px;
+        }
+        .ch-swatch {
+          width: 80px;
+          height: 80px;
+        }
+        .ch-layout {
+          gap: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#color-lab"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Color Lab</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Free Mix Screen -->
+    <div class="screen active" id="screen-free">
+      <div class="mix-swatch" id="mix-swatch"></div>
+      <div class="mix-name" id="mix-name">…</div>
+      <div class="mix-fact" id="mix-fact">Add some colors to start mixing!</div>
+
+      <div class="sliders-panel">
+        <div class="slider-row">
+          <div class="slider-dot red"></div>
+          <input type="range" class="red-range" id="slider-red" min="0" max="100" value="0" />
+          <span class="slider-label" id="lbl-red">0%</span>
+        </div>
+        <div class="slider-row">
+          <div class="slider-dot yellow"></div>
+          <input type="range" class="yellow-range" id="slider-yellow" min="0" max="100" value="0" />
+          <span class="slider-label" id="lbl-yellow">0%</span>
+        </div>
+        <div class="slider-row">
+          <div class="slider-dot blue"></div>
+          <input type="range" class="blue-range" id="slider-blue" min="0" max="100" value="0" />
+          <span class="slider-label" id="lbl-blue">0%</span>
+        </div>
+      </div>
+
+      <div class="discoveries-panel">
+        <div class="discoveries-title">🔬 Colors Discovered</div>
+        <div id="discoveries">None yet — start mixing!</div>
+      </div>
+
+      <div class="action-row">
+        <button class="action-btn" id="btn-reset">Reset</button>
+        <button class="action-btn primary" id="btn-challenge">Try Challenges →</button>
+      </div>
+    </div>
+
+    <!-- Challenge Screen -->
+    <div class="screen" id="screen-challenge">
+      <div class="ch-progress" id="ch-progress">1 / 4</div>
+
+      <div class="ch-layout">
+        <div class="ch-col">
+          <div class="ch-swatch-label">Target</div>
+          <div class="ch-swatch" id="ch-target-swatch"></div>
+          <div class="ch-target-name" id="ch-target-name"></div>
+          <div class="ch-hint" id="ch-hint"></div>
+        </div>
+        <div class="ch-col">
+          <div class="ch-swatch-label">Your Mix</div>
+          <div class="ch-swatch" id="ch-mix-swatch" style="background: #f0f0f0"></div>
+          <div class="ch-closeness" id="ch-closeness">Match: 0%</div>
+          <div class="ch-feedback" id="ch-feedback"></div>
+        </div>
+      </div>
+
+      <div class="sliders-panel">
+        <div class="slider-row">
+          <div class="slider-dot red"></div>
+          <input type="range" class="red-range" id="ch-slider-red" min="0" max="100" value="0" />
+          <span class="slider-label" id="ch-lbl-red">0%</span>
+        </div>
+        <div class="slider-row">
+          <div class="slider-dot yellow"></div>
+          <input type="range" class="yellow-range" id="ch-slider-yellow" min="0" max="100" value="0" />
+          <span class="slider-label" id="ch-lbl-yellow">0%</span>
+        </div>
+        <div class="slider-row">
+          <div class="slider-dot blue"></div>
+          <input type="range" class="blue-range" id="ch-slider-blue" min="0" max="100" value="0" />
+          <span class="slider-label" id="ch-lbl-blue">0%</span>
+        </div>
+      </div>
+
+      <div class="action-row">
+        <button class="action-btn" id="ch-back-btn">← Free Mix</button>
+        <button class="action-btn primary" id="ch-check-btn" disabled>Check!</button>
+      </div>
+    </div>
+
+    <!-- Win Screen -->
+    <div class="screen" id="screen-win">
+      <div class="win-emoji" id="win-emoji">🏆</div>
+      <div class="win-title" id="win-title">Color Master!</div>
+      <div class="win-score" id="win-score"></div>
+      <div class="action-row" style="margin-top: 8px">
+        <button class="action-btn" id="btn-back-free">Free Mix</button>
+        <button class="action-btn primary" id="btn-play-again">Play Again</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

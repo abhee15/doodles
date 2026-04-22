@@ -378,6 +378,22 @@ const GAMES = [
     footerName: 'Draw It'
   },
   {
+    id: 'color-lab',
+    name: 'Color Lab',
+    thumbClass: 'color-lab',
+    category: 'art',
+    desc: 'Mix red, yellow, and blue to discover orange, green, purple and more! Learn color theory through hands-on experiments.',
+    icon: 'ti-palette',
+    iconColor: '#c026d3',
+    gradient: 'linear-gradient(145deg, #4a044e 0%, #701a75 50%, #c026d3 100%)',
+    pattern: 'radial-gradient(circle, rgba(192,38,211,0.25) 1px, transparent 1px)',
+    patternSize: '24px 24px',
+    patternPosition: '0 0',
+    grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Color Lab'
+  },
+  {
     id: 'wave-painter',
     name: 'Wave Painter',
     thumbClass: 'wave-painter',

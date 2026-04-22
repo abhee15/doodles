@@ -348,22 +348,27 @@ const LANDING_CONTENT = {
   },
 
   art: {
-    heroSubtitle: 'Learn step-by-step drawing with guided art games for all skill levels.',
+    heroSubtitle: 'Explore drawing, color mixing, and creative art games for all skill levels.',
     seoDescription:
-      'Free drawing and art games for kids. Follow step-by-step guides to create fun illustrations.',
+      'Free art games for kids. Learn to draw step-by-step, mix primary colors, and discover Fourier wave art.',
     seoKeywords:
-      'drawing games for kids, art games, learn to draw kids, creative games, draw it game',
+      'drawing games for kids, color mixing game kids, art games, learn to draw, color theory children, wave art',
     introParagraphs: [
-      'Drawing step-by-step builds spatial reasoning, fine motor skills, and creative confidence. Kids who learn to draw early develop visual literacy that supports learning across subjects.',
-      'These games remove the intimidation of a blank page. With guided steps and visual feedback, even kids who think "I can\'t draw" discover they can create beautiful artwork.'
+      'Art builds spatial reasoning, color awareness, fine motor skills, and creative confidence. Kids who explore art early develop visual literacy that supports learning across all subjects.',
+      'These games remove the intimidation of a blank page. From guided drawing to mixing colors and watching mathematical spirographs appear — every session sparks curiosity and pride.'
     ],
     whyItWorks: {
-      heading: 'Why Drawing Games Build Creativity and Confidence',
+      heading: 'Why Art Games Build Creativity and Confidence',
       paragraphs: [
         'Step-by-step instruction provides structure and prevents frustration. Kids see immediate progress, building confidence with each completed drawing.',
-        'The drawing process engages both sides of the brain — analytical (following steps) and creative (personalizing colors, adding details). This balanced engagement produces deeper learning and enjoyment.'
+        'The art process engages both sides of the brain — analytical (following steps, mixing ratios) and creative (personalizing colors, experimenting freely). This balanced engagement produces deeper learning and enjoyment.'
       ],
       gameBlurbs: [
+        {
+          gameId: 'color-lab',
+          blurb:
+            'Lets kids mix red, yellow, and blue at any ratio to discover orange, green, purple, and brown. The color wheel comes alive through hands-on experimentation and mixing challenges.'
+        },
         {
           gameId: 'draw-it',
           blurb:
@@ -382,8 +387,8 @@ const LANDING_CONTENT = {
         a: 'Not at all — games are designed for complete beginners. Steps are clear, forgiving, and build confidence gradually.'
       },
       {
-        q: 'What age is Draw It for?',
-        a: 'Ages 5 and up. Early levels are very simple (shapes); later levels add more detail and complexity.'
+        q: 'What age are these art games for?',
+        a: 'Ages 4 and up. Color Lab and Draw It start very simple; Wave Painter challenges kids who love math and art together.'
       },
       {
         q: 'Can kids save or print their drawings?',
@@ -394,15 +399,15 @@ const LANDING_CONTENT = {
         a: 'Great complement to art class — builds fundamental drawing skills and inspires creative practice at home.'
       },
       {
-        q: 'Do kids get more confident drawing?',
-        a: 'Yes — step-by-step success builds real drawing confidence. Many kids move from "I can\'t draw" to "I love drawing" within a few sessions.'
+        q: 'Do kids get more confident with art?',
+        a: 'Yes — step-by-step success and color discovery build real confidence. Many kids move from "I can\'t draw" to "I love this" within a few sessions.'
       }
     ],
     grades: [
-      { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['draw-it'] },
-      { slug: '1st-grade', label: '1st Grade', gameIds: ['draw-it', 'wave-painter'] },
-      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['draw-it', 'wave-painter'] },
-      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['wave-painter'] }
+      { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['color-lab', 'draw-it'] },
+      { slug: '1st-grade', label: '1st Grade', gameIds: ['color-lab', 'draw-it', 'wave-painter'] },
+      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['color-lab', 'draw-it', 'wave-painter'] },
+      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['color-lab', 'wave-painter'] }
     ]
   },
 
