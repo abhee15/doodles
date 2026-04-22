@@ -75,7 +75,7 @@
       }
 
       .level-budget {
-        font-size: 12px;
+        font-size: 13px;
         opacity: 0.8;
       }
 
@@ -167,7 +167,7 @@
         border: none;
         color: #ef4444;
         cursor: pointer;
-        font-size: 12px;
+        font-size: 13px;
         padding: 0 4px;
       }
 
@@ -240,7 +240,7 @@
       }
 
       .product-name {
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
         color: #1f2937;
         margin-bottom: 4px;
@@ -306,7 +306,7 @@
       }
 
       .score-label {
-        font-size: 12px;
+        font-size: 13px;
         color: #6b7280;
         margin-bottom: 4px;
       }
@@ -386,8 +386,41 @@
       <span class="dom-nav-meta" id="nav-meta"></span>
     </nav>
 
+    <!-- Landing Screen -->
+    <div class="dom-screen active" data-screen="landing" id="landing-screen">
+      <div style="padding: 40px 24px; max-width: 480px; margin: 0 auto; text-align: center">
+        <div style="font-size: 64px; margin-bottom: 16px">🛒</div>
+        <h1 style="color: #065f46; margin: 0 0 12px 0; font-size: 1.8rem">Store Shopper</h1>
+        <p style="color: #6b7280; margin: 0 0 28px 0; font-size: 1rem; line-height: 1.6">
+          Pick items from the store, manage your budget, and check out without going over! A fun way to practice money
+          skills.
+        </p>
+        <div
+          style="
+            background: #f0fdf4;
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 28px;
+            text-align: left;
+          "
+        >
+          <h3 style="color: #065f46; margin: 0 0 10px 0; font-size: 1rem">How to play</h3>
+          <ul style="color: #374151; font-size: 0.9rem; line-height: 1.8; padding-left: 18px; margin: 0">
+            <li>Choose a difficulty level with a budget</li>
+            <li>Add items to your cart by clicking them</li>
+            <li>Try to spend <strong>most</strong> of your budget (but not over!)</li>
+            <li>Hit Checkout when you're done</li>
+          </ul>
+        </div>
+        <button class="dom-btn dom-btn--primary" style="width: 100%; font-size: 1rem; padding: 14px" id="btn-start">
+          Start Shopping →
+        </button>
+      </div>
+    </div>
+
     <!-- Level Selector -->
-    <div class="dom-screen active" data-screen="level" id="level-screen">
+    <div class="dom-screen" data-screen="level" id="level-screen">
       <div style="padding: 20px">
         <h1 style="color: #065f46; margin: 0 0 10px 0; text-align: center">Choose Your Level</h1>
         <p style="color: #6b7280; margin: 0 0 20px 0; text-align: center; font-size: 14px">
@@ -401,7 +434,7 @@
     <div class="dom-screen" data-screen="game" id="game-screen">
       <button
         class="dom-btn"
-        style="position: absolute; top: 65px; right: 20px; font-size: 12px; padding: 6px 12px"
+        style="position: absolute; top: 65px; right: 20px; font-size: 13px; padding: 6px 12px"
         id="back-to-levels"
       >
         ← Levels

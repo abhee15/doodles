@@ -9,6 +9,7 @@ class StoreShopperGame {
   }
 
   initializeUI() {
+    this.landingScreen = document.getElementById('landing-screen');
     this.levelScreen = document.getElementById('level-screen');
     this.gameScreen = document.getElementById('game-screen');
     this.resultModal = document.getElementById('result-modal');
@@ -25,6 +26,7 @@ class StoreShopperGame {
     this.nextLevelBtn = document.getElementById('next-level-btn');
     this.tryAgainBtn = document.getElementById('try-again-btn');
 
+    document.getElementById('btn-start').addEventListener('click', () => this.showLevelSelect());
     this.checkoutBtn.addEventListener('click', () => this.checkout());
     this.backToLevelsBtn.addEventListener('click', () => this.backToLevelSelect());
     this.nextLevelBtn.addEventListener('click', () => this.nextLevel());
@@ -199,6 +201,10 @@ class StoreShopperGame {
     this.resultModal.classList.remove('show');
   }
 
+  showLevelSelect() {
+    this.switchScreen('level');
+  }
+
   backToLevelSelect() {
     this.switchScreen('level');
   }
@@ -213,10 +219,13 @@ class StoreShopperGame {
   }
 
   switchScreen(screenName) {
+    this.landingScreen.classList.remove('active');
     this.levelScreen.classList.remove('active');
     this.gameScreen.classList.remove('active');
 
-    if (screenName === 'level') {
+    if (screenName === 'landing') {
+      this.landingScreen.classList.add('active');
+    } else if (screenName === 'level') {
       this.levelScreen.classList.add('active');
     } else if (screenName === 'game') {
       this.gameScreen.classList.add('active');
