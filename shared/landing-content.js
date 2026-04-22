@@ -230,6 +230,11 @@ const LANDING_CONTENT = {
       ],
       gameBlurbs: [
         {
+          gameId: 'word-guess',
+          blurb:
+            'Kids guess a hidden word letter by letter — building deductive reasoning and vocabulary. Six themed categories (animals, food, space, nature, countries, sports) keep it fresh.'
+        },
+        {
           gameId: 'word-explorer',
           blurb:
             'Presents words in rich context — definitions, synonyms, usage examples, and sentences. Covers Tier 2 academic vocabulary aligned with school curricula.'
@@ -259,9 +264,18 @@ const LANDING_CONTENT = {
       }
     ],
     grades: [
-      { slug: '1st-grade', label: '1st Grade', gameIds: ['word-explorer'] },
-      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['word-explorer'] },
-      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['word-explorer'] }
+      { slug: '1st-grade', label: '1st Grade', gameIds: ['word-guess', 'word-explorer'] },
+      {
+        slug: '2nd-grade',
+        label: '2nd Grade',
+        gameIds: ['word-guess', 'word-explorer', 'word-scramble']
+      },
+      {
+        slug: '3rd-grade',
+        label: '3rd Grade',
+        gameIds: ['word-guess', 'word-explorer', 'spelling-bee']
+      },
+      { slug: '4th-grade', label: '4th Grade', gameIds: ['word-guess', 'spelling-bee'] }
     ]
   },
 

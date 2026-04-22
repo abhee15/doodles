@@ -691,6 +691,22 @@ const GAMES = [
     footerName: 'Spelling Bee'
   },
   {
+    id: 'word-guess',
+    name: 'Word Guess',
+    thumbClass: 'word-guess',
+    category: 'words',
+    desc: 'Guess the hidden word letter by letter! Animals, food, space, and more — 6 themed categories.',
+    icon: 'ti-letter-case',
+    iconColor: '#93c5fd',
+    gradient: 'linear-gradient(145deg, #080d2a 0%, #0c1445 50%, #1e40af 100%)',
+    pattern: 'radial-gradient(circle, rgba(147,197,253,0.18) 1px, transparent 1px)',
+    patternSize: '22px 22px',
+    patternPosition: '0 0',
+    grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Word Guess'
+  },
+  {
     id: 'us-states',
     name: 'US States & Capitals',
     thumbClass: null,

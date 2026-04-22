@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Word Guess - Fun Vocabulary Game for Kids | Doodles Games</title>
+    <meta name="title" content="Word Guess - Vocabulary Guessing Game" />
+    <meta
+      name="description"
+      content="Guess the hidden word letter by letter! Fun vocabulary game for kids with animals, food, space, and more themed word sets."
+    />
+    <meta
+      name="keywords"
+      content="word guess game kids, hangman for kids, vocabulary game, spelling game, word game children, guess the word"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/word-guess/" />
+    <meta property="og:title" content="Word Guess - Vocabulary Guessing Game" />
+    <meta
+      property="og:description"
+      content="Guess the hidden word letter by letter! Fun vocabulary game with themed categories."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/word-guess/" />
+    <meta property="twitter:title" content="Word Guess - Vocabulary Game" />
+    <meta
+      property="twitter:description"
+      content="Guess the hidden word letter by letter! Fun vocabulary game for kids."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/word-guess/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #0c1445;
+        --dom-nav-color: #dbeafe;
+        --dom-nav-border: rgba(59, 130, 246, 0.25);
+        --dom-accent: #3b82f6;
+        --dom-accent2: #fbbf24;
+        --dom-bg: #080d2a;
+        --dom-text: #e0e7ff;
+        --dom-text-muted: rgba(224, 231, 255, 0.6);
+        --dom-border: rgba(59, 130, 246, 0.2);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      /* ── SCREENS ── */
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .screen.active {
+        display: flex;
+      }
+
+      /* ── START ── */
+      .start-title {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-top: 8px;
+      }
+
+      .start-title .big-emoji {
+        display: block;
+        font-size: 2.8rem;
+        margin-bottom: 8px;
+      }
+
+      .start-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 300px;
+        line-height: 1.5;
+      }
+
+      .cat-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        width: 100%;
+        max-width: 420px;
+      }
+
+      .cat-btn {
+        padding: 16px 10px;
+        border-radius: 14px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 0.95rem;
+        transition:
+          border-color 0.18s,
+          transform 0.15s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .cat-btn .cat-emoji {
+        font-size: 2rem;
+      }
+
+      .cat-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      /* ── GAME SCREEN ── */
+      .lives-row {
+        display: flex;
+        gap: 6px;
+        justify-content: center;
+        font-size: 1.5rem;
+        min-height: 36px;
+      }
+
+      .cat-label {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+
+      /* ── WORD TILES ── */
+      .word-tiles {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        max-width: 500px;
+        padding: 8px 0;
+      }
+
+      .tile {
+        width: 40px;
+        height: 50px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: 800;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        transition:
+          border-color 0.2s,
+          background 0.2s;
+        text-transform: uppercase;
+        letter-spacing: 0;
+      }
+
+      .tile.revealed {
+        border-color: var(--dom-accent);
+        background: rgba(59, 130, 246, 0.12);
+        color: #93c5fd;
+      }
+
+      .tile.space {
+        border: none;
+        background: transparent;
+        width: 16px;
+      }
+
+      /* ── ALPHABET ── */
+      .alpha-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        justify-content: center;
+        max-width: 420px;
+      }
+
+      .letter-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 8px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition:
+          border-color 0.12s,
+          background 0.12s,
+          transform 0.1s;
+        text-transform: uppercase;
+      }
+
+      .letter-btn:not(:disabled):hover {
+        border-color: var(--dom-accent);
+        transform: scale(1.08);
+      }
+
+      .letter-btn:disabled {
+        cursor: default;
+        opacity: 0.35;
+      }
+
+      .letter-btn.correct {
+        border-color: #22c55e;
+        background: rgba(34, 197, 94, 0.15);
+        color: #4ade80;
+        opacity: 1;
+      }
+
+      .letter-btn.wrong {
+        border-color: #ef4444;
+        background: rgba(239, 68, 68, 0.1);
+        color: #f87171;
+        opacity: 0.6;
+      }
+
+      /* ── RESULT ── */
+      .result-big {
+        font-size: 4rem;
+      }
+
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+
+      .result-word {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--dom-accent);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .result-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+      }
+
+      .result-score {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+
+      .result-btns {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .result-btn {
+        padding: 12px 28px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+
+      .result-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .result-btn.primary {
+        background: var(--dom-accent);
+        border-color: var(--dom-accent);
+        color: white;
+      }
+
+      /* ── FEEDBACK ── */
+      .feedback-flash {
+        height: 24px;
+        font-size: 0.95rem;
+        font-weight: 700;
+        transition: opacity 0.3s;
+      }
+
+      .feedback-flash.good {
+        color: #4ade80;
+      }
+
+      .feedback-flash.bad {
+        color: #f87171;
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 480px) {
+        .cat-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 8px;
+        }
+
+        .letter-btn {
+          width: 34px;
+          height: 34px;
+          font-size: 0.9rem;
+        }
+
+        .tile {
+          width: 36px;
+          height: 44px;
+          font-size: 1.3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#word-guess"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Word Guess</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Start Screen -->
+    <div class="screen active" id="screen-start">
+      <div class="start-title">
+        <span class="big-emoji">🔤</span>
+        Word Guess
+      </div>
+      <div class="start-sub">Pick a category and guess the hidden word letter by letter!</div>
+      <div class="cat-grid" id="cat-grid">
+        <!-- built by JS -->
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="screen" id="screen-game">
+      <div class="lives-row" id="lives-row"></div>
+      <div class="cat-label" id="cat-label"></div>
+      <div class="word-tiles" id="word-tiles"></div>
+      <div class="feedback-flash" id="feedback"></div>
+      <div class="alpha-grid" id="alpha-grid"></div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="screen" id="screen-result">
+      <div class="result-big" id="result-emoji">🎉</div>
+      <div class="result-title" id="result-title">You got it!</div>
+      <div class="result-word" id="result-word"></div>
+      <div class="result-score" id="result-score"></div>
+      <div class="result-sub" id="result-sub"></div>
+      <div class="result-btns">
+        <button class="result-btn primary" id="btn-next-word">Next Word</button>
+        <button class="result-btn" id="btn-menu">Change Category</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
