@@ -44,16 +44,6 @@ const MIX_RESULTS = {
   }
 };
 
-// Tertiary combos (primary + neighbouring secondary)
-const TERTIARY = {
-  'orange+red': { r: 220, g: 80, b: 20, name: 'Red-Orange', emoji: '🎨' },
-  'orange+yellow': { r: 255, g: 180, b: 0, name: 'Yellow-Orange', emoji: '🎨' },
-  'green+yellow': { r: 150, g: 210, b: 0, name: 'Yellow-Green', emoji: '🎨' },
-  'blue+green': { r: 0, g: 140, b: 160, name: 'Blue-Green', emoji: '🎨' },
-  'purple+blue': { r: 80, g: 0, b: 180, name: 'Blue-Purple', emoji: '🎨' },
-  'purple+red': { r: 180, g: 0, b: 90, name: 'Red-Purple', emoji: '🎨' }
-};
-
 // Challenges: mix this color
 const CHALLENGES = [
   {
