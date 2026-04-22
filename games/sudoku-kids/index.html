@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Sudoku Kids - Fun Number Puzzles for Kids | Doodles Games</title>
+    <meta name="title" content="Sudoku Kids - Number Logic Puzzles" />
+    <meta
+      name="description"
+      content="Kid-friendly 4x4 Sudoku puzzles! Fill the grid so every row, column, and box has the numbers 1-4. Fun logic training for kids."
+    />
+    <meta
+      name="keywords"
+      content="sudoku for kids, kids sudoku, easy sudoku, logic puzzles kids, number puzzles children, 4x4 sudoku"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/sudoku-kids/" />
+    <meta property="og:title" content="Sudoku Kids - Number Logic Puzzles" />
+    <meta
+      property="og:description"
+      content="Kid-friendly 4x4 Sudoku! Fill the grid so every row, column, and box has numbers 1-4."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/sudoku-kids/" />
+    <meta property="twitter:title" content="Sudoku Kids - Number Logic Puzzles" />
+    <meta
+      property="twitter:description"
+      content="Kid-friendly 4x4 Sudoku! Fill the grid so every row, column, and box has numbers 1-4."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/sudoku-kids/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #1e1b4b;
+        --dom-nav-color: #e0e7ff;
+        --dom-nav-border: rgba(99, 102, 241, 0.25);
+        --dom-accent: #6366f1;
+        --dom-accent2: #f59e0b;
+        --dom-bg: #0f0e2a;
+        --dom-text: #e0e7ff;
+        --dom-text-muted: rgba(224, 231, 255, 0.6);
+        --dom-border: rgba(99, 102, 241, 0.22);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      /* ── SCREENS ── */
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .screen.active {
+        display: flex;
+      }
+
+      /* ── START ── */
+      .start-title {
+        font-size: 2rem;
+        font-weight: 800;
+      }
+
+      .start-title .big-emoji {
+        display: block;
+        font-size: 2.8rem;
+        margin-bottom: 8px;
+      }
+
+      .start-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 300px;
+        line-height: 1.5;
+      }
+
+      .diff-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        width: 100%;
+        max-width: 340px;
+      }
+
+      .diff-btn {
+        padding: 18px 12px;
+        border-radius: 14px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        cursor: pointer;
+        font-family: inherit;
+        font-weight: 700;
+        font-size: 1rem;
+        transition:
+          border-color 0.18s,
+          transform 0.15s;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .diff-btn .diff-icon {
+        font-size: 1.8rem;
+      }
+
+      .diff-btn .diff-sub {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      .diff-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      /* ── PUZZLE AREA ── */
+      .puzzle-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+      }
+
+      .puzzle-header {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .puzzle-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+      }
+
+      .puzzle-stat .p-val {
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--dom-accent);
+      }
+
+      .puzzle-stat .p-lbl {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      /* ── GRID ── */
+      .sudoku-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        border: 3px solid rgba(99, 102, 241, 0.6);
+        border-radius: 12px;
+        overflow: hidden;
+        width: min(320px, 90vw);
+        height: min(320px, 90vw);
+        background: rgba(99, 102, 241, 0.6);
+      }
+
+      .sudoku-cell {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        font-weight: 800;
+        cursor: pointer;
+        position: relative;
+        background: #131130;
+        border: 1px solid rgba(99, 102, 241, 0.25);
+        transition: background 0.12s;
+        user-select: none;
+        -webkit-user-select: none;
+      }
+
+      /* Thick inner borders for 2x2 box separation */
+      .sudoku-cell:nth-child(2),
+      .sudoku-cell:nth-child(6),
+      .sudoku-cell:nth-child(10),
+      .sudoku-cell:nth-child(14) {
+        border-right: 3px solid rgba(99, 102, 241, 0.6);
+      }
+
+      .sudoku-cell:nth-child(n + 9):nth-child(-n + 12) {
+        border-top: 3px solid rgba(99, 102, 241, 0.6);
+      }
+
+      .sudoku-cell.clue {
+        color: #a5b4fc;
+        background: #1a1845;
+        cursor: default;
+      }
+
+      .sudoku-cell.selected {
+        background: rgba(99, 102, 241, 0.25);
+      }
+
+      .sudoku-cell.conflict {
+        background: rgba(239, 68, 68, 0.2);
+        color: #f87171;
+      }
+
+      .sudoku-cell.correct {
+        background: rgba(34, 197, 94, 0.15);
+        color: #4ade80;
+      }
+
+      .sudoku-cell:not(.clue):not(.correct) {
+        color: #c7d2fe;
+      }
+
+      /* ── NUMBER PAD ── */
+      .numpad {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 8px;
+        width: min(320px, 90vw);
+      }
+
+      .num-btn {
+        padding: 12px 8px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1.2rem;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+        min-height: 48px;
+      }
+
+      .num-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-1px);
+      }
+
+      .num-btn.erase {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+      }
+
+      /* ── HINT / ACTIONS ── */
+      .action-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .act-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 18px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 0.95rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+
+      .act-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-1px);
+      }
+
+      /* ── RESULT ── */
+      .result-trophy {
+        font-size: 4rem;
+      }
+
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+
+      .result-time {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: var(--dom-accent);
+      }
+
+      .result-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+      }
+
+      .result-btns {
+        display: flex;
+        gap: 12px;
+      }
+
+      .result-btn {
+        padding: 12px 28px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+
+      .result-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .result-btn.primary {
+        background: var(--dom-accent);
+        border-color: var(--dom-accent);
+        color: white;
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 480px) {
+        .sudoku-cell {
+          font-size: 1.5rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#sudoku-kids"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Sudoku Kids</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Start Screen -->
+    <div class="screen active" id="screen-start">
+      <div class="start-title">
+        <span class="big-emoji">🔢</span>
+        Sudoku Kids
+      </div>
+      <div class="start-sub">
+        Fill every row, column, and 2×2 box with the numbers 1–4. Each number appears only once!
+      </div>
+      <div class="diff-grid">
+        <button class="diff-btn" data-diff="easy">
+          <span class="diff-icon">🟢</span>
+          Easy
+          <span class="diff-sub">More clues</span>
+        </button>
+        <button class="diff-btn" data-diff="medium">
+          <span class="diff-icon">🟡</span>
+          Medium
+          <span class="diff-sub">Some clues</span>
+        </button>
+        <button class="diff-btn" data-diff="hard">
+          <span class="diff-icon">🔴</span>
+          Hard
+          <span class="diff-sub">Fewer clues</span>
+        </button>
+        <button class="diff-btn" data-diff="random">
+          <span class="diff-icon">🎲</span>
+          Random
+          <span class="diff-sub">Surprise me!</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="screen" id="screen-game">
+      <div class="puzzle-header">
+        <div class="puzzle-stat">
+          <span class="p-val" id="stat-time">0:00</span>
+          <span class="p-lbl">Time</span>
+        </div>
+        <div class="puzzle-stat">
+          <span class="p-val" id="stat-errors">0</span>
+          <span class="p-lbl">Errors</span>
+        </div>
+        <div class="puzzle-stat">
+          <span class="p-val" id="stat-hints">3</span>
+          <span class="p-lbl">Hints</span>
+        </div>
+      </div>
+
+      <div class="puzzle-wrap">
+        <div class="sudoku-grid" id="sudoku-grid"></div>
+        <div class="numpad" id="numpad"></div>
+        <div class="action-row">
+          <button class="act-btn" id="btn-hint"><i class="ti ti-bulb"></i> Hint</button>
+          <button class="act-btn" id="btn-new"><i class="ti ti-refresh"></i> New Puzzle</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="screen" id="screen-result">
+      <div class="result-trophy" id="result-trophy">🏆</div>
+      <div class="result-title">Puzzle Solved!</div>
+      <div class="result-time" id="result-time">0:00</div>
+      <div class="result-sub" id="result-sub">Amazing logical thinking!</div>
+      <div class="result-btns">
+        <button class="result-btn primary" id="btn-next">Next Puzzle</button>
+        <button class="result-btn" id="btn-menu">Menu</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

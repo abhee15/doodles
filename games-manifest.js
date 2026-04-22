@@ -394,6 +394,23 @@ const GAMES = [
     footerName: 'Wave Painter'
   },
   {
+    id: 'sudoku-kids',
+    name: 'Sudoku Kids',
+    thumbClass: 'sudoku-kids',
+    category: 'logic',
+    desc: 'Fill every row, column, and box with the numbers 1–4. Easy, Medium, and Hard puzzles for little logic lovers!',
+    icon: 'ti-grid-3x3',
+    iconColor: '#a5b4fc',
+    gradient: 'linear-gradient(145deg, #0f0e2a 0%, #1e1b4b 50%, #3730a3 100%)',
+    pattern:
+      'repeating-linear-gradient(0deg, transparent, transparent 20px, rgba(99,102,241,.08) 20px, rgba(99,102,241,.08) 21px), repeating-linear-gradient(90deg, transparent, transparent 20px, rgba(99,102,241,.08) 20px, rgba(99,102,241,.08) 21px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Sudoku Kids'
+  },
+  {
     id: 'brain-spark',
     name: 'Brain Spark',
     thumbClass: 'brain-spark',

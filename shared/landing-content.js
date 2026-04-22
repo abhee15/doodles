@@ -410,6 +410,11 @@ const LANDING_CONTENT = {
       ],
       gameBlurbs: [
         {
+          gameId: 'sudoku-kids',
+          blurb:
+            'Kid-friendly 4×4 Sudoku with three difficulty levels. Teaches constraint satisfaction thinking — the foundation of logical deduction — in an approachable, visual format.'
+        },
+        {
           gameId: 'brain-spark',
           blurb:
             'Multi-category knowledge challenges that build working memory and deduction skills. Difficulty adapts as kids improve, keeping them engaged.'
@@ -440,9 +445,10 @@ const LANDING_CONTENT = {
     ],
     grades: [
       { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['brain-spark'] },
-      { slug: '1st-grade', label: '1st Grade', gameIds: ['brain-spark'] },
-      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['brain-spark'] },
-      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['brain-spark'] }
+      { slug: '1st-grade', label: '1st Grade', gameIds: ['sudoku-kids', 'brain-spark'] },
+      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['sudoku-kids', 'brain-spark'] },
+      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['sudoku-kids', 'brain-spark'] },
+      { slug: '4th-grade', label: '4th Grade', gameIds: ['sudoku-kids'] }
     ]
   },
 
