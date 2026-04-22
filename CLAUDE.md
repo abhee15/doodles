@@ -116,6 +116,7 @@ Both `<link rel="preconnect">` tags require the `crossorigin` attribute.
   <a href="../../index.html#<game-id>" class="back-link">← Back</a>
   <div id="game-container"></div>
 
+  <script src="../../shared/error-tracker.js"></script>
   <script src="../../shared/analytics.js"></script>
   <div id="ad-container"></div>
   <script src="../../shared/ads.js"></script>
@@ -151,6 +152,7 @@ Both `<link rel="preconnect">` tags require the `crossorigin` attribute.
   </div>
 
   <script src="game.js"></script>
+  <script src="../../shared/error-tracker.js"></script>
   <script src="../../shared/analytics.js"></script>
   <div id="ad-container"></div>
   <script src="../../shared/ads.js"></script>
@@ -166,7 +168,7 @@ Both `<link rel="preconnect">` tags require the `crossorigin` attribute.
 - Back link text is always `← Back` (or icon + "Back" for DOM games)
 - Back link `href` anchors to the game card: `../../index.html#<game-id>`
 - Never put game logic in inline `<script>` tags — use `game.js`
-- `analytics.js` and `ads.js` are always loaded, always at the end of `<body>`
+- `error-tracker.js`, `analytics.js`, and `ads.js` are always loaded at the end of `<body>`
 
 ---
 

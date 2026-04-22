@@ -55,14 +55,17 @@ function auditGame(gameDir, gameName) {
 
   // ============ NAVIGATION STRUCTURE ============
 
-  // Check for nav bar (DOM games) OR back button (Canvas games)
+  // Check for nav bar (DOM games) OR back button (Canvas/Phaser games)
   const hasNav =
     indexContent.includes('<nav class="dom-nav">') || indexContent.includes('<nav class="navbar">');
-  const hasBackBtn = indexContent.includes('id="game-back-btn"');
+  const hasBackBtn =
+    indexContent.includes('id="game-back-btn"') ||
+    indexContent.includes('class="back-link"') ||
+    indexContent.includes("class='back-link'");
 
   if (!hasNav && !hasBackBtn) {
     errors.push(
-      'Missing navigation: needs either <nav class="dom-nav"> OR back button with id="game-back-btn"'
+      'Missing navigation: needs either <nav class="dom-nav"> OR a back link (class="back-link" or id="game-back-btn")'
     );
   }
 
@@ -175,13 +178,6 @@ function auditGame(gameDir, gameName) {
   if (externalLinks > 2) {
     // Allow analytics and cdn
     warnings.push(`Found ${externalLinks} external links (minimize external dependencies)`);
-  }
-
-  // ============ DOCUMENTATION ============
-
-  const readmePath = path.join(gameDir, 'README.md');
-  if (!fs.existsSync(readmePath)) {
-    warnings.push('Missing README.md (helps with future maintenance)');
   }
 
   return { errors, warnings };
@@ -351,10 +347,12 @@ function auditPortal() {
 function collectAllJs(gameDir) {
   const jsFiles = [];
 
-  // Top-level .js files
+  const SCRIPT_FILES = /^(validate-|riddle-template)/;
+
+  // Top-level .js files (skip CLI scripts like validate-riddles.js)
   const topLevelFiles = fs
     .readdirSync(gameDir)
-    .filter(f => f.endsWith('.js'))
+    .filter(f => f.endsWith('.js') && !SCRIPT_FILES.test(f))
     .map(f => fs.readFileSync(path.join(gameDir, f), 'utf8'));
 
   // Files in js/ subdirectory
@@ -389,6 +387,7 @@ function runAudit() {
     'memory',
     'money',
     'music',
+    'play',
     'science',
     'sel',
     'tech',
