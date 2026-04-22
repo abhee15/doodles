@@ -562,6 +562,22 @@ const GAMES = [
     footerName: 'Store Shopper'
   },
   {
+    id: 'coin-counter',
+    name: 'Coin Counter',
+    thumbClass: null,
+    category: 'money',
+    desc: 'Add up pennies, nickels, dimes, and quarters to find the total — rounds get trickier as you go!',
+    icon: 'ti-coin',
+    iconColor: '#d4af37',
+    gradient: 'linear-gradient(145deg, #14532d 0%, #16a34a 100%)',
+    pattern: 'radial-gradient(circle, rgba(212,175,55,.25) 1px, transparent 1px)',
+    patternSize: '20px 20px',
+    patternPosition: null,
+    grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
+    newUntil: '2026-07-21',
+    footerName: 'Coin Counter'
+  },
+  {
     id: 'fraction-fun',
     name: 'Fraction Fun',
     thumbClass: null,
