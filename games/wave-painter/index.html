@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Wave Painter - Fourier Art for Kids | Doodles Games</title>
+    <meta name="title" content="Wave Painter - Fourier Drawing Art Game" />
+    <meta
+      name="description"
+      content="Watch spinning circles draw amazing shapes! Pick a shape, add circles, and discover the magic of waves combining to create art."
+    />
+    <meta
+      name="keywords"
+      content="fourier transform kids, wave art game, epicycles drawing, math art for kids, creative math game, wave painter"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/wave-painter/" />
+    <meta property="og:title" content="Wave Painter - Fourier Drawing Art Game" />
+    <meta
+      property="og:description"
+      content="Watch spinning circles draw amazing shapes! Pick a shape and see waves combine to create art."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/wave-painter/" />
+    <meta property="twitter:title" content="Wave Painter - Fourier Drawing Art" />
+    <meta
+      property="twitter:description"
+      content="Watch spinning circles draw amazing shapes! Pick a shape and see waves combine to create art."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/wave-painter/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #0d0221;
+        --dom-nav-color: #e0d7ff;
+        --dom-nav-border: rgba(160, 130, 255, 0.2);
+        --dom-accent: #a855f7;
+        --dom-accent2: #06b6d4;
+        --dom-bg: #0d0221;
+        --dom-text: #e0d7ff;
+        --dom-text-muted: rgba(224, 215, 255, 0.6);
+        --dom-border: rgba(168, 85, 247, 0.25);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+        --dom-card-hover: rgba(255, 255, 255, 0.08);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      /* ── LAYOUT ── */
+      .painter-layout {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+        gap: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+      }
+
+      /* ── SHAPE PICKER ── */
+      .shape-picker {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 700px;
+      }
+
+      .shape-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        padding: 10px 14px;
+        background: var(--dom-card-bg);
+        border: 1.5px solid var(--dom-border);
+        border-radius: 12px;
+        color: var(--dom-text);
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 600;
+        transition:
+          border-color 0.18s,
+          transform 0.15s;
+        min-width: 64px;
+        font-family: inherit;
+      }
+
+      .shape-btn .shape-emoji {
+        font-size: 1.6rem;
+        line-height: 1;
+      }
+
+      .shape-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .shape-btn.active {
+        border-color: var(--dom-accent);
+        background: rgba(168, 85, 247, 0.15);
+      }
+
+      /* ── CANVAS AREA ── */
+      .canvas-wrap {
+        position: relative;
+        border: 1.5px solid var(--dom-border);
+        border-radius: 16px;
+        overflow: hidden;
+        background: #080118;
+        width: 100%;
+        max-width: 600px;
+        aspect-ratio: 1;
+      }
+
+      #wave-canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      /* ── CONTROLS ── */
+      .controls-row {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 600px;
+      }
+
+      .ctrl-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        align-items: center;
+        flex: 1;
+        min-width: 140px;
+      }
+
+      .ctrl-label {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+
+      .ctrl-label span {
+        color: var(--dom-accent);
+        font-size: 0.9rem;
+      }
+
+      input[type='range'] {
+        width: 100%;
+        accent-color: var(--dom-accent);
+        cursor: pointer;
+        height: 4px;
+      }
+
+      /* ── ACTION BUTTONS ── */
+      .action-row {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+      }
+
+      .act-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: 1.5px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 700;
+        font-family: inherit;
+        transition:
+          border-color 0.18s,
+          transform 0.15s;
+      }
+
+      .act-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .act-btn.primary {
+        background: var(--dom-accent);
+        border-color: var(--dom-accent);
+        color: white;
+      }
+
+      .act-btn.primary:hover {
+        border-color: #c084fc;
+        transform: translateY(-2px);
+      }
+
+      /* ── INFO PILL ── */
+      .info-pill {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        text-align: center;
+        max-width: 560px;
+        line-height: 1.5;
+      }
+
+      .info-pill strong {
+        color: var(--dom-accent2);
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 768px) {
+        .painter-layout {
+          padding: 12px 10px;
+          gap: 12px;
+        }
+
+        .shape-btn {
+          padding: 8px 10px;
+          min-width: 56px;
+          font-size: 0.875rem;
+        }
+
+        .shape-btn .shape-emoji {
+          font-size: 1.4rem;
+        }
+
+        .ctrl-group {
+          min-width: 120px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#wave-painter"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Wave Painter</span>
+      <span class="dom-nav-meta" id="nav-meta">✨ Art with Math</span>
+    </nav>
+
+    <div class="painter-layout">
+      <!-- Shape picker -->
+      <div class="shape-picker" id="shape-picker">
+        <!-- Built by JS -->
+      </div>
+
+      <!-- Canvas -->
+      <div class="canvas-wrap">
+        <canvas id="wave-canvas"></canvas>
+      </div>
+
+      <!-- Sliders -->
+      <div class="controls-row">
+        <div class="ctrl-group">
+          <div class="ctrl-label">Circles: <span id="circles-val">20</span></div>
+          <input type="range" id="circles-slider" min="1" max="60" value="20" />
+        </div>
+        <div class="ctrl-group">
+          <div class="ctrl-label">Speed: <span id="speed-val">Medium</span></div>
+          <input type="range" id="speed-slider" min="1" max="5" value="3" />
+        </div>
+      </div>
+
+      <!-- Buttons -->
+      <div class="action-row">
+        <button class="act-btn primary" id="btn-play-pause"><i class="ti ti-player-pause"></i> Pause</button>
+        <button class="act-btn" id="btn-clear"><i class="ti ti-eraser"></i> Clear Trail</button>
+        <button class="act-btn" id="btn-circles"><i class="ti ti-eye"></i> Hide Circles</button>
+      </div>
+
+      <!-- Info -->
+      <div class="info-pill">
+        Each spinning circle is one <strong>wave</strong>. Together, they trace any shape — this is how scientists
+        describe sound, light, and even images! 🌊
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

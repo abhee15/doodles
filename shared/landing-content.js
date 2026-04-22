@@ -345,6 +345,11 @@ const LANDING_CONTENT = {
           gameId: 'draw-it',
           blurb:
             'Guides kids through structured drawing exercises from simple shapes to full illustrations. Progressive difficulty means beginners and experienced artists both find a good challenge.'
+        },
+        {
+          gameId: 'wave-painter',
+          blurb:
+            'Shows how spinning circles combine to draw any shape — stars, hearts, butterflies. An interactive introduction to waves and Fourier art that sparks genuine wow moments.'
         }
       ]
     },
@@ -372,8 +377,9 @@ const LANDING_CONTENT = {
     ],
     grades: [
       { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['draw-it'] },
-      { slug: '1st-grade', label: '1st Grade', gameIds: ['draw-it'] },
-      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['draw-it'] }
+      { slug: '1st-grade', label: '1st Grade', gameIds: ['draw-it', 'wave-painter'] },
+      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['draw-it', 'wave-painter'] },
+      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['wave-painter'] }
     ]
   },
 
@@ -428,6 +434,129 @@ const LANDING_CONTENT = {
       { slug: '1st-grade', label: '1st Grade', gameIds: ['brain-spark'] },
       { slug: '2nd-grade', label: '2nd Grade', gameIds: ['brain-spark'] },
       { slug: '3rd-grade', label: '3rd Grade', gameIds: ['brain-spark'] }
+    ]
+  },
+
+  money: {
+    heroSubtitle: 'Learn to count coins, budget wisely, and make smart money choices.',
+    seoDescription:
+      'Free money games for kids. Practice counting coins, shopping budgets, and real-world money skills.',
+    seoKeywords:
+      'money games for kids, coin counting games, budget games kids, financial literacy kids, store shopping game',
+    introParagraphs: [
+      'Financial literacy starts with the basics — recognizing coins, counting change, and understanding that choices have a cost. Kids who learn these skills early develop a healthy relationship with money.',
+      'These games make money math hands-on. Instead of abstract worksheets, kids count real-looking coins, shop within a budget, and discover the satisfaction of making smart choices.'
+    ],
+    whyItWorks: {
+      heading: 'Why Money Games Build Real-World Math Skills',
+      paragraphs: [
+        'Money is one of the most motivating contexts for math. Kids who struggle with abstract addition instantly engage when coins are involved — because the stakes feel real.',
+        'Budget-based gameplay teaches decision-making: kids must prioritize, compare prices, and think ahead. These executive-function skills transfer directly to academics and life.'
+      ],
+      gameBlurbs: [
+        {
+          gameId: 'coin-counter',
+          blurb:
+            'Builds coin recognition and addition by asking kids to count collections of pennies, nickels, dimes, and quarters. Rounds get harder as totals increase.'
+        },
+        {
+          gameId: 'store-shopper',
+          blurb:
+            'Simulates real shopping decisions — kids choose items within a set budget, building number sense and financial decision-making simultaneously.'
+        }
+      ]
+    },
+    faqs: [
+      {
+        q: 'What age are money games for?',
+        a: 'Ages 5–9. Coin Counter suits Kindergarten–2nd grade; Store Shopper is great for 2nd–4th grade budgeting practice.'
+      },
+      {
+        q: 'Do kids need to know coin values first?',
+        a: 'No — games introduce and reinforce coin values through play. Great for beginners and kids who need extra practice.'
+      },
+      {
+        q: 'Are these games aligned to school curriculum?',
+        a: 'Yes — coin recognition and counting money are standard Kindergarten–2nd grade math objectives in most curricula.'
+      },
+      {
+        q: 'Can these games replace real coin practice?',
+        a: 'Great complement to hands-on practice. Many kids benefit from both physical coins and screen-based games.'
+      },
+      {
+        q: 'Are the games free?',
+        a: 'Completely free — no account, no download, no ads in the game. Just open and play.'
+      }
+    ],
+    grades: [
+      { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['coin-counter'] },
+      { slug: '1st-grade', label: '1st Grade', gameIds: ['coin-counter', 'store-shopper'] },
+      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['coin-counter', 'store-shopper'] },
+      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['store-shopper'] }
+    ]
+  },
+
+  play: {
+    heroSubtitle: 'Pure fun — explore, discover, and play in joyful worlds built for kids.',
+    seoDescription:
+      'Free play games for kids. Explore magical worlds, blast aliens, and go on adventures in these joyful games.',
+    seoKeywords:
+      'fun games for kids, kids adventure games, free play games, pop town game, pixel quest platformer, star blaster',
+    introParagraphs: [
+      'Not every game needs a lesson — sometimes play itself is the point. These games are built for pure joy: popping balloons, exploring pixel worlds, and blasting through galaxies.',
+      'Play builds creativity, persistence, and imagination. Kids who have space to explore and experiment develop the curiosity that makes learning stick.'
+    ],
+    whyItWorks: {
+      heading: 'Why Free Play Supports Learning and Wellbeing',
+      paragraphs: [
+        "Unstructured play develops intrinsic motivation — the internal drive that makes kids want to learn more. When kids choose to keep playing, they're building persistence and self-direction.",
+        'Even "just for fun" games build real skills: reaction time, spatial reasoning, pattern recognition, and creative problem-solving all improve through enthusiastic play.'
+      ],
+      gameBlurbs: [
+        {
+          gameId: 'pop-town',
+          blurb:
+            'A gentle, joyful world where kids pop balloons, hatch animals, and find ocean treasures. Perfect for younger children exploring cause and effect through play.'
+        },
+        {
+          gameId: 'star-blaster',
+          blurb:
+            'A fast-paced space shooter that builds reaction time and strategic thinking. Kids defend the galaxy while developing hand-eye coordination.'
+        },
+        {
+          gameId: 'pixel-quest',
+          blurb:
+            'A classic platformer adventure through Grassland, Desert, and Castle worlds. Builds persistence, timing, and spatial awareness through joyful challenge.'
+        }
+      ]
+    },
+    faqs: [
+      {
+        q: 'Are these games just for fun or educational too?',
+        a: 'Both! Play develops creativity, persistence, spatial reasoning, and hand-eye coordination — even without an explicit lesson.'
+      },
+      {
+        q: 'What age is Pop Town for?',
+        a: "Ages 3–7. It's designed for young children with gentle interactions and no time pressure."
+      },
+      {
+        q: 'Are these games safe for kids?',
+        a: 'Yes — no ads, no chat, no external links. Games are self-contained and kid-safe.'
+      },
+      {
+        q: 'How long should kids play?',
+        a: '15–20 minutes of active play is a great session. The games are designed to be engaging but not addictive.'
+      },
+      {
+        q: 'Do these games work on mobile?',
+        a: 'Yes — all games are mobile-responsive and work on phones and tablets.'
+      }
+    ],
+    grades: [
+      { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['pop-town'] },
+      { slug: '1st-grade', label: '1st Grade', gameIds: ['pop-town', 'pixel-quest'] },
+      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['pixel-quest', 'star-blaster'] },
+      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['star-blaster', 'pixel-quest'] }
     ]
   }
 };

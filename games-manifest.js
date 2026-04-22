@@ -362,6 +362,22 @@ const GAMES = [
     footerName: 'Draw It'
   },
   {
+    id: 'wave-painter',
+    name: 'Wave Painter',
+    thumbClass: 'wave-painter',
+    category: 'art',
+    desc: 'Watch spinning circles draw amazing shapes — stars, hearts, butterflies! Discover the magic of waves and math art.',
+    icon: 'ti-circle-dashed',
+    iconColor: '#e879f9',
+    gradient: 'linear-gradient(145deg, #0d0221 0%, #4c1d95 50%, #7e22ce 100%)',
+    pattern: 'radial-gradient(circle, rgba(232,121,249,0.2) 1px, transparent 1px)',
+    patternSize: '28px 28px',
+    patternPosition: '0 0',
+    grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Wave Painter'
+  },
+  {
     id: 'brain-spark',
     name: 'Brain Spark',
     thumbClass: 'brain-spark',

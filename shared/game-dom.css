@@ -116,6 +116,8 @@ body {
 .dom-nav-meta {
   font-size: 0.875rem;
   opacity: 0.9;
+  flex-shrink: 0;
+  margin-left: var(--tok-space-2, 8px);
 }
 
 /* ============================================================
