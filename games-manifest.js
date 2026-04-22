@@ -378,6 +378,23 @@ const GAMES = [
     footerName: 'Brain Spark'
   },
   {
+    id: 'pattern-puzzles',
+    name: 'Pattern Puzzles',
+    thumbClass: null,
+    category: 'logic',
+    desc: 'Find the rule hiding in each number sequence — count up, skip-count, multiply, or spot Fibonacci patterns!',
+    icon: 'ti-arrows-right',
+    iconColor: '#e94560',
+    gradient: 'linear-gradient(145deg, #1a1a2e 0%, #0f3460 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(233,69,96,.08) 0px, rgba(233,69,96,.08) 1px, transparent 1px, transparent 16px)',
+    patternSize: '16px 16px',
+    patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-07-21',
+    footerName: 'Pattern Puzzles'
+  },
+  {
     id: 'photosynthesis-explorer',
     name: 'Photosynthesis',
     thumbClass: 'photosynthesis',

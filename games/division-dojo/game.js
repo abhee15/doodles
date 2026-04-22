@@ -1132,7 +1132,7 @@ function calculateTrickBreakdown() {
     '<div style="margin-top: 16px"><div style="font-size: 14px; font-weight: 700; margin-bottom: 8px">By Trick Category:</div>';
   Object.entries(breakdown).forEach(([trick, stats]) => {
     const pct = Math.round((stats.correct / stats.total) * 100);
-    html += `<div style="margin-bottom: 8px; padding: 8px; background: color-mix(in srgb, var(--dom-accent) 10%, white); border-radius: 4px; font-size: 13px">
+    html += `<div style="margin-bottom: 8px; padding: 8px; background: color-mix(in srgb, var(--dom-accent) 10%, white); border-radius: 4px; font-size: 14px">
       <strong>${trick}:</strong> ${stats.correct}/${stats.total} (${pct}%)
     </div>`;
   });

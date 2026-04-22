@@ -77,7 +77,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
   padding: 6px 16px;
 }
@@ -106,7 +106,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
   text-align: center;
 }
@@ -177,7 +177,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text-dark, #333);
   background: linear-gradient(135deg, var(--element-light, #e5f0ff), rgba(255, 255, 255, 0));
   padding: 10px 12px;
@@ -257,7 +257,7 @@
 }
 
 .prc-element-name {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
   margin-top: 4px;
 }
@@ -266,7 +266,7 @@
   padding: 12px;
   text-align: center;
   border-top: 1px solid rgba(0, 0, 0, 0.05);
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
 }
 
@@ -316,7 +316,7 @@
   color: white;
   padding: 6px 12px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 

@@ -68,7 +68,7 @@
   background: rgba(255, 255, 255, 0.3);
   padding: 6px 12px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -147,7 +147,7 @@
 }
 
 .panel-number {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-muted, #6b7280);
   margin-bottom: 10px;
 }
@@ -352,7 +352,7 @@
 }
 
 .room-element-count {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
   margin-bottom: 12px;
 }
@@ -373,7 +373,7 @@
   color: white;
   padding: 4px 10px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
 }
 
@@ -518,12 +518,12 @@
 }
 
 .element-number {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
 }
 
 .element-room {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
   margin-bottom: 8px;
   font-weight: 500;
@@ -617,7 +617,7 @@
 
 .zone-label-mini {
   font-weight: 600;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text-dark, #333);
 }
 
@@ -630,7 +630,7 @@
 .body-map-legend {
   text-align: center;
   color: var(--color-text-light, #666);
-  font-size: 13px;
+  font-size: 14px;
 }
 
 .body-map-legend i {
@@ -750,7 +750,7 @@
 
 .zone-list-label {
   font-weight: 700;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -765,7 +765,7 @@
 }
 
 .zone-list-tip {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
   line-height: 1.5;
 }
@@ -857,7 +857,7 @@
 }
 
 .keyword-tip {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text-muted, #6b7280);
   line-height: 1.4;
 }
@@ -907,13 +907,13 @@
 }
 
 .rhyme-number {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-muted, #6b7280);
   margin-bottom: 8px;
 }
 
 .rhyme-peg {
-  font-size: 12px;
+  font-size: 14px;
   background: var(--color-primary, #1cb0f6);
   color: white;
   padding: 6px;
@@ -937,7 +937,7 @@
 }
 
 .rhyme-card .tip {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-muted, #6b7280);
   line-height: 1.3;
 }

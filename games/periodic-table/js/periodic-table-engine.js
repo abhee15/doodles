@@ -147,7 +147,7 @@ class PeriodicTableGameEngine {
     storyText.innerHTML = `
       <div style="text-align: center; margin-bottom: 20px;">
         <h3><i class="ti ti-target"></i> Create a Story with These Elements:</h3>
-        <p style="font-size: 13px; color: #666;">Link each element in an epic narrative - the more vivid, the better!</p>
+        <p style="font-size: 14px; color: #666;">Link each element in an epic narrative - the more vivid, the better!</p>
       </div>
     `;
 
@@ -334,7 +334,7 @@ class PeriodicTableGameEngine {
       const header = document.createElement('div');
       header.style.marginBottom = '20px';
       header.innerHTML = `
-        <p style="text-align: center; color: #666; font-size: 13px;">
+        <p style="text-align: center; color: #666; font-size: 14px;">
           Each element has a unique visual association. Study the pictures to create mental images!
         </p>
       `;
@@ -360,7 +360,7 @@ class PeriodicTableGameEngine {
       const header = document.createElement('div');
       header.style.marginBottom = '20px';
       header.innerHTML = `
-        <p style="text-align: center; color: #666; font-size: 13px;">
+        <p style="text-align: center; color: #666; font-size: 14px;">
           Link each element number to its visual icon - create vivid mental connections!
         </p>
       `;

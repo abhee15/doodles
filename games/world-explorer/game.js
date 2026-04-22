@@ -336,7 +336,7 @@ function updateContinentGrid(countriesInContinent) {
           <div class="country-card-flag">${country.flag}</div>
           <h3 class="country-card-name">${country.name}</h3>
           <p class="country-card-hook">${country.hooks.primary}</p>
-          ${isExplored ? '<span style="color: var(--color-success); font-size: 12px; font-weight: 600;">✓ Explored</span>' : ''}
+          ${isExplored ? '<span style="color: var(--color-success); font-size: 14px; font-weight: 600;">✓ Explored</span>' : ''}
         </div>
       `;
     })
@@ -582,7 +582,7 @@ function renderDetailTabs(country) {
   if (mapSVG) {
     geographyContent += `
       <div style="margin-bottom: 20px; padding: 12px; background: #f9fbff; border-radius: 8px; border: 1px solid var(--dom-border)">
-        <h4 style="font-size: 12px; font-weight: 700; color: var(--dom-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0">📍 Geographic Map</h4>
+        <h4 style="font-size: 14px; font-weight: 700; color: var(--dom-text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 8px 0">📍 Geographic Map</h4>
         ${mapSVG}
       </div>
     `;
@@ -608,8 +608,8 @@ function renderDetailTabs(country) {
     if (country.geography.states && country.geography.states.length > 0) {
       geographyContent += `
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">States/Regions</h4>
-          <p style="font-size: 13px; color: var(--dom-text); margin: 0">${country.geography.states.slice(0, 5).join(', ')}</p>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">States/Regions</h4>
+          <p style="font-size: 14px; color: var(--dom-text); margin: 0">${country.geography.states.slice(0, 5).join(', ')}</p>
         </div>
       `;
     }
@@ -618,14 +618,14 @@ function renderDetailTabs(country) {
     if (country.geography.rivers && country.geography.rivers.length > 0) {
       geographyContent += `
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌊 Rivers</h4>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌊 Rivers</h4>
           ${country.geography.rivers
             .slice(0, 3)
             .map(
               r => `
             <div style="margin-bottom: 8px">
-              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${r.name}</p>
-              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${r.length}: ${r.fact}</p>
+              <p style="font-size: 14px; font-weight: 600; color: var(--dom-text); margin: 0">${r.name}</p>
+              <p style="font-size: 14px; color: var(--dom-text-muted); margin: 0">${r.length}: ${r.fact}</p>
             </div>
           `
             )
@@ -638,14 +638,14 @@ function renderDetailTabs(country) {
     if (country.geography.mountains && country.geography.mountains.length > 0) {
       geographyContent += `
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">⛰️ Mountains</h4>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">⛰️ Mountains</h4>
           ${country.geography.mountains
             .slice(0, 3)
             .map(
               m => `
             <div style="margin-bottom: 8px">
-              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${m.name}</p>
-              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${m.elevation}: ${m.fact}</p>
+              <p style="font-size: 14px; font-weight: 600; color: var(--dom-text); margin: 0">${m.name}</p>
+              <p style="font-size: 14px; color: var(--dom-text-muted); margin: 0">${m.elevation}: ${m.fact}</p>
             </div>
           `
             )
@@ -658,14 +658,14 @@ function renderDetailTabs(country) {
     if (country.geography.forests && country.geography.forests.length > 0) {
       geographyContent += `
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌲 Forests</h4>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌲 Forests</h4>
           ${country.geography.forests
             .slice(0, 3)
             .map(
               f => `
             <div style="margin-bottom: 8px">
-              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${f.name}</p>
-              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${f.area}: ${f.fact}</p>
+              <p style="font-size: 14px; font-weight: 600; color: var(--dom-text); margin: 0">${f.name}</p>
+              <p style="font-size: 14px; color: var(--dom-text-muted); margin: 0">${f.area}: ${f.fact}</p>
             </div>
           `
             )
@@ -678,14 +678,14 @@ function renderDetailTabs(country) {
     if (country.geography.rainforests && country.geography.rainforests.length > 0) {
       geographyContent += `
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌴 Rainforests</h4>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌴 Rainforests</h4>
           ${country.geography.rainforests
             .slice(0, 3)
             .map(
               r => `
             <div style="margin-bottom: 8px">
-              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${r.name}</p>
-              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${r.area}: ${r.fact}</p>
+              <p style="font-size: 14px; font-weight: 600; color: var(--dom-text); margin: 0">${r.name}</p>
+              <p style="font-size: 14px; color: var(--dom-text-muted); margin: 0">${r.area}: ${r.fact}</p>
             </div>
           `
             )
@@ -698,14 +698,14 @@ function renderDetailTabs(country) {
     if (country.geography.deserts && country.geography.deserts.length > 0) {
       geographyContent += `
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🏜️ Deserts</h4>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🏜️ Deserts</h4>
           ${country.geography.deserts
             .slice(0, 3)
             .map(
               d => `
             <div style="margin-bottom: 8px">
-              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${d.name}</p>
-              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${d.area}: ${d.fact}</p>
+              <p style="font-size: 14px; font-weight: 600; color: var(--dom-text); margin: 0">${d.name}</p>
+              <p style="font-size: 14px; color: var(--dom-text-muted); margin: 0">${d.area}: ${d.fact}</p>
             </div>
           `
             )
@@ -718,14 +718,14 @@ function renderDetailTabs(country) {
     if (country.geography.lakes && country.geography.lakes.length > 0) {
       geographyContent += `
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌊 Lakes</h4>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">🌊 Lakes</h4>
           ${country.geography.lakes
             .slice(0, 3)
             .map(
               l => `
             <div style="margin-bottom: 8px">
-              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${l.name}</p>
-              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${l.area}: ${l.fact}</p>
+              <p style="font-size: 14px; font-weight: 600; color: var(--dom-text); margin: 0">${l.name}</p>
+              <p style="font-size: 14px; color: var(--dom-text-muted); margin: 0">${l.area}: ${l.fact}</p>
             </div>
           `
             )
@@ -738,14 +738,14 @@ function renderDetailTabs(country) {
     if (country.geography.oases && country.geography.oases.length > 0) {
       geographyContent += `
         <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--dom-border)">
-          <h4 style="font-size: 13px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">💧 Oases</h4>
+          <h4 style="font-size: 14px; font-weight: 700; color: var(--dom-accent); margin-bottom: 8px">💧 Oases</h4>
           ${country.geography.oases
             .slice(0, 3)
             .map(
               o => `
             <div style="margin-bottom: 8px">
-              <p style="font-size: 13px; font-weight: 600; color: var(--dom-text); margin: 0">${o.name}</p>
-              <p style="font-size: 12px; color: var(--dom-text-muted); margin: 0">${o.fact}</p>
+              <p style="font-size: 14px; font-weight: 600; color: var(--dom-text); margin: 0">${o.name}</p>
+              <p style="font-size: 14px; color: var(--dom-text-muted); margin: 0">${o.fact}</p>
             </div>
           `
             )
@@ -1450,7 +1450,7 @@ function renderLandmarkHunt() {
       </div>
       <h3 style="text-align: center; margin-bottom: 12px;">${landmark.name}</h3>
       <p style="text-align: center; color: var(--dom-text-muted); margin-bottom: 20px;">${landmark.desc}</p>
-      <p style="text-align: center; font-size: 13px; color: var(--dom-text-muted);">Which country is this landmark in?</p>
+      <p style="text-align: center; font-size: 14px; color: var(--dom-text-muted);">Which country is this landmark in?</p>
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 12px; margin-bottom: 24px;" id="landmark-options">
@@ -1494,14 +1494,14 @@ function renderLandmarkHunt() {
         resultDiv.innerHTML = `
           <div style="padding: 16px; background: rgba(76, 175, 80, 0.1); border-radius: 8px; border-left: 4px solid #4caf50;">
             <p style="color: #4caf50; font-weight: 600; margin: 0;"><i class="ti ti-check"></i> Correct! ${resultCountry.flag}</p>
-            <p style="color: var(--dom-text-muted); font-size: 13px; margin: 8px 0 0 0;">${resultCountry.name}</p>
+            <p style="color: var(--dom-text-muted); font-size: 14px; margin: 8px 0 0 0;">${resultCountry.name}</p>
           </div>
         `;
       } else {
         resultDiv.innerHTML = `
           <div style="padding: 16px; background: rgba(255, 152, 0, 0.1); border-radius: 8px; border-left: 4px solid #ff9800;">
             <p style="color: #ff9800; font-weight: 600; margin: 0;"><i class="ti ti-info-circle"></i> The correct answer is ${resultCountry.flag} ${resultCountry.name}</p>
-            <p style="color: var(--dom-text-muted); font-size: 13px; margin: 8px 0 0 0;">No worries! This is how you learn. The more you explore countries, the easier these quizzes become!</p>
+            <p style="color: var(--dom-text-muted); font-size: 14px; margin: 8px 0 0 0;">No worries! This is how you learn. The more you explore countries, the easier these quizzes become!</p>
           </div>
         `;
       }
@@ -1544,13 +1544,13 @@ function renderCollections() {
       <div class="collection-card" style="padding: 20px; border: 2px solid var(--dom-border); border-radius: 12px; cursor: pointer; transition: all 0.2s;" onclick="goToScreen('continent', { continent: '${continentId}' })">
         <div style="font-size: 28px; margin-bottom: 12px;"><i class="ti ${continentIcons[continentId]}"></i></div>
         <h3 style="margin: 0 0 8px 0; font-size: 18px;">${continentInfo.name}</h3>
-        <p style="color: var(--dom-text-muted); font-size: 13px; margin: 0 0 12px 0;">${exploredInContinent} of ${countriesInContinent.length} countries</p>
+        <p style="color: var(--dom-text-muted); font-size: 14px; margin: 0 0 12px 0;">${exploredInContinent} of ${countriesInContinent.length} countries</p>
 
         <div style="width: 100%; height: 8px; background: var(--dom-border); border-radius: 4px; overflow: hidden; margin-bottom: 12px;">
           <div style="width: ${percentage}%; height: 100%; background: linear-gradient(90deg, #4caf50, #81c784); transition: width 0.3s;"></div>
         </div>
 
-        <p style="color: var(--dom-text-muted); font-size: 12px; margin: 0; text-align: center;">${percentage}% Complete</p>
+        <p style="color: var(--dom-text-muted); font-size: 14px; margin: 0; text-align: center;">${percentage}% Complete</p>
       </div>
     `;
   });
@@ -1652,7 +1652,7 @@ function showAchievementNotification(achievement) {
   notification.innerHTML = `
     <div style="font-size: 18px; margin-bottom: 4px;">🏆 Achievement Unlocked!</div>
     <div>${achievement.name}</div>
-    <div style="font-size: 12px; opacity: 0.9; margin-top: 4px;">${achievement.description}</div>
+    <div style="font-size: 14px; opacity: 0.9; margin-top: 4px;">${achievement.description}</div>
   `;
 
   document.body.appendChild(notification);
@@ -1914,7 +1914,7 @@ function renderQuiz() {
     html += `
       <p style="font-size: 14px; color: var(--dom-text-muted); margin-bottom: 12px;">${question.sentence}</p>
       <input type="text" class="fill-blank-input" id="blank-answer" placeholder="Type the missing word..." />
-      <p style="font-size: 12px; color: var(--dom-text-muted); margin-top: 8px;">💡 ${question.hint}</p>
+      <p style="font-size: 14px; color: var(--dom-text-muted); margin-top: 8px;">💡 ${question.hint}</p>
     `;
   }
 

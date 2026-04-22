@@ -599,7 +599,7 @@ function showFactPanel(dino) {
         <div style="background:#FFF8E7;border:4px solid #D4A017;border-radius:14px;padding:28px 32px;max-width:540px;width:90%;font-family:Arial,sans-serif;position:relative">
             <div style="font:bold 18px Arial Black,Arial;color:#CC2200;margin-bottom:4px">Oops! That was a ${dino.nick}!</div>
             <div style="font:bold 22px Arial Black,Arial;color:${dino.color};margin-bottom:14px">${dino.name}</div>
-            <table style="width:100%;border-collapse:collapse;margin-bottom:14px;font-size:13px">
+            <table style="width:100%;border-collapse:collapse;margin-bottom:14px;font-size:14px">
                 <tr><td style="padding:3px 0;color:#555;font-weight:bold;width:80px">Diet</td><td>${dino.diet} ${dino.dietIcon}</td></tr>
                 <tr><td style="padding:3px 0;color:#555;font-weight:bold">Period</td><td>${dino.period}</td></tr>
                 <tr><td style="padding:3px 0;color:#555;font-weight:bold">Length</td><td>${dino.length}</td></tr>
@@ -607,7 +607,7 @@ function showFactPanel(dino) {
                 <tr><td style="padding:3px 0;color:#555;font-weight:bold">Found</td><td>${dino.found}</td></tr>
             </table>
             <div style="font:bold 13px Arial Black,Arial;color:#7B2D00;margin-bottom:8px">💡 Fun Facts:</div>
-            ${dino.facts.map(f => `<div style="font-size:12px;color:#1F2937;margin-bottom:6px">${f}</div>`).join('')}
+            ${dino.facts.map(f => `<div style="font-size:14px;color:#1F2937;margin-bottom:6px">${f}</div>`).join('')}
             <button onclick="document.getElementById('dh-fact').remove();G.paused=false;"
                 style="margin-top:16px;background:#A44A3F;color:#fff;border:none;border-radius:8px;padding:10px 24px;font:bold 15px Arial Black,Arial;cursor:pointer;width:100%">
                 Got it! Keep Playing →

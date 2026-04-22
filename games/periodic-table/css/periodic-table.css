@@ -178,7 +178,7 @@ body {
 }
 
 .chunk-range {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-muted, #6b7280);
   margin-bottom: 10px;
 }
@@ -199,7 +199,7 @@ body {
   color: var(--color-text-dark, #1a1a1a);
   padding: 8px 16px;
   border-radius: 20px;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 600;
   margin-bottom: 20px;
 }
@@ -301,7 +301,7 @@ body {
 }
 
 .tech-desc {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--color-text-muted, #6b7280);
   line-height: 1.4;
 }

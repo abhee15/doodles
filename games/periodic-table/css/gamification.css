@@ -134,13 +134,13 @@
 
 .badge-title {
   font-weight: 700;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-dark, #333);
   line-height: 1.2;
 }
 
 .badge-description {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
   margin-top: 4px;
 }
@@ -384,7 +384,7 @@
 }
 
 .stat-box-label {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--color-text-light, #666);
   margin-top: 5px;
   text-transform: uppercase;
