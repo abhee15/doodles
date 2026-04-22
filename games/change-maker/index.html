@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Change Maker - Coin Change Math Game for Kids | Doodles Games</title>
+    <meta name="title" content="Change Maker - Coin Change Game" />
+    <meta
+      name="description"
+      content="Learn to make correct change! Pick coins and bills to give back the right amount. Perfect money math practice for kids ages 5–10."
+    />
+    <meta
+      name="keywords"
+      content="making change game kids, coin change math, money math children, counting change, coins and bills game"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/change-maker/" />
+    <meta property="og:title" content="Change Maker - Coin Change Game" />
+    <meta
+      property="og:description"
+      content="Learn to make correct change with coins and bills! Fun money math for kids."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/change-maker/" />
+    <meta property="twitter:title" content="Change Maker - Coin Change Game" />
+    <meta
+      property="twitter:description"
+      content="Learn to make correct change with coins and bills! Fun money math for kids."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/change-maker/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #052e16;
+        --dom-nav-color: #bbf7d0;
+        --dom-nav-border: rgba(34, 197, 94, 0.25);
+        --dom-accent: #16a34a;
+        --dom-accent2: #fbbf24;
+        --dom-bg: #022c22;
+        --dom-text: #f0fdf4;
+        --dom-text-muted: rgba(240, 253, 244, 0.6);
+        --dom-border: rgba(34, 197, 94, 0.2);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
+      }
+      .screen.active {
+        display: flex;
+      }
+
+      /* ── START SCREEN ── */
+      .start-title {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-top: 8px;
+      }
+
+      .start-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 300px;
+        line-height: 1.5;
+      }
+
+      .level-picker {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 420px;
+      }
+
+      .level-btn {
+        flex: 1;
+        min-width: 100px;
+        padding: 18px 12px;
+        border-radius: 14px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-family: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+
+      .level-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .lv-emoji {
+        font-size: 2rem;
+      }
+      .lv-label {
+        font-size: 1rem;
+        font-weight: 800;
+      }
+      .lv-hint {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+      }
+
+      /* ── GAME SCREEN ── */
+      .game-meta {
+        display: flex;
+        width: 100%;
+        max-width: 420px;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+      }
+
+      .purchase-card {
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 16px;
+        padding: 16px 24px;
+        width: 100%;
+        max-width: 420px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        text-align: left;
+      }
+
+      .item-emoji-big {
+        font-size: 2.8rem;
+        flex-shrink: 0;
+      }
+
+      .purchase-info {
+        flex: 1;
+      }
+
+      .item-name-label {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      .item-price-big {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+
+      .pays-row {
+        font-size: 0.9rem;
+        color: var(--dom-text-muted);
+        margin-top: 2px;
+      }
+
+      /* ── CHANGE TARGET ── */
+      .change-target {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(22, 163, 74, 0.1);
+        border: 2px solid rgba(22, 163, 74, 0.35);
+        border-radius: 14px;
+        padding: 12px 20px;
+        width: 100%;
+        max-width: 420px;
+      }
+
+      .change-target-label {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+        flex: 1;
+        text-align: left;
+      }
+
+      .change-target-amount {
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #4ade80;
+      }
+
+      /* ── COIN GRID ── */
+      .coin-grid {
+        width: 100%;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .coin-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: var(--dom-card-bg);
+        border: 1px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 10px 14px;
+      }
+
+      .coin-info {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+      }
+
+      .coin-icon {
+        font-size: 1.4rem;
+      }
+
+      .coin-label {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+
+      .coin-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1.3rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          border-color 0.12s,
+          transform 0.1s;
+      }
+
+      .coin-btn:hover {
+        border-color: var(--dom-accent);
+        transform: scale(1.08);
+      }
+
+      .plus-btn {
+        color: #4ade80;
+      }
+      .minus-btn {
+        color: #f87171;
+      }
+
+      .coin-count {
+        font-size: 1.2rem;
+        font-weight: 800;
+        width: 28px;
+        text-align: center;
+        color: var(--dom-accent2);
+      }
+
+      /* ── RUNNING TOTAL ── */
+      .total-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        max-width: 420px;
+        justify-content: space-between;
+      }
+
+      .total-label {
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+      }
+
+      .running-total {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+
+      /* ── FEEDBACK ── */
+      .feedback {
+        font-size: 1rem;
+        font-weight: 700;
+        min-height: 1.5rem;
+        text-align: center;
+      }
+      .feedback.good {
+        color: #4ade80;
+      }
+      .feedback.bad {
+        color: #f87171;
+      }
+
+      /* ── ACTION ROW ── */
+      .action-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+
+      .action-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      /* ── RESULT SCREEN ── */
+      .result-emoji {
+        font-size: 4rem;
+      }
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+      .result-score {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+      .result-level {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      /* ── MOBILE ── */
+      @media (max-width: 480px) {
+        .level-btn {
+          min-width: 80px;
+          padding: 14px 8px;
+        }
+        .lv-emoji {
+          font-size: 1.6rem;
+        }
+        .lv-label {
+          font-size: 0.9rem;
+        }
+        .purchase-card {
+          padding: 12px 16px;
+          gap: 12px;
+        }
+        .item-emoji-big {
+          font-size: 2.2rem;
+        }
+        .coin-row {
+          padding: 8px 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#change-maker"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Change Maker</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Start Screen -->
+    <div class="screen active" id="screen-start">
+      <div class="start-title">
+        <span style="display: block; font-size: 2.8rem; margin-bottom: 8px">💰</span>
+        Change Maker
+      </div>
+      <div class="start-sub">Give the right change using coins and bills!</div>
+      <div class="level-picker" id="level-picker">
+        <!-- built by JS -->
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="screen" id="screen-game">
+      <div class="game-meta">
+        <span id="round-label">Round 1 of 8</span>
+        <span id="score-label">Score: 0</span>
+      </div>
+
+      <div class="purchase-card">
+        <div class="item-emoji-big" id="item-emoji">🍎</div>
+        <div class="purchase-info">
+          <div class="item-name-label" id="item-name">Apple</div>
+          <div class="item-price-big" id="item-price">$0.47</div>
+          <div class="pays-row">Customer pays: <strong id="pays-with">$1.00</strong></div>
+        </div>
+      </div>
+
+      <div class="change-target">
+        <span class="change-target-label">Change to give back:</span>
+        <span class="change-target-amount" id="target-change">53¢</span>
+      </div>
+
+      <div class="coin-grid" id="coin-grid">
+        <!-- built by JS -->
+      </div>
+
+      <div class="total-row">
+        <span class="total-label">Your change so far:</span>
+        <span class="running-total" id="running-total">0¢</span>
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="action-row">
+        <button class="action-btn" id="btn-clear">Clear</button>
+        <button class="action-btn" id="btn-menu">← Menu</button>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="screen" id="screen-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <div class="result-title" id="result-title">Perfect Change!</div>
+      <div class="result-score" id="result-score">8 / 8 correct</div>
+      <div class="result-level" id="result-level">Easy level</div>
+      <div class="action-row" style="margin-top: 12px">
+        <button class="action-btn" id="btn-menu">Change Level</button>
+        <button class="action-btn" id="btn-play-again">Play Again</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

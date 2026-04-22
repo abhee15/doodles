@@ -513,6 +513,11 @@ const LANDING_CONTENT = {
             'Builds coin recognition and addition by asking kids to count collections of pennies, nickels, dimes, and quarters. Rounds get harder as totals increase.'
         },
         {
+          gameId: 'change-maker',
+          blurb:
+            'Teaches kids to give correct change by selecting coins and bills. Three difficulty levels — Easy ($1 bill), Medium ($2 bill), Hard ($5 bill) — with instant feedback.'
+        },
+        {
           gameId: 'store-shopper',
           blurb:
             'Simulates real shopping decisions — kids choose items within a set budget, building number sense and financial decision-making simultaneously.'
@@ -522,7 +527,7 @@ const LANDING_CONTENT = {
     faqs: [
       {
         q: 'What age are money games for?',
-        a: 'Ages 5–9. Coin Counter suits Kindergarten–2nd grade; Store Shopper is great for 2nd–4th grade budgeting practice.'
+        a: 'Ages 5–10. Coin Counter suits Kindergarten–2nd grade; Change Maker is great for 1st–4th grade; Store Shopper builds budgeting skills for 2nd–4th grade.'
       },
       {
         q: 'Do kids need to know coin values first?',
@@ -530,7 +535,7 @@ const LANDING_CONTENT = {
       },
       {
         q: 'Are these games aligned to school curriculum?',
-        a: 'Yes — coin recognition and counting money are standard Kindergarten–2nd grade math objectives in most curricula.'
+        a: 'Yes — coin recognition, counting change, and money math are standard 1st–3rd grade objectives in most curricula.'
       },
       {
         q: 'Can these games replace real coin practice?',
@@ -543,9 +548,14 @@ const LANDING_CONTENT = {
     ],
     grades: [
       { slug: 'kindergarten', label: 'Kindergarten', gameIds: ['coin-counter'] },
-      { slug: '1st-grade', label: '1st Grade', gameIds: ['coin-counter', 'store-shopper'] },
-      { slug: '2nd-grade', label: '2nd Grade', gameIds: ['coin-counter', 'store-shopper'] },
-      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['store-shopper'] }
+      { slug: '1st-grade', label: '1st Grade', gameIds: ['coin-counter', 'change-maker'] },
+      {
+        slug: '2nd-grade',
+        label: '2nd Grade',
+        gameIds: ['coin-counter', 'change-maker', 'store-shopper']
+      },
+      { slug: '3rd-grade', label: '3rd Grade', gameIds: ['change-maker', 'store-shopper'] },
+      { slug: '4th-grade', label: '4th Grade', gameIds: ['change-maker', 'store-shopper'] }
     ]
   },
 

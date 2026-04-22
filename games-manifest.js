@@ -659,6 +659,22 @@ const GAMES = [
     footerName: 'Coin Counter'
   },
   {
+    id: 'change-maker',
+    name: 'Change Maker',
+    thumbClass: null,
+    category: 'money',
+    desc: 'Pick the right coins and bills to give back correct change! Easy, Medium, and Hard money challenges.',
+    icon: 'ti-cash',
+    iconColor: '#4ade80',
+    gradient: 'linear-gradient(145deg, #022c22 0%, #16a34a 100%)',
+    pattern: 'radial-gradient(circle, rgba(74,222,128,.2) 1px, transparent 1px)',
+    patternSize: '22px 22px',
+    patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Change Maker'
+  },
+  {
     id: 'fraction-fun',
     name: 'Fraction Fun',
     thumbClass: null,
