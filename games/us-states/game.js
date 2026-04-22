@@ -607,7 +607,7 @@
         'display:flex;align-items:center;justify-content:center;' +
         'cursor:pointer;' +
         'transition:filter 0.15s,border-color 0.15s,transform 0.1s;' +
-        'font-size:0.62rem;font-weight:700;color:#fff;text-align:center;line-height:1.1;' +
+        'font-size:0.875rem;font-weight:700;color:#fff;text-align:center;line-height:1.1;' +
         'user-select:none;' +
         `">${state.abbr}</div>`;
     });

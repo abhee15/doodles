@@ -38,7 +38,7 @@ function auditGame(gameDir, gameName) {
   const indexPath = path.join(gameDir, 'index.html');
   const gamePath = path.join(gameDir, 'game.js');
   const gamePathInJs = path.join(gameDir, 'js', 'game.js'); // Allow js/ subdirectory
-  const cssPath = path.join(gameDir, 'styles.css');
+  const cssPath = path.join(gameDir, 'styles.css'); // legacy fallback
 
   // ============ REQUIRED FILES ============
   if (!fs.existsSync(indexPath)) {
@@ -131,22 +131,57 @@ function auditGame(gameDir, gameName) {
 
   // ============ UX FOR KIDS ============
 
-  // Check button sizes in CSS
-  const cssContent = fs.existsSync(cssPath) ? fs.readFileSync(cssPath, 'utf8') : '';
+  // Check button sizes in CSS (index.html + all CSS files only, not game.js)
+  // Collect CSS from styles.css, any css/ subdir files, and any .css alongside index.html
+  const collectCssFiles = dir => {
+    let content = '';
+    if (fs.existsSync(cssPath)) {
+      content += fs.readFileSync(cssPath, 'utf8');
+    }
+    const cssSubdir = path.join(dir, 'css');
+    if (fs.existsSync(cssSubdir)) {
+      fs.readdirSync(cssSubdir)
+        .filter(f => f.endsWith('.css'))
+        .forEach(f => {
+          content += fs.readFileSync(path.join(cssSubdir, f), 'utf8');
+        });
+    }
+    return content;
+  };
+  const cssContent = collectCssFiles(gameDir);
   const allCss = indexContent + gameContent + cssContent;
+  const cssOnly = indexContent + cssContent;
 
-  // Rough check - look for button declarations
-  const hasButtonStyling = allCss.includes('button') || allCss.includes('.btn');
-  if (hasButtonStyling && !allCss.includes('min-height:') && !allCss.includes('height: 4')) {
+  // Only flag DOM games that define custom button styles without explicit min-height/height
+  // Skip Phaser games (use game-page-v2.css) and DOM games using .dom-btn (pre-sized in shared CSS)
+  const isPhaserGame = indexContent.includes('game-page-v2.css');
+  const usesDomBtn = cssOnly.includes('dom-btn') || indexContent.includes('game-dom.css');
+  const hasCustomButtonStyling =
+    (cssOnly.includes('<button') || cssOnly.includes('.btn-')) && !isPhaserGame && !usesDomBtn;
+  if (
+    hasCustomButtonStyling &&
+    !cssOnly.includes('min-height:') &&
+    !cssOnly.includes('height: 4')
+  ) {
     warnings.push('Verify button sizes are ≥44px (mobile touch target)');
   }
 
-  // Check for font sizes in HTML (rough check)
-  const fontSizeRegex = /font-size\s*:\s*(\d+)/g;
+  // Check for font sizes in HTML — convert rem/em to px (base 16px), skip unitless 0
+  const fontSizeRegex = /font-size\s*:\s*([\d.]+)(px|rem|em)?/g;
   const fontSizes = [];
   let match;
   while ((match = fontSizeRegex.exec(allCss)) !== null) {
-    fontSizes.push(parseInt(match[1]));
+    const val = parseFloat(match[1]);
+    const unit = match[2] || 'px';
+    let px;
+    if (unit === 'rem' || unit === 'em') {
+      px = Math.round(val * 16);
+    } else {
+      px = val;
+    }
+    if (px > 0) {
+      fontSizes.push(px);
+    }
   }
 
   if (fontSizes.length > 0) {
