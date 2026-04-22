@@ -560,6 +560,23 @@ const GAMES = [
     footerName: 'Fraction Fun'
   },
   {
+    id: 'times-table',
+    name: 'Times Table',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Master multiplication facts from 2× to 12×! Quick-fire questions, star ratings, and helpful hints for every table.',
+    icon: 'ti-multiplier-2x',
+    iconColor: '#3b9eff',
+    gradient: 'linear-gradient(145deg, #1e3a5f 0%, #2563eb 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(255,255,255,.04) 0px, rgba(255,255,255,.04) 2px, transparent 2px, transparent 12px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-07-01',
+    footerName: 'Times Table'
+  },
+  {
     id: 'spelling-bee',
     name: 'Spelling Bee',
     thumbClass: null,
