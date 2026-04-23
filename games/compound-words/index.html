@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Compound Words - Word Building Game for Kids | Doodles Games</title>
+    <meta name="title" content="Compound Words - Word Building Game" />
+    <meta
+      name="description"
+      content="Combine two words to make one! Learn compound words like sunflower, rainbow, and butterfly. Fun vocabulary game for kids ages 6–11."
+    />
+    <meta
+      name="keywords"
+      content="compound words game kids, word building vocabulary, two words one word, word combinations children"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/compound-words/" />
+    <meta property="og:title" content="Compound Words - Word Building Game" />
+    <meta property="og:description" content="Combine two words to make one big word! Build vocabulary the fun way." />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/compound-words/" />
+    <meta property="twitter:title" content="Compound Words - Word Building Game" />
+    <meta
+      property="twitter:description"
+      content="Combine two words to make one big word! Build vocabulary the fun way."
+    />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/compound-words/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #1c0a2e;
+        --dom-nav-color: #f5d0fe;
+        --dom-nav-border: rgba(217, 70, 239, 0.3);
+        --dom-accent: #a21caf;
+        --dom-accent2: #f59e0b;
+        --dom-bg: #0f0620;
+        --dom-text: #fdf4ff;
+        --dom-text-muted: rgba(253, 244, 255, 0.6);
+        --dom-border: rgba(217, 70, 239, 0.22);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .screen.active {
+        display: flex;
+      }
+      .start-title {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-top: 8px;
+      }
+      .start-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 300px;
+        line-height: 1.5;
+      }
+      .demo-combine {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .demo-word {
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 10px;
+        padding: 8px 16px;
+        font-size: 1.1rem;
+        font-weight: 800;
+      }
+      .demo-plus {
+        font-size: 1.4rem;
+        color: var(--dom-accent2);
+        font-weight: 900;
+      }
+      .start-btn {
+        padding: 14px 36px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-accent);
+        background: var(--dom-accent);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition: transform 0.12s;
+      }
+      .start-btn:hover {
+        transform: translateY(-2px);
+      }
+      .game-meta {
+        display: flex;
+        width: 100%;
+        max-width: 440px;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+      }
+      .combine-card {
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 20px;
+        padding: 24px 20px;
+        width: 100%;
+        max-width: 440px;
+      }
+      .combine-prompt {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+        margin-bottom: 14px;
+      }
+      .combine-words {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .cw-part {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+        background: rgba(217, 70, 239, 0.08);
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 10px 20px;
+      }
+      .cw-plus {
+        font-size: 1.6rem;
+        color: var(--dom-text-muted);
+        font-weight: 900;
+      }
+      .choices-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 440px;
+      }
+      .choice-btn {
+        width: 100%;
+        padding: 14px 20px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1.1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.12s,
+          transform 0.1s;
+      }
+      .choice-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        transform: translateY(-1px);
+      }
+      .choice-btn:disabled {
+        cursor: default;
+      }
+      .choice-btn.correct-choice {
+        border-color: #4ade80;
+        color: #4ade80;
+        background: rgba(74, 222, 128, 0.08);
+      }
+      .choice-btn.wrong-choice {
+        border-color: #f87171;
+        color: #f87171;
+        background: rgba(248, 113, 113, 0.08);
+      }
+      .feedback {
+        font-size: 0.9rem;
+        font-weight: 700;
+        min-height: 1.5rem;
+        text-align: center;
+        max-width: 380px;
+      }
+      .feedback.good {
+        color: #4ade80;
+      }
+      .feedback.bad {
+        color: #f87171;
+      }
+      .action-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .action-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+      .result-emoji {
+        font-size: 4rem;
+      }
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+      .result-score {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#compound-words"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Compound Words</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+    <div class="screen active" id="screen-start">
+      <div class="start-title">
+        <span style="display: block; font-size: 2.8rem; margin-bottom: 8px">🔗</span>Compound Words
+      </div>
+      <div class="start-sub">Combine two words to make one new word!</div>
+      <div class="demo-combine">
+        <div class="demo-word">Sun</div>
+        <span class="demo-plus">+</span>
+        <div class="demo-word">Flower</div>
+        <span class="demo-plus">=</span>
+        <div class="demo-word" style="color: var(--dom-accent2)">Sunflower 🌻</div>
+      </div>
+      <button class="start-btn" id="btn-start">Start →</button>
+    </div>
+    <div class="screen" id="screen-game">
+      <div class="game-meta"><span id="round-label">Round 1 of 10</span><span id="score-label">Score: 0</span></div>
+      <div class="combine-card">
+        <div class="combine-prompt">What word do these two parts make?</div>
+        <div class="combine-words">
+          <div class="cw-part" id="word-a">Sun</div>
+          <div class="cw-plus">+</div>
+          <div class="cw-part" id="word-b">Flower</div>
+        </div>
+      </div>
+      <div class="choices-grid" id="choices-grid"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="action-row"><button class="action-btn" id="btn-menu">← Menu</button></div>
+    </div>
+    <div class="screen" id="screen-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <div class="result-title" id="result-title">Word Wizard!</div>
+      <div class="result-score" id="result-score">10 / 10 correct</div>
+      <div class="action-row" style="margin-top: 16px">
+        <button class="action-btn" id="btn-menu">← Menu</button>
+        <button class="action-btn" id="btn-play-again">Play Again</button>
+      </div>
+    </div>
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

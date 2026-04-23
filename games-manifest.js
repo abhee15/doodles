@@ -980,6 +980,74 @@ const GAMES = [
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
     footerName: 'Geometry Quest'
+  },
+  {
+    id: 'compound-words',
+    name: 'Compound Words',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Combine two words to make one! Build vocabulary with sunflower, rainbow, butterfly, and more compound words.',
+    icon: 'ti-link',
+    iconColor: '#e879f9',
+    gradient: 'linear-gradient(145deg, #0f0620 0%, #a21caf 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(217,70,239,.07) 0px, rgba(217,70,239,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Compound Words'
+  },
+  {
+    id: 'weather-watch',
+    name: 'Weather Watch',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Clouds, storms, rainbows, and instruments — become a meteorologist! Learn what causes thunder, tornadoes, and snow.',
+    icon: 'ti-cloud-rain',
+    iconColor: '#7dd3fc',
+    gradient: 'linear-gradient(145deg, #040e1c 0%, #0284c7 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(56,189,248,.07) 0px, rgba(56,189,248,.07) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Weather Watch'
+  },
+  {
+    id: 'capital-cities',
+    name: 'Capital Cities',
+    thumbClass: null,
+    category: 'geo',
+    desc: 'Match countries to their capital cities! Three difficulty levels from easy world capitals to tricky ones.',
+    icon: 'ti-building-arch',
+    iconColor: '#86efac',
+    gradient: 'linear-gradient(145deg, #060f04 0%, #15803d 100%)',
+    pattern:
+      'repeating-linear-gradient(30deg, rgba(34,197,94,.07) 0px, rgba(34,197,94,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Capital Cities'
+  },
+  {
+    id: 'fractions-visual',
+    name: 'Fractions Visual',
+    thumbClass: null,
+    category: 'math',
+    desc: 'See fractions with colorful blocks! Read, compare, and add fractions using visual representations.',
+    icon: 'ti-divide',
+    iconColor: '#fcd34d',
+    gradient: 'linear-gradient(145deg, #0f0620 0%, #d97706 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(251,191,36,.07) 0px, rgba(251,191,36,.07) 1px, transparent 1px, transparent 16px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Fractions Visual'
   }
 ];
 
