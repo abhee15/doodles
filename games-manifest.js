@@ -912,6 +912,74 @@ const GAMES = [
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
     footerName: 'Function Machine'
+  },
+  {
+    id: 'synonym-match',
+    name: 'Synonym Match',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Find the word that means the same thing! Build vocabulary by matching synonyms across three difficulty levels.',
+    icon: 'ti-equal',
+    iconColor: '#22d3ee',
+    gradient: 'linear-gradient(145deg, #051318 0%, #0891b2 100%)',
+    pattern:
+      'repeating-linear-gradient(135deg, rgba(6,182,212,.07) 0px, rgba(6,182,212,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Synonym Match'
+  },
+  {
+    id: 'food-chain',
+    name: 'Food Chain',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Learn how energy flows through nature! Quiz on producers, consumers, herbivores, carnivores, and food webs.',
+    icon: 'ti-leaf',
+    iconColor: '#4ade80',
+    gradient: 'linear-gradient(145deg, #021a0a 0%, #16a34a 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(34,197,94,.07) 0px, rgba(34,197,94,.07) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Food Chain'
+  },
+  {
+    id: 'rhyme-time',
+    name: 'Rhyme Time',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Find the word that sounds the same at the end! Build phonics and poetry skills one rhyme at a time.',
+    icon: 'ti-music',
+    iconColor: '#a78bfa',
+    gradient: 'linear-gradient(145deg, #1a0a3d 0%, #7c3aed 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(167,139,250,.07) 0px, rgba(167,139,250,.07) 1px, transparent 1px, transparent 16px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Rhyme Time'
+  },
+  {
+    id: 'geometry-quest',
+    name: 'Geometry Quest',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Master shapes, area, perimeter, and angles! Fun geometry quiz covering triangles, squares, circles, and angle types.',
+    icon: 'ti-shape',
+    iconColor: '#60a5fa',
+    gradient: 'linear-gradient(145deg, #060e1c 0%, #2563eb 100%)',
+    pattern:
+      'repeating-linear-gradient(30deg, rgba(59,130,246,.07) 0px, rgba(59,130,246,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Geometry Quest'
   }
 ];
 

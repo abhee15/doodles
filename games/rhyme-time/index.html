@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Rhyme Time - Find the Rhyming Word Game for Kids | Doodles Games</title>
+    <meta name="title" content="Rhyme Time - Find the Rhyming Word Game" />
+    <meta
+      name="description"
+      content="Find the word that rhymes! Fun phonics and poetry game for kids ages 5–10. Build listening skills and word awareness."
+    />
+    <meta name="keywords" content="rhyming words game kids, phonics game children, rhyme practice, word sounds game" />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/rhyme-time/" />
+    <meta property="og:title" content="Rhyme Time - Find the Rhyming Word Game" />
+    <meta property="og:description" content="Find the word that rhymes! Build phonics skills the fun way." />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/rhyme-time/" />
+    <meta property="twitter:title" content="Rhyme Time - Find the Rhyming Word Game" />
+    <meta property="twitter:description" content="Find the word that rhymes! Build phonics skills the fun way." />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/rhyme-time/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #2d1b69;
+        --dom-nav-color: #e9d5ff;
+        --dom-nav-border: rgba(167, 139, 250, 0.3);
+        --dom-accent: #7c3aed;
+        --dom-accent2: #f59e0b;
+        --dom-bg: #1a0a3d;
+        --dom-text: #faf5ff;
+        --dom-text-muted: rgba(250, 245, 255, 0.6);
+        --dom-border: rgba(167, 139, 250, 0.25);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .screen.active {
+        display: flex;
+      }
+      .start-title {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-top: 8px;
+      }
+      .start-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 300px;
+        line-height: 1.5;
+      }
+      .rhyme-demo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .rhyme-word {
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 10px 18px;
+        font-size: 1.2rem;
+        font-weight: 800;
+      }
+      .rhyme-equals {
+        font-size: 1.4rem;
+        color: var(--dom-accent2);
+        font-weight: 900;
+      }
+      .start-btn {
+        padding: 14px 36px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-accent);
+        background: var(--dom-accent);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition: transform 0.12s;
+      }
+      .start-btn:hover {
+        transform: translateY(-2px);
+      }
+      .game-meta {
+        display: flex;
+        width: 100%;
+        max-width: 440px;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+      }
+      .word-card {
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 20px;
+        padding: 28px 24px;
+        width: 100%;
+        max-width: 440px;
+      }
+      .word-prompt {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .word-display {
+        font-size: 3rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+      .choices-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 440px;
+      }
+      .choice-btn {
+        width: 100%;
+        padding: 14px 20px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1.2rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.12s,
+          transform 0.1s;
+      }
+      .choice-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        transform: translateY(-1px);
+      }
+      .choice-btn:disabled {
+        cursor: default;
+      }
+      .choice-btn.correct-choice {
+        border-color: #4ade80;
+        color: #4ade80;
+        background: rgba(74, 222, 128, 0.08);
+      }
+      .choice-btn.wrong-choice {
+        border-color: #f87171;
+        color: #f87171;
+        background: rgba(248, 113, 113, 0.08);
+      }
+      .feedback {
+        font-size: 0.9rem;
+        font-weight: 700;
+        min-height: 1.5rem;
+        text-align: center;
+        max-width: 380px;
+      }
+      .feedback.good {
+        color: #4ade80;
+      }
+      .feedback.bad {
+        color: #f87171;
+      }
+      .action-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .action-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+      .result-emoji {
+        font-size: 4rem;
+      }
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+      .result-score {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#rhyme-time"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Rhyme Time</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+    <div class="screen active" id="screen-start">
+      <div class="start-title">
+        <span style="display: block; font-size: 2.8rem; margin-bottom: 8px">🎵</span>Rhyme Time
+      </div>
+      <div class="start-sub">Find the word that sounds the same at the end!</div>
+      <div class="rhyme-demo">
+        <div class="rhyme-word">Cat</div>
+        <span class="rhyme-equals">rhymes with</span>
+        <div class="rhyme-word">Hat</div>
+      </div>
+      <button class="start-btn" id="btn-start">Start →</button>
+    </div>
+    <div class="screen" id="screen-game">
+      <div class="game-meta"><span id="round-label">Round 1 of 10</span><span id="score-label">Score: 0</span></div>
+      <div class="word-card">
+        <div class="word-prompt">Which word rhymes with...</div>
+        <div class="word-display" id="word-display">Cat</div>
+      </div>
+      <div class="choices-grid" id="choices-grid"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="action-row"><button class="action-btn" id="btn-menu">← Menu</button></div>
+    </div>
+    <div class="screen" id="screen-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <div class="result-title" id="result-title">Rhyme Master!</div>
+      <div class="result-score" id="result-score">10 / 10 correct</div>
+      <div class="action-row" style="margin-top: 16px">
+        <button class="action-btn" id="btn-menu">← Menu</button>
+        <button class="action-btn" id="btn-play-again">Play Again</button>
+      </div>
+    </div>
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
