@@ -1405,6 +1405,57 @@ const GAMES = [
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
     footerName: 'Prefixes & Suffixes'
+  },
+  {
+    id: 'probability',
+    name: 'Probability',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Explore chance! Learn certain, likely, unlikely, and impossible outcomes with coins, dice, and spinners.',
+    icon: 'ti-dice',
+    iconColor: '#4ade80',
+    gradient: 'linear-gradient(145deg, #061206 0%, #14532d 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(74,222,128,.07) 0px, rgba(74,222,128,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Probability'
+  },
+  {
+    id: 'force-and-motion',
+    name: 'Force & Motion',
+    thumbClass: null,
+    category: 'science',
+    desc: "Discover push, pull, friction, gravity, and Newton's Laws! Learn how forces change the way things move.",
+    icon: 'ti-arrows-move',
+    iconColor: '#fb923c',
+    gradient: 'linear-gradient(145deg, #0a0500 0%, #7c2d12 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(251,146,60,.07) 0px, rgba(251,146,60,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Force & Motion'
+  },
+  {
+    id: 'context-clues',
+    name: 'Context Clues',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Be a word detective! Use surrounding sentences to figure out the meaning of tricky highlighted words.',
+    icon: 'ti-search',
+    iconColor: '#38bdf8',
+    gradient: 'linear-gradient(145deg, #060810 0%, #0c4a6e 100%)',
+    pattern:
+      'repeating-linear-gradient(30deg, rgba(56,189,248,.07) 0px, rgba(56,189,248,.07) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Context Clues'
   }
 ];
 

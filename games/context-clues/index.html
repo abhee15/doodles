@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Context Clues - Figure Out Word Meanings for Kids | Doodles Games</title>
+    <meta name="title" content="Context Clues - Figure Out Word Meanings" />
+    <meta
+      name="description"
+      content="Use context clues to figure out the meaning of unknown words! Read sentences and find clues to decode tricky vocabulary."
+    />
+    <meta
+      name="keywords"
+      content="context clues game kids, vocabulary reading comprehension, figure out word meaning, reading strategy"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/context-clues/" />
+    <meta property="og:title" content="Context Clues - Figure Out Word Meanings" />
+    <meta property="og:description" content="Use context clues to decode tricky vocabulary words!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/context-clues/" />
+    <meta property="twitter:title" content="Context Clues - Figure Out Word Meanings" />
+    <meta property="twitter:description" content="Use context clues to decode tricky vocabulary words!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/context-clues/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #0a0d1a;
+        --dom-accent: #38bdf8;
+        --dom-accent2: #7dd3fc;
+        --dom-bg: #060810;
+        --dom-border: rgba(56, 189, 248, 0.22);
+      }
+      .sentence-box {
+        background: rgba(56, 189, 248, 0.07);
+        border: 1.5px solid rgba(56, 189, 248, 0.25);
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin: 6px 0 10px;
+        font-size: 1rem;
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.88);
+        text-align: center;
+      }
+      .sentence-box .target-word {
+        color: #38bdf8;
+        font-weight: 800;
+        text-decoration: underline;
+        text-decoration-color: rgba(56, 189, 248, 0.5);
+        text-underline-offset: 3px;
+      }
+      .clue-label {
+        font-size: 0.72rem;
+        color: rgba(56, 189, 248, 0.6);
+        text-align: center;
+        margin-bottom: 4px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#context-clues"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Context Clues</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🔍</div>
+        <h1 class="start-title">Context Clues</h1>
+        <p class="start-desc">
+          Be a word detective! Read the sentence and use the CLUES around the highlighted word to figure out what it
+          means.
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div class="clue-label">🔍 Read the sentence — use the clues!</div>
+        <div class="sentence-box" id="sentence-box"></div>
+        <div class="q-emoji" id="q-emoji">🔍</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Word Detective!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

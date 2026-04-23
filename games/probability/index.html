@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Probability - Chance & Likelihood Game for Kids | Doodles Games</title>
+    <meta name="title" content="Probability - Chance & Likelihood Game" />
+    <meta
+      name="description"
+      content="Learn about probability! Explore likely, unlikely, certain, and impossible outcomes with coins, dice, and spinners."
+    />
+    <meta
+      name="keywords"
+      content="probability game kids, chance likelihood, certain impossible, dice coins spinners math"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/probability/" />
+    <meta property="og:title" content="Probability - Chance & Likelihood Game" />
+    <meta property="og:description" content="Learn about probability with coins, dice, and spinners!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/probability/" />
+    <meta property="twitter:title" content="Probability - Chance & Likelihood Game" />
+    <meta property="twitter:description" content="Learn about probability with coins, dice, and spinners!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/probability/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #0c1a0c;
+        --dom-accent: #4ade80;
+        --dom-accent2: #86efac;
+        --dom-bg: #061206;
+        --dom-border: rgba(74, 222, 128, 0.22);
+      }
+      .prob-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        margin: 6px 0 10px;
+        flex-wrap: wrap;
+      }
+      .prob-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .prob-item .icon {
+        font-size: 2rem;
+        line-height: 1;
+      }
+      .prob-bar {
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto 8px;
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 8px;
+        height: 14px;
+        border: 1px solid rgba(74, 222, 128, 0.18);
+        overflow: hidden;
+      }
+      .prob-fill {
+        height: 100%;
+        border-radius: 8px;
+        background: linear-gradient(90deg, #4ade80, #86efac);
+        transition: width 0.4s;
+      }
+      .prob-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.7rem;
+        color: rgba(255, 255, 255, 0.4);
+        max-width: 320px;
+        margin: 0 auto 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#probability"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Probability</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🎲</div>
+        <h1 class="start-title">Probability</h1>
+        <p class="start-desc">
+          What are the CHANCES? Learn when things are certain, likely, unlikely, or impossible. Explore coins, dice, and
+          spinners!
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div class="prob-visual" id="prob-visual" aria-hidden="true"></div>
+        <div class="prob-labels"><span>Impossible</span><span>Certain</span></div>
+        <div class="prob-bar"><div class="prob-fill" id="prob-fill" style="width: 50%"></div></div>
+        <div class="q-emoji" id="q-emoji">🎲</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Probability Pro!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
