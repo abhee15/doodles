@@ -146,6 +146,7 @@ function startRound() {
   document.getElementById('btn-hint').disabled = false;
   document.getElementById('btn-submit').disabled = false;
   document.getElementById('answer-input').disabled = false;
+  updateBalance('idle');
   document.getElementById('answer-input').focus();
 
   showScreen('screen-game');
@@ -173,6 +174,7 @@ function submitAnswer() {
   if (guess === state.current.answer) {
     state.score++;
     state.round++;
+    updateBalance('correct');
     showFeedback(`✅ Correct! x = ${state.current.answer}`, 'good');
     document.getElementById('score-label').textContent = `Score: ${state.score}`;
     setTimeout(function () {
@@ -184,6 +186,7 @@ function submitAnswer() {
     }, 1100);
   } else {
     state.round++;
+    updateBalance('wrong');
     showFeedback(`❌ Not quite — x = ${state.current.answer}`, 'bad');
     setTimeout(function () {
       if (state.round >= TOTAL_ROUNDS) {
@@ -212,6 +215,24 @@ function showResult() {
   document.getElementById('result-score').textContent = `${state.score} / ${TOTAL_ROUNDS} correct`;
   document.getElementById('result-level').textContent = `${currentLevel().label} level`;
   showScreen('screen-result');
+}
+
+// ── BALANCE SCALE ─────────────────────────────────────────────────────────────
+
+function getEquationSides(q) {
+  const parts = q.split('=');
+  return { left: (parts[0] || '?').trim(), right: (parts[1] || '?').trim() };
+}
+
+function updateBalance(mode) {
+  const sides = getEquationSides(state.current.question);
+  document.getElementById('bal-left-expr').textContent = sides.left;
+  document.getElementById('bal-right-expr').textContent = sides.right;
+  const cls = 'balance-side';
+  document.getElementById('bal-left').className =
+    cls + (mode === 'correct' ? ' balanced' : mode === 'wrong' ? ' unbalanced' : '');
+  document.getElementById('bal-right').className =
+    cls + (mode === 'correct' ? ' balanced' : mode === 'wrong' ? ' unbalanced' : '');
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────────────

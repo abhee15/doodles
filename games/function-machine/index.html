@@ -348,6 +348,29 @@
         font-weight: 600;
       }
 
+      /* ── GRAPH ── */
+      .graph-wrap {
+        width: 100%;
+        max-width: 460px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+      }
+      .graph-wrap canvas {
+        display: block;
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid var(--dom-border);
+      }
+      .graph-label {
+        font-size: 0.75rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
       @media (max-width: 480px) {
         .machine-fn-rule {
           font-size: 1.2rem;
@@ -407,6 +430,11 @@
 
       <div class="examples-label">Examples:</div>
       <div class="examples" id="examples"></div>
+
+      <div class="graph-wrap">
+        <canvas id="graph-canvas" width="400" height="190"></canvas>
+        <div class="graph-label">Function Pattern — yellow dot = your input</div>
+      </div>
 
       <div class="answer-row">
         <span class="out-label">Output =</span>

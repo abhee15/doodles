@@ -139,6 +139,7 @@ function startRound() {
   document.getElementById('feedback').className = 'feedback';
 
   buildExamples();
+  drawGraph();
   document.getElementById('answer-input').focus();
   showScreen('screen-game');
 }
@@ -226,6 +227,118 @@ function showResult() {
   document.getElementById('result-score').textContent = `${state.score} / ${TOTAL_ROUNDS} correct`;
   document.getElementById('result-level').textContent = `${currentLevel().label} level`;
   showScreen('screen-result');
+}
+
+// ── GRAPH ────────────────────────────────────────────────────────────────────
+
+function drawGraph() {
+  const canvas = document.getElementById('graph-canvas');
+  if (!canvas || !state.fn) {
+    return;
+  }
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width;
+  const H = canvas.height;
+  const PAD = { t: 18, r: 18, b: 30, l: 40 };
+  const plotW = W - PAD.l - PAD.r;
+  const plotH = H - PAD.t - PAD.b;
+
+  const lv = currentLevel();
+  const xMin = lv.xRange[0];
+  const xMax = lv.xRange[1];
+  const pts = [];
+  for (let x = xMin; x <= xMax; x++) {
+    const y = state.fn.fn(x);
+    if (y >= 0) {
+      pts.push({ x, y });
+    }
+  }
+  if (pts.length === 0) {
+    return;
+  }
+
+  const yMax =
+    Math.max(
+      ...pts.map(function (p) {
+        return p.y;
+      })
+    ) + 2;
+  const yMin = 0;
+  const yRange = yMax - yMin || 1;
+
+  function px(x) {
+    return PAD.l + ((x - xMin) / (xMax - xMin)) * plotW;
+  }
+  function py(y) {
+    return PAD.t + plotH - ((y - yMin) / yRange) * plotH;
+  }
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#071408';
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid lines
+  ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const gy = PAD.t + (plotH / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(PAD.l, gy);
+    ctx.lineTo(W - PAD.r, gy);
+    ctx.stroke();
+  }
+
+  // Axes
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(PAD.l, PAD.t);
+  ctx.lineTo(PAD.l, PAD.t + plotH);
+  ctx.lineTo(PAD.l + plotW, PAD.t + plotH);
+  ctx.stroke();
+
+  // Connecting line
+  ctx.strokeStyle = 'rgba(22,163,74,0.4)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  pts.forEach(function (p, i) {
+    i === 0 ? ctx.moveTo(px(p.x), py(p.y)) : ctx.lineTo(px(p.x), py(p.y));
+  });
+  ctx.stroke();
+
+  // Dots
+  pts.forEach(function (p) {
+    const isCurrent = p.x === state.x;
+    ctx.beginPath();
+    ctx.arc(px(p.x), py(p.y), isCurrent ? 8 : 4.5, 0, Math.PI * 2);
+    ctx.fillStyle = isCurrent ? '#fbbf24' : 'rgba(34,197,94,0.8)';
+    ctx.fill();
+    if (isCurrent) {
+      ctx.strokeStyle = 'rgba(251,191,36,0.4)';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(px(p.x), py(p.y), 12, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  });
+
+  // Axis labels
+  ctx.fillStyle = 'rgba(255,255,255,0.38)';
+  ctx.font = '11px sans-serif';
+  ctx.textAlign = 'center';
+  [xMin, xMax].forEach(function (x) {
+    ctx.fillText(x, px(x), H - 6);
+  });
+  ctx.textAlign = 'right';
+  ctx.fillText(Math.round(yMax - 2), PAD.l - 5, PAD.t + 10);
+  ctx.fillText(0, PAD.l - 5, PAD.t + plotH + 5);
+
+  // Axis name
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.textAlign = 'center';
+  ctx.fillText('x', px(xMax) + 12, PAD.t + plotH + 4);
+  ctx.textAlign = 'left';
+  ctx.fillText('f(x)', 2, PAD.t + 8);
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
