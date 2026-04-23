@@ -1133,6 +1133,176 @@ const GAMES = [
     grades: ['1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
     footerName: 'Syllables'
+  },
+  {
+    id: 'rock-cycle',
+    name: 'Rock Cycle',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Igneous, sedimentary, metamorphic — discover how rocks form and transform in the amazing rock cycle!',
+    icon: 'ti-mountain',
+    iconColor: '#d6d3d1',
+    gradient: 'linear-gradient(145deg, #1a0f00 0%, #92400e 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(180,133,100,.07) 0px, rgba(180,133,100,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Rock Cycle'
+  },
+  {
+    id: 'map-skills',
+    name: 'Map Skills',
+    thumbClass: null,
+    category: 'geo',
+    desc: 'Navigate like an explorer! Compass directions, map keys, scale bars, latitude, and longitude.',
+    icon: 'ti-map-2',
+    iconColor: '#7dd3fc',
+    gradient: 'linear-gradient(145deg, #010c1a 0%, #0c4a6e 100%)',
+    pattern:
+      'repeating-linear-gradient(30deg, rgba(56,189,248,.07) 0px, rgba(56,189,248,.07) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Map Skills'
+  },
+  {
+    id: 'measurement',
+    name: 'Measurement',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Master units of length, weight, and time! Centimeters, kilograms, minutes — convert like a pro!',
+    icon: 'ti-ruler',
+    iconColor: '#c4b5fd',
+    gradient: 'linear-gradient(145deg, #0a0020 0%, #4c1d95 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(139,92,246,.07) 0px, rgba(139,92,246,.07) 1px, transparent 1px, transparent 16px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Measurement'
+  },
+  {
+    id: 'ancient-civ',
+    name: 'Ancient Civilizations',
+    thumbClass: null,
+    category: 'social',
+    desc: 'Pyramids, gladiators, and democracy! Travel back to ancient Egypt, Greece, Rome, Maya, and China.',
+    icon: 'ti-building-arch',
+    iconColor: '#fcd34d',
+    gradient: 'linear-gradient(145deg, #1a0a00 0%, #92400e 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(251,191,36,.07) 0px, rgba(251,191,36,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Ancient Civilizations'
+  },
+  {
+    id: 'grammar-fix',
+    name: 'Grammar Fix',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Spot the correct sentence! Practice verb tenses, capitalization, punctuation, and pronouns.',
+    icon: 'ti-pencil',
+    iconColor: '#e879f9',
+    gradient: 'linear-gradient(145deg, #0c0018 0%, #7e22ce 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(192,38,211,.07) 0px, rgba(192,38,211,.07) 1px, transparent 1px, transparent 16px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Grammar Fix'
+  },
+  {
+    id: 'basic-algebra',
+    name: 'Basic Algebra',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Solve for x! Introduction to variables and simple equations — the foundation of algebra.',
+    icon: 'ti-variable',
+    iconColor: '#6ee7b7',
+    gradient: 'linear-gradient(145deg, #001a10 0%, #065f46 100%)',
+    pattern:
+      'repeating-linear-gradient(30deg, rgba(52,211,153,.07) 0px, rgba(52,211,153,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Basic Algebra'
+  },
+  {
+    id: 'antonyms',
+    name: 'Antonyms',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Find the opposite word! Happy/sad, hot/cold, fast/slow — master antonyms and build vocabulary.',
+    icon: 'ti-arrows-left-right',
+    iconColor: '#f0abfc',
+    gradient: 'linear-gradient(145deg, #0e0018 0%, #7c3aed 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(168,85,247,.07) 0px, rgba(168,85,247,.07) 1px, transparent 1px, transparent 16px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Antonyms'
+  },
+  {
+    id: 'habitats',
+    name: 'Habitats',
+    thumbClass: null,
+    category: 'science',
+    desc: "Rainforests, deserts, oceans, tundra — explore Earth's biomes and the animals that call them home!",
+    icon: 'ti-trees',
+    iconColor: '#86efac',
+    gradient: 'linear-gradient(145deg, #011a07 0%, #15803d 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(34,197,94,.07) 0px, rgba(34,197,94,.07) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Habitats'
+  },
+  {
+    id: 'human-body',
+    name: 'Human Body',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Explore organs and body systems! Heart, brain, lungs, bones, immune system and more.',
+    icon: 'ti-heart-rate-monitor',
+    iconColor: '#fda4af',
+    gradient: 'linear-gradient(145deg, #1a0008 0%, #9f1239 100%)',
+    pattern:
+      'repeating-linear-gradient(30deg, rgba(244,63,94,.07) 0px, rgba(244,63,94,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Human Body'
+  },
+  {
+    id: 'inventors',
+    name: 'Famous Inventors',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Edison, Bell, Einstein, Tesla, Darwin — meet the brilliant minds who changed history with their inventions!',
+    icon: 'ti-bulb',
+    iconColor: '#fde68a',
+    gradient: 'linear-gradient(145deg, #0a1200 0%, #3f6212 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(163,230,53,.07) 0px, rgba(163,230,53,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Famous Inventors'
   }
 ];
 

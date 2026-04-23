@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Habitats - Biomes and Animal Homes for Kids | Doodles Games</title>
+    <meta name="title" content="Habitats - Biomes and Ecosystems Quiz for Kids" />
+    <meta
+      name="description"
+      content="Explore rainforests, deserts, oceans, and tundra! Learn which animals live in each habitat and why."
+    />
+    <meta name="keywords" content="habitats, biomes, ecosystems, rainforest, desert, ocean, tundra, animals, science" />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/habitats/" />
+    <meta property="og:title" content="Habitats - Biomes and Ecosystems Quiz for Kids" />
+    <meta
+      property="og:description"
+      content="Explore rainforests, deserts, oceans, and tundra! Learn which animals live where."
+    />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/habitats/" />
+    <meta property="twitter:title" content="Habitats - Biomes and Ecosystems Quiz for Kids" />
+    <meta
+      property="twitter:description"
+      content="Explore rainforests, deserts, oceans, and tundra! Learn which animals live where."
+    />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/habitats/" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #011a07;
+        --dom-accent: #16a34a;
+        --dom-accent2: #0891b2;
+        --dom-bg: #011a07;
+        --dom-border: rgba(255, 255, 255, 0.1);
+      }
+      .hab-chips {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin: 18px 0;
+      }
+      .hab-chip {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--dom-border);
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+        color: var(--tok-white);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#habitats"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Habitats</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🌿</div>
+        <h1 class="start-title">Habitats</h1>
+        <p class="start-desc">
+          Every animal has a home that suits it perfectly! Explore Earth's amazing biomes and ecosystems.
+        </p>
+        <div class="hab-chips">
+          <span class="hab-chip">🌴 Rainforest</span>
+          <span class="hab-chip">🌵 Desert</span>
+          <span class="hab-chip">🌊 Ocean</span>
+          <span class="hab-chip">❄️ Tundra</span>
+          <span class="hab-chip">🍂 Forest</span>
+        </div>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div class="q-emoji" id="q-emoji">🌿</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Habitat Hero!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
