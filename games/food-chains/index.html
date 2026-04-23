@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Food Chains - Ecosystems & Predators Game for Kids | Doodles Games</title>
+    <meta name="title" content="Food Chains - Ecosystems & Predators Game" />
+    <meta
+      name="description"
+      content="Explore food chains and ecosystems! Learn about producers, consumers, predators, prey, and how energy flows through nature."
+    />
+    <meta
+      name="keywords"
+      content="food chain game kids, ecosystem producer consumer, predator prey, energy flow science"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/food-chains/" />
+    <meta property="og:title" content="Food Chains - Ecosystems & Predators Game" />
+    <meta property="og:description" content="Explore food chains, producers, consumers and ecosystems!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/food-chains/" />
+    <meta property="twitter:title" content="Food Chains - Ecosystems & Predators Game" />
+    <meta property="twitter:description" content="Explore food chains, producers, consumers and ecosystems!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/food-chains/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #071a07;
+        --dom-accent: #22c55e;
+        --dom-accent2: #4ade80;
+        --dom-bg: #030f03;
+        --dom-border: rgba(34, 197, 94, 0.22);
+      }
+      .chain-visual {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        margin: 6px 0 10px;
+        flex-wrap: wrap;
+      }
+      .chain-node {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        font-size: 0.65rem;
+        color: rgba(255, 255, 255, 0.5);
+      }
+      .chain-node .cn-emoji {
+        font-size: 1.6rem;
+        line-height: 1;
+      }
+      .chain-arrow {
+        font-size: 1rem;
+        color: rgba(34, 197, 94, 0.5);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#food-chains"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Food Chains</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🌿</div>
+        <h1 class="start-title">Food Chains</h1>
+        <p class="start-desc">
+          Who eats whom? Explore how energy moves from the sun through plants to animals — and how ecosystems stay in
+          balance!
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div class="chain-visual" id="chain-visual" aria-hidden="true"></div>
+        <div class="q-emoji" id="q-emoji">🌿</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Ecosystem Expert!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

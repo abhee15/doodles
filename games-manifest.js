@@ -1490,6 +1490,57 @@ const GAMES = [
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
     footerName: 'Government Basics'
+  },
+  {
+    id: 'food-chains',
+    name: 'Food Chains',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Explore ecosystems! Learn producers, consumers, predators, prey, decomposers, and how energy flows through food chains.',
+    icon: 'ti-leaf',
+    iconColor: '#4ade80',
+    gradient: 'linear-gradient(145deg, #030f03 0%, #14532d 100%)',
+    pattern:
+      'repeating-linear-gradient(30deg, rgba(34,197,94,.07) 0px, rgba(34,197,94,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Food Chains'
+  },
+  {
+    id: 'fractions',
+    name: 'Fractions',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Master fractions with a visual bar! Learn numerators, denominators, equivalent fractions, comparing, and adding.',
+    icon: 'ti-math-symbols',
+    iconColor: '#f0abfc',
+    gradient: 'linear-gradient(145deg, #08000a 0%, #701a75 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(232,121,249,.07) 0px, rgba(232,121,249,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Fractions'
+  },
+  {
+    id: 'figurative-language',
+    name: 'Figurative Language',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Identify similes, metaphors, idioms, personification, and hyperbole! Read quotes and spot the figurative language type.',
+    icon: 'ti-writing',
+    iconColor: '#f9a8d4',
+    gradient: 'linear-gradient(145deg, #080005 0%, #831843 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(244,114,182,.07) 0px, rgba(244,114,182,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Figurative Language'
   }
 ];
 

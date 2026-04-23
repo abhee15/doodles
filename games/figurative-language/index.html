@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Figurative Language - Similes Metaphors Idioms for Kids | Doodles Games</title>
+    <meta name="title" content="Figurative Language - Similes, Metaphors & Idioms" />
+    <meta
+      name="description"
+      content="Master figurative language! Identify similes, metaphors, idioms, personification, and hyperbole in fun example sentences."
+    />
+    <meta
+      name="keywords"
+      content="figurative language game kids, simile metaphor idiom personification, reading comprehension ELA"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/figurative-language/" />
+    <meta property="og:title" content="Figurative Language - Similes, Metaphors & Idioms" />
+    <meta property="og:description" content="Identify similes, metaphors, idioms and more!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/figurative-language/" />
+    <meta property="twitter:title" content="Figurative Language - Similes, Metaphors & Idioms" />
+    <meta property="twitter:description" content="Identify similes, metaphors, idioms and more!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/figurative-language/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #0d0008;
+        --dom-accent: #f472b6;
+        --dom-accent2: #f9a8d4;
+        --dom-bg: #080005;
+        --dom-border: rgba(244, 114, 182, 0.22);
+      }
+      .quote-box {
+        background: rgba(244, 114, 182, 0.07);
+        border: 1.5px solid rgba(244, 114, 182, 0.28);
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin: 6px 0 10px;
+        font-size: 1rem;
+        line-height: 1.55;
+        color: rgba(255, 255, 255, 0.9);
+        text-align: center;
+        font-style: italic;
+      }
+      .type-badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 12px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        margin-bottom: 6px;
+        text-transform: uppercase;
+      }
+      .badge-simile {
+        background: rgba(96, 165, 250, 0.15);
+        color: #93c5fd;
+        border: 1px solid #60a5fa;
+      }
+      .badge-metaphor {
+        background: rgba(244, 114, 182, 0.15);
+        color: #f9a8d4;
+        border: 1px solid #f472b6;
+      }
+      .badge-idiom {
+        background: rgba(251, 191, 36, 0.15);
+        color: #fde68a;
+        border: 1px solid #fbbf24;
+      }
+      .badge-personify {
+        background: rgba(74, 222, 128, 0.15);
+        color: #86efac;
+        border: 1px solid #4ade80;
+      }
+      .badge-hyperbole {
+        background: rgba(251, 146, 60, 0.15);
+        color: #fdba74;
+        border: 1px solid #fb923c;
+      }
+      .badge-question {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#figurative-language"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Figurative Language</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">✍️</div>
+        <h1 class="start-title">Figurative Language</h1>
+        <p class="start-desc">
+          Words that paint pictures! Identify similes ("like a"), metaphors (IS something), idioms, personification, and
+          hyperbole.
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div style="text-align: center">
+          <span class="type-badge badge-question" id="type-badge">🔍 What type?</span>
+        </div>
+        <div class="quote-box" id="quote-box"></div>
+        <div class="q-emoji" id="q-emoji">✍️</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Language Artist!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
