@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Magnetism - Magnets & Magnetic Forces Game for Kids | Doodles Games</title>
+    <meta name="title" content="Magnetism - Magnets & Magnetic Forces Game" />
+    <meta
+      name="description"
+      content="Explore the world of magnets! Learn about poles, attraction, repulsion, magnetic fields, and everyday uses of magnetism."
+    />
+    <meta
+      name="keywords"
+      content="magnetism game kids, magnets poles attract repel, magnetic field science elementary"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/magnetism/" />
+    <meta property="og:title" content="Magnetism - Magnets & Magnetic Forces Game" />
+    <meta property="og:description" content="Explore magnets, poles, attraction and repulsion!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/magnetism/" />
+    <meta property="twitter:title" content="Magnetism - Magnets & Magnetic Forces Game" />
+    <meta property="twitter:description" content="Explore magnets, poles, attraction and repulsion!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/magnetism/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #0a0014;
+        --dom-accent: #c084fc;
+        --dom-accent2: #e879f9;
+        --dom-bg: #060010;
+        --dom-border: rgba(192, 132, 252, 0.22);
+      }
+      .magnet-visual {
+        width: 100%;
+        max-width: 300px;
+        margin: 4px auto 10px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#magnetism"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Magnetism</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🧲</div>
+        <h1 class="start-title">Magnetism</h1>
+        <p class="start-desc">
+          Attract, repel, explore! Learn how magnets work, what they attract, and why Earth is one giant magnet!
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <!-- Magnet poles diagram -->
+        <svg class="magnet-visual" viewBox="0 0 300 70" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Left magnet -->
+          <rect
+            x="10"
+            y="20"
+            width="55"
+            height="30"
+            rx="6"
+            fill="rgba(239,68,68,0.25)"
+            stroke="#ef4444"
+            stroke-width="1.5"
+          />
+          <text
+            x="37"
+            y="40"
+            text-anchor="middle"
+            fill="#fca5a5"
+            font-size="13"
+            font-family="sans-serif"
+            font-weight="700"
+          >
+            N
+          </text>
+          <rect
+            x="65"
+            y="20"
+            width="55"
+            height="30"
+            rx="6"
+            fill="rgba(96,165,250,0.2)"
+            stroke="#60a5fa"
+            stroke-width="1.5"
+          />
+          <text
+            x="92"
+            y="40"
+            text-anchor="middle"
+            fill="#93c5fd"
+            font-size="13"
+            font-family="sans-serif"
+            font-weight="700"
+          >
+            S
+          </text>
+          <!-- Attract arrow -->
+          <text
+            x="145"
+            y="30"
+            text-anchor="middle"
+            fill="rgba(255,255,255,0.35)"
+            font-size="9"
+            font-family="sans-serif"
+          >
+            ATTRACT
+          </text>
+          <line x1="128" y1="36" x2="172" y2="36" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="3,3" />
+          <polygon points="172,36 166,32 166,40" fill="#4ade80" />
+          <polygon points="128,36 134,32 134,40" fill="#4ade80" />
+          <!-- Right magnet -->
+          <rect
+            x="175"
+            y="20"
+            width="55"
+            height="30"
+            rx="6"
+            fill="rgba(239,68,68,0.25)"
+            stroke="#ef4444"
+            stroke-width="1.5"
+          />
+          <text
+            x="202"
+            y="40"
+            text-anchor="middle"
+            fill="#fca5a5"
+            font-size="13"
+            font-family="sans-serif"
+            font-weight="700"
+          >
+            N
+          </text>
+          <rect
+            x="230"
+            y="20"
+            width="55"
+            height="30"
+            rx="6"
+            fill="rgba(96,165,250,0.2)"
+            stroke="#60a5fa"
+            stroke-width="1.5"
+          />
+          <text
+            x="257"
+            y="40"
+            text-anchor="middle"
+            fill="#93c5fd"
+            font-size="13"
+            font-family="sans-serif"
+            font-weight="700"
+          >
+            S
+          </text>
+          <!-- Labels -->
+          <text x="75" y="65" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="8" font-family="sans-serif">
+            N–S attract
+          </text>
+          <text
+            x="222"
+            y="65"
+            text-anchor="middle"
+            fill="rgba(255,255,255,0.35)"
+            font-size="8"
+            font-family="sans-serif"
+          >
+            N–N repel
+          </text>
+        </svg>
+        <div class="q-emoji" id="q-emoji">🧲</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Magnet Master!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

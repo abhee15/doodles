@@ -1456,6 +1456,40 @@ const GAMES = [
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
     footerName: 'Context Clues'
+  },
+  {
+    id: 'magnetism',
+    name: 'Magnetism',
+    thumbClass: null,
+    category: 'science',
+    desc: "Explore magnets! Learn about poles, attraction, repulsion, magnetic fields, Earth's magnetic core, and electromagnets.",
+    icon: 'ti-magnet',
+    iconColor: '#c084fc',
+    gradient: 'linear-gradient(145deg, #060010 0%, #581c87 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(192,132,252,.07) 0px, rgba(192,132,252,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Magnetism'
+  },
+  {
+    id: 'government-basics',
+    name: 'Government Basics',
+    thumbClass: null,
+    category: 'geo',
+    desc: 'Discover how the US government works! Explore the three branches, Constitution, Bill of Rights, and democracy.',
+    icon: 'ti-building-bank',
+    iconColor: '#facc15',
+    gradient: 'linear-gradient(145deg, #060700 0%, #713f12 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(250,204,21,.07) 0px, rgba(250,204,21,.07) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Government Basics'
   }
 ];
 
