@@ -1048,6 +1048,91 @@ const GAMES = [
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
     footerName: 'Fractions Visual'
+  },
+  {
+    id: 'animal-kingdom',
+    name: 'Animal Kingdom',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Mammals, reptiles, birds, fish, insects, amphibians — sort animals into their groups and learn amazing facts!',
+    icon: 'ti-paw',
+    iconColor: '#bef264',
+    gradient: 'linear-gradient(145deg, #071a01 0%, #4d7c0f 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(132,204,22,.07) 0px, rgba(132,204,22,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Animal Kingdom'
+  },
+  {
+    id: 'simple-machines',
+    name: 'Simple Machines',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Levers, pulleys, ramps, wedges — learn how simple machines make work easier with real-world examples!',
+    icon: 'ti-engine',
+    iconColor: '#fcd34d',
+    gradient: 'linear-gradient(145deg, #1a0f00 0%, #b45309 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(251,191,36,.07) 0px, rgba(251,191,36,.07) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Simple Machines'
+  },
+  {
+    id: 'place-value',
+    name: 'Place Value',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Ones, tens, hundreds, thousands — master place value, expanded form, and rounding with fun number puzzles!',
+    icon: 'ti-123',
+    iconColor: '#c4b5fd',
+    gradient: 'linear-gradient(145deg, #0d0120 0%, #6d28d9 100%)',
+    pattern:
+      'repeating-linear-gradient(30deg, rgba(167,139,250,.07) 0px, rgba(167,139,250,.07) 1px, transparent 1px, transparent 16px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Place Value'
+  },
+  {
+    id: 'continents-quiz',
+    name: 'Continents Quiz',
+    thumbClass: null,
+    category: 'geo',
+    desc: 'All 7 continents! Explore deserts, rivers, mountains, and fun geography facts from around the world.',
+    icon: 'ti-world',
+    iconColor: '#7dd3fc',
+    gradient: 'linear-gradient(145deg, #010c1a 0%, #0369a1 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(56,189,248,.07) 0px, rgba(56,189,248,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Continents Quiz'
+  },
+  {
+    id: 'syllables',
+    name: 'Syllables',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Clap it out! Count the syllables in words from 1 to 5 — from "cat" to "hippopotamus"!',
+    icon: 'ti-music',
+    iconColor: '#fdba74',
+    gradient: 'linear-gradient(145deg, #1a0700 0%, #c2410c 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(251,146,60,.07) 0px, rgba(251,146,60,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['1st-grade', '2nd-grade', '3rd-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Syllables'
   }
 ];
 

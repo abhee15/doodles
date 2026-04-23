@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Simple Machines - Levers, Pulleys & Ramps for Kids | Doodles Games</title>
+    <meta name="title" content="Simple Machines - Levers, Pulleys & Ramps" />
+    <meta
+      name="description"
+      content="Learn about levers, pulleys, wheels, inclined planes, wedges, and screws! Fun physics game for kids ages 7–12."
+    />
+    <meta
+      name="keywords"
+      content="simple machines game kids, lever pulley wedge physics, mechanical advantage children, engineering science quiz"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/simple-machines/" />
+    <meta property="og:title" content="Simple Machines - Levers, Pulleys & Ramps" />
+    <meta property="og:description" content="Learn about the 6 simple machines that make work easier!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/simple-machines/" />
+    <meta property="twitter:title" content="Simple Machines - Levers, Pulleys & Ramps" />
+    <meta property="twitter:description" content="Learn about the 6 simple machines that make work easier!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/simple-machines/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #1c1000;
+        --dom-nav-color: #fde68a;
+        --dom-nav-border: rgba(245, 158, 11, 0.3);
+        --dom-accent: #b45309;
+        --dom-accent2: #f59e0b;
+        --dom-bg: #110900;
+        --dom-text: #fffbeb;
+        --dom-text-muted: rgba(255, 251, 235, 0.6);
+        --dom-border: rgba(245, 158, 11, 0.22);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .screen.active {
+        display: flex;
+      }
+      .start-title {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-top: 8px;
+      }
+      .start-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 300px;
+        line-height: 1.5;
+      }
+      .machine-row {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .mach-chip {
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 10px;
+        padding: 8px 12px;
+        font-size: 0.875rem;
+        font-weight: 700;
+      }
+      .start-btn {
+        padding: 14px 36px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-accent);
+        background: var(--dom-accent);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition: transform 0.12s;
+      }
+      .start-btn:hover {
+        transform: translateY(-2px);
+      }
+      .game-meta {
+        display: flex;
+        width: 100%;
+        max-width: 440px;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+      }
+      .question-card {
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 20px;
+        padding: 24px 20px;
+        width: 100%;
+        max-width: 440px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+      .q-emoji {
+        font-size: 3rem;
+      }
+      .q-text {
+        font-size: 1rem;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+      .choices-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 440px;
+      }
+      .choice-btn {
+        width: 100%;
+        padding: 14px 20px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.12s,
+          transform 0.1s;
+      }
+      .choice-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        transform: translateY(-1px);
+      }
+      .choice-btn:disabled {
+        cursor: default;
+      }
+      .choice-btn.correct-choice {
+        border-color: #4ade80;
+        color: #4ade80;
+        background: rgba(74, 222, 128, 0.08);
+      }
+      .choice-btn.wrong-choice {
+        border-color: #f87171;
+        color: #f87171;
+        background: rgba(248, 113, 113, 0.08);
+      }
+      .feedback {
+        font-size: 1rem;
+        font-weight: 700;
+        min-height: 1.5rem;
+      }
+      .feedback.good {
+        color: #4ade80;
+      }
+      .feedback.bad {
+        color: #f87171;
+      }
+      .fact-box {
+        font-size: 0.875rem;
+        color: #fcd34d;
+        text-align: center;
+        max-width: 380px;
+        line-height: 1.5;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        display: none;
+      }
+      .action-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .action-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+      .result-emoji {
+        font-size: 4rem;
+      }
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+      .result-score {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+      @media (max-width: 480px) {
+        .q-text {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#simple-machines"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Simple Machines</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+    <div class="screen active" id="screen-start">
+      <div class="start-title">
+        <span style="display: block; font-size: 2.8rem; margin-bottom: 8px">⚙️</span>Simple Machines
+      </div>
+      <div class="start-sub">6 simple machines make ALL work easier. Can you identify them all?</div>
+      <div class="machine-row">
+        <div class="mach-chip">⚖️ Lever</div>
+        <div class="mach-chip">🔧 Pulley</div>
+        <div class="mach-chip">⬆️ Inclined Plane</div>
+        <div class="mach-chip">🔺 Wedge</div>
+        <div class="mach-chip">🔩 Screw</div>
+        <div class="mach-chip">🚗 Wheel &amp; Axle</div>
+      </div>
+      <button class="start-btn" id="btn-start">Start Quiz →</button>
+    </div>
+    <div class="screen" id="screen-game">
+      <div class="game-meta"><span id="round-label">Round 1 of 10</span><span id="score-label">Score: 0</span></div>
+      <div class="question-card">
+        <div class="q-emoji" id="q-emoji">⚙️</div>
+        <div class="q-text" id="q-text">Question text here</div>
+      </div>
+      <div class="choices-grid" id="choices-grid"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="fact-box" id="fact-box"></div>
+      <div class="action-row"><button class="action-btn" id="btn-menu">← Menu</button></div>
+    </div>
+    <div class="screen" id="screen-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <div class="result-title" id="result-title">Engineer Expert!</div>
+      <div class="result-score" id="result-score">10 / 10 correct</div>
+      <div class="action-row" style="margin-top: 16px">
+        <button class="action-btn" id="btn-menu">← Menu</button>
+        <button class="action-btn" id="btn-play-again">Play Again</button>
+      </div>
+    </div>
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
