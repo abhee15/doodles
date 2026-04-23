@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Algebra Explorer - Equation Solving Game for Kids | Doodles Games</title>
+    <meta name="title" content="Algebra Explorer - Equation Solving Game" />
+    <meta
+      name="description"
+      content="Solve fun algebra equations and find the value of x! Three levels from simple addition to multi-step equations. Perfect algebra practice for grades 3–6."
+    />
+    <meta
+      name="keywords"
+      content="algebra game kids, solve for x children, equation game elementary, math algebra practice, find x game kids"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/algebra-explorer/" />
+    <meta property="og:title" content="Algebra Explorer - Equation Solving Game" />
+    <meta
+      property="og:description"
+      content="Solve fun algebra equations! Find the value of x across three difficulty levels."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/algebra-explorer/" />
+    <meta property="twitter:title" content="Algebra Explorer - Equation Solving Game" />
+    <meta
+      property="twitter:description"
+      content="Solve fun algebra equations! Find the value of x across three difficulty levels."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/algebra-explorer/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #0c1445;
+        --dom-nav-color: #bfdbfe;
+        --dom-nav-border: rgba(59, 130, 246, 0.3);
+        --dom-accent: #2563eb;
+        --dom-accent2: #f59e0b;
+        --dom-bg: #0a0f2e;
+        --dom-text: #f0f4ff;
+        --dom-text-muted: rgba(240, 244, 255, 0.6);
+        --dom-border: rgba(59, 130, 246, 0.2);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .screen.active {
+        display: flex;
+      }
+
+      /* ── START ── */
+      .start-title {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-top: 8px;
+      }
+      .start-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 320px;
+        line-height: 1.5;
+      }
+      .level-picker {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 440px;
+      }
+      .level-btn {
+        flex: 1;
+        min-width: 110px;
+        padding: 18px 10px;
+        border-radius: 14px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-family: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .level-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+      .lv-emoji {
+        font-size: 2rem;
+      }
+      .lv-label {
+        font-size: 1rem;
+        font-weight: 800;
+      }
+      .lv-desc {
+        font-size: 0.75rem;
+        color: var(--dom-text-muted);
+        line-height: 1.4;
+      }
+
+      /* ── GAME ── */
+      .game-meta {
+        display: flex;
+        width: 100%;
+        max-width: 440px;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+      }
+
+      .equation-card {
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 20px;
+        padding: 28px 24px;
+        width: 100%;
+        max-width: 440px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .eq-label {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      .equation-display {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+        letter-spacing: 0.04em;
+      }
+
+      .eq-task {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        margin-top: 4px;
+      }
+
+      .answer-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        width: 100%;
+        max-width: 440px;
+        justify-content: center;
+      }
+
+      .x-label {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+
+      .answer-equals {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--dom-text-muted);
+      }
+
+      .answer-input {
+        width: 100px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--dom-text);
+        font-size: 1.4rem;
+        font-weight: 800;
+        text-align: center;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.15s;
+        min-height: 44px;
+      }
+      .answer-input:focus {
+        border-color: var(--dom-accent);
+      }
+
+      .feedback {
+        font-size: 1rem;
+        font-weight: 700;
+        min-height: 1.5rem;
+        text-align: center;
+      }
+      .feedback.good {
+        color: #4ade80;
+      }
+      .feedback.bad {
+        color: #f87171;
+      }
+
+      .hint-text {
+        font-size: 0.875rem;
+        color: #a78bfa;
+        text-align: center;
+        max-width: 340px;
+        line-height: 1.5;
+        font-style: italic;
+        display: none;
+      }
+
+      .action-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .action-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .action-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+      .action-btn:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      .action-btn--primary {
+        background: var(--dom-accent);
+        border-color: var(--dom-accent);
+        color: white;
+      }
+
+      /* ── RESULT ── */
+      .result-emoji {
+        font-size: 4rem;
+      }
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+      .result-score {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+      .result-level {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      @media (max-width: 480px) {
+        .equation-display {
+          font-size: 1.8rem;
+        }
+        .level-btn {
+          min-width: 90px;
+          padding: 14px 8px;
+        }
+        .lv-emoji {
+          font-size: 1.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#algebra-explorer"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Algebra Explorer</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Start Screen -->
+    <div class="screen active" id="screen-start">
+      <div class="start-title">
+        <span style="display: block; font-size: 2.8rem; margin-bottom: 8px">🔢</span>
+        Algebra Explorer
+      </div>
+      <div class="start-sub">Solve for x and discover the power of algebra!</div>
+      <div class="level-picker" id="level-picker">
+        <!-- built by JS -->
+      </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="screen" id="screen-game">
+      <div class="game-meta">
+        <span id="round-label">Round 1 of 8</span>
+        <span id="score-label">Score: 0</span>
+      </div>
+
+      <div class="equation-card">
+        <div class="eq-label">Solve the equation</div>
+        <div class="equation-display" id="equation-display">x + 3 = 7</div>
+        <div class="eq-task">Find the value of x</div>
+      </div>
+
+      <div class="answer-row">
+        <span class="x-label">x</span>
+        <span class="answer-equals">=</span>
+        <input
+          class="answer-input"
+          id="answer-input"
+          type="number"
+          inputmode="numeric"
+          placeholder="?"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+      <div class="hint-text" id="hint-text"></div>
+
+      <div class="action-row">
+        <button class="action-btn" id="btn-hint">💡 Hint</button>
+        <button class="action-btn action-btn--primary" id="btn-submit">Check →</button>
+      </div>
+
+      <div class="action-row">
+        <button class="action-btn" id="btn-menu">← Menu</button>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="screen" id="screen-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <div class="result-title" id="result-title">Perfect Score!</div>
+      <div class="result-score" id="result-score">8 / 8 correct</div>
+      <div class="result-level" id="result-level">Easy level</div>
+      <div class="action-row" style="margin-top: 12px">
+        <button class="action-btn" id="btn-menu">Change Level</button>
+        <button class="action-btn" id="btn-play-again">Play Again</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

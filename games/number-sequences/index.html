@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Number Sequences - Pattern Finding Game for Kids | Doodles Games</title>
+    <meta name="title" content="Number Sequences - Pattern Finding Game" />
+    <meta
+      name="description"
+      content="Find the missing number in each sequence! Spot arithmetic, geometric, and Fibonacci patterns. A fun number pattern game for grades 1–6."
+    />
+    <meta
+      name="keywords"
+      content="number sequences game kids, pattern finding math, missing number game, number patterns children, arithmetic sequences kids"
+    />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/number-sequences/" />
+    <meta property="og:title" content="Number Sequences - Pattern Finding Game" />
+    <meta
+      property="og:description"
+      content="Find the missing number! Spot arithmetic, geometric, and Fibonacci patterns in fun sequences."
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/number-sequences/" />
+    <meta property="twitter:title" content="Number Sequences - Pattern Finding Game" />
+    <meta
+      property="twitter:description"
+      content="Find the missing number! Spot arithmetic, geometric, and Fibonacci patterns."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/number-sequences/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #14012a;
+        --dom-nav-color: #e9d5ff;
+        --dom-nav-border: rgba(168, 85, 247, 0.3);
+        --dom-accent: #9333ea;
+        --dom-accent2: #fbbf24;
+        --dom-bg: #0d0118;
+        --dom-text: #faf5ff;
+        --dom-text-muted: rgba(250, 245, 255, 0.6);
+        --dom-border: rgba(168, 85, 247, 0.25);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .screen.active {
+        display: flex;
+      }
+
+      .start-title {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-top: 8px;
+      }
+      .start-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 300px;
+        line-height: 1.5;
+      }
+
+      .level-picker {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 400px;
+      }
+      .level-btn {
+        flex: 1;
+        min-width: 100px;
+        padding: 18px 12px;
+        border-radius: 14px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-family: inherit;
+        font-weight: 700;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .level-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+      .lv-emoji {
+        font-size: 2rem;
+      }
+      .lv-label {
+        font-size: 1rem;
+        font-weight: 800;
+      }
+
+      .game-meta {
+        display: flex;
+        width: 100%;
+        max-width: 480px;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+      }
+
+      /* ── SEQUENCE DISPLAY ── */
+      .seq-display {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 480px;
+        padding: 20px 10px;
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 20px;
+        min-height: 100px;
+      }
+
+      .seq-box {
+        width: 54px;
+        height: 54px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-border);
+        background: rgba(255, 255, 255, 0.06);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--dom-text);
+        flex-shrink: 0;
+      }
+
+      .seq-box.missing {
+        border-color: var(--dom-accent2);
+        color: var(--dom-accent2);
+        font-size: 1.6rem;
+        background: rgba(251, 191, 36, 0.08);
+      }
+
+      .seq-box.correct-box {
+        border-color: #4ade80;
+        color: #4ade80;
+        background: rgba(74, 222, 128, 0.1);
+      }
+
+      .seq-box.wrong-box {
+        border-color: #f87171;
+        color: #f87171;
+        background: rgba(248, 113, 113, 0.1);
+      }
+
+      .seq-arrow {
+        font-size: 1.1rem;
+        color: var(--dom-text-muted);
+        flex-shrink: 0;
+      }
+
+      .rule-reveal {
+        font-size: 0.875rem;
+        color: #a78bfa;
+        font-style: italic;
+        min-height: 1.2rem;
+        text-align: center;
+      }
+
+      .answer-row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .q-label {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+
+      .answer-input {
+        width: 100px;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: rgba(255, 255, 255, 0.06);
+        color: var(--dom-text);
+        font-size: 1.4rem;
+        font-weight: 800;
+        text-align: center;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.15s;
+        min-height: 44px;
+      }
+      .answer-input:focus {
+        border-color: var(--dom-accent);
+      }
+
+      .feedback {
+        font-size: 1rem;
+        font-weight: 700;
+        min-height: 1.5rem;
+        text-align: center;
+      }
+      .feedback.good {
+        color: #4ade80;
+      }
+      .feedback.bad {
+        color: #f87171;
+      }
+
+      .action-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .action-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+      .action-btn:disabled {
+        opacity: 0.45;
+        cursor: default;
+      }
+      .action-btn--primary {
+        background: var(--dom-accent);
+        border-color: var(--dom-accent);
+        color: white;
+      }
+
+      .result-emoji {
+        font-size: 4rem;
+      }
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+      .result-score {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+      .result-level {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      @media (max-width: 480px) {
+        .seq-box {
+          width: 44px;
+          height: 44px;
+          font-size: 1rem;
+        }
+        .seq-box.missing {
+          font-size: 1.3rem;
+        }
+        .level-btn {
+          min-width: 80px;
+          padding: 14px 8px;
+        }
+        .lv-emoji {
+          font-size: 1.6rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#number-sequences"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Number Sequences</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Start Screen -->
+    <div class="screen active" id="screen-start">
+      <div class="start-title">
+        <span style="display: block; font-size: 2.8rem; margin-bottom: 8px">🔢</span>
+        Number Sequences
+      </div>
+      <div class="start-sub">Find the missing number in each pattern!</div>
+      <div class="level-picker" id="level-picker"></div>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="screen" id="screen-game">
+      <div class="game-meta">
+        <span id="round-label">Round 1 of 8</span>
+        <span id="score-label">Score: 0</span>
+      </div>
+
+      <div class="seq-display" id="seq-display">
+        <!-- built by JS -->
+      </div>
+
+      <div class="rule-reveal" id="rule-reveal"></div>
+
+      <div class="answer-row">
+        <span class="q-label">? =</span>
+        <input
+          class="answer-input"
+          id="answer-input"
+          type="number"
+          inputmode="numeric"
+          placeholder="?"
+          autocomplete="off"
+        />
+      </div>
+
+      <div class="feedback" id="feedback"></div>
+
+      <div class="action-row">
+        <button class="action-btn action-btn--primary" id="btn-submit">Check →</button>
+      </div>
+      <div class="action-row">
+        <button class="action-btn" id="btn-menu">← Menu</button>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="screen" id="screen-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <div class="result-title" id="result-title">Perfect Patterns!</div>
+      <div class="result-score" id="result-score">8 / 8 correct</div>
+      <div class="result-level" id="result-level">Easy level</div>
+      <div class="action-row" style="margin-top: 12px">
+        <button class="action-btn" id="btn-menu">Change Level</button>
+        <button class="action-btn" id="btn-play-again">Play Again</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

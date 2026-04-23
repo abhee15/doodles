@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Simon Says - Color Memory Game for Kids | Doodles Games</title>
+    <meta name="title" content="Simon Says - Color Memory Game" />
+    <meta
+      name="description"
+      content="Watch the color pattern and repeat it! Simon Says is a classic memory sequence game that trains attention and memory for kids ages 5–12."
+    />
+    <meta
+      name="keywords"
+      content="simon says game kids, color memory game, sequence memory children, memory game online kids, simon game"
+    />
+
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/simon-says/" />
+    <meta property="og:title" content="Simon Says - Color Memory Game" />
+    <meta
+      property="og:description"
+      content="Watch the color pattern and repeat it! Classic memory sequence game for kids."
+    />
+
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/simon-says/" />
+    <meta property="twitter:title" content="Simon Says - Color Memory Game" />
+    <meta
+      property="twitter:description"
+      content="Watch the color pattern and repeat it! Classic memory sequence game for kids."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/simon-says/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #111827;
+        --dom-nav-color: #e5e7eb;
+        --dom-nav-border: rgba(255, 255, 255, 0.1);
+        --dom-accent: #6366f1;
+        --dom-accent2: #fbbf24;
+        --dom-bg: #0f172a;
+        --dom-text: #f1f5f9;
+        --dom-text-muted: rgba(241, 245, 249, 0.6);
+        --dom-border: rgba(255, 255, 255, 0.12);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      .sg-page {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 16px;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        text-align: center;
+      }
+
+      /* ── PANELS ── */
+      .panel {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        width: 100%;
+        max-width: 400px;
+      }
+      .panel.active-panel {
+        display: flex;
+      }
+
+      .panel-title {
+        font-size: 2rem;
+        font-weight: 800;
+      }
+      .panel-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        line-height: 1.5;
+        max-width: 300px;
+      }
+
+      /* ── SCORE BAR ── */
+      .score-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        max-width: 400px;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+      }
+
+      /* ── COLOR GRID ── */
+      .color-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        width: 100%;
+        max-width: 360px;
+      }
+
+      .color-btn {
+        height: 120px;
+        border-radius: 18px;
+        border: 3px solid rgba(255, 255, 255, 0.25);
+        font-size: 1.1rem;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition: transform 0.08s;
+      }
+      .color-btn:hover:not(:disabled) {
+        transform: scale(1.03);
+      }
+      .color-btn:disabled {
+        cursor: default;
+        opacity: 0.75;
+      }
+
+      /* ── STATUS ── */
+      .status {
+        font-size: 1rem;
+        font-weight: 700;
+        min-height: 1.5rem;
+        text-align: center;
+      }
+
+      /* ── GAME OVER PANEL ── */
+      .gameover-panel {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        z-index: 100;
+        text-align: center;
+        padding: 24px;
+      }
+
+      .go-card {
+        background: #1e293b;
+        border: 2px solid var(--dom-border);
+        border-radius: 20px;
+        padding: 32px 28px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        max-width: 320px;
+        width: 100%;
+      }
+
+      .go-emoji {
+        font-size: 3rem;
+      }
+      .go-title {
+        font-size: 1.6rem;
+        font-weight: 800;
+      }
+      .go-score {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+      .go-best {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+      }
+
+      .big-btn {
+        padding: 14px 32px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-accent);
+        background: var(--dom-accent);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition: transform 0.12s;
+      }
+      .big-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      @media (max-width: 480px) {
+        .color-btn {
+          height: 90px;
+          font-size: 1rem;
+        }
+        .color-grid {
+          gap: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#simon-says"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Simon Says</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="sg-page">
+      <div class="score-bar">
+        <span id="score-label">Round: 1</span>
+        <span id="best-label">Best: 0</span>
+      </div>
+
+      <!-- Start Panel -->
+      <div class="panel active-panel" id="start-panel">
+        <div style="font-size: 3rem">🎮</div>
+        <div class="panel-title">Simon Says</div>
+        <div class="panel-sub">
+          Watch the colors light up, then tap them in the same order. How long can you remember?
+        </div>
+        <button class="big-btn" id="btn-start">Start!</button>
+      </div>
+
+      <!-- Game Panel -->
+      <div class="panel" id="game-panel">
+        <div class="status" id="status">Get ready…</div>
+        <div class="color-grid" id="color-grid">
+          <!-- built by JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Game Over Overlay -->
+    <div class="gameover-panel" id="gameover-panel">
+      <div class="go-card">
+        <div class="go-emoji">😮</div>
+        <div class="go-title">Game Over!</div>
+        <div class="go-score" id="go-score">0</div>
+        <div class="go-best" id="go-best">Best: 0</div>
+        <button class="big-btn" id="btn-restart">Try Again</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

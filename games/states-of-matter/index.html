@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>States of Matter - Science Quiz for Kids | Doodles Games</title>
+    <meta name="title" content="States of Matter - Science Quiz for Kids" />
+    <meta
+      name="description"
+      content="Learn about solids, liquids, and gases! Quiz yourself on states of matter and phase changes. Fun science game for grades 2–5."
+    />
+    <meta
+      name="keywords"
+      content="states of matter kids, solid liquid gas game, science quiz children, phase changes game, matter science kids"
+    />
+
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/states-of-matter/" />
+    <meta property="og:title" content="States of Matter - Science Quiz for Kids" />
+    <meta
+      property="og:description"
+      content="Learn about solids, liquids, and gases! Quiz yourself on states of matter and phase changes."
+    />
+
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/states-of-matter/" />
+    <meta property="twitter:title" content="States of Matter - Science Quiz for Kids" />
+    <meta
+      property="twitter:description"
+      content="Learn about solids, liquids, and gases! Quiz yourself on states of matter and phase changes."
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/states-of-matter/" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #0a1929;
+        --dom-nav-color: #bae6fd;
+        --dom-nav-border: rgba(14, 165, 233, 0.3);
+        --dom-accent: #0284c7;
+        --dom-accent2: #f59e0b;
+        --dom-bg: #050e1a;
+        --dom-text: #f0f9ff;
+        --dom-text-muted: rgba(240, 249, 255, 0.6);
+        --dom-border: rgba(14, 165, 233, 0.2);
+        --dom-card-bg: rgba(255, 255, 255, 0.04);
+      }
+
+      body {
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        overflow-x: hidden;
+      }
+
+      .screen {
+        display: none;
+        padding: 16px;
+        min-height: calc(100vh - var(--dom-nav-height));
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+      .screen.active {
+        display: flex;
+      }
+
+      .start-title {
+        font-size: 2rem;
+        font-weight: 800;
+        line-height: 1.2;
+        margin-top: 8px;
+      }
+      .start-sub {
+        font-size: 1rem;
+        color: var(--dom-text-muted);
+        max-width: 320px;
+        line-height: 1.5;
+      }
+
+      .state-cards {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+        max-width: 440px;
+      }
+
+      .state-card {
+        flex: 1;
+        min-width: 110px;
+        padding: 16px 10px;
+        border-radius: 14px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .state-card-emoji {
+        font-size: 2rem;
+      }
+      .state-card-name {
+        font-size: 0.9rem;
+        font-weight: 800;
+      }
+      .state-card-desc {
+        font-size: 0.75rem;
+        color: var(--dom-text-muted);
+        line-height: 1.4;
+      }
+
+      .start-btn {
+        padding: 14px 36px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-accent);
+        background: var(--dom-accent);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition: transform 0.12s;
+      }
+      .start-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      .game-meta {
+        display: flex;
+        width: 100%;
+        max-width: 440px;
+        justify-content: space-between;
+        font-size: 0.875rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+      }
+
+      .question-card {
+        background: var(--dom-card-bg);
+        border: 2px solid var(--dom-border);
+        border-radius: 20px;
+        padding: 24px 20px;
+        width: 100%;
+        max-width: 440px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .q-emoji {
+        font-size: 3rem;
+      }
+      .q-text {
+        font-size: 1.1rem;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      .choices-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 440px;
+      }
+
+      .choice-btn {
+        width: 100%;
+        padding: 14px 20px;
+        border-radius: 12px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.12s,
+          transform 0.1s;
+      }
+      .choice-btn:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        transform: translateY(-1px);
+      }
+      .choice-btn:disabled {
+        cursor: default;
+      }
+      .choice-btn.correct-choice {
+        border-color: #4ade80;
+        color: #4ade80;
+        background: rgba(74, 222, 128, 0.08);
+      }
+      .choice-btn.wrong-choice {
+        border-color: #f87171;
+        color: #f87171;
+        background: rgba(248, 113, 113, 0.08);
+      }
+
+      .feedback {
+        font-size: 1rem;
+        font-weight: 700;
+        min-height: 1.5rem;
+        text-align: center;
+      }
+      .feedback.good {
+        color: #4ade80;
+      }
+      .feedback.bad {
+        color: #f87171;
+      }
+
+      .fact-box {
+        font-size: 0.875rem;
+        color: #7dd3fc;
+        text-align: center;
+        max-width: 380px;
+        line-height: 1.5;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: rgba(14, 165, 233, 0.08);
+        border: 1px solid rgba(14, 165, 233, 0.2);
+        display: none;
+      }
+
+      .action-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .action-btn {
+        padding: 12px 24px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text);
+        font-size: 1rem;
+        font-weight: 700;
+        font-family: inherit;
+        cursor: pointer;
+        min-height: 44px;
+        transition:
+          border-color 0.15s,
+          transform 0.12s;
+      }
+      .action-btn:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-2px);
+      }
+
+      .result-emoji {
+        font-size: 4rem;
+      }
+      .result-title {
+        font-size: 1.8rem;
+        font-weight: 800;
+      }
+      .result-score {
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+      }
+
+      @media (max-width: 480px) {
+        .q-text {
+          font-size: 1rem;
+        }
+        .state-card {
+          min-width: 90px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#states-of-matter"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">States of Matter</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- Start Screen -->
+    <div class="screen active" id="screen-start">
+      <div class="start-title">
+        <span style="display: block; font-size: 2.8rem; margin-bottom: 8px">🔬</span>
+        States of Matter
+      </div>
+      <div class="start-sub">Test your knowledge of solids, liquids, and gases!</div>
+
+      <div class="state-cards">
+        <div class="state-card">
+          <div class="state-card-emoji">🧊</div>
+          <div class="state-card-name">Solid</div>
+          <div class="state-card-desc">Fixed shape & volume</div>
+        </div>
+        <div class="state-card">
+          <div class="state-card-emoji">💧</div>
+          <div class="state-card-name">Liquid</div>
+          <div class="state-card-desc">Fixed volume, flows</div>
+        </div>
+        <div class="state-card">
+          <div class="state-card-emoji">💨</div>
+          <div class="state-card-name">Gas</div>
+          <div class="state-card-desc">Fills any container</div>
+        </div>
+      </div>
+
+      <button class="start-btn" id="btn-start">Start Quiz →</button>
+    </div>
+
+    <!-- Game Screen -->
+    <div class="screen" id="screen-game">
+      <div class="game-meta">
+        <span id="round-label">Round 1 of 10</span>
+        <span id="score-label">Score: 0</span>
+      </div>
+
+      <div class="question-card">
+        <div class="q-emoji" id="q-emoji">🧊</div>
+        <div class="q-text" id="q-text">Question text</div>
+      </div>
+
+      <div class="choices-grid" id="choices-grid"></div>
+
+      <div class="feedback" id="feedback"></div>
+      <div class="fact-box" id="fact-box"></div>
+
+      <div class="action-row">
+        <button class="action-btn" id="btn-menu">← Menu</button>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div class="screen" id="screen-result">
+      <div class="result-emoji" id="result-emoji">🏆</div>
+      <div class="result-title" id="result-title">Science Genius!</div>
+      <div class="result-score" id="result-score">10 / 10 correct</div>
+      <div class="action-row" style="margin-top: 16px">
+        <button class="action-btn" id="btn-menu">← Menu</button>
+        <button class="action-btn" id="btn-play-again">Play Again</button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

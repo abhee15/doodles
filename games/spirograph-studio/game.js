@@ -1,22 +1,22 @@
 'use strict';
 
 // ── PATTERNS ──────────────────────────────────────────────────────────────────
-// Each pattern has parametric equations and a parameter list.
-// point(t, params, R) returns {x, y} in math coords (y up).
-// The renderer flips y for canvas coords.
 
 const PATTERNS = [
   {
     id: 'flower',
     label: 'Flower',
     emoji: '🌸',
-    info: 'A rose curve — petals appear as the angle spins around!',
-    params: [{ id: 'n', label: 'Loops', min: 2, max: 9, value: 5, step: 1 }],
+    info: 'A rose curve — petals appear as the angle spins around! Odd numbers give that many petals; even numbers double them.',
+    params: [
+      { id: 'n', label: 'Petals', min: 2, max: 9, value: 5, step: 1 },
+      { id: 'scale', label: 'Size', min: 60, max: 100, value: 100, step: 5 }
+    ],
     totalAngle: function () {
       return 2 * Math.PI;
     },
     point: function (t, p, R) {
-      const r = R * Math.cos(p.n * t);
+      const r = R * (p.scale / 100) * Math.cos(p.n * t);
       return { x: r * Math.cos(t), y: r * Math.sin(t) };
     }
   },
@@ -24,7 +24,7 @@ const PATTERNS = [
     id: 'spirograph',
     label: 'Spirograph',
     emoji: '⭕',
-    info: 'A small ring rolls inside a big ring — like a real spirograph toy!',
+    info: 'A small ring rolls inside a big ring — like a real spirograph toy! Change Ring Size to get more or fewer loops.',
     params: [
       { id: 'q', label: 'Ring Size', min: 3, max: 8, value: 3, step: 1 },
       { id: 'pen', label: 'Pen Reach', min: 20, max: 90, value: 65, step: 5 }
@@ -45,15 +45,18 @@ const PATTERNS = [
     id: 'starburst',
     label: 'Star Burst',
     emoji: '✨',
-    info: 'A ring rolling outside creates sharp star points!',
-    params: [{ id: 'q', label: 'Points', min: 2, max: 6, value: 3, step: 1 }],
+    info: 'A ring rolling outside creates sharp star points! More Points = more spiky. Reach controls how far the pen extends.',
+    params: [
+      { id: 'q', label: 'Points', min: 2, max: 7, value: 3, step: 1 },
+      { id: 'reach', label: 'Reach', min: 50, max: 95, value: 82, step: 5 }
+    ],
     totalAngle: function () {
       return 2 * Math.PI;
     },
     point: function (t, p, R) {
       const Ro = R * 0.48;
       const r = Ro / p.q;
-      const d = r * 0.82;
+      const d = r * (p.reach / 100);
       return {
         x: (Ro + r) * Math.cos(t) - d * Math.cos((p.q + 1) * t),
         y: (Ro + r) * Math.sin(t) - d * Math.sin((p.q + 1) * t)
@@ -64,17 +67,18 @@ const PATTERNS = [
     id: 'waves',
     label: 'Wave Art',
     emoji: '〰️',
-    info: 'Two waves crossing at different speeds make amazing patterns!',
+    info: 'Two sine waves crossing at different speeds make Lissajous figures. Phase shifts the X wave — try equal speeds with different phases!',
     params: [
-      { id: 'a', label: 'Speed X', min: 1, max: 5, value: 3, step: 1 },
-      { id: 'b', label: 'Speed Y', min: 1, max: 5, value: 2, step: 1 }
+      { id: 'a', label: 'Speed X', min: 1, max: 8, value: 3, step: 1 },
+      { id: 'b', label: 'Speed Y', min: 1, max: 8, value: 2, step: 1 },
+      { id: 'phase', label: 'Phase', min: 0, max: 8, value: 2, step: 1 }
     ],
     totalAngle: function (p) {
       return 2 * Math.PI * Math.max(p.a, p.b);
     },
     point: function (t, p, R) {
       return {
-        x: R * Math.sin(p.a * t + Math.PI / 4),
+        x: R * Math.sin(p.a * t + (p.phase * Math.PI) / 4),
         y: R * Math.sin(p.b * t)
       };
     }
@@ -86,11 +90,12 @@ const PATTERNS = [
 const state = {
   patternIdx: 0,
   params: {},
+  copies: 1,
   animId: null,
   t: 0,
   dt: 0,
-  prevX: 0,
-  prevY: 0,
+  prevX: [],
+  prevY: [],
   hue: 0,
   drawing: false
 };
@@ -117,7 +122,7 @@ function clearCanvas() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
-// ── PATTERN / PARAMS ──────────────────────────────────────────────────────────
+// ── HELPERS ───────────────────────────────────────────────────────────────────
 
 function currentPattern() {
   return PATTERNS[state.patternIdx];
@@ -128,6 +133,41 @@ function initParams() {
   currentPattern().params.forEach(function (p) {
     state.params[p.id] = p.value;
   });
+}
+
+function makeSliderRow(id, label, min, max, value, step, onChange) {
+  const row = document.createElement('div');
+  row.className = 'param-row';
+
+  const lbl = document.createElement('label');
+  lbl.className = 'param-label';
+  lbl.textContent = label;
+  lbl.htmlFor = `param-${id}`;
+
+  const input = document.createElement('input');
+  input.type = 'range';
+  input.className = 'param-range';
+  input.id = `param-${id}`;
+  input.min = min;
+  input.max = max;
+  input.value = value;
+  input.step = step;
+
+  const valEl = document.createElement('span');
+  valEl.className = 'param-val';
+  valEl.id = `val-${id}`;
+  valEl.textContent = value;
+
+  input.addEventListener('input', function () {
+    const v = parseInt(this.value, 10);
+    document.getElementById(`val-${id}`).textContent = this.value;
+    onChange(v);
+  });
+
+  row.appendChild(lbl);
+  row.appendChild(input);
+  row.appendChild(valEl);
+  return row;
 }
 
 // ── UI BUILDERS ───────────────────────────────────────────────────────────────
@@ -151,40 +191,33 @@ function renderParamSliders() {
   const container = document.getElementById('param-sliders');
   container.innerHTML = '';
   currentPattern().params.forEach(function (param) {
-    const row = document.createElement('div');
-    row.className = 'param-row';
-
-    const label = document.createElement('label');
-    label.className = 'param-label';
-    label.textContent = param.label;
-    label.htmlFor = `param-${param.id}`;
-
-    const input = document.createElement('input');
-    input.type = 'range';
-    input.className = 'param-range';
-    input.id = `param-${param.id}`;
-    input.min = param.min;
-    input.max = param.max;
-    input.value = state.params[param.id];
-    input.step = param.step;
-
-    const val = document.createElement('span');
-    val.className = 'param-val';
-    val.id = `val-${param.id}`;
-    val.textContent = state.params[param.id];
-
-    input.addEventListener('input', function () {
-      state.params[param.id] = parseInt(this.value, 10);
-      document.getElementById(`val-${param.id}`).textContent = this.value;
-    });
-
-    row.appendChild(label);
-    row.appendChild(input);
-    row.appendChild(val);
-    container.appendChild(row);
+    container.appendChild(
+      makeSliderRow(
+        param.id,
+        param.label,
+        param.min,
+        param.max,
+        state.params[param.id],
+        param.step,
+        function (val) {
+          state.params[param.id] = val;
+          scheduleDraw();
+        }
+      )
+    );
   });
-
   document.getElementById('pattern-info').textContent = currentPattern().info;
+}
+
+function renderCopiesSlider() {
+  const container = document.getElementById('copies-row');
+  container.innerHTML = '';
+  container.appendChild(
+    makeSliderRow('copies', '🔁 Copies', 1, 6, state.copies, 1, function (val) {
+      state.copies = val;
+      scheduleDraw();
+    })
+  );
 }
 
 function selectPattern(idx) {
@@ -194,12 +227,20 @@ function selectPattern(idx) {
   initParams();
   renderPatternPicker();
   renderParamSliders();
+  scheduleDraw();
 }
 
 // ── ANIMATION ─────────────────────────────────────────────────────────────────
 
 const TOTAL_STEPS = 1000;
 const STEPS_PER_FRAME = 6;
+
+let drawTimer = null;
+
+function scheduleDraw() {
+  clearTimeout(drawTimer);
+  drawTimer = setTimeout(startDrawing, 250);
+}
 
 function startDrawing() {
   if (state.animId) {
@@ -214,8 +255,15 @@ function startDrawing() {
   state.drawing = true;
 
   const pt0 = pat.point(0, state.params, R);
-  state.prevX = CX + pt0.x;
-  state.prevY = CY - pt0.y;
+  state.prevX = [];
+  state.prevY = [];
+  for (let c = 0; c < state.copies; c++) {
+    const angle = (2 * Math.PI * c) / state.copies;
+    const cos = Math.cos(angle);
+    const sin = Math.sin(angle);
+    state.prevX.push(CX + pt0.x * cos - pt0.y * sin);
+    state.prevY.push(CY - (pt0.x * sin + pt0.y * cos));
+  }
 
   clearCanvas();
 
@@ -223,7 +271,6 @@ function startDrawing() {
   drawBtn.textContent = 'Drawing…';
   drawBtn.disabled = true;
 
-  ctx.lineWidth = 1.5;
   ctx.lineCap = 'round';
 
   function frame() {
@@ -234,18 +281,23 @@ function startDrawing() {
         break;
       }
       const pt = pat.point(state.t, state.params, R);
-      const nx = CX + pt.x;
-      const ny = CY - pt.y;
-
       state.hue = (state.hue + 360 / TOTAL_STEPS) % 360;
       ctx.strokeStyle = `hsl(${state.hue},100%,68%)`;
-      ctx.beginPath();
-      ctx.moveTo(state.prevX, state.prevY);
-      ctx.lineTo(nx, ny);
-      ctx.stroke();
+      ctx.lineWidth = state.copies > 2 ? 1.0 : 1.5;
 
-      state.prevX = nx;
-      state.prevY = ny;
+      for (let c = 0; c < state.copies; c++) {
+        const angle = (2 * Math.PI * c) / state.copies;
+        const cos = Math.cos(angle);
+        const sin = Math.sin(angle);
+        const nx = CX + pt.x * cos - pt.y * sin;
+        const ny = CY - (pt.x * sin + pt.y * cos);
+        ctx.beginPath();
+        ctx.moveTo(state.prevX[c], state.prevY[c]);
+        ctx.lineTo(nx, ny);
+        ctx.stroke();
+        state.prevX[c] = nx;
+        state.prevY[c] = ny;
+      }
     }
 
     if (state.drawing) {
@@ -282,6 +334,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initParams();
   renderPatternPicker();
   renderParamSliders();
+  renderCopiesSlider();
 
   document.getElementById('btn-draw').addEventListener('click', startDrawing);
   document.getElementById('btn-clear').addEventListener('click', function () {
@@ -294,6 +347,5 @@ document.addEventListener('DOMContentLoaded', function () {
     clearCanvas();
   });
 
-  // Draw immediately for instant wow
   setTimeout(startDrawing, 250);
 });

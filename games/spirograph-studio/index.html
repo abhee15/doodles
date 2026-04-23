@@ -240,6 +240,23 @@
         color: white;
       }
 
+      /* ── COPIES SECTION ── */
+      .copies-section {
+        width: 100%;
+        max-width: 480px;
+        border-top: 1px solid var(--dom-border);
+        padding-top: 10px;
+      }
+
+      .copies-label {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--dom-text-muted);
+        margin-bottom: 6px;
+      }
+
       /* ── MOBILE ── */
       @media (max-width: 480px) {
         .pat-btn {
@@ -280,6 +297,12 @@
       <!-- Sliders -->
       <div class="param-sliders" id="param-sliders">
         <!-- built by JS -->
+      </div>
+
+      <!-- Global: Copies (mandala) -->
+      <div class="copies-section">
+        <div class="copies-label">Mandala Mode</div>
+        <div class="param-sliders" id="copies-row"></div>
       </div>
 
       <!-- Action buttons -->
