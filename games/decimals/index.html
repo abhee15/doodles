@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Decimals - Decimal Numbers Game for Kids | Doodles Games</title>
+    <meta name="title" content="Decimals - Decimal Numbers Game for Kids" />
+    <meta
+      name="description"
+      content="Learn decimals! Compare, add and read decimal numbers. Understand tenths and hundredths with fun quiz questions for grades 3–5."
+    />
+    <meta
+      name="keywords"
+      content="decimals game kids, decimal numbers children, tenths hundredths, comparing decimals, fractions to decimals"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/decimals/" />
+    <meta property="og:title" content="Decimals - Decimal Numbers Game for Kids" />
+    <meta property="og:description" content="Learn to read, compare, and add decimal numbers!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/decimals/" />
+    <meta property="twitter:title" content="Decimals - Decimal Numbers Game for Kids" />
+    <meta property="twitter:description" content="Learn to read, compare, and add decimal numbers!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/decimals/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #120a2e;
+        --dom-accent: #7c3aed;
+        --dom-accent2: #a78bfa;
+        --dom-bg: #0d0621;
+        --dom-border: rgba(139, 92, 246, 0.22);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#decimals"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Decimals</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🔢</div>
+        <h1 class="start-title">Decimals</h1>
+        <p class="start-desc">
+          Discover numbers between whole numbers! Compare 0.5 and 0.75, add decimals, and learn tenths &amp; hundredths.
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div class="q-emoji" id="q-emoji">🔢</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Decimal Master!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

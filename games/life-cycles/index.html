@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Life Cycles - Plants and Animals Life Cycle Game for Kids | Doodles Games</title>
+    <meta name="title" content="Life Cycles - Plants and Animals Life Cycle Game" />
+    <meta
+      name="description"
+      content="Explore life cycles of butterflies, frogs, and plants! Learn about metamorphosis, seeds, and how living things grow and change."
+    />
+    <meta
+      name="keywords"
+      content="life cycle game kids, butterfly metamorphosis, frog life cycle, plant life cycle, science kids"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/life-cycles/" />
+    <meta property="og:title" content="Life Cycles - Plants and Animals Game" />
+    <meta property="og:description" content="Explore life cycles of butterflies, frogs, and plants!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/life-cycles/" />
+    <meta property="twitter:title" content="Life Cycles - Plants and Animals Game" />
+    <meta property="twitter:description" content="Explore life cycles of butterflies, frogs, and plants!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/life-cycles/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #021a0b;
+        --dom-accent: #16a34a;
+        --dom-accent2: #4ade80;
+        --dom-bg: #021108;
+        --dom-border: rgba(34, 197, 94, 0.2);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#life-cycles"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Life Cycles</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🦋</div>
+        <h1 class="start-title">Life Cycles</h1>
+        <p class="start-desc">
+          Discover how caterpillars become butterflies, tadpoles become frogs, and seeds become trees! Every living
+          thing has a life cycle.
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div class="q-emoji" id="q-emoji">🦋</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Nature Expert!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

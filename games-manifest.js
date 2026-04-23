@@ -1303,6 +1303,57 @@ const GAMES = [
     grades: ['4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
     footerName: 'Famous Inventors'
+  },
+  {
+    id: 'decimals',
+    name: 'Decimals',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Compare 0.25 and 0.5, add tenths, convert fractions to decimals! Master the numbers between whole numbers.',
+    icon: 'ti-decimal',
+    iconColor: '#a78bfa',
+    gradient: 'linear-gradient(145deg, #0d0621 0%, #5b21b6 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(139,92,246,.07) 0px, rgba(139,92,246,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Decimals'
+  },
+  {
+    id: 'life-cycles',
+    name: 'Life Cycles',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Watch caterpillars become butterflies and tadpoles become frogs! Explore metamorphosis and how living things grow and change.',
+    icon: 'ti-butterfly',
+    iconColor: '#4ade80',
+    gradient: 'linear-gradient(145deg, #021108 0%, #15803d 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(34,197,94,.07) 0px, rgba(34,197,94,.07) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Life Cycles'
+  },
+  {
+    id: 'parts-of-speech',
+    name: 'Parts of Speech',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Every word has a job! Identify nouns, verbs, adjectives, adverbs, pronouns, prepositions, and conjunctions.',
+    icon: 'ti-abc',
+    iconColor: '#fbbf24',
+    gradient: 'linear-gradient(145deg, #120a00 0%, #92400e 100%)',
+    pattern:
+      'repeating-linear-gradient(30deg, rgba(245,158,11,.07) 0px, rgba(245,158,11,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Parts of Speech'
   }
 ];
 
