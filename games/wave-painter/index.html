@@ -6,43 +6,34 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
-
-    <!-- Primary Meta Tags -->
     <title>Wave Painter - Fourier Art for Kids | Doodles Games</title>
     <meta name="title" content="Wave Painter - Fourier Drawing Art Game" />
     <meta
       name="description"
-      content="Watch spinning circles draw amazing shapes! Pick a shape, add circles, and discover the magic of waves combining to create art."
+      content="Watch spinning circles draw amazing shapes, or build your own waves by mixing frequencies! Discover the magic of Fourier series."
     />
     <meta
       name="keywords"
-      content="fourier transform kids, wave art game, epicycles drawing, math art for kids, creative math game, wave painter"
+      content="fourier transform kids, wave art game, epicycles drawing, math art for kids, wave builder, sine waves"
     />
-
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="game" />
     <meta property="og:url" content="https://abhee15.github.io/doodles/games/wave-painter/" />
     <meta property="og:title" content="Wave Painter - Fourier Drawing Art Game" />
     <meta
       property="og:description"
-      content="Watch spinning circles draw amazing shapes! Pick a shape and see waves combine to create art."
+      content="Watch spinning circles draw amazing shapes, or build your own waves by mixing frequencies!"
     />
-
-    <!-- Twitter -->
     <meta property="twitter:card" content="summary" />
     <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/wave-painter/" />
     <meta property="twitter:title" content="Wave Painter - Fourier Drawing Art" />
     <meta
       property="twitter:description"
-      content="Watch spinning circles draw amazing shapes! Pick a shape and see waves combine to create art."
+      content="Watch spinning circles draw amazing shapes, or build your own waves!"
     />
-
     <link rel="canonical" href="https://abhee15.github.io/doodles/games/wave-painter/" />
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
     <link rel="stylesheet" href="../../shared/tokens.css" />
     <link rel="stylesheet" href="../../shared/game-dom.css" />
-
     <style>
       :root {
         --dom-nav-bg: #0d0221;
@@ -55,13 +46,47 @@
         --dom-text-muted: rgba(224, 215, 255, 0.6);
         --dom-border: rgba(168, 85, 247, 0.25);
         --dom-card-bg: rgba(255, 255, 255, 0.04);
-        --dom-card-hover: rgba(255, 255, 255, 0.08);
       }
-
       body {
         background: var(--dom-bg);
         color: var(--dom-text);
         overflow-x: hidden;
+      }
+
+      /* ── MODE TABS ── */
+      .mode-tabs {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+        padding: 14px 16px 0;
+      }
+      .mode-tab {
+        padding: 9px 22px;
+        border-radius: 10px;
+        border: 1.5px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text-muted);
+        cursor: pointer;
+        font-size: 0.9rem;
+        font-weight: 700;
+        font-family: inherit;
+        transition:
+          border-color 0.18s,
+          color 0.18s,
+          transform 0.15s;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .mode-tab:hover {
+        border-color: var(--dom-accent);
+        color: var(--dom-text);
+        transform: translateY(-1px);
+      }
+      .mode-tab.active {
+        border-color: var(--dom-accent);
+        background: rgba(168, 85, 247, 0.15);
+        color: var(--dom-text);
       }
 
       /* ── LAYOUT ── */
@@ -69,27 +94,26 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 16px;
-        gap: 16px;
+        padding: 14px 16px 24px;
+        gap: 14px;
         min-height: calc(100vh - var(--dom-nav-height));
       }
 
       /* ── SHAPE PICKER ── */
       .shape-picker {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
         max-width: 700px;
       }
-
       .shape-btn {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 4px;
-        padding: 10px 14px;
+        gap: 3px;
+        padding: 9px 13px;
         background: var(--dom-card-bg);
         border: 1.5px solid var(--dom-border);
         border-radius: 12px;
@@ -100,28 +124,24 @@
         transition:
           border-color 0.18s,
           transform 0.15s;
-        min-width: 64px;
+        min-width: 62px;
         font-family: inherit;
       }
-
       .shape-btn .shape-emoji {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         line-height: 1;
       }
-
       .shape-btn:hover {
         border-color: var(--dom-accent);
         transform: translateY(-2px);
       }
-
       .shape-btn.active {
         border-color: var(--dom-accent);
         background: rgba(168, 85, 247, 0.15);
       }
 
-      /* ── CANVAS AREA ── */
+      /* ── CANVAS ── */
       .canvas-wrap {
-        position: relative;
         border: 1.5px solid var(--dom-border);
         border-radius: 16px;
         overflow: hidden;
@@ -130,32 +150,38 @@
         max-width: 600px;
         aspect-ratio: 1;
       }
-
-      #wave-canvas {
+      .builder-canvas-wrap {
+        border: 1.5px solid var(--dom-border);
+        border-radius: 16px;
+        overflow: hidden;
+        background: #080118;
+        width: 100%;
+        max-width: 700px;
+      }
+      #wave-canvas,
+      #builder-canvas {
         display: block;
         width: 100%;
         height: 100%;
       }
 
-      /* ── CONTROLS ── */
+      /* ── SLIDERS / CONTROLS (shared) ── */
       .controls-row {
         display: flex;
-        gap: 20px;
+        gap: 18px;
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
         max-width: 600px;
       }
-
       .ctrl-group {
         display: flex;
         flex-direction: column;
-        gap: 6px;
+        gap: 5px;
         align-items: center;
         flex: 1;
-        min-width: 140px;
+        min-width: 130px;
       }
-
       .ctrl-label {
         font-size: 0.875rem;
         color: var(--dom-text-muted);
@@ -163,12 +189,9 @@
         text-transform: uppercase;
         letter-spacing: 0.04em;
       }
-
       .ctrl-label span {
         color: var(--dom-accent);
-        font-size: 0.9rem;
       }
-
       input[type='range'] {
         width: 100%;
         accent-color: var(--dom-accent);
@@ -179,39 +202,36 @@
       /* ── ACTION BUTTONS ── */
       .action-row {
         display: flex;
-        gap: 12px;
+        gap: 10px;
         justify-content: center;
+        flex-wrap: wrap;
       }
-
       .act-btn {
         display: flex;
         align-items: center;
         gap: 6px;
-        padding: 10px 20px;
+        padding: 9px 18px;
         border-radius: 10px;
         border: 1.5px solid var(--dom-border);
         background: var(--dom-card-bg);
         color: var(--dom-text);
         cursor: pointer;
-        font-size: 0.9rem;
+        font-size: 0.875rem;
         font-weight: 700;
         font-family: inherit;
         transition:
           border-color 0.18s,
           transform 0.15s;
       }
-
       .act-btn:hover {
         border-color: var(--dom-accent);
         transform: translateY(-2px);
       }
-
       .act-btn.primary {
         background: var(--dom-accent);
         border-color: var(--dom-accent);
         color: white;
       }
-
       .act-btn.primary:hover {
         border-color: #c084fc;
         transform: translateY(-2px);
@@ -222,33 +242,143 @@
         font-size: 0.875rem;
         color: var(--dom-text-muted);
         text-align: center;
-        max-width: 560px;
+        max-width: 580px;
         line-height: 1.5;
       }
-
       .info-pill strong {
         color: var(--dom-accent2);
       }
 
+      /* ── WAVE BUILDER PANEL ── */
+      .wave-slots {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+        max-width: 700px;
+      }
+
+      .wave-slot {
+        background: var(--dom-card-bg);
+        border: 1.5px solid var(--dom-border);
+        border-radius: 14px;
+        padding: 12px 16px;
+        transition: border-color 0.18s;
+      }
+      .wave-slot.on {
+        border-color: rgba(168, 85, 247, 0.45);
+      }
+
+      .wave-slot-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .wave-dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+      .wave-slot-label {
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex: 1;
+      }
+
+      /* Toggle switch */
+      .wave-toggle {
+        position: relative;
+        display: inline-block;
+        width: 40px;
+        height: 22px;
+      }
+      .wave-toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .toggle-track {
+        position: absolute;
+        inset: 0;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.12);
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      .toggle-track::after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: white;
+        top: 3px;
+        left: 3px;
+        transition: transform 0.2s;
+      }
+      .wave-toggle input:checked + .toggle-track {
+        background: var(--dom-accent);
+      }
+      .wave-toggle input:checked + .toggle-track::after {
+        transform: translateX(18px);
+      }
+
+      .wave-params {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 20px;
+      }
+      .wave-params.dim {
+        opacity: 0.4;
+        pointer-events: none;
+      }
+
+      .param-row {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .param-label {
+        font-size: 0.8rem;
+        color: var(--dom-text-muted);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .param-val {
+        color: var(--dom-accent);
+        font-size: 0.85rem;
+      }
+
       /* ── MOBILE ── */
-      @media (max-width: 768px) {
+      @media (max-width: 600px) {
         .painter-layout {
-          padding: 12px 10px;
-          gap: 12px;
+          padding: 10px 10px 20px;
+          gap: 10px;
         }
-
         .shape-btn {
-          padding: 8px 10px;
-          min-width: 56px;
-          font-size: 0.875rem;
+          padding: 7px 9px;
+          min-width: 52px;
+          font-size: 0.8rem;
         }
-
         .shape-btn .shape-emoji {
-          font-size: 1.4rem;
+          font-size: 1.3rem;
         }
-
         .ctrl-group {
-          min-width: 120px;
+          min-width: 110px;
+        }
+        .wave-params {
+          grid-template-columns: 1fr;
+        }
+        .act-btn {
+          padding: 8px 14px;
+          font-size: 0.82rem;
+        }
+        .mode-tab {
+          padding: 8px 16px;
+          font-size: 0.85rem;
         }
       }
     </style>
@@ -260,40 +390,69 @@
       <span class="dom-nav-meta" id="nav-meta">✨ Art with Math</span>
     </nav>
 
+    <!-- Mode tabs -->
+    <div class="mode-tabs">
+      <button class="mode-tab active" data-mode="shape"><i class="ti ti-circles"></i> Shape Painter</button>
+      <button class="mode-tab" data-mode="builder"><i class="ti ti-wave-sine"></i> Wave Builder</button>
+    </div>
+
     <div class="painter-layout">
-      <!-- Shape picker -->
-      <div class="shape-picker" id="shape-picker">
-        <!-- Built by JS -->
-      </div>
+      <!-- ── SHAPE PAINTER PANEL ── -->
+      <div id="panel-shape" style="display: flex; flex-direction: column; align-items: center; gap: 14px; width: 100%">
+        <div class="shape-picker" id="shape-picker"></div>
 
-      <!-- Canvas -->
-      <div class="canvas-wrap">
-        <canvas id="wave-canvas"></canvas>
-      </div>
-
-      <!-- Sliders -->
-      <div class="controls-row">
-        <div class="ctrl-group">
-          <div class="ctrl-label">Circles: <span id="circles-val">20</span></div>
-          <input type="range" id="circles-slider" min="1" max="60" value="20" />
+        <div class="canvas-wrap">
+          <canvas id="wave-canvas"></canvas>
         </div>
-        <div class="ctrl-group">
-          <div class="ctrl-label">Speed: <span id="speed-val">Medium</span></div>
-          <input type="range" id="speed-slider" min="1" max="5" value="3" />
+
+        <div class="controls-row">
+          <div class="ctrl-group">
+            <div class="ctrl-label">Circles: <span id="circles-val">20</span></div>
+            <input type="range" id="circles-slider" min="1" max="60" value="20" />
+          </div>
+          <div class="ctrl-group">
+            <div class="ctrl-label">Speed: <span id="speed-val">Normal</span></div>
+            <input type="range" id="speed-slider" min="1" max="5" value="3" />
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button class="act-btn primary" id="btn-play-pause"><i class="ti ti-player-pause"></i> Pause</button>
+          <button class="act-btn" id="btn-clear"><i class="ti ti-eraser"></i> Clear Trail</button>
+          <button class="act-btn" id="btn-circles"><i class="ti ti-eye"></i> Hide Circles</button>
+        </div>
+
+        <div class="info-pill">
+          Each spinning circle is one <strong>wave</strong>. Together, they trace any shape — this is called the
+          <strong>Fourier series</strong>! Try the <em>Wave Builder</em> tab to mix waves yourself. 🌊
         </div>
       </div>
 
-      <!-- Buttons -->
-      <div class="action-row">
-        <button class="act-btn primary" id="btn-play-pause"><i class="ti ti-player-pause"></i> Pause</button>
-        <button class="act-btn" id="btn-clear"><i class="ti ti-eraser"></i> Clear Trail</button>
-        <button class="act-btn" id="btn-circles"><i class="ti ti-eye"></i> Hide Circles</button>
-      </div>
+      <!-- ── WAVE BUILDER PANEL ── -->
+      <div
+        id="panel-builder"
+        style="display: none; flex-direction: column; align-items: center; gap: 14px; width: 100%"
+      >
+        <div class="builder-canvas-wrap">
+          <canvas id="builder-canvas"></canvas>
+        </div>
 
-      <!-- Info -->
-      <div class="info-pill">
-        Each spinning circle is one <strong>wave</strong>. Together, they trace any shape — this is how scientists
-        describe sound, light, and even images! 🌊
+        <div class="action-row">
+          <button class="act-btn primary" id="btn-builder-pause"><i class="ti ti-player-pause"></i> Pause</button>
+          <button class="act-btn" id="btn-show-components">
+            <i class="ti ti-layers-subtract"></i> Hide Components
+          </button>
+        </div>
+
+        <div class="wave-slots" id="wave-slots">
+          <!-- Built by JS -->
+        </div>
+
+        <div class="info-pill">
+          Each coloured line is one <strong>sine wave</strong>. The <strong>white line</strong> is their combined sum.
+          Change <strong>Cycles</strong> to make waves wiggle faster or slower, and <strong>Volume</strong> to make them
+          bigger or smaller. 🎵
+        </div>
       </div>
     </div>
 
