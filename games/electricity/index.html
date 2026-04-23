@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Electricity - Circuits and Energy Game for Kids | Doodles Games</title>
+    <meta name="title" content="Electricity - Circuits and Energy Game for Kids" />
+    <meta
+      name="description"
+      content="Discover how electricity works! Learn about circuits, conductors, insulators, batteries, and the difference between series and parallel circuits."
+    />
+    <meta
+      name="keywords"
+      content="electricity game kids, circuits children, conductors insulators, battery current, science electricity"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/electricity/" />
+    <meta property="og:title" content="Electricity - Circuits and Energy Game" />
+    <meta
+      property="og:description"
+      content="Learn about circuits, conductors, insulators, and how electricity works!"
+    />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/electricity/" />
+    <meta property="twitter:title" content="Electricity - Circuits and Energy Game" />
+    <meta
+      property="twitter:description"
+      content="Learn about circuits, conductors, insulators, and how electricity works!"
+    />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/electricity/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #1a1200;
+        --dom-accent: #eab308;
+        --dom-accent2: #fde047;
+        --dom-bg: #110d00;
+        --dom-border: rgba(234, 179, 8, 0.22);
+      }
+      /* Simple circuit diagram */
+      .circuit-svg {
+        width: 100%;
+        max-width: 240px;
+        margin: 0 auto 4px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#electricity"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Electricity</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">⚡</div>
+        <h1 class="start-title">Electricity</h1>
+        <p class="start-desc">
+          Discover the invisible force that powers our world! Learn about circuits, conductors, insulators, and how
+          electricity flows.
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+
+        <!-- Simple circuit diagram -->
+        <svg class="circuit-svg" viewBox="0 0 240 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- Wire loop -->
+          <rect
+            x="20"
+            y="20"
+            width="200"
+            height="60"
+            fill="none"
+            stroke="rgba(234,179,8,0.4)"
+            stroke-width="2.5"
+            rx="8"
+          />
+          <!-- Battery symbol -->
+          <line x1="20" y1="50" x2="20" y2="35" stroke="#eab308" stroke-width="3" />
+          <line x1="14" y1="35" x2="26" y2="35" stroke="#eab308" stroke-width="3" />
+          <line x1="17" y1="40" x2="23" y2="40" stroke="#eab308" stroke-width="2" />
+          <text x="6" y="30" font-size="8" fill="#eab308" font-weight="bold">+</text>
+          <text x="6" y="46" font-size="8" fill="rgba(234,179,8,0.6)">−</text>
+          <!-- Bulb symbol -->
+          <circle cx="120" cy="50" r="10" fill="none" stroke="rgba(234,179,8,0.5)" stroke-width="2" />
+          <line x1="114" y1="56" x2="126" y2="44" stroke="rgba(234,179,8,0.5)" stroke-width="1.5" />
+          <line x1="126" y1="56" x2="114" y2="44" stroke="rgba(234,179,8,0.5)" stroke-width="1.5" />
+          <!-- Switch -->
+          <circle cx="200" cy="50" r="3" fill="none" stroke="#eab308" stroke-width="1.5" />
+          <line x1="203" y1="47" x2="214" y2="35" stroke="#eab308" stroke-width="1.5" />
+          <!-- Labels -->
+          <text x="4" y="72" font-size="8" fill="rgba(234,179,8,0.5)">Battery</text>
+          <text x="108" y="72" font-size="8" fill="rgba(234,179,8,0.5)">Bulb</text>
+          <text x="190" y="72" font-size="8" fill="rgba(234,179,8,0.5)">Switch</text>
+          <!-- Arrow showing current direction -->
+          <polygon points="78,18 85,14 85,22" fill="rgba(234,179,8,0.45)" />
+        </svg>
+
+        <div class="q-emoji" id="q-emoji">⚡</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Electrical Engineer!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

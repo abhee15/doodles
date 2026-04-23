@@ -1354,6 +1354,57 @@ const GAMES = [
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
     footerName: 'Parts of Speech'
+  },
+  {
+    id: 'area-perimeter',
+    name: 'Area & Perimeter',
+    thumbClass: null,
+    category: 'math',
+    desc: 'Calculate area (space inside) and perimeter (distance around) with an interactive grid visual. Tiles vs. fencing!',
+    icon: 'ti-square',
+    iconColor: '#34d399',
+    gradient: 'linear-gradient(145deg, #051212 0%, #0f766e 100%)',
+    pattern:
+      'repeating-linear-gradient(0deg, rgba(20,184,166,.09) 0px, rgba(20,184,166,.09) 1px, transparent 1px, transparent 20px), repeating-linear-gradient(90deg, rgba(20,184,166,.09) 0px, rgba(20,184,166,.09) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Area & Perimeter'
+  },
+  {
+    id: 'electricity',
+    name: 'Electricity',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Explore circuits, conductors, insulators, and how electricity powers our world! Series vs parallel circuits.',
+    icon: 'ti-bolt',
+    iconColor: '#fde047',
+    gradient: 'linear-gradient(145deg, #110d00 0%, #78350f 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(234,179,8,.07) 0px, rgba(234,179,8,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Electricity'
+  },
+  {
+    id: 'prefixes-suffixes',
+    name: 'Prefixes & Suffixes',
+    thumbClass: null,
+    category: 'words',
+    desc: 'Build thousands of words! Add un-, re-, pre-, -ful, -less, -er to roots and unlock word meanings with a visual tile builder.',
+    icon: 'ti-letter-w',
+    iconColor: '#d8b4fe',
+    gradient: 'linear-gradient(145deg, #0d0018 0%, #6b21a8 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(168,85,247,.07) 0px, rgba(168,85,247,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-08-01',
+    footerName: 'Prefixes & Suffixes'
   }
 ];
 
