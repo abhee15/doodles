@@ -393,3 +393,18 @@ Each game object has:
 | `attachFilterListeners()` | Handles pill clicks to show/hide sections               |
 
 All functions run on `DOMContentLoaded`.
+
+---
+
+## 12. Token & Agent Usage
+
+**Always delegate tasks to Haiku subagents** (`model: "haiku"` in the Agent tool).
+
+Use a Haiku subagent for any non-trivial work:
+
+- Reading and auditing multiple files
+- Making edits across several game files
+- Searching for patterns across the codebase
+- Any multi-step file operation
+
+Keep the main conversation context lean — only synthesize results and communicate findings inline. Never do bulk file work directly in the main context.
