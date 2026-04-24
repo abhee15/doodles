@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Table Tennis - Ping Pong Game for Kids | Doodles Games</title>
+    <meta name="title" content="Table Tennis - Ping Pong Game for Kids" />
+    <meta
+      name="description"
+      content="Play table tennis! Control your paddle and beat the computer to 11 points. Works on mobile and desktop!"
+    />
+    <meta name="keywords" content="table tennis game kids, ping pong browser game, sports game children" />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/table-tennis/" />
+    <meta property="og:title" content="Table Tennis - Ping Pong Game for Kids" />
+    <meta property="og:description" content="Play table tennis! Beat the computer to 11 points." />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/table-tennis/" />
+    <meta property="twitter:title" content="Table Tennis - Ping Pong Game for Kids" />
+    <meta property="twitter:description" content="Play table tennis! Beat the computer to 11 points." />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/table-tennis/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #1e40af;
+        --dom-accent: #3b82f6;
+        --dom-accent2: #f97316;
+        --dom-bg: #1e3a8a;
+        --dom-border: rgba(59, 130, 246, 0.3);
+        --dom-text: rgba(255, 255, 255, 0.95);
+        --dom-text-muted: rgba(255, 255, 255, 0.62);
+      }
+      body {
+        background: var(--dom-bg);
+      }
+      .game-wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: calc(100vh - 56px);
+        padding: 8px;
+        box-sizing: border-box;
+      }
+      canvas#court {
+        background: #1e3a8a;
+        border: 2px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        touch-action: none;
+        max-width: 100%;
+        max-height: calc(100vh - 120px);
+      }
+      .score-row {
+        display: flex;
+        gap: 48px;
+        color: #fff;
+        font-size: 2rem;
+        font-weight: 900;
+        font-family: 'Nunito', sans-serif;
+        margin-bottom: 8px;
+      }
+      .score-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        opacity: 0.6;
+        text-align: center;
+      }
+      .overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-family: 'Nunito', sans-serif;
+        z-index: 10;
+      }
+      .overlay h2 {
+        font-size: 2rem;
+        font-weight: 900;
+        margin-bottom: 8px;
+      }
+      .overlay p {
+        opacity: 0.7;
+        margin-bottom: 24px;
+      }
+      .overlay.hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#table-tennis"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title">Table Tennis</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="game-wrap">
+      <div class="score-row">
+        <div>
+          <div class="score-label">YOU</div>
+          <span id="score-player">0</span>
+        </div>
+        <div>
+          <div class="score-label">CPU</div>
+          <span id="score-cpu">0</span>
+        </div>
+      </div>
+      <canvas id="court" width="600" height="400"></canvas>
+    </div>
+
+    <div class="overlay" id="overlay-start">
+      <h2><i class="ti ti-table-tennis"></i> Table Tennis</h2>
+      <p>First to 11 wins! Move your paddle to deflect the ball.</p>
+      <p style="font-size: 0.85rem; opacity: 0.5">Mobile: drag paddle · Desktop: mouse or arrow keys</p>
+      <button class="dom-btn dom-btn--primary" id="btn-start" style="margin-top: 8px">Start Game</button>
+    </div>
+    <div class="overlay hidden" id="overlay-end">
+      <h2 id="end-title">You Win!</h2>
+      <p id="end-score"></p>
+      <button class="dom-btn dom-btn--primary" id="btn-restart">Play Again</button>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

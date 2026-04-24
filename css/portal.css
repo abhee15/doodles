@@ -14,8 +14,8 @@ body.page-leaving {
 :root {
   --font: "Nunito", "Segoe UI", system-ui, sans-serif;
 
-  --bg: #f4f6fb;
-  --bg-card: #ffffff;
+  --bg: #f1f5f9;
+  --bg-card: #f8fafc;
   --nav-bg: rgba(17, 24, 39, 0.96);
   --footer-bg: #111827;
   --max-w: 1280px;
@@ -28,7 +28,7 @@ body.page-leaving {
   --brand-dark: #0369a1;
 
   /* Category dot colors (for section headers) */
-  --c-math: #bf360c;
+  --c-math: #c2410c;
   --c-geo: #0277bd;
   --c-words: #0891b2;
   --c-memory: #ea580c;
@@ -132,7 +132,7 @@ body.page-leaving {
 .hero {
   background:
     radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(135deg, #1e3a5f 0%, #0891b2 60%, #06b6d4 100%);
+    linear-gradient(135deg, #0f2952 0%, #0369a1 55%, #0891b2 100%);
   background-size:
     28px 28px,
     100% 100%;
@@ -146,6 +146,7 @@ body.page-leaving {
   color: #fff;
   letter-spacing: -0.03em;
   margin-bottom: 8px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .hero p {
@@ -217,9 +218,9 @@ body.page-leaving {
 }
 
 .pill.active {
-  background: #fff;
-  color: var(--text);
-  border-color: #fff;
+  background: linear-gradient(135deg, #0369a1, #0891b2);
+  color: #fff;
+  border-color: transparent;
 }
 
 .pill i {
@@ -770,15 +771,13 @@ body.page-leaving {
   font-size: 13px;
   font-weight: 800;
   font-family: var(--font);
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: #f97316;
+  border: none;
   color: #fff;
   min-height: 40px;
 }
 .game-card:hover .card-play {
-  background: rgba(255, 255, 255, 0.32);
+  background: #ea580c;
 }
 .card-play i {
   font-size: 14px;

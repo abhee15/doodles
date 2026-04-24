@@ -1592,6 +1592,36 @@ const GAMES = [
     grades: ['4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-09-01',
     footerName: 'Body Systems'
+  },
+  {
+    id: 'table-tennis',
+    name: 'Table Tennis',
+    category: 'play',
+    desc: 'Control your paddle and beat the CPU to 11 points!',
+    icon: 'ti-table-tennis',
+    iconColor: '#ffffff',
+    gradient: 'linear-gradient(150deg, #1e40af 0%, #3b82f6 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    thumbClass: null,
+    newUntil: '2026-07-01',
+    footerName: 'Table Tennis'
+  },
+  {
+    id: 'cricket-bat',
+    name: 'Cricket Bat',
+    category: 'play',
+    desc: 'Time your swing perfectly for sixes and fours!',
+    icon: 'ti-cricket',
+    iconColor: '#ffffff',
+    gradient: 'linear-gradient(150deg, #14532d 0%, #22c55e 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    thumbClass: null,
+    newUntil: '2026-07-01',
+    footerName: 'Cricket Bat'
   }
 ];
 
