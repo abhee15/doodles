@@ -119,6 +119,10 @@
     if (navCount) {
       navCount.textContent = `${GAMES.length} games · ${CATEGORIES.length} subjects`;
     }
+    const heroCount = document.getElementById('hero-game-count');
+    if (heroCount) {
+      heroCount.textContent = GAMES.length;
+    }
   }
 
   /**
