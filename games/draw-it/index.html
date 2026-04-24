@@ -610,7 +610,8 @@
       @media (max-width: 768px) {
         #screen-drawing {
           flex-direction: column;
-          padding: 1rem;
+          padding: 0.75rem;
+          gap: 1rem;
         }
 
         .left-panel,
@@ -621,16 +622,55 @@
 
         .right-panel {
           flex-direction: row;
-          gap: 0.75rem;
+          gap: 0.5rem;
+          padding: 1rem;
         }
 
         .control-btn {
           flex: 1;
+          min-height: 44px;
+          font-size: 0.85rem;
+          padding: 0.5rem;
         }
 
         .canvas-wrap {
-          width: min(85vw, calc(100dvh - 180px));
+          width: 100%;
           max-width: 100%;
+          aspect-ratio: 1;
+          overflow: hidden;
+        }
+
+        .color-toolbar {
+          flex-direction: column;
+          gap: 0.75rem;
+          padding: 0.75rem;
+          margin-bottom: 0.75rem;
+          overflow-x: auto;
+        }
+
+        .color-palette {
+          gap: 0.25rem;
+          overflow-x: auto;
+          flex-wrap: nowrap;
+          min-width: 0;
+        }
+
+        .color-swatch {
+          width: 32px;
+          height: 32px;
+          flex-shrink: 0;
+        }
+
+        .brush-size-controls {
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
+        .brush-size-btn,
+        .tool-toggle-btn {
+          min-width: 44px;
+          min-height: 44px;
+          flex: 1 0 auto;
         }
 
         .category-grid,
