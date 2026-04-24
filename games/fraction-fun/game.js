@@ -238,12 +238,20 @@
       }, 1500);
     }
 
-    leftOpt.addEventListener('click', function () {
-      handleAnswer(true);
-    });
-    rightOpt.addEventListener('click', function () {
-      handleAnswer(false);
-    });
+    leftOpt.addEventListener(
+      'click',
+      function () {
+        handleAnswer(true);
+      },
+      { once: true }
+    );
+    rightOpt.addEventListener(
+      'click',
+      function () {
+        handleAnswer(false);
+      },
+      { once: true }
+    );
   }
 
   // ─── Practice Mode (Shade) ─────────────────────────

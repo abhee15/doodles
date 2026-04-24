@@ -242,8 +242,8 @@ function renderLanding() {
 
         return `
           <div class="country-card" style="cursor: pointer;" data-country="${countryId}">
-            <div class="country-card-flag">${country.flag}</div>
             <div class="country-card-name">${country.name}</div>
+            <div class="country-card-flag">${country.flag}</div>
           </div>
         `;
       })
@@ -333,8 +333,8 @@ function updateContinentGrid(countriesInContinent) {
       const isExplored = gameState.explored.includes(country.id);
       return `
         <div class="country-card" data-continent="${country.continent}" data-country="${country.id}">
-          <div class="country-card-flag">${country.flag}</div>
           <h3 class="country-card-name">${country.name}</h3>
+          <div class="country-card-flag">${country.flag}</div>
           <p class="country-card-hook">${country.hooks.primary}</p>
           ${isExplored ? '<span style="color: var(--color-success); font-size: 14px; font-weight: 600;">✓ Explored</span>' : ''}
         </div>
@@ -1577,8 +1577,8 @@ function renderFavorites() {
     .map(
       country => `
     <div class="country-card" data-country="${country.id}" style="cursor: pointer;">
-      <div class="country-card-flag">${country.flag}</div>
       <h3 class="country-card-name">${country.name}</h3>
+      <div class="country-card-flag">${country.flag}</div>
       <p class="country-card-hook">${country.hooks.primary}</p>
     </div>
   `
@@ -2167,13 +2167,16 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Back button: go back to previous screen or landing
-document.querySelector('[href="../../index.html#world-explorer"]').addEventListener('click', e => {
-  if (gameState.currentScreen !== 'landing') {
-    e.preventDefault();
-    if (gameState.currentScreen === 'country') {
-      goToScreen('continent', { continent: gameState.currentContinent });
-    } else {
-      goToScreen('landing');
+const backLink = document.querySelector('[href="../../index.html#world-explorer"]');
+if (backLink) {
+  backLink.addEventListener('click', e => {
+    if (gameState.currentScreen !== 'landing') {
+      e.preventDefault();
+      if (gameState.currentScreen === 'country') {
+        goToScreen('continent', { continent: gameState.currentContinent });
+      } else {
+        goToScreen('landing');
+      }
     }
-  }
-});
+  });
+}
