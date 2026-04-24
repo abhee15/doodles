@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Sound & Light - Waves and Energy Science for Kids | Doodles Games</title>
+    <meta name="title" content="Sound & Light - Waves and Energy Science" />
+    <meta
+      name="description"
+      content="Explore sound and light! Learn about waves, reflection, refraction, the spectrum, vibrations, and how your ears and eyes work."
+    />
+    <meta
+      name="keywords"
+      content="sound light game kids, waves reflection refraction, spectrum vibration science elementary"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/sound-and-light/" />
+    <meta property="og:title" content="Sound & Light - Waves and Energy Science" />
+    <meta property="og:description" content="Explore sound waves, light, reflection, refraction and the spectrum!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/sound-and-light/" />
+    <meta property="twitter:title" content="Sound & Light - Waves and Energy Science" />
+    <meta property="twitter:description" content="Explore sound and light waves, reflection and refraction!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/sound-and-light/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #000814;
+        --dom-accent: #38bdf8;
+        --dom-accent2: #fde047;
+        --dom-text: rgba(255, 255, 255, 0.95);
+        --dom-text-muted: rgba(255, 255, 255, 0.62);
+        --dom-bg: #000510;
+        --dom-border: rgba(56, 189, 248, 0.2);
+      }
+      .spectrum-bar {
+        width: 100%;
+        max-width: 320px;
+        height: 18px;
+        border-radius: 9px;
+        margin: 6px auto 4px;
+        background: linear-gradient(
+          90deg,
+          #7c3aed 0%,
+          #2563eb 14%,
+          #0891b2 28%,
+          #059669 42%,
+          #ca8a04 57%,
+          #ea580c 71%,
+          #dc2626 85%,
+          #9d174d 100%
+        );
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        display: block;
+      }
+      .spectrum-label {
+        display: flex;
+        justify-content: space-between;
+        max-width: 320px;
+        margin: 0 auto 10px;
+        font-size: 0.62rem;
+        color: rgba(255, 255, 255, 0.35);
+      }
+      .wave-icon {
+        text-align: center;
+        font-size: 2rem;
+        margin: 4px 0 8px;
+        letter-spacing: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#sound-and-light"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Sound &amp; Light</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🌈</div>
+        <h1 class="start-title">Sound &amp; Light</h1>
+        <p class="start-desc">
+          Waves everywhere! Discover how sound travels, how light bends, what creates rainbows, and why the sky is blue.
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div class="wave-icon" id="wave-icon">〰️〰️〰️</div>
+        <div class="spectrum-bar" aria-hidden="true"></div>
+        <div class="spectrum-label" aria-hidden="true">
+          <span>violet</span><span>blue</span><span>green</span><span>yellow</span><span>orange</span><span>red</span>
+        </div>
+        <div class="q-emoji" id="q-emoji">🌈</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Light Scientist!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

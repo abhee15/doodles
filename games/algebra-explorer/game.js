@@ -146,6 +146,8 @@ function startRound() {
   document.getElementById('btn-hint').disabled = false;
   document.getElementById('btn-submit').disabled = false;
   document.getElementById('answer-input').disabled = false;
+  document.getElementById('btn-plus').disabled = false;
+  document.getElementById('btn-minus').disabled = false;
   updateBalance('idle');
   document.getElementById('answer-input').focus();
 
@@ -170,6 +172,8 @@ function submitAnswer() {
   document.getElementById('btn-submit').disabled = true;
   document.getElementById('answer-input').disabled = true;
   document.getElementById('btn-hint').disabled = true;
+  document.getElementById('btn-plus').disabled = true;
+  document.getElementById('btn-minus').disabled = true;
 
   if (guess === state.current.answer) {
     state.score++;
@@ -261,6 +265,22 @@ document.addEventListener('DOMContentLoaded', function () {
     if (e.key === 'Enter') {
       submitAnswer();
     }
+  });
+
+  // Stepper +/- buttons for kid-friendly answer input
+  document.getElementById('btn-plus').addEventListener('click', function () {
+    const inp = document.getElementById('answer-input');
+    const cur = parseInt(inp.value) || 0;
+    inp.value = cur + 1;
+    inp.focus();
+  });
+  document.getElementById('btn-minus').addEventListener('click', function () {
+    const inp = document.getElementById('answer-input');
+    const cur = parseInt(inp.value) || 0;
+    if (cur > 0) {
+      inp.value = cur - 1;
+    }
+    inp.focus();
   });
 
   document.getElementById('btn-hint').addEventListener('click', function () {

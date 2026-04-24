@@ -43,9 +43,9 @@
         --dom-accent2: #06b6d4;
         --dom-bg: #0d0221;
         --dom-text: #e0d7ff;
-        --dom-text-muted: rgba(224, 215, 255, 0.6);
+        --dom-text-muted: rgba(224, 215, 255, 0.65);
         --dom-border: rgba(168, 85, 247, 0.25);
-        --dom-card-bg: rgba(255, 255, 255, 0.04);
+        --dom-card-bg: rgba(255, 255, 255, 0.05);
       }
       body {
         background: var(--dom-bg);
@@ -59,15 +59,16 @@
         gap: 8px;
         justify-content: center;
         padding: 14px 16px 0;
+        flex-wrap: wrap;
       }
       .mode-tab {
-        padding: 9px 22px;
+        padding: 9px 20px;
         border-radius: 10px;
         border: 1.5px solid var(--dom-border);
         background: var(--dom-card-bg);
         color: var(--dom-text-muted);
         cursor: pointer;
-        font-size: 0.9rem;
+        font-size: 0.88rem;
         font-weight: 700;
         font-family: inherit;
         transition:
@@ -76,7 +77,8 @@
           transform 0.15s;
         display: flex;
         align-items: center;
-        gap: 7px;
+        gap: 6px;
+        min-height: 44px;
       }
       .mode-tab:hover {
         border-color: var(--dom-accent);
@@ -94,9 +96,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 14px 16px 24px;
+        padding: 14px 16px 32px;
         gap: 14px;
-        min-height: calc(100vh - var(--dom-nav-height));
       }
 
       /* ── SHAPE PICKER ── */
@@ -112,19 +113,20 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 3px;
-        padding: 9px 13px;
+        gap: 4px;
+        padding: 10px 14px;
         background: var(--dom-card-bg);
         border: 1.5px solid var(--dom-border);
         border-radius: 12px;
         color: var(--dom-text);
         cursor: pointer;
-        font-size: 0.875rem;
-        font-weight: 600;
+        font-size: 0.82rem;
+        font-weight: 700;
         transition:
           border-color 0.18s,
           transform 0.15s;
-        min-width: 62px;
+        min-width: 64px;
+        min-height: 44px;
         font-family: inherit;
       }
       .shape-btn .shape-emoji {
@@ -165,10 +167,10 @@
         height: 100%;
       }
 
-      /* ── SLIDERS / CONTROLS (shared) ── */
+      /* ── SLIDERS / CONTROLS ── */
       .controls-row {
         display: flex;
-        gap: 18px;
+        gap: 16px;
         flex-wrap: wrap;
         justify-content: center;
         width: 100%;
@@ -177,32 +179,34 @@
       .ctrl-group {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 6px;
         align-items: center;
         flex: 1;
         min-width: 130px;
       }
       .ctrl-label {
-        font-size: 0.875rem;
+        font-size: 0.8rem;
         color: var(--dom-text-muted);
-        font-weight: 600;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.05em;
       }
       .ctrl-label span {
         color: var(--dom-accent);
+        font-size: 0.9rem;
       }
       input[type='range'] {
         width: 100%;
         accent-color: var(--dom-accent);
         cursor: pointer;
         height: 4px;
+        min-height: 44px;
       }
 
       /* ── ACTION BUTTONS ── */
       .action-row {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         justify-content: center;
         flex-wrap: wrap;
       }
@@ -210,18 +214,20 @@
         display: flex;
         align-items: center;
         gap: 6px;
-        padding: 9px 18px;
+        padding: 10px 18px;
         border-radius: 10px;
         border: 1.5px solid var(--dom-border);
         background: var(--dom-card-bg);
         color: var(--dom-text);
         cursor: pointer;
-        font-size: 0.875rem;
+        font-size: 0.85rem;
         font-weight: 700;
         font-family: inherit;
         transition:
           border-color 0.18s,
           transform 0.15s;
+        min-height: 44px;
+        white-space: nowrap;
       }
       .act-btn:hover {
         border-color: var(--dom-accent);
@@ -233,8 +239,15 @@
         color: white;
       }
       .act-btn.primary:hover {
-        border-color: #c084fc;
-        transform: translateY(-2px);
+        background: #9333ea;
+        border-color: #9333ea;
+      }
+      .act-btn.danger {
+        border-color: rgba(248, 113, 113, 0.5);
+        color: #f87171;
+      }
+      .act-btn.danger:hover {
+        border-color: #f87171;
       }
 
       /* ── INFO PILL ── */
@@ -242,14 +255,82 @@
         font-size: 0.875rem;
         color: var(--dom-text-muted);
         text-align: center;
-        max-width: 580px;
-        line-height: 1.5;
+        max-width: 620px;
+        line-height: 1.6;
+        padding: 12px 16px;
+        background: var(--dom-card-bg);
+        border: 1px solid var(--dom-border);
+        border-radius: 12px;
+        width: 100%;
       }
       .info-pill strong {
         color: var(--dom-accent2);
       }
 
-      /* ── WAVE BUILDER PANEL ── */
+      /* ── PRESET ROW ── */
+      .preset-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 700px;
+      }
+      .preset-btn {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: 1.5px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text-muted);
+        cursor: pointer;
+        font-size: 0.82rem;
+        font-weight: 700;
+        font-family: inherit;
+        transition:
+          border-color 0.18s,
+          color 0.18s,
+          transform 0.15s;
+        min-height: 40px;
+      }
+      .preset-btn:hover {
+        border-color: var(--dom-accent2);
+        color: var(--dom-text);
+        transform: translateY(-1px);
+      }
+      .preset-btn.active {
+        border-color: var(--dom-accent2);
+        color: var(--dom-accent2);
+        background: rgba(6, 182, 212, 0.1);
+      }
+      .preset-label {
+        font-size: 0.75rem;
+        color: var(--dom-text-muted);
+        text-align: center;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        font-weight: 700;
+      }
+
+      /* ── ACTIVE CHALLENGE BAR ── */
+      .active-challenge-bar {
+        display: none;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 16px;
+        background: rgba(251, 146, 60, 0.12);
+        border: 1.5px solid rgba(251, 146, 60, 0.4);
+        border-radius: 12px;
+        width: 100%;
+        max-width: 700px;
+      }
+      .active-challenge-bar span {
+        color: #fb923c;
+        font-weight: 700;
+        font-size: 0.9rem;
+        flex: 1;
+      }
+
+      /* ── WAVE SLOTS ── */
       .wave-slots {
         display: flex;
         flex-direction: column;
@@ -257,23 +338,22 @@
         width: 100%;
         max-width: 700px;
       }
-
       .wave-slot {
         background: var(--dom-card-bg);
         border: 1.5px solid var(--dom-border);
         border-radius: 14px;
-        padding: 12px 16px;
+        padding: 14px 16px;
         transition: border-color 0.18s;
       }
       .wave-slot.on {
-        border-color: rgba(168, 85, 247, 0.45);
+        border-color: rgba(168, 85, 247, 0.5);
       }
-
       .wave-slot-header {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        flex-wrap: wrap;
       }
       .wave-dot {
         width: 12px;
@@ -282,17 +362,28 @@
         flex-shrink: 0;
       }
       .wave-slot-label {
+        font-weight: 800;
+        font-size: 0.95rem;
+        color: var(--dom-text);
+      }
+      .harmonic-badge {
+        font-size: 0.75rem;
         font-weight: 700;
-        font-size: 0.9rem;
+        padding: 2px 8px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
         flex: 1;
+        text-align: right;
       }
 
       /* Toggle switch */
       .wave-toggle {
         position: relative;
         display: inline-block;
-        width: 40px;
-        height: 22px;
+        width: 42px;
+        height: 24px;
+        flex-shrink: 0;
       }
       .wave-toggle input {
         opacity: 0;
@@ -302,7 +393,7 @@
       .toggle-track {
         position: absolute;
         inset: 0;
-        border-radius: 22px;
+        border-radius: 24px;
         background: rgba(255, 255, 255, 0.12);
         cursor: pointer;
         transition: background 0.2s;
@@ -310,8 +401,8 @@
       .toggle-track::after {
         content: '';
         position: absolute;
-        width: 16px;
-        height: 16px;
+        width: 18px;
+        height: 18px;
         border-radius: 50%;
         background: white;
         top: 3px;
@@ -327,58 +418,119 @@
 
       .wave-params {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 10px 20px;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 12px 20px;
       }
       .wave-params.dim {
-        opacity: 0.4;
+        opacity: 0.35;
         pointer-events: none;
       }
 
       .param-row {
         display: flex;
         flex-direction: column;
-        gap: 4px;
+        gap: 6px;
       }
       .param-label {
-        font-size: 0.8rem;
+        font-size: 0.78rem;
         color: var(--dom-text-muted);
-        font-weight: 600;
+        font-weight: 700;
         text-transform: uppercase;
-        letter-spacing: 0.04em;
+        letter-spacing: 0.05em;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
       .param-val {
         color: var(--dom-accent);
         font-size: 0.85rem;
+        font-weight: 800;
+      }
+
+      /* ── CHALLENGE PANEL ── */
+      .challenge-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        max-width: 700px;
+      }
+      .challenge-card {
+        background: var(--dom-card-bg);
+        border: 1.5px solid var(--dom-border);
+        border-radius: 16px;
+        padding: 18px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: border-color 0.18s;
+      }
+      .challenge-card:hover {
+        border-color: rgba(168, 85, 247, 0.5);
+      }
+      .challenge-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .challenge-emoji {
+        font-size: 2rem;
+      }
+      .challenge-name {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--dom-text);
+      }
+      .challenge-hint {
+        font-size: 0.875rem;
+        color: var(--dom-text-muted);
+        line-height: 1.6;
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        border-left: 3px solid var(--dom-accent);
       }
 
       /* ── MOBILE ── */
       @media (max-width: 600px) {
         .painter-layout {
-          padding: 10px 10px 20px;
+          padding: 10px 12px 24px;
           gap: 10px;
         }
         .shape-btn {
-          padding: 7px 9px;
-          min-width: 52px;
-          font-size: 0.8rem;
+          padding: 8px 10px;
+          min-width: 56px;
+          font-size: 0.78rem;
         }
         .shape-btn .shape-emoji {
-          font-size: 1.3rem;
+          font-size: 1.25rem;
         }
         .ctrl-group {
-          min-width: 110px;
+          min-width: 100px;
         }
         .wave-params {
-          grid-template-columns: 1fr;
+          grid-template-columns: 1fr 1fr;
+        }
+        .wave-params .param-row:last-child {
+          grid-column: 1 / -1;
         }
         .act-btn {
+          padding: 9px 14px;
+          font-size: 0.8rem;
+        }
+        .mode-tab {
           padding: 8px 14px;
           font-size: 0.82rem;
         }
-        .mode-tab {
-          padding: 8px 16px;
-          font-size: 0.85rem;
+        .harmonic-badge {
+          display: none;
+        }
+        .challenge-name {
+          font-size: 1rem;
+        }
+        .preset-btn {
+          font-size: 0.78rem;
+          padding: 7px 12px;
         }
       }
     </style>
@@ -390,21 +542,17 @@
       <span class="dom-nav-meta" id="nav-meta">✨ Art with Math</span>
     </nav>
 
-    <!-- Mode tabs -->
     <div class="mode-tabs">
       <button class="mode-tab active" data-mode="shape"><i class="ti ti-circles"></i> Shape Painter</button>
       <button class="mode-tab" data-mode="builder"><i class="ti ti-wave-sine"></i> Wave Builder</button>
+      <button class="mode-tab" data-mode="challenge"><i class="ti ti-target-arrow"></i> Challenges</button>
     </div>
 
     <div class="painter-layout">
       <!-- ── SHAPE PAINTER PANEL ── -->
       <div id="panel-shape" style="display: flex; flex-direction: column; align-items: center; gap: 14px; width: 100%">
         <div class="shape-picker" id="shape-picker"></div>
-
-        <div class="canvas-wrap">
-          <canvas id="wave-canvas"></canvas>
-        </div>
-
+        <div class="canvas-wrap"><canvas id="wave-canvas"></canvas></div>
         <div class="controls-row">
           <div class="ctrl-group">
             <div class="ctrl-label">Circles: <span id="circles-val">20</span></div>
@@ -415,16 +563,15 @@
             <input type="range" id="speed-slider" min="1" max="5" value="3" />
           </div>
         </div>
-
         <div class="action-row">
           <button class="act-btn primary" id="btn-play-pause"><i class="ti ti-player-pause"></i> Pause</button>
           <button class="act-btn" id="btn-clear"><i class="ti ti-eraser"></i> Clear Trail</button>
           <button class="act-btn" id="btn-circles"><i class="ti ti-eye"></i> Hide Circles</button>
         </div>
-
         <div class="info-pill">
-          Each spinning circle is one <strong>wave</strong>. Together, they trace any shape — this is called the
-          <strong>Fourier series</strong>! Try the <em>Wave Builder</em> tab to mix waves yourself. 🌊
+          Each spinning circle is one <strong>sine wave</strong>. Together, they trace any shape — this is called the
+          <strong>Fourier series</strong>! More circles = closer to the real shape. 🌀<br />
+          Try the <strong>Wave Builder</strong> tab to mix your own waves.
         </div>
       </div>
 
@@ -433,9 +580,16 @@
         id="panel-builder"
         style="display: none; flex-direction: column; align-items: center; gap: 14px; width: 100%"
       >
-        <div class="builder-canvas-wrap">
-          <canvas id="builder-canvas"></canvas>
+        <!-- Active challenge indicator -->
+        <div class="active-challenge-bar" id="active-challenge-bar">
+          <i class="ti ti-target-arrow" style="color: #fb923c; font-size: 1.2rem"></i>
+          <span>Challenge: <span id="active-challenge-name"></span></span>
+          <button class="act-btn danger" id="btn-stop-challenge" style="padding: 6px 12px; font-size: 0.8rem">
+            <i class="ti ti-x"></i> Stop
+          </button>
         </div>
+
+        <div class="builder-canvas-wrap"><canvas id="builder-canvas"></canvas></div>
 
         <div class="action-row">
           <button class="act-btn primary" id="btn-builder-pause"><i class="ti ti-player-pause"></i> Pause</button>
@@ -444,15 +598,36 @@
           </button>
         </div>
 
-        <div class="wave-slots" id="wave-slots">
-          <!-- Built by JS -->
+        <!-- Presets -->
+        <div class="preset-label">Load a preset wave shape →</div>
+        <div class="preset-row">
+          <button class="preset-btn" data-preset="pure">〰️ Pure Sine</button>
+          <button class="preset-btn" data-preset="square">⬛ Square Wave</button>
+          <button class="preset-btn" data-preset="sawtooth">📈 Sawtooth</button>
+          <button class="preset-btn" data-preset="triangle">🔺 Triangle</button>
         </div>
 
+        <div class="wave-slots" id="wave-slots"></div>
+
         <div class="info-pill">
-          Each coloured line is one <strong>sine wave</strong>. The <strong>white line</strong> is their combined sum.
-          Change <strong>Cycles</strong> to make waves wiggle faster or slower, and <strong>Volume</strong> to make them
-          bigger or smaller. 🎵
+          Each coloured line is one <strong>sine wave</strong>. The white line is their <strong>combined sum</strong>.
+          Try <strong>Frequency</strong> to make waves wiggle faster (harmonics!), <strong>Amplitude</strong> to change
+          height, and <strong>Phase</strong> to shift the wave left or right. When waves line up they get
+          <strong>bigger</strong> — when they oppose they <strong>cancel out</strong>! 🎵
         </div>
+      </div>
+
+      <!-- ── CHALLENGE PANEL ── -->
+      <div
+        id="panel-challenge"
+        style="display: none; flex-direction: column; align-items: center; gap: 16px; width: 100%"
+      >
+        <div class="info-pill">
+          🎯 <strong>Wave Challenges!</strong> Can you build a specific wave shape using the sliders? Each challenge
+          shows you the <strong>orange target wave</strong> — your goal is to match it! Read the hint, then jump to the
+          <strong>Wave Builder</strong>.
+        </div>
+        <div class="challenge-list" id="challenge-list"></div>
       </div>
     </div>
 

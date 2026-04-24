@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Ancient Civilizations - Egypt Greece Rome Game for Kids | Doodles Games</title>
+    <meta name="title" content="Ancient Civilizations - Egypt, Greece & Rome" />
+    <meta
+      name="description"
+      content="Travel back in time! Explore ancient Egypt, Greece, Rome, and Mesopotamia — pharaohs, democracy, gladiators, and more!"
+    />
+    <meta
+      name="keywords"
+      content="ancient civilizations kids, egypt greece rome, pharaoh democracy gladiator, history elementary"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/ancient-civilizations/" />
+    <meta property="og:title" content="Ancient Civilizations - Egypt, Greece & Rome" />
+    <meta property="og:description" content="Explore ancient Egypt, Greece, Rome and Mesopotamia!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/ancient-civilizations/" />
+    <meta property="twitter:title" content="Ancient Civilizations - Egypt, Greece & Rome" />
+    <meta property="twitter:description" content="Explore ancient Egypt, Greece, Rome and Mesopotamia!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/ancient-civilizations/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #100800;
+        --dom-accent: #f59e0b;
+        --dom-accent2: #fcd34d;
+        --dom-text: rgba(255, 255, 255, 0.95);
+        --dom-text-muted: rgba(255, 255, 255, 0.62);
+        --dom-bg: #080500;
+        --dom-border: rgba(245, 158, 11, 0.22);
+      }
+      .civ-tag {
+        display: inline-block;
+        padding: 3px 12px;
+        border-radius: 16px;
+        font-size: 0.72rem;
+        font-weight: 700;
+        margin: 4px auto 8px;
+        text-align: center;
+        display: block;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .civ-egypt {
+        background: rgba(245, 158, 11, 0.15);
+        border: 1.5px solid #f59e0b;
+        color: #fcd34d;
+      }
+      .civ-greece {
+        background: rgba(96, 165, 250, 0.15);
+        border: 1.5px solid #60a5fa;
+        color: #93c5fd;
+      }
+      .civ-rome {
+        background: rgba(239, 68, 68, 0.15);
+        border: 1.5px solid #ef4444;
+        color: #fca5a5;
+      }
+      .civ-meso {
+        background: rgba(74, 222, 128, 0.15);
+        border: 1.5px solid #4ade80;
+        color: #86efac;
+      }
+      .civ-all {
+        background: rgba(255, 255, 255, 0.07);
+        border: 1.5px solid rgba(255, 255, 255, 0.2);
+        color: rgba(255, 255, 255, 0.7);
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#ancient-civilizations"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Ancient Civilizations</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🏛️</div>
+        <h1 class="start-title">Ancient Civilizations</h1>
+        <p class="start-desc">
+          Step back 5,000 years! Explore Egypt's pyramids, Greece's democracy, Rome's empire, and Mesopotamia's
+          inventions!
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div style="text-align: center"><span class="civ-tag civ-all" id="civ-tag">🌍 Ancient World</span></div>
+        <div class="q-emoji" id="q-emoji">🏛️</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">History Hero!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

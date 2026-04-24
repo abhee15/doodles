@@ -241,6 +241,11 @@ function drawShapeFrame(ctx) {
       ctx.stroke();
     }
   }
+  // Circle count label
+  ctx.fillStyle = 'rgba(192,132,252,0.6)';
+  ctx.font = `bold ${Math.round(size * 0.026)}px sans-serif`;
+  ctx.fillText(`${N} circles`, 10, size - 10);
+
   if (!shapeState.paused) {
     const inc = Math.max(1, Math.round([0.25, 0.5, 1, 2, 4][shapeState.speed - 1]));
     shapeState.stepIndex = (shapeState.stepIndex + inc) % shapeState.totalSteps;
@@ -248,40 +253,160 @@ function drawShapeFrame(ctx) {
 }
 
 // ── WAVE BUILDER STATE ────────────────────────────────────────────────────────
-// Each wave: { cycles: 1-12, amp: 0-100, color, on }
+// Each wave: { cycles, amp (0-100), phase (0-360 degrees), on }
 
 const WAVE_COLORS = ['#f472b6', '#60a5fa', '#34d399', '#fbbf24', '#a78bfa'];
-const WAVE_LABELS = ['Wave A', 'Wave B', 'Wave C', 'Wave D', 'Wave E'];
 
 const builderState = {
   waves: [
-    { cycles: 1, amp: 80, on: true },
-    { cycles: 3, amp: 40, on: true },
-    { cycles: 5, amp: 20, on: false },
-    { cycles: 7, amp: 10, on: false },
-    { cycles: 2, amp: 30, on: false }
+    { cycles: 1, amp: 80, phase: 0, on: true },
+    { cycles: 3, amp: 40, phase: 0, on: true },
+    { cycles: 5, amp: 20, phase: 0, on: false },
+    { cycles: 7, amp: 10, phase: 0, on: false },
+    { cycles: 2, amp: 30, phase: 0, on: false }
   ],
   time: 0,
   paused: false,
   showComponents: true,
-  canvasSize: 500
+  canvasSize: 500,
+  challengeIdx: -1 // -1 = no challenge active
 };
 
-function getWaveY(wave, x, width) {
-  const freq = wave.cycles;
-  const phase = (x / width) * 2 * Math.PI * freq;
-  return (wave.amp / 100) * Math.sin(phase + builderState.time * freq * 0.04);
+// ── PRESETS ───────────────────────────────────────────────────────────────────
+
+const PRESETS = {
+  pure: [
+    { cycles: 1, amp: 80, phase: 0, on: true },
+    { cycles: 3, amp: 0, phase: 0, on: false },
+    { cycles: 5, amp: 0, phase: 0, on: false },
+    { cycles: 7, amp: 0, phase: 0, on: false },
+    { cycles: 2, amp: 0, phase: 0, on: false }
+  ],
+  square: [
+    { cycles: 1, amp: 80, phase: 0, on: true },
+    { cycles: 3, amp: 27, phase: 0, on: true },
+    { cycles: 5, amp: 16, phase: 0, on: true },
+    { cycles: 7, amp: 11, phase: 0, on: true },
+    { cycles: 9, amp: 9, phase: 0, on: true }
+  ],
+  sawtooth: [
+    { cycles: 1, amp: 80, phase: 0, on: true },
+    { cycles: 2, amp: 40, phase: 0, on: true },
+    { cycles: 3, amp: 27, phase: 0, on: true },
+    { cycles: 4, amp: 20, phase: 0, on: true },
+    { cycles: 5, amp: 16, phase: 0, on: true }
+  ],
+  triangle: [
+    { cycles: 1, amp: 80, phase: 0, on: true },
+    { cycles: 3, amp: 9, phase: 180, on: true },
+    { cycles: 5, amp: 3, phase: 0, on: true },
+    { cycles: 7, amp: 2, phase: 180, on: true },
+    { cycles: 9, amp: 1, phase: 0, on: false }
+  ]
+};
+
+// ── CHALLENGES ───────────────────────────────────────────────────────────────
+
+const CHALLENGES = [
+  {
+    name: 'Pure Sine',
+    hint: 'Just 1 wave, 1 cycle, full amplitude. Turn off all others!',
+    emoji: '〰️',
+    target: PRESETS.pure
+  },
+  {
+    name: 'Square Wave',
+    hint: 'Odd harmonics (1, 3, 5, 7, 9…) each getting smaller: 80 → 27 → 16 → 11 → 9',
+    emoji: '⬛',
+    target: PRESETS.square
+  },
+  {
+    name: 'Sawtooth Wave',
+    hint: 'All harmonics (1, 2, 3, 4, 5…) each half the previous amplitude',
+    emoji: '📈',
+    target: PRESETS.sawtooth
+  },
+  {
+    name: 'Triangle Wave',
+    hint: 'Odd harmonics with alternating phase (0°, 180°, 0°…) and amplitudes drop fast',
+    emoji: '🔺',
+    target: PRESETS.triangle
+  }
+];
+
+// ── HARMONIC LABEL ────────────────────────────────────────────────────────────
+
+function harmonicLabel(cycles) {
+  const names = [
+    '',
+    '1st',
+    '2nd',
+    '3rd',
+    '4th',
+    '5th',
+    '6th',
+    '7th',
+    '8th',
+    '9th',
+    '10th',
+    '11th',
+    '12th'
+  ];
+  if (cycles <= 12) {
+    return `${names[cycles]} harmonic`;
+  }
+  return `${cycles}× frequency`;
 }
+
+// ── WAVE MATH ─────────────────────────────────────────────────────────────────
+
+function getWaveY(wave, x, width) {
+  const phaseRad = (wave.phase / 180) * Math.PI;
+  const spatial = (x / width) * 2 * Math.PI * wave.cycles;
+  return (wave.amp / 100) * Math.sin(spatial + builderState.time * wave.cycles * 0.04 + phaseRad);
+}
+
+function computeMatchScore() {
+  const ch = CHALLENGES[builderState.challengeIdx];
+  if (!ch) {
+    return -1;
+  }
+  const W = 200;
+  let diff = 0;
+  for (let px = 0; px < W; px++) {
+    let userSum = 0,
+      targetSum = 0;
+    const activeUser = builderState.waves.filter(w => w.on).length || 1;
+    const activeTarget = ch.target.filter(w => w.on).length || 1;
+    builderState.waves.forEach(function (w) {
+      if (w.on) {
+        userSum += getWaveY(w, px, W);
+      }
+    });
+    ch.target.forEach(function (w) {
+      if (w.on) {
+        const phaseRad = (w.phase / 180) * Math.PI;
+        const spatial = (px / W) * 2 * Math.PI * w.cycles;
+        targetSum +=
+          (w.amp / 100) * Math.sin(spatial + builderState.time * w.cycles * 0.04 + phaseRad);
+      }
+    });
+    diff += Math.abs(userSum / activeUser - targetSum / activeTarget);
+  }
+  const score = Math.max(0, 100 - Math.round((diff / W) * 150));
+  return score;
+}
+
+// ── DRAW BUILDER ──────────────────────────────────────────────────────────────
 
 function drawBuilderFrame(ctx) {
   const W = builderState.canvasSize;
   const H = Math.round(W * 0.56);
   ctx.clearRect(0, 0, W, H);
-
   const midY = H / 2;
   const ampScale = H * 0.4;
 
-  // Grid lines
+  // Grid
   ctx.strokeStyle = 'rgba(255,255,255,0.06)';
   ctx.lineWidth = 1;
   for (let i = 1; i < 4; i++) {
@@ -291,13 +416,45 @@ function drawBuilderFrame(ctx) {
     ctx.lineTo(W, y);
     ctx.stroke();
   }
-  // Zero line
   ctx.strokeStyle = 'rgba(255,255,255,0.18)';
   ctx.lineWidth = 1.5;
   ctx.beginPath();
   ctx.moveTo(0, midY);
   ctx.lineTo(W, midY);
   ctx.stroke();
+
+  // Challenge target wave (dashed orange)
+  if (builderState.challengeIdx >= 0) {
+    const ch = CHALLENGES[builderState.challengeIdx];
+    const activeTarget = ch.target.filter(w => w.on).length || 1;
+    ctx.beginPath();
+    ctx.strokeStyle = '#fb923c';
+    ctx.lineWidth = 2.5;
+    ctx.setLineDash([8, 5]);
+    for (let px = 0; px <= W; px += 2) {
+      let sum = 0;
+      ch.target.forEach(function (w) {
+        if (w.on) {
+          const phaseRad = (w.phase / 180) * Math.PI;
+          const spatial = (px / W) * 2 * Math.PI * w.cycles;
+          sum += (w.amp / 100) * Math.sin(spatial + builderState.time * w.cycles * 0.04 + phaseRad);
+        }
+      });
+      const y = midY - (sum / activeTarget) * ampScale;
+      if (px === 0) {
+        ctx.moveTo(px, y);
+      } else {
+        ctx.lineTo(px, y);
+      }
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    // Target label
+    ctx.fillStyle = '#fb923c';
+    ctx.font = `bold ${Math.round(W * 0.026)}px sans-serif`;
+    ctx.fillText(`🎯 Target: ${ch.name}`, 10, 22);
+  }
 
   // Component waves
   if (builderState.showComponents) {
@@ -320,14 +477,11 @@ function drawBuilderFrame(ctx) {
     });
   }
 
-  // Sum wave
+  // Combined wave (white)
+  const activeCount = builderState.waves.filter(w => w.on).length || 1;
   ctx.beginPath();
   ctx.strokeStyle = '#ffffff';
   ctx.lineWidth = 3;
-  const activeCount =
-    builderState.waves.filter(function (w) {
-      return w.on;
-    }).length || 1;
   for (let px = 0; px <= W; px += 2) {
     let sum = 0;
     builderState.waves.forEach(function (wave) {
@@ -344,10 +498,21 @@ function drawBuilderFrame(ctx) {
   }
   ctx.stroke();
 
-  // Legend: white = combined
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.font = `bold ${Math.round(W * 0.024)}px sans-serif`;
-  ctx.fillText('— Combined', 10, 20);
+  // Legend
+  const fontSize = Math.round(W * 0.024);
+  ctx.font = `bold ${fontSize}px sans-serif`;
+  if (builderState.challengeIdx < 0) {
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.fillText('— Your wave', 10, 22);
+  } else {
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText('— Your wave', 10, 44);
+    // Match score
+    const score = computeMatchScore();
+    const scoreColor = score >= 80 ? '#34d399' : score >= 50 ? '#fbbf24' : '#f87171';
+    ctx.fillStyle = scoreColor;
+    ctx.fillText(`Match: ${score}%`, W - 110, 22);
+  }
 
   if (!builderState.paused) {
     builderState.time++;
@@ -356,15 +521,73 @@ function drawBuilderFrame(ctx) {
 
 // ── MODE MANAGEMENT ───────────────────────────────────────────────────────────
 
-let currentMode = 'shape'; // 'shape' | 'builder'
+let currentMode = 'shape';
 let shapeCanvas, builderCanvas;
 
 function switchMode(mode) {
   currentMode = mode;
-  document.getElementById('panel-shape').style.display = mode === 'shape' ? '' : 'none';
-  document.getElementById('panel-builder').style.display = mode === 'builder' ? '' : 'none';
+  ['shape', 'builder', 'challenge'].forEach(function (m) {
+    const el = document.getElementById(`panel-${m}`);
+    if (el) {
+      el.style.display = m === mode ? '' : 'none';
+    }
+  });
   document.querySelectorAll('.mode-tab').forEach(function (btn) {
     btn.classList.toggle('active', btn.dataset.mode === mode);
+  });
+}
+
+// ── PRESET LOADER ─────────────────────────────────────────────────────────────
+
+function loadPreset(key) {
+  const preset = PRESETS[key];
+  if (!preset) {
+    return;
+  }
+  preset.forEach(function (p, i) {
+    builderState.waves[i] = Object.assign({}, p);
+  });
+  buildWaveSlots();
+}
+
+// ── CHALLENGE UI ──────────────────────────────────────────────────────────────
+
+function buildChallengePanel() {
+  const list = document.getElementById('challenge-list');
+  list.innerHTML = '';
+  CHALLENGES.forEach(function (ch, idx) {
+    const card = document.createElement('div');
+    card.className = 'challenge-card';
+    card.innerHTML = `
+      <div class="challenge-header">
+        <span class="challenge-emoji">${ch.emoji}</span>
+        <span class="challenge-name">${ch.name}</span>
+      </div>
+      <div class="challenge-hint">${ch.hint}</div>
+      <button class="act-btn primary ch-start-btn" data-idx="${idx}">
+        <i class="ti ti-target-arrow"></i> Try this challenge
+      </button>
+    `;
+    list.appendChild(card);
+  });
+  list.querySelectorAll('.ch-start-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const idx = parseInt(this.dataset.idx);
+      builderState.challengeIdx = idx;
+      // Reset waves to all-off defaults for challenge
+      builderState.waves = [
+        { cycles: 1, amp: 0, phase: 0, on: false },
+        { cycles: 3, amp: 0, phase: 0, on: false },
+        { cycles: 5, amp: 0, phase: 0, on: false },
+        { cycles: 7, amp: 0, phase: 0, on: false },
+        { cycles: 2, amp: 0, phase: 0, on: false }
+      ];
+      buildWaveSlots();
+      switchMode('builder');
+      document.getElementById('active-challenge-bar').style.display = 'flex';
+      document.getElementById('active-challenge-name').textContent =
+        `${CHALLENGES[idx].emoji} ${CHALLENGES[idx].name}`;
+    });
   });
 }
 
@@ -376,10 +599,13 @@ function buildWaveSlots() {
   builderState.waves.forEach(function (wave, wi) {
     const slot = document.createElement('div');
     slot.className = `wave-slot${wave.on ? ' on' : ''}`;
+    slot.style.setProperty('--wave-color', WAVE_COLORS[wi]);
+    const hlabel = harmonicLabel(wave.cycles);
     slot.innerHTML = `
       <div class="wave-slot-header">
         <span class="wave-dot" style="background:${WAVE_COLORS[wi]}"></span>
-        <span class="wave-slot-label">${WAVE_LABELS[wi]}</span>
+        <span class="wave-slot-label">Wave ${['A', 'B', 'C', 'D', 'E'][wi]}</span>
+        <span class="harmonic-badge" id="hbadge-${wi}" style="color:${WAVE_COLORS[wi]}">${hlabel}</span>
         <label class="wave-toggle">
           <input type="checkbox" class="wave-on" data-wi="${wi}" ${wave.on ? 'checked' : ''} />
           <span class="toggle-track"></span>
@@ -387,19 +613,22 @@ function buildWaveSlots() {
       </div>
       <div class="wave-params ${wave.on ? '' : 'dim'}">
         <div class="param-row">
-          <span class="param-label">Cycles <span class="param-val" id="cycles-val-${wi}">${wave.cycles}</span></span>
+          <span class="param-label">Frequency <span class="param-val" id="cycles-val-${wi}">${wave.cycles}×</span></span>
           <input type="range" class="wave-cycles" data-wi="${wi}" min="1" max="12" value="${wave.cycles}" />
         </div>
         <div class="param-row">
-          <span class="param-label">Volume <span class="param-val" id="amp-val-${wi}">${wave.amp}%</span></span>
+          <span class="param-label">Amplitude <span class="param-val" id="amp-val-${wi}">${wave.amp}%</span></span>
           <input type="range" class="wave-amp" data-wi="${wi}" min="0" max="100" value="${wave.amp}" />
+        </div>
+        <div class="param-row">
+          <span class="param-label">Phase <span class="param-val" id="phase-val-${wi}">${wave.phase}°</span></span>
+          <input type="range" class="wave-phase" data-wi="${wi}" min="0" max="360" value="${wave.phase}" />
         </div>
       </div>
     `;
     container.appendChild(slot);
   });
 
-  // Events
   container.querySelectorAll('.wave-on').forEach(function (cb) {
     cb.addEventListener('change', function () {
       const wi = parseInt(this.dataset.wi);
@@ -413,7 +642,8 @@ function buildWaveSlots() {
     sl.addEventListener('input', function () {
       const wi = parseInt(this.dataset.wi);
       builderState.waves[wi].cycles = parseInt(this.value);
-      document.getElementById(`cycles-val-${wi}`).textContent = this.value;
+      document.getElementById(`cycles-val-${wi}`).textContent = `${this.value}×`;
+      document.getElementById(`hbadge-${wi}`).textContent = harmonicLabel(parseInt(this.value));
     });
   });
   container.querySelectorAll('.wave-amp').forEach(function (sl) {
@@ -423,28 +653,29 @@ function buildWaveSlots() {
       document.getElementById(`amp-val-${wi}`).textContent = `${this.value}%`;
     });
   });
+  container.querySelectorAll('.wave-phase').forEach(function (sl) {
+    sl.addEventListener('input', function () {
+      const wi = parseInt(this.dataset.wi);
+      builderState.waves[wi].phase = parseInt(this.value);
+      document.getElementById(`phase-val-${wi}`).textContent = `${this.value}°`;
+    });
+  });
 }
 
 // ── SHAPE CONTROLS ────────────────────────────────────────────────────────────
 
 function initShapeControls() {
-  const circlesSlider = document.getElementById('circles-slider');
-  const circlesVal = document.getElementById('circles-val');
-  circlesSlider.addEventListener('input', function () {
+  document.getElementById('circles-slider').addEventListener('input', function () {
     shapeState.numCircles = parseInt(this.value);
-    circlesVal.textContent = shapeState.numCircles;
+    document.getElementById('circles-val').textContent = shapeState.numCircles;
     shapeState.trail = [];
     shapeState.stepIndex = 0;
   });
-
-  const speedSlider = document.getElementById('speed-slider');
-  const speedVal = document.getElementById('speed-val');
   const speedLabels = ['Slow', 'Slow', 'Normal', 'Fast', 'Turbo'];
-  speedSlider.addEventListener('input', function () {
+  document.getElementById('speed-slider').addEventListener('input', function () {
     shapeState.speed = parseInt(this.value);
-    speedVal.textContent = speedLabels[shapeState.speed - 1];
+    document.getElementById('speed-val').textContent = speedLabels[shapeState.speed - 1];
   });
-
   document.getElementById('btn-play-pause').addEventListener('click', function () {
     shapeState.paused = !shapeState.paused;
     this.innerHTML = shapeState.paused
@@ -455,8 +686,7 @@ function initShapeControls() {
     shapeState.trail = [];
     shapeState.stepIndex = 0;
   });
-  const btnCircles = document.getElementById('btn-circles');
-  btnCircles.addEventListener('click', function () {
+  document.getElementById('btn-circles').addEventListener('click', function () {
     shapeState.showCircles = !shapeState.showCircles;
     this.innerHTML = shapeState.showCircles
       ? '<i class="ti ti-eye"></i> Hide Circles'
@@ -473,30 +703,12 @@ function buildShapePicker() {
     btn.innerHTML = `<span class="shape-emoji">${shape.emoji}</span>${shape.label}`;
     btn.addEventListener('click', function () {
       shapeState.shapeIdx = i;
-      document.querySelectorAll('.shape-btn').forEach(function (b) {
-        b.classList.remove('active');
-      });
+      document.querySelectorAll('.shape-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       computeShape();
     });
     picker.appendChild(btn);
   });
-}
-
-// ── RESIZE ────────────────────────────────────────────────────────────────────
-
-function resizeCanvases() {
-  const wrap = shapeCanvas.parentElement;
-  const size = Math.min(wrap.clientWidth || 500, 600);
-  shapeState.canvasSize = size;
-  shapeCanvas.width = size;
-  shapeCanvas.height = size;
-
-  const bwrap = builderCanvas.parentElement;
-  const bw = Math.min(bwrap.clientWidth || 500, 700);
-  builderState.canvasSize = bw;
-  builderCanvas.width = bw;
-  builderCanvas.height = Math.round(bw * 0.56);
 }
 
 // ── BUILDER CONTROLS ──────────────────────────────────────────────────────────
@@ -514,6 +726,33 @@ function initBuilderControls() {
       ? '<i class="ti ti-layers-subtract"></i> Hide Components'
       : '<i class="ti ti-layers"></i> Show Components';
   });
+  document.getElementById('btn-stop-challenge').addEventListener('click', function () {
+    builderState.challengeIdx = -1;
+    document.getElementById('active-challenge-bar').style.display = 'none';
+  });
+
+  // Presets
+  document.querySelectorAll('.preset-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      loadPreset(this.dataset.preset);
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+    });
+  });
+}
+
+// ── RESIZE ────────────────────────────────────────────────────────────────────
+
+function resizeCanvases() {
+  const size = Math.min(shapeCanvas.parentElement.clientWidth || 500, 600);
+  shapeState.canvasSize = size;
+  shapeCanvas.width = size;
+  shapeCanvas.height = size;
+
+  const bw = Math.min(builderCanvas.parentElement.clientWidth || 500, 700);
+  builderState.canvasSize = bw;
+  builderCanvas.width = bw;
+  builderCanvas.height = Math.round(bw * 0.56);
 }
 
 // ── MAIN ──────────────────────────────────────────────────────────────────────
@@ -530,8 +769,8 @@ document.addEventListener('DOMContentLoaded', function () {
   initShapeControls();
   buildWaveSlots();
   initBuilderControls();
+  buildChallengePanel();
 
-  // Mode tabs
   document.querySelectorAll('.mode-tab').forEach(function (btn) {
     btn.addEventListener('click', function () {
       switchMode(this.dataset.mode);
@@ -546,7 +785,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function loop() {
     if (currentMode === 'shape') {
       drawShapeFrame(shapeCtx);
-    } else {
+    } else if (currentMode === 'builder') {
       drawBuilderFrame(builderCtx);
     }
     requestAnimationFrame(loop);

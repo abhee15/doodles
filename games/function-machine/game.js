@@ -341,6 +341,167 @@ function drawGraph() {
   ctx.fillText('f(x)', 2, PAD.t + 8);
 }
 
+// ── EXPLORER MODE ────────────────────────────────────────────────────────────
+// Let kids build f(x) = m*x + b using sliders and try any input
+
+const explorer = {
+  op: 'add', // 'add' | 'sub' | 'mul' | 'lin'
+  m: 2,
+  b: 3,
+  x: 5
+};
+
+const OP_LABELS = { add: 'x + b', sub: 'x − b', mul: 'm × x', lin: 'm × x + b' };
+
+function explorerRule() {
+  switch (explorer.op) {
+    case 'add':
+      return `x + ${explorer.b}`;
+    case 'sub':
+      return `x − ${explorer.b}`;
+    case 'mul':
+      return `${explorer.m} × x`;
+    case 'lin':
+      return `${explorer.m}x + ${explorer.b}`;
+    default:
+      return '?';
+  }
+}
+
+function explorerCompute(x) {
+  switch (explorer.op) {
+    case 'add':
+      return x + explorer.b;
+    case 'sub':
+      return x - explorer.b;
+    case 'mul':
+      return explorer.m * x;
+    case 'lin':
+      return explorer.m * x + explorer.b;
+    default:
+      return 0;
+  }
+}
+
+function refreshExplorer() {
+  const rule = explorerRule();
+  document.getElementById('exp-rule').textContent = `f(x) = ${rule}`;
+  const out = explorerCompute(explorer.x);
+  document.getElementById('exp-x-val').textContent = explorer.x;
+  document.getElementById('exp-out').textContent = out >= 0 ? out : '–';
+  document.getElementById('exp-arrow').textContent = `${explorer.x} → ${out >= 0 ? out : '?'}`;
+
+  // Show/hide m and b sliders based on op
+  const showM = explorer.op === 'mul' || explorer.op === 'lin';
+  const showB = explorer.op !== 'mul';
+  document.getElementById('exp-m-row').style.display = showM ? '' : 'none';
+  document.getElementById('exp-b-row').style.display = showB ? '' : 'none';
+
+  drawExplorerGraph();
+}
+
+function drawExplorerGraph() {
+  const canvas = document.getElementById('exp-graph');
+  if (!canvas) {
+    return;
+  }
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width,
+    H = canvas.height;
+  const PAD = { t: 18, r: 18, b: 30, l: 44 };
+  const plotW = W - PAD.l - PAD.r,
+    plotH = H - PAD.t - PAD.b;
+
+  const xMin = 0,
+    xMax = 10;
+  const pts = [];
+  for (let x = xMin; x <= xMax; x++) {
+    const y = explorerCompute(x);
+    if (y >= 0 && y <= 60) {
+      pts.push({ x, y });
+    }
+  }
+  const yMax = Math.min(60, Math.max(...pts.map(p => p.y), 10) + 2);
+  const yMin = 0;
+
+  function toX(x) {
+    return PAD.l + ((x - xMin) / (xMax - xMin)) * plotW;
+  }
+  function toY(y) {
+    return PAD.t + plotH - ((y - yMin) / (yMax - yMin)) * plotH;
+  }
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#071408';
+  ctx.fillRect(0, 0, W, H);
+
+  // Grid
+  ctx.strokeStyle = 'rgba(255,255,255,0.07)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const gy = PAD.t + (plotH / 4) * i;
+    ctx.beginPath();
+    ctx.moveTo(PAD.l, gy);
+    ctx.lineTo(W - PAD.r, gy);
+    ctx.stroke();
+  }
+
+  // Axes
+  ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(PAD.l, PAD.t);
+  ctx.lineTo(PAD.l, PAD.t + plotH);
+  ctx.lineTo(PAD.l + plotW, PAD.t + plotH);
+  ctx.stroke();
+
+  // Line
+  if (pts.length > 1) {
+    ctx.strokeStyle = '#a78bfa';
+    ctx.lineWidth = 2.5;
+    ctx.beginPath();
+    pts.forEach(function (p, i) {
+      i === 0 ? ctx.moveTo(toX(p.x), toY(p.y)) : ctx.lineTo(toX(p.x), toY(p.y));
+    });
+    ctx.stroke();
+  }
+
+  // All dots
+  pts.forEach(function (p) {
+    ctx.beginPath();
+    ctx.arc(toX(p.x), toY(p.y), 4, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(167,139,250,0.7)';
+    ctx.fill();
+  });
+
+  // Current x highlight
+  const curY = explorerCompute(explorer.x);
+  if (curY >= 0 && curY <= 60 && explorer.x >= xMin && explorer.x <= xMax) {
+    ctx.beginPath();
+    ctx.arc(toX(explorer.x), toY(curY), 9, 0, Math.PI * 2);
+    ctx.fillStyle = '#fbbf24';
+    ctx.fill();
+    ctx.fillStyle = '#000';
+    ctx.font = 'bold 10px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(curY, toX(explorer.x), toY(curY) + 4);
+  }
+
+  // Axis labels
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.font = '10px sans-serif';
+  ctx.textAlign = 'center';
+  [0, 5, 10].forEach(function (x) {
+    ctx.fillText(x, toX(x), H - 6);
+  });
+  ctx.textAlign = 'right';
+  ctx.fillText(Math.round(yMax - 2), PAD.l - 5, PAD.t + 10);
+  ctx.fillText('0', PAD.l - 5, PAD.t + plotH);
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.textAlign = 'center';
+  ctx.fillText('x →', PAD.l + plotW - 5, PAD.t + plotH + 12);
+}
+
 // ── INIT ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -366,12 +527,71 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  document.getElementById('btn-menu').addEventListener('click', function () {
-    showScreen('screen-start');
+  // Game screen menu buttons (use querySelectorAll since game + result both have one)
+  document.querySelectorAll('#btn-menu, #btn-menu-result').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      showScreen('screen-start');
+    });
   });
   document.getElementById('btn-play-again').addEventListener('click', function () {
     state.score = 0;
     state.round = 0;
     startRound();
   });
+
+  // ── EXPLORER INIT ──
+  // Operation selector buttons
+  document.querySelectorAll('.exp-op-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      explorer.op = this.dataset.op;
+      document.querySelectorAll('.exp-op-btn').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      refreshExplorer();
+    });
+  });
+
+  // m slider
+  const mSlider = document.getElementById('exp-m');
+  const mVal = document.getElementById('exp-m-val');
+  if (mSlider) {
+    mSlider.addEventListener('input', function () {
+      explorer.m = parseInt(this.value);
+      mVal.textContent = this.value;
+      refreshExplorer();
+    });
+  }
+
+  // b slider
+  const bSlider = document.getElementById('exp-b');
+  const bVal = document.getElementById('exp-b-val');
+  if (bSlider) {
+    bSlider.addEventListener('input', function () {
+      explorer.b = parseInt(this.value);
+      bVal.textContent = this.value;
+      refreshExplorer();
+    });
+  }
+
+  // x slider (try-it)
+  const xSlider = document.getElementById('exp-x');
+  if (xSlider) {
+    xSlider.addEventListener('input', function () {
+      explorer.x = parseInt(this.value);
+      refreshExplorer();
+    });
+  }
+
+  // Explorer tab button
+  const btnExplorer = document.getElementById('btn-explorer-tab');
+  if (btnExplorer) {
+    btnExplorer.addEventListener('click', function () {
+      showScreen('screen-explorer');
+      refreshExplorer();
+    });
+  }
+  document.getElementById('btn-explorer-back').addEventListener('click', function () {
+    showScreen('screen-start');
+  });
+
+  refreshExplorer();
 });

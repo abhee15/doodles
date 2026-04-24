@@ -371,6 +371,102 @@
         letter-spacing: 0.05em;
       }
 
+      /* ── EXPLORER STYLES ── */
+      .exp-op-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+        max-width: 420px;
+      }
+      .exp-op-btn {
+        flex: 1;
+        min-width: 90px;
+        min-height: 44px;
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 2px solid var(--dom-border);
+        background: var(--dom-card-bg);
+        color: var(--dom-text-muted);
+        font-size: 0.85rem;
+        font-weight: 800;
+        font-family: inherit;
+        cursor: pointer;
+        transition:
+          border-color 0.15s,
+          color 0.15s,
+          transform 0.12s;
+      }
+      .exp-op-btn:hover {
+        border-color: var(--dom-accent);
+        color: var(--dom-text);
+      }
+      .exp-op-btn.active {
+        border-color: var(--dom-accent2);
+        color: var(--dom-accent2);
+        background: rgba(251, 191, 36, 0.1);
+      }
+
+      .exp-slider-row {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+        max-width: 420px;
+      }
+      .exp-slider-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.82rem;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .exp-slider-label span {
+        color: var(--dom-accent2);
+        font-size: 1rem;
+      }
+      input[type='range'] {
+        accent-color: var(--dom-accent2);
+        width: 100%;
+        min-height: 44px;
+      }
+
+      .exp-output-box {
+        background: rgba(251, 191, 36, 0.08);
+        border: 2px solid rgba(251, 191, 36, 0.35);
+        border-radius: 16px;
+        padding: 16px 28px;
+        text-align: center;
+        width: 100%;
+        max-width: 420px;
+      }
+      .exp-rule-display {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: var(--dom-accent2);
+        margin-bottom: 8px;
+      }
+      .exp-arrow-display {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--dom-text);
+        letter-spacing: 0.05em;
+      }
+
+      .exp-section-label {
+        font-size: 0.8rem;
+        color: var(--dom-text-muted);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        align-self: flex-start;
+        width: 100%;
+        max-width: 420px;
+      }
+
       @media (max-width: 480px) {
         .machine-fn-rule {
           font-size: 1.2rem;
@@ -385,6 +481,10 @@
         }
         .lv-emoji {
           font-size: 1.6rem;
+        }
+        .exp-op-btn {
+          min-width: 80px;
+          font-size: 0.8rem;
         }
       }
     </style>
@@ -403,6 +503,18 @@
         Function Machine
       </div>
       <div class="start-sub">Numbers go IN, a rule is applied, a number comes OUT — what is it?</div>
+      <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-bottom: 4px">
+        <button
+          class="action-btn action-btn--primary"
+          id="btn-explorer-tab"
+          style="background: rgba(251, 191, 36, 0.2); border-color: #fbbf24; color: #fbbf24"
+        >
+          🔬 Explorer — Build Your Own Function
+        </button>
+      </div>
+      <div style="font-size: 0.82rem; color: rgba(240, 253, 244, 0.5); margin-bottom: 8px">
+        or pick a level to play the quiz
+      </div>
       <div class="level-picker" id="level-picker"></div>
     </div>
 
@@ -456,6 +568,51 @@
       </div>
     </div>
 
+    <!-- Explorer Screen -->
+    <div class="screen" id="screen-explorer">
+      <div style="font-size: 2rem; margin-bottom: 4px">🔬</div>
+      <div class="start-title" style="font-size: 1.5rem; margin-bottom: 0">Build Your Own Function</div>
+      <div class="start-sub" style="margin-bottom: 8px">
+        Pick an operation, tune the numbers, try any input — watch the graph change live!
+      </div>
+
+      <div class="exp-section-label">Step 1: Choose the operation</div>
+      <div class="exp-op-row">
+        <button class="exp-op-btn active" data-op="add">x + b<br /><small style="font-weight: 400">add</small></button>
+        <button class="exp-op-btn" data-op="sub">x − b<br /><small style="font-weight: 400">subtract</small></button>
+        <button class="exp-op-btn" data-op="mul">m × x<br /><small style="font-weight: 400">multiply</small></button>
+        <button class="exp-op-btn" data-op="lin">mx + b<br /><small style="font-weight: 400">linear</small></button>
+      </div>
+
+      <div class="exp-section-label">Step 2: Set the numbers</div>
+      <div id="exp-m-row" class="exp-slider-row" style="display: none">
+        <div class="exp-slider-label">Multiplier (m): <span id="exp-m-val">2</span></div>
+        <input type="range" id="exp-m" min="1" max="10" value="2" />
+      </div>
+      <div id="exp-b-row" class="exp-slider-row">
+        <div class="exp-slider-label">Constant (b): <span id="exp-b-val">3</span></div>
+        <input type="range" id="exp-b" min="0" max="15" value="3" />
+      </div>
+
+      <div class="exp-section-label">Step 3: Try an input (x)</div>
+      <div class="exp-slider-row">
+        <div class="exp-slider-label">Input x: <span id="exp-x-val">5</span></div>
+        <input type="range" id="exp-x" min="0" max="10" value="5" />
+      </div>
+
+      <div class="exp-output-box">
+        <div class="exp-rule-display" id="exp-rule">f(x) = x + 3</div>
+        <div class="exp-arrow-display" id="exp-arrow">5 → 8</div>
+      </div>
+
+      <div class="graph-wrap">
+        <canvas id="exp-graph" width="420" height="180"></canvas>
+        <div class="graph-label">Graph — yellow dot = your input x</div>
+      </div>
+
+      <button class="action-btn" id="btn-explorer-back" style="margin-top: 8px">← Back to Menu</button>
+    </div>
+
     <!-- Result Screen -->
     <div class="screen" id="screen-result">
       <div class="result-emoji" id="result-emoji">🏆</div>
@@ -463,7 +620,7 @@
       <div class="result-score" id="result-score">8 / 8 correct</div>
       <div class="result-level" id="result-level">Easy level</div>
       <div class="action-row" style="margin-top: 12px">
-        <button class="action-btn" id="btn-menu">Change Level</button>
+        <button class="action-btn" id="btn-menu-result">Change Level</button>
         <button class="action-btn" id="btn-play-again">Play Again</button>
       </div>
     </div>

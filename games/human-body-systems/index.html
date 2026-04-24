@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <title>Human Body Systems - Organs and Systems Game for Kids | Doodles Games</title>
+    <meta name="title" content="Human Body Systems - Organs and Systems Game" />
+    <meta
+      name="description"
+      content="Explore the human body! Learn about the digestive, circulatory, respiratory, skeletal, and nervous systems and their organs."
+    />
+    <meta
+      name="keywords"
+      content="human body systems kids, organs digestive circulatory respiratory, anatomy elementary science"
+    />
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/human-body-systems/" />
+    <meta property="og:title" content="Human Body Systems - Organs and Systems Game" />
+    <meta property="og:description" content="Explore the digestive, circulatory, respiratory and nervous systems!" />
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/human-body-systems/" />
+    <meta property="twitter:title" content="Human Body Systems - Organs and Systems Game" />
+    <meta property="twitter:description" content="Explore body systems and organs in this science quiz!" />
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/human-body-systems/" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+    <style>
+      :root {
+        --dom-nav-bg: #140008;
+        --dom-accent: #f43f5e;
+        --dom-accent2: #fb7185;
+        --dom-text: rgba(255, 255, 255, 0.95);
+        --dom-text-muted: rgba(255, 255, 255, 0.62);
+        --dom-bg: #0c0005;
+        --dom-border: rgba(244, 63, 94, 0.22);
+      }
+      .body-system-badge {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        flex-wrap: wrap;
+        margin: 6px 0 10px;
+      }
+      .sys-pill {
+        padding: 4px 10px;
+        border-radius: 16px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        border: 1.5px solid;
+        opacity: 0.45;
+        transition:
+          opacity 0.3s,
+          border-color 0.3s;
+      }
+      .sys-pill.active {
+        opacity: 1;
+      }
+      .sys-digest {
+        background: rgba(251, 146, 60, 0.12);
+        border-color: #fb923c;
+        color: #fdba74;
+      }
+      .sys-cardio {
+        background: rgba(244, 63, 94, 0.12);
+        border-color: #f43f5e;
+        color: #fb7185;
+      }
+      .sys-resp {
+        background: rgba(56, 189, 248, 0.12);
+        border-color: #38bdf8;
+        color: #7dd3fc;
+      }
+      .sys-skeletal {
+        background: rgba(250, 204, 21, 0.12);
+        border-color: #facc15;
+        color: #fde047;
+      }
+      .sys-nervous {
+        background: rgba(168, 85, 247, 0.12);
+        border-color: #a855f7;
+        color: #d8b4fe;
+      }
+      .sys-muscle {
+        background: rgba(74, 222, 128, 0.12);
+        border-color: #4ade80;
+        color: #86efac;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="dom-nav">
+      <a href="../../index.html#human-body-systems"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Human Body Systems</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <div class="screen active" id="screen-start">
+      <div class="start-card">
+        <div class="start-emoji">🫀</div>
+        <h1 class="start-title">Human Body Systems</h1>
+        <p class="start-desc">
+          Your body is an amazing machine! Explore the systems that keep you alive — digestion, circulation, breathing,
+          nerves, and bones!
+        </p>
+        <button class="dom-btn dom-btn--primary" id="btn-start">Start Quiz</button>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-game">
+      <div class="game-card">
+        <div class="game-hud">
+          <span id="round-label">Round 1 of 10</span>
+          <span id="score-label">Score: 0</span>
+        </div>
+        <div class="body-system-badge" id="sys-badges">
+          <span class="sys-pill sys-digest" id="pill-digest">🍎 Digestive</span>
+          <span class="sys-pill sys-cardio" id="pill-cardio">🫀 Circulatory</span>
+          <span class="sys-pill sys-resp" id="pill-resp">🫁 Respiratory</span>
+          <span class="sys-pill sys-skeletal" id="pill-skeletal">🦴 Skeletal</span>
+          <span class="sys-pill sys-nervous" id="pill-nervous">🧠 Nervous</span>
+          <span class="sys-pill sys-muscle" id="pill-muscle">💪 Muscular</span>
+        </div>
+        <div class="q-emoji" id="q-emoji">🫀</div>
+        <div class="q-text" id="q-text"></div>
+        <div id="choices-grid" class="choices-grid"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="fact-box" id="fact-box" style="display: none"></div>
+      </div>
+    </div>
+
+    <div class="screen" id="screen-result">
+      <div class="result-card">
+        <div class="result-emoji" id="result-emoji">🏆</div>
+        <div class="result-title" id="result-title">Body Expert!</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-actions">
+          <button class="dom-btn dom-btn--primary" id="btn-play-again">Play Again</button>
+          <button class="dom-btn dom-btn--ghost" id="btn-menu">Main Menu</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>
