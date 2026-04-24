@@ -24,19 +24,19 @@ body.page-leaving {
   --text: #111827;
   --muted: #6b7280;
 
-  --brand: #4f46e5;
-  --brand-dark: #3730a3;
+  --brand: #0284c7;
+  --brand-dark: #0369a1;
 
   /* Category dot colors (for section headers) */
   --c-math: #bf360c;
   --c-geo: #0277bd;
-  --c-words: #6a1b9a;
-  --c-memory: #7c3aed;
+  --c-words: #0891b2;
+  --c-memory: #ea580c;
   --c-science: #059669;
   --c-art: #db2777;
-  --c-logic: #6d28d9;
+  --c-logic: #1d4ed8;
   --c-money: #065f46;
-  --c-play: #f59e0b;
+  --c-play: #e11d48;
 }
 
 *,
@@ -99,7 +99,7 @@ body.page-leaving {
 .brand-mark {
   width: 36px;
   height: 36px;
-  background: linear-gradient(135deg, #818cf8, var(--brand-dark));
+  background: linear-gradient(135deg, #38bdf8, var(--brand-dark));
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -132,7 +132,7 @@ body.page-leaving {
 .hero {
   background:
     radial-gradient(circle, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
-    linear-gradient(135deg, #6366f1 0%, #4338ca 60%, #312e81 100%);
+    linear-gradient(135deg, #1e3a5f 0%, #0891b2 60%, #06b6d4 100%);
   background-size:
     28px 28px,
     100% 100%;
@@ -497,7 +497,7 @@ body.page-leaving {
 
 .game-card:hover {
   transform: translateY(-5px) scale(1.012);
-  border-color: rgba(99, 102, 241, 0.35);
+  border-color: rgba(2, 132, 199, 0.35);
 }
 
 .game-card:hover .thumb i {

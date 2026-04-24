@@ -20,8 +20,8 @@ const CATEGORIES = [
     id: 'memory',
     label: 'Memory & Learning',
     icon: 'ti-brain',
-    color: '#8B5CF6',
-    gradient: 'linear-gradient(145deg, #A78BFA 0%, #4C1D95 100%)',
+    color: '#ea580c',
+    gradient: 'linear-gradient(145deg, #fb923c 0%, #7c2d12 100%)',
     footerHeading: 'Memory & Learning'
   },
   {
@@ -36,8 +36,8 @@ const CATEGORIES = [
     id: 'words',
     label: 'Words & Language',
     icon: 'ti-book',
-    color: '#6A1B9A',
-    gradient: 'linear-gradient(145deg, #CE93D8 0%, #4527A0 100%)',
+    color: '#0891b2',
+    gradient: 'linear-gradient(145deg, #38bdf8 0%, #0c4a6e 100%)',
     footerHeading: 'Words'
   },
   {
@@ -53,15 +53,15 @@ const CATEGORIES = [
     label: 'Art & Creativity',
     icon: 'ti-palette',
     color: '#EC4899',
-    gradient: 'linear-gradient(145deg, #F472B6 0%, #818CF8 100%)',
+    gradient: 'linear-gradient(145deg, #f9a8d4 0%, #db2777 100%)',
     footerHeading: 'Art & Creativity'
   },
   {
     id: 'logic',
     label: 'Logic & Puzzles',
     icon: 'ti-puzzle',
-    color: '#6D28D9',
-    gradient: 'linear-gradient(145deg, #A78BFA 0%, #1a0a2e 100%)',
+    color: '#1d4ed8',
+    gradient: 'linear-gradient(145deg, #60a5fa 0%, #1e3a5f 100%)',
     footerHeading: 'Logic & Puzzles'
   },
   {
@@ -77,7 +77,7 @@ const CATEGORIES = [
     label: 'Play & Explore',
     icon: 'ti-confetti',
     color: '#EC4899',
-    gradient: 'linear-gradient(145deg, #FF6B9D 0%, #C084FC 50%, #60A5FA 100%)',
+    gradient: 'linear-gradient(145deg, #ff6b9d 0%, #f97316 50%, #38bdf8 100%)',
     footerHeading: 'Play & Explore'
   }
 ];
@@ -1189,7 +1189,7 @@ const GAMES = [
     id: 'ancient-civ',
     name: 'Ancient Civilizations',
     thumbClass: null,
-    category: 'social',
+    category: 'geo',
     desc: 'Pyramids, gladiators, and democracy! Travel back to ancient Egypt, Greece, Rome, Maya, and China.',
     icon: 'ti-building-arch',
     iconColor: '#fcd34d',
@@ -1541,6 +1541,57 @@ const GAMES = [
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
     footerName: 'Figurative Language'
+  },
+  {
+    id: 'sound-and-light',
+    name: 'Sound & Light',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Explore waves! Learn how sound travels through vibrations, how light reflects and refracts, why the sky is blue, and how rainbows form.',
+    icon: 'ti-ripple',
+    iconColor: '#38bdf8',
+    gradient: 'linear-gradient(145deg, #000510 0%, #0c4a6e 100%)',
+    pattern:
+      'repeating-linear-gradient(0deg, rgba(56,189,248,.07) 0px, rgba(56,189,248,.07) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['3rd-grade', '4th-grade', '5th-grade'],
+    newUntil: '2026-09-01',
+    footerName: 'Sound & Light'
+  },
+  {
+    id: 'ancient-civilizations',
+    name: 'Ancient Civilizations',
+    thumbClass: null,
+    category: 'geo',
+    desc: 'Travel back in time! Explore ancient Egypt, Greece, Rome, Maya, and China — their rulers, inventions, and lasting impact.',
+    icon: 'ti-building-monument',
+    iconColor: '#fbbf24',
+    gradient: 'linear-gradient(145deg, #1a0a00 0%, #92400e 100%)',
+    pattern:
+      'repeating-linear-gradient(45deg, rgba(251,191,36,.06) 0px, rgba(251,191,36,.06) 1px, transparent 1px, transparent 20px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-09-01',
+    footerName: 'Ancient Civilizations'
+  },
+  {
+    id: 'human-body-systems',
+    name: 'Body Systems',
+    thumbClass: null,
+    category: 'science',
+    desc: 'Discover how your body works! Explore the digestive, circulatory, respiratory, skeletal, muscular, and nervous systems.',
+    icon: 'ti-heart-rate-monitor',
+    iconColor: '#fb7185',
+    gradient: 'linear-gradient(145deg, #0a0008 0%, #881337 100%)',
+    pattern:
+      'repeating-linear-gradient(60deg, rgba(251,113,133,.07) 0px, rgba(251,113,133,.07) 1px, transparent 1px, transparent 18px)',
+    patternSize: null,
+    patternPosition: null,
+    grades: ['4th-grade', '5th-grade', '6th-grade'],
+    newUntil: '2026-09-01',
+    footerName: 'Body Systems'
   }
 ];
 

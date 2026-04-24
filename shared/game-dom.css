@@ -19,15 +19,15 @@
   --dom-nav-height: 60px;
 
   /* Colors */
-  --dom-nav-bg: #5c3d8f; /* overridden per game */
+  --dom-nav-bg: #1e3a5f; /* overridden per game */
   --dom-nav-color: #ffffff;
   --dom-nav-border: rgba(255, 255, 255, 0.1);
 
-  --dom-bg: #fff8f0;
+  --dom-bg: #f5f7fa;
   --dom-bg-card: #ffffff;
-  --dom-border: #e8e0f0;
-  --dom-text: #2d2d2d;
-  --dom-text-muted: #8a7a9b;
+  --dom-border: #e5e7eb;
+  --dom-text: #1f2937;
+  --dom-text-muted: #6b7280;
 
   /* Accent colors */
   --dom-accent: var(--tok-color-primary, #1cb0f6);
@@ -338,6 +338,237 @@ body {
     padding: var(--tok-space-6, 24px) var(--tok-space-6, 24px);
     /* Allow content to scroll */
     min-height: auto;
+  }
+}
+
+/* ============================================================
+   QUIZ GAME COMPONENTS (.screen, .start-card, .game-card, etc.)
+   Used by all DOM-based quiz games. Text inherits --dom-text.
+   ============================================================ */
+
+/* Screen visibility — alias for .dom-screen without dom- prefix */
+.screen {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: calc(100vh - var(--dom-nav-height, 60px));
+  padding: 20px 16px 32px;
+  box-sizing: border-box;
+}
+.screen.active {
+  display: flex;
+}
+
+/* ── START CARD ── */
+.start-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 460px;
+  padding: 32px 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid var(--dom-border, rgba(255, 255, 255, 0.12));
+  border-radius: 20px;
+}
+.start-emoji {
+  font-size: 3.5rem;
+  line-height: 1;
+}
+.start-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--dom-text, #fff);
+  margin: 0;
+  line-height: 1.2;
+}
+.start-desc {
+  font-size: 1rem;
+  color: var(--dom-text-muted, rgba(255, 255, 255, 0.7));
+  line-height: 1.6;
+  margin: 0;
+  max-width: 360px;
+}
+
+/* ── GAME CARD ── */
+.game-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 560px;
+  gap: 14px;
+}
+
+/* ── HUD ── */
+.game-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--dom-text-muted, rgba(255, 255, 255, 0.65));
+  padding: 0 2px;
+}
+
+/* ── QUESTION ── */
+.q-emoji {
+  font-size: 2.75rem;
+  line-height: 1;
+  text-align: center;
+}
+.q-text {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dom-text, #fff);
+  text-align: center;
+  line-height: 1.5;
+  max-width: 500px;
+  margin: 0;
+}
+
+/* ── CHOICES GRID ── */
+.choices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 100%;
+}
+.choice-btn {
+  padding: 13px 12px;
+  min-height: 52px;
+  border: 2px solid var(--dom-border, rgba(255, 255, 255, 0.15));
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--dom-text, #fff);
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  line-height: 1.4;
+  transition:
+    border-color 0.15s,
+    transform 0.12s,
+    background 0.15s;
+}
+.choice-btn:hover:not(:disabled) {
+  border-color: var(--dom-accent, #38bdf8);
+  transform: translateY(-2px);
+}
+.choice-btn:disabled {
+  cursor: default;
+}
+
+/* Answer states */
+.choice-btn.correct-choice {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.18);
+  color: #bbf7d0;
+}
+.choice-btn.wrong-choice {
+  border-color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  color: #fecaca;
+}
+
+/* ── FEEDBACK ── */
+.feedback {
+  font-size: 1rem;
+  font-weight: 800;
+  text-align: center;
+  min-height: 1.4em;
+  color: var(--dom-text-muted, rgba(255, 255, 255, 0.6));
+}
+.feedback.good {
+  color: #4ade80;
+}
+.feedback.bad {
+  color: #f87171;
+}
+
+/* ── FACT BOX ── */
+.fact-box {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid var(--dom-border, rgba(255, 255, 255, 0.15));
+  border-left: 3px solid var(--dom-accent, #38bdf8);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: var(--dom-text-muted, rgba(255, 255, 255, 0.75));
+  line-height: 1.55;
+  text-align: left;
+}
+
+/* ── RESULT CARD ── */
+.result-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 400px;
+  padding: 36px 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1.5px solid var(--dom-border, rgba(255, 255, 255, 0.12));
+  border-radius: 20px;
+}
+.result-emoji {
+  font-size: 4rem;
+  line-height: 1;
+}
+.result-title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--dom-text, #fff);
+  margin: 0;
+}
+.result-score {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--dom-accent, #38bdf8);
+}
+.result-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+/* ── QUIZ MOBILE ── */
+@media (max-width: 480px) {
+  .start-card,
+  .result-card {
+    padding: 24px 16px;
+  }
+  .start-title {
+    font-size: 1.5rem;
+  }
+  .start-emoji,
+  .result-emoji {
+    font-size: 3rem;
+  }
+  .q-text {
+    font-size: 1rem;
+  }
+  .choices-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+  .choice-btn {
+    min-height: 48px;
+    font-size: 0.875rem;
+  }
+  .q-emoji {
+    font-size: 2.2rem;
   }
 }
 
