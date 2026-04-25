@@ -99,7 +99,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: null,
-    footerName: 'Quick Math'
+    footerName: 'Quick Math',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'measure-master',
@@ -116,7 +117,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade'],
     newUntil: '2026-04-01',
-    footerName: 'Measure Master'
+    footerName: 'Measure Master',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'math-olympiad',
@@ -132,7 +134,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-09-01',
-    footerName: 'Math Olympiad'
+    footerName: 'Math Olympiad',
+    ageGroup: ['12plus']
   },
   {
     id: 'division-dojo',
@@ -148,7 +151,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade'],
     newUntil: null,
-    footerName: 'Division Dojo'
+    footerName: 'Division Dojo',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'body-map',
@@ -164,7 +168,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-04-01',
-    footerName: 'Body Map'
+    footerName: 'Body Map',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'memory-match',
@@ -180,7 +185,8 @@ const GAMES = [
     patternPosition: '0 0',
     grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Memory Match'
+    footerName: 'Memory Match',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'vp-pup',
@@ -196,7 +202,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-06-01',
-    footerName: 'Dog Town'
+    footerName: 'Dog Town',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'periodic-table',
@@ -212,7 +219,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['5th-grade'],
     newUntil: '2026-04-01',
-    footerName: 'Periodic Table Master'
+    footerName: 'Periodic Table Master',
+    ageGroup: ['12plus']
   },
   {
     id: 'world-explorer',
@@ -229,7 +237,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: null,
-    footerName: 'World Explorer'
+    footerName: 'World Explorer',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'earth-explorer',
@@ -246,7 +255,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: null,
-    footerName: 'Earth Explorer'
+    footerName: 'Earth Explorer',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'south-america-tree',
@@ -262,7 +272,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-09-01',
-    footerName: 'South America Tree'
+    footerName: 'South America Tree',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'map-masters',
@@ -278,7 +289,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-04-01',
-    footerName: 'Map Masters'
+    footerName: 'Map Masters',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'flag-masters',
@@ -294,7 +306,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-05-01',
-    footerName: 'Flag Masters'
+    footerName: 'Flag Masters',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'amazing-facts',
@@ -310,7 +323,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: null,
-    footerName: 'Amazing Facts'
+    footerName: 'Amazing Facts',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'word-explorer',
@@ -326,7 +340,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: null,
-    footerName: 'Word Explorer'
+    footerName: 'Word Explorer',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'solar-system',
@@ -343,7 +358,8 @@ const GAMES = [
     patternPosition: '0 0, 10px 15px, 25px 5px',
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-04-01',
-    footerName: 'Planet Quest'
+    footerName: 'Planet Quest',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'dino-hunter',
@@ -359,7 +375,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: null,
-    footerName: 'Dino Hunter'
+    footerName: 'Dino Hunter',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'draw-it',
@@ -375,7 +392,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['kindergarten', '1st-grade', '2nd-grade'],
     newUntil: '2026-04-01',
-    footerName: 'Draw It'
+    footerName: 'Draw It',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'spirograph-studio',
@@ -391,7 +409,8 @@ const GAMES = [
     patternPosition: '0 0',
     grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Spirograph Studio'
+    footerName: 'Spirograph Studio',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'color-lab',
@@ -407,7 +426,8 @@ const GAMES = [
     patternPosition: '0 0',
     grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Color Lab'
+    footerName: 'Color Lab',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'wave-painter',
@@ -423,7 +443,8 @@ const GAMES = [
     patternPosition: '0 0',
     grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Wave Painter'
+    footerName: 'Wave Painter',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'sudoku-kids',
@@ -440,7 +461,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Sudoku Kids'
+    footerName: 'Sudoku Kids',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'brain-spark',
@@ -456,7 +478,8 @@ const GAMES = [
     patternPosition: '0 0',
     grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Brain Spark'
+    footerName: 'Brain Spark',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'pattern-puzzles',
@@ -473,7 +496,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-07-21',
-    footerName: 'Pattern Puzzles'
+    footerName: 'Pattern Puzzles',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'photosynthesis-explorer',
@@ -488,7 +512,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-09-01',
-    footerName: 'Photosynthesis'
+    footerName: 'Photosynthesis',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'digestion-explorer',
@@ -504,7 +529,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-12-01',
-    footerName: 'Digestive System'
+    footerName: 'Digestive System',
+    ageGroup: ['u12']
   },
   {
     id: 'water-cycle',
@@ -519,7 +545,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-09-01',
-    footerName: 'Water Cycle'
+    footerName: 'Water Cycle',
+    ageGroup: ['u12']
   },
   {
     id: 'rainbows-science',
@@ -534,7 +561,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-09-01',
-    footerName: 'Rainbow Science'
+    footerName: 'Rainbow Science',
+    ageGroup: ['u12']
   },
   {
     id: 'moon-phases',
@@ -549,7 +577,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-09-15',
-    footerName: 'Moon Phases'
+    footerName: 'Moon Phases',
+    ageGroup: ['u12']
   },
   {
     id: 'day-and-night',
@@ -564,7 +593,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-09-15',
-    footerName: 'Day & Night'
+    footerName: 'Day & Night',
+    ageGroup: ['u12']
   },
   {
     id: 'seasons-science',
@@ -579,7 +609,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-09-15',
-    footerName: 'Seasons'
+    footerName: 'Seasons',
+    ageGroup: ['u12']
   },
   {
     id: 'gravity-science',
@@ -594,7 +625,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-09-15',
-    footerName: 'Gravity'
+    footerName: 'Gravity',
+    ageGroup: ['u12']
   },
   {
     id: 'volcano-science',
@@ -609,7 +641,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-09-15',
-    footerName: 'Volcanoes'
+    footerName: 'Volcanoes',
+    ageGroup: ['u12']
   },
   {
     id: 'earthquake-science',
@@ -624,7 +657,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-09-15',
-    footerName: 'Earthquakes'
+    footerName: 'Earthquakes',
+    ageGroup: ['u12']
   },
   {
     id: 'store-shopper',
@@ -640,7 +674,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-04-01',
-    footerName: 'Store Shopper'
+    footerName: 'Store Shopper',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'coin-counter',
@@ -656,7 +691,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-07-21',
-    footerName: 'Coin Counter'
+    footerName: 'Coin Counter',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'change-maker',
@@ -672,7 +708,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Change Maker'
+    footerName: 'Change Maker',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'fraction-fun',
@@ -687,7 +724,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-04-15',
-    footerName: 'Fraction Fun'
+    footerName: 'Fraction Fun',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'times-table',
@@ -704,7 +742,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-07-01',
-    footerName: 'Times Table'
+    footerName: 'Times Table',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'word-scramble',
@@ -721,7 +760,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-07-01',
-    footerName: 'Word Scramble'
+    footerName: 'Word Scramble',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'spelling-bee',
@@ -736,7 +776,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-04-15',
-    footerName: 'Spelling Bee'
+    footerName: 'Spelling Bee',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'word-guess',
@@ -752,7 +793,8 @@ const GAMES = [
     patternPosition: '0 0',
     grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Word Guess'
+    footerName: 'Word Guess',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'us-states',
@@ -767,7 +809,8 @@ const GAMES = [
     patternSize: null,
     patternPosition: null,
     newUntil: '2026-04-15',
-    footerName: 'US States & Capitals'
+    footerName: 'US States & Capitals',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'pop-town',
@@ -782,7 +825,8 @@ const GAMES = [
     patternSize: '28px 28px',
     patternPosition: null,
     newUntil: '2026-07-01',
-    footerName: 'Pop Town'
+    footerName: 'Pop Town',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'star-blaster',
@@ -797,7 +841,8 @@ const GAMES = [
     patternSize: '22px 22px',
     patternPosition: null,
     newUntil: '2026-08-01',
-    footerName: 'Star Blaster'
+    footerName: 'Star Blaster',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'pixel-quest',
@@ -812,7 +857,8 @@ const GAMES = [
     patternSize: '18px 18px',
     patternPosition: null,
     newUntil: '2026-09-01',
-    footerName: 'Pixel Quest'
+    footerName: 'Pixel Quest',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'algebra-explorer',
@@ -829,7 +875,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Algebra Explorer'
+    footerName: 'Algebra Explorer',
+    ageGroup: ['12plus']
   },
   {
     id: 'number-sequences',
@@ -845,7 +892,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Number Sequences'
+    footerName: 'Number Sequences',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'antonym-match',
@@ -862,7 +910,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Antonym Match'
+    footerName: 'Antonym Match',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'states-of-matter',
@@ -878,7 +927,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'States of Matter'
+    footerName: 'States of Matter',
+    ageGroup: ['u12']
   },
   {
     id: 'simon-says',
@@ -894,7 +944,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Simon Says'
+    footerName: 'Simon Says',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'function-machine',
@@ -911,7 +962,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Function Machine'
+    footerName: 'Function Machine',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'synonym-match',
@@ -928,7 +980,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Synonym Match'
+    footerName: 'Synonym Match',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'food-chain',
@@ -945,7 +998,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Food Chain'
+    footerName: 'Food Chain',
+    ageGroup: ['u12']
   },
   {
     id: 'rhyme-time',
@@ -962,7 +1016,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['kindergarten', '1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Rhyme Time'
+    footerName: 'Rhyme Time',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'geometry-quest',
@@ -979,7 +1034,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Geometry Quest'
+    footerName: 'Geometry Quest',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'compound-words',
@@ -996,7 +1052,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Compound Words'
+    footerName: 'Compound Words',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'weather-watch',
@@ -1013,7 +1070,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Weather Watch'
+    footerName: 'Weather Watch',
+    ageGroup: ['u12']
   },
   {
     id: 'capital-cities',
@@ -1030,7 +1088,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Capital Cities'
+    footerName: 'Capital Cities',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'fractions-visual',
@@ -1047,7 +1106,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Fractions Visual'
+    footerName: 'Fractions Visual',
+    ageGroup: ['u12']
   },
   {
     id: 'animal-kingdom',
@@ -1064,7 +1124,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Animal Kingdom'
+    footerName: 'Animal Kingdom',
+    ageGroup: ['u12']
   },
   {
     id: 'simple-machines',
@@ -1081,7 +1142,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Simple Machines'
+    footerName: 'Simple Machines',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'place-value',
@@ -1098,7 +1160,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Place Value'
+    footerName: 'Place Value',
+    ageGroup: ['u12']
   },
   {
     id: 'continents-quiz',
@@ -1115,7 +1178,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Continents Quiz'
+    footerName: 'Continents Quiz',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'syllables',
@@ -1132,7 +1196,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Syllables'
+    footerName: 'Syllables',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'rock-cycle',
@@ -1149,7 +1214,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Rock Cycle'
+    footerName: 'Rock Cycle',
+    ageGroup: ['u12']
   },
   {
     id: 'map-skills',
@@ -1166,7 +1232,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Map Skills'
+    footerName: 'Map Skills',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'measurement',
@@ -1183,7 +1250,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Measurement'
+    footerName: 'Measurement',
+    ageGroup: ['u12']
   },
   {
     id: 'ancient-civ',
@@ -1200,7 +1268,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Ancient Civilizations'
+    footerName: 'Ancient Civilizations',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'grammar-fix',
@@ -1217,7 +1286,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Grammar Fix'
+    footerName: 'Grammar Fix',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'basic-algebra',
@@ -1234,7 +1304,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Basic Algebra'
+    footerName: 'Basic Algebra',
+    ageGroup: ['12plus']
   },
   {
     id: 'antonyms',
@@ -1251,7 +1322,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['1st-grade', '2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Antonyms'
+    footerName: 'Antonyms',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'habitats',
@@ -1268,7 +1340,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Habitats'
+    footerName: 'Habitats',
+    ageGroup: ['u12']
   },
   {
     id: 'human-body',
@@ -1285,7 +1358,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Human Body'
+    footerName: 'Human Body',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'inventors',
@@ -1302,7 +1376,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Famous Inventors'
+    footerName: 'Famous Inventors',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'decimals',
@@ -1319,7 +1394,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Decimals'
+    footerName: 'Decimals',
+    ageGroup: ['u12']
   },
   {
     id: 'life-cycles',
@@ -1336,7 +1412,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Life Cycles'
+    footerName: 'Life Cycles',
+    ageGroup: ['u12']
   },
   {
     id: 'parts-of-speech',
@@ -1353,7 +1430,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Parts of Speech'
+    footerName: 'Parts of Speech',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'area-perimeter',
@@ -1370,7 +1448,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Area & Perimeter'
+    footerName: 'Area & Perimeter',
+    ageGroup: ['u12']
   },
   {
     id: 'electricity',
@@ -1387,7 +1466,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Electricity'
+    footerName: 'Electricity',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'prefixes-suffixes',
@@ -1404,7 +1484,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Prefixes & Suffixes'
+    footerName: 'Prefixes & Suffixes',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'probability',
@@ -1421,7 +1502,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Probability'
+    footerName: 'Probability',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'force-and-motion',
@@ -1438,7 +1520,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Force & Motion'
+    footerName: 'Force & Motion',
+    ageGroup: ['u12']
   },
   {
     id: 'context-clues',
@@ -1455,7 +1538,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Context Clues'
+    footerName: 'Context Clues',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'magnetism',
@@ -1472,7 +1556,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Magnetism'
+    footerName: 'Magnetism',
+    ageGroup: ['u12']
   },
   {
     id: 'government-basics',
@@ -1489,7 +1574,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Government Basics'
+    footerName: 'Government Basics',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'food-chains',
@@ -1506,7 +1592,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Food Chains'
+    footerName: 'Food Chains',
+    ageGroup: ['u12']
   },
   {
     id: 'fractions',
@@ -1523,7 +1610,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['2nd-grade', '3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Fractions'
+    footerName: 'Fractions',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'figurative-language',
@@ -1540,7 +1628,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-08-01',
-    footerName: 'Figurative Language'
+    footerName: 'Figurative Language',
+    ageGroup: ['12plus']
   },
   {
     id: 'sound-and-light',
@@ -1557,7 +1646,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['3rd-grade', '4th-grade', '5th-grade'],
     newUntil: '2026-09-01',
-    footerName: 'Sound & Light'
+    footerName: 'Sound & Light',
+    ageGroup: ['u12']
   },
   {
     id: 'ancient-civilizations',
@@ -1574,7 +1664,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-09-01',
-    footerName: 'Ancient Civilizations'
+    footerName: 'Ancient Civilizations',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'human-body-systems',
@@ -1591,7 +1682,8 @@ const GAMES = [
     patternPosition: null,
     grades: ['4th-grade', '5th-grade', '6th-grade'],
     newUntil: '2026-09-01',
-    footerName: 'Body Systems'
+    footerName: 'Body Systems',
+    ageGroup: ['u12', '12plus']
   },
   {
     id: 'table-tennis',
@@ -1606,7 +1698,8 @@ const GAMES = [
     patternPosition: null,
     thumbClass: null,
     newUntil: '2026-07-01',
-    footerName: 'Table Tennis'
+    footerName: 'Table Tennis',
+    ageGroup: ['u6', 'u12']
   },
   {
     id: 'cricket-bat',
@@ -1621,7 +1714,8 @@ const GAMES = [
     patternPosition: null,
     thumbClass: null,
     newUntil: '2026-07-01',
-    footerName: 'Cricket Bat'
+    footerName: 'Cricket Bat',
+    ageGroup: ['u6', 'u12']
   }
 ];
 

@@ -190,45 +190,96 @@
    */
   function attachFilterListeners() {
     const pills = document.querySelectorAll('.pill');
-    const sections = document.querySelectorAll('.cat-section');
-    const empty = document.getElementById('empty');
 
     pills.forEach(function (pill) {
       pill.addEventListener('click', function () {
-        const cat = this.getAttribute('data-cat');
-
         // Update active pill
         pills.forEach(function (p) {
           p.classList.remove('active');
         });
         this.classList.add('active');
 
-        if (cat === 'all') {
-          sections.forEach(function (s) {
-            s.classList.remove('hidden');
-          });
-          if (empty) {
-            empty.style.display = 'none';
-          }
-          return;
-        }
-
-        // Show only matching category
-        let found = false;
-        sections.forEach(function (s) {
-          if (s.getAttribute('data-cat') === cat) {
-            s.classList.remove('hidden');
-            found = true;
-          } else {
-            s.classList.add('hidden');
-          }
-        });
-
-        if (empty) {
-          empty.style.display = found ? 'none' : 'block';
-        }
+        applyFilters();
       });
     });
+  }
+
+  /**
+   * Attach click listeners to age filter pills
+   */
+  function attachAgeFilterListeners() {
+    const agePills = document.querySelectorAll('.age-pill');
+    agePills.forEach(function (pill) {
+      pill.addEventListener('click', function () {
+        agePills.forEach(function (p) {
+          p.classList.remove('active');
+        });
+        this.classList.add('active');
+        applyFilters();
+      });
+    });
+  }
+
+  /**
+   * Get currently active age filter
+   */
+  function getActiveAge() {
+    const active = document.querySelector('.age-pill.active');
+    return active ? active.getAttribute('data-age') : 'all';
+  }
+
+  /**
+   * Get currently active category filter
+   */
+  function getActiveCat() {
+    const active = document.querySelector('.pill.active');
+    return active ? active.getAttribute('data-cat') : 'all';
+  }
+
+  /**
+   * Apply both age and category filters
+   */
+  function applyFilters() {
+    const age = getActiveAge();
+    const cat = getActiveCat();
+    const sections = document.querySelectorAll('.cat-section');
+    const empty = document.getElementById('empty');
+    let anyVisible = false;
+
+    sections.forEach(function (section) {
+      const sectionCat = section.getAttribute('data-cat');
+      const catMatch = cat === 'all' || sectionCat === cat;
+      if (!catMatch) {
+        section.classList.add('hidden');
+        return;
+      }
+
+      const cards = section.querySelectorAll('.game-card');
+      let visibleCount = 0;
+      cards.forEach(function (card) {
+        const gameId = card.id;
+        const game = GAMES.find(function (g) {
+          return g.id === gameId;
+        });
+        const ageMatch =
+          age === 'all' || (game && game.ageGroup && game.ageGroup.indexOf(age) !== -1);
+        card.style.display = ageMatch ? '' : 'none';
+        if (ageMatch) {
+          visibleCount++;
+        }
+      });
+
+      if (visibleCount > 0) {
+        section.classList.remove('hidden');
+        anyVisible = true;
+      } else {
+        section.classList.add('hidden');
+      }
+    });
+
+    if (empty) {
+      empty.style.display = anyVisible ? 'none' : 'block';
+    }
   }
 
   /**
@@ -308,6 +359,7 @@
     updateNavCount();
     updateSectionCounts();
     renderFilterPills();
+    attachAgeFilterListeners();
     renderFooter();
 
     // Smooth page-leave transition on game card clicks
