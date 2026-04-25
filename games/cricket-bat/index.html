@@ -27,355 +27,553 @@
     <link rel="stylesheet" href="../../shared/game-dom.css" />
     <style>
       :root {
-        --dom-nav-bg: #14532d;
-        --dom-accent: #22c55e;
-        --dom-accent2: #fbbf24;
-        --dom-bg: #f0fdf4;
-        --dom-border: rgba(34, 197, 94, 0.25);
-        --dom-text: #14532d;
-        --dom-text-muted: #166534;
+        --dom-nav-bg: #1e3a5f;
+        --dom-accent: #fbbf24;
+        --dom-accent2: #22c55e;
+        --dom-bg: #0f172a;
+        --dom-border: rgba(251, 191, 36, 0.25);
+        --dom-text: #f8fafc;
+        --dom-text-muted: #94a3b8;
       }
 
-      .cricket-field {
-        width: 100%;
-        height: clamp(180px, 40vh, 300px);
-        background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
-        border: 2px solid #16a34a;
-        border-radius: 12px;
+      .game-screen {
+        padding: 16px;
+      }
+
+      .score-bar {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 12px;
+      }
+
+      .score-chip {
+        background: rgba(251, 191, 36, 0.15);
+        border: 1px solid var(--dom-accent);
+        border-radius: 20px;
+        padding: 6px 14px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .score-chip .label {
+        font-size: 11px;
+        color: var(--dom-accent);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .score-chip .value {
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+      }
+
+      .over-info {
+        text-align: center;
+        font-size: 13px;
+        color: var(--dom-text-muted);
+        margin-bottom: 8px;
+      }
+
+      .ball-dots {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+        margin-bottom: 16px;
+      }
+
+      .ball-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .ball-dot.faced {
+        background: var(--dom-accent2);
+        border-color: var(--dom-accent2);
+      }
+
+      .field-container {
         position: relative;
+        background: linear-gradient(180deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
+        border-radius: 16px;
+        height: 220px;
         overflow: hidden;
-        margin: 20px 0;
-        box-sizing: border-box;
-        cursor: pointer;
+        margin-bottom: 12px;
         touch-action: none;
       }
 
-      .field-crease {
+      .field-pattern {
         position: absolute;
-        width: 100%;
+        inset: 0;
+        background-image:
+          radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+          radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+        background-size: 30px 30px;
+        pointer-events: none;
+      }
+
+      .pitch {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 120px;
+        height: 100%;
+        background: linear-gradient(180deg, #d4a574 0%, #c4956a 50%, #b8895f 100%);
+        border-radius: 4px;
+        border: 2px solid #a67c52;
+      }
+
+      .pitch-crease {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
         height: 2px;
         background: white;
+        opacity: 0.7;
+      }
+
+      .pitch-crease.top {
+        top: 20%;
+      }
+
+      .pitch-crease.bottom {
+        bottom: 20%;
+      }
+
+      .batsman {
+        position: absolute;
+        right: 35px;
         top: 50%;
-        left: 0;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 40px;
+        z-index: 5;
       }
 
-      .field-zones {
+      .batsman-body {
+        width: 16px;
+        height: 20px;
+        background: #fcd34d;
+        border-radius: 8px 8px 4px 4px;
+        position: relative;
+        margin: 0 auto;
+      }
+
+      .batsman-helmet {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 18px;
+        height: 12px;
+        background: #dc2626;
+        border-radius: 6px 6px 2px 2px;
       }
 
-      .zone {
+      .batsman-helmet::after {
+        content: '';
         position: absolute;
-        height: 100%;
-        opacity: 0.15;
-        border-right: 2px solid rgba(0, 0, 0, 0.2);
+        top: 4px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 12px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 2px;
       }
 
-      .zone-perfect {
-        background: #10b981;
-        left: 40%;
-        width: 15%;
+      .batsman-legs {
+        width: 12px;
+        height: 16px;
+        background: #1e3a5f;
+        margin: 2px auto 0;
+        border-radius: 2px;
       }
 
-      .zone-good {
-        background: #fbbf24;
-        left: 30%;
-        width: 10%;
+      .batsman-bat {
+        position: absolute;
+        right: -30px;
+        top: 50%;
+        transform: translateY(-12px) rotate(-20deg);
+        width: 8px;
+        height: 36px;
+        background: linear-gradient(90deg, #92400e 0%, #b45309 100%);
+        border-radius: 3px;
+        transform-origin: left center;
+        transition: transform 0.15s ease-out;
       }
 
-      .zone-good-right {
-        background: #fbbf24;
-        left: 55%;
-        width: 10%;
+      .batsman-bat.swinging {
+        animation: batSwing 0.3s ease-out forwards;
       }
 
-      .zone-ok {
-        background: #f97316;
-        left: 20%;
-        width: 10%;
+      @keyframes batSwing {
+        0% {
+          transform: translateY(-12px) rotate(-20deg);
+        }
+        50% {
+          transform: translateY(-12px) rotate(-70deg);
+        }
+        100% {
+          transform: translateY(-12px) rotate(-20deg);
+        }
       }
 
-      .zone-ok-right {
-        background: #f97316;
-        left: 65%;
-        width: 10%;
+      .bowler {
+        position: absolute;
+        left: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 4;
+      }
+
+      .bowler.active {
+        opacity: 1;
+      }
+
+      .bowler-body {
+        width: 14px;
+        height: 18px;
+        background: #fcd34d;
+        border-radius: 7px 7px 3px 3px;
+        position: relative;
+      }
+
+      .bowler-arm {
+        position: absolute;
+        right: -20px;
+        top: 2px;
+        width: 24px;
+        height: 6px;
+        background: #fcd34d;
+        border-radius: 3px;
+        transform-origin: left center;
+      }
+
+      .bowler-arm.delivering {
+        animation: bowlArm 0.15s ease-out forwards;
+      }
+
+      @keyframes bowlArm {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(-80deg);
+        }
+      }
+
+      .bowler-helmet {
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 14px;
+        height: 10px;
+        background: #2563eb;
+        border-radius: 5px 5px 2px 2px;
+      }
+
+      .bowler-legs {
+        width: 10px;
+        height: 14px;
+        background: #1e3a5f;
+        margin: 2px auto 0;
+        border-radius: 2px;
       }
 
       .ball {
         position: absolute;
-        width: 16px;
-        height: 16px;
-        background: #ef4444;
+        left: 35px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 14px;
+        height: 14px;
+        background: radial-gradient(circle at 30% 30%, #fca5a5 0%, #dc2626 60%, #991b1b 100%);
         border-radius: 50%;
-        top: 45%;
-        left: 5%;
-        margin-top: -8px;
-        margin-left: -8px;
-        z-index: 10;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-      }
-
-      .bat {
-        position: absolute;
-        width: 60px;
-        height: 8px;
-        background: linear-gradient(90deg, #92400e 0%, #b45309 100%);
-        right: 20px;
-        top: 50%;
-        margin-top: -4px;
-        transform-origin: left center;
-        border-radius: 4px;
-        z-index: 5;
-        transition: transform 0.1s ease-out;
-      }
-
-      .bat.swinging {
-        animation: swing 0.3s ease-out forwards;
-      }
-
-      @keyframes swing {
-        0% {
-          transform: rotate(0deg);
-        }
-        50% {
-          transform: rotate(-45deg);
-        }
-        100% {
-          transform: rotate(0deg);
-        }
-      }
-
-      .field-instructions {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        text-align: center;
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 14px;
-        font-weight: 500;
-        pointer-events: none;
-        z-index: 1;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-      }
-
-      .result-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 20;
+        z-index: 6;
         opacity: 0;
-        pointer-events: none;
-        transition: opacity 0.2s ease;
+        transition: none;
       }
 
-      .result-overlay.active {
+      .ball.active {
         opacity: 1;
       }
 
-      .result-text {
-        font-size: 48px;
+      .timing-zones {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .timing-zone {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        opacity: 0.12;
+        border-right: 1px dashed rgba(255, 255, 255, 0.15);
+      }
+
+      .timing-zone.perfect {
+        background: #22c55e;
+        left: 38%;
+        width: 18%;
+      }
+
+      .timing-zone.good {
+        background: #fbbf24;
+        left: 25%;
+        width: 13%;
+      }
+
+      .timing-zone.good-right {
+        background: #fbbf24;
+        left: 56%;
+        width: 13%;
+      }
+
+      .timing-zone.ok {
+        background: #f97316;
+        left: 10%;
+        width: 15%;
+      }
+
+      .timing-zone.ok-right {
+        background: #f97316;
+        left: 69%;
+        width: 15%;
+      }
+
+      .field-label {
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 11px;
+        color: rgba(255, 255, 255, 0.7);
+        pointer-events: none;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .field-hint {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.6);
+        pointer-events: none;
+      }
+
+      .result-popup {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s;
+        z-index: 20;
+      }
+
+      .result-popup.show {
+        opacity: 1;
+      }
+
+      .result-msg {
+        font-size: 32px;
         font-weight: bold;
-        color: white;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        text-align: center;
+        animation: resultPop 0.4s ease-out;
       }
 
-      .result-text.six {
-        color: #10b981;
+      .result-msg.six {
+        color: #22c55e;
+        text-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
       }
 
-      .result-text.four {
+      .result-msg.four {
         color: #fbbf24;
+        text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
       }
 
-      .result-text.single {
+      .result-msg.single {
         color: #60a5fa;
       }
 
-      .result-text.out {
-        color: #ef4444;
+      .result-msg.miss {
+        color: #f87171;
       }
 
-      .score-board {
-        display: flex;
-        justify-content: space-around;
-        margin: 16px 0;
-        gap: 12px;
+      @keyframes resultPop {
+        0% {
+          transform: scale(0.5);
+          opacity: 0;
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
       }
 
-      .score-card {
-        background: white;
-        border: 2px solid var(--dom-border);
-        border-radius: 8px;
-        padding: 12px 16px;
-        text-align: center;
-        flex: 1;
-      }
-
-      .score-card .label {
-        font-size: 12px;
-        color: var(--dom-text-muted);
-        font-weight: 500;
-        text-transform: uppercase;
-        margin-bottom: 4px;
-      }
-
-      .score-card .value {
-        font-size: 28px;
-        font-weight: bold;
-        color: var(--dom-accent);
-      }
-
-      .over-indicator {
-        text-align: center;
-        font-size: 14px;
-        color: var(--dom-text-muted);
-        margin: 12px 0;
-        font-weight: 500;
-      }
-
-      .ball-counter {
-        display: flex;
-        justify-content: center;
-        gap: 6px;
-        margin: 12px 0;
-      }
-
-      .ball-dot {
-        width: 12px;
-        height: 12px;
-        border-radius: 50%;
-        background: #d1d5db;
-        border: 2px solid transparent;
-      }
-
-      .ball-dot.bowled {
-        background: var(--dom-accent);
-        border-color: var(--dom-accent);
-      }
-
-      .start-screen {
-        padding: 24px;
-        text-align: center;
-      }
-
-      .start-screen h1 {
-        font-size: 36px;
-        margin: 24px 0 12px;
-        color: var(--dom-text);
-      }
-
-      .start-screen p {
-        font-size: 16px;
-        color: var(--dom-text-muted);
-        margin: 12px 0 24px;
-        line-height: 1.5;
-      }
-
-      .instructions-list {
-        background: white;
-        border: 2px solid var(--dom-border);
-        border-radius: 8px;
-        padding: 16px;
-        margin: 16px 0 24px;
-        text-align: left;
-      }
-
-      .instructions-list li {
-        font-size: 14px;
-        color: var(--dom-text);
-        margin: 8px 0;
-        padding-left: 20px;
-        position: relative;
-      }
-
-      .instructions-list li:before {
-        content: '✓';
+      .confetti {
         position: absolute;
-        left: 0;
-        color: var(--dom-accent);
-        font-weight: bold;
+        width: 8px;
+        height: 8px;
+        pointer-events: none;
       }
 
+      .celebration {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 25;
+      }
+
+      .celebration-particle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        border-radius: 2px;
+        animation: confettiFall 1s ease-out forwards;
+      }
+
+      @keyframes confettiFall {
+        0% {
+          transform: translateY(0) rotate(0deg);
+          opacity: 1;
+        }
+        100% {
+          transform: translateY(200px) rotate(720deg);
+          opacity: 0;
+        }
+      }
+
+      .btn-action {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        font-size: 15px;
+      }
+
+      .start-screen,
       .end-screen {
         padding: 24px;
         text-align: center;
       }
 
-      .end-screen h2 {
+      .start-screen h1 {
         font-size: 28px;
-        margin: 24px 0 12px;
+        margin: 16px 0 8px;
         color: var(--dom-text);
       }
 
-      .final-score {
-        background: linear-gradient(135deg, var(--dom-accent) 0%, var(--dom-accent2) 100%);
-        color: white;
-        padding: 32px;
-        border-radius: 12px;
-        margin: 24px 0;
-      }
-
-      .final-score .label {
-        font-size: 14px;
-        opacity: 0.9;
-        margin-bottom: 8px;
-      }
-
-      .final-score .value {
-        font-size: 56px;
-        font-weight: bold;
-      }
-
-      .performance-text {
-        font-size: 16px;
+      .start-screen .tagline {
+        font-size: 15px;
         color: var(--dom-text-muted);
-        margin: 16px 0;
-        font-weight: 500;
+        margin-bottom: 20px;
       }
 
-      .next-ball-btn {
-        margin-top: 16px;
+      .how-to {
+        background: rgba(251, 191, 36, 0.1);
+        border: 1px solid rgba(251, 191, 36, 0.3);
+        border-radius: 12px;
+        padding: 16px;
+        margin-bottom: 20px;
+        text-align: left;
       }
 
-      .icon {
-        display: inline-block;
-        margin-right: 6px;
+      .how-to h3 {
+        font-size: 14px;
+        color: var(--dom-accent);
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
       }
 
-      .field-hint {
+      .how-to li {
+        font-size: 13px;
+        color: var(--dom-text-muted);
+        margin: 8px 0;
+        padding-left: 16px;
+        position: relative;
+        list-style: none;
+      }
+
+      .how-to li::before {
+        content: '•';
         position: absolute;
-        bottom: 12px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 12px;
-        color: rgba(255, 255, 255, 0.7);
-        pointer-events: none;
+        left: 0;
+        color: var(--dom-accent);
       }
 
-      @media (max-width: 360px) {
-        .score-board {
-          flex-direction: column;
-          gap: 6px;
+      .end-screen h2 {
+        font-size: 26px;
+        margin: 16px 0 8px;
+        color: var(--dom-text);
+      }
+
+      .final-card {
+        background: linear-gradient(135deg, var(--dom-accent) 0%, #f59e0b 100%);
+        border-radius: 16px;
+        padding: 28px;
+        margin: 20px 0;
+      }
+
+      .final-card .label {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 4px;
+      }
+
+      .final-card .score {
+        font-size: 48px;
+        font-weight: bold;
+        color: #0f172a;
+      }
+
+      .feedback {
+        font-size: 14px;
+        color: var(--dom-text-muted);
+        margin: 12px 0;
+      }
+
+      .field-area {
+        cursor: pointer;
+        touch-action: manipulation;
+      }
+
+      .field-area:active {
+        transform: scale(0.98);
+      }
+
+      @media (max-width: 400px) {
+        .score-chip {
+          padding: 4px 10px;
         }
-        .score-card {
-          flex-direction: row;
-          justify-content: space-between;
-          align-items: center;
-          padding: 8px 12px;
+        .score-chip .value {
+          font-size: 16px;
         }
-        .score-card .value {
-          font-size: 1.4rem;
+        .field-container {
+          height: 180px;
+        }
+        .result-msg {
+          font-size: 26px;
         }
       }
     </style>
@@ -387,91 +585,95 @@
       <span class="dom-nav-meta" id="nav-meta"></span>
     </nav>
 
-    <!-- Start Screen -->
-    <div class="dom-screen active" id="screen-start">
+    <div class="dom-screen active" data-screen="start" id="screen-start">
       <div class="start-screen">
-        <div style="font-size: 48px; margin-bottom: 12px"><i class="ti ti-ball-cricket"></i></div>
+        <div style="font-size: 56px; line-height: 1"><i class="ti ti-ball-cricket"></i></div>
         <h1>Cricket Bat</h1>
-        <p>Perfect your timing and hit the ball for big runs!</p>
-        <div class="instructions-list">
-          <ul style="list-style: none; padding: 0; margin: 0">
-            <li>Watch the ball come towards you</li>
-            <li>Tap or click to swing at the perfect moment</li>
-            <li>Perfect timing = 6 runs, Good = 4 runs</li>
-            <li>You have 3 wickets and face 6 balls per over</li>
-            <li>Maximize your score!</li>
+        <p class="tagline">Time your shots for maximum runs!</p>
+        <div class="how-to">
+          <h3>How to Play</h3>
+          <ul>
+            <li>Tap the field when the ball is in the green zone for a SIX!</li>
+            <li>Yellow zone = 4 runs</li>
+            <li>Orange zone = 1-2 runs</li>
+            <li>Miss the ball = WICKET (you have 3)</li>
+            <li>Face 6 balls per over</li>
           </ul>
         </div>
-        <button class="dom-btn dom-btn--primary" id="btn-start" style="width: 100%; padding: 14px; font-size: 16px">
+        <button class="dom-btn dom-btn--primary btn-action" id="btn-start">
           <i class="ti ti-play"></i> Start Game
         </button>
       </div>
     </div>
 
-    <!-- Game Screen -->
-    <div class="dom-screen" id="screen-game">
-      <div style="padding: 16px">
-        <div class="score-board">
-          <div class="score-card">
-            <div class="label">Runs</div>
-            <div class="value" id="score-runs">0</div>
+    <div class="dom-screen" data-screen="game" id="screen-game">
+      <div class="game-screen">
+        <div class="score-bar">
+          <div class="score-chip">
+            <span class="label">Runs</span>
+            <span class="value" id="score-runs">0</span>
           </div>
-          <div class="score-card">
-            <div class="label">Balls</div>
-            <div class="value" id="score-balls">0/6</div>
+          <div class="score-chip">
+            <span class="label">Over</span>
+            <span class="value" id="score-over">1</span>
           </div>
-          <div class="score-card">
-            <div class="label">Wickets</div>
-            <div class="value" id="score-wickets">0/3</div>
+          <div class="score-chip">
+            <span class="label">Wickets</span>
+            <span class="value" id="score-wickets">3</span>
           </div>
         </div>
 
-        <div class="over-indicator" id="over-text">Over 1</div>
-        <div class="ball-counter" id="ball-counter"></div>
+        <div class="over-info" id="over-text">Over 1 · Ball 1 of 6</div>
+        <div class="ball-dots" id="ball-dots"></div>
 
-        <div class="cricket-field" id="field">
-          <div class="field-zones">
-            <div class="zone zone-ok"></div>
-            <div class="zone zone-good"></div>
-            <div class="zone zone-perfect"></div>
-            <div class="zone zone-good-right"></div>
-            <div class="zone zone-ok-right"></div>
+        <div class="field-container" id="field">
+          <div class="field-pattern"></div>
+          <div class="timing-zones">
+            <div class="timing-zone ok"></div>
+            <div class="timing-zone good"></div>
+            <div class="timing-zone perfect"></div>
+            <div class="timing-zone good-right"></div>
+            <div class="timing-zone ok-right"></div>
           </div>
-          <div class="field-crease"></div>
+          <div class="pitch">
+            <div class="pitch-crease top"></div>
+            <div class="pitch-crease bottom"></div>
+          </div>
+          <div class="batsman" id="batsman">
+            <div class="batsman-helmet"></div>
+            <div class="batsman-body"></div>
+            <div class="batsman-legs"></div>
+            <div class="batsman-bat" id="batsman-bat"></div>
+          </div>
+          <div class="bowler" id="bowler">
+            <div class="bowler-helmet"></div>
+            <div class="bowler-body"></div>
+            <div class="bowler-arm" id="bowler-arm"></div>
+            <div class="bowler-legs"></div>
+          </div>
           <div class="ball" id="ball"></div>
-          <div class="bat" id="bat"></div>
-          <div class="field-instructions" id="field-instructions">Tap to hit!</div>
-          <div class="result-overlay" id="result-overlay">
-            <div class="result-text" id="result-text"></div>
+          <div class="field-label" id="field-label">Tap to bat!</div>
+          <div class="field-hint" id="field-hint">Time your swing for the sweet spot</div>
+          <div class="result-popup" id="result-popup">
+            <div class="result-msg" id="result-msg"></div>
           </div>
-          <div class="field-hint" id="field-hint">Click or tap the field to swing</div>
+          <div class="celebration" id="celebration"></div>
         </div>
 
-        <button
-          class="dom-btn dom-btn--primary next-ball-btn"
-          id="btn-next-ball"
-          style="width: 100%; padding: 12px; font-size: 14px"
-        >
-          <i class="ti ti-play"></i> Bowl Next Ball
-        </button>
+        <button class="dom-btn dom-btn--primary btn-action" id="btn-bowl"><i class="ti ti-send"></i> Bowl Ball</button>
       </div>
     </div>
 
-    <!-- End Screen -->
-    <div class="dom-screen" id="screen-end">
+    <div class="dom-screen" data-screen="end" id="screen-end">
       <div class="end-screen">
-        <div style="font-size: 48px; margin-bottom: 12px"><i class="ti ti-trophy"></i></div>
+        <div style="font-size: 56px; line-height: 1"><i class="ti ti-trophy"></i></div>
         <h2>Game Over!</h2>
-        <div class="final-score">
-          <div class="label">Final Score</div>
-          <div class="value" id="final-score">0</div>
+        <div class="final-card">
+          <div class="label">Total Runs</div>
+          <div class="score" id="final-score">0</div>
         </div>
-        <div class="performance-text" id="performance-text"></div>
-        <button
-          class="dom-btn dom-btn--primary"
-          id="btn-play-again"
-          style="width: 100%; padding: 14px; font-size: 16px; margin-top: 24px"
-        >
+        <div class="feedback" id="feedback"></div>
+        <button class="dom-btn dom-btn--primary btn-action" id="btn-replay">
           <i class="ti ti-refresh"></i> Play Again
         </button>
       </div>
