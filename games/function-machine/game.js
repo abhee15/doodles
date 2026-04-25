@@ -388,7 +388,6 @@ function refreshExplorer() {
   document.getElementById('exp-rule').textContent = `f(x) = ${rule}`;
   const out = explorerCompute(explorer.x);
   document.getElementById('exp-x-val').textContent = explorer.x;
-  document.getElementById('exp-out').textContent = out >= 0 ? out : '–';
   document.getElementById('exp-arrow').textContent = `${explorer.x} → ${out >= 0 ? out : '?'}`;
 
   // Show/hide m and b sliders based on op
