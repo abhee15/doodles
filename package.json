@@ -16,8 +16,9 @@
     "validate": "npm run format:check && npm run lint",
     "test": "node scripts/test-manifest.js && node scripts/test-security.js",
     "audit": "node scripts/audit-games.js",
+    "audit:tokens": "node scripts/audit-tokens.js",
     "validate:topics": "node scripts/validate-topics.js",
-    "audit:full": "npm run audit && npm run validate:topics",
+    "audit:full": "npm run audit && npm run validate:topics && npm run audit:tokens",
     "check": "npm run validate && npm run audit:full && npm run test",
     "prepare": "husky install"
   },

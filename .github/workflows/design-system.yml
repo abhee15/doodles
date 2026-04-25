@@ -39,6 +39,9 @@ jobs:
       - name: Validate science topic data
         run: npm run validate:topics
 
+      - name: Audit design tokens
+        run: npm run audit:tokens
+
       - name: Run tests
         run: npm test
 
