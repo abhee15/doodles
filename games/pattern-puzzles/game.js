@@ -166,6 +166,7 @@ class PatternPuzzlesGame {
       .getElementById('btn-back-to-start')
       .addEventListener('click', () => this.showScreen('landing'));
     document.getElementById('btn-hint').addEventListener('click', () => this.showHint());
+    document.getElementById('btn-next').addEventListener('click', () => this.nextQuestion());
   }
 
   startGame() {
@@ -216,6 +217,9 @@ class PatternPuzzlesGame {
     hint.style.display = 'none';
     document.getElementById('btn-hint').disabled = false;
     document.getElementById('btn-hint').textContent = '💡 Hint';
+
+    // Hide Next button
+    document.getElementById('btn-next').style.display = 'none';
 
     // Render sequence tiles
     const seqEl = document.getElementById('sequence-tiles');
@@ -300,14 +304,17 @@ class PatternPuzzlesGame {
 
     document.getElementById('nav-meta').textContent = `${this.score}/${this.qIndex + 1}`;
 
-    setTimeout(() => {
-      if (this.qIndex < TOTAL_QUESTIONS - 1) {
-        this.qIndex++;
-        this.renderQuestion();
-      } else {
-        this.showResults();
-      }
-    }, 1300);
+    // Show Next button
+    document.getElementById('btn-next').style.display = 'inline-block';
+  }
+
+  nextQuestion() {
+    if (this.qIndex < TOTAL_QUESTIONS - 1) {
+      this.qIndex++;
+      this.renderQuestion();
+    } else {
+      this.showResults();
+    }
   }
 
   showResults() {

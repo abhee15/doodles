@@ -96,6 +96,10 @@ function startRound() {
   document.getElementById('feedback').textContent = '';
   document.getElementById('feedback').className = 'feedback';
 
+  // Hide Next button, show choices
+  document.getElementById('btn-next').style.display = 'none';
+  document.querySelectorAll('.choice-btn').forEach(btn => (btn.style.display = 'block'));
+
   buildChoices(lv);
   showScreen('screen-game');
 }
@@ -149,13 +153,14 @@ function handleChoice(btn, chosen) {
     btn.classList.add('correct-choice');
     showFeedback('✅ Correct!', 'good');
     document.getElementById('score-label').textContent = `Score: ${state.score}`;
-    setTimeout(nextOrResult, 900);
   } else {
     state.round++;
     btn.classList.add('wrong-choice');
     showFeedback(`❌ The antonym of "${state.currentPair.word}" is "${correct}"`, 'bad');
-    setTimeout(nextOrResult, 1500);
   }
+
+  // Show Next button, hide choices
+  document.getElementById('btn-next').style.display = 'inline-block';
 }
 
 function nextOrResult() {
@@ -214,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('btn-menu').addEventListener('click', function () {
     showScreen('screen-start');
   });
+  document.getElementById('btn-next').addEventListener('click', nextOrResult);
   document.getElementById('btn-play-again').addEventListener('click', function () {
     state.score = 0;
     state.round = 0;

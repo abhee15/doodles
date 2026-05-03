@@ -138,6 +138,9 @@ function startRound() {
   document.getElementById('feedback').textContent = '';
   document.getElementById('feedback').className = 'feedback';
 
+  // Hide Next button
+  document.getElementById('btn-next').style.display = 'none';
+
   buildExamples();
   drawGraph();
   document.getElementById('answer-input').focus();
@@ -196,12 +199,13 @@ function submitAnswer() {
     state.round++;
     showFeedback(`✅ Correct! f(${state.x}) = ${state.answer}`, 'good');
     document.getElementById('score-label').textContent = `Score: ${state.score}`;
-    setTimeout(nextOrResult, 1000);
   } else {
     state.round++;
     showFeedback(`❌ f(${state.x}) = ${state.answer}  (${state.fn.label})`, 'bad');
-    setTimeout(nextOrResult, 1600);
   }
+
+  // Show Next button
+  document.getElementById('btn-next').style.display = 'inline-block';
 }
 
 function nextOrResult() {
@@ -520,6 +524,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.getElementById('btn-submit').addEventListener('click', submitAnswer);
+  document.getElementById('btn-next').addEventListener('click', nextOrResult);
   document.getElementById('answer-input').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
       submitAnswer();

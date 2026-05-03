@@ -193,6 +193,9 @@ function startRound() {
   document.getElementById('feedback').textContent = '';
   document.getElementById('feedback').className = 'feedback';
 
+  // Hide Next button
+  document.getElementById('btn-next').style.display = 'none';
+
   buildChoices();
   showScreen('screen-game');
 }
@@ -234,13 +237,14 @@ function handleChoice(btn, idx) {
     btn.classList.add('correct-choice');
     showFeedback('✅ Correct!', 'good');
     document.getElementById('score-label').textContent = `Score: ${state.score}`;
-    setTimeout(nextOrResult, 1500);
   } else {
     state.round++;
     btn.classList.add('wrong-choice');
     showFeedback('❌ Not quite!', 'bad');
-    setTimeout(nextOrResult, 2000);
   }
+
+  // Show Next button
+  document.getElementById('btn-next').style.display = 'inline-block';
 }
 
 function nextOrResult() {
@@ -277,6 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('btn-menu').addEventListener('click', function () {
     showScreen('screen-start');
   });
+  document.getElementById('btn-next').addEventListener('click', nextOrResult);
   document.getElementById('btn-play-again').addEventListener('click', function () {
     state.score = 0;
     state.round = 0;

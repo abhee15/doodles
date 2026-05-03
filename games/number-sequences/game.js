@@ -172,9 +172,10 @@ function startRound() {
   document.getElementById('answer-input').value = '';
   document.getElementById('answer-input').disabled = false;
   document.getElementById('btn-submit').disabled = false;
+  document.getElementById('btn-submit').style.display = '';
+  document.getElementById('btn-next').style.display = 'none';
 
   renderSequence();
-  document.getElementById('answer-input').focus();
   showScreen('screen-game');
 }
 
@@ -221,35 +222,28 @@ function submitAnswer() {
   document.getElementById('btn-submit').disabled = true;
   document.getElementById('answer-input').disabled = true;
 
-  const { seq, missingIdx, answer, rule } = state.current;
+  const { missingIdx, answer, rule } = state.current;
   document.getElementById('rule-reveal').textContent = `Pattern: ${rule}`;
 
-  // Reveal the answer in the sequence
+  // Reveal the answer in the sequence — boxes[missingIdx] maps directly since
+  // querySelectorAll('.seq-box') skips the arrow spans
   const boxes = document.getElementById('seq-display').querySelectorAll('.seq-box');
-  let bi = 0;
-  for (let i = 0; i < seq.length; i++) {
-    if (i === missingIdx) {
-      boxes[bi].textContent = answer;
-      boxes[bi].classList.remove('missing');
-      boxes[bi].classList.add(guess === answer ? 'correct-box' : 'wrong-box');
-    }
-    bi++;
-    if (i < seq.length - 1) {
-      bi++;
-    } // skip arrow spans
-  }
+  boxes[missingIdx].textContent = answer;
+  boxes[missingIdx].classList.remove('missing');
+  boxes[missingIdx].classList.add(guess === answer ? 'correct-box' : 'wrong-box');
 
   if (guess === answer) {
     state.score++;
     state.round++;
-    showFeedback('✅ Correct!', 'good');
+    showFeedback('Correct! Great work!', 'good');
     document.getElementById('score-label').textContent = `Score: ${state.score}`;
-    setTimeout(nextOrResult, 1100);
   } else {
     state.round++;
-    showFeedback(`❌ Answer was ${answer}`, 'bad');
-    setTimeout(nextOrResult, 1500);
+    showFeedback(`Not quite — the answer is ${answer}. The pattern: ${rule}.`, 'bad');
   }
+
+  document.getElementById('btn-submit').style.display = 'none';
+  document.getElementById('btn-next').style.display = '';
 }
 
 function nextOrResult() {
@@ -296,6 +290,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.getElementById('btn-submit').addEventListener('click', submitAnswer);
+  document.getElementById('btn-next').addEventListener('click', nextOrResult);
   document.getElementById('answer-input').addEventListener('keydown', function (e) {
     if (e.key === 'Enter') {
       submitAnswer();
