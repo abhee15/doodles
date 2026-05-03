@@ -1,0 +1,811 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>Soil Explorer - Learn About Soil Types for Kids | Doodles Games</title>
+    <meta name="title" content="Soil Explorer - Learn About Soil Types" />
+    <meta
+      name="description"
+      content="Discover the 6 types of soil, their composition, where they're found, and what makes each one unique!"
+    />
+    <meta name="keywords" content="soil types, sandy soil, clay soil, loam, peat, silt, earth science, kids learning" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="game" />
+    <meta property="og:url" content="https://abhee15.github.io/doodles/games/soil-explorer/" />
+    <meta property="og:title" content="Soil Explorer - Learn About Soil Types" />
+    <meta
+      property="og:description"
+      content="Discover the 6 types of soil, their composition, where they're found, and what makes each one unique!"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary" />
+    <meta property="twitter:url" content="https://abhee15.github.io/doodles/games/soil-explorer/" />
+    <meta property="twitter:title" content="Soil Explorer - Learn About Soil Types" />
+    <meta
+      property="twitter:description"
+      content="Discover the 6 types of soil, their composition, where they're found, and what makes each one unique!"
+    />
+
+    <link rel="canonical" href="https://abhee15.github.io/doodles/games/soil-explorer/" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+
+    <!-- Design System -->
+    <link rel="stylesheet" href="../../shared/tokens.css" />
+    <link rel="stylesheet" href="../../shared/game-dom.css" />
+
+    <style>
+      :root {
+        --dom-nav-bg: #3d2b1f;
+        --dom-nav-border: rgba(255, 255, 255, 0.07);
+        --dom-bg: #f5f0e8;
+        --dom-bg-card: #ffffff;
+        --dom-border: rgba(139, 94, 60, 0.2);
+        --dom-text: #2d1b0e;
+        --dom-text-muted: rgba(45, 27, 14, 0.65);
+        --dom-accent: #8b5e3c;
+        --dom-accent-dark: #6a4629;
+        --dom-accent2: #5a8a3c;
+
+        /* Soil-specific colors */
+        --soil-sandy: #d4a96a;
+        --soil-clay: #a0522d;
+        --soil-silt: #8a9a6a;
+        --soil-loam: #6b4226;
+        --soil-peat: #2d1b0e;
+        --soil-chalk: #e8e0c8;
+
+        /* Bar colors */
+        --bar-sand: #d4a96a;
+        --bar-silt: #8a9a6a;
+        --bar-clay: #a0522d;
+        --bar-organic: #2d1b0e;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html {
+        height: auto;
+      }
+
+      body {
+        font-family: 'Nunito', 'Segoe UI', sans-serif;
+        background: var(--dom-bg);
+        color: var(--dom-text);
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+      }
+
+      /* ════════════════════════════════════════════════════════════════
+       HOME SCREEN
+    ═════════════════════════════════════════════════════════════════ */
+
+      #screen-home {
+        flex-direction: column;
+        gap: 24px;
+        padding: 24px 16px;
+      }
+
+      .home-header {
+        text-align: center;
+        margin-bottom: 12px;
+      }
+
+      .home-title {
+        font-size: clamp(28px, 6vw, 42px);
+        font-weight: 900;
+        color: var(--dom-accent);
+        letter-spacing: -0.5px;
+        margin-bottom: 8px;
+      }
+
+      .home-subtitle {
+        font-size: 16px;
+        color: var(--dom-text-muted);
+        line-height: 1.5;
+      }
+
+      .soil-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .soil-card {
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        border-radius: 14px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: all var(--tok-transition-normal);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .soil-card:hover {
+        border-color: var(--dom-accent);
+        transform: translateY(-3px);
+      }
+
+      .soil-card-swatch {
+        height: 80px;
+        background: linear-gradient(135deg, var(--swatch-start), var(--swatch-end));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 32px;
+      }
+
+      .soil-card-content {
+        padding: 12px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .soil-card-name {
+        font-size: 14px;
+        font-weight: 800;
+        color: var(--dom-text);
+        margin-bottom: 4px;
+      }
+
+      .soil-card-tagline {
+        font-size: 12px;
+        color: var(--dom-text-muted);
+        margin-bottom: 8px;
+        line-height: 1.3;
+      }
+
+      .soil-card-stars {
+        font-size: 13px;
+        letter-spacing: 2px;
+      }
+
+      .soil-card-sandy {
+        --swatch-start: #e8c99a;
+        --swatch-end: #c4904a;
+      }
+
+      .soil-card-clay {
+        --swatch-start: #c06040;
+        --swatch-end: #7a3b1e;
+      }
+
+      .soil-card-silt {
+        --swatch-start: #a8bc7a;
+        --swatch-end: #6a7a4a;
+      }
+
+      .soil-card-loam {
+        --swatch-start: #8b5e3c;
+        --swatch-end: #4a2d1a;
+      }
+
+      .soil-card-peat {
+        --swatch-start: #4a2d12;
+        --swatch-end: #1a0d05;
+      }
+
+      .soil-card-chalk {
+        --swatch-start: #f0e8d0;
+        --swatch-end: #c8bfa0;
+      }
+
+      .home-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+
+      .btn-quiz {
+        flex: 1;
+        min-width: 160px;
+      }
+
+      /* ════════════════════════════════════════════════════════════════
+       DETAIL SCREEN
+    ═════════════════════════════════════════════════════════════════ */
+
+      #screen-detail {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 16px;
+        overflow-y: auto;
+      }
+
+      .detail-hero {
+        background: linear-gradient(135deg, var(--hero-start), var(--hero-end));
+        border-radius: 16px;
+        padding: 28px 20px;
+        text-align: center;
+        color: white;
+        margin-bottom: 8px;
+      }
+
+      .detail-hero-emoji {
+        font-size: 48px;
+        margin-bottom: 12px;
+      }
+
+      .detail-hero-name {
+        font-size: clamp(24px, 5vw, 32px);
+        font-weight: 900;
+        margin-bottom: 4px;
+      }
+
+      .detail-hero-tagline {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .detail-section {
+        background: var(--dom-bg-card);
+        border: 1px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 16px;
+      }
+
+      .section-title {
+        font-size: 12px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--dom-accent);
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* Composition bars */
+      .composition-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .comp-bar-row {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .comp-bar-label {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--dom-text);
+      }
+
+      .comp-bar-container {
+        width: 100%;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.06);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--dom-border);
+      }
+
+      .comp-bar-fill {
+        height: 100%;
+        transition: width 0.6s ease-out;
+        width: 0;
+      }
+
+      .bar-sand {
+        background: var(--bar-sand);
+      }
+
+      .bar-silt {
+        background: var(--bar-silt);
+      }
+
+      .bar-clay {
+        background: var(--bar-clay);
+      }
+
+      .bar-organic {
+        background: var(--bar-organic);
+      }
+
+      /* Facts grid */
+      .facts-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .fact-box {
+        background: rgba(139, 94, 60, 0.06);
+        border: 1px solid var(--dom-border);
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 12px;
+        line-height: 1.4;
+      }
+
+      .fact-label {
+        font-weight: 800;
+        color: var(--dom-accent);
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 11px;
+      }
+
+      .fact-value {
+        color: var(--dom-text);
+        font-weight: 600;
+      }
+
+      /* Pills */
+      .pills-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: rgba(139, 94, 60, 0.1);
+        border: 1px solid var(--dom-border);
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 13px;
+        color: var(--dom-text);
+        font-weight: 600;
+      }
+
+      .pill-emoji {
+        font-size: 14px;
+      }
+
+      /* Fun fact */
+      .fun-fact-box {
+        background: linear-gradient(135deg, rgba(245, 197, 24, 0.08), rgba(139, 94, 60, 0.06));
+        border: 1.5px solid rgba(245, 197, 24, 0.3);
+        border-radius: 12px;
+        padding: 14px;
+        margin-top: 8px;
+      }
+
+      .fun-fact-label {
+        font-size: 12px;
+        font-weight: 900;
+        color: #c9a000;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .fun-fact-text {
+        font-size: 14px;
+        color: var(--dom-text);
+        line-height: 1.6;
+      }
+
+      .detail-actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 12px;
+        flex-wrap: wrap;
+      }
+
+      /* ════════════════════════════════════════════════════════════════
+       QUIZ SCREEN
+    ═════════════════════════════════════════════════════════════════ */
+
+      #screen-quiz {
+        flex-direction: column;
+        padding: 16px;
+        gap: 0;
+      }
+
+      .quiz-progress-bar {
+        width: 100%;
+        height: 6px;
+        background: var(--dom-border);
+        border-radius: 3px;
+        overflow: hidden;
+        margin-bottom: 16px;
+        flex-shrink: 0;
+      }
+
+      .quiz-progress-fill {
+        height: 100%;
+        background: var(--dom-accent);
+        transition: width 0.3s ease;
+      }
+
+      .quiz-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        justify-content: center;
+      }
+
+      .quiz-question-text {
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--dom-text);
+        text-align: center;
+        line-height: 1.4;
+      }
+
+      .quiz-options-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .quiz-option {
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 14px;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--dom-text);
+        cursor: pointer;
+        text-align: left;
+        transition: all var(--tok-transition-fast);
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+      }
+
+      .quiz-option:hover:not(:disabled) {
+        border-color: var(--dom-accent);
+        background: rgba(139, 94, 60, 0.04);
+        transform: translateY(-2px);
+      }
+
+      .quiz-option:disabled {
+        cursor: default;
+      }
+
+      .quiz-option.correct {
+        border-color: #22c55e !important;
+        background: rgba(34, 197, 94, 0.15) !important;
+        color: #16a34a;
+      }
+
+      .quiz-option.wrong {
+        border-color: #ef4444 !important;
+        background: rgba(239, 68, 68, 0.15) !important;
+        color: #dc2626;
+      }
+
+      .quiz-explanation {
+        background: rgba(139, 94, 60, 0.08);
+        border-left: 3px solid var(--dom-accent);
+        border-radius: 6px;
+        padding: 12px;
+        font-size: 14px;
+        color: var(--dom-text-muted);
+        line-height: 1.5;
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+      }
+
+      /* ════════════════════════════════════════════════════════════════
+       RESULTS SCREEN
+    ═════════════════════════════════════════════════════════════════ */
+
+      #screen-results {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 24px 16px;
+        overflow-y: auto;
+      }
+
+      .results-header {
+        text-align: center;
+        margin-top: 16px;
+      }
+
+      .results-emoji {
+        font-size: 64px;
+        margin-bottom: 12px;
+      }
+
+      .results-title {
+        font-size: clamp(24px, 5vw, 36px);
+        font-weight: 900;
+        color: var(--dom-accent);
+        margin-bottom: 8px;
+      }
+
+      .results-score {
+        font-size: 48px;
+        font-weight: 900;
+        color: var(--dom-text);
+        line-height: 1;
+      }
+
+      .results-label {
+        font-size: 14px;
+        color: var(--dom-text-muted);
+        margin-top: 4px;
+      }
+
+      .results-stars {
+        font-size: 32px;
+        letter-spacing: 4px;
+        margin-top: 8px;
+      }
+
+      .badges-section {
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .badges-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        width: 100%;
+      }
+
+      .badge-item {
+        background: var(--dom-bg-card);
+        border: 2px solid var(--dom-border);
+        border-radius: 12px;
+        padding: 12px;
+        text-align: center;
+        transition: all var(--tok-transition-normal);
+      }
+
+      .badge-item.earned {
+        border-color: #22c55e;
+        background: rgba(34, 197, 94, 0.08);
+      }
+
+      .badge-emoji {
+        font-size: 32px;
+        margin-bottom: 6px;
+        opacity: 0.5;
+      }
+
+      .badge-item.earned .badge-emoji {
+        opacity: 1;
+      }
+
+      .badge-label {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--dom-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      .badge-item.earned .badge-label {
+        color: var(--dom-accent);
+      }
+
+      .results-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 500px;
+        margin-top: 16px;
+      }
+
+      .results-actions button {
+        flex: 1;
+        min-width: 140px;
+      }
+
+      /* ════════════════════════════════════════════════════════════════
+       RESPONSIVE
+    ═════════════════════════════════════════════════════════════════ */
+
+      @media (min-width: 769px) {
+        .soil-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 18px;
+          padding: 0 20px;
+        }
+
+        .soil-card-swatch {
+          height: 100px;
+        }
+
+        .facts-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        #screen-detail {
+          padding: 28px 24px;
+          max-width: 700px;
+          margin: 0 auto;
+        }
+
+        .quiz-options-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 768px) {
+        #screen-home {
+          padding: 16px 12px;
+          gap: 16px;
+        }
+
+        .soil-grid {
+          gap: 12px;
+        }
+
+        .soil-card-swatch {
+          height: 70px;
+        }
+
+        .soil-card-content {
+          padding: 10px;
+        }
+
+        .soil-card-name {
+          font-size: 13px;
+        }
+
+        .soil-card-tagline {
+          font-size: 11px;
+        }
+
+        .detail-hero {
+          padding: 20px 16px;
+        }
+
+        .detail-hero-name {
+          font-size: 22px;
+        }
+
+        .facts-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .fact-box {
+          padding: 8px;
+          font-size: 11px;
+        }
+
+        .quiz-question-text {
+          font-size: 16px;
+        }
+
+        .quiz-option {
+          padding: 12px;
+          font-size: 14px;
+        }
+
+        .detail-actions,
+        .home-actions {
+          flex-direction: column;
+        }
+
+        .detail-actions button,
+        .home-actions button {
+          width: 100%;
+        }
+
+        .results-actions button {
+          min-width: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav class="dom-nav">
+      <a href="../../index.html#soil-explorer" id="game-back-btn"><i class="ti ti-arrow-left"></i> Back</a>
+      <span class="dom-nav-title" id="nav-title">Soil Explorer</span>
+      <span class="dom-nav-meta" id="nav-meta"></span>
+    </nav>
+
+    <!-- SCREEN 1: HOME -->
+    <div id="screen-home" class="dom-screen active">
+      <div class="home-header">
+        <div class="home-title">🌍 Soil Explorer</div>
+        <div class="home-subtitle">Tap a soil to discover its secrets</div>
+      </div>
+
+      <div class="soil-grid" id="soil-grid"></div>
+
+      <div class="home-actions">
+        <button id="btn-home-quiz" class="dom-btn dom-btn--primary btn-quiz" disabled>
+          <i class="ti ti-quiz"></i> Take the Quiz!
+        </button>
+      </div>
+    </div>
+
+    <!-- SCREEN 2: DETAIL -->
+    <div id="screen-detail" class="dom-screen">
+      <button id="btn-detail-back" class="dom-btn dom-btn--ghost"><i class="ti ti-arrow-left"></i> Explore More</button>
+
+      <div id="detail-content"></div>
+
+      <div class="detail-actions">
+        <button id="btn-detail-quiz" class="dom-btn dom-btn--primary"><i class="ti ti-quiz"></i> Take the Quiz!</button>
+      </div>
+    </div>
+
+    <!-- SCREEN 3: QUIZ -->
+    <div id="screen-quiz" class="dom-screen">
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quiz-progress"></div>
+      </div>
+
+      <div class="quiz-content">
+        <div class="quiz-question-text" id="quiz-question"></div>
+        <div class="quiz-options-grid" id="quiz-options"></div>
+        <div class="quiz-explanation" id="quiz-explanation" style="display: none"></div>
+      </div>
+    </div>
+
+    <!-- SCREEN 4: RESULTS -->
+    <div id="screen-results" class="dom-screen">
+      <div class="results-header">
+        <div class="results-emoji" id="results-emoji">⭐</div>
+        <div class="results-title" id="results-title">Quiz Complete!</div>
+        <div class="results-score" id="results-score">0</div>
+        <div class="results-label" id="results-label">out of 10 correct</div>
+        <div class="results-stars" id="results-stars">⭐⭐⭐</div>
+      </div>
+
+      <div class="badges-section">
+        <div class="section-title"><i class="ti ti-medal"></i> Soils You Mastered</div>
+        <div class="badges-grid" id="results-badges"></div>
+      </div>
+
+      <div class="results-actions">
+        <button id="btn-results-explore" class="dom-btn dom-btn--ghost">
+          <i class="ti ti-arrow-left"></i> Back to Explorer
+        </button>
+        <button id="btn-results-again" class="dom-btn dom-btn--primary">
+          <i class="ti ti-arrow-back-up"></i> Play Again
+        </button>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="../../shared/error-tracker.js"></script>
+    <script src="../../shared/analytics.js"></script>
+    <div id="ad-container"></div>
+    <script src="../../shared/ads.js"></script>
+  </body>
+</html>

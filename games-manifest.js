@@ -1716,6 +1716,22 @@ const GAMES = [
     newUntil: '2026-07-01',
     footerName: 'Cricket Bat',
     ageGroup: ['u6', 'u12']
+  },
+  {
+    id: 'soil-explorer',
+    name: 'Soil Explorer',
+    category: 'science',
+    desc: 'Discover the 6 types of soil — sandy, clay, silt, loam, peat &amp; chalk. Learn what makes each unique!',
+    icon: 'ti-layers',
+    iconColor: '#a16207',
+    gradient: 'linear-gradient(150deg, #92400e 0%, #713f12 100%)',
+    pattern: null,
+    patternSize: null,
+    patternPosition: null,
+    thumbClass: null,
+    newUntil: '2026-07-01',
+    footerName: 'Soil Explorer',
+    ageGroup: ['u12', '12plus']
   }
 ];
 

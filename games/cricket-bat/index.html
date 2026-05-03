@@ -28,289 +28,301 @@
     <style>
       :root {
         --dom-nav-bg: #1e3a5f;
-        --dom-accent: #fbbf24;
-        --dom-accent2: #22c55e;
+        --dom-accent: #22c55e;
+        --dom-accent2: #fbbf24;
         --dom-bg: #0f172a;
-        --dom-border: rgba(251, 191, 36, 0.25);
+        --dom-border: rgba(34, 197, 94, 0.25);
         --dom-text: #f8fafc;
         --dom-text-muted: #94a3b8;
       }
 
-      .game-screen {
-        padding: 16px;
+      .game-area {
+        padding: 12px;
       }
 
-      .score-bar {
+      .score-row {
         display: flex;
         gap: 8px;
-        margin-bottom: 12px;
+        margin-bottom: 10px;
       }
 
-      .score-chip {
-        background: rgba(251, 191, 36, 0.15);
+      .score-box {
+        flex: 1;
+        background: rgba(34, 197, 94, 0.15);
         border: 1px solid var(--dom-accent);
-        border-radius: 20px;
-        padding: 6px 14px;
-        display: flex;
-        align-items: center;
-        gap: 6px;
+        border-radius: 8px;
+        padding: 8px;
+        text-align: center;
       }
 
-      .score-chip .label {
-        font-size: 11px;
+      .score-box .lbl {
+        font-size: 10px;
         color: var(--dom-accent);
         text-transform: uppercase;
         letter-spacing: 0.5px;
       }
 
-      .score-chip .value {
-        font-size: 18px;
+      .score-box .num {
+        font-size: 20px;
         font-weight: bold;
         color: white;
       }
 
       .over-info {
         text-align: center;
-        font-size: 13px;
+        font-size: 12px;
         color: var(--dom-text-muted);
         margin-bottom: 8px;
       }
 
-      .ball-dots {
+      .ball-row {
         display: flex;
         justify-content: center;
-        gap: 6px;
-        margin-bottom: 16px;
+        gap: 5px;
+        margin-bottom: 12px;
       }
 
-      .ball-dot {
-        width: 10px;
-        height: 10px;
+      .ball-pip {
+        width: 8px;
+        height: 8px;
         border-radius: 50%;
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.2);
       }
 
-      .ball-dot.faced {
-        background: var(--dom-accent2);
-        border-color: var(--dom-accent2);
+      .ball-pip.done {
+        background: var(--dom-accent);
+        border-color: var(--dom-accent);
       }
 
-      .field-container {
+      .cricket-area {
         position: relative;
-        background: linear-gradient(180deg, #22c55e 0%, #16a34a 50%, #15803d 100%);
-        border-radius: 16px;
-        height: 220px;
-        overflow: hidden;
+        background: linear-gradient(180deg, #166534 0%, #14532d 50%, #0f2d1e 100%);
+        border-radius: 12px;
+        height: 180px;
         margin-bottom: 12px;
-        touch-action: none;
+        cursor: pointer;
+        user-select: none;
+        touch-action: manipulation;
+        overflow: hidden;
       }
 
-      .field-pattern {
+      .cricket-area:active {
+        transform: scale(0.99);
+      }
+
+      .grass {
         position: absolute;
         inset: 0;
-        background-image:
-          radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
-          radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-        background-size: 30px 30px;
-        pointer-events: none;
+        background-image: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+        background-size: 20px 20px;
       }
 
-      .pitch {
+      .pitch-surface {
         position: absolute;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
-        width: 120px;
-        height: 100%;
-        background: linear-gradient(180deg, #d4a574 0%, #c4956a 50%, #b8895f 100%);
+        width: 280px;
+        height: 60px;
+        background: linear-gradient(90deg, #a67c52 0%, #c4956a 50%, #a67c52 100%);
         border-radius: 4px;
-        border: 2px solid #a67c52;
+        border: 2px solid #8b6540;
       }
 
-      .pitch-crease {
+      .crease {
         position: absolute;
         left: 50%;
         transform: translateX(-50%);
-        width: 80px;
+        width: 60px;
         height: 2px;
         background: white;
-        opacity: 0.7;
+        opacity: 0.8;
       }
 
-      .pitch-crease.top {
-        top: 20%;
+      .crease.top {
+        top: 15px;
+      }
+      .crease.bottom {
+        bottom: 15px;
       }
 
-      .pitch-crease.bottom {
-        bottom: 20%;
-      }
-
-      .batsman {
+      .batter {
         position: absolute;
-        right: 35px;
+        right: 30px;
         top: 50%;
         transform: translateY(-50%);
-        width: 24px;
-        height: 40px;
         z-index: 5;
       }
 
-      .batsman-body {
-        width: 16px;
-        height: 20px;
-        background: #fcd34d;
-        border-radius: 8px 8px 4px 4px;
-        position: relative;
+      .batter-body {
+        width: 14px;
+        height: 22px;
+        background: #fbbf24;
+        border-radius: 7px 7px 4px 4px;
         margin: 0 auto;
+        position: relative;
       }
 
-      .batsman-helmet {
+      .batter-head {
         position: absolute;
-        top: -8px;
+        top: -10px;
         left: 50%;
         transform: translateX(-50%);
-        width: 18px;
+        width: 12px;
         height: 12px;
-        background: #dc2626;
-        border-radius: 6px 6px 2px 2px;
+        background: #fcd34d;
+        border-radius: 50%;
       }
 
-      .batsman-helmet::after {
-        content: '';
+      .batter-helmet {
         position: absolute;
-        top: 4px;
+        top: -14px;
         left: 50%;
         transform: translateX(-50%);
-        width: 12px;
-        height: 4px;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 2px;
+        width: 14px;
+        height: 8px;
+        background: #dc2626;
+        border-radius: 4px 4px 2px 2px;
       }
 
-      .batsman-legs {
-        width: 12px;
-        height: 16px;
+      .batter-legs {
+        width: 10px;
+        height: 14px;
         background: #1e3a5f;
-        margin: 2px auto 0;
+        margin: 1px auto 0;
         border-radius: 2px;
       }
 
-      .batsman-bat {
+      .batter-bat {
         position: absolute;
-        right: -30px;
+        right: -24px;
         top: 50%;
-        transform: translateY(-12px) rotate(-20deg);
-        width: 8px;
-        height: 36px;
+        transform: translateY(-50%) rotate(-15deg);
+        width: 6px;
+        height: 30px;
         background: linear-gradient(90deg, #92400e 0%, #b45309 100%);
-        border-radius: 3px;
-        transform-origin: left center;
-        transition: transform 0.15s ease-out;
+        border-radius: 2px;
+        transform-origin: center top;
+        transition: transform 0.1s ease-out;
       }
 
-      .batsman-bat.swinging {
-        animation: batSwing 0.3s ease-out forwards;
+      .batter-bat.swing {
+        animation: batSwing 0.25s ease-out forwards;
       }
 
       @keyframes batSwing {
         0% {
-          transform: translateY(-12px) rotate(-20deg);
+          transform: translateY(-50%) rotate(-15deg);
         }
         50% {
-          transform: translateY(-12px) rotate(-70deg);
+          transform: translateY(-50%) rotate(-65deg);
         }
         100% {
-          transform: translateY(-12px) rotate(-20deg);
+          transform: translateY(-50%) rotate(-15deg);
         }
       }
 
-      .bowler {
+      .bowler-run {
         position: absolute;
         left: 30px;
         top: 50%;
         transform: translateY(-50%);
         opacity: 0;
-        transition: opacity 0.3s;
+        transition: opacity 0.2s;
         z-index: 4;
       }
 
-      .bowler.active {
+      .bowler-run.active {
         opacity: 1;
       }
 
       .bowler-body {
-        width: 14px;
-        height: 18px;
-        background: #fcd34d;
-        border-radius: 7px 7px 3px 3px;
+        width: 12px;
+        height: 20px;
+        background: #60a5fa;
+        border-radius: 6px 6px 3px 3px;
+        margin: 0 auto;
         position: relative;
+      }
+
+      .bowler-head {
+        position: absolute;
+        top: -8px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 10px;
+        height: 10px;
+        background: #93c5fd;
+        border-radius: 50%;
       }
 
       .bowler-arm {
         position: absolute;
-        right: -20px;
-        top: 2px;
-        width: 24px;
-        height: 6px;
-        background: #fcd34d;
-        border-radius: 3px;
+        right: -18px;
+        top: 4px;
+        width: 20px;
+        height: 5px;
+        background: #60a5fa;
+        border-radius: 2px;
         transform-origin: left center;
       }
 
-      .bowler-arm.delivering {
-        animation: bowlArm 0.15s ease-out forwards;
+      .bowler-arm.bowl {
+        animation: bowlThrow 0.15s ease-out forwards;
       }
 
-      @keyframes bowlArm {
+      @keyframes bowlThrow {
         0% {
           transform: rotate(0deg);
         }
         100% {
-          transform: rotate(-80deg);
+          transform: rotate(-70deg);
         }
       }
 
       .bowler-helmet {
         position: absolute;
-        top: -6px;
+        top: -11px;
         left: 50%;
         transform: translateX(-50%);
-        width: 14px;
-        height: 10px;
+        width: 12px;
+        height: 6px;
         background: #2563eb;
-        border-radius: 5px 5px 2px 2px;
+        border-radius: 3px 3px 1px 1px;
       }
 
       .bowler-legs {
-        width: 10px;
-        height: 14px;
+        width: 8px;
+        height: 12px;
         background: #1e3a5f;
-        margin: 2px auto 0;
+        margin: 1px auto 0;
         border-radius: 2px;
       }
 
-      .ball {
+      .cricket-ball {
         position: absolute;
-        left: 35px;
+        left: 50px;
         top: 50%;
         transform: translateY(-50%);
-        width: 14px;
-        height: 14px;
-        background: radial-gradient(circle at 30% 30%, #fca5a5 0%, #dc2626 60%, #991b1b 100%);
+        width: 12px;
+        height: 12px;
+        background: radial-gradient(circle at 35% 35%, #fca5a5 0%, #dc2626 60%, #991b1b 100%);
         border-radius: 50%;
-        z-index: 6;
         opacity: 0;
-        transition: none;
+        z-index: 6;
       }
 
-      .ball.active {
+      .cricket-ball.moving {
         opacity: 1;
       }
 
-      .timing-zones {
+      .timing-strip {
         position: absolute;
-        inset: 0;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
         pointer-events: none;
       }
 
@@ -318,63 +330,50 @@
         position: absolute;
         top: 0;
         height: 100%;
-        opacity: 0.12;
-        border-right: 1px dashed rgba(255, 255, 255, 0.15);
+        opacity: 0.15;
       }
 
-      .timing-zone.perfect {
+      .timing-zone.hot {
         background: #22c55e;
         left: 38%;
+        width: 24%;
+      }
+
+      .timing-zone.warm {
+        background: #fbbf24;
+        left: 20%;
         width: 18%;
       }
 
-      .timing-zone.good {
+      .timing-zone.warm-r {
         background: #fbbf24;
-        left: 25%;
-        width: 13%;
+        left: 62%;
+        width: 18%;
       }
 
-      .timing-zone.good-right {
-        background: #fbbf24;
-        left: 56%;
-        width: 13%;
-      }
-
-      .timing-zone.ok {
+      .timing-zone.cool {
         background: #f97316;
-        left: 10%;
+        left: 5%;
         width: 15%;
       }
 
-      .timing-zone.ok-right {
+      .timing-zone.cool-r {
         background: #f97316;
-        left: 69%;
+        left: 80%;
         width: 15%;
       }
 
-      .field-label {
+      .tap-hint {
         position: absolute;
-        top: 8px;
+        bottom: 8px;
         left: 50%;
         transform: translateX(-50%);
         font-size: 11px;
-        color: rgba(255, 255, 255, 0.7);
-        pointer-events: none;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      .field-hint {
-        position: absolute;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 12px;
         color: rgba(255, 255, 255, 0.6);
         pointer-events: none;
       }
 
-      .result-popup {
+      .result-flash {
         position: absolute;
         inset: 0;
         display: flex;
@@ -383,45 +382,39 @@
         background: rgba(0, 0, 0, 0.5);
         opacity: 0;
         pointer-events: none;
-        transition: opacity 0.2s;
-        z-index: 20;
+        transition: opacity 0.15s;
       }
 
-      .result-popup.show {
+      .result-flash.show {
         opacity: 1;
       }
 
-      .result-msg {
-        font-size: 32px;
+      .result-flash .msg {
+        font-size: 28px;
         font-weight: bold;
-        animation: resultPop 0.4s ease-out;
+        animation: popIn 0.3s ease-out;
       }
 
-      .result-msg.six {
+      .result-flash .msg.six {
         color: #22c55e;
-        text-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
       }
-
-      .result-msg.four {
+      .result-flash .msg.four {
         color: #fbbf24;
-        text-shadow: 0 0 20px rgba(251, 191, 36, 0.5);
       }
-
-      .result-msg.single {
+      .result-flash .msg.runs {
         color: #60a5fa;
       }
-
-      .result-msg.miss {
+      .result-flash .msg.out {
         color: #f87171;
       }
 
-      @keyframes resultPop {
+      @keyframes popIn {
         0% {
           transform: scale(0.5);
           opacity: 0;
         }
-        50% {
-          transform: scale(1.2);
+        60% {
+          transform: scale(1.15);
         }
         100% {
           transform: scale(1);
@@ -429,151 +422,131 @@
         }
       }
 
-      .confetti {
-        position: absolute;
-        width: 8px;
-        height: 8px;
-        pointer-events: none;
-      }
-
-      .celebration {
+      .fun-sparkles {
         position: absolute;
         inset: 0;
         pointer-events: none;
-        z-index: 25;
+        z-index: 20;
       }
 
-      .celebration-particle {
+      .sparkle {
         position: absolute;
-        width: 10px;
-        height: 10px;
-        border-radius: 2px;
-        animation: confettiFall 1s ease-out forwards;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        animation: sparkleFall 0.8s ease-out forwards;
       }
 
-      @keyframes confettiFall {
+      @keyframes sparkleFall {
         0% {
           transform: translateY(0) rotate(0deg);
           opacity: 1;
         }
         100% {
-          transform: translateY(200px) rotate(720deg);
+          transform: translateY(150px) rotate(360deg);
           opacity: 0;
         }
       }
 
-      .btn-action {
-        width: 100%;
+      .btn-row {
         display: flex;
-        align-items: center;
-        justify-content: center;
         gap: 8px;
-        font-size: 15px;
       }
 
-      .start-screen,
-      .end-screen {
+      .btn-row .dom-btn {
+        flex: 1;
+      }
+
+      .intro,
+      .outro {
         padding: 24px;
         text-align: center;
       }
 
-      .start-screen h1 {
-        font-size: 28px;
-        margin: 16px 0 8px;
+      .intro h1 {
+        font-size: 26px;
+        margin: 16px 0 6px;
         color: var(--dom-text);
       }
 
-      .start-screen .tagline {
-        font-size: 15px;
+      .intro .tag {
+        font-size: 14px;
         color: var(--dom-text-muted);
-        margin-bottom: 20px;
+        margin-bottom: 18px;
       }
 
-      .how-to {
-        background: rgba(251, 191, 36, 0.1);
-        border: 1px solid rgba(251, 191, 36, 0.3);
-        border-radius: 12px;
-        padding: 16px;
-        margin-bottom: 20px;
+      .howplay {
+        background: rgba(34, 197, 94, 0.1);
+        border: 1px solid rgba(34, 197, 94, 0.3);
+        border-radius: 10px;
+        padding: 14px;
+        margin-bottom: 18px;
         text-align: left;
       }
 
-      .how-to h3 {
-        font-size: 14px;
+      .howplay h3 {
+        font-size: 12px;
         color: var(--dom-accent);
-        margin-bottom: 10px;
+        margin-bottom: 8px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
       }
 
-      .how-to li {
-        font-size: 13px;
+      .howplay li {
+        font-size: 12px;
         color: var(--dom-text-muted);
-        margin: 8px 0;
-        padding-left: 16px;
+        margin: 6px 0;
+        padding-left: 12px;
         position: relative;
         list-style: none;
       }
 
-      .how-to li::before {
+      .howplay li::before {
         content: '•';
         position: absolute;
         left: 0;
         color: var(--dom-accent);
       }
 
-      .end-screen h2 {
-        font-size: 26px;
-        margin: 16px 0 8px;
+      .outro h2 {
+        font-size: 24px;
+        margin: 14px 0 6px;
         color: var(--dom-text);
       }
 
-      .final-card {
-        background: linear-gradient(135deg, var(--dom-accent) 0%, #f59e0b 100%);
-        border-radius: 16px;
-        padding: 28px;
-        margin: 20px 0;
+      .score-final {
+        background: linear-gradient(135deg, var(--dom-accent) 0%, #16a34a 100%);
+        border-radius: 12px;
+        padding: 24px;
+        margin: 16px 0;
       }
 
-      .final-card .label {
-        font-size: 13px;
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 4px;
+      .score-final .lb {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.85);
       }
 
-      .final-card .score {
-        font-size: 48px;
+      .score-final .vl {
+        font-size: 42px;
         font-weight: bold;
         color: #0f172a;
       }
 
-      .feedback {
-        font-size: 14px;
+      .score-final .cmt {
+        font-size: 13px;
         color: var(--dom-text-muted);
-        margin: 12px 0;
+        margin-top: 8px;
       }
 
-      .field-area {
-        cursor: pointer;
-        touch-action: manipulation;
-      }
-
-      .field-area:active {
-        transform: scale(0.98);
-      }
-
-      @media (max-width: 400px) {
-        .score-chip {
-          padding: 4px 10px;
+      @media (max-width: 380px) {
+        .cricket-area {
+          height: 150px;
         }
-        .score-chip .value {
-          font-size: 16px;
+        .score-box .num {
+          font-size: 18px;
         }
-        .field-container {
-          height: 180px;
-        }
-        .result-msg {
-          font-size: 26px;
+        .result-flash .msg {
+          font-size: 24px;
         }
       }
     </style>
@@ -585,95 +558,102 @@
       <span class="dom-nav-meta" id="nav-meta"></span>
     </nav>
 
-    <div class="dom-screen active" data-screen="start" id="screen-start">
-      <div class="start-screen">
-        <div style="font-size: 56px; line-height: 1"><i class="ti ti-ball-cricket"></i></div>
+    <div class="dom-screen active" data-screen="intro" id="screen-intro">
+      <div class="intro">
+        <div style="font-size: 48px"><i class="ti ti-ball-cricket"></i></div>
         <h1>Cricket Bat</h1>
-        <p class="tagline">Time your shots for maximum runs!</p>
-        <div class="how-to">
+        <p class="tag">Time your shots for maximum runs!</p>
+        <div class="howplay">
           <h3>How to Play</h3>
           <ul>
-            <li>Tap the field when the ball is in the green zone for a SIX!</li>
-            <li>Yellow zone = 4 runs</li>
-            <li>Orange zone = 1-2 runs</li>
-            <li>Miss the ball = WICKET (you have 3)</li>
+            <li>Tap when ball is in the <strong>GREEN zone</strong> for SIX!</li>
+            <li>Yellow = 4 runs</li>
+            <li>Orange = 1-2 runs</li>
+            <li>Miss = WICKET (you have 3)</li>
             <li>Face 6 balls per over</li>
           </ul>
         </div>
-        <button class="dom-btn dom-btn--primary btn-action" id="btn-start">
+        <button class="dom-btn dom-btn--primary" id="btn-start" style="width: 100%; padding: 12px">
           <i class="ti ti-play"></i> Start Game
         </button>
       </div>
     </div>
 
     <div class="dom-screen" data-screen="game" id="screen-game">
-      <div class="game-screen">
-        <div class="score-bar">
-          <div class="score-chip">
-            <span class="label">Runs</span>
-            <span class="value" id="score-runs">0</span>
+      <div class="game-area">
+        <div class="score-row">
+          <div class="score-box">
+            <div class="lbl">Runs</div>
+            <div class="num" id="sc-runs">0</div>
           </div>
-          <div class="score-chip">
-            <span class="label">Over</span>
-            <span class="value" id="score-over">1</span>
+          <div class="score-box">
+            <div class="lbl">Over</div>
+            <div class="num" id="sc-over">1</div>
           </div>
-          <div class="score-chip">
-            <span class="label">Wickets</span>
-            <span class="value" id="score-wickets">3</span>
+          <div class="score-box">
+            <div class="lbl">Wickets</div>
+            <div class="num" id="sc-wicket">3</div>
           </div>
         </div>
 
-        <div class="over-info" id="over-text">Over 1 · Ball 1 of 6</div>
-        <div class="ball-dots" id="ball-dots"></div>
+        <div class="over-info" id="over-msg">Over 1 · Ball 1 of 6</div>
+        <div class="ball-row" id="ball-dots"></div>
 
-        <div class="field-container" id="field">
-          <div class="field-pattern"></div>
-          <div class="timing-zones">
-            <div class="timing-zone ok"></div>
-            <div class="timing-zone good"></div>
-            <div class="timing-zone perfect"></div>
-            <div class="timing-zone good-right"></div>
-            <div class="timing-zone ok-right"></div>
+        <div class="cricket-area" id="field">
+          <div class="grass"></div>
+          <div class="pitch-surface">
+            <div class="crease top"></div>
+            <div class="crease bottom"></div>
           </div>
-          <div class="pitch">
-            <div class="pitch-crease top"></div>
-            <div class="pitch-crease bottom"></div>
+          <div class="timing-strip">
+            <div class="timing-zone cool"></div>
+            <div class="timing-zone warm"></div>
+            <div class="timing-zone hot"></div>
+            <div class="timing-zone warm-r"></div>
+            <div class="timing-zone cool-r"></div>
           </div>
-          <div class="batsman" id="batsman">
-            <div class="batsman-helmet"></div>
-            <div class="batsman-body"></div>
-            <div class="batsman-legs"></div>
-            <div class="batsman-bat" id="batsman-bat"></div>
-          </div>
-          <div class="bowler" id="bowler">
+
+          <div class="bowler-run" id="bowler">
             <div class="bowler-helmet"></div>
+            <div class="bowler-head"></div>
             <div class="bowler-body"></div>
-            <div class="bowler-arm" id="bowler-arm"></div>
+            <div class="bowler-arm" id="bowl-arm"></div>
             <div class="bowler-legs"></div>
           </div>
-          <div class="ball" id="ball"></div>
-          <div class="field-label" id="field-label">Tap to bat!</div>
-          <div class="field-hint" id="field-hint">Time your swing for the sweet spot</div>
-          <div class="result-popup" id="result-popup">
-            <div class="result-msg" id="result-msg"></div>
+
+          <div class="batter" id="batter">
+            <div class="batter-helmet"></div>
+            <div class="batter-head"></div>
+            <div class="batter-body"></div>
+            <div class="batter-legs"></div>
+            <div class="batter-bat" id="bat"></div>
           </div>
-          <div class="celebration" id="celebration"></div>
+
+          <div class="cricket-ball" id="ball"></div>
+
+          <div class="tap-hint" id="tap-hint">Tap field to bowl</div>
+          <div class="result-flash" id="result-flash">
+            <div class="msg" id="result-msg"></div>
+          </div>
+          <div class="fun-sparkles" id="sparkles"></div>
         </div>
 
-        <button class="dom-btn dom-btn--primary btn-action" id="btn-bowl"><i class="ti ti-send"></i> Bowl Ball</button>
+        <div class="btn-row">
+          <button class="dom-btn dom-btn--primary" id="btn-bowl"><i class="ti ti-send"></i> Bowl</button>
+        </div>
       </div>
     </div>
 
-    <div class="dom-screen" data-screen="end" id="screen-end">
-      <div class="end-screen">
-        <div style="font-size: 56px; line-height: 1"><i class="ti ti-trophy"></i></div>
+    <div class="dom-screen" data-screen="outro" id="screen-outro">
+      <div class="outro">
+        <div style="font-size: 48px"><i class="ti ti-trophy"></i></div>
         <h2>Game Over!</h2>
-        <div class="final-card">
-          <div class="label">Total Runs</div>
-          <div class="score" id="final-score">0</div>
+        <div class="score-final">
+          <div class="lb">Total Runs</div>
+          <div class="vl" id="final-score">0</div>
+          <div class="cmt" id="final-msg"></div>
         </div>
-        <div class="feedback" id="feedback"></div>
-        <button class="dom-btn dom-btn--primary btn-action" id="btn-replay">
+        <button class="dom-btn dom-btn--primary" id="btn-replay" style="width: 100%; padding: 12px">
           <i class="ti ti-refresh"></i> Play Again
         </button>
       </div>

@@ -4,315 +4,302 @@
   const state = {
     runs: 0,
     wickets: 0,
-    maxWickets: 3,
-    ballsFaced: 0,
+    maxWkts: 3,
+    ballNum: 0,
     ballsPerOver: 6,
     over: 1,
     phase: 'ready',
-    gameActive: false,
+    gameOn: false,
     ballX: 0,
     animId: null
   };
 
-  const BALL_START_X = 8;
-  const BALL_SPEED = 1.8;
-  const BALL_TARGET_X = 92;
-
-  const elements = {
-    navMeta: document.getElementById('nav-meta'),
-    field: document.getElementById('field'),
-    ball: document.getElementById('ball'),
-    batsmanBat: document.getElementById('batsman-bat'),
-    bowler: document.getElementById('bowler'),
-    bowlerArm: document.getElementById('bowler-arm'),
-    fieldLabel: document.getElementById('field-label'),
-    fieldHint: document.getElementById('field-hint'),
-    resultPopup: document.getElementById('result-popup'),
-    resultMsg: document.getElementById('result-msg'),
-    celebration: document.getElementById('celebration'),
-    scoreRuns: document.getElementById('score-runs'),
-    scoreOver: document.getElementById('score-over'),
-    scoreWickets: document.getElementById('score-wickets'),
-    overText: document.getElementById('over-text'),
-    ballDots: document.getElementById('ball-dots'),
-    finalScore: document.getElementById('final-score'),
-    feedback: document.getElementById('feedback')
+  const CFG = {
+    startX: 6,
+    speed: 2.2,
+    endX: 94
   };
 
-  function showScreen(id) {
+  const $ = {
+    meta: document.getElementById('nav-meta'),
+    field: document.getElementById('field'),
+    ball: document.getElementById('ball'),
+    bat: document.getElementById('bat'),
+    bowler: document.getElementById('bowler'),
+    bowlArm: document.getElementById('bowl-arm'),
+    hint: document.getElementById('tap-hint'),
+    flash: document.getElementById('result-flash'),
+    msg: document.getElementById('result-msg'),
+    sparks: document.getElementById('sparkles'),
+    scRuns: document.getElementById('sc-runs'),
+    scOver: document.getElementById('sc-over'),
+    scWicket: document.getElementById('sc-wicket'),
+    overMsg: document.getElementById('over-msg'),
+    ballDots: document.getElementById('ball-dots'),
+    finalScore: document.getElementById('final-score'),
+    finalMsg: document.getElementById('final-msg')
+  };
+
+  function screen(id) {
     document.querySelectorAll('.dom-screen').forEach(el => {
       el.classList.toggle('active', el.dataset.screen === id);
     });
   }
 
   function updateMeta() {
-    elements.navMeta.textContent = `${state.runs} runs · ${state.wickets}/${state.maxWickets} wickets`;
+    $.meta.textContent = `${state.runs} runs · ${state.maxWkts - state.wickets} left`;
   }
 
   function updateScore() {
-    elements.scoreRuns.textContent = state.runs;
-    elements.scoreOver.textContent = state.over;
-    elements.scoreWickets.textContent = state.maxWickets - state.wickets;
-    elements.overText.textContent = `Over ${state.over} · Ball ${Math.min(state.ballsFaced + 1, 6)} of 6`;
+    $.scRuns.textContent = state.runs;
+    $.scOver.textContent = state.over;
+    $.scWicket.textContent = state.maxWkts - state.wickets;
+    $.overMsg.textContent = `Over ${state.over} · Ball ${Math.min(state.ballNum + 1, 6)} of 6`;
   }
 
-  function updateBallDots() {
-    elements.ballDots.innerHTML = '';
+  function updateDots() {
+    $.ballDots.innerHTML = '';
     for (let i = 0; i < 6; i++) {
-      const dot = document.createElement('div');
-      dot.className = `ball-dot${i < state.ballsFaced ? ' faced' : ''}`;
-      elements.ballDots.appendChild(dot);
+      const p = document.createElement('div');
+      p.className = `ball-pip${i < state.ballNum ? ' done' : ''}`;
+      $.ballDots.appendChild(p);
     }
   }
 
-  function positionBall() {
-    const fieldWidth = elements.field.offsetWidth;
-    elements.ball.style.left = `${(state.ballX / 100) * fieldWidth}px`;
+  function moveBall() {
+    const fw = $.field.offsetWidth;
+    $.ball.style.left = `${(state.ballX / 100) * fw}px`;
   }
 
-  function bowlBall() {
-    if (state.phase !== 'ready' || !state.gameActive) {
+  function bowl() {
+    if (state.phase !== 'ready' || !state.gameOn) {
       return;
     }
 
     state.phase = 'bowling';
-    state.ballX = BALL_START_X;
-    elements.ball.classList.add('active');
-    elements.bowler.classList.add('active');
-    elements.bowlerArm.classList.add('delivering');
-    elements.fieldLabel.textContent = '';
-    elements.fieldHint.textContent = 'Tap now!';
+    state.ballX = CFG.startX;
+    $.ball.classList.add('moving');
+    $.bowler.classList.add('active');
+    $.bowlArm.classList.add('bowl');
+    $.hint.textContent = 'TAP NOW!';
 
-    setTimeout(() => {
-      elements.bowlerArm.classList.remove('delivering');
-    }, 150);
-
-    animateBall();
+    setTimeout(() => $.bowlArm.classList.remove('bowl'), 150);
+    runBall();
   }
 
-  function animateBall() {
-    state.ballX += BALL_SPEED;
-    positionBall();
+  function runBall() {
+    state.ballX += CFG.speed;
+    moveBall();
 
-    if (state.ballX >= BALL_TARGET_X) {
-      elements.ball.classList.remove('active');
-      elements.bowler.classList.remove('active');
-      handleHit('miss');
+    if (state.ballX >= CFG.endX) {
+      $.ball.classList.remove('moving');
+      $.bowler.classList.remove('active');
+      hitResult('miss');
       return;
     }
-
-    state.animId = requestAnimationFrame(animateBall);
+    state.animId = requestAnimationFrame(runBall);
   }
 
-  function swingBat() {
+  function swing() {
     if (state.phase !== 'bowling') {
       return;
     }
 
     cancelAnimationFrame(state.animId);
-    elements.ball.classList.remove('active');
-    elements.bowler.classList.remove('active');
+    $.ball.classList.remove('moving');
+    $.bowler.classList.remove('active');
     state.phase = 'swinging';
 
-    elements.batsmanBat.classList.add('swinging');
-    setTimeout(() => {
-      elements.batsmanBat.classList.remove('swinging');
-    }, 300);
+    $.bat.classList.add('swing');
+    setTimeout(() => $.bat.classList.remove('swing'), 250);
 
-    const hitZone = state.ballX;
-    let result;
-    if (hitZone >= 38 && hitZone <= 56) {
-      result = 'six';
-    } else if ((hitZone >= 25 && hitZone < 38) || (hitZone > 56 && hitZone <= 69)) {
-      result = 'four';
-    } else if ((hitZone >= 10 && hitZone < 25) || (hitZone > 69 && hitZone <= 84)) {
-      result = 'single';
+    const x = state.ballX;
+    let res;
+    if (x >= 38 && x <= 62) {
+      res = 'six';
+    } else if ((x >= 20 && x < 38) || (x > 62 && x <= 80)) {
+      res = 'four';
+    } else if ((x >= 5 && x < 20) || (x > 80 && x <= 95)) {
+      res = 'runs';
     } else {
-      result = 'miss';
+      res = 'miss';
     }
 
-    setTimeout(() => handleHit(result), 100);
+    setTimeout(() => hitResult(res), 80);
   }
 
-  function handleHit(result) {
-    state.ballsFaced++;
-    let runs = 0;
-    let msg = '';
-    let cssClass = '';
+  function hitResult(res) {
+    state.ballNum++;
+    let runs = 0,
+      txt = '',
+      cls = '';
 
-    switch (result) {
+    switch (res) {
       case 'six':
         runs = 6;
-        msg = 'SIX!';
-        cssClass = 'six';
+        txt = 'SIX!';
+        cls = 'six';
         break;
       case 'four':
         runs = 4;
-        msg = 'FOUR!';
-        cssClass = 'four';
+        txt = 'FOUR!';
+        cls = 'four';
         break;
-      case 'single':
+      case 'runs':
         runs = Math.random() > 0.5 ? 2 : 1;
-        msg = `${runs} Runs`;
-        cssClass = 'single';
+        txt = `${runs} RUNS`;
+        cls = 'runs';
         break;
-      case 'miss':
       default:
         state.wickets++;
-        msg = 'OUT!';
-        cssClass = 'miss';
+        txt = 'OUT!';
+        cls = 'out';
     }
 
     state.runs += runs;
     updateMeta();
     updateScore();
-    updateBallDots();
-    showResult(msg, cssClass);
+    updateDots();
+    showResult(txt, cls);
 
-    if (result === 'six' || result === 'four') {
-      spawnCelebration();
+    if (res === 'six' || res === 'four') {
+      showSparks();
     }
 
     setTimeout(() => {
-      elements.resultPopup.classList.remove('show');
-      elements.fieldLabel.textContent = 'Tap to bat!';
-      elements.fieldHint.textContent = 'Time your swing for the sweet spot';
+      $.flash.classList.remove('show');
+      $.hint.textContent = 'Tap field to bowl';
 
-      if (state.wickets >= state.maxWickets) {
+      if (state.wickets >= state.maxWkts) {
         endGame();
-      } else if (state.ballsFaced >= state.ballsPerOver) {
-        startNewOver();
+      } else if (state.ballNum >= state.ballsPerOver) {
+        newOver();
       } else {
         state.phase = 'ready';
       }
-    }, 1200);
+    }, 1000);
   }
 
-  function showResult(msg, cssClass) {
-    elements.resultMsg.textContent = msg;
-    elements.resultMsg.className = `result-msg ${cssClass}`;
-    elements.resultPopup.classList.add('show');
+  function showResult(txt, cls) {
+    $.msg.textContent = txt;
+    $.msg.className = `msg ${cls}`;
+    $.flash.classList.add('show');
   }
 
-  function spawnCelebration() {
-    const colors = ['#22c55e', '#fbbf24', '#f472b6', '#60a5fa', '#f87171'];
-    elements.celebration.innerHTML = '';
-
-    for (let i = 0; i < 20; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'celebration-particle';
-      particle.style.left = `${30 + Math.random() * 40}%`;
-      particle.style.top = '30%';
-      particle.style.background = colors[Math.floor(Math.random() * colors.length)];
-      particle.style.animationDelay = `${Math.random() * 0.3}s`;
-      elements.celebration.appendChild(particle);
+  function showSparks() {
+    const cols = ['#22c55e', '#fbbf24', '#f472b6', '#60a5fa'];
+    $.sparks.innerHTML = '';
+    for (let i = 0; i < 12; i++) {
+      const s = document.createElement('div');
+      s.className = 'sparkle';
+      s.style.left = `${30 + Math.random() * 40}%`;
+      s.style.top = '30%';
+      s.style.background = cols[Math.floor(Math.random() * cols.length)];
+      s.style.animationDelay = `${Math.random() * 0.2}s`;
+      $.sparks.appendChild(s);
     }
   }
 
-  function startNewOver() {
+  function newOver() {
     state.over++;
-    state.ballsFaced = 0;
+    state.ballNum = 0;
     state.phase = 'ready';
-    elements.fieldLabel.textContent = 'New Over';
-    elements.fieldHint.textContent = 'Tap "Bowl Ball" to continue';
+    $.hint.textContent = 'New over - bowl ball';
     updateScore();
-    updateBallDots();
+    updateDots();
   }
 
   function endGame() {
-    state.gameActive = false;
-    showScreen('end');
+    state.gameOn = false;
+    screen('outro');
+    $.finalScore.textContent = state.runs;
 
-    const finalScore = state.runs;
-    elements.finalScore.textContent = finalScore;
-
-    let feedback = '';
-    if (finalScore >= 36) {
-      feedback = "Amazing! You're a cricket legend!";
-    } else if (finalScore >= 24) {
-      feedback = 'Great batting! Solid performances!';
-    } else if (finalScore >= 12) {
-      feedback = 'Good effort! Keep practicing!';
-    } else if (finalScore >= 6) {
-      feedback = 'Nice start! Try timing the green zone!';
+    let cmt = '';
+    const s = state.runs;
+    if (s >= 36) {
+      cmt = 'Incredible! Cricket legend!';
+    } else if (s >= 24) {
+      cmt = 'Great batting! superstar!';
+    } else if (s >= 12) {
+      cmt = 'Good effort! keep going!';
+    } else if (s >= 6) {
+      cmt = 'Nice start! Try green zone!';
     } else {
-      feedback = "Keep trying! You'll get better!";
+      cmt = 'Keep trying! You will improve!';
     }
-    elements.feedback.textContent = feedback;
+
+    $.finalMsg.textContent = cmt;
   }
 
-  function initGame() {
+  function startGame() {
     state.runs = 0;
     state.wickets = 0;
-    state.ballsFaced = 0;
+    state.ballNum = 0;
     state.over = 1;
     state.phase = 'ready';
-    state.gameActive = true;
-    state.ballX = BALL_START_X;
+    state.gameOn = true;
+    state.ballX = CFG.startX;
 
-    elements.ball.classList.remove('active');
-    elements.bowler.classList.remove('active');
-    elements.resultPopup.classList.remove('show');
-    elements.celebration.innerHTML = '';
+    $.ball.classList.remove('moving');
+    $.bowler.classList.remove('active');
+    $.flash.classList.remove('show');
+    $.sparks.innerHTML = '';
 
     updateMeta();
     updateScore();
-    updateBallDots();
-    positionBall();
+    updateDots();
+    moveBall();
+    $.hint.textContent = 'Tap field to bowl';
 
-    elements.fieldLabel.textContent = 'Tap to bat!';
-    elements.fieldHint.textContent = 'Time your swing for the sweet spot';
-
-    showScreen('game');
+    screen('game');
   }
 
-  document.getElementById('btn-start').addEventListener('click', initGame);
-  document.getElementById('btn-replay').addEventListener('click', initGame);
-
+  document.getElementById('btn-start').addEventListener('click', startGame);
+  document.getElementById('btn-replay').addEventListener('click', startGame);
   document.getElementById('btn-bowl').addEventListener('click', () => {
-    if (state.phase === 'ready' && state.gameActive) {
-      bowlBall();
+    if (state.phase === 'ready' && state.gameOn) {
+      bowl();
     }
   });
 
-  elements.field.addEventListener('click', () => {
-    if (!state.gameActive) {
+  $.field.addEventListener('click', () => {
+    if (!state.gameOn) {
       return;
     }
     if (state.phase === 'bowling') {
-      swingBat();
+      swing();
     } else if (state.phase === 'ready') {
-      bowlBall();
+      bowl();
     }
   });
 
-  elements.field.addEventListener('touchstart', e => {
+  $.field.addEventListener('touchstart', e => {
     e.preventDefault();
-    if (!state.gameActive) {
+    if (!state.gameOn) {
       return;
     }
     if (state.phase === 'bowling') {
-      swingBat();
+      swing();
     } else if (state.phase === 'ready') {
-      bowlBall();
+      bowl();
     }
   });
 
   document.addEventListener('keydown', e => {
     if (e.code === 'Space') {
       e.preventDefault();
-      if (!state.gameActive) {
+      if (!state.gameOn) {
         return;
       }
       if (state.phase === 'bowling') {
-        swingBat();
+        swing();
       } else if (state.phase === 'ready') {
-        bowlBall();
+        bowl();
       }
     }
   });
 
-  window.addEventListener('resize', positionBall);
+  window.addEventListener('resize', moveBall);
 
-  showScreen('start');
+  screen('intro');
 })();
