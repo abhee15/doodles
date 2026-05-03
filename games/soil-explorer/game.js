@@ -146,74 +146,44 @@ const SOILS = [
 
 function generateQuizQuestions() {
   const questions = [];
+  const allLocations = [...new Set(SOILS.flatMap(s => s.foundIn))];
 
   SOILS.forEach(soil => {
-    // Question 1: Identify by description
+    // Q1: Identify by texture + location
+    const wrongNames = shuffle(SOILS.filter(s => s.id !== soil.id))
+      .slice(0, 3)
+      .map(s => s.name);
     questions.push({
-      type: 'identify',
       soilId: soil.id,
-      question: `This soil has ${soil.texture}. It's found in ${soil.foundIn[0]}. Which soil is this?`,
-      options: shuffle(SOILS.map(s => s.name)),
-      correct: SOILS.findIndex(s => s.id === soil.id),
-      explanation: `${soil.name}! It's ${soil.tagline}.`
+      question: `This soil is "${soil.texture}". You'd find it in ${soil.foundIn[0]}. Which soil is this?`,
+      options: shuffle([soil.name, ...wrongNames]),
+      correctAnswer: soil.name,
+      explanation: `${soil.name}! It's ${soil.tagline}. ${soil.emoji}`
     });
 
-    // Question 2: Fact question
-    const factType = ['drainage', 'nutrients', 'ph'][Math.floor(Math.random() * 3)];
-    let question2, correct2;
-    if (factType === 'drainage') {
-      question2 = `${soil.name} has ${soil.drainage}. Is this fast-draining or slow?`;
-      const isFastDraining =
-        soil.drainage.toLowerCase().includes('excellent') ||
-        soil.drainage.toLowerCase().includes('fast');
-      const opts = isFastDraining
-        ? ['Fast-draining ✓', 'Slow-draining', 'Medium drainage']
-        : ['Slow-draining ✓', 'Fast-draining', 'Medium drainage'];
-      correct2 = 0;
-      questions.push({
-        type: 'fact',
-        soilId: soil.id,
-        question: question2,
-        options: shuffle(opts),
-        correct: shuffle(opts).indexOf(opts[correct2]),
-        explanation: soil.drainage
-      });
-    } else if (factType === 'nutrients') {
-      question2 = `${soil.name} has ${soil.nutrients} nutrients. How good is this for growing plants?`;
-      const opts = ['Low nutrients', 'Medium nutrients', 'High nutrients'];
-      if (soil.nutrients.includes('Low')) {
-        correct2 = 0;
-      } else if (soil.nutrients.includes('High') || soil.nutrients.includes('Very High')) {
-        correct2 = 2;
-      } else {
-        correct2 = 1;
-      }
-      const shuffledOpts = shuffle(opts);
-      questions.push({
-        type: 'fact',
-        soilId: soil.id,
-        question: question2,
-        options: shuffledOpts,
-        correct: shuffledOpts.indexOf(opts[correct2]),
-        explanation: `${soil.name} has ${soil.nutrients} nutrients.`
-      });
-    } else {
-      question2 = `${soil.name} has a pH of ${soil.ph}. Is this acidic or alkaline?`;
-      const isAcidic = soil.ph.includes('acidic');
-      const opts = isAcidic
-        ? ['Acidic ✓', 'Alkaline', 'Neutral']
-        : ['Alkaline ✓', 'Acidic', 'Neutral'];
-      correct2 = 0;
-      const shuffledOpts = shuffle(opts);
-      questions.push({
-        type: 'fact',
-        soilId: soil.id,
-        question: question2,
-        options: shuffledOpts,
-        correct: shuffledOpts.indexOf(opts[correct2]),
-        explanation: soil.ph
-      });
-    }
+    // Q2: Nutrient level
+    const nutrientLabels = ['Low', 'Medium-High', 'High', 'Very High'];
+    const correctNutrient =
+      nutrientLabels.find(l => soil.nutrients.toLowerCase().includes(l.toLowerCase())) || 'Low';
+    const wrongNutrients = shuffle(nutrientLabels.filter(l => l !== correctNutrient)).slice(0, 3);
+    questions.push({
+      soilId: soil.id,
+      question: `What is the nutrient level of ${soil.name}?`,
+      options: shuffle([correctNutrient, ...wrongNutrients]),
+      correctAnswer: correctNutrient,
+      explanation: `${soil.name} has ${soil.nutrients} nutrients.`
+    });
+
+    // Q3: Where found
+    const correctLocation = soil.foundIn[0];
+    const wrongLocations = shuffle(allLocations.filter(l => !soil.foundIn.includes(l))).slice(0, 3);
+    questions.push({
+      soilId: soil.id,
+      question: `Where would you typically find ${soil.name}?`,
+      options: shuffle([correctLocation, ...wrongLocations]),
+      correctAnswer: correctLocation,
+      explanation: `${soil.name} is found in: ${soil.foundIn.join(', ')}.`
+    });
   });
 
   return questions;
@@ -427,14 +397,13 @@ function renderQuiz() {
 
   const optionsContainer = document.getElementById('quiz-options');
   optionsContainer.innerHTML = '';
-  const shuffledOptions = shuffle(q.options.map((opt, idx) => ({ text: opt, idx })));
 
-  shuffledOptions.forEach(opt => {
+  q.options.forEach(optText => {
     const btn = document.createElement('button');
     btn.className = 'quiz-option';
-    btn.textContent = opt.text;
+    btn.textContent = optText;
     btn.addEventListener('click', () =>
-      selectAnswer(opt.idx === q.correct, q.soilId, q.explanation)
+      selectAnswer(btn, optText === q.correctAnswer, q.soilId, q.explanation, q.correctAnswer)
     );
     optionsContainer.appendChild(btn);
   });
@@ -443,33 +412,18 @@ function renderQuiz() {
     `Question ${state.quizStep + 1} of ${state.quizQuestions.length}`;
 }
 
-function selectAnswer(isCorrect, soilId, explanation) {
+function selectAnswer(clickedBtn, isCorrect, soilId, explanation, correctAnswer) {
+  state.quizAnswers[state.quizStep] = isCorrect;
   if (isCorrect) {
     state.quizScore++;
   }
 
-  state.quizAnswers[state.quizStep] = isCorrect;
-
   document.querySelectorAll('.quiz-option').forEach(btn => {
     btn.disabled = true;
-  });
-
-  const options = document.querySelectorAll('.quiz-option');
-  const q = state.quizQuestions[state.quizStep];
-  const correctIdx = q.options.indexOf(q.options[q.correct]);
-
-  options.forEach((btn, idx) => {
-    if (idx === correctIdx) {
+    if (btn.textContent === correctAnswer) {
       btn.classList.add('correct');
-    } else if (
-      isCorrect === false &&
-      btn.classList.contains('quiz-option') &&
-      !btn.classList.contains('correct')
-    ) {
-      const isClicked = btn === event.target;
-      if (isClicked) {
-        btn.classList.add('wrong');
-      }
+    } else if (btn === clickedBtn && !isCorrect) {
+      btn.classList.add('wrong');
     }
   });
 
